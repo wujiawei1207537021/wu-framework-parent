@@ -1,14 +1,13 @@
 package com.wu.framework.inner.database.proxy;
 
 import com.wu.framework.inner.database.CustomDataSourceAdapter;
-import com.wu.framework.inner.database.config.ICustomDatabaseScanBean;
+import com.wu.framework.inner.database.config.DatabaseMapperConfiguration;
 import com.wu.framework.inner.database.converter.Parser;
 import com.wu.framework.inner.database.domain.CustomRepository;
 import com.wu.framework.inner.database.domain.Page;
 import com.wu.framework.inner.database.stereotype.CustomRepositoryXmlScan;
 import com.wu.framework.inner.database.stereotype.Select;
 import com.wu.framework.inner.database.util.CustomExecutor;
-import com.wu.framework.inner.database.util.ScanXmlPathUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -37,11 +36,10 @@ public class RepositoryProxy implements InvocationHandler, InitializingBean {
     private final Log log = LogFactory.getLog(RepositoryProxy.class);
 
     private final Connection connection;
-    private final Map<String, CustomRepository> customRepositoryMap;
+    private Map<String, CustomRepository> customRepositoryMap;
 
-    public RepositoryProxy(CustomDataSourceAdapter customDataSourceAdapter, ICustomDatabaseScanBean iCustomDatabaseScanBean) throws SQLException {
+    public RepositoryProxy(CustomDataSourceAdapter customDataSourceAdapter) throws SQLException {
         this.connection = customDataSourceAdapter.getCustomDataSource().getConnection();
-        this.customRepositoryMap = ScanXmlPathUtil.getCustomRepository(iCustomDatabaseScanBean.getScanXmlPath());
     }
 
     @Override
@@ -61,7 +59,7 @@ public class RepositoryProxy implements InvocationHandler, InitializingBean {
             //3.组合key
             String key = className + "." + methodName;
             //4.获取mappers中的Mapper对象
-            customRepository = customRepositoryMap.get(key);
+            customRepository = getCustomRepositoryMap().get(key);
         }else {
             customRepository = new CustomRepository();
             customRepository.setQueryString(select.value());
@@ -114,6 +112,13 @@ public class RepositoryProxy implements InvocationHandler, InitializingBean {
 
     }
 
+    public Map<String, CustomRepository> getCustomRepositoryMap() {
+        if(customRepositoryMap==null){
+            // 静态获取
+            this.customRepositoryMap = DatabaseMapperConfiguration.customRepositoryMap;
+        }
+        return customRepositoryMap;
+    }
 
     @Override
     public void afterPropertiesSet() throws Exception {

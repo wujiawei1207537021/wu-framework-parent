@@ -2,12 +2,13 @@ package com.wu.framework.inner.dynamic.database.config;
 
 import com.wu.framework.inner.database.CustomDataSource;
 import com.wu.framework.inner.database.SimpleCustomDataSource;
+import com.wu.framework.inner.database.config.DatabaseMapperConfiguration;
 import com.wu.framework.inner.database.config.ICustomDatabaseConfiguration;
 import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.util.ObjectUtils;
 
@@ -21,7 +22,7 @@ import java.util.Map;
  * @date : 2020/8/26 下午8:10
  */
 @Data
-@Configurable
+@ConditionalOnBean( value = {DatabaseMapperConfiguration.class})
 @ConfigurationProperties(prefix = "spring.wu.dynamic.database")
 public class DynamicDatabaseConfig implements InitializingBean {
 
@@ -36,7 +37,6 @@ public class DynamicDatabaseConfig implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-
         if(ObjectUtils.isEmpty(databaseConfigMap)){
             throw new RuntimeException(" fail to init dynamic database for empty");
         }

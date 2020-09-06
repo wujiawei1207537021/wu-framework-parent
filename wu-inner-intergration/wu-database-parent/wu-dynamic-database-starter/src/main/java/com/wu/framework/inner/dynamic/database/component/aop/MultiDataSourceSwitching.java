@@ -2,7 +2,6 @@ package com.wu.framework.inner.dynamic.database.component.aop;
 
 import com.wu.framework.inner.database.CustomDataSource;
 import com.wu.framework.inner.database.CustomDataSourceAdapter;
-import com.wu.framework.inner.database.config.ICustomDatabaseScanBean;
 import com.wu.framework.inner.dynamic.database.component.CDS;
 import com.wu.framework.inner.dynamic.database.config.DynamicDatabaseConfig;
 import org.aspectj.lang.JoinPoint;

@@ -4,6 +4,9 @@
     <select id="findAll" resultType="com.wu.framework.inner.database.test.pojo.DataBaseUser">
         select id,username from user
     </select>
+    <select id="selectAll" resultType="com.wu.framework.inner.database.test.pojo.DataBaseUser">
+        select * from user
+    </select>
 
     <delete id="delete" resultType="com.wu.framework.inner.database.test.pojo.DataBaseUser">
         delete  from user

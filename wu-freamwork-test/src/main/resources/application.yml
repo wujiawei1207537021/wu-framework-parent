@@ -28,10 +28,12 @@ spring:
             url: jdbc:mysql://127.0.0.1:3306/test
             username: root
             password: wujiawei
-
-
 wu:
   database:
       mapper:
         scan-xml-path: classpath*:wu-mapper/*Dao.xml
+
+debug: true
+
+
 

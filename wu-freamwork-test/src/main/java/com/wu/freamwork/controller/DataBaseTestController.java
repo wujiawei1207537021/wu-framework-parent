@@ -7,6 +7,7 @@ import com.wu.framework.inner.database.test.pojo.DataBaseUser;
 import com.wu.framework.inner.dynamic.database.component.CDS;
 import com.wu.framework.inner.swagger.annotation.CustomController;
 import org.springframework.boot.CommandLineRunner;
+
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

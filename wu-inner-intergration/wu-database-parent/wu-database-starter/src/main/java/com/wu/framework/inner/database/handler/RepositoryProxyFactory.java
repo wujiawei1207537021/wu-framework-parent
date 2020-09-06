@@ -21,7 +21,6 @@ public class RepositoryProxyFactory<T> implements FactoryBean<T> {
 
 
     public RepositoryProxyFactory(Class<T> interfaceType, RepositoryProxy repositoryProxy) {
-
         this.interfaceType = interfaceType;
         this.repositoryProxy = repositoryProxy;
     }
