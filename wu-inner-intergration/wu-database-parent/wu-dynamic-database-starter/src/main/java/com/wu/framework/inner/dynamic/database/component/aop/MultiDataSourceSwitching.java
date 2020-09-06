@@ -34,9 +34,8 @@ public class MultiDataSourceSwitching implements CustomDataSourceAdapter, Initia
     private CustomDataSource customDataSource;
     private final DynamicDatabaseConfig dynamicDatabaseConfig;
 
-    public MultiDataSourceSwitching(DynamicDatabaseConfig dynamicDatabaseConfig,  ICustomDatabaseScanBean iCustomDatabaseScanBean) {
+    public MultiDataSourceSwitching(DynamicDatabaseConfig dynamicDatabaseConfig) {
         this.dynamicDatabaseConfig = dynamicDatabaseConfig;
-        //TODO 此处注入是因为配置文件无法扫描
     }
 
     @Pointcut("@annotation(CDS)")
