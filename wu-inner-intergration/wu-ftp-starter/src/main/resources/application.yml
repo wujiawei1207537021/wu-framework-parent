@@ -1,0 +1,19 @@
+camel:
+  springboot:
+    main-run-controller: true #监听Ftp服务器的时候，为了让java进程在后台运行
+ftp:
+  wifi-info:
+    url: 127.0.0.1
+    username: test
+    password: 123456
+    dir: /wifi_info
+    server-info: ftp://${ftp.wifi-info.url}:21${ftp.wifi-info.dir}?username=${ftp.wifi-info.username}&password=${ftp.wifi-info.password}&delay=2s&readLock=rename&include=.*zip&filter=#wifiDownloadFileFilter
+    local-save-dir: E:/ftpdata/mac/save
+    unzip-temp-dir: E:/ftpdata/mac/temp
+    local-files-prefix: /localFilesList-  #已下载文件列表的前缀
+    local-files-suffix: .txt   #已下载文件列表的后缀
+  host: 218.85.66.151
+  port: 60022
+  username: zzftp
+  password: mSeG2Zykt20!
+

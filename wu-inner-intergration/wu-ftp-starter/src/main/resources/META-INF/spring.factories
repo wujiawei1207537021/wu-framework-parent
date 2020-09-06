@@ -1,0 +1,4 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.wu.framework.inner.ftp.config.FtpConfig,\
+com.wu.framework.inner.ftp.config.FtpConnectionConfig

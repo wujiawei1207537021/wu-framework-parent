@@ -1,0 +1,30 @@
+package com.wu.framework.inner.database.stereotype;
+
+import org.springframework.core.annotation.AliasFor;
+import org.springframework.stereotype.Indexed;
+
+import java.lang.annotation.*;
+
+/**
+ * @describe: 扫描实体路径
+ * @author : 吴佳伟
+ * @date : 2020/8/12 下午8:35
+ * @version : 1.0
+ */
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Indexed
+public @interface ScanEntity {
+
+    @AliasFor(attribute = "path")
+    String value() default "";
+
+    @AliasFor(attribute = "value")
+    String path() default "";
+
+
+    String[] basePackage() default {};
+
+
+}

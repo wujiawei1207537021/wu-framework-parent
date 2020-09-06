@@ -1,0 +1,5 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.wu.framework.inner.database.SimpleCustomDataSource,\
+com.wu.framework.inner.database.SimpleCustomDataSourceAdapter
+

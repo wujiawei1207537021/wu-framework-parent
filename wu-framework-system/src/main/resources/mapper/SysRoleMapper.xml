@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wuframework.system.persistence.mapper.SysRoleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.wuframework.system.common.entity.SysRole">
+        <id column="role_id" property="roleId"/>
+        <result column="role_name" property="roleName"/>
+        <result column="role_sign" property="roleSign"/>
+        <result column="remark" property="remark"/>
+        <result column="user_id_create" property="userIdCreate"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+        <result column="status" property="status"/>
+        <result column="default_menu_id" property="defaultMenuId"/>
+        <result column="data_type" property="dataType"/>
+        <result column="manageable_role" property="manageableRole"/>
+    </resultMap>
+
+    <select id="selectRoleByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT sr.role_id,role_name,role_sign,remark,user_id_create,`status`, sr.default_menu_id
+        FROM sys_role sr,sys_user_role sur
+        WHERE sr.role_id = sur.role_id
+        AND sur.user_id =#{userId}
+    </select>
+
+    <select id="listRoleUnderRole" resultMap="BaseResultMap">
+        SELECT
+        role_id,
+        role_name,
+        role_sign,
+        remark,
+        user_id_create,
+        status,
+        default_menu_id,
+        manageable_role,
+        data_type
+        FROM sys_role
+        where
+        find_in_set (role_id, (select concat_ws(',',group_concat(sr.manageable_role),sr.role_id) as role_id
+        from sys_role sr,sys_user_role sur
+        where sr.role_id = sur.role_id
+        AND sur.user_id = #{userIdCreate}))
+        <if test="null != roleName and '' != roleName">
+            AND role_name Like CONCAT('%', #{roleName}, '%')
+        </if>
+        <if test="null != roleSign and '' != roleSign">
+            AND role_sign Like CONCAT('%', #{roleSign}, '%')
+        </if>
+        <if test="null != status and '' != status">
+            AND status = #{status}
+        </if>
+    </select>
+</mapper>
