@@ -1,3 +1,4 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.wu.freamwork.database.generator.service.SysGeneratorService
+com.wu.framework.database.generator.service.SysGeneratorService,\
+com.wu.framework.database.generator.config.GeneratorConfig  

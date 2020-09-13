@@ -1,4 +1,4 @@
-package com.wu.freamwork.database.generator.entity;
+package com.wu.framework.database.generator.entity;
 
 import lombok.Data;
 

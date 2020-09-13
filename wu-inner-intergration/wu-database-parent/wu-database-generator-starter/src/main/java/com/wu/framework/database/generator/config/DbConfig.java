@@ -1,9 +1,9 @@
-package com.wu.freamwork.database.generator.config;
+package com.wu.framework.database.generator.config;
 
-import com.wu.freamwork.database.generator.repository.MySQLGeneratorDao;
-import com.wu.freamwork.database.generator.repository.OracleGeneratorDao;
-import com.wu.freamwork.database.generator.repository.PostgreSQLGeneratorDao;
-import com.wu.freamwork.database.generator.repository.SQLServerGeneratorDao;
+import com.wu.framework.database.generator.repository.MySQLGeneratorDao;
+import com.wu.framework.database.generator.repository.OracleGeneratorDao;
+import com.wu.framework.database.generator.repository.PostgreSQLGeneratorDao;
+import com.wu.framework.database.generator.repository.SQLServerGeneratorDao;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

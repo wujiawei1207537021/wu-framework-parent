@@ -1,6 +1,6 @@
-package com.wu.freamwork.database.generator.entity;
+package com.wu.framework.database.generator.entity;
 
-import com.wu.freamwork.database.generator.utils.DateUtils;
+import com.wu.framework.database.generator.utils.DateUtils;
 import lombok.Data;
 
 import java.util.Date;

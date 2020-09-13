@@ -1,4 +1,4 @@
-package com.wu.freamwork.database.generator.utils;
+package com.wu.framework.database.generator.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

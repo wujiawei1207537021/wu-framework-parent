@@ -1,9 +1,9 @@
-package com.wu.freamwork.database.generator.utils;
+package com.wu.framework.database.generator.utils;
 
-import com.wu.freamwork.database.generator.config.GeneratorConfig;
-import com.wu.freamwork.database.generator.config.GeneratorEnums;
-import com.wu.freamwork.database.generator.entity.ColumnEntity;
-import com.wu.freamwork.database.generator.entity.EncapsulatedTableInfo;
+import com.wu.framework.database.generator.config.GeneratorConfig;
+import com.wu.framework.database.generator.config.GeneratorEnums;
+import com.wu.framework.database.generator.entity.ColumnEntity;
+import com.wu.framework.database.generator.entity.EncapsulatedTableInfo;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;

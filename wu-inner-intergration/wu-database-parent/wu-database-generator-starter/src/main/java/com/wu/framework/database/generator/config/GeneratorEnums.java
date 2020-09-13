@@ -1,4 +1,4 @@
-package com.wu.freamwork.database.generator.config;
+package com.wu.framework.database.generator.config;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

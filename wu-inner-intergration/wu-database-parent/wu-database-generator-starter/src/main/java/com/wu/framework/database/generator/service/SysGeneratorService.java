@@ -1,12 +1,12 @@
-package com.wu.freamwork.database.generator.service;
+package com.wu.framework.database.generator.service;
 
+import com.wu.framework.database.generator.config.GeneratorConfig;
+import com.wu.framework.database.generator.repository.MySQLGeneratorDao;
+import com.wu.framework.database.generator.utils.GenUtils;
 import com.wu.framework.inner.database.domain.Page;
-import com.wu.freamwork.database.generator.config.GeneratorConfig;
-import com.wu.freamwork.database.generator.entity.ColumnEntity;
-import com.wu.freamwork.database.generator.entity.EncapsulatedTableInfo;
-import com.wu.freamwork.database.generator.entity.TableEntity;
-import com.wu.freamwork.database.generator.repository.MySQLGeneratorDao;
-import com.wu.freamwork.database.generator.utils.GenUtils;
+import com.wu.framework.database.generator.entity.ColumnEntity;
+import com.wu.framework.database.generator.entity.EncapsulatedTableInfo;
+import com.wu.framework.database.generator.entity.TableEntity;
 import org.apache.commons.io.IOUtils;
 
 import java.io.ByteArrayOutputStream;
