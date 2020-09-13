@@ -1,7 +1,7 @@
 package com.wu.framework.inner.database.proxy;
 
 import com.wu.framework.inner.database.CustomDataSourceAdapter;
-import com.wu.framework.inner.database.config.DatabaseMapperConfiguration;
+import com.wu.framework.inner.database.config.xxConfig;
 import com.wu.framework.inner.database.converter.Parser;
 import com.wu.framework.inner.database.domain.CustomRepository;
 import com.wu.framework.inner.database.domain.Page;
@@ -37,6 +37,7 @@ public class RepositoryProxy implements InvocationHandler, InitializingBean {
 
     private final Connection connection;
     private Map<String, CustomRepository> customRepositoryMap;
+
 
     public RepositoryProxy(CustomDataSourceAdapter customDataSourceAdapter) throws SQLException {
         this.connection = customDataSourceAdapter.getCustomDataSource().getConnection();
@@ -115,7 +116,7 @@ public class RepositoryProxy implements InvocationHandler, InitializingBean {
     public Map<String, CustomRepository> getCustomRepositoryMap() {
         if(customRepositoryMap==null){
             // 静态获取
-            this.customRepositoryMap = DatabaseMapperConfiguration.customRepositoryMap;
+            this.customRepositoryMap = xxConfig.customRepositoryMap;
         }
         return customRepositoryMap;
     }

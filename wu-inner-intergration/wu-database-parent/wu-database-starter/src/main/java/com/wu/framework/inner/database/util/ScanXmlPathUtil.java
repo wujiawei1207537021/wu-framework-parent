@@ -2,6 +2,8 @@ package com.wu.framework.inner.database.util;
 
 import com.wu.framework.inner.database.domain.CustomRepository;
 import lombok.NonNull;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
@@ -17,10 +19,14 @@ import java.util.*;
  */
 public class ScanXmlPathUtil {
 
-   static ResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
+    private final static Log log = LogFactory.getLog(ScanXmlPathUtil.class);
+
+    static ResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
+
     public static Map<String, CustomRepository> getCustomRepository(@NonNull List<String> scanXmlPath) {
+        long start=System.currentTimeMillis();
         List<Resource> resources = new ArrayList<Resource>();
-        if (scanXmlPath!= null) {
+        if (scanXmlPath != null) {
             for (String mapperLocation : scanXmlPath) {
                 try {
                     Resource[] mappers = resourceResolver.getResources(mapperLocation);
@@ -40,24 +46,24 @@ public class ScanXmlPathUtil {
                 e.printStackTrace();
             }
         }
+        long end=System.currentTimeMillis();
+        log.info("耗时:"+(end-start));
         return customRepositoryMap;
     }
 
 
     public static List<Class> getCustomScanBeanClass(@NonNull List<String> scanXmlPath) {
-        List<Resource> resources = new ArrayList<Resource>();
-        if (scanXmlPath!= null) {
-            for (String mapperLocation : scanXmlPath) {
-                try {
-                    Resource[] mappers = resourceResolver.getResources(mapperLocation);
-                    resources.addAll(Arrays.asList(mappers));
-                } catch (IOException e) {
-                    // ignore
-                }
+        long start=System.currentTimeMillis();
+        List<Resource> resources = new ArrayList<>();
+        for (String mapperLocation : scanXmlPath) {
+            try {
+                Resource[] mappers = resourceResolver.getResources(mapperLocation);
+                resources.addAll(Arrays.asList(mappers));
+            } catch (IOException e) {
+                // ignore
             }
         }
         resources.toArray(new Resource[resources.size()]);
-//        System.out.println(resources);
         List<Class> classList = new ArrayList<>();
         for (Resource resource : resources) {
             try {
@@ -66,6 +72,8 @@ public class ScanXmlPathUtil {
                 e.printStackTrace();
             }
         }
+        long end=System.currentTimeMillis();
+        log.info("耗时:"+(end-start));
         return classList;
     }
 

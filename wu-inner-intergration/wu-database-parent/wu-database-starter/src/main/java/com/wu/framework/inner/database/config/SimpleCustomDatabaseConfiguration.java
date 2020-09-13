@@ -44,7 +44,7 @@ public class SimpleCustomDatabaseConfiguration implements ICustomDatabaseConfigu
     /**
      * 表模式
      */
-    private DDLAuto ddlAuto = DDLAuto.CREATE;
+    private DDLAuto ddlAuto = DDLAuto.NONE;
 
 
     @Override
