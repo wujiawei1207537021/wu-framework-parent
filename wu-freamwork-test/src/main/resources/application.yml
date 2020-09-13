@@ -10,13 +10,13 @@ server:
 spring:
   wu:
     database:
-      driver: com.mysql.jdbc.Driver
+      driver: com.mysql.cj.jdbc.Driver
       url: jdbc:mysql://www.wu2020.top:3306/test
       username: root
       password: wujiawei
     dynamic:
       database:
-        enable: false
+        enable: true
         database-config-map:
           master:
             driver: com.mysql.jdbc.Driver
@@ -33,7 +33,7 @@ wu:
       mapper:
         scan-xml-path: classpath*:wu-mapper/*Dao.xml
 
-debug: true
+#debug: true
 
 
 

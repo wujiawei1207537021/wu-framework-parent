@@ -20,6 +20,7 @@ import java.util.Map;
 
 public class CustomXMLConfigBuilder {
 
+    public final static SAXReader reader = new SAXReader();
 
     /**
      * 根据传入的参数，解析XML，并且封装到Map中
@@ -36,7 +37,7 @@ public class CustomXMLConfigBuilder {
             //1.根据路径获取字节输入流
             in = CustomResources.getResourceAsStream(mapperPath);
             //2.根据字节输入流获取Document对象
-            SAXReader reader = new SAXReader();
+//            SAXReader reader = new SAXReader();
             Document document = reader.read(in);
             //3.获取根节点
             Element root = document.getRootElement();
@@ -79,7 +80,7 @@ public class CustomXMLConfigBuilder {
             Map<String, CustomRepository> mappers = new HashMap<String, CustomRepository>();
             //1.根据路径获取字节输入流
             //2.根据字节输入流获取Document对象
-            SAXReader reader = new SAXReader();
+//            SAXReader reader = new SAXReader();
             Document document = reader.read(in);
             //3.获取根节点
             Element root = document.getRootElement();
@@ -100,25 +101,25 @@ public class CustomXMLConfigBuilder {
                 String resultType = element.attributeValue("resultType");
 
                 CustomRepository customRepository = new CustomRepository();
-                List<CustomRepository.IF> ifs=new ArrayList<>();
+                List<CustomRepository.IF> ifs = new ArrayList<>();
                 customRepository.setIfList(ifs);
                 // if 标签
-                StringBuffer stringBuffer=new StringBuffer();
+                StringBuffer stringBuffer = new StringBuffer();
                 for (Object o : element.content()) {
-                    if(o.getClass().isAssignableFrom(DefaultText.class)){
-                        stringBuffer.append(((DefaultText)o).getText());
-                    }else {
+                    if (o.getClass().isAssignableFrom(DefaultText.class)) {
+                        stringBuffer.append(((DefaultText) o).getText());
+                    } else {
                         stringBuffer.append("##");
-                        String ifAttr=((DefaultElement)o).attributeValue("test");
-                        String ifContext=((DefaultElement)o).getText();
-                        CustomRepository.IF i= new CustomRepository.IF();
+                        String ifAttr = ((DefaultElement) o).attributeValue("test");
+                        String ifContext = ((DefaultElement) o).getText();
+                        CustomRepository.IF i = new CustomRepository.IF();
                         i.setIfAttr(ifAttr);
                         i.setIfContext(ifContext);
                         ifs.add(i);
                     }
                 }
                 //取出文本内容            组成map中value的部分
-                String queryString =stringBuffer.toString();
+                String queryString = stringBuffer.toString();
                 //创建Key
                 String key = namespace + "." + id;
                 //创建Value
@@ -148,9 +149,9 @@ public class CustomXMLConfigBuilder {
 
     public static Class loadMapperNamespace(InputStream in) {
         //1.根据路径获取字节输入流
+        //2.根据字节输入流获取Document对象
+//        SAXReader reader = new SAXReader();
         try {
-            //2.根据字节输入流获取Document对象
-            SAXReader reader = new SAXReader();
             Document document = reader.read(in);
             //3.获取根节点
             Element root = document.getRootElement();

@@ -1,5 +1,6 @@
 package com.wu.framework.inner.database.config;
 
+import com.wu.framework.inner.database.DDLAutoOperate;
 import com.wu.framework.inner.database.domain.CustomRepository;
 import com.wu.framework.inner.database.handler.RepositoryProxyFactory;
 import com.wu.framework.inner.database.proxy.RepositoryProxy;
@@ -28,6 +29,7 @@ public class xxConfig implements InitializingBean {
     private final RepositoryProxy repositoryProxy;
     private final DefaultListableBeanFactory defaultListableBeanFactory;
 
+
     public static Map<String, CustomRepository> customRepositoryMap;
 
     public xxConfig(DatabaseMapperConfiguration databaseMapperConfiguration, RepositoryProxy repositoryProxy, DefaultListableBeanFactory defaultListableBeanFactory) {
@@ -38,10 +40,14 @@ public class xxConfig implements InitializingBean {
 
 //    TODO
     @Bean
-    public RepositoryProxyFactory repositoryProxyFactory() {
-        return new RepositoryProxyFactory(databaseMapperConfiguration.getScanBeanClasses().get(0), repositoryProxy);
+    public DDLAutoOperate ddlAutoOperate() {
+        return new DDLAutoOperate(databaseMapperConfiguration);
     }
 
+    @Bean
+    public RepositoryProxyFactory repositoryProxyFactory() {
+        return new RepositoryProxyFactory(DDLAutoOperate.class,repositoryProxy);
+    }
     @Override
     public void afterPropertiesSet() throws Exception {
         log.info("init bean of xxConfig ");

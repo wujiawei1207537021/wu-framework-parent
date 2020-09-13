@@ -2,14 +2,13 @@ package com.wu.framework.inner.dynamic.database.config;
 
 import com.wu.framework.inner.database.CustomDataSource;
 import com.wu.framework.inner.database.SimpleCustomDataSource;
-import com.wu.framework.inner.database.config.DatabaseMapperConfiguration;
 import com.wu.framework.inner.database.config.ICustomDatabaseConfiguration;
 import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.util.ObjectUtils;
 
 import java.util.HashMap;
@@ -22,7 +21,7 @@ import java.util.Map;
  * @date : 2020/8/26 下午8:10
  */
 @Data
-@ConditionalOnBean( value = {DatabaseMapperConfiguration.class})
+@Configuration
 @ConfigurationProperties(prefix = "spring.wu.dynamic.database")
 public class DynamicDatabaseConfig implements InitializingBean {
 
