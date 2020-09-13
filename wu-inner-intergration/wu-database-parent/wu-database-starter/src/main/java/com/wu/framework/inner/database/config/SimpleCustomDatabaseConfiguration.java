@@ -1,6 +1,7 @@
 package com.wu.framework.inner.database.config;
 
 
+import com.wu.framework.inner.database.SimpleCustomDataSource;
 import com.wu.framework.inner.database.converter.SQLConverter;
 import com.wu.framework.inner.database.custom.database.persistence.stereotype.CustomTable;
 import com.wu.framework.inner.database.stereotype.ScanEntity;
@@ -51,7 +52,7 @@ public class SimpleCustomDatabaseConfiguration implements ICustomDatabaseConfigu
     public void afterPropertiesSet() throws Exception {
         log.info("init simpleCustomDatabaseConfiguration config:" + driver.getName());
         if (ddlAuto.equals(ICustomDatabaseConfiguration.DDLAuto.CREATE)) {
-            Connection connection = CustomDataSourceUtil.getConnection(this);
+            Connection connection =new SimpleCustomDataSource(this).getConnection();
             Map<String, Object> objectMap = new HashMap<>();
 //                    applicationContext.getBeansWithAnnotation(ScanEntity.class);
             List<String> scanEntityPath = new ArrayList<>();
