@@ -2,8 +2,6 @@ package com.wu.framework.inner.database.util;
 
 import com.wu.framework.inner.database.domain.CustomRepository;
 import lombok.NonNull;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
@@ -19,13 +17,12 @@ import java.util.*;
  */
 public class ScanXmlPathUtil {
 
-    private final static Log log = LogFactory.getLog(ScanXmlPathUtil.class);
 
     static ResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
 
     public static Map<String, CustomRepository> getCustomRepository(@NonNull List<String> scanXmlPath) {
-        long start=System.currentTimeMillis();
-        List<Resource> resources = new ArrayList<Resource>();
+        long start = System.currentTimeMillis();
+        List<Resource> resources = new ArrayList<>();
         if (scanXmlPath != null) {
             for (String mapperLocation : scanXmlPath) {
                 try {
@@ -37,23 +34,23 @@ public class ScanXmlPathUtil {
             }
         }
         resources.toArray(new Resource[resources.size()]);
-        System.out.println(resources);
         Map<String, CustomRepository> customRepositoryMap = new HashMap<>();
         for (Resource resource : resources) {
             try {
+                System.out.println(resource.toString());
                 customRepositoryMap.putAll(CustomXMLConfigBuilder.loadMapperConfiguration(resource.getInputStream()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        long end=System.currentTimeMillis();
-        log.info("耗时:"+(end-start));
+        long end = System.currentTimeMillis();
+        System.out.println("getCustomRepository 耗时:" + (end - start));
         return customRepositoryMap;
     }
 
 
     public static List<Class> getCustomScanBeanClass(@NonNull List<String> scanXmlPath) {
-        long start=System.currentTimeMillis();
+        long start = System.currentTimeMillis();
         List<Resource> resources = new ArrayList<>();
         for (String mapperLocation : scanXmlPath) {
             try {
@@ -67,13 +64,14 @@ public class ScanXmlPathUtil {
         List<Class> classList = new ArrayList<>();
         for (Resource resource : resources) {
             try {
+                System.out.println(resource.toString());
                 classList.add(CustomXMLConfigBuilder.loadMapperNamespace(resource.getInputStream()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        long end=System.currentTimeMillis();
-        log.info("耗时:"+(end-start));
+        long end = System.currentTimeMillis();
+        System.out.println("getCustomScanBeanClass 耗时:" + (end - start));
         return classList;
     }
 
