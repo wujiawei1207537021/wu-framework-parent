@@ -1,11 +1,12 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.wu.framework.inner.database.config.DatabaseMapperConfiguration,\
 com.wu.framework.inner.database.config.SimpleCustomDatabaseConfiguration,\
+com.wu.framework.inner.database.config.DatabaseMapperConfiguration,\
 com.wu.framework.inner.database.proxy.RepositoryProxy,\
 com.wu.framework.inner.database.sqlsession.defaults.DefaultSqlSession,\
 com.wu.framework.inner.database.sqlsession.defaults.DefaultSqlSessionFactory,\
 com.wu.framework.inner.database.custom.database.persistence.proxy.LayerOperationProxy,\
 com.wu.framework.inner.database.custom.database.persistence.config.LayerOperationProxyBeanDefinitionRegistry,\
-com.wu.framework.inner.database.custom.database.persistence.factory.LayerOperationMethodFactory
+com.wu.framework.inner.database.custom.database.persistence.factory.LayerOperationMethodFactory,\
+com.wu.framework.inner.database.config.xxConfig
 
