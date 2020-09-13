@@ -1,7 +1,7 @@
 package com.wu.freamwork.controller;
 
 import com.wu.framework.inner.database.domain.Page;
-import com.wu.freamwork.database.generator.service.SysGeneratorService;
+import com.wu.framework.database.generator.service.SysGeneratorService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
