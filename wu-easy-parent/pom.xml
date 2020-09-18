@@ -15,6 +15,7 @@
     <modules>
         <module>wu-easy-stereotype</module>
         <module>wu-easy-upsert-starter</module>
+        <module>wu-easy-temple</module>
     </modules>
 
 
