@@ -1,9 +1,6 @@
 package com.wu.framework.easy.stereotype.upsert.upsert.handler;
 
-
-
-
-import com.supconit.its.easy.upsert.component.IUpsert;
+import com.wu.framework.easy.stereotype.upsert.upsert.component.IUpsert;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;

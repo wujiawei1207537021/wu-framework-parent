@@ -1,14 +1,21 @@
 package com.wu.framework.easy.stereotype.upsert.upsert.component;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wu.framework.easy.stereotype.upsert.upsert.config.UpsertConfig;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.clients.producer.*;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+
+import java.util.Properties;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 /**
  * description EasyUpsertExtractKafkaProducer
@@ -26,12 +33,12 @@ public class EasyUpsertExtractKafkaProducer implements InitializingBean {
 
     private final UpsertConfig upsertConfig;
 
-    private final DataAccessLogHelper dataAccessLogHelper;
+//    private final DataAccessLogHelper dataAccessLogHelper; //TODO
 
-    public EasyUpsertExtractKafkaProducer(KafkaProperties kafkaProperties, UpsertConfig upsertConfig, DataAccessLogHelper dataAccessLogHelper) {
+    public EasyUpsertExtractKafkaProducer(KafkaProperties kafkaProperties, UpsertConfig upsertConfig) {
 
         this.upsertConfig = upsertConfig;
-        this.dataAccessLogHelper = dataAccessLogHelper;
+//        this.dataAccessLogHelper = dataAccessLogHelper;
         Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getBootstrapServers());
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
@@ -67,7 +74,7 @@ public class EasyUpsertExtractKafkaProducer implements InitializingBean {
     public Future<RecordMetadata> sendAsync(String code, String topic, Object value, Callback callback) {
         String message = (value instanceof String) ? (String) value : toJsonString(value);
         ProducerRecord<String, String> record;
-        dataAccessLogHelper.trySendExtractLog(code, topic, value);
+//        dataAccessLogHelper.trySendExtractLog(code, topic, value);//TODO
         record = new ProducerRecord<>(topic, message);
         return kafkaProducer.send(record, callback);
     }

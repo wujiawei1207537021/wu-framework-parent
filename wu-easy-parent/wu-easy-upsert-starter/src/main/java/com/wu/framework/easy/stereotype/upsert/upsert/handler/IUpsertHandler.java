@@ -1,6 +1,7 @@
 package com.wu.framework.easy.stereotype.upsert.upsert.handler;
 
-import com.supconit.its.easy.dynamic.upsert.AbstractDynamicEasyUpsert;
+
+import com.wu.framework.easy.stereotype.upsert.dynamic.upsert.AbstractDynamicEasyUpsert;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ObjectUtils;
 

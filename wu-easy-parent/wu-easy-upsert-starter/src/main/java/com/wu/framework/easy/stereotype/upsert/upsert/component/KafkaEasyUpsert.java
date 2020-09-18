@@ -1,6 +1,7 @@
 package com.wu.framework.easy.stereotype.upsert.upsert.component;
 
 
+import com.google.common.collect.Maps;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.stereotype.upsert.ienum.UserDictionaryService;
@@ -37,7 +38,7 @@ public class KafkaEasyUpsert implements IEasyUpsert, InitializingBean {
     private final UpsertConfig upsertConfig;
     private final EasyUpsertExtractKafkaProducer easyUpsertExtractKafkaProducer;
 
-    public KafkaEasyUpsert(UserDictionaryService userDictionaryService, UpsertConfig upsertConfig, EasyUpsertExtractKafkaProducer easyUpsertExtractKafkaProducer, ApplicationContext applicationContext) {
+    public KafkaEasyUpsert(UserDictionaryService userDictionaryService, UpsertConfig upsertConfig, EasyUpsertExtractKafkaProducer easyUpsertExtractKafkaProducer) {
         this.userDictionaryService = userDictionaryService;
         this.upsertConfig = upsertConfig;
         this.easyUpsertExtractKafkaProducer = easyUpsertExtractKafkaProducer;

@@ -1,6 +1,6 @@
 package com.wu.framework.easy.stereotype.upsert.upsert.entity;
 
-import com.supconit.its.easy.upsert.stereotype.CustomTableFile;
+import com.wu.framework.easy.stereotype.upsert.CustomTableFile;
 import lombok.Data;
 
 /**

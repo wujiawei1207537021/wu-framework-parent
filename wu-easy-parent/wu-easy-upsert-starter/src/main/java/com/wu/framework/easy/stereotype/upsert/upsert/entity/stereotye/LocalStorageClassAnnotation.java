@@ -1,6 +1,6 @@
 package com.wu.framework.easy.stereotype.upsert.upsert.entity.stereotye;
 
-import com.supconit.its.easy.upsert.converter.CustomAnnotationConverter;
+import com.wu.framework.easy.stereotype.upsert.upsert.converter.CustomAnnotationConverter;
 import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +24,7 @@ public class LocalStorageClassAnnotation {
 
     public static CustomTableAnnotation  getCustomTableAnnotationAttr(Class clazz,boolean isForceDuplicateNameSwitch){
         if(!CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.containsKey(clazz)){
-            String kafkaCode= PREFIX +CustomAnnotationConverter.getKafkaCode(clazz);
+            String kafkaCode= PREFIX + CustomAnnotationConverter.getKafkaCode(clazz);
             String className=clazz.getName();
             String name=CustomAnnotationConverter.getTableName(clazz);
             String comment=CustomAnnotationConverter.getComment(clazz);

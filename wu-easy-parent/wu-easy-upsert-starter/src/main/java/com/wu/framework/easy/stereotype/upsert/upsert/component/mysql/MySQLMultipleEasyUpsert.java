@@ -14,7 +14,10 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.util.ObjectUtils;
 
+import javax.sql.DataSource;
+import java.lang.reflect.Field;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * description MySQL多个据源插入数据

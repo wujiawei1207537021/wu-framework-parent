@@ -12,6 +12,8 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 
+import javax.sql.DataSource;
+
 /**
  * description MySQL单数据源插入数据
  *

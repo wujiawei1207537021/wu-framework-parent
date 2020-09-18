@@ -5,11 +5,20 @@ import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.stereotype.upsert.ienum.UserDictionaryService;
 import com.wu.framework.easy.stereotype.upsert.upsert.IEasyUpsert;
 import com.wu.framework.easy.stereotype.upsert.upsert.config.UpsertConfig;
+import com.wu.framework.easy.stereotype.upsert.upsert.converter.CustomAnnotationConverter;
+import com.wu.framework.easy.stereotype.upsert.upsert.converter.SQLConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
 /**

@@ -1,10 +1,24 @@
 package com.wu.framework.easy.stereotype.upsert.upsert.converter;
 
 import com.wu.framework.easy.stereotype.upsert.CustomTable;
+import com.wu.framework.easy.stereotype.upsert.CustomTableFile;
+import com.wu.framework.easy.stereotype.upsert.upsert.entity.ConvertedField;
+import com.wu.framework.easy.stereotype.upsert.upsert.entity.UpsertJsonMessage;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.support.GenericBeanDefinition;
+import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
+import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.core.type.filter.TypeFilter;
+import org.springframework.util.ObjectUtils;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static com.wu.framework.easy.stereotype.upsert.upsert.converter.CustomAnnotationConverter.annotationDictionaryConversion;
 
 /**
  * 自定义 生成新增更新或插入 支持字段映射 sql
@@ -197,8 +211,8 @@ public class SQLConverter {
     /**
      * description 打印可以执行的sql脚本
      *
-     * @param
-     * @return
+     * @param collection
+     * @return String
      * @exception/throws
      * @author 吴佳伟
      * @date 2020/9/17 下午1:21
@@ -234,7 +248,7 @@ public class SQLConverter {
             updateFieldNames.add(fieldName + "=VALUES (" + fieldName + ")");
         }
 
-        stringBuilder.append(fieldNames.stream().collect(Collectors.joining(",")));
+        stringBuilder.append(String.join(",", fieldNames));
 
         stringBuilder.append(")  VALUES " + "\n");
         // 添加 数据

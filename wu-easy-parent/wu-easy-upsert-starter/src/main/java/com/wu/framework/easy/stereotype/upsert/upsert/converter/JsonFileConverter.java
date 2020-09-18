@@ -1,7 +1,18 @@
 package com.wu.framework.easy.stereotype.upsert.upsert.converter;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wu.framework.easy.stereotype.upsert.CustomTableFile;
+import com.wu.framework.easy.stereotype.upsert.upsert.entity.UpsertJsonMessage;
+import org.springframework.core.annotation.AnnotatedElementUtils;
+import org.springframework.util.ObjectUtils;
+
+import java.lang.reflect.Field;
+import java.util.*;
+
+import static com.wu.framework.easy.stereotype.upsert.upsert.converter.CustomAnnotationConverter.annotationDictionaryConversion;
 
 /**
  * @Description 转换含有KafkaSchemaFile 注解的类参数

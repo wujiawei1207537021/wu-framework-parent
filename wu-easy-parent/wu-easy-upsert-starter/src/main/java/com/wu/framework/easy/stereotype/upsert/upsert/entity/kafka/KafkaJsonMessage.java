@@ -6,8 +6,8 @@ import lombok.Data;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.supconit.its.util.JsonUtils.convertObject;
-import static com.supconit.its.util.JsonUtils.parseObject;
+import static com.wu.framework.easy.stereotype.upsert.util.JsonUtils.convertObject;
+import static com.wu.framework.easy.stereotype.upsert.util.JsonUtils.parseObject;
 
 
 /**

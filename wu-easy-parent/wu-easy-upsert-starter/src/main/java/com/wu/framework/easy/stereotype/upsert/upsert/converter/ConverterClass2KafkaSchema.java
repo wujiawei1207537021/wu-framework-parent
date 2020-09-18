@@ -1,10 +1,16 @@
 package com.wu.framework.easy.stereotype.upsert.upsert.converter;
 
 
+import com.wu.framework.easy.stereotype.upsert.CustomTableFile;
 import com.wu.framework.easy.stereotype.upsert.upsert.entity.UpsertJsonMessage;
 import com.wu.framework.easy.stereotype.upsert.upsert.entity.kafka.TargetJsonSchema;
+import org.apache.kafka.common.protocol.types.Type;
+import org.springframework.core.annotation.AnnotatedElementUtils;
+import org.springframework.util.ObjectUtils;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * description KafkaSchema 转换操作

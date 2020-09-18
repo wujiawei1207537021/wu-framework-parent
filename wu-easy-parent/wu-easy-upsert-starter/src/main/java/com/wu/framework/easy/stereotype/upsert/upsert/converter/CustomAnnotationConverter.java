@@ -3,12 +3,18 @@ package com.wu.framework.easy.stereotype.upsert.upsert.converter;
 
 import com.wu.framework.easy.stereotype.upsert.CustomTable;
 import com.wu.framework.easy.stereotype.upsert.CustomTableFile;
+import com.wu.framework.easy.stereotype.upsert.CustomUnique;
 import com.wu.framework.easy.stereotype.upsert.ienum.DefaultIEnum;
 import com.wu.framework.easy.stereotype.upsert.ienum.IEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ObjectUtils;
+
+import java.lang.reflect.Field;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * description 解析 CustomTable 中的参数
