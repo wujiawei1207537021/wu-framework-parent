@@ -1,6 +1,5 @@
-package com.wu.framework.inner.swagger.annotation;
+package com.wu.framework.easy.stereotype.web;
 
-import com.wu.framework.easy.stereotype.web.EasyController;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,18 +7,19 @@ import org.springframework.web.bind.annotation.RestController;
 import java.lang.annotation.*;
 
 /**
- * 自定义组合注解  CustomController
- *  包含 @RestController @RequestMapping 待完善
- *  {@link EasyController}
- */
+ * EasyController
+* @params
+* @return
+* @author 吴佳伟
+* @date 2020/9/18 下午10:19
+**/
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @RestController
 @RequestMapping
 @Inherited
-@Deprecated
-public @interface CustomController {
+public @interface EasyController {
 
 
     /**

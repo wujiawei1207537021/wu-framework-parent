@@ -45,6 +45,7 @@
         <module>wu-inner-interface</module>
         <module>wu-smart-intergration</module>
         <module>wu-framework-plus</module>
+        <module>wu-easy-parent</module>
         <!--        <module>wu-common-transform</module>-->
     </modules>
 
