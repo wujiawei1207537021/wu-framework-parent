@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>wu-inner-intergration</artifactId>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
     <description>wu内部整合</description>
 
@@ -20,13 +21,10 @@
     <modules>
         <!--wuswagger-->
         <module>wu-swagger-starter</module>
-
         <!--wuredis-->
         <module>wu-redis-starter</module>
-
         <!--wufile-->
         <module>wu-file-starter</module>
-
         <!--wulog-->
         <module>wu-log-starter</module>
         <!--    ftp    -->
@@ -70,5 +68,6 @@
             <url>http://192.168.1.86:9081/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
+
 
 </project>
