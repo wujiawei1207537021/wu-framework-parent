@@ -10,6 +10,7 @@ import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 
 import javax.sql.DataSource;
@@ -21,7 +22,8 @@ import javax.sql.DataSource;
  * @date 2020/9/11 上午10:22
  */
 @Slf4j
-@ConditionalOnBean(DataSource.class)
+//@ConditionalOnBean(DataSource.class)
+@ConditionalOnClass(name = "javax.sql.DataSource")
 @ConditionalOnMissingBean(MySQLMultipleEasyUpsert.class)
 @EasyUpsertStrategy(value = EasyUpsertType.MySQL)
 public class MySQLSimpleEasyUpsert extends MySQLEasyUpsert implements IEasyUpsert, InitializingBean {
