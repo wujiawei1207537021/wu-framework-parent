@@ -11,6 +11,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>wu-framework-shiro</artifactId>
+    <version>1.0.8</version>
     <description>新增令牌移出接口 新增令牌移出注解</description>
 
 
