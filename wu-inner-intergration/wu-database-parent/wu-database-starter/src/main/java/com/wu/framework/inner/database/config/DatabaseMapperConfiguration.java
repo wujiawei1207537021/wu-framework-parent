@@ -38,6 +38,9 @@ public class DatabaseMapperConfiguration implements ICustomDatabaseScanBean, Ini
 
     @Override
     public void afterPropertiesSet() throws Exception {
+        if(null==scanXmlPath){
+            return;
+        }
         scanBeanClasses.addAll(ScanXmlPathUtil.getCustomScanBeanClass(scanXmlPath));
         log.info("init interface of ICustomDatabaseScanBean ");
     }
