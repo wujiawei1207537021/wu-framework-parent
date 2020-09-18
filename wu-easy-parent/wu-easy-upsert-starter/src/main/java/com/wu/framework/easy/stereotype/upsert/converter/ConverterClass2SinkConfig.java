@@ -1,0 +1,119 @@
+package com.wu.framework.easy.stereotype.upsert.converter;
+
+
+import com.alibaba.fastjson.JSON;
+import org.springframework.util.ObjectUtils;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+/**
+ * description 将class 转换为 Sink 任务
+ *
+ * @author 吴佳伟
+ * @date 2020/7/16 下午1:43
+ */
+public class ConverterClass2SinkConfig {
+
+    private final static String MYSQL_URL = "jdbc:mysql://172.17.1.58:30806/baseinfo";
+    private final static String MYSQL_USER = "baseinfo";
+    private final static String MYSQL_PASSWORD = "supconit";
+    private final static String INSERT_MODE = "upsert";
+    private final static String ES_URL = "http://172.17.1.58:30820";
+
+    /**
+     * ### sink任务toDB
+     * <p>
+     * {
+     * "name": "net_car_company_db",
+     * "sinkConfig": {
+     * "topics": "connect_sink_net_car_company_db",
+     * "connection.url": "jdbc:mysql://172.17.1.58:30806/baseinfo",
+     * "connection.user": "root",
+     * "connection.password": "supconit",
+     * "table.name.format": "ct_taxi_rh_org_opemng_bas_comp",
+     * "pk.fields": "comp_id",
+     * "db.timezone": "Asia/Shanghai",
+     * "insert.mode": "upsert"
+     * },
+     * "sinkType": 1
+     * }
+     */
+    public static Map DBConfig(Class clazz, String namePrefix, String url, String user, String password) {
+        // 数据库名称
+        String name = CustomAnnotationConverter.getCustomTableValue(clazz);
+
+        // topic
+        String topic = CustomAnnotationConverter.getKafkaTopicName(clazz);
+        Map sink = new HashMap();
+        if (!ObjectUtils.isEmpty(namePrefix)) {
+            sink.put("name", namePrefix + name + "_todb");
+        } else {
+            sink.put("name", name + "_todb");
+        }
+        Map sinkConfig = new HashMap();
+        sink.put("sinkConfig", sinkConfig);
+        sink.put("sinkType", 1);
+        sinkConfig.put("topics", topic);
+        sinkConfig.put("connection.url", url);
+        sinkConfig.put("connection.user", user);
+        sinkConfig.put("connection.password", password);
+        sinkConfig.put("table.name.format", name);
+        if (!ObjectUtils.isEmpty(CustomAnnotationConverter.getCustomUniquePK(clazz))) {
+            sinkConfig.put("pk.fields", CustomAnnotationConverter.getCustomUniquePK(clazz).stream().collect(Collectors.joining(",")));
+        }
+        sinkConfig.put("db.timezone", "Asia/Shanghai");
+        sinkConfig.put("insert.mode", INSERT_MODE);
+        System.out.println(JSON.toJSONString(sink));
+        return sink;
+    }
+
+
+    public static Map DBConfig(Class clazz, String namePrefix) {
+        return DBConfig(clazz, namePrefix, MYSQL_URL, MYSQL_USER, MYSQL_PASSWORD);
+    }
+
+    public static Map DBConfig(Class clazz) {
+        return DBConfig(clazz, null);
+    }
+
+
+    /**
+     * ### sink任务toES
+     * <p>
+     * {
+     * "name": "net_car_company_toes",
+     * "sinkConfig": {
+     * "topics": "connect_sink_net_car_company_es",
+     * "connection.url": "http://172.17.1.58:30820",
+     * "index.format": "net_car_company_es_${timestamp}",
+     * "timestamp.format": "yyyy.MM",
+     * "key.ignore": "true"
+     * },
+     * "sinkType": 2
+     * }
+     *
+     * @param clazz
+     * @return
+     */
+    public static Map ESConfig(Class clazz) {
+        // 数据库名称
+        String name = CustomAnnotationConverter.getCustomTableValue(clazz);
+        // topic
+        String topic = CustomAnnotationConverter.getKafkaTopicName(clazz);
+        Map sink = new HashMap();
+        sink.put("name", name + "_toes");
+        Map sinkConfig = new HashMap();
+        sink.put("sinkConfig", sinkConfig);
+        sink.put("sinkType", 2);
+        sinkConfig.put("topics", topic);
+        sinkConfig.put("connection.url", ES_URL);
+        sinkConfig.put("index.format", topic + "_${timestamp}");
+        sinkConfig.put("timestamp.format", "yyyy.MM");
+        sinkConfig.put("key.ignore", "true");
+        System.out.println(JSON.toJSONString(sink));
+        return sink;
+    }
+
+}

@@ -1,0 +1,15 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.wu.framework.easy.stereotype.upsert.handler.IUpsertProxyBeanDefinitionRegistry,\
+com.wu.framework.easy.stereotype.upsert.handler.IUpsertHandler,\
+com.wu.framework.easy.stereotype.upsert.config.UpsertConfig,\
+com.wu.framework.easy.stereotype.upsert.component.EasyUpsertExtractKafkaProducer,\
+com.supconit.its.eslog.util.DataAccessLogHelper,\
+com.supconit.its.eslog.producer.ElasticLogProducer,\
+com.supconit.its.eslog.config.LogKafkaConfig,\
+com.wu.framework.easy.stereotype.dynamic.config.CustomDynamicDataSourceConfig,\
+com.wu.framework.easy.stereotype.upsert.ienum.DefaultUserDictionaryService,\
+com.wu.framework.easy.stereotype.upsert.component.KafkaEasyUpsert,\
+com.wu.framework.easy.stereotype.upsert.component.mysql.MySQLSimpleEasyUpsert,\
+com.wu.framework.easy.stereotype.upsert.component.mysql.MySQLMultipleEasyUpsert,\
+com.wu.framework.easy.stereotype.dynamic.DynamicEasyUpsert
