@@ -10,8 +10,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>wu-swagger-starter</artifactId>
-    <version>${wu-swagger-starter.version}</version>
     <description>wuswagger</description>
+    <version>1.0.1</version>
 
     <dependencies>
 
