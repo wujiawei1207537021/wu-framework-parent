@@ -2,11 +2,9 @@ package com.wu.framework.inner.database;
 
 
 import com.wu.framework.inner.database.config.ICustomDatabaseConfiguration;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Configuration;
-
 import java.io.PrintWriter;
 import java.sql.*;
 import java.util.logging.Logger;
@@ -28,7 +26,7 @@ public class SimpleCustomDataSource implements CustomDataSource {
     private final String defaultUrl = "jdbc:mysql://localhost:3306";
 
 
-    public SimpleCustomDataSource(@Qualifier("simpleCustomDatabaseConfiguration") ICustomDatabaseConfiguration iCustomDatabaseConfiguration) {
+    public SimpleCustomDataSource(ICustomDatabaseConfiguration iCustomDatabaseConfiguration) {
         this.iCustomDatabaseConfiguration = iCustomDatabaseConfiguration;
     }
 

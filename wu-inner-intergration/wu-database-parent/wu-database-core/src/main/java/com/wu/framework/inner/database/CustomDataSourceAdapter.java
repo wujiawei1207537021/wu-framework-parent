@@ -1,5 +1,7 @@
 package com.wu.framework.inner.database;
 
+import javax.sql.DataSource;
+
 /**
  * @author : 吴佳伟
  * @version 1.0
@@ -11,8 +13,9 @@ public interface CustomDataSourceAdapter {
     /**
      * 默认数据源
      */
-    String DEFAULT_DATA_SOURCE = "simpleCustomDataSource";
+    String DEFAULT_DATA_SOURCE = "dataSource";
 
+    String SIMPLE_DATA_SOURCE = "simpleCustomDataSource";
     /**
      * 主数据源
      */
