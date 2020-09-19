@@ -10,13 +10,13 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
  * @date : 2020/8/28 下午11:11
  */
 
-@ConditionalOnBean(value = CustomDataSource.class,name = CustomDataSourceAdapter.DEFAULT_DATA_SOURCE)
+@ConditionalOnBean(value = SimpleCustomDataSource.class)
 public class SimpleCustomDataSourceAdapter implements CustomDataSourceAdapter {
 
 
     private final CustomDataSource customDataSource;
 
-    public SimpleCustomDataSourceAdapter(@Qualifier(CustomDataSourceAdapter.DEFAULT_DATA_SOURCE) SimpleCustomDataSource simpleCustomDataSource) {
+    public SimpleCustomDataSourceAdapter(SimpleCustomDataSource simpleCustomDataSource) {
         this.customDataSource = simpleCustomDataSource;
     }
 

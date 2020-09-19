@@ -2,9 +2,15 @@ package com.wu.framework.inner.database;
 
 
 import com.wu.framework.inner.database.config.ICustomDatabaseConfiguration;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+
 import java.io.PrintWriter;
 import java.sql.*;
 import java.util.logging.Logger;
@@ -15,10 +21,10 @@ import java.util.logging.Logger;
  * @describe :
  * @date : 2020/8/28 下午10:57
  */
-@Configuration(value = CustomDataSourceAdapter.DEFAULT_DATA_SOURCE)
+@Order(Ordered.HIGHEST_PRECEDENCE)
 @AutoConfigureAfter(name = "com.wu.framework.inner.database.config.SimpleCustomDatabaseConfiguration")
 @ConditionalOnBean(value =ICustomDatabaseConfiguration.class,name = "simpleCustomDatabaseConfiguration")
-public class SimpleCustomDataSource implements CustomDataSource {
+public class SimpleCustomDataSource extends DefaultListableBeanFactory implements CustomDataSource, InitializingBean {
 
 
     private final ICustomDatabaseConfiguration iCustomDatabaseConfiguration;
@@ -223,5 +229,10 @@ public class SimpleCustomDataSource implements CustomDataSource {
     @Override
     public Logger getParentLogger() throws SQLFeatureNotSupportedException {
         return null;
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        logger.info(" init bean of simpleCustomDataSource ");
     }
 }
