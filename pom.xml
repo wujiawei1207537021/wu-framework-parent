@@ -34,7 +34,7 @@
         <wu-swagger-starter.version>1.0.1</wu-swagger-starter.version>
         <wu-file-starter.version>1.0.1</wu-file-starter.version>
 
-        <spring-boot-starter.version>2.2.5.RELEASE</spring-boot-starter.version>
+        <spring-boot-starter.version>2.3.2.RELEASE</spring-boot-starter.version>
     </properties>
 
     <modules>
