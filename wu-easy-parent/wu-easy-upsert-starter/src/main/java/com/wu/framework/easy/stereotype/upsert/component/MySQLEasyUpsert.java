@@ -1,12 +1,10 @@
 package com.wu.framework.easy.stereotype.upsert.component;
 
-import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
-import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
+import com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter;
+import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
 import com.wu.framework.easy.stereotype.upsert.ienum.UserDictionaryService;
 import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
 import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
-import com.wu.framework.easy.stereotype.upsert.converter.CustomAnnotationConverter;
-import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 
@@ -28,7 +26,6 @@ import java.util.concurrent.Future;
  * @date 2020/9/11 上午10:22
  */
 @Slf4j
-@EasyUpsertStrategy(value = EasyUpsertType.MySQL)
 public abstract class MySQLEasyUpsert implements IEasyUpsert, InitializingBean {
 
 
@@ -73,7 +70,7 @@ public abstract class MySQLEasyUpsert implements IEasyUpsert, InitializingBean {
             if (null != userDictionaryService) {
                 iEnumList = userDictionaryService.userDictionary(clazz);
             }
-            iEnumList.putAll(CustomAnnotationConverter.collectionDictionary(clazz));
+            iEnumList.putAll(EasyAnnotationConverter.collectionDictionary(clazz));
             String queryString = SQLConverter.upsertPreparedStatementSQL(list, clazz, iEnumList);
             if (upsertConfig.isPrintSql()) {
                 log.info("执行sql: {}", queryString);

@@ -1,6 +1,7 @@
 package com.wu.freamwork.controller;
 
 
+import com.wu.framework.easy.stereotype.web.EasyController;
 import com.wu.framework.inner.database.custom.database.persistence.LayerOperation;
 import com.wu.framework.inner.database.test.dao.IUserDao;
 import com.wu.framework.inner.database.test.pojo.DataBaseUser;
@@ -19,7 +20,7 @@ import java.util.List;
  * @describe : 数据库测试
  * @date : 2020/6/27 下午7:15
  */
-@CustomController
+@EasyController
 public class DataBaseTestController implements CommandLineRunner {
 
     @Resource

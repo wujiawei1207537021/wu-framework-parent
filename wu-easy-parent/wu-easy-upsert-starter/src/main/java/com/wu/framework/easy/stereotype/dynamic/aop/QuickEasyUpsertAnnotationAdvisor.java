@@ -41,6 +41,7 @@ public class QuickEasyUpsertAnnotationAdvisor extends AbstractPointcutAdvisor im
     private Pointcut buildPointcut() {
         Pointcut cpc = new AnnotationMatchingPointcut(QuickEasyUpsert.class, true);
         Pointcut mpc = AnnotationMatchingPointcut.forMethodAnnotation(QuickEasyUpsert.class);
+//        Pointcut classpc = AnnotationMatchingPointcut.forClassAnnotation(QuickEasyUpsert.class);
         return new ComposablePointcut(cpc).union(mpc);
     }
 

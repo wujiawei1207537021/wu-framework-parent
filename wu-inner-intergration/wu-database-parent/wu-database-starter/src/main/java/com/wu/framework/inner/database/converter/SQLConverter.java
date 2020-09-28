@@ -1,8 +1,9 @@
 package com.wu.framework.inner.database.converter;
 
 
-import com.wu.framework.inner.database.custom.database.persistence.stereotype.CustomTable;
-import com.wu.framework.inner.database.custom.database.persistence.stereotype.CustomTableFile;
+import com.wu.framework.easy.stereotype.upsert.EasyTable;
+import com.wu.framework.easy.stereotype.upsert.EasyTableFile;
+import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConverter;
 import com.wu.framework.inner.database.domain.ConvertedField;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -30,7 +31,7 @@ public class SQLConverter {
      */
     public static void upsertSQL(Class clazz) {
         StringBuilder stringBuilder = new StringBuilder("insert into ");
-        CustomTable tableNameAnnotation = AnnotationUtils.getAnnotation(clazz, CustomTable.class);
+        EasyTable tableNameAnnotation = AnnotationUtils.getAnnotation(clazz, EasyTable.class);
         List<String> fieldNames = new ArrayList<>();
         List<Integer> ignoredIndex = new ArrayList<>();
         // 添加表名
@@ -44,8 +45,8 @@ public class SQLConverter {
         stringBuilder.append("(");
         for (int i = 0; i < fields.length; i++) {
             Field declaredField = fields[i];
-            CustomTableFile
-                    tableField =  AnnotatedElementUtils.findMergedAnnotation(declaredField, CustomTableFile.class);
+            EasyTableFile
+                    tableField =  AnnotatedElementUtils.findMergedAnnotation(declaredField, EasyTableFile.class);
             String fieldName;
             if (ObjectUtils.isEmpty(tableField)) {
                 fieldName = CamelAndUnderLineConverter.humpToLine2(declaredField.getName());
@@ -94,7 +95,7 @@ public class SQLConverter {
      */
     public static String createTableSQL(Class clazz) {
         StringBuilder sqlBuffer = new StringBuilder();
-        CustomTable tableNameAnnotation = AnnotationUtils.getAnnotation(clazz, CustomTable.class);
+        EasyTable tableNameAnnotation = AnnotationUtils.getAnnotation(clazz, EasyTable.class);
         List<String> fieldNames = new ArrayList<>();
         List<Integer> ignoredIndex = new ArrayList<>();
         String tableComment = "";
@@ -118,9 +119,9 @@ public class SQLConverter {
         Field[] fields = clazz.getDeclaredFields();
         for (int i = 0; i < fields.length; i++) {
             Field declaredField = fields[i];
-            CustomTableFile tableField =  AnnotatedElementUtils.findMergedAnnotation(declaredField, CustomTableFile.class);
+            EasyTableFile tableField =  AnnotatedElementUtils.findMergedAnnotation(declaredField, EasyTableFile.class);
             String fieldName = CamelAndUnderLineConverter.humpToLine2(declaredField.getName());
-            String type = CustomTableFile.FileType.getTypeByClass(declaredField.getType());
+            String type = EasyTableFile.FileType.getTypeByClass(declaredField.getType());
             String comment = CamelAndUnderLineConverter.humpToLine2(declaredField.getName());
             if (!ObjectUtils.isEmpty(tableField)) {
                 if (!tableField.exist()) {

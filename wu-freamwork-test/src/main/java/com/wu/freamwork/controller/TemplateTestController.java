@@ -1,6 +1,7 @@
 package com.wu.freamwork.controller;
 
 
+import com.wu.framework.easy.stereotype.web.EasyController;
 import com.wu.framework.inner.swagger.annotation.CustomController;
 import com.wu.framework.inner.template.https.HttpsRestTemplate;
 import io.swagger.annotations.Api;
@@ -16,7 +17,7 @@ import static java.lang.Thread.sleep;
  * @date : 2020/6/17 10:42 下午
  */
 @Api(tags = "Template 模板测试")
-@CustomController("/test/template")
+@EasyController("/test/template")
 public class TemplateTestController {
 
     @Resource

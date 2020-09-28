@@ -2,16 +2,16 @@ package com.wu.framework.easy.stereotype.upsert.component;
 
 
 import com.google.common.collect.Maps;
+import com.wu.framework.easy.stereotype.upsert.converter.ConverterClass2KafkaSchema;
+import com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter;
+import com.wu.framework.easy.stereotype.upsert.converter.JsonFileConverter;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
+import com.wu.framework.easy.stereotype.upsert.entity.kafka.TargetJsonSchema;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.stereotype.upsert.ienum.UserDictionaryService;
 import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
 import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
-import com.wu.framework.easy.stereotype.upsert.converter.ConverterClass2KafkaSchema;
-import com.wu.framework.easy.stereotype.upsert.converter.CustomAnnotationConverter;
-import com.wu.framework.easy.stereotype.upsert.converter.JsonFileConverter;
 import com.wu.framework.easy.stereotype.upsert.entity.kafka.KafkaJsonMessage;
-import com.wu.framework.easy.stereotype.upsert.entity.kafka.TargetJsonSchema;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.CustomTableAnnotation;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
 import lombok.extern.slf4j.Slf4j;
@@ -67,7 +67,7 @@ public class KafkaEasyUpsert implements IEasyUpsert, InitializingBean {
             if (null != userDictionaryService) {
                 iEnumList = userDictionaryService.userDictionary(list.get(0).getClass());
             }
-            iEnumList.putAll(CustomAnnotationConverter.collectionDictionary(clazz));
+            iEnumList.putAll(EasyAnnotationConverter.collectionDictionary(clazz));
             for (Object value : list) {
                 kafkaJsonMessage.setPayload(JsonFileConverter.parseBean2map(value, iEnumList));
                 easyUpsertExtractKafkaProducer.sendAsync(customTableAnnotation.getKafkaCode(), customTableAnnotation.getKafkaTopicName(), kafkaJsonMessage);

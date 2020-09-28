@@ -1,6 +1,6 @@
 package com.wu.framework.inner.database.domain;
 
-import com.wu.framework.inner.database.custom.database.persistence.stereotype.CustomTableFile;
+import com.wu.framework.easy.stereotype.upsert.EasyTableFile;
 import lombok.Data;
 
 /**
@@ -17,7 +17,7 @@ public class ConvertedField {
     /**
      * 数据库字段索引类型
      */
-    private CustomTableFile.CustomTableFileIndexType fieldIndexType;
+    private EasyTableFile.CustomTableFileIndexType fieldIndexType;
     /**
      * 字段类型
      */

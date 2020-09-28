@@ -4,7 +4,7 @@ package com.wu.framework.easy.stereotype.upsert.converter;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wu.framework.easy.stereotype.upsert.CustomTableFile;
+import com.wu.framework.easy.stereotype.upsert.EasyTableFile;
 import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.util.ObjectUtils;
@@ -12,7 +12,7 @@ import org.springframework.util.ObjectUtils;
 import java.lang.reflect.Field;
 import java.util.*;
 
-import static com.wu.framework.easy.stereotype.upsert.converter.CustomAnnotationConverter.annotationDictionaryConversion;
+import static com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter.annotationDictionaryConversion;
 
 /**
  * @Description 转换含有KafkaSchemaFile 注解的类参数
@@ -95,23 +95,23 @@ public class JsonFileConverter {
                 if(UpsertJsonMessage.ignoredFields.contains(declaredField.getName())){
                     continue;
                 }
-                CustomTableFile customTableFile = AnnotatedElementUtils.getMergedAnnotation(declaredField, CustomTableFile.class);
+                EasyTableFile easyTableFile = AnnotatedElementUtils.getMergedAnnotation(declaredField, EasyTableFile.class);
                 Object v = null;
                 try {
                     v = declaredField.get(bean);
-                    if (ObjectUtils.isEmpty(v) && null != customTableFile && !ObjectUtils.isEmpty(customTableFile.fieldDefaultValue())) {
-                        v = customTableFile.fieldDefaultValue();
+                    if (ObjectUtils.isEmpty(v) && null != easyTableFile && !ObjectUtils.isEmpty(easyTableFile.fieldDefaultValue())) {
+                        v = easyTableFile.fieldDefaultValue();
                     }
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
                 String defaultKey = CamelAndUnderLineConverter.humpToLine2(declaredField.getName());
-                if (!ObjectUtils.isEmpty(customTableFile)) {
-                    if (!customTableFile.exist()) {
+                if (!ObjectUtils.isEmpty(easyTableFile)) {
+                    if (!easyTableFile.exist()) {
                         continue;
                     } else {
-                        if (!ObjectUtils.isEmpty(customTableFile.value())) {
-                            defaultKey = customTableFile.value();
+                        if (!ObjectUtils.isEmpty(easyTableFile.value())) {
+                            defaultKey = easyTableFile.value();
                         }
                     }
                 }

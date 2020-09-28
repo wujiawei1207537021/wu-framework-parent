@@ -2,13 +2,13 @@ package com.wu.framework.easy.stereotype.upsert.config;
 
 
 import com.google.common.collect.Maps;
-import com.wu.framework.easy.stereotype.upsert.CustomTable;
-import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
+import com.wu.framework.easy.stereotype.upsert.EasyTable;
 import com.wu.framework.easy.stereotype.upsert.converter.ConverterClass2KafkaSchema;
-import com.wu.framework.easy.stereotype.upsert.converter.CustomAnnotationConverter;
+import com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter;
+import com.wu.framework.easy.stereotype.upsert.entity.kafka.TargetJsonSchema;
+import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
 import com.wu.framework.easy.stereotype.upsert.entity.kafka.KafkaJsonMessage;
-import com.wu.framework.easy.stereotype.upsert.entity.kafka.TargetJsonSchema;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
@@ -36,7 +36,7 @@ import java.util.Set;
 @Slf4j
 @Data
 @Configuration
-@ConfigurationProperties("upsert-config")
+@ConfigurationProperties("easy.upsert.config")
 public class UpsertConfig implements InitializingBean {
 
 
@@ -102,11 +102,11 @@ public class UpsertConfig implements InitializingBean {
         }
 
         for (Class value : schemaClass) {
-            CustomTable customTable = AnnotationUtils.getAnnotation(value, CustomTable.class);
+            EasyTable easyTable = AnnotationUtils.getAnnotation(value, EasyTable.class);
             TargetJsonSchema targetJsonSchema = new TargetJsonSchema();
-            targetJsonSchema.setName(CustomAnnotationConverter.getKafkaSchemaName(value, forceDuplicateNameSwitch));
-            if (!ObjectUtils.isEmpty(customTable) && !ObjectUtils.isEmpty(customTable.name())) {
-                targetJsonSchema.setName(customTable.name());
+            targetJsonSchema.setName(EasyAnnotationConverter.getKafkaSchemaName(value, forceDuplicateNameSwitch));
+            if (!ObjectUtils.isEmpty(easyTable) && !ObjectUtils.isEmpty(easyTable.name())) {
+                targetJsonSchema.setName(easyTable.name());
             }
             for (TargetJsonSchema jsonSchema : getSchema()) {
                 if (jsonSchema.getName().equals(targetJsonSchema.getName())) {

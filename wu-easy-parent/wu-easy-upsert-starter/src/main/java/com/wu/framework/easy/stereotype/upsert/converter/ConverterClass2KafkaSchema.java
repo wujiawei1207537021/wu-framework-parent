@@ -1,7 +1,7 @@
 package com.wu.framework.easy.stereotype.upsert.converter;
 
 
-import com.wu.framework.easy.stereotype.upsert.CustomTableFile;
+import com.wu.framework.easy.stereotype.upsert.EasyTableFile;
 import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
 import com.wu.framework.easy.stereotype.upsert.entity.kafka.TargetJsonSchema;
 import org.apache.kafka.common.protocol.types.Type;
@@ -31,7 +31,7 @@ public class ConverterClass2KafkaSchema {
      */
     public static TargetJsonSchema converterClass2TargetJsonSchema(Class clazz, boolean forcedDuplicateNameSwitch) {
         TargetJsonSchema targetJsonSchema = new TargetJsonSchema();
-        targetJsonSchema.setName(CustomAnnotationConverter.getKafkaSchemaName(clazz,forcedDuplicateNameSwitch));
+        targetJsonSchema.setName(EasyAnnotationConverter.getKafkaSchemaName(clazz,forcedDuplicateNameSwitch));
         List<TargetJsonSchema.Field> fieldList = new ArrayList<>();
         targetJsonSchema.setFields(fieldList);
         for (Field field : clazz.getDeclaredFields()) {
@@ -42,24 +42,24 @@ public class ConverterClass2KafkaSchema {
                 continue;
             }
             TargetJsonSchema.Field t = new TargetJsonSchema.Field();
-            CustomTableFile customTableFile = AnnotatedElementUtils.findMergedAnnotation(field, CustomTableFile.class);
+            EasyTableFile easyTableFile = AnnotatedElementUtils.findMergedAnnotation(field, EasyTableFile.class);
             String fieldName = "";
             String name = "";
             String type = "";
             boolean optional = true;
             fieldName = CamelAndUnderLineConverter.humpToLine2(field.getName());
-            type = CustomTableFile.JavaSchemaDataType.getAlias(field.getType());
-            if (!ObjectUtils.isEmpty(customTableFile)) {
-                if (!customTableFile.exist()) {
+            type = EasyTableFile.JavaSchemaDataType.getAlias(field.getType());
+            if (!ObjectUtils.isEmpty(easyTableFile)) {
+                if (!easyTableFile.exist()) {
                     continue;
                 }
-                String fieldNameTemp = customTableFile.name();
+                String fieldNameTemp = easyTableFile.name();
                 if (!ObjectUtils.isEmpty(fieldNameTemp)) {
                     fieldName = fieldNameTemp;
                 }
                 // 数据库字段类型
-                type = databaseFieldConversionSchemaType(customTableFile.type()).toLowerCase();
-                optional = customTableFile.optional();
+                type = databaseFieldConversionSchemaType(easyTableFile.type()).toLowerCase();
+                optional = easyTableFile.optional();
             }
             t.setField(fieldName);
             t.setType(type);

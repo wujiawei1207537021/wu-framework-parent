@@ -1,5 +1,6 @@
 package com.wu.framework.easy.temple.domain;
 
+import com.wu.framework.easy.stereotype.upsert.EasyTableFile;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -13,6 +14,9 @@ import java.time.LocalDateTime;
 @Data
 public class UserLog {
     private Integer userId;
+
+    @EasyTableFile(name = "`current_time`")
     private LocalDateTime currentTime;
+    @EasyTableFile(name = "`content`")
     private String content;
 }

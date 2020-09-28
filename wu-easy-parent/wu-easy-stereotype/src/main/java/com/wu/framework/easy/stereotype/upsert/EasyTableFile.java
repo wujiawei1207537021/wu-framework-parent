@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Indexed;
+
 import java.lang.annotation.*;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -26,7 +27,7 @@ import java.util.List;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Indexed
-public @interface CustomTableFile {
+public @interface EasyTableFile {
 
     @AliasFor(attribute = "name")
     String value() default "";
@@ -49,6 +50,7 @@ public @interface CustomTableFile {
     String parameters() default "";
 
     boolean optional() default true;
+
     /**
      * 数据为空的时候使用字段默认值
      */
@@ -56,20 +58,29 @@ public @interface CustomTableFile {
 
     /**
      * 转换指定类型的枚举 DefaultIEnum 不转换  转换失败默认是-1
+     *
      * @return
      */
     Class<? extends IEnum> iEnum() default DefaultIEnum.class;
 
     /**
-     *  转换内容分隔符
-     * @see IEnum#getConvertContentSeparator()
+     * 数据格式
+     *
      * @return
+     */
+    String dataType() default "";
+    /**
+     * 转换内容分隔符
+     *
+     * @return
+     * @see IEnum#getConvertContentSeparator()
      */
     @Deprecated
     String[] convertContentSeparator() default {","};
 
     /**
      * 通过获取字典类型转换
+     *
      * @return
      */
     String dictionary() default "";
@@ -80,7 +91,8 @@ public @interface CustomTableFile {
     enum CustomTableFileIndexType {
         FILE_TYPE,
         ID,
-        UNIQUE;
+        UNIQUE,
+        AUTOMATIC;
     }
 
     @Getter

@@ -6,5 +6,9 @@ import java.util.List;
 
 public interface RunService {
 
+    List<UserLog> run(Integer size);
+
     List<UserLog> run1();
+
+    void run2(Integer size);
 }

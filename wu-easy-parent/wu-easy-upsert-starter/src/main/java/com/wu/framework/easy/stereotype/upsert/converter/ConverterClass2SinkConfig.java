@@ -42,10 +42,10 @@ public class ConverterClass2SinkConfig {
      */
     public static Map DBConfig(Class clazz, String namePrefix, String url, String user, String password) {
         // 数据库名称
-        String name = CustomAnnotationConverter.getCustomTableValue(clazz);
+        String name = EasyAnnotationConverter.getCustomTableValue(clazz);
 
         // topic
-        String topic = CustomAnnotationConverter.getKafkaTopicName(clazz);
+        String topic = EasyAnnotationConverter.getKafkaTopicName(clazz);
         Map sink = new HashMap();
         if (!ObjectUtils.isEmpty(namePrefix)) {
             sink.put("name", namePrefix + name + "_todb");
@@ -60,8 +60,8 @@ public class ConverterClass2SinkConfig {
         sinkConfig.put("connection.user", user);
         sinkConfig.put("connection.password", password);
         sinkConfig.put("table.name.format", name);
-        if (!ObjectUtils.isEmpty(CustomAnnotationConverter.getCustomUniquePK(clazz))) {
-            sinkConfig.put("pk.fields", CustomAnnotationConverter.getCustomUniquePK(clazz).stream().collect(Collectors.joining(",")));
+        if (!ObjectUtils.isEmpty(EasyAnnotationConverter.getCustomUniquePK(clazz))) {
+            sinkConfig.put("pk.fields", EasyAnnotationConverter.getCustomUniquePK(clazz).stream().collect(Collectors.joining(",")));
         }
         sinkConfig.put("db.timezone", "Asia/Shanghai");
         sinkConfig.put("insert.mode", INSERT_MODE);
@@ -99,9 +99,9 @@ public class ConverterClass2SinkConfig {
      */
     public static Map ESConfig(Class clazz) {
         // 数据库名称
-        String name = CustomAnnotationConverter.getCustomTableValue(clazz);
+        String name = EasyAnnotationConverter.getCustomTableValue(clazz);
         // topic
-        String topic = CustomAnnotationConverter.getKafkaTopicName(clazz);
+        String topic = EasyAnnotationConverter.getKafkaTopicName(clazz);
         Map sink = new HashMap();
         sink.put("name", name + "_toes");
         Map sinkConfig = new HashMap();

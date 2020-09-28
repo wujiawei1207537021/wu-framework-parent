@@ -1,10 +1,10 @@
 package com.wu.freamwork.controller;
 
 
+import com.wu.framework.easy.stereotype.web.EasyController;
 import com.wu.framework.inner.common.util.CustomCaptcha;
 import com.wu.framework.inner.common.util.QRBO;
 import com.wu.framework.inner.common.util.QRCodeGenerator;
-import com.wu.framework.inner.swagger.annotation.CustomController;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @ApiOperation(value = "test", tags = "测试二维码 验证码")
-@CustomController("/test")
+@EasyController("/test")
 public class CommonTestController {
 
 

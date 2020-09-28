@@ -2,6 +2,7 @@ package com.wu.framework.inner.database.converter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConverter;
 import lombok.Data;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
 

@@ -1,5 +1,6 @@
 package com.wu.framework.easy.temple.service.impl;
 
+import com.wu.framework.easy.stereotype.upsert.component.IUpsert;
 import com.wu.framework.easy.temple.domain.UserLog;
 import com.wu.framework.easy.temple.service.RunService;
 import org.springframework.stereotype.Service;
@@ -14,18 +15,37 @@ import java.util.List;
  * @describe :
  * @date : 2020/9/18 下午11:34
  */
+
 @Service
 public class RunServiceImpl implements RunService {
+    private final IUpsert iUpsert;
+
+    public RunServiceImpl(IUpsert iUpsert) {
+        this.iUpsert = iUpsert;
+    }
+
     @Override
-    public List<UserLog> run1() {
-        List<UserLog> userLogList=new ArrayList<>();
-        for (int i = 0; i <1000 ; i++) {
-            UserLog userLog=new UserLog();
-            userLog.setUserId(i);
+    public List<UserLog> run(Integer size) {
+        List<UserLog> userLogList = new ArrayList<>();
+        size = size == null ? 10000 : size;
+        UserLog userLog = new UserLog();
+        for (int i = 0; i < size; i++) {
             userLog.setCurrentTime(LocalDateTime.now());
-            userLog.setContent("创建时间:"+userLog.getCurrentTime());
+            userLog.setContent("创建时间:" + userLog.getCurrentTime());
+            userLog.setUserId(i);
             userLogList.add(userLog);
         }
+        iUpsert.upsert(userLogList);
         return userLogList;
+    }
+
+    @Override
+    public List<UserLog> run1() {
+        return run(null);
+    }
+
+    @Override
+    public void run2(Integer size) {
+        run(size);
     }
 }

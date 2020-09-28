@@ -3,7 +3,7 @@ package com.wu.framework.inner.database.config;
 
 import com.wu.framework.inner.database.SimpleCustomDataSource;
 import com.wu.framework.inner.database.converter.SQLConverter;
-import com.wu.framework.inner.database.custom.database.persistence.stereotype.CustomTable;
+import com.wu.framework.easy.stereotype.upsert.EasyTable;
 import com.wu.framework.inner.database.stereotype.ScanEntity;
 import com.wu.framework.inner.database.util.CustomDataSourceUtil;
 import lombok.Data;
@@ -65,7 +65,7 @@ public class SimpleCustomDatabaseConfiguration implements ICustomDatabaseConfigu
                     scanEntityPath.add(scanEntity.value());
                 }
             }
-            Set<Class> classSet = CustomDataSourceUtil.scanClass(scanEntityPath, CustomTable.class);
+            Set<Class> classSet = CustomDataSourceUtil.scanClass(scanEntityPath, EasyTable.class);
             if (ObjectUtils.isEmpty(classSet)) {
                 return;
             }
