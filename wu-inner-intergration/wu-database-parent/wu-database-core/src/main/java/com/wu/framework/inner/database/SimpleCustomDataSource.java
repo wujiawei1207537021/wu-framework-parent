@@ -2,6 +2,7 @@ package com.wu.framework.inner.database;
 
 
 import com.wu.framework.inner.database.config.ICustomDatabaseConfiguration;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -30,6 +31,7 @@ public class SimpleCustomDataSource extends DefaultListableBeanFactory implement
     private final ICustomDatabaseConfiguration iCustomDatabaseConfiguration;
     private final String defaultDriver = "com.mysql.jdbc.Driver";
     private final String defaultUrl = "jdbc:mysql://localhost:3306";
+    protected Connection connection;
 
 
     public SimpleCustomDataSource(ICustomDatabaseConfiguration iCustomDatabaseConfiguration) {
@@ -47,14 +49,14 @@ public class SimpleCustomDataSource extends DefaultListableBeanFactory implement
      *                             has been exceeded and has at least tried to cancel the
      *                             current database connection attempt
      */
+    @SneakyThrows
     @Override
-    public Connection getConnection() {
-        try {
-            Class.forName(iCustomDatabaseConfiguration.getDriver().getName());
-            return DriverManager.getConnection(iCustomDatabaseConfiguration.getUrl(), iCustomDatabaseConfiguration.getUsername(), iCustomDatabaseConfiguration.getPassword());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+    public Connection getConnection() throws SQLException {
+        if(null==connection|| connection.isClosed()){
+                Class.forName(iCustomDatabaseConfiguration.getDriver().getName());
+                connection= DriverManager.getConnection(iCustomDatabaseConfiguration.getUrl(), iCustomDatabaseConfiguration.getUsername(), iCustomDatabaseConfiguration.getPassword());
         }
+       return connection;
     }
 
     /**
