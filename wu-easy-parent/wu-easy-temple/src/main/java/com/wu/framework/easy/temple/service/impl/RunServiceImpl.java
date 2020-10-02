@@ -1,6 +1,7 @@
 package com.wu.framework.easy.temple.service.impl;
 
-import com.wu.framework.easy.stereotype.upsert.component.IUpsert;
+import com.wu.framework.easy.stereotype.dynamic.aop.QuickEasyUpsertAnnotationAdvisor;
+import com.wu.framework.easy.stereotype.upsert.dynamic.QuickEasyUpsert;
 import com.wu.framework.easy.temple.domain.UserLog;
 import com.wu.framework.easy.temple.service.RunService;
 import org.springframework.stereotype.Service;
@@ -18,12 +19,9 @@ import java.util.List;
 
 @Service
 public class RunServiceImpl implements RunService {
-    private final IUpsert iUpsert;
 
-    public RunServiceImpl(IUpsert iUpsert) {
-        this.iUpsert = iUpsert;
-    }
 
+    @QuickEasyUpsert
     @Override
     public List<UserLog> run(Integer size) {
         List<UserLog> userLogList = new ArrayList<>();
@@ -35,7 +33,6 @@ public class RunServiceImpl implements RunService {
             userLog.setUserId(i);
             userLogList.add(userLog);
         }
-        iUpsert.upsert(userLogList);
         return userLogList;
     }
 

@@ -2,11 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <!--    <parent>-->
-    <!--        <groupId>org.springframework.boot</groupId>-->
-    <!--        <artifactId>spring-boot-starter-parent</artifactId>-->
-    <!--        <version>2.2.5.RELEASE</version>-->
-    <!--    </parent>-->
+
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -27,6 +23,7 @@
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
         <maven-shade-plugin.version>3.2.1</maven-shade-plugin.version>
         <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
+        <github.global.server>github</github.global.server>
 
         <wu-db-starter.version>1.0.1</wu-db-starter.version>
         <wu-redis-starter.version>1.0.0</wu-redis-starter.version>
@@ -159,6 +156,38 @@
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven-surefire-plugin.version}</version>
+                </plugin>
+                <!--github上传插件,用于修改后的发布,执行 mvn clean deploy 自动打包上传到github-->
+                <plugin>
+                    <groupId>com.github.github</groupId>
+                    <artifactId>site-maven-plugin</artifactId>
+                    <version >0.12</version>
+                    <configuration>
+                        <message >Maven artifacts for ${project.version}</message>
+                        <noJekyll>true</noJekyll>
+                        <!--本地jar地址-->
+                        <outputDirectory>${project.build.directory}/taget</outputDirectory>
+                        <!--分支-->
+                        <branch>refs/heads/master</branch>
+                        <merge>true</merge>
+
+                        <includes>
+                            <include>**/*</include>
+                        </includes>
+                        <!--对应github上创建的仓库名称 name-->
+                        <repositoryName>maven</repositoryName>
+                        <!--github 仓库所有者 不是账号-->
+                        <repositoryOwner>吴佳伟</repositoryOwner>
+                    </configuration>
+
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>site</goal>
+                            </goals>
+                            <phase>deploy</phase>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>

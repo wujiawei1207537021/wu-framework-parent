@@ -29,7 +29,7 @@ wu:
       mapper:
         scan-xml-path: classpath*:wu-mapper/*Dao.xml
 
-#debug: true
+debug: true
 easy:
   upsert:
     config:
