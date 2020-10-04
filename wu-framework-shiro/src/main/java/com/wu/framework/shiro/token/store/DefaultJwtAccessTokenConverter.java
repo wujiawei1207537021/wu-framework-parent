@@ -12,10 +12,7 @@ import com.wu.framework.shiro.domain.DefaultAccessToken;
 import com.wu.framework.shiro.exceptions.ExtractScopeException;
 import com.wu.framework.shiro.exceptions.TokenAuthorizationException;
 import com.wu.framework.shiro.model.UserDetails;
-import com.wu.framework.shiro.util.ShiroContextUtil;
 import com.wu.framework.shiro.config.pro.ShiroProperties;
-import org.springframework.util.ObjectUtils;
-
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.Map;

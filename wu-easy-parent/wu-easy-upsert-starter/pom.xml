@@ -42,6 +42,10 @@
             <version>27.0.1-jre</version>
             <scope>compile</scope>
         </dependency>
-
+        <!--    切面    -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+        </dependency>
     </dependencies>
 </project>

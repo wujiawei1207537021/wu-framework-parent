@@ -26,8 +26,8 @@ public class RunServiceImpl implements RunService {
     public List<UserLog> run(Integer size) {
         List<UserLog> userLogList = new ArrayList<>();
         size = size == null ? 10000 : size;
-        UserLog userLog = new UserLog();
         for (int i = 0; i < size; i++) {
+            UserLog userLog = new UserLog();
             userLog.setCurrentTime(LocalDateTime.now());
             userLog.setContent("创建时间:" + userLog.getCurrentTime());
             userLog.setUserId(i);
