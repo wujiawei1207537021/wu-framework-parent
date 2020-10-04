@@ -6,6 +6,9 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Data
 @Configuration
 @ConfigurationProperties(prefix = "spring.shiro")
@@ -21,7 +24,7 @@ public class ShiroProperties {
     /**
      * 加密盐
      */
-    private String secretKey = "yuntsoft!@#";
+    private String secretKey = "www.wu2020.top";
     /**
      * 过期时间2个小时
      */
@@ -35,15 +38,29 @@ public class ShiroProperties {
     /**
      * 令牌模式
      */
-    private TokenStoreEnum TokenStore=TokenStoreEnum.JDBC_TOKEN_STORE;
+    private TokenStoreEnum TokenStore = TokenStoreEnum.JDBC_TOKEN_STORE;
 
     /**
-     *
      * 返回实体格式
      */
     private Class<? extends UserDetails> userDetails;
 
-    public  enum  TokenStoreEnum {
+    /**
+     * 是否对请求的api进行校验
+     */
+    private Boolean checkApi = true;
+
+    /**
+     * 忽略的路径
+     */
+    private List<String> unCheckApiPath = Arrays.asList("/token/**", "/error/**", "/swagger-ui.html/**", "/favicon.ico", "/swagger-resources/**", "/webjars/**");
+
+    public void setUnCheckApiPath(List<String> unCheckApiPath) {
+        unCheckApiPath.addAll(this.unCheckApiPath);
+        this.unCheckApiPath = unCheckApiPath;
+    }
+
+    public enum TokenStoreEnum {
         JDBC_TOKEN_STORE,
         JWT_TOKEN_STORE;
     }

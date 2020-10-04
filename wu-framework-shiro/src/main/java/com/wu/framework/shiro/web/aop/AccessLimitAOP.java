@@ -20,7 +20,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
 
-@Component
 @Aspect
 public class AccessLimitAOP {
 

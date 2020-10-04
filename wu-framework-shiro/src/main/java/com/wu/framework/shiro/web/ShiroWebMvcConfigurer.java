@@ -1,10 +1,10 @@
 package com.wu.framework.shiro.web;
 
+import com.wu.framework.shiro.config.pro.ShiroProperties;
 import com.wu.framework.shiro.web.interceptors.AccessRoleInterceptor;
 import com.wu.framework.shiro.web.interceptors.RemoveAccessTokenInterceptor;
 import com.wu.framework.shiro.web.methodresolver.AccessTokenUserMethodArgumentResolver;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -15,29 +15,27 @@ import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 @Slf4j
 @Configuration("shiroWebMvcConfigurer")
 public class ShiroWebMvcConfigurer implements WebMvcConfigurer {
 
-    @Bean
-    public AccessTokenUserMethodArgumentResolver accessTokenUserMethodArgumentResolver() {
-        return new AccessTokenUserMethodArgumentResolver();
+
+    public final AccessTokenUserMethodArgumentResolver accessTokenUserMethodArgumentResolver;
+
+    public final AccessRoleInterceptor accessInterceptor;
+
+    private final RemoveAccessTokenInterceptor removeAccessTokenInterceptor;
+
+    private final ShiroProperties shiroProperties;
+
+    public ShiroWebMvcConfigurer(AccessTokenUserMethodArgumentResolver accessTokenUserMethodArgumentResolver, AccessRoleInterceptor accessInterceptor, RemoveAccessTokenInterceptor removeAccessTokenInterceptor, ShiroProperties shiroProperties) {
+        this.accessTokenUserMethodArgumentResolver = accessTokenUserMethodArgumentResolver;
+        this.accessInterceptor = accessInterceptor;
+        this.removeAccessTokenInterceptor = removeAccessTokenInterceptor;
+        this.shiroProperties = shiroProperties;
     }
-
-    @Bean
-    public AccessRoleInterceptor accessInterceptor() {
-        // 权限校验拦截器配置
-        return new AccessRoleInterceptor();
-    }
-    @Resource
-    private RemoveAccessTokenInterceptor removeAccessTokenInterceptor;
-
-
-//    @Resource
-//    private AccessLimitInterceptor accessLimitInterceptor;
 
 
     @Override
@@ -58,7 +56,7 @@ public class ShiroWebMvcConfigurer implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(accessInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(accessInterceptor).addPathPatterns("/**").excludePathPatterns(shiroProperties.getUnCheckApiPath());
         registry.addInterceptor(removeAccessTokenInterceptor).addPathPatterns("/**");
     }
 
@@ -77,7 +75,7 @@ public class ShiroWebMvcConfigurer implements WebMvcConfigurer {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         log.info("获取用户方法注解添加");
-        resolvers.add(accessTokenUserMethodArgumentResolver());
+        resolvers.add(accessTokenUserMethodArgumentResolver);
     }
 
     @Override

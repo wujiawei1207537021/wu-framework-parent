@@ -42,4 +42,14 @@ public interface ILoginService {
      * @return
      */
     Result removeAccessToken(String accessToken);
+
+    /**
+     * description 校验令牌
+     * @param
+     * @return
+     * @exception/throws
+     * @author 吴佳伟
+     * @date 2020/10/4 下午4:59
+     */
+    Boolean checkToken(String accessToken);
 }

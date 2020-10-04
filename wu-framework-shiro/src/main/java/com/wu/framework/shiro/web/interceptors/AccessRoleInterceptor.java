@@ -5,15 +5,12 @@ import com.wu.framework.shiro.login.ILoginService;
 import com.wu.framework.shiro.login.UserDetailsService;
 import com.wu.framework.shiro.annotation.RequiredRole;
 import com.wu.framework.shiro.config.pro.ShiroProperties;
-import com.wu.framework.shiro.exceptions.TokenAuthorizationException;
 import com.wu.framework.shiro.model.UserDetails;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +20,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 
 @Slf4j
-@Component
 public class AccessRoleInterceptor implements HandlerInterceptor {
 
 
@@ -31,7 +27,7 @@ public class AccessRoleInterceptor implements HandlerInterceptor {
     private ShiroProperties shiroProperties;
 
     @Resource
-    private ILoginService ILoginService;
+    private ILoginService iLoginService;
 
     @Resource
     private UserDetailsService userDetailsService;
@@ -40,7 +36,7 @@ public class AccessRoleInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         // 验证权限
-        if (this.hasRole(request, handler)) {
+        if (this.hasPermission(request, handler)) {
             return true;
         }
         response.setCharacterEncoding("UTF-8");
@@ -56,8 +52,14 @@ public class AccessRoleInterceptor implements HandlerInterceptor {
     /**
      * 是否有权限
      */
-    private boolean hasRole(HttpServletRequest request, Object handler) {
+    private boolean hasPermission(HttpServletRequest request, Object handler) {
         if (handler instanceof HandlerMethod) {
+            // 如果标记了注解，则判断权限
+            String accessToken = request.getHeader(shiroProperties.getTokenName());
+            if (ObjectUtils.isEmpty(accessToken)) {
+                log.error("获取请求头中令牌失败请求地址:==>" + request.getRequestURI());
+                return false;
+            }
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             // 获取方法上的注解
             RequiredRole requiredRole = handlerMethod.getMethod().getAnnotation(RequiredRole.class);
@@ -65,16 +67,11 @@ public class AccessRoleInterceptor implements HandlerInterceptor {
             if (requiredRole == null) {
                 requiredRole = handlerMethod.getMethod().getDeclaringClass().getAnnotation(RequiredRole.class);
             }
+            UserDetails userDetails = iLoginService.user(accessToken);
             // 如果注解为null, 说明不需要拦截, 直接放过
             if (requiredRole == null) {
-                return true;
+                return userDetails != null;
             }
-            // 如果标记了注解，则判断权限
-            String accessToken = request.getHeader(shiroProperties.getTokenName());
-            if (ObjectUtils.isEmpty(accessToken)) {
-                throw new TokenAuthorizationException("获取请求头中令牌失败请求地址:==>" + request.getRequestURI());
-            }
-            UserDetails userDetails = ILoginService.user(accessToken);
             //数据库查询
             userDetails= userDetailsService.loadUserByUsername(userDetails.getUsername());
             request.setAttribute("AccessTokenUser",userDetails);
@@ -93,7 +90,6 @@ public class AccessRoleInterceptor implements HandlerInterceptor {
             if (!ObjectUtils.isEmpty(requiredRole.roles())) {
                 for (String role : requiredRole.roles()) {
                     if (userDetails.getRoleSignList().contains(role)) {
-                        continue;
                     } else {
                         return false;
                     }

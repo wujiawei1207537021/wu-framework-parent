@@ -82,6 +82,20 @@ public class LoginService implements ILoginService {
     }
 
     /**
+     * description 校验令牌
+     *
+     * @param accessToken@return
+     * @exception/throws
+     * @author 吴佳伟
+     * @date 2020/10/4 下午4:59
+     */
+    @Override
+    public Boolean checkToken(String accessToken) {
+        UserDetails userDetails = user(accessToken);
+        return userDetails != null;
+    }
+
+    /**
      * 解析令牌
      *
      * @param accessToken
@@ -90,7 +104,6 @@ public class LoginService implements ILoginService {
     @Override
     public UserDetails user(String accessToken) {
       return tokenStore.readAccessToken(accessToken, shiroProperties.getUserDetails());
-
     }
 
 
