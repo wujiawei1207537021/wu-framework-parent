@@ -4,8 +4,8 @@ package com.wu.framework.response.handler;
 import com.wu.framework.response.Result;
 import com.wu.framework.response.ResultFactory;
 import com.wu.framework.response.enmus.DefaultResultCode;
-import org.apache.shiro.ShiroException;
-import org.apache.shiro.authz.UnauthorizedException;
+import com.wu.framework.shiro.exceptions.ShiroException;
+import com.wu.framework.shiro.exceptions.UnauthorizedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 

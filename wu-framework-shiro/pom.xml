@@ -28,13 +28,6 @@
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
-        <!-- shiro -->
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-spring</artifactId>
-            <version>${shiro-spring-version}</version>
-        </dependency>
-
         <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
@@ -50,12 +43,6 @@
             <!--for the annotations. -->
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
-        </dependency>
-
-        <dependency>
-            <!--for the annotations. -->
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
         </dependency>
 
         <dependency>
@@ -106,17 +93,6 @@
             <artifactId>wu-swagger-starter</artifactId>
         </dependency>
 
-        <!--redis-->
-        <dependency>
-            <groupId>com.wu</groupId>
-            <artifactId>wu-redis-starter</artifactId>
-        </dependency>
-
-        <!--  日志-->
-        <dependency>
-            <groupId>com.wu</groupId>
-            <artifactId>wu-log-starter</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>

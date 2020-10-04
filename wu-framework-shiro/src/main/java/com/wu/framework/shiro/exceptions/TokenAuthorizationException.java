@@ -1,6 +1,5 @@
 package com.wu.framework.shiro.exceptions;
 
-import org.apache.shiro.ShiroException;
 
 /**
  * @ Description : 令牌授权异常 @ Author : wujiawei @ CreateDate : 2019/12/17 0017 14:07 @ UpdateUser :

@@ -1,6 +1,5 @@
 package com.wu.framework.shiro.exceptions;
 
-import org.apache.shiro.ShiroException;
 
 public class ExtractScopeException extends ShiroException {
     public ExtractScopeException(String message) {

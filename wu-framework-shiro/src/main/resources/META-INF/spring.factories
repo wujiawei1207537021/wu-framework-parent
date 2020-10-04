@@ -6,4 +6,10 @@ com.wu.framework.shiro.token.store.JwtTokenStore,\
 com.wu.framework.shiro.login.LoginService,\
 com.wu.framework.shiro.login.DefaultUserDetailsService,\
 com.wu.framework.shiro.endpoint.TokenKeyEndpoint,\
-com.wu.framework.shiro.util.ShiroContextUtil
+com.wu.framework.shiro.util.ShiroContextUtil,\
+com.wu.framework.shiro.web.aop.AccessLimitAOP,\
+com.wu.framework.shiro.web.aop.RefreshAccessTokenAOP,\
+com.wu.framework.shiro.web.interceptors.AccessRoleInterceptor,\
+com.wu.framework.shiro.web.interceptors.RemoveAccessTokenInterceptor,\
+com.wu.framework.shiro.web.methodresolver.AccessTokenUserMethodArgumentResolver,\
+com.wu.framework.shiro.web.ShiroWebMvcConfigurer

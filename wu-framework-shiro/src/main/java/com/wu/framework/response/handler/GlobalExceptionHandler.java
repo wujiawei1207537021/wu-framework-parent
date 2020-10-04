@@ -5,7 +5,7 @@ import com.google.common.collect.Maps;
 import com.wu.framework.response.Result;
 import com.wu.framework.response.ResultFactory;
 import com.wu.framework.response.enmus.DefaultResultCode;
-import org.apache.shiro.ShiroException;
+import com.wu.framework.shiro.exceptions.ShiroException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.validation.BindException;

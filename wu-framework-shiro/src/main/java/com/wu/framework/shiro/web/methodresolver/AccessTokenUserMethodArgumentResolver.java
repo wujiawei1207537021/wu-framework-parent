@@ -44,7 +44,7 @@ public class AccessTokenUserMethodArgumentResolver implements HandlerMethodArgum
             MethodParameter methodParameter,
             @Nullable ModelAndViewContainer modelAndViewContainer,
             NativeWebRequest nativeWebRequest,
-            @Nullable WebDataBinderFactory webDataBinderFactory) {
+            @Nullable WebDataBinderFactory webDataBinderFactory) throws TokenAuthorizationException {
         HttpServletRequest request = nativeWebRequest.getNativeRequest(HttpServletRequest.class);
         assert request != null;
         Object userDetailsObj = request.getAttribute("AccessTokenUser");
