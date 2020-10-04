@@ -5,13 +5,10 @@ import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.stereotype.upsert.ienum.UserDictionaryService;
 import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
-import com.wu.framework.easy.stereotype.upsert.component.MySQLEasyUpsert;
+import com.wu.framework.easy.stereotype.upsert.component.MySQLEasyUpsertAbstract;
 import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.SearchStrategy;
 
 import javax.sql.DataSource;
 
@@ -25,7 +22,7 @@ import javax.sql.DataSource;
 //@ConditionalOnBean(value = DataSource.class,name="dataSource") //TODO
 @ConditionalOnMissingBean(MySQLMultipleEasyUpsert.class)
 @EasyUpsertStrategy(value = EasyUpsertType.MySQL)
-public class MySQLSimpleEasyUpsert extends MySQLEasyUpsert implements IEasyUpsert {
+public class MySQLSimpleEasyUpsert extends MySQLEasyUpsertAbstract implements IEasyUpsert {
 
 
     private final DataSource dataSource;

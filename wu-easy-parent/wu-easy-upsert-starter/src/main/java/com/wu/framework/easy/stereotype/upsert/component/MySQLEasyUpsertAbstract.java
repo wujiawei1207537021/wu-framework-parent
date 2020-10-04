@@ -26,13 +26,13 @@ import java.util.concurrent.Future;
  * @date 2020/9/11 上午10:22
  */
 @Slf4j
-public abstract class MySQLEasyUpsert implements IEasyUpsert, InitializingBean {
+public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, InitializingBean {
 
 
     private final UserDictionaryService userDictionaryService;
     private final UpsertConfig upsertConfig;
 
-    public MySQLEasyUpsert(UserDictionaryService userDictionaryService, UpsertConfig upsertConfig) {
+    public MySQLEasyUpsertAbstract(UserDictionaryService userDictionaryService, UpsertConfig upsertConfig) {
         this.userDictionaryService = userDictionaryService;
         this.upsertConfig = upsertConfig;
     }

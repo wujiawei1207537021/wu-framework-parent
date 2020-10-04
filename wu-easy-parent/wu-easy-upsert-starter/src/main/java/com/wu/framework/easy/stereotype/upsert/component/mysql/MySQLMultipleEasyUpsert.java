@@ -7,7 +7,7 @@ import com.wu.framework.easy.stereotype.dynamic.toolkit.DynamicEasyUpsertDSConte
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.stereotype.upsert.ienum.UserDictionaryService;
 import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
-import com.wu.framework.easy.stereotype.upsert.component.MySQLEasyUpsert;
+import com.wu.framework.easy.stereotype.upsert.component.MySQLEasyUpsertAbstract;
 import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
@@ -28,7 +28,7 @@ import java.util.Map;
 @Slf4j
 @ConditionalOnClass(name = "com.baomidou.dynamic.datasource.DynamicRoutingDataSource")
 @EasyUpsertStrategy(value = EasyUpsertType.MySQL)
-public class MySQLMultipleEasyUpsert extends MySQLEasyUpsert implements IEasyUpsert, InitializingBean {
+public class MySQLMultipleEasyUpsert extends MySQLEasyUpsertAbstract implements IEasyUpsert, InitializingBean {
 
 
     private final DataSource dataSource;
