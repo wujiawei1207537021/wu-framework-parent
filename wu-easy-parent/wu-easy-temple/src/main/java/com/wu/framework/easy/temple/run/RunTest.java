@@ -1,12 +1,12 @@
 package com.wu.framework.easy.temple.run;
 
+
+import com.wu.framework.easy.stereotype.upsert.dynamic.QuickEasyUpsert;
 import com.wu.framework.easy.stereotype.web.EasyController;
 import com.wu.framework.easy.temple.domain.UserLog;
 import com.wu.framework.easy.temple.service.RunService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
-import javax.sql.DataSource;
 import java.util.List;
 
 /**
@@ -19,11 +19,9 @@ import java.util.List;
 public class RunTest {
 
     private final RunService runService;
-    private final DataSource dataSource;
 
-    public RunTest(RunService runService, DataSource dataSource) {
+    public RunTest(RunService runService) {
         this.runService = runService;
-        this.dataSource = dataSource;
     }
 
 

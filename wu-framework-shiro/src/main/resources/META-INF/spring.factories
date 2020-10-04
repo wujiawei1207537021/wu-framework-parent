@@ -1,0 +1,8 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.wu.framework.shiro.config.pro.ShiroProperties,\
+com.wu.framework.shiro.token.store.JdbcTokenStore,\
+com.wu.framework.shiro.token.store.JwtTokenStore,\
+com.wu.framework.shiro.login.LoginService,\
+com.wu.framework.shiro.login.DefaultUserDetailsService,\
+com.wu.framework.shiro.endpoint.TokenKeyEndpoint

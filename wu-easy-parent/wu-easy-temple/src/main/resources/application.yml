@@ -19,6 +19,8 @@ spring:
             url: jdbc:mysql://127.0.0.1:3306/test
             username: root
             password: wujiawei
+  main:
+    allow-bean-definition-overriding: true
 #          localhost:
 #            driver: com.mysql.jdbc.Driver
 #            url: jdbc:mysql://127.0.0.1:3306/test
@@ -29,7 +31,7 @@ wu:
       mapper:
         scan-xml-path: classpath*:wu-mapper/*Dao.xml
 
-debug: true
+debug: false
 easy:
   upsert:
     config:

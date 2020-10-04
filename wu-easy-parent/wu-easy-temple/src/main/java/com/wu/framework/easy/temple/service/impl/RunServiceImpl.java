@@ -1,6 +1,5 @@
 package com.wu.framework.easy.temple.service.impl;
 
-import com.wu.framework.easy.stereotype.dynamic.aop.QuickEasyUpsertAnnotationAdvisor;
 import com.wu.framework.easy.stereotype.upsert.dynamic.QuickEasyUpsert;
 import com.wu.framework.easy.temple.domain.UserLog;
 import com.wu.framework.easy.temple.service.RunService;
@@ -19,6 +18,7 @@ import java.util.List;
 
 @Service
 public class RunServiceImpl implements RunService {
+
 
 
     @QuickEasyUpsert

@@ -158,37 +158,37 @@
                     <version>${maven-surefire-plugin.version}</version>
                 </plugin>
                 <!--github上传插件,用于修改后的发布,执行 mvn clean deploy 自动打包上传到github-->
-                <plugin>
-                    <groupId>com.github.github</groupId>
-                    <artifactId>site-maven-plugin</artifactId>
-                    <version >0.12</version>
-                    <configuration>
-                        <message >Maven artifacts for ${project.version}</message>
-                        <noJekyll>true</noJekyll>
-                        <!--本地jar地址-->
-                        <outputDirectory>${project.build.directory}/taget</outputDirectory>
-                        <!--分支-->
-                        <branch>refs/heads/master</branch>
-                        <merge>true</merge>
+<!--                <plugin>-->
+<!--                    <groupId>com.github.github</groupId>-->
+<!--                    <artifactId>site-maven-plugin</artifactId>-->
+<!--                    <version >0.12</version>-->
+<!--                    <configuration>-->
+<!--                        <message >Maven artifacts for ${project.version}</message>-->
+<!--                        <noJekyll>true</noJekyll>-->
+<!--                        &lt;!&ndash;本地jar地址&ndash;&gt;-->
+<!--                        <outputDirectory>${project.build.directory}/taget</outputDirectory>-->
+<!--                        &lt;!&ndash;分支&ndash;&gt;-->
+<!--                        <branch>refs/heads/master</branch>-->
+<!--                        <merge>true</merge>-->
 
-                        <includes>
-                            <include>**/*</include>
-                        </includes>
-                        <!--对应github上创建的仓库名称 name-->
-                        <repositoryName>maven</repositoryName>
-                        <!--github 仓库所有者 不是账号-->
-                        <repositoryOwner>吴佳伟</repositoryOwner>
-                    </configuration>
+<!--                        <includes>-->
+<!--                            <include>**/*</include>-->
+<!--                        </includes>-->
+<!--                        &lt;!&ndash;对应github上创建的仓库名称 name&ndash;&gt;-->
+<!--                        <repositoryName>maven</repositoryName>-->
+<!--                        &lt;!&ndash;github 仓库所有者 不是账号&ndash;&gt;-->
+<!--                        <repositoryOwner>吴佳伟</repositoryOwner>-->
+<!--                    </configuration>-->
 
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>site</goal>
-                            </goals>
-                            <phase>deploy</phase>
-                        </execution>
-                    </executions>
-                </plugin>
+<!--                    <executions>-->
+<!--                        <execution>-->
+<!--                            <goals>-->
+<!--                                <goal>site</goal>-->
+<!--                            </goals>-->
+<!--                            <phase>deploy</phase>-->
+<!--                        </execution>-->
+<!--                    </executions>-->
+<!--                </plugin>-->
             </plugins>
         </pluginManagement>
     </build>
