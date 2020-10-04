@@ -1,7 +1,7 @@
 package com.wu.framework.shiro.web;
 
 import com.wu.framework.shiro.config.pro.ShiroProperties;
-import com.wu.framework.shiro.web.interceptors.AccessRoleInterceptor;
+import com.wu.framework.shiro.web.interceptors.AccessPermissionInterceptor;
 import com.wu.framework.shiro.web.interceptors.RemoveAccessTokenInterceptor;
 import com.wu.framework.shiro.web.methodresolver.AccessTokenUserMethodArgumentResolver;
 import lombok.extern.slf4j.Slf4j;
@@ -24,13 +24,13 @@ public class ShiroWebMvcConfigurer implements WebMvcConfigurer {
 
     public final AccessTokenUserMethodArgumentResolver accessTokenUserMethodArgumentResolver;
 
-    public final AccessRoleInterceptor accessInterceptor;
+    public final AccessPermissionInterceptor accessInterceptor;
 
     private final RemoveAccessTokenInterceptor removeAccessTokenInterceptor;
 
     private final ShiroProperties shiroProperties;
 
-    public ShiroWebMvcConfigurer(AccessTokenUserMethodArgumentResolver accessTokenUserMethodArgumentResolver, AccessRoleInterceptor accessInterceptor, RemoveAccessTokenInterceptor removeAccessTokenInterceptor, ShiroProperties shiroProperties) {
+    public ShiroWebMvcConfigurer(AccessTokenUserMethodArgumentResolver accessTokenUserMethodArgumentResolver, AccessPermissionInterceptor accessInterceptor, RemoveAccessTokenInterceptor removeAccessTokenInterceptor, ShiroProperties shiroProperties) {
         this.accessTokenUserMethodArgumentResolver = accessTokenUserMethodArgumentResolver;
         this.accessInterceptor = accessInterceptor;
         this.removeAccessTokenInterceptor = removeAccessTokenInterceptor;

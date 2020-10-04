@@ -1,6 +1,6 @@
 package com.wu.framework.shiro.annotation;
 
-import com.wu.framework.shiro.web.interceptors.AccessRoleInterceptor;
+import com.wu.framework.shiro.web.interceptors.AccessPermissionInterceptor;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;
@@ -13,7 +13,7 @@ import java.lang.annotation.*;
  * @ UpdateDate    :  2020/1/21 0021 14:11
  * @ UpdateRemark  :  修改内容
  * @ Version       :  1.0
- * {@link AccessRoleInterceptor}
+ * {@link AccessPermissionInterceptor}
  * orRoles 优先级大于 roles
  */
 

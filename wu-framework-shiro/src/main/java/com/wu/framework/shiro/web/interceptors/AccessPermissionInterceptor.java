@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 
 @Slf4j
-public class AccessRoleInterceptor implements HandlerInterceptor {
+public class AccessPermissionInterceptor implements HandlerInterceptor {
 
 
     @Resource
