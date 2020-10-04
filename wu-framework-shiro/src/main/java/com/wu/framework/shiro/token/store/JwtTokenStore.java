@@ -1,6 +1,7 @@
 package com.wu.framework.shiro.token.store;
 
 import com.auth0.jwt.interfaces.Claim;
+import com.wu.framework.shiro.config.pro.ShiroProperties;
 import com.wu.framework.shiro.domain.AccessToken;
 import com.wu.framework.shiro.domain.DefaultAccessToken;
 import com.wu.framework.shiro.exceptions.TokenAuthorizationException;
@@ -8,7 +9,6 @@ import com.wu.framework.shiro.model.UserDetails;
 import com.wu.framework.shiro.token.TokenStore;
 import com.wu.framework.shiro.domain.Authentication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -22,19 +22,21 @@ public class JwtTokenStore implements TokenStore {
     private final Map<String, DefaultAccessToken> accessTokenMap =
             synchronizedMap(new LinkedHashMap<>());
 
+    private final ShiroProperties shiroProperties;
     private final String USER = "user";
     private final String USER_ID = "user_id";
     private final String SCOPE = "scope";
 
     private JwtAccessTokenConverter jwtAccessTokenConverter;
 
-    public JwtTokenStore() {
-        this.jwtAccessTokenConverter = new DefaultJwtAccessTokenConverter();
+    public JwtTokenStore(ShiroProperties shiroProperties) {
+        this.shiroProperties = shiroProperties;
+        this.jwtAccessTokenConverter = new DefaultJwtAccessTokenConverter(shiroProperties);
     }
 
-    public JwtTokenStore(JwtAccessTokenConverter jwtAccessTokenConverter) {
-        this.jwtAccessTokenConverter = jwtAccessTokenConverter;
-    }
+//    public JwtTokenStore(JwtAccessTokenConverter jwtAccessTokenConverter) {
+//        this.jwtAccessTokenConverter = jwtAccessTokenConverter;
+//    }
 
     @Override
     public <T> T readAccessToken(String var1, Class<T> clazz) {

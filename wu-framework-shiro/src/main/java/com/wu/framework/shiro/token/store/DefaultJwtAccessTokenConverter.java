@@ -30,13 +30,10 @@ public class DefaultJwtAccessTokenConverter implements JwtAccessTokenConverter {
     private final String ACCESS_TOKEN = "access_token";
     private String clientIdAttribute = "client_id";
 
+    private final ShiroProperties shiroProperties;
 
-    public DefaultJwtAccessTokenConverter() {
-    }
-
-    @Deprecated
     public DefaultJwtAccessTokenConverter(ShiroProperties shiroProperties) {
-
+        this.shiroProperties = shiroProperties;
     }
 
 //    public static void main(String[] args) throws JsonProcessingException {
@@ -60,11 +57,7 @@ public class DefaultJwtAccessTokenConverter implements JwtAccessTokenConverter {
      *
      * @return
      */
-    public static ShiroProperties getShiroProperties() {
-        ShiroProperties shiroProperties = (ShiroProperties) ShiroContextUtil.getBean("shiroProperties");
-        if (ObjectUtils.isEmpty(shiroProperties)) {
-            shiroProperties = new ShiroProperties();
-        }
+    public  ShiroProperties getShiroProperties() {
         return shiroProperties;
     }
 

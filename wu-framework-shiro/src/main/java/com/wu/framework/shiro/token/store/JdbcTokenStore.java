@@ -1,5 +1,6 @@
 package com.wu.framework.shiro.token.store;
 
+import com.wu.framework.shiro.config.pro.ShiroProperties;
 import com.wu.framework.shiro.domain.AccessToken;
 import com.wu.framework.shiro.domain.DefaultAccessToken;
 import com.wu.framework.shiro.domain.DefaultAuthentication;
@@ -88,7 +89,9 @@ public class JdbcTokenStore implements TokenStore {
     private String deleteAccessTokenFromRefreshTokenSql =
             "delete from access_token where refresh_token = ?";
 
-    public JdbcTokenStore(DataSource dataSource) {
+    private final ShiroProperties shiroProperties;
+    public JdbcTokenStore(DataSource dataSource, ShiroProperties shiroProperties) {
+        this.shiroProperties = shiroProperties;
         Assert.notNull(dataSource, "DataSource required");
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
@@ -291,7 +294,7 @@ public class JdbcTokenStore implements TokenStore {
             if (LOG.isInfoEnabled()) {
                 LOG.info("Failed to find access token for clientId " + accessToken);
             }
-            accessToken.setExpiresIn(DefaultJwtAccessTokenConverter.getShiroProperties().getExpireTime());
+            accessToken.setExpiresIn(shiroProperties.getExpireTime());
         }
         accessToken.setExpiresDate(null);
         return accessToken;
@@ -333,7 +336,7 @@ public class JdbcTokenStore implements TokenStore {
     }
 
     protected byte[] serializeAccessToken(AccessToken token) {
-        token.setExpiresDate(new Date(DefaultJwtAccessTokenConverter.getShiroProperties().getExpireTime() + System.currentTimeMillis()));
+        token.setExpiresDate(new Date(shiroProperties.getExpireTime() + System.currentTimeMillis()));
         return SerializationUtils.serialize(token);
     }
 
