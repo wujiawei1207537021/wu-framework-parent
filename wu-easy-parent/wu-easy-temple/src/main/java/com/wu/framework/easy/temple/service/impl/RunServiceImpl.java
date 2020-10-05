@@ -16,12 +16,10 @@ import java.util.List;
  * @date : 2020/9/18 下午11:34
  */
 
+@QuickEasyUpsert
 @Service
 public class RunServiceImpl implements RunService {
 
-
-
-    @QuickEasyUpsert
     @Override
     public List<UserLog> run(Integer size) {
         List<UserLog> userLogList = new ArrayList<>();

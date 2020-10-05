@@ -36,8 +36,12 @@ public class RunTest {
     }
 
     @GetMapping("/run2/{size}")
-    public List<UserLog> run2(@PathVariable Integer size) {
-        runService.run2(size);
-        return null;
+    public void run2(@PathVariable Integer size) {
+        runService.run(size);
+    }
+
+    @GetMapping("/run3")
+    public void run3() {
+        runService.run1();
     }
 }
