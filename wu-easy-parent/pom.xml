@@ -17,6 +17,7 @@
         <module>wu-easy-upsert-starter</module>
         <module>wu-easy-temple</module>
         <module>wu-easy-kafka-connect</module>
+        <module>wu-easy-excel-starter</module>
     </modules>
 
 

@@ -1,7 +1,7 @@
 package com.wu.framework.easy.temple.run;
 
 
-import com.wu.framework.easy.stereotype.upsert.dynamic.QuickEasyUpsert;
+import com.wu.framework.easy.excel.stereotype.EasyExcel;
 import com.wu.framework.easy.stereotype.web.EasyController;
 import com.wu.framework.easy.temple.domain.UserLog;
 import com.wu.framework.easy.temple.service.RunService;
@@ -25,6 +25,7 @@ public class RunTest {
     }
 
 
+    @EasyExcel(fileName = "导出数据")
     @GetMapping("/run/{size}")
     public List<UserLog> run(@PathVariable Integer size) {
         return runService.run(size);
