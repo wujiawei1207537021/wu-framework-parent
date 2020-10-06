@@ -2,6 +2,7 @@ package com.wu.framework.easy.temple.run;
 
 
 import com.wu.framework.easy.excel.stereotype.EasyExcel;
+import com.wu.framework.easy.stereotype.upsert.EasyTableFile;
 import com.wu.framework.easy.stereotype.web.EasyController;
 import com.wu.framework.easy.temple.domain.UserLog;
 import com.wu.framework.easy.temple.service.RunService;
@@ -31,6 +32,7 @@ public class RunTest {
         return runService.run(size);
     }
 
+    @EasyExcel(fileName = "非原生注解导出数据",filedAnnotation = EasyTableFile.class)
     @GetMapping("/run1")
     public List<UserLog> run1() {
         return runService.run1();

@@ -1,9 +1,7 @@
 package com.wu.framework.easy.excel.stereotype.web;
 
-
 import com.wu.framework.easy.excel.stereotype.EasyExcel;
 import com.wu.framework.easy.excel.util.ExcelExportUtil;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.http.HttpHeaders;
@@ -32,11 +30,11 @@ public class ExcelResponseHandler implements ResponseBodyAdvice<Object> {
 
     @Override
     public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
-        return methodParameter.getMethod().getAnnotation(EasyExcel.class) != null;
+        return Objects.requireNonNull(methodParameter.getMethod()).getAnnotation(EasyExcel.class) != null;
     }
 
     @Override
-    public Object beforeBodyWrite(Object o, @NotNull MethodParameter methodParameter,
+    public Object beforeBodyWrite(Object o,  MethodParameter methodParameter,
                                   MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass,
                                   ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
         EasyExcel easyExcel = AnnotatedElementUtils.findMergedAnnotation(Objects.requireNonNull(methodParameter.getMethod()), EasyExcel.class);
@@ -54,7 +52,7 @@ public class ExcelResponseHandler implements ResponseBodyAdvice<Object> {
             headers.add("Pragma", "no-cache");
             headers.add("Expires", "0");
             headers.add("Content-Type", MediaType.APPLICATION_OCTET_STREAM_VALUE);
-            byte[] bytes = ExcelExportUtil.exportExcel(easyExcel.fileName(), collection);
+            byte[] bytes = ExcelExportUtil.exportExcel(easyExcel, collection);
             try {
                 OutputStream body = serverHttpResponse.getBody();
                 body.write(bytes);

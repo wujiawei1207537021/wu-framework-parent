@@ -8,6 +8,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 
+@Deprecated
 public class FileResponseUtils {
 
     public static ResponseEntity<byte[]> from(String fileName, String suffix, byte[] bytes) {
@@ -29,10 +30,6 @@ public class FileResponseUtils {
         return ResponseEntity.ok().headers(headers).contentLength(bytes.length).contentType(MediaType.APPLICATION_OCTET_STREAM).body(bytes);
     }
 
-
-    public static ResponseEntity<byte[]> from(String fileName, String suffix, Collection collection) {
-        return from(fileName, suffix, ExcelExportUtil.exportExcel(fileName, collection));
-    }
 
 
 }

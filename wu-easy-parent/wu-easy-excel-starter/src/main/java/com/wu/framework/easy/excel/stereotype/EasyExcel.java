@@ -24,4 +24,24 @@ public @interface EasyExcel {
      * @return
      */
     String suffix() default "xls";
+
+    /**
+     * 字段注解
+     * @return
+     */
+    Class<? extends Annotation> filedAnnotation() default EasyExcelFiled.class;
+
+    /**
+     * 字段注解属性名
+     * @return
+     */
+   String filedAnnotationAttribute() default "name";
+
+    /**
+     * 多个 sheet
+     * @return
+     */
+   boolean multipleSheet() default false;
+
+
 }
