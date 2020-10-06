@@ -26,16 +26,16 @@ public @interface EasyExcel {
     String suffix() default "xls";
 
     /**
-     * 字段注解
+     * 字段列名注解
      * @return
      */
-    Class<? extends Annotation> filedAnnotation() default EasyExcelFiled.class;
+    Class<? extends Annotation> filedColumnAnnotation() default EasyExcelFiled.class;
 
     /**
-     * 字段注解属性名
+     * 字段列名注解属性名
      * @return
      */
-   String filedAnnotationAttribute() default "name";
+   String filedColumnAnnotationAttribute() default "name";
 
     /**
      * 多个 sheet

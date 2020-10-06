@@ -43,7 +43,7 @@ public class ExcelExportUtil {
             // 设置标题样式
             style = ExcelStyle.setHeadStyle(workbook, style);
             List<Field> fieldList = Arrays.stream(ts.getClass().getDeclaredFields()).
-                    filter(field -> null != field.getAnnotation(easyExcel.filedAnnotation())).
+                    filter(field -> null != field.getAnnotation(easyExcel.filedColumnAnnotation())).
                     peek(field -> field.setAccessible(true)).
                     collect(Collectors.toList());
             // 产生表格标题行
@@ -53,9 +53,9 @@ public class ExcelExportUtil {
                 hssfCell.setCellStyle(style);
                 Field field = fieldList.get(i);
                 Annotation filedAnnotation = field
-                        .getAnnotation(easyExcel.filedAnnotation());
+                        .getAnnotation(easyExcel.filedColumnAnnotation());
                 Map<String, Object> annotationAttributes = AnnotationUtils.getAnnotationAttributes(filedAnnotation);
-                String headerName = String.valueOf(annotationAttributes.getOrDefault(easyExcel.filedAnnotationAttribute(),field.getName()));
+                String headerName = String.valueOf(annotationAttributes.getOrDefault(easyExcel.filedColumnAnnotationAttribute(),field.getName()));
                 HSSFRichTextString text = new HSSFRichTextString(headerName);
                 hssfCell.setCellValue(text);
             }

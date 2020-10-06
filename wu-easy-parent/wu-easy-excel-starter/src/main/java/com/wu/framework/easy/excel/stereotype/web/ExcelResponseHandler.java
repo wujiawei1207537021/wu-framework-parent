@@ -11,6 +11,7 @@ import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
@@ -30,11 +31,12 @@ public class ExcelResponseHandler implements ResponseBodyAdvice<Object> {
 
     @Override
     public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
-        return Objects.requireNonNull(methodParameter.getMethod()).getAnnotation(EasyExcel.class) != null;
+        return AnnotatedElementUtils.getMergedAnnotation(methodParameter.getMethod(), EasyExcel.class) != null
+                || AnnotatedElementUtils.getMergedAnnotation(methodParameter.getMethod().getDeclaringClass(), EasyExcel.class) != null;
     }
 
     @Override
-    public Object beforeBodyWrite(Object o,  MethodParameter methodParameter,
+    public Object beforeBodyWrite(Object o, MethodParameter methodParameter,
                                   MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass,
                                   ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
         EasyExcel easyExcel = AnnotatedElementUtils.findMergedAnnotation(Objects.requireNonNull(methodParameter.getMethod()), EasyExcel.class);
