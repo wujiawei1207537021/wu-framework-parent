@@ -1,6 +1,13 @@
 package com.wu.framework.easy.excel.stereotype;
 
+import com.wu.framework.easy.excel.util.ISheetShowContextMethod;
+import com.wu.framework.easy.excel.util.SheetNumContextMethod;
+import com.wu.framework.easy.excel.util.SheetTextContextMethod;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.lang.annotation.*;
+import java.lang.reflect.Method;
 
 /**
  * description 导出注解
@@ -42,6 +49,26 @@ public @interface EasyExcel {
      * @return
      */
    boolean multipleSheet() default false;
+
+    /**
+     * multipleSheet true 有效
+     * 工作簿每页限制长度
+     * @return
+     */
+   int limit() default 65534;
+    /**
+     * multipleSheet true 有效
+     * 工作簿展示内容
+     */
+    SheetShowContext sheetShowContext() default SheetShowContext.NUM ;
+
+    @Getter
+    @AllArgsConstructor
+    enum SheetShowContext{
+        NUM(SheetNumContextMethod.class),// 1000~2000
+        TEXT(SheetTextContextMethod.class);// 一  二 三
+        private Class<? extends ISheetShowContextMethod> iSheetShowContextMethod;
+    }
 
 
 }

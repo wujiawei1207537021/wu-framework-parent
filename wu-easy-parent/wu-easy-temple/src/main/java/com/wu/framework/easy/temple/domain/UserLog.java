@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
  */
 @Data
 public class UserLog {
+
+    @EasyTableFile(name = "user_id")
     private Integer userId;
 
     @EasyExcelFiled(name = "当前时间")
