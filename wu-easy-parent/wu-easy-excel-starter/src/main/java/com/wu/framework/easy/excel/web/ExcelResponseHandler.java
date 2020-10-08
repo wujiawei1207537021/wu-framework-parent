@@ -1,7 +1,8 @@
-package com.wu.framework.easy.excel.stereotype.web;
+package com.wu.framework.easy.excel.web;
 
+import com.wu.framework.easy.excel.service.ExcelExcelService;
 import com.wu.framework.easy.excel.stereotype.EasyExcel;
-import com.wu.framework.easy.excel.util.ExcelExportUtil;
+import com.wu.framework.easy.excel.service.NormalExcelExportService;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.http.HttpHeaders;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -40,29 +42,33 @@ public class ExcelResponseHandler implements ResponseBodyAdvice<Object> {
                                   MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass,
                                   ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
         EasyExcel easyExcel = AnnotatedElementUtils.findMergedAnnotation(Objects.requireNonNull(methodParameter.getMethod()), EasyExcel.class);
-        if (null != easyExcel && o instanceof Collection) {
-            Collection collection = (Collection) o;
-            HttpHeaders headers = serverHttpResponse.getHeaders();
-            headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-            String encodedFileName = null;
-            try {
-                encodedFileName = java.net.URLEncoder.encode(easyExcel.fileName(), StandardCharsets.UTF_8.name());
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-            headers.add("Content-Disposition", String.format("attachment; filename=\"%s.%s\"; filename*=utf-8''%s.%s", encodedFileName, easyExcel.suffix(), encodedFileName, easyExcel.suffix()));
-            headers.add("Pragma", "no-cache");
-            headers.add("Expires", "0");
-            headers.add("Content-Type", MediaType.APPLICATION_OCTET_STREAM_VALUE);
-            byte[] bytes = ExcelExportUtil.exportExcel(easyExcel, collection);
-            try {
-                OutputStream body = serverHttpResponse.getBody();
-                body.write(bytes);
-                body.flush();
-                body.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        Collection collection;
+        if ( o instanceof Collection) {
+             collection = (Collection) o;
+
+        }else {
+            collection= Arrays.asList(o);
+        }
+        HttpHeaders headers = serverHttpResponse.getHeaders();
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        String encodedFileName = null;
+        try {
+            encodedFileName = java.net.URLEncoder.encode(easyExcel.fileName(), StandardCharsets.UTF_8.name());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        headers.add("Content-Disposition", String.format("attachment; filename=\"%s.%s\"; filename*=utf-8''%s.%s", encodedFileName, easyExcel.suffix(), encodedFileName, easyExcel.suffix()));
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+        headers.add("Content-Type", MediaType.APPLICATION_OCTET_STREAM_VALUE);
+        byte[] bytes = ExcelExcelService.exportExcel(easyExcel, collection);
+        try {
+            OutputStream body = serverHttpResponse.getBody();
+            body.write(bytes);
+            body.flush();
+            body.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return o;
     }

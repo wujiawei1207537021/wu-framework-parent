@@ -15,7 +15,7 @@ public class SheetTextContextMethod implements ISheetShowContextMethod{
     public List<String> sheetContext(long size, long limit) {
         List<String> stringList=new ArrayList<>();
         long page = (size + limit - 1) / limit;
-        for (int i = 0; i < page; i++) {
+        for (int i = 1; i <= page; i++) {
             stringList.add(ArabicNumeralsToChineseNumerals.cvt("第","页",i,true));
         }
         return stringList;

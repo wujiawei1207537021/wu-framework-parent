@@ -51,7 +51,7 @@ public class ArabicNumeralsToChineseNumerals {
         for (String str : result) {
             strs.append(str);
         }
-        strs.append(prefix);
+        strs.append(suffix);
         return strs.toString();
     }
 

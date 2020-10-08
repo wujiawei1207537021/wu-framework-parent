@@ -104,15 +104,66 @@
         </dependencies>
     </dependencyManagement>
 
-    <distributionManagement>
+    <repositories>
         <repository>
-            <id>releases</id>
-            <url>http://192.168.1.86:9081/repository/maven-releases/</url>
+            <id>central</id>
+            <url>https://maven.aliyun.com/nexus/content/groups/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>snapshots</id>
+            <url>https://maven.aliyun.com/nexus/content/groups/public</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>rdc-releases</id>
+            <url>https://packages.aliyun.com/maven/repository/2040590-release-S2fwSn/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>rdc-snapshots</id>
+            <url>https://packages.aliyun.com/maven/repository/2040590-snapshot-g6qivj/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <distributionManagement>
+<!--        <repository>-->
+<!--            <id>releases</id>-->
+<!--            <url>http://192.168.1.86:9081/repository/maven-releases/</url>-->
+<!--        </repository>-->
+<!--        <snapshotRepository>-->
+<!--            <id>snapshots</id>-->
+<!--            <url>http://192.168.1.86:9081/repository/maven-snapshots/</url>-->
+<!--        </snapshotRepository>-->
+        <repository>
+            <id>rdc-releases</id>
+            <url>https://packages.aliyun.com/maven/repository/2040590-release-S2fwSn/</url>
         </repository>
         <snapshotRepository>
-            <id>snapshots</id>
-            <url>http://192.168.1.86:9081/repository/maven-snapshots/</url>
+            <id>rdc-snapshots</id>
+            <url>https://packages.aliyun.com/maven/repository/2040590-snapshot-g6qivj/</url>
         </snapshotRepository>
+
     </distributionManagement>
     <build>
         <pluginManagement>
@@ -157,38 +208,6 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven-surefire-plugin.version}</version>
                 </plugin>
-                <!--github上传插件,用于修改后的发布,执行 mvn clean deploy 自动打包上传到github-->
-<!--                <plugin>-->
-<!--                    <groupId>com.github.github</groupId>-->
-<!--                    <artifactId>site-maven-plugin</artifactId>-->
-<!--                    <version >0.12</version>-->
-<!--                    <configuration>-->
-<!--                        <message >Maven artifacts for ${project.version}</message>-->
-<!--                        <noJekyll>true</noJekyll>-->
-<!--                        &lt;!&ndash;本地jar地址&ndash;&gt;-->
-<!--                        <outputDirectory>${project.build.directory}/taget</outputDirectory>-->
-<!--                        &lt;!&ndash;分支&ndash;&gt;-->
-<!--                        <branch>refs/heads/master</branch>-->
-<!--                        <merge>true</merge>-->
-
-<!--                        <includes>-->
-<!--                            <include>**/*</include>-->
-<!--                        </includes>-->
-<!--                        &lt;!&ndash;对应github上创建的仓库名称 name&ndash;&gt;-->
-<!--                        <repositoryName>maven</repositoryName>-->
-<!--                        &lt;!&ndash;github 仓库所有者 不是账号&ndash;&gt;-->
-<!--                        <repositoryOwner>吴佳伟</repositoryOwner>-->
-<!--                    </configuration>-->
-
-<!--                    <executions>-->
-<!--                        <execution>-->
-<!--                            <goals>-->
-<!--                                <goal>site</goal>-->
-<!--                            </goals>-->
-<!--                            <phase>deploy</phase>-->
-<!--                        </execution>-->
-<!--                    </executions>-->
-<!--                </plugin>-->
             </plugins>
         </pluginManagement>
     </build>

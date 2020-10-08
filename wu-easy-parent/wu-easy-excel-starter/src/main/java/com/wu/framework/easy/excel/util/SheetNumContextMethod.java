@@ -19,7 +19,7 @@ public class SheetNumContextMethod implements ISheetShowContextMethod{
         for (int i = 0; i < page-1; i++) {
             stringList.add((i*limit)+"～"+(i*limit+limit));
         }
-        stringList.add(((page-1)*limit)+"～"+(page*limit+size%limit));
+        stringList.add(((page-1)*limit)+"～"+((page-1)*limit+size%limit));
         return stringList;
     }
 }

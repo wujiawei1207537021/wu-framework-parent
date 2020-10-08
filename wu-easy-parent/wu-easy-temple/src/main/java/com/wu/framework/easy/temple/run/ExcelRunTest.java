@@ -1,14 +1,19 @@
 package com.wu.framework.easy.temple.run;
 
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.wu.framework.easy.excel.stereotype.EasyExcel;
-import com.wu.framework.easy.stereotype.upsert.EasyTableFile;
 import com.wu.framework.easy.stereotype.web.EasyController;
-import com.wu.framework.easy.temple.domain.UserLog;
+import com.wu.framework.easy.temple.EasyExcelTemp;
+import com.wu.framework.easy.temple.domain.ComplexUseExcel;
+import com.wu.framework.easy.temple.domain.SmartExcel;
+import com.wu.framework.easy.temple.domain.UseExcel;
 import com.wu.framework.easy.temple.service.RunService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,16 +34,90 @@ public class ExcelRunTest {
 
     @EasyExcel(fileName = "导出数据")
     @GetMapping("/run/{size}")
-    public List<UserLog> run(@PathVariable Integer size) {
-        return runService.run(size);
+    public List<UseExcel> run(@PathVariable Integer size) {
+        List<UseExcel> useExcelList = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            UseExcel useExcel = new UseExcel();
+            useExcel.setCurrentTime(LocalDateTime.now());
+            useExcel.setDesc("默认方式导出数据");
+            useExcel.setId(i);
+            useExcel.setType("默认方式双注解导出");
+            useExcelList.add(useExcel);
+        }
+        return useExcelList;
     }
 
 
-
-    @EasyExcel(fileName = "非原生注解导出数据", filedColumnAnnotation = EasyTableFile.class,multipleSheet = true, limit = 10)
+    @EasyExcel(fileName = "非原生注解导出数据", filedColumnAnnotation = JSONField.class, filedColumnAnnotationAttribute = "name", multipleSheet = true, limit = 1000, sheetShowContext = EasyExcel.SheetShowContext.TEXT)
     @GetMapping("/run2/{size}")
-    public List<UserLog> run2(@PathVariable Integer size) {
-        return runService.run(size);
+    public List<UseExcel> run2(@PathVariable Integer size) {
+        List<UseExcel> useExcelList = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            UseExcel useExcel = new UseExcel();
+            useExcel.setCurrentTime(LocalDateTime.now());
+            useExcel.setDesc("自定义字段注解方式导出数据");
+            useExcel.setId(i);
+            useExcel.setType("自定义字段注解导出");
+            useExcelList.add(useExcel);
+        }
+        return useExcelList;
     }
 
+    @EasyExcel(fileName = "导出所有字段", useAnnotation = false)
+    @GetMapping("/run3/{size}")
+    public List<UseExcel> run3(@PathVariable Integer size) {
+        List<UseExcel> useExcelList = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            UseExcel useExcel = new UseExcel();
+            useExcel.setCurrentTime(LocalDateTime.now());
+            useExcel.setDesc("不使用注解导出所有字段");
+            useExcel.setId(i);
+            useExcel.setType("导出所有字段");
+            useExcelList.add(useExcel);
+        }
+        return useExcelList;
+    }
+
+    @EasyExcelTemp(fileName = "自定义注解导出")
+    @GetMapping("/run4/{size}")
+    public List<UseExcel> run4(@PathVariable Integer size) {
+        List<UseExcel> useExcelList = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            UseExcel useExcel = new UseExcel();
+            useExcel.setCurrentTime(LocalDateTime.now());
+            useExcel.setDesc("自定义注解导出");
+            useExcel.setId(i);
+            useExcel.setType("自定义注解导出");
+            useExcelList.add(useExcel);
+        }
+        return useExcelList;
+    }
+
+    @EasyExcel(fileName = "复杂数据导出", isComplicated = true, filedColumnAnnotation = JSONField.class, sheetShowContext = EasyExcel.SheetShowContext.TEXT)
+    @GetMapping("/run5/{size}")
+    public List<ComplexUseExcel> run5(@PathVariable Integer size) {
+
+        List<UseExcel> useExcelList = new ArrayList<>();
+        for (int i = 1; i <= 4; i++) {
+            UseExcel useExcel = new UseExcel();
+            useExcel.setCurrentTime(LocalDateTime.now());
+            useExcel.setDesc("复杂数据导出内部数据");
+            useExcel.setId(i);
+            useExcel.setType("复杂数据导出内部数据");
+            useExcelList.add(useExcel);
+        }
+
+        List<ComplexUseExcel> complexUseExcelList = new ArrayList<>();
+        for (int i = 1; i <= size; i++) {
+            ComplexUseExcel complexUseExcel = new ComplexUseExcel();
+            complexUseExcel.setCurrentTime(LocalDateTime.now());
+            complexUseExcel.setDesc("复杂数据导出需要合并单元格");
+            complexUseExcel.setId(i);
+            complexUseExcel.setType("复杂数据导出需要合并单元格");
+            complexUseExcel.setUseExcelList(useExcelList);
+            complexUseExcel.setSmartExcel(new SmartExcel());
+            complexUseExcelList.add(complexUseExcel);
+        }
+        return complexUseExcelList;
+    }
 }

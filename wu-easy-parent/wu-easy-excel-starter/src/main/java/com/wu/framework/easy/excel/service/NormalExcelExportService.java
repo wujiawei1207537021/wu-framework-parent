@@ -1,18 +1,23 @@
-package com.wu.framework.easy.excel.util;
+package com.wu.framework.easy.excel.service;
 
 import com.wu.framework.easy.excel.stereotype.EasyExcel;
+import com.wu.framework.easy.excel.util.ExcelStyle;
+import com.wu.framework.easy.excel.util.ISheetShowContextMethod;
 import lombok.SneakyThrows;
 import org.apache.poi.hssf.usermodel.*;
 import org.springframework.core.annotation.AnnotationUtils;
-
 import java.io.ByteArrayOutputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ExcelExportUtil {
-
+/**
+ * description 正常Excel导出工具
+ * @author 吴佳伟
+ * @date 2020/10/6 下午8:28
+ */
+public class NormalExcelExportService implements ExcelExcelService {
 
     /**
      * description
@@ -29,24 +34,32 @@ public class ExcelExportUtil {
         HSSFWorkbook workbook = new HSSFWorkbook();
         // 多工作簿
         if (easyExcel.multipleSheet()) {
-            List<List> splitList = splitList(new ArrayList(collection), easyExcel.limit());
+            List<List> splitList = ExcelExcelService.splitList(new ArrayList(collection), easyExcel.limit());
             ISheetShowContextMethod iSheetShowContextMethod = easyExcel.sheetShowContext().getISheetShowContextMethod().newInstance();
             List<String> sheetContextList = iSheetShowContextMethod.sheetContext(collection.size(), easyExcel.limit());
             for (int i = 0; i < splitList.size(); i++) {
-                exportSingleSheet(workbook,sheetContextList.get(i), easyExcel.filedColumnAnnotation(), easyExcel.filedColumnAnnotationAttribute(), splitList.get(i), out);
+                normalSingleSheet(workbook, sheetContextList.get(i), easyExcel.filedColumnAnnotation(), easyExcel.filedColumnAnnotationAttribute(), easyExcel.useAnnotation(), splitList.get(i));
             }
         } else {
-            exportSingleSheet(workbook,easyExcel.fileName(), easyExcel.filedColumnAnnotation(), easyExcel.filedColumnAnnotationAttribute(), collection, out);
+            normalSingleSheet(workbook, easyExcel.fileName(), easyExcel.filedColumnAnnotation(), easyExcel.filedColumnAnnotationAttribute(), easyExcel.useAnnotation(), collection);
         }
         workbook.write(out);
         return out.toByteArray();
     }
 
-    public static void exportSingleSheet(HSSFWorkbook workbook,
+    /**
+     * 正常单工作簿导出
+     * @param workbook
+     * @param sheetName
+     * @param filedColumnAnnotation
+     * @param filedColumnAnnotationAttribute
+     * @param useAnnotation
+     * @param collection
+     */
+    public static void normalSingleSheet(HSSFWorkbook workbook,
                                          String sheetName,
                                          Class<? extends Annotation> filedColumnAnnotation,
-                                         String filedColumnAnnotationAttribute, Collection collection,
-                                         ByteArrayOutputStream out) {
+                                         String filedColumnAnnotationAttribute, boolean useAnnotation, Collection collection) {
         try {
             //首先检查数据看是否是正确的
             Iterator iterator = collection.iterator();
@@ -63,20 +76,34 @@ public class ExcelExportUtil {
             HSSFCellStyle style = workbook.createCellStyle();
             // 设置标题样式
             style = ExcelStyle.setHeadStyle(workbook, style);
-            List<Field> fieldList = Arrays.stream(ts.getClass().getDeclaredFields()).
-                    filter(field -> null != field.getAnnotation(filedColumnAnnotation)).
-                    peek(field -> field.setAccessible(true)).
-                    collect(Collectors.toList());
+            List<Field> fieldList;
+            if (useAnnotation) {
+                fieldList = Arrays.stream(ts.getClass().getDeclaredFields()).
+                        filter(field -> null != field.getAnnotation(filedColumnAnnotation)).
+                        peek(field -> field.setAccessible(true)).
+                        collect(Collectors.toList());
+            } else {
+                fieldList = Arrays.stream(ts.getClass().getDeclaredFields()).peek(field -> field.setAccessible(true)).collect(Collectors.toList());
+            }
+
             // 产生表格标题行
             HSSFRow row = sheet.createRow(0);
             for (int i = 0; i < fieldList.size(); i++) {
                 HSSFCell hssfCell = row.createCell(i);
                 hssfCell.setCellStyle(style);
                 Field field = fieldList.get(i);
-                Annotation filedAnnotation = field
-                        .getAnnotation(filedColumnAnnotation);
-                Map<String, Object> annotationAttributes = AnnotationUtils.getAnnotationAttributes(filedAnnotation);
-                String headerName = String.valueOf(annotationAttributes.getOrDefault(filedColumnAnnotationAttribute, field.getName()));
+                String headerName;
+                if (useAnnotation) {
+                    Annotation filedAnnotation = field.getAnnotation(filedColumnAnnotation);
+                    if (null==filedAnnotation){
+                        return;
+                    }else {
+                        Map<String, Object> annotationAttributes = AnnotationUtils.getAnnotationAttributes(filedAnnotation);
+                        headerName = String.valueOf(annotationAttributes.getOrDefault(filedColumnAnnotationAttribute, field.getName()));
+                    }
+                } else {
+                    headerName=field.getName();
+                }
                 HSSFRichTextString text = new HSSFRichTextString(headerName);
                 hssfCell.setCellValue(text);
             }
@@ -109,7 +136,7 @@ public class ExcelExportUtil {
     }
 
     /**
-     * description
+     * description 多个sheet 导出
      *
      * @param
      * @return
@@ -129,24 +156,7 @@ public class ExcelExportUtil {
         return bytes;
     }
 
-    public static List<List> splitList(List list, int len) {
 
-        if (list == null || list.isEmpty() || len < 1) {
-            return Collections.emptyList();
-        }
-
-        List<List> result = new ArrayList<>();
-
-        int size = list.size();
-        int count = (size + len - 1) / len;
-
-        for (int i = 0; i < count; i++) {
-            List subList = list.subList(i * len, (Math.min((i + 1) * len, size)));
-            result.add(subList);
-        }
-
-        return result;
-    }
 }
 
 

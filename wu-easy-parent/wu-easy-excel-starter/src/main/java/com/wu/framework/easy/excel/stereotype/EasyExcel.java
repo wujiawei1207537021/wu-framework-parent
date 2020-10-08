@@ -5,9 +5,7 @@ import com.wu.framework.easy.excel.util.SheetNumContextMethod;
 import com.wu.framework.easy.excel.util.SheetTextContextMethod;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
 import java.lang.annotation.*;
-import java.lang.reflect.Method;
 
 /**
  * description 导出注解
@@ -22,38 +20,53 @@ public @interface EasyExcel {
 
     /**
      * 文件名
-     * @return
+     * @return String
      */
-    String fileName();
+    String fileName() default "temp";
 
     /**
      * 文件后缀
-     * @return
+     * @return String
      */
     String suffix() default "xls";
 
     /**
+     * 默认 false
+     * 是否复杂导出
+     * @return boolean
+     */
+    boolean isComplicated() default false;
+
+    /**
+     * 默认 false 通过参数中注解获取表头字段
+     * 是否使用注解方式获取表头
+     * @return boolean
+     */
+    boolean useAnnotation() default true;
+    /**
+     * useAnnotation true 有效
      * 字段列名注解
-     * @return
+     * @return Class
      */
     Class<? extends Annotation> filedColumnAnnotation() default EasyExcelFiled.class;
 
     /**
+     * useAnnotation true 有效
      * 字段列名注解属性名
-     * @return
+     * @return String
      */
    String filedColumnAnnotationAttribute() default "name";
 
     /**
      * 多个 sheet
-     * @return
+     * @return boolean
      */
    boolean multipleSheet() default false;
 
     /**
      * multipleSheet true 有效
      * 工作簿每页限制长度
-     * @return
+     * @return int
      */
    int limit() default 65534;
     /**
