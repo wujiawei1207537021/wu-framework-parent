@@ -3,12 +3,11 @@ package com.wu.framework.inner.database.custom.database.persistence;
 import java.util.List;
 
 /**
- * @describe: 自定义数据库持久层操作合集
- * @author : 吴佳伟
- * @date : 2020/7/3 下午8:48
- * @version : 1.0
+ * description Repository<T, ID> 持久层接口
+ * @author 吴佳伟
+ * @date 2020/10/10 下午12:29
  */
-public interface LayerOperation<T, ID>  extends CrudRepository<T, ID>{
+public interface CrudRepository<T, ID> extends Repository<T,ID> {
 
     /**
      * 批量更新或插入
@@ -80,17 +79,5 @@ public interface LayerOperation<T, ID>  extends CrudRepository<T, ID>{
      * @param <T>
      */
     <T> List<T> selectAll(T t);
-
-    /**
-     * 执行sql
-     * @param sql
-     * @param t
-     * @param <T>
-     * @return
-     */
-    <T> List<T> executeSQL(String sql,Class<T> t);
-
-    <T> T executeSQLForBean(String sql,Class<T> t);
-
-    void miss();
+    
 }

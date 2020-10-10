@@ -8,10 +8,11 @@ import org.springframework.core.annotation.AliasFor;
 import java.lang.annotation.*;
 
 /**
- * description 导出字段是个对象
+ * description 导出字段是个对象 测试使用
  * @author 吴佳伟
  * @date 2020/10/5 下午7:08
  */
+@Deprecated
 @Target({ElementType.TYPE,ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
