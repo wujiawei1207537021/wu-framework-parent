@@ -1,6 +1,5 @@
 package com.wu.framework.inner.swagger.config.pro;
 
-import com.google.common.collect.Lists;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -50,6 +49,6 @@ public class WuSwagger2Properties extends ApiInfo {
         this.license = license;
         this.licenseUrl = licenseUrl;
         this.contact = contact;
-        this.vendorExtensions = Lists.newArrayList(vendorExtensions);
+        this.vendorExtensions = new ArrayList<>(vendorExtensions);
     }
 }

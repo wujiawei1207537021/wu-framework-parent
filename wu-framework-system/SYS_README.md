@@ -18,7 +18,7 @@
             <dependency>
                 <groupId>com.wu</groupId>
                 <artifactId>wu-framework-system</artifactId>
-                <version>1.0.0</version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
 
 ### 使用方式      

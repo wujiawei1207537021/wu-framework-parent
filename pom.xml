@@ -8,7 +8,7 @@
 
     <groupId>com.wu</groupId>
     <artifactId>wu-framework-parent</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <description>系统框架</description>
     <properties>
@@ -25,11 +25,11 @@
         <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
         <github.global.server>github</github.global.server>
 
-        <wu-db-starter.version>1.0.1</wu-db-starter.version>
-        <wu-redis-starter.version>1.0.0</wu-redis-starter.version>
-        <wu-log-starter.version>1.0.0</wu-log-starter.version>
-        <wu-swagger-starter.version>1.0.1</wu-swagger-starter.version>
-        <wu-file-starter.version>1.0.1</wu-file-starter.version>
+        <wu-db-starter.version>1.0.1-SNAPSHOT</wu-db-starter.version>
+        <wu-redis-starter.version>1.0.0-SNAPSHOT</wu-redis-starter.version>
+        <wu-log-starter.version>1.0.0-SNAPSHOT</wu-log-starter.version>
+        <wu-swagger-starter.version>1.0.1-SNAPSHOT</wu-swagger-starter.version>
+        <wu-file-starter.version>1.0.1-SNAPSHOT</wu-file-starter.version>
 
         <spring-boot-starter.version>2.3.2.RELEASE</spring-boot-starter.version>
     </properties>
@@ -147,14 +147,14 @@
         </repository>
     </repositories>
     <distributionManagement>
-<!--        <repository>-->
-<!--            <id>releases</id>-->
-<!--            <url>http://192.168.1.86:9081/repository/maven-releases/</url>-->
-<!--        </repository>-->
-<!--        <snapshotRepository>-->
-<!--            <id>snapshots</id>-->
-<!--            <url>http://192.168.1.86:9081/repository/maven-snapshots/</url>-->
-<!--        </snapshotRepository>-->
+        <!--        <repository>-->
+        <!--            <id>releases</id>-->
+        <!--            <url>http://192.168.1.86:9081/repository/maven-releases/</url>-->
+        <!--        </repository>-->
+        <!--        <snapshotRepository>-->
+        <!--            <id>snapshots</id>-->
+        <!--            <url>http://192.168.1.86:9081/repository/maven-snapshots/</url>-->
+        <!--        </snapshotRepository>-->
         <repository>
             <id>rdc-releases</id>
             <url>https://packages.aliyun.com/maven/repository/2040590-release-S2fwSn/</url>

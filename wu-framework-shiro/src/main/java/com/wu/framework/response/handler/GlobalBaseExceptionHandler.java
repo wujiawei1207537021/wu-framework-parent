@@ -1,7 +1,6 @@
 package com.wu.framework.response.handler;
 
 
-import com.google.common.collect.Maps;
 import com.wu.framework.response.exceptions.CustomException;
 import com.wu.framework.response.Result;
 import com.wu.framework.response.ResultFactory;
@@ -14,9 +13,11 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import springfox.documentation.schema.Maps;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -166,7 +167,7 @@ public class GlobalBaseExceptionHandler {
             result = exception.getBindingResult();
         }
 
-        Map<String, Object> map = Maps.newHashMap();
+        Map<String, Object> map = new HashMap<>();
         if (result.hasErrors()) {
             List<FieldError> fieldErrors = result.getFieldErrors();
             fieldErrors.forEach(error -> {

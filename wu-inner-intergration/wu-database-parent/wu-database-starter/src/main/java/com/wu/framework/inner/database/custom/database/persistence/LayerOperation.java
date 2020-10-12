@@ -3,15 +3,16 @@ package com.wu.framework.inner.database.custom.database.persistence;
 import java.util.List;
 
 /**
- * @describe: 自定义数据库持久层操作合集
  * @author : 吴佳伟
- * @date : 2020/7/3 下午8:48
  * @version : 1.0
+ * @describe: 自定义数据库持久层操作合集
+ * @date : 2020/7/3 下午8:48
  */
-public interface LayerOperation<T, ID>  extends CrudRepository<T, ID>{
+public interface LayerOperation   {
 
     /**
      * 批量更新或插入
+     *
      * @param list
      * @param <T>
      */
@@ -19,6 +20,7 @@ public interface LayerOperation<T, ID>  extends CrudRepository<T, ID>{
 
     /**
      * 插入list
+     *
      * @param list
      * @param <T>
      */
@@ -26,6 +28,7 @@ public interface LayerOperation<T, ID>  extends CrudRepository<T, ID>{
 
     /**
      * 插入 单个
+     *
      * @param t
      * @param <T>
      */
@@ -33,12 +36,15 @@ public interface LayerOperation<T, ID>  extends CrudRepository<T, ID>{
 
     /**
      * 根据ID更新
+     *
      * @param t
      * @param <T>
      */
     <T> void updateById(T t);
+
     /**
      * 根据主键ids更新list
+     *
      * @param list
      * @param <T>
      */
@@ -47,6 +53,7 @@ public interface LayerOperation<T, ID>  extends CrudRepository<T, ID>{
 
     /**
      * 批量删除
+     *
      * @param list
      * @param <T>
      */
@@ -54,6 +61,7 @@ public interface LayerOperation<T, ID>  extends CrudRepository<T, ID>{
 
     /**
      * 删除 Serialization
+     *
      * @param t
      * @param <T>
      */
@@ -61,6 +69,7 @@ public interface LayerOperation<T, ID>  extends CrudRepository<T, ID>{
 
     /**
      * 删除所有
+     *
      * @param t
      * @param <T>
      */
@@ -69,6 +78,7 @@ public interface LayerOperation<T, ID>  extends CrudRepository<T, ID>{
 
     /**
      * 查询
+     *
      * @param t
      * @param <T>
      */
@@ -76,6 +86,7 @@ public interface LayerOperation<T, ID>  extends CrudRepository<T, ID>{
 
     /**
      * 查询所有
+     *
      * @param t
      * @param <T>
      */
@@ -83,14 +94,15 @@ public interface LayerOperation<T, ID>  extends CrudRepository<T, ID>{
 
     /**
      * 执行sql
+     *
      * @param sql
      * @param t
      * @param <T>
      * @return
      */
-    <T> List<T> executeSQL(String sql,Class<T> t);
+    <T> List<T> executeSQL(String sql, Class<T> t);
 
-    <T> T executeSQLForBean(String sql,Class<T> t);
+    <T> T executeSQLForBean(String sql, Class<T> t);
 
     void miss();
 }
