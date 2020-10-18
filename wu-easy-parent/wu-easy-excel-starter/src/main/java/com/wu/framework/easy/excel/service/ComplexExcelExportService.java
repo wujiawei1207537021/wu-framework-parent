@@ -2,7 +2,6 @@ package com.wu.framework.easy.excel.service;
 
 import com.wu.framework.easy.excel.stereotype.EasyExcel;
 import com.wu.framework.easy.excel.stereotype.EasyExcelBean;
-import com.wu.framework.easy.excel.util.ExcelStyle;
 import com.wu.framework.easy.excel.util.ISheetShowContextMethod;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -81,7 +80,7 @@ public class ComplexExcelExportService implements ExcelExcelService {
             // 生成一个样式
             HSSFCellStyle style = workbook.createCellStyle();
             // 设置标题样式
-            style = ExcelStyle.setHeadStyle(workbook, style);
+//            style = ExcelStyle.setHeadStyle(workbook, style);
             List<Field> fieldList;
             if (easyExcel.useAnnotation()) {
                 fieldList = Arrays.stream(ts.getClass().getDeclaredFields()).

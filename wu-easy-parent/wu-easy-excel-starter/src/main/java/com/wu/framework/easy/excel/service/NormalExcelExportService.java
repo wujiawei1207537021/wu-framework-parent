@@ -1,7 +1,6 @@
 package com.wu.framework.easy.excel.service;
 
 import com.wu.framework.easy.excel.stereotype.EasyExcel;
-import com.wu.framework.easy.excel.util.ExcelStyle;
 import com.wu.framework.easy.excel.util.ISheetShowContextMethod;
 import lombok.SneakyThrows;
 import org.apache.poi.hssf.usermodel.*;
@@ -75,7 +74,7 @@ public class NormalExcelExportService implements ExcelExcelService {
             // 生成一个样式
             HSSFCellStyle style = workbook.createCellStyle();
             // 设置标题样式
-            style = ExcelStyle.setHeadStyle(workbook, style);
+//            style = ExcelStyle.setHeadStyle(workbook, style);
             List<Field> fieldList;
             if (useAnnotation) {
                 fieldList = Arrays.stream(ts.getClass().getDeclaredFields()).
