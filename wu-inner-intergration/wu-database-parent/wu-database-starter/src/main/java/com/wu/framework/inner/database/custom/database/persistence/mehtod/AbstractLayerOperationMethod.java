@@ -50,18 +50,19 @@ public abstract class AbstractLayerOperationMethod implements LayerOperationMeth
                 //遍历总列数
                 for (int i = 1; i <= columnCount; i++) {
                     //获取每列的名称，列名的序号是从1开始的
-                    String columnName = convertedFieldMap.get(rsmd.getColumnName(i));
-                    if (ObjectUtils.isEmpty(columnName)) {
+                    String columnName = rsmd.getColumnName(i);
+                    String fieldName = convertedFieldMap.get(columnName);
+                    if (ObjectUtils.isEmpty(fieldName)) {
                         continue;
                     }
                     //根据得到列名，获取每列的值
                     Object columnValue = rs.getObject(columnName);
-                    Field field = domainClass.getDeclaredField(convertedFieldMap.get(rsmd.getColumnName(i)));
+                    Field field = domainClass.getDeclaredField(fieldName);
                     field.setAccessible(true);
                     columnValue = convertToTheCorrespondingType(columnValue, field.getType());
                     field.set(obj, columnValue);
 //                    //给obj赋值：使用Java内省机制（借助PropertyDescriptor实现属性的封装）
-//                    PropertyDescriptor pd = new PropertyDescriptor(columnName, domainClass);//要求：实体类的属性和数据库表的列名保持一种
+//                    PropertyDescriptor pd = new PropertyDescriptor(fieldName, domainClass);//要求：实体类的属性和数据库表的列名保持一种
 //                    //获取它的写入方法
 //                    Method writeMethod = pd.getWriteMethod();
 //                    //把获取的列的值，给对象赋值
@@ -84,6 +85,7 @@ public abstract class AbstractLayerOperationMethod implements LayerOperationMeth
      * @return
      */
     protected Object convertToTheCorrespondingType(Object obj, Class clazz) {
+        obj=obj==null?"":obj;
         if (clazz.equals(Integer.class) || clazz.equals(int.class)) {
             return Integer.valueOf(obj.toString());
         } else if (clazz.equals(String.class)) {

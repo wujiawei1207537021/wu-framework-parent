@@ -19,9 +19,9 @@ import java.util.List;
  */
 @EasyController
 public class ExcelImpRunTest {
+
     /**
-     * 自定义一工具导入
-     *
+     * 导入 Excel 查询重复数据
      * @param multipartFile
      * @return
      */

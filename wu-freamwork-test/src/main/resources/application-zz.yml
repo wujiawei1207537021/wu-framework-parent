@@ -1,0 +1,10 @@
+spring:
+  wu:
+    database:
+      url: jdbc:mysql://172.17.1.58:30806/baseinfo?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+      username: root
+      password: supconit
+      driver: com.mysql.cj.jdbc.Driver
+    dynamic:
+      database:
+        enable: off

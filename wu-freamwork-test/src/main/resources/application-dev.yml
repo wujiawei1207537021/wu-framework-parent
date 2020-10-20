@@ -1,0 +1,22 @@
+spring:
+  wu:
+    database:
+      driver: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/test
+      username: root
+      password: wujiawei
+
+#    dynamic:
+#      database:
+#        enable: off
+#        database-config-map:
+#          master:
+#            driver: com.mysql.jdbc.Driver
+#            url: jdbc:mysql://www.wu2020.top:3306/test
+#            username: root
+#            password: wujiawei
+#          localhost:
+#            driver: com.mysql.jdbc.Driver
+#            url: jdbc:mysql://127.0.0.1:3306/test
+#            username: root
+#            password: wujiawei

@@ -2,7 +2,6 @@ package com.wu.freamwork.controller;
 
 
 import com.wu.framework.easy.stereotype.web.EasyController;
-import com.wu.framework.inner.swagger.annotation.CustomController;
 import com.wu.framework.inner.template.https.HttpsRestTemplate;
 import io.swagger.annotations.Api;
 
@@ -35,7 +34,7 @@ public class TemplateTestController {
         }
     }
 
-//    @PostConstruct
+    //    @PostConstruct
     public void run() throws InterruptedException {
         for (int i = 0; i < 100; i++) {
             new Thread(() -> {

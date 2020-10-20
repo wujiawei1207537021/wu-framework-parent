@@ -16,13 +16,13 @@ import java.util.concurrent.ThreadLocalRandom;
  * @date : 2020/6/17
  * @version 1.0
  */
-public class CustomCaptcha extends LineCaptcha{
+public class EasyCaptcha extends LineCaptcha{
 
     private static final long serialVersionUID = -9042552338521307038L;
 
     private static final String CAPTCHA_CODE = "abcdefhjkmnpqrstuvwxyz2345678";
 
-    public CustomCaptcha(int width, int height, int codeCount, int interfereCount) {
+    public EasyCaptcha(int width, int height, int codeCount, int interfereCount) {
         super(width, height, codeCount, interfereCount);
     }
 

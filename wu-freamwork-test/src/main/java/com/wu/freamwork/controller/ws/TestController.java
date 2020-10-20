@@ -1,8 +1,7 @@
 package com.wu.freamwork.controller.ws;
 
-import com.wu.framework.inner.swagger.annotation.CustomController;
+import com.wu.framework.easy.stereotype.web.EasyController;
 import com.wu.freamwork.controller.ws.enums.ConstructionMarketEnums;
-import com.wu.freamwork.domain.LineCardInformationTable;
 import com.wu.freamwork.domain.ResultPo;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +16,7 @@ import java.util.List;
  * @author 吴佳伟
  * @date 2020/7/14 下午3:12
  */
-@CustomController("/DSS/ws")
+@EasyController("/DSS/ws")
 public class TestController {
 
     @GetMapping()

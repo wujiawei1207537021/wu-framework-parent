@@ -2,7 +2,7 @@ package com.wu.freamwork.controller;
 
 
 import com.wu.framework.easy.stereotype.web.EasyController;
-import com.wu.framework.inner.common.util.CustomCaptcha;
+import com.wu.framework.inner.common.util.EasyCaptcha;
 import com.wu.framework.inner.common.util.QRBO;
 import com.wu.framework.inner.common.util.QRCodeGenerator;
 import io.swagger.annotations.ApiOperation;
@@ -23,7 +23,7 @@ public class CommonTestController {
     @GetMapping("/captcha.jpg")
     public void login(HttpServletResponse response) {
         //定义图形验证码的长、宽、验证码字符数、干扰元素个数
-        CustomCaptcha simpleCaptcha = new CustomCaptcha(200, 50, 4, 20);
+        EasyCaptcha simpleCaptcha = new EasyCaptcha(200, 50, 4, 20);
         try {
             simpleCaptcha.write(response.getOutputStream());
 //            RedisUtil.set(SecurityConstants.SPRING_SECURITY_RESTFUL_IMAGE_CODE+uuid, simpleCaptcha.getCode(), 300);
