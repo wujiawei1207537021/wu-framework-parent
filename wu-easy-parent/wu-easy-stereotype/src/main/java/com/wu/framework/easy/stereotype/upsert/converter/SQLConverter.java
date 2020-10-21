@@ -56,14 +56,17 @@ public class SQLConverter {
                     ignoredIndex.add(i);
                     continue;
                 }
-                fieldName = tableField.value();
+                if(!ObjectUtils.isEmpty(tableField.value())){
+                    fieldName = tableField.value();
+                }
             }
             fieldNames.add(fieldName);
-            stringBuilder.append(fieldName);
-            if (i != fields.length - 1) {
-                stringBuilder.append(",");
-            }
+//            stringBuilder.append(fieldName);
+//            if (i != fields.length - 1) {
+//                stringBuilder.append(",");
+//            }
         }
+        stringBuilder.append(String.join(",",fieldNames));
         stringBuilder.append(")  VALUES " + "\n" + "<foreach collection=\"dtoList\" item=\"dto\" separator=\",\"> \n (");
         // 添加 foreach
         for (int i = 0; i < fields.length; i++) {
