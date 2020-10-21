@@ -36,7 +36,7 @@ public @interface EasyTableFile {
     String name() default "";
 
     // 数据库字段 当前支持 varchar number  int 默认是 varchar
-    String type() default " varchar (20)";
+    String type() default "";
 
     String comment() default "";
 

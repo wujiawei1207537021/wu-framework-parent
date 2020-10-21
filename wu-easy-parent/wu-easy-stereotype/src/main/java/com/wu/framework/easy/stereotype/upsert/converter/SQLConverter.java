@@ -102,8 +102,10 @@ public class SQLConverter {
         String tableComment = "";
         String tableName = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
         // 添加表名
-        if (!ObjectUtils.isEmpty(tableNameAnnotation) && !ObjectUtils.isEmpty(tableNameAnnotation.name())) {
-            tableName = tableNameAnnotation.name();
+        if (!ObjectUtils.isEmpty(tableNameAnnotation)) {
+            if(!ObjectUtils.isEmpty(tableNameAnnotation.name())){
+                tableName = tableNameAnnotation.name();
+            }
             tableComment = tableNameAnnotation.comment();
         }
         sqlBuffer.append("-- ——————————————————————————\n" +

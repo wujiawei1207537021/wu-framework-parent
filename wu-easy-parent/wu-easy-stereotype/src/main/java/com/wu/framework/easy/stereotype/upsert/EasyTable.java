@@ -17,6 +17,10 @@ public @interface EasyTable {
     @AliasFor(attribute = "value")
     String name() default "";
 
+    /**
+     * 表注释
+     * @return
+     */
     String comment() default "";
 
     /**
