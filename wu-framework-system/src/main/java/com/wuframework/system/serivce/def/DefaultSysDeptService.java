@@ -8,9 +8,9 @@ import com.google.common.collect.Lists;
 import com.wuframework.system.common.consts.CacheConsts;
 import com.wuframework.system.common.consts.ConfigConsts;
 import com.wuframework.system.common.dto.DeptDTO;
+import com.wuframework.system.common.entity.DefaultSysUser;
 import com.wuframework.system.common.entity.SysDept;
 import com.wuframework.system.common.entity.SysDict;
-import com.wuframework.system.common.entity.DefaultSysUser;
 import com.wuframework.system.common.vo.*;
 import com.wuframework.system.persistence.mapper.SysDeptMapper;
 import com.wuframework.system.redis.RedisRepository;
@@ -21,7 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
-import java.util.*;
+
 import java.util.stream.Collectors;
 
 /**
@@ -74,7 +74,7 @@ public class DefaultSysDeptService extends ServiceImpl<SysDeptMapper, SysDept> i
 //            treeNodeList.add(treeNode);
 //        }
 //        return treeNodeList;
-        return  null;
+        return null;
     }
 
     /**

@@ -2,7 +2,7 @@ package com.wu.framework.easy.stereotype.upsert.converter;
 
 
 import com.wu.framework.easy.stereotype.upsert.EasyTable;
-import com.wu.framework.easy.stereotype.upsert.EasyTableFile;
+import com.wu.framework.easy.stereotype.upsert.EasyTableField;
 import com.wu.framework.easy.stereotype.upsert.EasyUnique;
 import com.wu.framework.easy.stereotype.upsert.ienum.DefaultIEnum;
 import com.wu.framework.easy.stereotype.upsert.ienum.IEnum;
@@ -115,10 +115,10 @@ public class EasyAnnotationConverter {
      * @date 2020/8/4 下午4:39
      */
     public static Object annotationDictionaryConversion(Field field, Object fieldVal, Map<String, Map<String, String>> iEnumList) {
-        EasyTableFile easyTableFile = AnnotatedElementUtils.getMergedAnnotation(field, EasyTableFile.class);
+        EasyTableField easyTableField = AnnotatedElementUtils.getMergedAnnotation(field, EasyTableField.class);
         // 确认枚举转换
-        if (null != easyTableFile && !DefaultIEnum.class.equals(easyTableFile.iEnum()) && easyTableFile.iEnum().isEnum()) {
-            Class<? extends IEnum> e = easyTableFile.iEnum();
+        if (null != easyTableField && !DefaultIEnum.class.equals(easyTableField.iEnum()) && easyTableField.iEnum().isEnum()) {
+            Class<? extends IEnum> e = easyTableField.iEnum();
             if (!ObjectUtils.isEmpty(fieldVal)) {
                 if (fieldVal instanceof String) {
                     fieldVal = ((String) fieldVal).trim();
@@ -126,7 +126,7 @@ public class EasyAnnotationConverter {
                 // 字典转换中获取需要分割的字符
 
                 String[] delimiters = e.getEnumConstants()[0].getConvertContentSeparator();
-//                      easyTableFile.convertContentSeparator();
+//                      easyTableField.convertContentSeparator();
                 // 分割后的内容
                 List<String> splitContent = new ArrayList<>();
                 if (!ObjectUtils.isEmpty(delimiters)) {
@@ -137,8 +137,8 @@ public class EasyAnnotationConverter {
                 // 转换后的字典
                 List<String> res = new ArrayList<>();
                 // 字典api转换
-                if (!ObjectUtils.isEmpty(easyTableFile.dictionary())) {
-                    Map<String, String> dictionaryMap = iEnumList.get(easyTableFile.dictionary());
+                if (!ObjectUtils.isEmpty(easyTableField.dictionary())) {
+                    Map<String, String> dictionaryMap = iEnumList.get(easyTableField.dictionary());
                     if (!ObjectUtils.isEmpty(dictionaryMap)) {
                         for (String val : splitContent) {
                             if (dictionaryMap.containsKey(val)) {
@@ -181,9 +181,9 @@ public class EasyAnnotationConverter {
     public static Map<String, Map<String, String>> collectionDictionary(Class clazz) {
         Map<String, Map<String, String>> enumMap = new HashMap<>();
         for (Field declaredField : clazz.getDeclaredFields()) {
-            EasyTableFile easyTableFile = AnnotatedElementUtils.getMergedAnnotation(declaredField, EasyTableFile.class);
-            if (null != easyTableFile && !DefaultIEnum.class.equals(easyTableFile.iEnum()) && easyTableFile.iEnum().isEnum()) {
-                Class<? extends IEnum> e = easyTableFile.iEnum();
+            EasyTableField easyTableField = AnnotatedElementUtils.getMergedAnnotation(declaredField, EasyTableField.class);
+            if (null != easyTableField && !DefaultIEnum.class.equals(easyTableField.iEnum()) && easyTableField.iEnum().isEnum()) {
+                Class<? extends IEnum> e = easyTableField.iEnum();
                 Map<String, String> fieldMap = Arrays.stream(e.getEnumConstants()).collect(Collectors.toMap(IEnum::getItem, IEnum::getCode));
                 enumMap.put(declaredField.getName(), fieldMap);
             }
@@ -207,19 +207,21 @@ public class EasyAnnotationConverter {
 
     /**
      * 获取 EasyTable comment
+     *
      * @param clazz
      * @return
      */
     public static String getComment(Class clazz) {
         EasyTable easyTable = AnnotationUtils.getAnnotation(clazz, EasyTable.class);
-        if(null== easyTable){
+        if (null == easyTable) {
             return "";
         }
         return easyTable.comment();
     }
 
     /**
-     *  获取kafka code 编码
+     * 获取kafka code 编码
+     *
      * @param clazz
      * @return
      */

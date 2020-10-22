@@ -1,33 +1,28 @@
 package com.wu.framework.inner.file.wrapper.config.dev;
 
 
-import java.util.List;
-
-import com.github.tobato.fastdfs.service.TrackerClient;
-import org.apache.commons.lang3.StringUtils;
 import com.github.tobato.fastdfs.domain.GroupState;
 import com.github.tobato.fastdfs.domain.StorageNode;
 import com.github.tobato.fastdfs.domain.StorageNodeInfo;
 import com.github.tobato.fastdfs.domain.StorageState;
-import com.github.tobato.fastdfs.proto.tracker.TrackerDeleteStorageCommand;
-import com.github.tobato.fastdfs.proto.tracker.TrackerGetFetchStorageCommand;
-import com.github.tobato.fastdfs.proto.tracker.TrackerGetStoreStorageCommand;
-import com.github.tobato.fastdfs.proto.tracker.TrackerListGroupsCommand;
-import com.github.tobato.fastdfs.proto.tracker.TrackerListStoragesCommand;
+import com.github.tobato.fastdfs.proto.tracker.*;
+import com.github.tobato.fastdfs.service.TrackerClient;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.List;
 
 /**
  * 目录服务客户端默认实现
  *
  * @author tobato
- *
  */
 
-public class DevDefaultTrackerClient implements TrackerClient  {
+public class DevDefaultTrackerClient implements TrackerClient {
 
     private DevTrackerConnectionManager trackerConnectionManager;
 
     public DevDefaultTrackerClient(DevTrackerConnectionManager trackerConnectionManager) {
-        this.trackerConnectionManager=trackerConnectionManager;
+        this.trackerConnectionManager = trackerConnectionManager;
     }
 
     /**

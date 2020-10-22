@@ -2,12 +2,13 @@ package com.wu.framework.easy.temple.run;
 
 
 import com.wu.framework.easy.excel.stereotype.EasyExcel;
-import com.wu.framework.easy.stereotype.upsert.EasyTableFile;
+import com.wu.framework.easy.stereotype.upsert.EasyTableField;
 import com.wu.framework.easy.stereotype.web.EasyController;
 import com.wu.framework.easy.temple.domain.UserLog;
 import com.wu.framework.easy.temple.service.RunService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
 import java.util.List;
 
 /**
@@ -32,7 +33,7 @@ public class RunTest {
         return runService.run(size);
     }
 
-    @EasyExcel(fileName = "非原生注解导出数据", filedColumnAnnotation = EasyTableFile.class,multipleSheet = true, limit = 10)
+    @EasyExcel(fileName = "非原生注解导出数据", filedColumnAnnotation = EasyTableField.class, multipleSheet = true, limit = 10)
     @GetMapping("/run1")
     public List<UserLog> run1() {
         return runService.run1();

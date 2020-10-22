@@ -1,7 +1,7 @@
 package com.wuframework.system.utils;
 
-import com.wuframework.system.common.entity.SysRole;
 import com.wuframework.system.common.entity.DefaultSysUser;
+import com.wuframework.system.common.entity.SysRole;
 import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;

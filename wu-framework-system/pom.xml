@@ -3,14 +3,14 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>com.wu</groupId>
+        <groupId>top.wu2020</groupId>
         <artifactId>wu-framework-parent</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.wu</groupId>
+    <groupId>top.wu2020</groupId>
     <artifactId>wu-framework-system</artifactId>
     <version>1.0.3.1</version>
     <description>添加RequiredPermission 权限注解</description>
@@ -23,9 +23,9 @@
 
         <!--        框架-->
         <dependency>
-            <groupId>com.wu</groupId>
+            <groupId>top.wu2020</groupId>
             <artifactId>wu-framework-shiro</artifactId>
-            <version>1.0.8-SNAPSHOT</version>
+            <version>1.0.8</version>
         </dependency>
 
         <dependency>
@@ -39,11 +39,11 @@
         </dependency>
 
         <!-- 阿里巴巴钉钉-->
-<!--        <dependency>-->
-<!--            <groupId>com.alibaba</groupId>-->
-<!--            <artifactId>dingtalk</artifactId>-->
-<!--            <version>1.0.1</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.alibaba</groupId>-->
+        <!--            <artifactId>dingtalk</artifactId>-->
+        <!--            <version>1.0.1</version>-->
+        <!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/net.guerlab.sdk/sdk-dingtalk-core -->
         <dependency>
@@ -55,7 +55,7 @@
 
         <!--文件资源服务-->
         <dependency>
-            <groupId>com.wu</groupId>
+            <groupId>top.wu2020</groupId>
             <artifactId>wu-file-starter</artifactId>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.reflections/reflections -->

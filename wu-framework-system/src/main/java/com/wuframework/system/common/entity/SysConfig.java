@@ -8,7 +8,6 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -65,14 +64,14 @@ public class SysConfig extends Model<SysConfig> {
      */
     @UpdateTimestamp
     @Basic
-    @Column(name = "gmt_modified", nullable = true,columnDefinition = "datetime(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0)  COMMENT '修改时间'")
+    @Column(name = "gmt_modified", nullable = true, columnDefinition = "datetime(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0)  COMMENT '修改时间'")
     private Date gmtModified;
     /**
      * 记录创建日期
      */
     @CreationTimestamp
     @Basic
-    @Column(name = "gmt_create", nullable = true,columnDefinition = "datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'")
+    @Column(name = "gmt_create", nullable = true, columnDefinition = "datetime(0) NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'")
     private Date gmtCreate;
     /**
      * 是否启用（1启用，0禁用）

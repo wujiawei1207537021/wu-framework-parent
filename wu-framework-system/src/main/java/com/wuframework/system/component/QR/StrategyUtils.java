@@ -13,8 +13,8 @@ import java.util.Collection;
 public class StrategyUtils {
 
 
-    public static <T> T getBeansWithAnnotation(Class<T> interfac,  String code) throws BeansException {
-        return getBeansWithAnnotation(interfac, StrategyService.class,code);
+    public static <T> T getBeansWithAnnotation(Class<T> interfac, String code) throws BeansException {
+        return getBeansWithAnnotation(interfac, StrategyService.class, code);
     }
 
     public static <T> T getBeansWithAnnotation(Class<T> interfac, Class<? extends StrategyService> annotation, String code) throws BeansException {

@@ -5,10 +5,10 @@ import com.google.common.collect.Maps;
 import com.wu.framework.easy.stereotype.upsert.EasyTable;
 import com.wu.framework.easy.stereotype.upsert.converter.ConverterClass2KafkaSchema;
 import com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter;
-import com.wu.framework.easy.stereotype.upsert.entity.kafka.TargetJsonSchema;
-import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
 import com.wu.framework.easy.stereotype.upsert.entity.kafka.KafkaJsonMessage;
+import com.wu.framework.easy.stereotype.upsert.entity.kafka.TargetJsonSchema;
+import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
@@ -79,8 +79,7 @@ public class UpsertConfig implements InitializingBean {
     /**
      * 批量条数限制
      */
-    private Integer batchLimit=1000;
-
+    private Integer batchLimit = 1000;
 
 
     @Deprecated

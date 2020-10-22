@@ -51,10 +51,12 @@ public interface SysUserRoleService extends IService<SysUserRole> {
 
     /**
      * 根据用户ID 查询用户角色标示
+     *
      * @param userId
      * @return
      */
-     List<String> listRoleSign(Integer userId);
+    List<String> listRoleSign(Integer userId);
+
     /**
      * 统计该角色关联用户数
      *

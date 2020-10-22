@@ -15,13 +15,11 @@ import org.springframework.context.annotation.Configuration;
 public class DbConfig {
 
 
-    private GeneratorEnums.GeneratorTypeEnums type= GeneratorEnums.GeneratorTypeEnums.MySQL;
-
     private final MySQLGeneratorDao mySQLGeneratorDao;
     private final OracleGeneratorDao oracleGeneratorDao;
     private final SQLServerGeneratorDao sqlServerGeneratorDao;
-
     private final PostgreSQLGeneratorDao postgreSQLGeneratorDao;
+    private GeneratorEnums.GeneratorTypeEnums type = GeneratorEnums.GeneratorTypeEnums.MySQL;
 
 //    @Bean("generatorRepository")
 //    @Primary

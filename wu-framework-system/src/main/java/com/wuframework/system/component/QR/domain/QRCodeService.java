@@ -14,6 +14,7 @@ public interface QRCodeService {
 
     /**
      * 获取用户
+     *
      * @param qrbo
      * @return
      */
@@ -26,6 +27,7 @@ public interface QRCodeService {
 
     /**
      * 获取二维码地址
+     *
      * @return
      */
     Result qRCodeProperties(QRProBO qrProBO);

@@ -3,7 +3,6 @@ package com.wu.framework.inner.file.wrapper;
 import com.github.tobato.fastdfs.conn.ConnectionPoolConfig;
 import com.github.tobato.fastdfs.conn.PooledConnectionFactory;
 import com.github.tobato.fastdfs.domain.ThumbImageConfig;
-
 import com.wu.framework.inner.file.wrapper.config.dev.DevDefaultFastFileStorageClient;
 import com.wu.framework.inner.file.wrapper.config.dev.DevTrackerConnectionManager;
 import com.wu.framework.inner.file.wrapper.config.dev.WuDevFdfsFileProperties;
@@ -20,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class WuDevWuFastDFSClientWrapper extends WuFastDFSClientParentWrapper {
 
 
-
     private DevDefaultFastFileStorageClient storageClient;
 
     private WuDevFdfsFileProperties wuDevFdfsFileProperties;
@@ -33,14 +31,11 @@ public class WuDevWuFastDFSClientWrapper extends WuFastDFSClientParentWrapper {
                                        ThumbImageConfig thumbImageConfig,
                                        WuDevFdfsFileProperties wuDevFdfsFileProperties) {
 
-        this.storageClient=new DevDefaultFastFileStorageClient(pooledConnectionFactory,devTrackerConnectionManager,connectionPoolConfig,thumbImageConfig);
+        this.storageClient = new DevDefaultFastFileStorageClient(pooledConnectionFactory, devTrackerConnectionManager, connectionPoolConfig, thumbImageConfig);
         this.wuDevFdfsFileProperties = wuDevFdfsFileProperties;
         this.setStorageClient(storageClient);
         this.setWuFileProperties(wuDevFdfsFileProperties);
     }
-
-
-
 
 
 }

@@ -14,13 +14,13 @@ import java.sql.SQLException;
  * @describe :
  * @date : 2020/6/25 下午11:09
  */
-public class DefaultSqlSession  implements SqlSession {
+public class DefaultSqlSession implements SqlSession {
 
     private final Connection connection;
     private final RepositoryProxy repositoryProxy;
 
     public DefaultSqlSession(CustomDataSourceAdapter customDataSourceAdapter, RepositoryProxy repositoryProxy) throws SQLException {
-        this.connection  = customDataSourceAdapter.getCustomDataSource().getConnection();
+        this.connection = customDataSourceAdapter.getCustomDataSource().getConnection();
         this.repositoryProxy = repositoryProxy;
     }
 
@@ -28,12 +28,12 @@ public class DefaultSqlSession  implements SqlSession {
     @Override
     public <T> T getRepository(Class<T> interfaceClass) {
         return (T) Proxy.newProxyInstance(interfaceClass.getClassLoader(),
-                new Class[]{interfaceClass},repositoryProxy);
+                new Class[]{interfaceClass}, repositoryProxy);
     }
 
     @Override
     public void close() {
-        if(connection != null) {
+        if (connection != null) {
             try {
                 connection.close();
             } catch (Exception e) {

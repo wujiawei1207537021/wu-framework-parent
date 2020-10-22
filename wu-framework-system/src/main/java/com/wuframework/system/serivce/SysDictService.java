@@ -3,8 +3,8 @@ package com.wuframework.system.serivce;
 
 import com.baomidou.mybatisplus.service.IService;
 import com.wuframework.response.Result;
-import com.wuframework.system.common.entity.SysDict;
 import com.wuframework.system.common.entity.DefaultSysUser;
+import com.wuframework.system.common.entity.SysDict;
 
 import java.util.List;
 
@@ -76,6 +76,7 @@ public interface SysDictService extends IService<SysDict> {
 
     /**
      * 获取所有字典并转换成树
+     *
      * @return
      */
     Result all();

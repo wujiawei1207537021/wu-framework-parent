@@ -14,7 +14,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -30,7 +29,7 @@ import java.util.stream.Collectors;
  * @since 2019-02-14
  */
 @Api(tags = "系统字典类型管理模块")
-@CustomController({"/sysdicttype","/system/dict/type"})
+@CustomController({"/sysdicttype", "/system/dict/type"})
 public class SysDictTypeController {
 
     @Resource

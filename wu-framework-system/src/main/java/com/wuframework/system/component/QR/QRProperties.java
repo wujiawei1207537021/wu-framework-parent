@@ -35,9 +35,9 @@ public class QRProperties {
          */
         private String redirectUri;
         /**
-         *  二维码地址(配置文件优先级大)
+         * 二维码地址(配置文件优先级大)
          */
-        private String  qRCodeUrl;
+        private String qRCodeUrl;
     }
 
     @Data
@@ -59,10 +59,11 @@ public class QRProperties {
          */
         private String redirectUri;
         /**
-         *  二维码地址(配置文件优先级大)
+         * 二维码地址(配置文件优先级大)
          */
-        private String  qRCodeUrl;
+        private String qRCodeUrl;
     }
+
     @Data
     public static class Alipay {
         /**
@@ -86,9 +87,9 @@ public class QRProperties {
          */
         private String redirectUri;
         /**
-         *  二维码地址(配置文件优先级大)
+         * 二维码地址(配置文件优先级大)
          */
-        private String  qRCodeUrl;
+        private String qRCodeUrl;
     }
 
 }

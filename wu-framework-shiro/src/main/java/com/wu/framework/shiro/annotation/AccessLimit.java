@@ -10,6 +10,7 @@ import java.lang.annotation.Target;
 /**
  * 访问限制
  * {@link AccessLimitAOP}
+ *
  * @author wjw
  */
 
@@ -24,6 +25,7 @@ public @interface AccessLimit {
 
     /**
      * 默认请求成功限制次数
+     *
      * @return
      */
     boolean requestSuccessLimit() default true;

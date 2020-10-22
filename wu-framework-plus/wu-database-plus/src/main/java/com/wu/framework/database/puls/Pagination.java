@@ -219,6 +219,11 @@ public class Pagination {
         return orders(isAsc, ascs);
     }
 
+    public Pagination setAscs(List<String> ascs) {
+        this.ascs = ascs;
+        return this;
+    }
+
     private List<String> orders(boolean condition, List<String> columns) {
         if (condition && "".equals(orderByField)) {
             if (columns == null) {
@@ -229,11 +234,6 @@ public class Pagination {
             }
         }
         return columns;
-    }
-
-    public Pagination setAscs(List<String> ascs) {
-        this.ascs = ascs;
-        return this;
     }
 
     @Transient
@@ -264,7 +264,6 @@ public class Pagination {
         this.isAsc = isAsc;
         return this;
     }
-
 
 
     @Override

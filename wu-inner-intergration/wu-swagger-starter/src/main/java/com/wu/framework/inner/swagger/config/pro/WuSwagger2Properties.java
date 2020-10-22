@@ -19,25 +19,23 @@ import java.util.List;
 public class WuSwagger2Properties extends ApiInfo {
 
     public static final Contact DEFAULT_CONTACT = new Contact("", "", "");
-    public static final WuSwagger2Properties DEFAULT ;
-    private  String version;
-    private  String title;
-    private  String description;
-    private  String termsOfServiceUrl;
-    private  String license;
-    private  String licenseUrl;
-    private  Contact contact;
-    private  List<VendorExtension> vendorExtensions;
-
-
-
-
-    public WuSwagger2Properties() {
-        super("Api Documentation", "Api Documentation", "1.0", "urn:tos", DEFAULT_CONTACT, "Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0", new ArrayList());
-    }
+    public static final WuSwagger2Properties DEFAULT;
 
     static {
         DEFAULT = new WuSwagger2Properties("Api Documentation", "Api Documentation", "1.0", "urn:tos", DEFAULT_CONTACT, "Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0", new ArrayList());
+    }
+
+    private String version;
+    private String title;
+    private String description;
+    private String termsOfServiceUrl;
+    private String license;
+    private String licenseUrl;
+    private Contact contact;
+    private List<VendorExtension> vendorExtensions;
+
+    public WuSwagger2Properties() {
+        super("Api Documentation", "Api Documentation", "1.0", "urn:tos", DEFAULT_CONTACT, "Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0", new ArrayList());
     }
 
     public WuSwagger2Properties(String title, String description, String version, String termsOfServiceUrl, Contact contact, String license, String licenseUrl, Collection<VendorExtension> vendorExtensions) {

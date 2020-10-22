@@ -24,7 +24,7 @@ import java.util.concurrent.TimeoutException;
  * @date 2020/7/16 下午1:27
  */
 @Slf4j
-@ConditionalOnProperty(prefix = "spring.kafka",value = "bootstrap-servers")
+@ConditionalOnProperty(prefix = "spring.kafka", value = "bootstrap-servers")
 public class EasyUpsertExtractKafkaProducer implements InitializingBean {
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
@@ -114,6 +114,6 @@ public class EasyUpsertExtractKafkaProducer implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-     log.info(" init EasyUpsertExtractKafkaProducer success");
+        log.info(" init EasyUpsertExtractKafkaProducer success");
     }
 }

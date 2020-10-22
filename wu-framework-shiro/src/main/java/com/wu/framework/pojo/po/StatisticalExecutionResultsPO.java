@@ -1,7 +1,8 @@
 package com.wu.framework.pojo.po;
 
 
-import io.swagger.annotations.*;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @ApiModel(value = "", description = "统计执行结果")

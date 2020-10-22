@@ -13,11 +13,11 @@ import java.time.ZoneOffset;
 public class DateConverter {
 
 
-    public static Object toSQLDate(Object date){
-        if(date instanceof Date){
+    public static Object toSQLDate(Object date) {
+        if (date instanceof Date) {
             return date;
-        }else if (date instanceof LocalDateTime){
-            Date date1=new Date(((LocalDateTime) date).toEpochSecond(ZoneOffset.UTC));
+        } else if (date instanceof LocalDateTime) {
+            Date date1 = new Date(((LocalDateTime) date).toEpochSecond(ZoneOffset.UTC));
             return date1;
         }
         return date;

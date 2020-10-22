@@ -9,17 +9,17 @@ import java.util.List;
  * @author 吴佳伟
  * @date 2020/10/6 下午2:36
  */
-public class SheetNumContextMethod implements ISheetShowContextMethod{
+public class SheetNumContextMethod implements ISheetShowContextMethod {
 
 
     @Override
     public List<String> sheetContext(long size, long limit) {
-        List<String> stringList=new ArrayList<>();
+        List<String> stringList = new ArrayList<>();
         long page = (size + limit - 1) / limit;
-        for (int i = 0; i < page-1; i++) {
-            stringList.add((i*limit)+"～"+(i*limit+limit));
+        for (int i = 0; i < page - 1; i++) {
+            stringList.add((i * limit) + "～" + (i * limit + limit));
         }
-        stringList.add(((page-1)*limit)+"～"+((page-1)*limit+size%limit));
+        stringList.add(((page - 1) * limit) + "～" + ((page - 1) * limit + size % limit));
         return stringList;
     }
 }

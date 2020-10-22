@@ -39,19 +39,24 @@ public class ShiroWebMvcConfigurer implements WebMvcConfigurer {
 
 
     @Override
-    public void configurePathMatch(PathMatchConfigurer configurer) {}
+    public void configurePathMatch(PathMatchConfigurer configurer) {
+    }
 
     @Override
-    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {}
+    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+    }
 
     @Override
-    public void configureAsyncSupport(AsyncSupportConfigurer configurer) {}
+    public void configureAsyncSupport(AsyncSupportConfigurer configurer) {
+    }
 
     @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {}
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+    }
 
     @Override
-    public void addFormatters(FormatterRegistry registry) {}
+    public void addFormatters(FormatterRegistry registry) {
+    }
 
 
     @Override
@@ -61,16 +66,20 @@ public class ShiroWebMvcConfigurer implements WebMvcConfigurer {
     }
 
     @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {}
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    }
 
     @Override
-    public void addCorsMappings(CorsRegistry registry) {}
+    public void addCorsMappings(CorsRegistry registry) {
+    }
 
     @Override
-    public void addViewControllers(ViewControllerRegistry registry) {}
+    public void addViewControllers(ViewControllerRegistry registry) {
+    }
 
     @Override
-    public void configureViewResolvers(ViewResolverRegistry registry) {}
+    public void configureViewResolvers(ViewResolverRegistry registry) {
+    }
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
@@ -84,16 +93,20 @@ public class ShiroWebMvcConfigurer implements WebMvcConfigurer {
     }
 
     @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {}
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+    }
 
     @Override
-    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {}
+    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+    }
 
     @Override
-    public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {}
+    public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
+    }
 
     @Override
-    public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {}
+    public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
+    }
 
     @Override
     public Validator getValidator() {

@@ -1,9 +1,9 @@
 package com.supconit.its.transform.kafka;
 
+import com.supconit.its.transform.entity.KafkaJsonMessageWrapper;
 import com.supconit.its.transform.entity.kafka.KafkaJsonMessage;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
-import com.supconit.its.transform.entity.KafkaJsonMessageWrapper;
 
 import java.lang.reflect.Field;
 import java.text.ParseException;

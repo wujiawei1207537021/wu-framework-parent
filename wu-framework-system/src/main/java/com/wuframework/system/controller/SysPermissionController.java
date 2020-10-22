@@ -14,7 +14,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
 
 /**
  * 系统权限
@@ -41,22 +40,25 @@ public class SysPermissionController {
     public Result save(@Validated(ValidType.Create.class) @RequestBody SysPermission sysPermission) {
         return sysPermissionService.save(sysPermission);
     }
+
     @RequiredRole("super_admin")
     @ApiOperation("更新权限")
     @PutMapping()
     public Result update(@Validated(ValidType.Update.class) @RequestBody SysPermission sysPermission) {
         return sysPermissionService.update(sysPermission);
     }
+
     @RequiredRole("super_admin")
     @ApiOperation("超级管理员查询所有权限")
     @GetMapping()
     public Result queryList(@ModelAttribute UniversalSearchQO universalSearchQO) {
         return sysPermissionService.queryList(universalSearchQO);
     }
-//    @RequiredRole("super_admin")
+
+    //    @RequiredRole("super_admin")
     @ApiOperation("查询权限类型")
     @GetMapping("/type")
     public Result queryType() {
-       return ResultFactory.successOf(PermissionTypeEnums.values());
+        return ResultFactory.successOf(PermissionTypeEnums.values());
     }
 }

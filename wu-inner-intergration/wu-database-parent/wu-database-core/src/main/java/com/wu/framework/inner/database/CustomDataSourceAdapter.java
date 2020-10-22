@@ -1,7 +1,5 @@
 package com.wu.framework.inner.database;
 
-import javax.sql.DataSource;
-
 /**
  * @author : 吴佳伟
  * @version 1.0

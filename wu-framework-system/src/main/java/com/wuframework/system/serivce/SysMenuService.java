@@ -90,6 +90,7 @@ public interface SysMenuService extends IService<SysMenu> {
 
     /**
      * 初始化菜单树
+     *
      * @param menuNodeList
      * @return
      */

@@ -95,7 +95,7 @@ public class DefaultSysMenuService extends ServiceImpl<SysMenuMapper, SysMenu> i
     public Result initMenuTree(List<MenuNode> menuNodeList) {
         baseMapper.delete(null);
         for (MenuNode menuNode : menuNodeList) {
-            SysMenu sysMenu=new SysMenu();
+            SysMenu sysMenu = new SysMenu();
             sysMenu.setName(menuNode.getName());
             sysMenu.setIcon(menuNode.getIcon());
             sysMenu.setUrl(menuNode.getPath());
@@ -103,7 +103,7 @@ public class DefaultSysMenuService extends ServiceImpl<SysMenuMapper, SysMenu> i
             sysMenu.setParentId(0);
             sysMenu.insert();
             for (MenuNode child : menuNode.getChildren()) {
-                SysMenu temp=new SysMenu();
+                SysMenu temp = new SysMenu();
                 temp.setName(child.getName());
                 temp.setIcon(child.getIcon());
                 temp.setUrl(child.getPath());

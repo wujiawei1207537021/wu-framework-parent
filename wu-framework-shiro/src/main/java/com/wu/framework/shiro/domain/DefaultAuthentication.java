@@ -10,5 +10,4 @@ public class DefaultAuthentication implements Authentication {
     private String scope;
 
 
-
 }

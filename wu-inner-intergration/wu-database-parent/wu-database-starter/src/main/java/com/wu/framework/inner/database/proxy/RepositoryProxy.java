@@ -45,7 +45,7 @@ public class RepositoryProxy implements InvocationHandler, InitializingBean {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        CustomRepository customRepository ;
+        CustomRepository customRepository;
         // TODO 数据库操作
         //1.获取方法名
         String methodName = method.getName();
@@ -54,24 +54,24 @@ public class RepositoryProxy implements InvocationHandler, InitializingBean {
         }
 
         Select select = method.getAnnotation(Select.class);
-        if(null==select){
+        if (null == select) {
             //2.获取方法所在类的名称
             String className = method.getDeclaringClass().getName();
             //3.组合key
             String key = className + "." + methodName;
             //4.获取mappers中的Mapper对象
             customRepository = getCustomRepositoryMap().get(key);
-        }else {
+        } else {
             customRepository = new CustomRepository();
             customRepository.setQueryString(select.value());
             customRepository.setExecuteType(CustomRepositoryXmlScan.ExecuteType.SELECT);
             Type genericReturnType = method.getGenericReturnType();
-            if(null!=genericReturnType){
+            if (null != genericReturnType) {
                 ParameterizedType pt = (ParameterizedType) method.getGenericReturnType();
                 // 得到泛型里的class类型对象
-                Class<?> actualTypeArgument = (Class<?>)pt.getActualTypeArguments()[0];
+                Class<?> actualTypeArgument = (Class<?>) pt.getActualTypeArguments()[0];
                 customRepository.setResultClass(actualTypeArgument);
-            }else {
+            } else {
                 customRepository.setResultClass(method.getReturnType());
             }
         }
@@ -83,12 +83,12 @@ public class RepositoryProxy implements InvocationHandler, InitializingBean {
         Class returnType = method.getReturnType();
         //6.调用工具类执行查询所有
         if (customRepository.getExecuteType().equals(CustomRepositoryXmlScan.ExecuteType.SELECT)) {
-            Collection resultCollection = CustomExecutor.selectList(method, args,customRepository, connection);
+            Collection resultCollection = CustomExecutor.selectList(method, args, customRepository, connection);
             Page page = Parser.pageObject(method, args);
             if (null != page) {
-                long total = CustomExecutor.selectCount(method, args,customRepository, connection);
+                long total = CustomExecutor.selectCount(method, args, customRepository, connection);
                 page.setTotal(total);
-                page.setPages(total/page.getSize());
+                page.setPages(total / page.getSize());
                 page.setRecord(resultCollection);
             }
             if (Collection.class.isAssignableFrom(returnType)) {
@@ -97,7 +97,7 @@ public class RepositoryProxy implements InvocationHandler, InitializingBean {
                 if (resultCollection.size() > 1) {
                     throw new RuntimeException(" expect one but found" + resultCollection.size());
                 } else {
-                    if(resultCollection.iterator().hasNext()){
+                    if (resultCollection.iterator().hasNext()) {
                         return resultCollection.iterator().next();
                     }
                     return null;
@@ -114,7 +114,7 @@ public class RepositoryProxy implements InvocationHandler, InitializingBean {
     }
 
     public Map<String, CustomRepository> getCustomRepositoryMap() {
-        if(customRepositoryMap==null){
+        if (customRepositoryMap == null) {
             // 静态获取
             this.customRepositoryMap = xxConfig.customRepositoryMap;
         }

@@ -9,7 +9,7 @@ import lombok.Data;
  * @date 2020/6/22 2:37 下午
  */
 @Data
-public class LineCardInformationTable  {
+public class LineCardInformationTable {
 
 
     private String YINGYUNXIANLUID;

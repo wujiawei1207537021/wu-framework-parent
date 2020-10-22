@@ -2,13 +2,13 @@ package com.supconit.its.transform.kafka;
 
 
 import com.supconit.its.transform.config.DataProcessConfig;
+import com.supconit.its.transform.entity.KafkaJsonMessageWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Component;
-import com.supconit.its.transform.entity.KafkaJsonMessageWrapper;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;

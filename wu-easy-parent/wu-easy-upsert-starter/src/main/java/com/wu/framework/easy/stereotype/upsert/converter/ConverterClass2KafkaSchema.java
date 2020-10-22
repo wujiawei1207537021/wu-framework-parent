@@ -1,7 +1,7 @@
 package com.wu.framework.easy.stereotype.upsert.converter;
 
 
-import com.wu.framework.easy.stereotype.upsert.EasyTableFile;
+import com.wu.framework.easy.stereotype.upsert.EasyTableField;
 import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
 import com.wu.framework.easy.stereotype.upsert.entity.kafka.TargetJsonSchema;
 import org.apache.kafka.common.protocol.types.Type;
@@ -31,35 +31,35 @@ public class ConverterClass2KafkaSchema {
      */
     public static TargetJsonSchema converterClass2TargetJsonSchema(Class clazz, boolean forcedDuplicateNameSwitch) {
         TargetJsonSchema targetJsonSchema = new TargetJsonSchema();
-        targetJsonSchema.setName(EasyAnnotationConverter.getKafkaSchemaName(clazz,forcedDuplicateNameSwitch));
+        targetJsonSchema.setName(EasyAnnotationConverter.getKafkaSchemaName(clazz, forcedDuplicateNameSwitch));
         List<TargetJsonSchema.Field> fieldList = new ArrayList<>();
         targetJsonSchema.setFields(fieldList);
         for (Field field : clazz.getDeclaredFields()) {
             if (!field.isAccessible()) {
                 field.setAccessible(true);
             }
-            if(UpsertJsonMessage.ignoredFields.contains(field.getName())){
+            if (UpsertJsonMessage.ignoredFields.contains(field.getName())) {
                 continue;
             }
             TargetJsonSchema.Field t = new TargetJsonSchema.Field();
-            EasyTableFile easyTableFile = AnnotatedElementUtils.findMergedAnnotation(field, EasyTableFile.class);
+            EasyTableField easyTableField = AnnotatedElementUtils.findMergedAnnotation(field, EasyTableField.class);
             String fieldName = "";
             String name = "";
             String type = "";
             boolean optional = true;
             fieldName = CamelAndUnderLineConverter.humpToLine2(field.getName());
-            type = EasyTableFile.JavaSchemaDataType.getAlias(field.getType());
-            if (!ObjectUtils.isEmpty(easyTableFile)) {
-                if (!easyTableFile.exist()) {
+            type = EasyTableField.JavaSchemaDataType.getAlias(field.getType());
+            if (!ObjectUtils.isEmpty(easyTableField)) {
+                if (!easyTableField.exist()) {
                     continue;
                 }
-                String fieldNameTemp = easyTableFile.name();
+                String fieldNameTemp = easyTableField.name();
                 if (!ObjectUtils.isEmpty(fieldNameTemp)) {
                     fieldName = fieldNameTemp;
                 }
                 // 数据库字段类型
-                type = databaseFieldConversionSchemaType(easyTableFile.type()).toLowerCase();
-                optional = easyTableFile.optional();
+                type = databaseFieldConversionSchemaType(easyTableField.type()).toLowerCase();
+                optional = easyTableField.optional();
             }
             t.setField(fieldName);
             t.setType(type);

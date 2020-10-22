@@ -1,5 +1,3 @@
-
-
 import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
 import domain.PassengerTerminal;
 

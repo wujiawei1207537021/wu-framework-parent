@@ -47,10 +47,11 @@ public interface UserDetails extends Serializable {
 
     /**
      * 签名string
+     *
      * @return
      */
-    default String tosin(){
-        return "UserDetails(username="+this.getUsername()+",passWord="+this.getPassword()+")";
+    default String tosin() {
+        return "UserDetails(username=" + this.getUsername() + ",passWord=" + this.getPassword() + ")";
     }
 
 

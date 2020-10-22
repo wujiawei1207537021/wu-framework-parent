@@ -1,18 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.wu</groupId>
+    <groupId>top.wu2020</groupId>
     <artifactId>wu-framework-parent</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
     <description>系统框架</description>
+    <url>https://github.com/wujiawei1207537021/wu-framework-parent</url>
+
+    <!-->开发者的信息<-->
+    <developers>
+        <developer>
+            <name>jiaweiWu</name>
+            <email>1207537021@qq.com</email>
+        </developer>
+    </developers>
+
+    <!-->项目的版本管理地址<-->
+    <scm>
+        <url>https://github.com/wujiawei1207537021/wu-framework-parent</url>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+
     <properties>
 
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
@@ -23,13 +48,14 @@
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
         <maven-shade-plugin.version>3.2.1</maven-shade-plugin.version>
         <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
+        <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <github.global.server>github</github.global.server>
 
-        <wu-db-starter.version>1.0.1-SNAPSHOT</wu-db-starter.version>
-        <wu-redis-starter.version>1.0.0-SNAPSHOT</wu-redis-starter.version>
-        <wu-log-starter.version>1.0.0-SNAPSHOT</wu-log-starter.version>
-        <wu-swagger-starter.version>1.0.1-SNAPSHOT</wu-swagger-starter.version>
-        <wu-file-starter.version>1.0.1-SNAPSHOT</wu-file-starter.version>
+        <wu-db-starter.version>1.0.1</wu-db-starter.version>
+        <wu-redis-starter.version>1.0.0</wu-redis-starter.version>
+        <wu-log-starter.version>1.0.0</wu-log-starter.version>
+        <wu-swagger-starter.version>1.0.1</wu-swagger-starter.version>
+        <wu-file-starter.version>1.0.1</wu-file-starter.version>
 
         <spring-boot-starter.version>2.3.2.RELEASE</spring-boot-starter.version>
     </properties>
@@ -73,98 +99,38 @@
 
             <!--数据库-->
             <dependency>
-                <groupId>com.wu</groupId>
+                <groupId>top.wu2020</groupId>
                 <artifactId>wu-db-starter</artifactId>
                 <version>${wu-db-starter.version}</version>
             </dependency>
             <!--swagger-->
             <dependency>
-                <groupId>com.wu</groupId>
+                <groupId>top.wu2020</groupId>
                 <artifactId>wu-swagger-starter</artifactId>
                 <version>${wu-swagger-starter.version}</version>
             </dependency>
             <!--redis-->
             <dependency>
-                <groupId>com.wu</groupId>
+                <groupId>top.wu2020</groupId>
                 <artifactId>wu-redis-starter</artifactId>
                 <version>${wu-redis-starter.version}</version>
             </dependency>
             <!--文件资源服务-->
             <dependency>
-                <groupId>com.wu</groupId>
+                <groupId>top.wu2020</groupId>
                 <artifactId>wu-file-starter</artifactId>
                 <version>${wu-file-starter.version}</version>
             </dependency>
             <!--      日志      -->
             <dependency>
-                <groupId>com.wu</groupId>
+                <groupId>top.wu2020</groupId>
                 <artifactId>wu-log-starter</artifactId>
                 <version>${wu-log-starter.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
-    <repositories>
-        <repository>
-            <id>central</id>
-            <url>https://maven.aliyun.com/nexus/content/groups/public</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>snapshots</id>
-            <url>https://maven.aliyun.com/nexus/content/groups/public</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>rdc-releases</id>
-            <url>https://packages.aliyun.com/maven/repository/2040590-release-S2fwSn/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>rdc-snapshots</id>
-            <url>https://packages.aliyun.com/maven/repository/2040590-snapshot-g6qivj/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-    <distributionManagement>
-        <!--        <repository>-->
-        <!--            <id>releases</id>-->
-        <!--            <url>http://192.168.1.86:9081/repository/maven-releases/</url>-->
-        <!--        </repository>-->
-        <!--        <snapshotRepository>-->
-        <!--            <id>snapshots</id>-->
-        <!--            <url>http://192.168.1.86:9081/repository/maven-snapshots/</url>-->
-        <!--        </snapshotRepository>-->
-        <repository>
-            <id>rdc-releases</id>
-            <url>https://packages.aliyun.com/maven/repository/2040590-release-S2fwSn/</url>
-        </repository>
-        <snapshotRepository>
-            <id>rdc-snapshots</id>
-            <url>https://packages.aliyun.com/maven/repository/2040590-snapshot-g6qivj/</url>
-        </snapshotRepository>
 
-    </distributionManagement>
     <build>
         <pluginManagement>
             <plugins>
@@ -199,6 +165,7 @@
                     <configuration>
                         <source>1.8</source>
                         <target>1.8</target>
+                        <encoding>UTF-8</encoding>
                         <compilerArgs>
                             <compilerArg>-parameters</compilerArg>
                         </compilerArgs>
@@ -208,9 +175,77 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven-surefire-plugin.version}</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>${maven-gpg-plugin.version}</version>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
 
+    <profiles>
+        <profile>
+            <id>oss</id>
+            <build>
+                <plugins>
+                    <!-- Source -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>3.2.1</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- Javadoc -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.2.0</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                                <configuration>
+                                    <locale>en_US</locale>
+                                    <encoding>UTF-8</encoding>
+                                    <charset>UTF-8</charset>
+                                    <doclint>none</doclint>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- GPG -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven-gpg-plugin.version}</version>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <!-->发布的地址<-->
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>snapshots</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+                </snapshotRepository>
+                <repository>
+                    <id>snapshots</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+    </profiles>
 
 </project>

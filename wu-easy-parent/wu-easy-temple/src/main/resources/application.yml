@@ -1,4 +1,3 @@
-
 server:
   port: 1180
 
@@ -26,8 +25,8 @@ spring:
 #            password: wujiawei
 wu:
   database:
-      mapper:
-        scan-xml-path: classpath*:wu-mapper/*Dao.xml
+    mapper:
+      scan-xml-path: classpath*:wu-mapper/*Dao.xml
 
 debug: false
 easy:

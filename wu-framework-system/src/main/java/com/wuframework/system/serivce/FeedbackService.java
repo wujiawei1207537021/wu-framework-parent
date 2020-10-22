@@ -19,14 +19,15 @@ public interface FeedbackService extends IService<SysFeedback> {
     /**
      * 保存用户反馈
      *
-     * @param sysFeedback 用户反馈
-     * @param defaultSysUserDetails     当前用户
+     * @param sysFeedback           用户反馈
+     * @param defaultSysUserDetails 当前用户
      * @return
      */
     Result saveFeedBack(SysFeedback sysFeedback, DefaultSysUserDetails defaultSysUserDetails);
 
     /**
      * 查询用户反馈
+     *
      * @param universalSearchQO
      * @param page
      * @param defaultSysUserDetails
@@ -37,6 +38,7 @@ public interface FeedbackService extends IService<SysFeedback> {
 
     /**
      * 更新
+     *
      * @param sysFeedback
      * @param defaultSysUserDetails
      * @return

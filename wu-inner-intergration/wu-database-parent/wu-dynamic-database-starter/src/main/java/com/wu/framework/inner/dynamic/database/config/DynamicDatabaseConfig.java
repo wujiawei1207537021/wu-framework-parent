@@ -25,18 +25,15 @@ import java.util.Map;
 @ConfigurationProperties(prefix = "spring.wu.dynamic.database")
 public class DynamicDatabaseConfig implements InitializingBean {
 
-    private final Logger logger = LoggerFactory.getLogger(DynamicDatabaseConfig.class);
-
-    private boolean enable = true;
-
     public final Map<String, CustomDataSource> CUSTOM_DATA_SOURCE_MAP = new HashMap<>();
-
+    private final Logger logger = LoggerFactory.getLogger(DynamicDatabaseConfig.class);
+    private boolean enable = true;
     private Map<String, DatabaseConfig> databaseConfigMap = new HashMap<>();
 
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        if(ObjectUtils.isEmpty(databaseConfigMap)){
+        if (ObjectUtils.isEmpty(databaseConfigMap)) {
             throw new RuntimeException(" fail to init dynamic database for empty");
         }
         logger.info("init dynamic database config for {}", databaseConfigMap.keySet());

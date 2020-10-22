@@ -1,6 +1,5 @@
 package com.wu.framework.inner.database;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 
 /**

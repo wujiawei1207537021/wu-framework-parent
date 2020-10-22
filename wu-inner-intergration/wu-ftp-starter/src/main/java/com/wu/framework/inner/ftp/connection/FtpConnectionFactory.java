@@ -13,7 +13,7 @@ public interface FtpConnectionFactory extends PersistenceExceptionTranslator {
 
     FtpConnection getConnection();
 
-    FtpConnection getConnection(String host,Integer port);
+    FtpConnection getConnection(String host, Integer port);
 
     FtpConnection getConnection(SocketClient socketClient);
 

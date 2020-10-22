@@ -11,8 +11,8 @@ spring:
     active: zz
 wu:
   database:
-      mapper:
-        scan-xml-path: classpath*:wu-mapper/*Dao.xml
+    mapper:
+      scan-xml-path: classpath*:wu-mapper/*Dao.xml
 
 #debug: true
 

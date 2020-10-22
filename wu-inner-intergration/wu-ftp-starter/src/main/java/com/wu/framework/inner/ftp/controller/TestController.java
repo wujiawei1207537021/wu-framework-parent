@@ -6,8 +6,6 @@ import org.apache.commons.net.ftp.FTPFile;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-
 /**
  * @Description
  * @Author 吴佳伟

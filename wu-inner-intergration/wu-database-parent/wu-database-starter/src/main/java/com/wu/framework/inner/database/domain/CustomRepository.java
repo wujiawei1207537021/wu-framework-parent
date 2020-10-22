@@ -23,7 +23,7 @@ public class CustomRepository {
     private String queryString;//sql
     private String resultType;//实体类的全限定类名
     private Class resultClass;//实体类
-    private CustomRepositoryXmlScan.ExecuteType executeType =CustomRepositoryXmlScan.ExecuteType.SELECT;//sql执行的类型
+    private CustomRepositoryXmlScan.ExecuteType executeType = CustomRepositoryXmlScan.ExecuteType.SELECT;//sql执行的类型
 
     /**
      * if 标签
@@ -32,14 +32,14 @@ public class CustomRepository {
 
 
     public String getResultType() {
-        if(ObjectUtils.isEmpty(resultClass)){
+        if (ObjectUtils.isEmpty(resultClass)) {
             return resultType;
         }
         return resultClass.getName();
     }
 
     @Data
-    public static class IF{
+    public static class IF {
         /**
          * if 判断
          */

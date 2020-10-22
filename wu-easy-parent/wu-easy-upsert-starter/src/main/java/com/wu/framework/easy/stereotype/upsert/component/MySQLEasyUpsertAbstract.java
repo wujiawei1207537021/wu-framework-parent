@@ -1,10 +1,10 @@
 package com.wu.framework.easy.stereotype.upsert.component;
 
+import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
+import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
 import com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter;
 import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
 import com.wu.framework.easy.stereotype.upsert.ienum.UserDictionaryService;
-import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
-import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 
@@ -45,12 +45,12 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, Initializi
         DataSource dataSource = determineDataSource();
         String threadName = Thread.currentThread().getName();
         if (list.size() > upsertConfig.getBatchLimit()) {
-            Integer total=(list.size()+upsertConfig.getBatchLimit()-1) / upsertConfig.getBatchLimit();
+            Integer total = (list.size() + upsertConfig.getBatchLimit() - 1) / upsertConfig.getBatchLimit();
             log.info("计划处理步骤 【{}】 步", total);
-            List<List<T>> splitList= splitList(list, upsertConfig.getBatchLimit());
-            int stepCount =1;
+            List<List<T>> splitList = splitList(list, upsertConfig.getBatchLimit());
+            int stepCount = 1;
             for (List<T> ts : splitList) {
-                log.info("处理步骤第 【{}】 步 ,总步数 【{}】", stepCount,total);
+                log.info("处理步骤第 【{}】 步 ,总步数 【{}】", stepCount, total);
                 execute(threadName, dataSource, ts);
                 stepCount++;
             }

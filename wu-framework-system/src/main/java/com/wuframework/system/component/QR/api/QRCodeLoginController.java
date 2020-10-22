@@ -9,7 +9,6 @@ import com.wuframework.system.component.QR.QRProBO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 

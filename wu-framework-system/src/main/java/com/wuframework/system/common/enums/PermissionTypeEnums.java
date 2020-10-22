@@ -2,7 +2,6 @@ package com.wuframework.system.common.enums;
 
 import com.wuframework.response.enmus.WuEnums;
 import com.wuframework.system.component.enmus.WuEnumsProperty;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,12 +16,12 @@ import java.lang.annotation.Annotation;
  */
 @AllArgsConstructor
 @Getter
-@WuEnumsProperty(value = "PermissionType",name = "权限")
+@WuEnumsProperty(value = "PermissionType", name = "权限")
 public enum PermissionTypeEnums implements WuEnums {
-    C(PostMapping.class,"保存"),
-    R(GetMapping.class,"查询"),
-    U(PutMapping.class,"更改"),
-    D(DeleteMapping.class,"删除");
+    C(PostMapping.class, "保存"),
+    R(GetMapping.class, "查询"),
+    U(PutMapping.class, "更改"),
+    D(DeleteMapping.class, "删除");
 
     private Class<? extends Annotation> aClass;
 

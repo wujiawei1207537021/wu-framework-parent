@@ -1,12 +1,12 @@
 package com.wu.framework.easy.stereotype.upsert.component.mysql;
 
 
-import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
-import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
-import com.wu.framework.easy.stereotype.upsert.ienum.UserDictionaryService;
 import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
 import com.wu.framework.easy.stereotype.upsert.component.MySQLEasyUpsertAbstract;
 import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
+import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
+import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
+import com.wu.framework.easy.stereotype.upsert.ienum.UserDictionaryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 
@@ -28,7 +28,7 @@ public class MySQLSimpleEasyUpsert extends MySQLEasyUpsertAbstract implements IE
     private final DataSource dataSource;
 
     public MySQLSimpleEasyUpsert(DataSource dataSource, UserDictionaryService userDictionaryService, UpsertConfig upsertConfig) {
-        super(userDictionaryService,upsertConfig);
+        super(userDictionaryService, upsertConfig);
         this.dataSource = dataSource;
     }
 

@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
-
 @EnableTransactionManagement   //开启事务管理功能
 @EnableAsync                    //异步执行,开启多线程
 @EnableCaching                  //缓存管理功能

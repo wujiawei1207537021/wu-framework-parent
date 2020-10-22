@@ -9,4 +9,5 @@ com.wu.framework.easy.stereotype.upsert.ienum.DefaultUserDictionaryService,\
 com.wu.framework.easy.stereotype.upsert.component.KafkaEasyUpsert,\
 com.wu.framework.easy.stereotype.upsert.component.mysql.MySQLSimpleEasyUpsert,\
 com.wu.framework.easy.stereotype.upsert.component.mysql.MySQLMultipleEasyUpsert,\
+com.wu.framework.easy.stereotype.upsert.component.ElasticsearchEasyUpsert,\
 com.wu.framework.easy.stereotype.dynamic.DynamicEasyUpsert

@@ -6,7 +6,6 @@ import com.wu.kafka.enums.DataType;
 import com.wu.kafka.stereotype.KafkaSchema;
 import com.wu.kafka.stereotype.KafkaSchemaFile;
 import com.wu.kafka.until.CamelAndUnderLineConverter;
-import com.wu.kafka.until.SpringUntil;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +16,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
 
 @Data
 @Configuration
@@ -31,7 +29,7 @@ public class WuDataProcessConfig extends DataProcessConfig {
     @Override
     public void init() {
         super.init();
-        if(ObjectUtils.isEmpty(getSchema())){
+        if (ObjectUtils.isEmpty(getSchema())) {
             setSchema(Arrays.asList());
         }
         setSchema(new ArrayList<>(getSchema()));

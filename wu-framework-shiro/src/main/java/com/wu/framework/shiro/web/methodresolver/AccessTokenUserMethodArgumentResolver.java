@@ -1,10 +1,10 @@
 package com.wu.framework.shiro.web.methodresolver;
 
 
-import com.wu.framework.shiro.login.ILoginService;
 import com.wu.framework.shiro.annotation.AccessTokenUser;
 import com.wu.framework.shiro.config.pro.ShiroProperties;
 import com.wu.framework.shiro.exceptions.TokenAuthorizationException;
+import com.wu.framework.shiro.login.ILoginService;
 import com.wu.framework.shiro.model.UserDetails;
 import org.springframework.core.MethodParameter;
 import org.springframework.lang.Nullable;

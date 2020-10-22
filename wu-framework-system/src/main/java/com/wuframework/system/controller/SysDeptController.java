@@ -1,16 +1,16 @@
 package com.wuframework.system.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.wuframework.system.common.vo.TreeNode;
+import com.wuframework.db.annotation.RequestPage;
 import com.wuframework.response.Result;
 import com.wuframework.response.ResultFactory;
 import com.wuframework.response.enmus.DefaultResultCode;
 import com.wuframework.shiro.annotation.AccessTokenUser;
 import com.wuframework.shiro.annotation.CustomController;
-import com.wuframework.db.annotation.RequestPage;
 import com.wuframework.system.common.dto.DeptDTO;
 import com.wuframework.system.common.entity.DefaultSysUser;
 import com.wuframework.system.common.entity.SysDept;
+import com.wuframework.system.common.vo.TreeNode;
 import com.wuframework.system.serivce.SysDeptService;
 import com.wuframework.system.serivce.SysUserService;
 import com.wuframework.system.utils.BusinessUtils;
@@ -21,7 +21,6 @@ import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Min;
 import java.util.Arrays;
@@ -44,16 +43,16 @@ public class SysDeptController {
 
     @Autowired
     public SysDeptController(SysUserService defaultSysUserService, SysUserService sysUserService,
-                             SysDeptService defaultSysDeptService,SysDeptService sysDeptService){
-        if(ObjectUtils.isEmpty(sysUserService)){
-            this.sysUserService=defaultSysUserService;
-        }else {
-            this.sysUserService=sysUserService;
+                             SysDeptService defaultSysDeptService, SysDeptService sysDeptService) {
+        if (ObjectUtils.isEmpty(sysUserService)) {
+            this.sysUserService = defaultSysUserService;
+        } else {
+            this.sysUserService = sysUserService;
         }
-        if(ObjectUtils.isEmpty(sysDeptService)){
-            this.deptService=defaultSysDeptService;
-        }else {
-            this.deptService=sysDeptService;
+        if (ObjectUtils.isEmpty(sysDeptService)) {
+            this.deptService = defaultSysDeptService;
+        } else {
+            this.deptService = sysDeptService;
         }
     }
 

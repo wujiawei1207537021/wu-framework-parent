@@ -29,7 +29,6 @@ import java.io.InputStream;
 public class QiNiuAuthWrapper {
 
 
-
     private QiNiuAuthProperties qiNiuAuthProperties;
 
 
@@ -63,7 +62,7 @@ public class QiNiuAuthWrapper {
             //解析上传成功的结果
             DefaultPutRet putRet =
                     Json.decode(response.bodyString(), DefaultPutRet.class);
-            return qiNiuAuthProperties.getAccessPath()+ putRet.key;
+            return qiNiuAuthProperties.getAccessPath() + putRet.key;
         } catch (QiniuException ex) {
             Response r = ex.response;
             System.err.println(r.toString());
@@ -72,8 +71,6 @@ public class QiNiuAuthWrapper {
         }
         return "";
     }
-
-
 
 
 }

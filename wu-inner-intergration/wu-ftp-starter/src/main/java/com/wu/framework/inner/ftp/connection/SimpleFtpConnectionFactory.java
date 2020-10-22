@@ -25,7 +25,7 @@ public class SimpleFtpConnectionFactory implements FtpConnectionFactory {
 
     private FtpConfig ftpConfig = null;
 
-    private   SocketClient socketClient;
+    private SocketClient socketClient;
 
 
     public SimpleFtpConnectionFactory() {

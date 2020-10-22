@@ -24,14 +24,13 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 @Aspect
 @AutoConfigureAfter(value = {DynamicDatabaseConfig.class})
 @ConditionalOnBean(value = DynamicDatabaseConfig.class)
-@ConditionalOnProperty(prefix = "spring.wu.dynamic.database",value = "enable",havingValue = "true")
+@ConditionalOnProperty(prefix = "spring.wu.dynamic.database", value = "enable", havingValue = "true")
 public class MultiDataSourceSwitching implements CustomDataSourceAdapter, InitializingBean {
 
     private final Logger logger = LoggerFactory.getLogger(MultiDataSourceSwitching.class);
-
+    private final DynamicDatabaseConfig dynamicDatabaseConfig;
     // 当前使用的数据源
     private CustomDataSource customDataSource;
-    private final DynamicDatabaseConfig dynamicDatabaseConfig;
 
     public MultiDataSourceSwitching(DynamicDatabaseConfig dynamicDatabaseConfig) {
         this.dynamicDatabaseConfig = dynamicDatabaseConfig;
@@ -57,7 +56,7 @@ public class MultiDataSourceSwitching implements CustomDataSourceAdapter, Initia
 
     @Override
     public CustomDataSource getCustomDataSource() {
-        if(null==customDataSource){
+        if (null == customDataSource) {
             return dynamicDatabaseConfig.CUSTOM_DATA_SOURCE_MAP.values().iterator().next();
         }
         return customDataSource;

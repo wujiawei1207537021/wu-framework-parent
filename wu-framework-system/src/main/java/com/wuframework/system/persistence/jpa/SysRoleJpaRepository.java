@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface SysRoleJpaRepository extends JpaRepository<SysRole,Integer> {
+public interface SysRoleJpaRepository extends JpaRepository<SysRole, Integer> {
 
-    List<SysRole> findAllByRoleSignInAndStatus(List<String> roleSigns,Integer status);
+    List<SysRole> findAllByRoleSignInAndStatus(List<String> roleSigns, Integer status);
 }

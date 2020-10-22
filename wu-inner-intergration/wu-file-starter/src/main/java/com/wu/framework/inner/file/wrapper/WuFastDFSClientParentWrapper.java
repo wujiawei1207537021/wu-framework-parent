@@ -162,13 +162,14 @@ public class WuFastDFSClientParentWrapper {
 
     /**
      * 删除文件
+     *
      * @param group
      * @param path
      * @return
      */
-    public Boolean deleteFile(@NonNull String group,String path) {
+    public Boolean deleteFile(@NonNull String group, String path) {
         try {
-            log.info("删除文件地址：{}", group+path);
+            log.info("删除文件地址：{}", group + path);
             storageClient.deleteFile(group, path);
             return true;
         } catch (final Exception e) {
@@ -178,13 +179,10 @@ public class WuFastDFSClientParentWrapper {
         }
     }
 
-    public byte[] download(@NonNull String groupName, String  path) {
+    public byte[] download(@NonNull String groupName, String path) {
         DownloadByteArray downloadByteArray = new DownloadByteArray();
-       return storageClient.downloadFile(groupName, path, downloadByteArray);
+        return storageClient.downloadFile(groupName, path, downloadByteArray);
     }
-
-
-
 
 
 }

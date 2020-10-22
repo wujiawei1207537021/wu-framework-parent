@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 
 public class CamelAndUnderLineConverter {
     private static Pattern linePattern = Pattern.compile("_(\\w)");
+    private static Pattern humpPattern = Pattern.compile("[A-Z]");
 
     /**
      * 下划线转驼峰
@@ -32,8 +33,6 @@ public class CamelAndUnderLineConverter {
         return str.replaceAll("[A-Z]", "_$0").toLowerCase();
     }
 
-    private static Pattern humpPattern = Pattern.compile("[A-Z]");
-
     /**
      * 驼峰转下划线,效率比上面高
      */
@@ -41,7 +40,7 @@ public class CamelAndUnderLineConverter {
         char[] chars = new char[1];
         chars[0] = str.charAt(0);
         String temp = new String(chars);
-        str=str.replaceFirst(temp, temp.toLowerCase());
+        str = str.replaceFirst(temp, temp.toLowerCase());
         Matcher matcher = humpPattern.matcher(str);
         StringBuffer sb = new StringBuffer();
         while (matcher.find()) {

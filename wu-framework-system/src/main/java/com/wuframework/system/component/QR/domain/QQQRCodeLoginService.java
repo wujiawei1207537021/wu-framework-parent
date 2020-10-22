@@ -55,24 +55,25 @@ public class QQQRCodeLoginService implements QRCodeService {
 
     /**
      * 获取openID
+     *
      * @param accessToken
-     * @return  callback( {"client_id":"YOUR_APPID","openid":"YOUR_OPENID"} );
+     * @return callback({ " client_id " : " YOUR_APPID ", " openid " : " YOUR_OPENID " });
      */
     private String getOpenId(String accessToken) {
         String url = "https://graph.qq.com/oauth2.0/me?access_token={1}";
         String res = restTemplate.getForObject(url, String.class, accessToken);
         System.out.println(res);
-        res=res.replace("callback","");
-        res=res.replace("(","");
-        res=res.replace(")","");
-        res=res.replace(";","");
+        res = res.replace("callback", "");
+        res = res.replace("(", "");
+        res = res.replace(")", "");
+        res = res.replace(";", "");
         System.out.println(res);
         return JSONObject.parseObject(res).getString("openid");
     }
 
     public String getOpenId(QRBO qrbo) {
         Map<String, String> tokenMap = this.getAccessToken(qrbo.getCode());
-      return  getOpenId(tokenMap.get("access_token"));
+        return getOpenId(tokenMap.get("access_token"));
     }
 
     @Override
@@ -93,8 +94,8 @@ public class QQQRCodeLoginService implements QRCodeService {
     public DefaultSysUser setOpenID(QRBindBO qrBindBO, DefaultSysUser defaultSysUser) {
         if (qrBindBO.getBind()) {
             String openId = getOpenId(qrBindBO);
-            if(!ObjectUtils.isEmpty(sysUserJpaRepository.findByQqOpenId(openId))){
-              throw   new CustomException("当前QQ账号已经绑定其他用户");
+            if (!ObjectUtils.isEmpty(sysUserJpaRepository.findByQqOpenId(openId))) {
+                throw new CustomException("当前QQ账号已经绑定其他用户");
             }
             defaultSysUser.setQqOpenId(openId);
         } else {
@@ -120,8 +121,8 @@ public class QQQRCodeLoginService implements QRCodeService {
             }
         }
 //        所有属性
-        if(qrProBO.getAllAttribute()){
-            QRProperties.QQ qq=qrProperties.getQq();
+        if (qrProBO.getAllAttribute()) {
+            QRProperties.QQ qq = qrProperties.getQq();
             qq.setAppKey(null);
             return ResultFactory.successOf(qq);
         }
@@ -131,7 +132,7 @@ public class QQQRCodeLoginService implements QRCodeService {
             //        https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=[YOUR_APPID]&redirect_uri=[YOUR_REDIRECT_URI]&scope=[THE_SCOPE]
             //https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=101850243&redirect_uri=http://saas.yuntsoft.com/mycb&state=QQ
 
-            url = url + qrProperties.getQq().getAppId() + "&state="+QRStrategy.QQ+"&scope=get_user_info&redirect_uri=" + qrProperties.getQq().getRedirectUri();
+            url = url + qrProperties.getQq().getAppId() + "&state=" + QRStrategy.QQ + "&scope=get_user_info&redirect_uri=" + qrProperties.getQq().getRedirectUri();
         } else {
             url = qrProperties.getQq().getQRCodeUrl();
         }

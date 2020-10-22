@@ -1,7 +1,7 @@
 package com.wu.framework.inner.database.custom.database.persistence.mehtod;
 
-import com.wu.framework.inner.database.custom.database.persistence.domain.CustomPersistenceRepository;
 import com.wu.framework.inner.database.converter.PreparedStatementSQLConverter;
+import com.wu.framework.inner.database.custom.database.persistence.domain.CustomPersistenceRepository;
 import com.wu.framework.inner.database.custom.database.persistence.stereotype.GetCustomRepositoryOnDifferentMethods;
 import org.springframework.util.ObjectUtils;
 
@@ -41,10 +41,10 @@ public class LayerOperationMethodISelectOne extends AbstractLayerOperationMethod
         try {
             ResultSet resultSet = preparedStatement.executeQuery();
             List result = resultSetConverter(resultSet, resultType);
-            if(result.size()>1){
-                throw new IllegalArgumentException(" expected one but found "+result.size() );
+            if (result.size() > 1) {
+                throw new IllegalArgumentException(" expected one but found " + result.size());
             }
-            if(ObjectUtils.isEmpty(result)){
+            if (ObjectUtils.isEmpty(result)) {
                 return null;
             }
             return result.get(0);

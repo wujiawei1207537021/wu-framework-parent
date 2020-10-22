@@ -7,11 +7,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 
 /**
-* @params 
-* @return 
-* @author 吴佳伟
-* @date 2020/9/18 下午10:27
-**/
+ * @author 吴佳伟
+ * @params
+ * @return
+ * @date 2020/9/18 下午10:27
+ **/
 public class JsonUtils {
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
@@ -21,7 +21,7 @@ public class JsonUtils {
         try {
             json = OBJECT_MAPPER.writeValueAsString(value);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException("转换为Json字符串出错:%s"+e.toString());
+            throw new RuntimeException("转换为Json字符串出错:%s" + e.toString());
         }
         return json;
     }
@@ -31,7 +31,7 @@ public class JsonUtils {
         try {
             toValue = OBJECT_MAPPER.readValue(fromValue, toValueType);
         } catch (IOException e) {
-            throw new RuntimeException("转换为Json字符串出错:%s"+e.toString());
+            throw new RuntimeException("转换为Json字符串出错:%s" + e.toString());
         }
         return toValue;
     }
@@ -41,7 +41,7 @@ public class JsonUtils {
         try {
             toValue = OBJECT_MAPPER.readValue(fromValue, toValueType);
         } catch (IOException e) {
-            throw new RuntimeException("转换为Json字符串出错:%s"+e.toString());
+            throw new RuntimeException("转换为Json字符串出错:%s" + e.toString());
         }
         return toValue;
     }

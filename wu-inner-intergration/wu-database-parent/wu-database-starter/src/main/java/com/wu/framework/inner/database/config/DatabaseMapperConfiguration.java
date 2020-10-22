@@ -38,7 +38,7 @@ public class DatabaseMapperConfiguration implements ICustomDatabaseScanBean, Ini
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        if(null==scanXmlPath){
+        if (null == scanXmlPath) {
             return;
         }
         scanBeanClasses.addAll(ScanXmlPathUtil.getCustomScanBeanClass(scanXmlPath));

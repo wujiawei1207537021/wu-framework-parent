@@ -1,7 +1,7 @@
 package com.wu.freamwork.domain;
 
 import com.wu.framework.easy.excel.stereotype.EasyExcelFiled;
-import com.wu.framework.easy.stereotype.upsert.EasyTableFile;
+import com.wu.framework.easy.stereotype.upsert.EasyTableField;
 import lombok.Data;
 
 /**
@@ -20,7 +20,7 @@ public class Veh {
     private String plateColor;
 
     @EasyExcelFiled(name = "车辆类型")
-    @EasyTableFile(name = "entity_cate")
+    @EasyTableField(name = "entity_cate")
     private String type;
 
     @EasyExcelFiled(name = "数据来源")

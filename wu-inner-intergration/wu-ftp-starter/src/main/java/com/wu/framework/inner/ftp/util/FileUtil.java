@@ -49,6 +49,7 @@ public class FileUtil {
 
     /**
      * 方法追加文件：使用FileWriter
+     *
      * @param fileName
      * @param content
      */
@@ -62,8 +63,10 @@ public class FileUtil {
             e.printStackTrace();
         }
     }
+
     /**
      * 删除单个文件
+     *
      * @param file 要删除的文件对象
      * @return 单个文件删除成功返回true，否则返回false
      */
@@ -81,6 +84,7 @@ public class FileUtil {
 
     /**
      * 批量删除文件
+     *
      * @param files
      */
     public static void batchDeleteFile(List<File> files) {

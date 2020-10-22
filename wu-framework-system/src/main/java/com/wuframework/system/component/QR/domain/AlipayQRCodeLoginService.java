@@ -52,7 +52,7 @@ public class AlipayQRCodeLoginService implements QRCodeService {
     public DefaultSysUser getUser(QRBO qrbo) {
         AlipaySystemOauthTokenResponse alipaySystemOauthTokenResponse = getAlipaySystemOauthToken(qrbo.getCode());
         if (!ObjectUtils.isEmpty(alipaySystemOauthTokenResponse)) {
-            DefaultSysUser defaultSysUser =sysUserJpaRepository.findByAlipayOpenId(alipaySystemOauthTokenResponse.getUserId());
+            DefaultSysUser defaultSysUser = sysUserJpaRepository.findByAlipayOpenId(alipaySystemOauthTokenResponse.getUserId());
             if (ObjectUtils.isEmpty(defaultSysUser)) {
                 throw new CustomException(DefaultResultCode.QR_ASSOCIATION_USER_EXCEPTION.message);
             }
@@ -65,8 +65,8 @@ public class AlipayQRCodeLoginService implements QRCodeService {
     @Override
     public DefaultSysUser setOpenID(QRBindBO qrBindBO, DefaultSysUser defaultSysUser) {
         if (qrBindBO.getBind()) {
-            String userId=getAlipaySystemOauthToken(qrBindBO.getCode()).getUserId();
-            if(!ObjectUtils.isEmpty(sysUserJpaRepository.findByAlipayOpenId(userId))){
+            String userId = getAlipaySystemOauthToken(qrBindBO.getCode()).getUserId();
+            if (!ObjectUtils.isEmpty(sysUserJpaRepository.findByAlipayOpenId(userId))) {
                 throw new CustomException("当前支付宝账号已经绑定其他用户");
             }
             defaultSysUser.setAlipayOpenId(userId);

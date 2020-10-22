@@ -13,8 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
 /**
  * description 抽象自定义数据库持久层操作方法
+ *
  * @author 吴佳伟
  * @date 2020/7/28 上午8:56
  */
@@ -85,7 +87,7 @@ public abstract class AbstractLayerOperationMethod implements LayerOperationMeth
      * @return
      */
     protected Object convertToTheCorrespondingType(Object obj, Class clazz) {
-        obj=obj==null?"":obj;
+        obj = obj == null ? "" : obj;
         if (clazz.equals(Integer.class) || clazz.equals(int.class)) {
             return Integer.valueOf(obj.toString());
         } else if (clazz.equals(String.class)) {

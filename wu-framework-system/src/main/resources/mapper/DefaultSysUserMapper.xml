@@ -92,25 +92,25 @@
     </select>
 
     <resultMap id="BaseUserResultMap" type="com.wuframework.system.common.entity.DefaultSysUser">
-    <id column="user_id" property="userId"/>
-    <result column="username" property="username"/>
-    <result column="name" property="name"/>
-    <result column="age" property="age"/>
-    <result column="password" property="password"/>
-    <result column="id_card" property="idCard"/>
-    <result column="sex" property="sex"/>
-    <result column="dept_id" property="deptId"/>
-    <result column="email" property="email"/>
-    <result column="mobile" property="mobile"/>
-    <result column="telephone" property="telephone"/>
-    <result column="user_classify" property="userClassify"/>
-    <result column="status" property="status"/>
-    <result column="user_id_create" property="userIdCreate"/>
-    <result column="gmt_create" property="gmtCreate"/>
-    <result column="gmt_modified" property="gmtModified"/>
-    <result column="photo" property="photo"/>
-    <result column="signature" property="signature"/>
-     </resultMap>
+        <id column="user_id" property="userId"/>
+        <result column="username" property="username"/>
+        <result column="name" property="name"/>
+        <result column="age" property="age"/>
+        <result column="password" property="password"/>
+        <result column="id_card" property="idCard"/>
+        <result column="sex" property="sex"/>
+        <result column="dept_id" property="deptId"/>
+        <result column="email" property="email"/>
+        <result column="mobile" property="mobile"/>
+        <result column="telephone" property="telephone"/>
+        <result column="user_classify" property="userClassify"/>
+        <result column="status" property="status"/>
+        <result column="user_id_create" property="userIdCreate"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+        <result column="photo" property="photo"/>
+        <result column="signature" property="signature"/>
+    </resultMap>
     <!-- 根据角色查询用户-->
     <select id="getUserListByRoleId" parameterType="java.lang.Long" resultMap="BaseUserResultMap">
         select user.* from sys_user user ,sys_user_role user_role

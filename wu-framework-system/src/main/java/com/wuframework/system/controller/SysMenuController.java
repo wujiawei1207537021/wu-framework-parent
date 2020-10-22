@@ -1,7 +1,6 @@
 package com.wuframework.system.controller;
 
 import com.google.common.collect.Lists;
-import com.wuframework.system.common.vo.TreeNode;
 import com.wuframework.response.Result;
 import com.wuframework.response.ResultFactory;
 import com.wuframework.response.enmus.DefaultResultCode;
@@ -11,14 +10,13 @@ import com.wuframework.shiro.annotation.RequiredRole;
 import com.wuframework.system.common.dto.MenuNode;
 import com.wuframework.system.common.entity.DefaultSysUser;
 import com.wuframework.system.common.entity.SysMenu;
+import com.wuframework.system.common.vo.TreeNode;
 import com.wuframework.system.serivce.SysMenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.Comparator.*;
@@ -32,7 +30,7 @@ import static java.util.Comparator.*;
  * @since 2018-11-08
  */
 @Api(tags = "系统菜单管理模块")
-@CustomController({"/sysmenu","/system/menu"})
+@CustomController({"/sysmenu", "/system/menu"})
 public class SysMenuController {
 
     @Autowired
@@ -210,8 +208,7 @@ public class SysMenuController {
     }
 
 
-
-//    @RequiredRole(orRoles = {"super_admin", "admin"})
+    //    @RequiredRole(orRoles = {"super_admin", "admin"})
     @ApiOperation(value = "初始化菜单树只包含两级   0：目录   1：菜单")
     @PostMapping("/init")
     public Result initMenuTree(@RequestBody List<MenuNode> menuNodeList) {

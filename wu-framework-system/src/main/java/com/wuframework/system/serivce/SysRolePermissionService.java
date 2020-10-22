@@ -7,6 +7,7 @@ import java.util.List;
 public interface SysRolePermissionService {
     /**
      * 添加角色权限
+     *
      * @param roleId
      * @param permissionIds
      * @return
@@ -15,6 +16,7 @@ public interface SysRolePermissionService {
 
     /**
      * 更新角色权限
+     *
      * @param roleId
      * @param permissionIds
      * @return

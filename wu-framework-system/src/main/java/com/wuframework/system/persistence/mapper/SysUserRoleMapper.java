@@ -26,6 +26,7 @@ public interface SysUserRoleMapper extends BaseMapper<SysUserRole> {
 
     /**
      * 查询用户角色标示
+     *
      * @param userId
      * @return
      */

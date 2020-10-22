@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @NoRepositoryBean
-public interface WuCrudRepository<R,T, ID>  extends WuRepository<R> {
+public interface WuCrudRepository<R, T, ID> extends WuRepository<R> {
 
     @PostMapping()
     <S extends T> Result<S> saveOne(@RequestBody S s);

@@ -1,6 +1,7 @@
 package com.wu.framework.inner.db.component.web.methodresolver;
 
-import com.wu.framework.inner.db.annotation.RequestPage;
+
+import com.wu.framework.easy.stereotype.web.RequestPage;
 import com.wu.framework.inner.db.config.pro.DBPageConfigPro;
 import com.wu.framework.inner.db.utils.ValGet;
 import org.springframework.core.MethodParameter;

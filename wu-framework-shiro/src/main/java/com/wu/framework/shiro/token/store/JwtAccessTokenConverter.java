@@ -39,5 +39,5 @@ public interface JwtAccessTokenConverter {
      * @param var1
      * @return
      */
-     <T> T readAccessToken(String var1, Class<T> clazz);
+    <T> T readAccessToken(String var1, Class<T> clazz);
 }

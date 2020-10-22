@@ -1,7 +1,7 @@
 package com.wu.framework.inner.database.custom.database.persistence.mehtod;
 
-import com.wu.framework.inner.database.custom.database.persistence.domain.CustomPersistenceRepository;
 import com.wu.framework.inner.database.converter.PreparedStatementSQLConverter;
+import com.wu.framework.inner.database.custom.database.persistence.domain.CustomPersistenceRepository;
 import com.wu.framework.inner.database.custom.database.persistence.stereotype.GetCustomRepositoryOnDifferentMethods;
 import org.springframework.util.ObjectUtils;
 
@@ -21,8 +21,8 @@ public class LayerOperationMethodIUpdateById extends AbstractLayerOperationMetho
     @Override
     public CustomPersistenceRepository getCustomRepository(Method method, Object[] args) throws IllegalArgumentException {
         String queryString = "";
-        if(ObjectUtils.isEmpty(args)){
-            throw new IllegalArgumentException("fail invoke this method in method"+method.getName());
+        if (ObjectUtils.isEmpty(args)) {
+            throw new IllegalArgumentException("fail invoke this method in method" + method.getName());
         }
         Object object = args[0];
         Class clazz = object.getClass();
@@ -32,6 +32,7 @@ public class LayerOperationMethodIUpdateById extends AbstractLayerOperationMetho
         customPersistenceRepository.setResultClass(clazz);
         return customPersistenceRepository;
     }
+
     @Override
     public Object execute(PreparedStatement preparedStatement, String resultType) throws SQLException {
         try {

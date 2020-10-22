@@ -37,13 +37,11 @@ public class Sink {
     private Integer sourceType;
     /**
      * 数据源任务参数  {"connection.url":"jdbc:mysql:\\127.0.0.1:3306\mysql"}
-     *
      */
     private Map<String, String> sourceConfig;
 
     /**
      * 目标源类型  1：数据库 2：elasticsearch 3：http
-     *
      */
     private Integer sinkType;
 

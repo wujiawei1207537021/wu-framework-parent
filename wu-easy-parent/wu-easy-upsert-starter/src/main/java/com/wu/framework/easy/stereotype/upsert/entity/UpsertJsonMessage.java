@@ -13,6 +13,6 @@ public class UpsertJsonMessage {
     /**
      * 忽略的字段
      */
-    public static List<String> ignoredFields= Arrays.asList("serialVersionUID");
+    public static List<String> ignoredFields = Arrays.asList("serialVersionUID");
 
 }

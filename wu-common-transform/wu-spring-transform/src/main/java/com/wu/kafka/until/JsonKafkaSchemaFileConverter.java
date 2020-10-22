@@ -8,7 +8,6 @@ import com.wu.kafka.stereotype.KafkaSchemaFile;
 import org.springframework.util.ObjectUtils;
 
 import java.lang.reflect.Field;
-import java.util.*;
 
 /**
  * @Description 转换含有KafkaSchemaFile 注解的类参数

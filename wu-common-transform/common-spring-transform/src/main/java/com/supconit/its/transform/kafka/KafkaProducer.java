@@ -1,6 +1,7 @@
 package com.supconit.its.transform.kafka;
 
 import com.supconit.its.transform.config.DataProcessConfig;
+import com.supconit.its.transform.entity.KafkaJsonMessageWrapper;
 import com.supconit.its.transform.entity.kafka.KafkaJsonMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -10,7 +11,6 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFuture;
-import com.supconit.its.transform.entity.KafkaJsonMessageWrapper;
 
 /**
  * kafka生产者

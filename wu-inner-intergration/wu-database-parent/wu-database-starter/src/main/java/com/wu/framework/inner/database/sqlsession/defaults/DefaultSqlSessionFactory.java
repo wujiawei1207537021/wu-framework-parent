@@ -13,7 +13,7 @@ public class DefaultSqlSessionFactory implements SqlSessionFactory {
 
     private final SqlSession sqlSession;
 
-    public DefaultSqlSessionFactory( SqlSession sqlSession) {
+    public DefaultSqlSessionFactory(SqlSession sqlSession) {
         this.sqlSession = sqlSession;
     }
 

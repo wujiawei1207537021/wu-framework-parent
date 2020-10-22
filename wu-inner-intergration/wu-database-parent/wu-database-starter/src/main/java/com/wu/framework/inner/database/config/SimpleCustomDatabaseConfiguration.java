@@ -1,9 +1,9 @@
 package com.wu.framework.inner.database.config;
 
 
+import com.wu.framework.easy.stereotype.upsert.EasyTable;
 import com.wu.framework.inner.database.SimpleCustomDataSource;
 import com.wu.framework.inner.database.converter.SQLConverter;
-import com.wu.framework.easy.stereotype.upsert.EasyTable;
 import com.wu.framework.inner.database.stereotype.ScanEntity;
 import com.wu.framework.inner.database.util.CustomDataSourceUtil;
 import lombok.Data;
@@ -52,7 +52,7 @@ public class SimpleCustomDatabaseConfiguration implements ICustomDatabaseConfigu
     public void afterPropertiesSet() throws Exception {
         log.info("init simpleCustomDatabaseConfiguration config:" + driver.getName());
         if (ddlAuto.equals(ICustomDatabaseConfiguration.DDLAuto.CREATE)) {
-            Connection connection =new SimpleCustomDataSource(this).getConnection();
+            Connection connection = new SimpleCustomDataSource(this).getConnection();
             Map<String, Object> objectMap = new HashMap<>();
 //                    applicationContext.getBeansWithAnnotation(ScanEntity.class);
             List<String> scanEntityPath = new ArrayList<>();

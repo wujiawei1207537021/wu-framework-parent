@@ -1,9 +1,6 @@
 package com.wu.framework.easy.temple.domain;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.wu.framework.easy.excel.stereotype.EasyExcelFiled;
-import com.wu.framework.easy.stereotype.upsert.EasyTableFile;
 import lombok.Data;
 
 import java.time.LocalDateTime;

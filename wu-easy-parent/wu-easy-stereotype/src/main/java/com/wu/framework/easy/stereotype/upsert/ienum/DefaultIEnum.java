@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum DefaultIEnum implements IEnum {
-   DEFAULT ;
+    DEFAULT;
 
     @Override
     public String getCode() {

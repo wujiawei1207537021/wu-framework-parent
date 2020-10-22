@@ -15,10 +15,11 @@ public interface Authentication extends Serializable {
 
     /**
      * 签名string
+     *
      * @return
      */
-    default String tosin(){
-        return "Authentication(UserDetails="+this.getUserDetails().tosin()+",getScope="+this.getScope()+")";
+    default String tosin() {
+        return "Authentication(UserDetails=" + this.getUserDetails().tosin() + ",getScope=" + this.getScope() + ")";
     }
 
 

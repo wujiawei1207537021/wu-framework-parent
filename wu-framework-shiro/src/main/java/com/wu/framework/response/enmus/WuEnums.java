@@ -38,13 +38,12 @@ public interface WuEnums {
 
     /**
      * 基础类枚举常用字段
+     *
      * @return
      */
     String getDesc();
 
     Object getCode();
-
-
 
 
 }

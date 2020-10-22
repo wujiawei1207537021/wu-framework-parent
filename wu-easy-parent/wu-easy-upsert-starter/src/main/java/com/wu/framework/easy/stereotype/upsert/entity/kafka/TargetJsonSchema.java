@@ -21,15 +21,13 @@ import java.util.Map;
 public class TargetJsonSchema {
 
     /**
-     * schema名称
-     */
-    private String name;
-
-    /**
      * schema类型，固定为struct
      */
     private final String type = Schema.Type.STRUCT.getName().toLowerCase();
-
+    /**
+     * schema名称
+     */
+    private String name;
     /**
      * 字段列表
      */

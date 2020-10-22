@@ -19,9 +19,9 @@ public class DBPageConfigPro {
      */
     private String sizeAlias = "size";
 
-    private Integer pageNum=1;
+    private Integer pageNum = 1;
 
-    private Integer pageSize=10;
+    private Integer pageSize = 10;
 
 
 }

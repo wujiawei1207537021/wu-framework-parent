@@ -20,7 +20,6 @@ import java.util.List;
 public class IUpsertHandler implements InvocationHandler {
 
 
-
     private final AbstractDynamicEasyUpsert abstractDynamicEasyUpsert;
 
     public IUpsertHandler(AbstractDynamicEasyUpsert abstractDynamicEasyUpsert) {
@@ -30,7 +29,7 @@ public class IUpsertHandler implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         List list = (List) args[0];
-        if(ObjectUtils.isEmpty(list)){
+        if (ObjectUtils.isEmpty(list)) {
             return false;
         }
         return abstractDynamicEasyUpsert.determineIEasyUpsert().upsert(list);

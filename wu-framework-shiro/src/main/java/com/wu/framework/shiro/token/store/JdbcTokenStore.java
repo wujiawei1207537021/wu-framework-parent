@@ -2,12 +2,12 @@ package com.wu.framework.shiro.token.store;
 
 import com.wu.framework.shiro.config.pro.ShiroProperties;
 import com.wu.framework.shiro.domain.AccessToken;
+import com.wu.framework.shiro.domain.Authentication;
 import com.wu.framework.shiro.domain.DefaultAccessToken;
 import com.wu.framework.shiro.domain.DefaultAuthentication;
 import com.wu.framework.shiro.exceptions.TokenAuthorizationException;
 import com.wu.framework.shiro.model.UserDetails;
 import com.wu.framework.shiro.token.TokenStore;
-import com.wu.framework.shiro.domain.Authentication;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -31,7 +31,7 @@ import java.sql.Types;
 import java.util.*;
 
 @ConditionalOnBean(DataSource.class)
-@ConditionalOnProperty(prefix = "spring.shiro",value ="token-store" ,havingValue = "JDBC_TOKEN_STORE",matchIfMissing = true)
+@ConditionalOnProperty(prefix = "spring.shiro", value = "token-store", havingValue = "JDBC_TOKEN_STORE", matchIfMissing = true)
 public class JdbcTokenStore implements TokenStore {
     private static final Log LOG = LogFactory.getLog(JdbcTokenStore.class);
     private static final String DEFAULT_ACCESS_TOKEN_INSERT_STATEMENT =
@@ -61,11 +61,11 @@ public class JdbcTokenStore implements TokenStore {
     private static final String DEFAULT_REFRESH_TOKEN_DELETE_STATEMENT =
             "delete from refresh_token where token_id = ?";
     private final JdbcTemplate jdbcTemplate;
+    private final ShiroProperties shiroProperties;
     private String insertAccessTokenSql =
             "insert into access_token (token_id, token, authentication_id, user_name, client_id, authentication, refresh_token) values (?, ?, ?, ?, ?, ?, ?)";
     private String updateAccessTokenSql =
             "update access_token set authentication=? where user_name=?";
-
     private String selectAccessTokenSql =
             "select token_id, token from access_token where token_id = ?";
     private String selectAccessTokenAuthenticationSql =
@@ -89,7 +89,6 @@ public class JdbcTokenStore implements TokenStore {
     private String deleteAccessTokenFromRefreshTokenSql =
             "delete from access_token where refresh_token = ?";
 
-    private final ShiroProperties shiroProperties;
     public JdbcTokenStore(DataSource dataSource, ShiroProperties shiroProperties) {
         this.shiroProperties = shiroProperties;
         Assert.notNull(dataSource, "DataSource required");
@@ -144,7 +143,7 @@ public class JdbcTokenStore implements TokenStore {
                     this.selectAccessTokenAuthenticationSql,
                     new JdbcTokenStore.SafeAuthenticationRowMapper(),
                     new Object[]{extractTokenKey(var1)});
-            if(ObjectUtils.isEmpty(authentication)){
+            if (ObjectUtils.isEmpty(authentication)) {
                 throw new TokenAuthorizationException("令牌过期");
             }
             return (T) authentication.getUserDetails();
@@ -302,6 +301,7 @@ public class JdbcTokenStore implements TokenStore {
 
     /**
      * 刷新令牌内信息
+     *
      * @param var1
      * @return
      */
@@ -310,7 +310,7 @@ public class JdbcTokenStore implements TokenStore {
         Authentication authentication = new DefaultAuthentication();
         authentication.setScope("web");
         authentication.setUserDetails(var1);
-        jdbcTemplate.update(updateAccessTokenSql,new Object[]{new SqlLobValue(serializeAuthentication(authentication)),var1.getUsername()},new int[]{Types.BLOB,Types.VARCHAR});
+        jdbcTemplate.update(updateAccessTokenSql, new Object[]{new SqlLobValue(serializeAuthentication(authentication)), var1.getUsername()}, new int[]{Types.BLOB, Types.VARCHAR});
     }
 
     protected String extractTokenKey(String value) {
@@ -409,7 +409,8 @@ public class JdbcTokenStore implements TokenStore {
     }
 
     private final class SafeAccessTokenRowMapper implements RowMapper<AccessToken> {
-        private SafeAccessTokenRowMapper() {}
+        private SafeAccessTokenRowMapper() {
+        }
 
         @Override
         public AccessToken mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -425,7 +426,8 @@ public class JdbcTokenStore implements TokenStore {
     }
 
     private final class SafeAuthenticationRowMapper implements RowMapper<Authentication> {
-        private SafeAuthenticationRowMapper() {}
+        private SafeAuthenticationRowMapper() {
+        }
 
         @Override
         public Authentication mapRow(ResultSet rs, int rowNum) throws SQLException {

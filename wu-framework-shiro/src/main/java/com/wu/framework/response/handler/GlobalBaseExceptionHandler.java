@@ -1,10 +1,10 @@
 package com.wu.framework.response.handler;
 
 
-import com.wu.framework.response.exceptions.CustomException;
 import com.wu.framework.response.Result;
 import com.wu.framework.response.ResultFactory;
 import com.wu.framework.response.enmus.DefaultResultCode;
+import com.wu.framework.response.exceptions.CustomException;
 import com.wu.framework.response.exceptions.CustomResponseException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
@@ -13,7 +13,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import springfox.documentation.schema.Maps;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

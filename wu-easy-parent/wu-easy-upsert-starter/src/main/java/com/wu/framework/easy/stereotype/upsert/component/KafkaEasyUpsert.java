@@ -2,20 +2,19 @@ package com.wu.framework.easy.stereotype.upsert.component;
 
 
 import com.google.common.collect.Maps;
+import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
+import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
 import com.wu.framework.easy.stereotype.upsert.converter.ConverterClass2KafkaSchema;
 import com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter;
 import com.wu.framework.easy.stereotype.upsert.converter.JsonFileConverter;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
-import com.wu.framework.easy.stereotype.upsert.entity.kafka.TargetJsonSchema;
-import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
-import com.wu.framework.easy.stereotype.upsert.ienum.UserDictionaryService;
-import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
-import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
 import com.wu.framework.easy.stereotype.upsert.entity.kafka.KafkaJsonMessage;
+import com.wu.framework.easy.stereotype.upsert.entity.kafka.TargetJsonSchema;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.CustomTableAnnotation;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
+import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
+import com.wu.framework.easy.stereotype.upsert.ienum.UserDictionaryService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 
 import java.util.HashMap;
@@ -32,7 +31,7 @@ import java.util.concurrent.Future;
 @Slf4j
 @ConditionalOnBean(EasyUpsertExtractKafkaProducer.class)
 @EasyUpsertStrategy(value = EasyUpsertType.KAFKA)
-public class KafkaEasyUpsert implements IEasyUpsert, InitializingBean {
+public class KafkaEasyUpsert implements IEasyUpsert {
 
     private final UserDictionaryService userDictionaryService;
     private final UpsertConfig upsertConfig;
@@ -77,8 +76,4 @@ public class KafkaEasyUpsert implements IEasyUpsert, InitializingBean {
         return task.get();
     }
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-
-    }
 }

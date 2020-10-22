@@ -9,6 +9,7 @@ import com.wuframework.system.common.entity.SysUserMessage;
 public interface SysUserMessageService {
     /**
      * 查询用户信息
+     *
      * @param defaultSysUserDetails
      * @param universalSearchQO
      * @param page
@@ -18,6 +19,7 @@ public interface SysUserMessageService {
 
     /**
      * 用户消息添加
+     *
      * @param sysUserMessage
      * @return
      */

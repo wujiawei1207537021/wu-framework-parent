@@ -26,7 +26,7 @@ import java.util.List;
  * @since 2018-11-08
  */
 @Api(tags = "系统用户管理模块")
-@CustomController({"/sysuserrole","/system/user/role"})
+@CustomController({"/sysuserrole", "/system/user/role"})
 public class SysUserRoleController {
 
     @Autowired

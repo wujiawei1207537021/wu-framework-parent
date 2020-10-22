@@ -1,11 +1,10 @@
 package com.wu.framework.shiro.web.interceptors;
 
-import com.wu.framework.shiro.login.ILoginService;
 import com.wu.framework.shiro.annotation.RemoveAccessToken;
 import com.wu.framework.shiro.config.pro.ShiroProperties;
+import com.wu.framework.shiro.login.ILoginService;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -41,18 +40,18 @@ public class RemoveAccessTokenInterceptor implements HandlerInterceptor {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             // 获取方法上的注解
             RemoveAccessToken removeAccessToken = handlerMethod.getMethod().getAnnotation(RemoveAccessToken.class);
-            if(ObjectUtils.isEmpty(removeAccessToken)){
+            if (ObjectUtils.isEmpty(removeAccessToken)) {
                 return;
             }
             String accessToken = request.getHeader(shiroProperties.getTokenName());
             //成功 removeAccessToken.success()&!ObjectUtils.isEmpty(ex)
             // 失败移出 !removeAccessToken.success()&ObjectUtils.isEmpty(ex)
-            boolean xx= removeAccessToken.success()&!ObjectUtils.isEmpty(ex)|!removeAccessToken.success()&ObjectUtils.isEmpty(ex);
-            boolean always=removeAccessToken.always()|xx;
+            boolean xx = removeAccessToken.success() & !ObjectUtils.isEmpty(ex) | !removeAccessToken.success() & ObjectUtils.isEmpty(ex);
+            boolean always = removeAccessToken.always() | xx;
             // 总是移出
-            if(always){
+            if (always) {
                 ILoginService.removeAccessToken(accessToken);
-                log.info("移出令牌->{}",accessToken);
+                log.info("移出令牌->{}", accessToken);
             }
 
 

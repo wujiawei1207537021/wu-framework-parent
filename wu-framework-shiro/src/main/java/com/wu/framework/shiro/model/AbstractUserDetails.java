@@ -23,7 +23,7 @@ public abstract class AbstractUserDetails implements UserDetails {
     /**
      * 用户权限
      */
-    protected List  permissionList;
+    protected List permissionList;
 
     /**
      * 用户角色标示

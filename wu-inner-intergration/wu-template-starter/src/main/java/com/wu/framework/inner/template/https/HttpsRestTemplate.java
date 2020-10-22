@@ -1,7 +1,7 @@
 package com.wu.framework.inner.template.https;
 
-import com.wu.framework.inner.template.https.factory.HttpsClientRequestFactory;
 import com.wu.framework.inner.template.https.config.HttpsAuthorization;
+import com.wu.framework.inner.template.https.factory.HttpsClientRequestFactory;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.RestClientException;

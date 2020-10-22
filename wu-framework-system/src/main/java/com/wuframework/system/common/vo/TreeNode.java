@@ -1,8 +1,8 @@
 package com.wuframework.system.common.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -30,5 +30,5 @@ public class TreeNode<P> implements Serializable {
     @JsonInclude(Include.NON_EMPTY)
     private List<TreeNode> children;
 
-    private boolean  leaf;
+    private boolean leaf;
 }

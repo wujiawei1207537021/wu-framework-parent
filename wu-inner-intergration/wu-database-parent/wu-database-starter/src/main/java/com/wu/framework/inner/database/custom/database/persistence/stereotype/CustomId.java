@@ -1,6 +1,6 @@
 package com.wu.framework.inner.database.custom.database.persistence.stereotype;
 
-import com.wu.framework.easy.stereotype.upsert.EasyTableFile;
+import com.wu.framework.easy.stereotype.upsert.EasyTableField;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Indexed;
 
@@ -10,12 +10,12 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Indexed
-@EasyTableFile(indexType = EasyTableFile.CustomTableFileIndexType.AUTOMATIC,comment = "主键")
+@EasyTableField(indexType = EasyTableField.CustomTableFileIndexType.AUTOMATIC, comment = "主键")
 public @interface CustomId {
-    @AliasFor(annotation = EasyTableFile.class,attribute = "value")
+    @AliasFor(annotation = EasyTableField.class, attribute = "value")
     String value() default "";
 
-    @AliasFor(annotation = EasyTableFile.class,attribute = "name")
+    @AliasFor(annotation = EasyTableField.class, attribute = "name")
     String name() default "";
 
 

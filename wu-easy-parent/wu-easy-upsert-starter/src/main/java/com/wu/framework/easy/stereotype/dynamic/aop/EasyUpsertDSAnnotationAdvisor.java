@@ -1,6 +1,7 @@
 package com.wu.framework.easy.stereotype.dynamic.aop;
 
 
+import com.wu.framework.easy.stereotype.dynamic.toolkit.DynamicEasyUpsertDSContextHolder;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
 import lombok.NonNull;
 import org.aopalliance.aop.Advice;
@@ -14,7 +15,6 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.core.annotation.AnnotationUtils;
-import com.wu.framework.easy.stereotype.dynamic.toolkit.DynamicEasyUpsertDSContextHolder;
 
 import java.lang.reflect.Method;
 

@@ -1,7 +1,7 @@
 package com.wu.framework.inner.db.component.web.methodresolver;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.wu.framework.inner.db.annotation.RequestPage;
+import com.wu.framework.easy.stereotype.web.RequestPage;
 import com.wu.framework.inner.db.config.pro.DBPageConfigPro;
 import com.wu.framework.inner.db.utils.ValGet;
 import org.springframework.core.MethodParameter;
@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 public class PageMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
 
-
     @Resource
     private DBPageConfigPro dbPageConfigPro;
 
@@ -40,6 +39,6 @@ public class PageMethodArgumentResolver implements HandlerMethodArgumentResolver
             NativeWebRequest nativeWebRequest,
             @Nullable WebDataBinderFactory webDataBinderFactory) {
         HttpServletRequest request = nativeWebRequest.getNativeRequest(HttpServletRequest.class);
-        return ValGet.getPageRequest4Request(request,dbPageConfigPro);
+        return ValGet.getPageRequest4Request(request, dbPageConfigPro);
     }
 }

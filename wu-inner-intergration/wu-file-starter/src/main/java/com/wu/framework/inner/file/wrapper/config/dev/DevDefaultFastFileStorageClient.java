@@ -39,7 +39,6 @@ import java.util.Set;
  * @ Version       :  1.0
  */
 
-
 public class DevDefaultFastFileStorageClient extends DefaultGenerateStorageClient implements FastFileStorageClient {
 
     /**

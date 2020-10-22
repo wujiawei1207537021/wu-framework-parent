@@ -12,9 +12,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
 
-import java.io.*;
 import java.nio.charset.Charset;
-import java.util.*;
 
 import static com.alibaba.fastjson.util.IOUtils.close;
 

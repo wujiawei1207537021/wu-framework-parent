@@ -23,7 +23,7 @@ public @interface CustomRepositoryXmlScan {
     @AliasFor(attribute = "value")
     String[] name() default "";
 
-    enum ExecuteType{
+    enum ExecuteType {
         INSERT,
         UPDATE,
         SELECT,

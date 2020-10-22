@@ -20,10 +20,13 @@ public class WuFileProperties {
     /**
      * 文件上传成功后服务器ip
      */
-    public String getAccessPath() { return null;}
+    public String getAccessPath() {
+        return null;
+    }
 
 
-    public void setAccessPath(String accessPath) {}
+    public void setAccessPath(String accessPath) {
+    }
 
 
     public String getRealAccessPath() {

@@ -6,8 +6,8 @@ import org.springframework.core.annotation.AliasFor;
 import java.lang.annotation.*;
 
 /**
+ * @author :  wujiawei
  * @ Description   :  角色控制注解
- * @author        :  wujiawei
  * @ CreateDate    :  2020/1/21 0021 14:11
  * @ UpdateUser    :  wujiawei
  * @ UpdateDate    :  2020/1/21 0021 14:11
@@ -24,6 +24,7 @@ public @interface RequiredRole {
 
     @AliasFor(attribute = "roles")
     String[] value() default {};
+
     /**
      * 访问需要的角色
      *

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.kafka.connect.data.*;
+import org.apache.kafka.connect.data.Schema;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,15 +21,13 @@ import java.util.Map;
 public class TargetJsonSchema {
 
     /**
-     * schema名称
-     */
-    private String name;
-
-    /**
      * schema类型，固定为struct
      */
     private final String type = Schema.Type.STRUCT.getName().toLowerCase();
-
+    /**
+     * schema名称
+     */
+    private String name;
     /**
      * 字段列表
      */

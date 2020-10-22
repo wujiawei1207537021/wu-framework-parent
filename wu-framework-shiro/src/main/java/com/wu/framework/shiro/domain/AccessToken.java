@@ -2,6 +2,7 @@ package com.wu.framework.shiro.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+
 /**
  * @ Description   :  返回页面封装的令牌
  * @ Author        :  wujiawei

@@ -32,14 +32,14 @@ import java.util.*;
  * @describe :
  * @date : 2020/6/27 下午7:19
  */
-public class ServiceBeanDefinitionRegistry implements BeanDefinitionRegistryPostProcessor,ResourceLoaderAware,ApplicationContextAware {
+public class ServiceBeanDefinitionRegistry implements BeanDefinitionRegistryPostProcessor, ResourceLoaderAware, ApplicationContextAware {
 
+    private static final String DEFAULT_RESOURCE_PATTERN = "**/*.class";
+    private final List<String> scanBeanPath = new ArrayList<>();
     private List<Class> scanBeanClass = new ArrayList<>();
-
-    private final List<String> scanBeanPath= new ArrayList<>();
-
-
-
+    private MetadataReaderFactory metadataReaderFactory;
+    private ResourcePatternResolver resourcePatternResolver;
+    private ApplicationContext applicationContext;
 
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
@@ -51,7 +51,7 @@ public class ServiceBeanDefinitionRegistry implements BeanDefinitionRegistryPost
 //        System.out.println(customDatabaseConfiguration);
         //这里一般我们是通过反射获取需要代理的接口的clazz列表
         //比如判断包下面的类，或者通过某注解标注的类等等
-        Set<Class<?>> beanClazzs=scannerPackages("com.wu.framework.inner.database.interfac");
+        Set<Class<?>> beanClazzs = scannerPackages("com.wu.framework.inner.database.interfac");
 //        for (String s : scanBeanPath) {
 //            Set<Class<?>> scannerPackages = scannerPackages(s);
 //            beanClazzs.addAll(scannerPackages);
@@ -106,14 +106,11 @@ public class ServiceBeanDefinitionRegistry implements BeanDefinitionRegistryPost
 
     }
 
-    private static final String DEFAULT_RESOURCE_PATTERN = "**/*.class";
-
-    private MetadataReaderFactory metadataReaderFactory;
-
     /**
      * 根据包路径获取包及子包下的所有类
+     *
      * @param basePackage basePackage
-     * @return Set<Class<?>> Set<Class<?>>
+     * @return Set<Class < ?>> Set<Class<?>>
      */
     private Set<Class<?>> scannerPackages(String basePackage) {
         Set<Class<?>> set = new LinkedHashSet<>();
@@ -148,10 +145,6 @@ public class ServiceBeanDefinitionRegistry implements BeanDefinitionRegistryPost
     public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
         System.out.println(beanFactory);
     }
-
-    private ResourcePatternResolver resourcePatternResolver;
-
-    private ApplicationContext applicationContext;
 
     @Override
     public void setResourceLoader(ResourceLoader resourceLoader) {

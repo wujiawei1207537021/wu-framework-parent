@@ -15,7 +15,7 @@ import java.lang.annotation.*;
  * @exception/throws
  * @date 2020/9/11 上午9:17
  */
-@Target({ElementType.TYPE,ElementType.METHOD})
+@Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Indexed
@@ -26,16 +26,16 @@ public @interface QuickEasyUpsert {
      *
      * @return
      */
-    @AliasFor(attribute = "value",annotation = EasyUpsertDS.class)
+    @AliasFor(attribute = "value", annotation = EasyUpsertDS.class)
     String value() default "";
 
-    @AliasFor(attribute = "value",annotation = EasyUpsertDS.class)
+    @AliasFor(attribute = "value", annotation = EasyUpsertDS.class)
     String name() default "";
 
     /**
      * 数据源类型 默认MySQL
      */
-    @AliasFor(attribute = "easyUpsertType",annotation = EasyUpsertDS.class)
+    @AliasFor(attribute = "easyUpsertType", annotation = EasyUpsertDS.class)
     EasyUpsertType easyUpsertType() default EasyUpsertType.AUTO;
 
 }

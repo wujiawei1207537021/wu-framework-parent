@@ -2,8 +2,6 @@ package com.wuframework.system.component.enmus;
 
 import org.springframework.stereotype.Component;
 
-import java.lang.annotation.*;
-
 /***
  * 枚举反射 扫描注解
  * {@link WuEnumsInit}

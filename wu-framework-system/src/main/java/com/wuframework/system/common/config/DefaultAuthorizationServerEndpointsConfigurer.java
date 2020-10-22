@@ -19,7 +19,7 @@ public class DefaultAuthorizationServerEndpointsConfigurer implements Authorizat
 
     private UserDetailsService userDetailsService;
 
-    private Class<? extends UserDetails> userDetails= DefaultSysUserDetails.class;
+    private Class<? extends UserDetails> userDetails = DefaultSysUserDetails.class;
 
     @Override
     public AuthorizationServerEndpointsConfigurer setTokenStore(TokenStore tokenStore) {

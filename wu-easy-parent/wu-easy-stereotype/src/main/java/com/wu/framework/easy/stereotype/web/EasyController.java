@@ -8,11 +8,12 @@ import java.lang.annotation.*;
 
 /**
  * EasyController
-* @params
-* @return
-* @author 吴佳伟
-* @date 2020/9/18 下午10:19
-**/
+ *
+ * @author 吴佳伟
+ * @params
+ * @return
+ * @date 2020/9/18 下午10:19
+ **/
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
@@ -31,13 +32,13 @@ public @interface EasyController {
     /**
      * Alias for {@link RequestMapping#value}.
      */
-    @AliasFor(annotation = RequestMapping.class,attribute = "path")
+    @AliasFor(annotation = RequestMapping.class, attribute = "path")
     String[] value() default {};
 
     /**
      * Alias for {@link RequestMapping#path}.
      */
-    @AliasFor(annotation = RequestMapping.class,attribute = "value")
+    @AliasFor(annotation = RequestMapping.class, attribute = "value")
     String[] path() default {};
 
 

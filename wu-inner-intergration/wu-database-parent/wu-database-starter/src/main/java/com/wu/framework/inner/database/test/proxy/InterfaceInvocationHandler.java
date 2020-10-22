@@ -16,9 +16,9 @@ public class InterfaceInvocationHandler implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 //        System.out.println("代理对象:"+ proxy);
-        System.out.println("代理方法:"+ method.getName());
-        if(!ObjectUtils.isEmpty(args)){
-            System.out.println("代理参数:"+ Arrays.toString(args));
+        System.out.println("代理方法:" + method.getName());
+        if (!ObjectUtils.isEmpty(args)) {
+            System.out.println("代理参数:" + Arrays.toString(args));
         }
 
         return null;

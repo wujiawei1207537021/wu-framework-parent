@@ -43,7 +43,7 @@ public class AccessPermissionInterceptor implements HandlerInterceptor {
     @Resource
     private UserDetailsService userDetailsService;
 
-    private  AntPathMatcher matcher = new AntPathMatcher();
+    private AntPathMatcher matcher = new AntPathMatcher();
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -76,7 +76,7 @@ public class AccessPermissionInterceptor implements HandlerInterceptor {
                 requiredRole = clazz.getAnnotation(RequiredRole.class);
             }
             // 角色注解优先
-            if(!ObjectUtils.isEmpty(requiredRole)){
+            if (!ObjectUtils.isEmpty(requiredRole)) {
                 return true;
             }
             // 获取方法上的权限注解
@@ -95,17 +95,17 @@ public class AccessPermissionInterceptor implements HandlerInterceptor {
                 throw new TokenAuthorizationException("获取请求头中令牌失败请求地址:==>" + request.getRequestURI());
             }
             UserDetails userDetails = loginService.user(accessToken);
-            userDetails= userDetailsService.loadUserByUsername(userDetails.getUsername());
-            request.setAttribute("AccessTokenUser",userDetails);
+            userDetails = userDetailsService.loadUserByUsername(userDetails.getUsername());
+            request.setAttribute("AccessTokenUser", userDetails);
             if (ObjectUtils.isEmpty(userDetails.getPermissionList())) {
                 return false;
             }
             List<SysPermission> permissionList = userDetails.getPermissionList();
 //           step1 获取请求路径
             String path = request.getRequestURI();
-            System.out.println("获取请求路径"+path);
+            System.out.println("获取请求路径" + path);
 //            step2 匹配请求路径
-            permissionList = permissionList.stream().filter(p -> matcher.match(p.getPermissionCompletePath(),path)).collect(Collectors.toList());
+            permissionList = permissionList.stream().filter(p -> matcher.match(p.getPermissionCompletePath(), path)).collect(Collectors.toList());
 //            step3 匹配请求方法类型
             List<String> permissionTypeList = permissionList.stream().map(p -> p.getPermissionType()).collect(Collectors.toList());
 //            当前支持CRUD 四种操作方式

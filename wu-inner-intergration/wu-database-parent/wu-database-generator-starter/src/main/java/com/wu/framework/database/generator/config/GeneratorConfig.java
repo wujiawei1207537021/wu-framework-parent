@@ -17,11 +17,11 @@ import java.util.Date;
 @Configuration
 @ConfigurationProperties(prefix = "wu.framework.generator")
 public class GeneratorConfig {
-    private String mainPath="com.wu";
-    private String packageName="com.wu";
-    private String moduleName="module";
-    private String author="wujiawei";
+    private String mainPath = "com.wu";
+    private String packageName = "com.wu";
+    private String moduleName = "module";
+    private String author = "wujiawei";
     private String email;
     private String tablePrefix;
-    private String dateTime= DateUtils.format(new Date(), DateUtils.DATE_TIME_PATTERN);
+    private String dateTime = DateUtils.format(new Date(), DateUtils.DATE_TIME_PATTERN);
 }

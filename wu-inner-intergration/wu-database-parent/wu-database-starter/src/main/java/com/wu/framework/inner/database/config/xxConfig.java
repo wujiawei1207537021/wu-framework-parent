@@ -22,15 +22,11 @@ import java.util.Map;
 
 public class xxConfig implements InitializingBean {
 
+    public static Map<String, CustomRepository> customRepositoryMap;
     private final Log log = LogFactory.getLog(xxConfig.class);
-
-
     private final DatabaseMapperConfiguration databaseMapperConfiguration;
     private final RepositoryProxy repositoryProxy;
     private final DefaultListableBeanFactory defaultListableBeanFactory;
-
-
-    public static Map<String, CustomRepository> customRepositoryMap;
 
     public xxConfig(DatabaseMapperConfiguration databaseMapperConfiguration, RepositoryProxy repositoryProxy, DefaultListableBeanFactory defaultListableBeanFactory) {
         this.databaseMapperConfiguration = databaseMapperConfiguration;
@@ -38,7 +34,7 @@ public class xxConfig implements InitializingBean {
         this.defaultListableBeanFactory = defaultListableBeanFactory;
     }
 
-//    TODO
+    //    TODO
     @Bean
     public DDLAutoOperate ddlAutoOperate() {
         return new DDLAutoOperate(databaseMapperConfiguration);
@@ -46,8 +42,9 @@ public class xxConfig implements InitializingBean {
 
     @Bean
     public RepositoryProxyFactory repositoryProxyFactory() {
-        return new RepositoryProxyFactory(DDLAutoOperate.class,repositoryProxy);
+        return new RepositoryProxyFactory(DDLAutoOperate.class, repositoryProxy);
     }
+
     @Override
     public void afterPropertiesSet() throws Exception {
         log.info("init bean of xxConfig ");

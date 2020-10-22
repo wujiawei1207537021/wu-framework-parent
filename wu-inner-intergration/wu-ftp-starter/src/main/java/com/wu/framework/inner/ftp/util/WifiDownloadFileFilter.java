@@ -5,11 +5,11 @@ package com.wu.framework.inner.ftp.util;
  * @Author 吴佳伟
  * @Date 2020-05-22 2:30 下午
  */
+
 import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.component.file.GenericFile;
 import org.apache.camel.component.file.GenericFileFilter;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -37,6 +37,7 @@ public class WifiDownloadFileFilter implements GenericFileFilter<Object> {
 
     /**
      * 过滤下载文件
+     *
      * @param genericFile
      * @return true=下载，false=不下载
      */
@@ -49,8 +50,9 @@ public class WifiDownloadFileFilter implements GenericFileFilter<Object> {
 
     /**
      * 文件是否已在本地目录中
+     *
      * @param fileName
-     * @return  true=不存在   false=已存在了
+     * @return true=不存在   false=已存在了
      */
     private boolean isInLocalDir(String fileName) {
         try {
@@ -81,8 +83,10 @@ public class WifiDownloadFileFilter implements GenericFileFilter<Object> {
             return false;
         }
     }
+
     /**
      * 文件是否为今天的数据
+     *
      * @param lastModified
      * @return true=是今天的文件 false=不是今天的文件
      */

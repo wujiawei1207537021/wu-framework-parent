@@ -35,15 +35,15 @@ public class HttpsAuthorization implements InitializingBean {
     private String platformName;
 
     public String getBaseAuthorization() {
-        if(username==null||password==null){
+        if (username == null || password == null) {
             return null;
         }
-        return  "Basic " + Base64.encodeBase64String((username + ":" + password).getBytes());
+        return "Basic " + Base64.encodeBase64String((username + ":" + password).getBytes());
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        logger.info("初始化平台："+platformName);
+        logger.info("初始化平台：" + platformName);
 
     }
 }

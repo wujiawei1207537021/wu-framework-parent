@@ -2,7 +2,6 @@ package com.wu.framework.easy.excel.web;
 
 import com.wu.framework.easy.excel.service.ExcelExcelService;
 import com.wu.framework.easy.excel.stereotype.EasyExcel;
-import com.wu.framework.easy.excel.service.NormalExcelExportService;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.http.HttpHeaders;
@@ -43,11 +42,11 @@ public class ExcelResponseHandler implements ResponseBodyAdvice<Object> {
                                   ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
         EasyExcel easyExcel = AnnotatedElementUtils.findMergedAnnotation(Objects.requireNonNull(methodParameter.getMethod()), EasyExcel.class);
         Collection collection;
-        if ( o instanceof Collection) {
-             collection = (Collection) o;
+        if (o instanceof Collection) {
+            collection = (Collection) o;
 
-        }else {
-            collection= Arrays.asList(o);
+        } else {
+            collection = Arrays.asList(o);
         }
         HttpHeaders headers = serverHttpResponse.getHeaders();
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");

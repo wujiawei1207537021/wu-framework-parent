@@ -1,6 +1,5 @@
 package com.wu.framework.easy.stereotype.upsert;
 
-
 import com.wu.framework.easy.stereotype.upsert.ienum.DefaultIEnum;
 import com.wu.framework.easy.stereotype.upsert.ienum.IEnum;
 import lombok.AllArgsConstructor;
@@ -27,7 +26,7 @@ import java.util.List;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Indexed
-public @interface EasyTableFile {
+public @interface EasyTableField {
 
     @AliasFor(attribute = "name")
     String value() default "";
@@ -69,6 +68,7 @@ public @interface EasyTableFile {
      * @return
      */
     String dataType() default "";
+
     /**
      * 转换内容分隔符
      *

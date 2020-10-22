@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 @Deprecated
 public enum RoleSignEnums {
-    SUPER_ADMIN("super_admin","超级管理员");
+    SUPER_ADMIN("super_admin", "超级管理员");
     private String sign;
     private String name;
 }

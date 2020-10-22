@@ -2,8 +2,8 @@ package com.wu.framework.inner.common.util;
 
 import lombok.Data;
 
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -29,32 +29,28 @@ public class QRBO {
                     "MD5 algorithm not available.  Fatal (should be in the JDK).");
         }
 
-        try {
-            byte[] bytes = digest.digest(cipherText.toString().getBytes("UTF-8"));
-            return String.format("%032x", new BigInteger(1, bytes));
-        } catch (UnsupportedEncodingException var4) {
-            throw new IllegalStateException(
-                    "UTF-8 encoding not available.  Fatal (should be in the JDK).");
-        }
+        byte[] bytes = digest.digest(cipherText.toString().getBytes(StandardCharsets.UTF_8));
+        return String.format("%032x", new BigInteger(1, bytes));
     }
 
 
     public String contents() {
-      return url+"?"+encrypt();
+        return url + "?" + encrypt();
     }
+
     public String clearText() {
-        return url+cipherText.getParam();
+        return url + cipherText.getParam();
     }
 
 
     /**
-     * @describe: 密码文字
      * @author : 吴佳伟
-     * @date : 2020/6/17 11:11 下午
      * @version : 1.0
+     * @describe: 密码文字
+     * @date : 2020/6/17 11:11 下午
      */
     @Data
-    public static class CipherText{
+    public static class CipherText {
         /**
          * 类型
          */

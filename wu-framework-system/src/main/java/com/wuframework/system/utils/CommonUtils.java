@@ -5,6 +5,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Maps;
 import com.wuframework.system.common.vo.ListNode;
 import com.wuframework.system.common.vo.TreeNode;
+
+import javax.servlet.http.HttpServletRequest;
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
@@ -17,7 +19,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import javax.servlet.http.HttpServletRequest;
 
 public class CommonUtils {
     public CommonUtils() {
@@ -32,7 +33,7 @@ public class CommonUtils {
             PropertyDescriptor[] var5 = props;
             int var6 = props.length;
 
-            for(int var7 = 0; var7 < var6; ++var7) {
+            for (int var7 = 0; var7 < var6; ++var7) {
                 PropertyDescriptor property = var5[var7];
                 if (fieldName.equals(property.getName())) {
                     Method method = property.getReadMethod();
@@ -48,10 +49,10 @@ public class CommonUtils {
 
     public static Map<String, List<String>> different(List<String> oldId, List<String> newId) {
         Predicate<String> addFilter = oldId::contains;
-        List<String> addList = (List)newId.stream().filter(addFilter.negate()).collect(Collectors.toList());
+        List<String> addList = (List) newId.stream().filter(addFilter.negate()).collect(Collectors.toList());
         Predicate<String> delFilter = newId::contains;
-        List<String> delList = (List)oldId.stream().filter(delFilter.negate()).collect(Collectors.toList());
-        List<String> commonList = (List)oldId.stream().filter(delFilter).collect(Collectors.toList());
+        List<String> delList = (List) oldId.stream().filter(delFilter.negate()).collect(Collectors.toList());
+        List<String> commonList = (List) oldId.stream().filter(delFilter).collect(Collectors.toList());
         Map<String, List<String>> map = Maps.newHashMap();
         map.put("add", addList);
         map.put("del", delList);
@@ -116,16 +117,16 @@ public class CommonUtils {
         Map<String, Object> baseMap = Maps.newLinkedHashMap();
         Iterator var4 = mapList.iterator();
 
-        while(var4.hasNext()) {
-            Map<String, Object> map = (Map)var4.next();
+        while (var4.hasNext()) {
+            Map<String, Object> map = (Map) var4.next();
             String key = null;
             Object value = null;
             Iterator var8 = map.entrySet().iterator();
 
-            while(var8.hasNext()) {
-                Entry<String, Object> entry = (Entry)var8.next();
+            while (var8.hasNext()) {
+                Entry<String, Object> entry = (Entry) var8.next();
                 if (rowKey1.equals(entry.getKey())) {
-                    key = (String)entry.getValue();
+                    key = (String) entry.getValue();
                 } else if (rowKey2.equals(entry.getKey())) {
                     value = entry.getValue();
                 }
@@ -139,13 +140,13 @@ public class CommonUtils {
 
     public static List<TreeNode> list2Tree(List<ListNode> list, String startId) {
         List<TreeNode> treeNodeList = new ArrayList();
-        List<ListNode> nodeList = (List)list.stream().filter((d) -> {
+        List<ListNode> nodeList = (List) list.stream().filter((d) -> {
             return startId.equals(d.getPid());
         }).collect(Collectors.toList());
         Iterator var4 = nodeList.iterator();
 
-        while(var4.hasNext()) {
-            ListNode node = (ListNode)var4.next();
+        while (var4.hasNext()) {
+            ListNode node = (ListNode) var4.next();
             TreeNode treeNode = new TreeNode();
             treeNode.setKey(node.getKey());
             treeNode.setTitle(node.getTitle());

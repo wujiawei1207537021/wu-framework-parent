@@ -2,6 +2,7 @@ package ${package}.${moduleName}.controller;
 
 import java.util.Arrays;
 import java.util.Map;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class ${className}Controller {
 
     @ApiOperation(value = "新增")
     @PostMapping(value = "insert")
-    public Object insert(${className}Entity ${classname}){
+    public Object insert(${className}Entity ${classname}) {
         return ${classname}Service.insert(${classname});
     }
 

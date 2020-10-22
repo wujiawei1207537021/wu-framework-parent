@@ -31,18 +31,20 @@ public class QRCodeLoginServiceImpl implements QRCodeLoginService {
 
     /**
      * 登录 SHoiSXXnrakiPCFtRiSLOiSPIgiEiE
+     *
      * @param qrbo
      * @return
      */
     @Override
     public Result loginQR(QRBO qrbo) {
         UserDetails defaultSysUser = StrategyUtils.getBeansWithAnnotation(QRCodeService.class, qrbo.getType()).getUser(qrbo);
-        defaultSysUser=userDetailsService.loadUserByUsername(defaultSysUser.getUsername());
+        defaultSysUser = userDetailsService.loadUserByUsername(defaultSysUser.getUsername());
         return loginService.accessToken(defaultSysUser, "web");
     }
 
     /**
      * 绑定
+     *
      * @param qrBindBO
      * @param userId
      * @return
@@ -60,7 +62,6 @@ public class QRCodeLoginServiceImpl implements QRCodeLoginService {
     public Result qRCodeProperties(String type, QRProBO qrProBO) {
         return StrategyUtils.getBeansWithAnnotation(QRCodeService.class, type).qRCodeProperties(qrProBO);
     }
-
 
 
     /**

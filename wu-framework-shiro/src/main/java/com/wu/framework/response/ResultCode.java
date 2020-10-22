@@ -6,17 +6,17 @@ package com.wu.framework.response;
  */
 public interface ResultCode {
 
-  /**
-   * 错误编码
-   *
-   * @return
-   */
-  Integer getCode();
+    /**
+     * 错误编码
+     *
+     * @return
+     */
+    Integer getCode();
 
-  /**
-   * 错误信息
-   *
-   * @return
-   */
-  String getMessage();
+    /**
+     * 错误信息
+     *
+     * @return
+     */
+    String getMessage();
 }

@@ -13,4 +13,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME) // 运行时有效
 @Import(LogConfig.class)
 @Component
-public @interface EnableLogServer { }
+public @interface EnableLogServer {
+}

@@ -22,24 +22,22 @@ public class ResultFactory {
     }
 
     /**
-     *
      * @param response
      * @param resultCode
      * @throws Exception
      */
-    public static void of(HttpServletResponse response,ResultCode resultCode) throws Exception {
-        of(response,resultCode,null);
+    public static void of(HttpServletResponse response, ResultCode resultCode) throws Exception {
+        of(response, resultCode, null);
     }
 
     /**
-     *
      * @param response
      * @param resultCode
      * @param data
      * @throws Exception
      */
     public static void of(HttpServletResponse response, ResultCode resultCode, Object data) throws Exception {
-        Result result=  new Result(resultCode.getCode(), resultCode.getMessage(), data);
+        Result result = new Result(resultCode.getCode(), resultCode.getMessage(), data);
         response.setContentType("application/json;charset=UTF-8");
         OutputStream out = response.getOutputStream();
         String str = JSON.toJSONString(result);

@@ -1,7 +1,7 @@
 package com.wu.framework.inner.database.util;
 
-import com.wu.framework.inner.database.domain.CustomRepository;
 import com.wu.framework.inner.database.converter.Parser;
+import com.wu.framework.inner.database.domain.CustomRepository;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -25,7 +25,7 @@ public class CustomExecutor {
         //1.取出mapper中的数据
         // 6.1 添加参数
         String queryString = customRepository.getQueryString();//select * from user
-        queryString=Parser.parse2(method,args,customRepository);
+        queryString = Parser.parse2(method, args, customRepository);
         String resultType = customRepository.getResultType();//com.itheima.domain.User
         try {
 
@@ -93,8 +93,8 @@ public class CustomExecutor {
         ResultSet rs = null;
         //1.取出mapper中的数据
         String queryString = customRepository.getQueryString();//select * from user
-        queryString=   Parser.countSQL(method,args,queryString);
-        queryString=Parser.countSQL(method,args,customRepository);
+        queryString = Parser.countSQL(method, args, queryString);
+        queryString = Parser.countSQL(method, args, customRepository);
         try {
             //2.获取PreparedStatement对象
             pstm = connection.prepareStatement(queryString);
@@ -153,7 +153,6 @@ public class CustomExecutor {
         }
         return list;
     }
-
 
 
 }

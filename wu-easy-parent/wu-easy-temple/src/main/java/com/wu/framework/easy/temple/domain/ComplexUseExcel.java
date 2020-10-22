@@ -22,10 +22,10 @@ public class ComplexUseExcel {
     private LocalDateTime currentTime;
 
     @JSONField(name = "很复杂的外层描述")
-    private String desc="很复杂的外层";
+    private String desc = "很复杂的外层";
 
     @JSONField(name = "很复杂的外层类型")
-    private String type="复杂excel导出类型";
+    private String type = "复杂excel导出类型";
 
     @EasyExcelBean
     private SmartExcel smartExcel;

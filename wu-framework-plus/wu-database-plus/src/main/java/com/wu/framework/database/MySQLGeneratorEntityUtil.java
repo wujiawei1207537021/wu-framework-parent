@@ -18,6 +18,19 @@ import java.util.*;
 
 
 public class MySQLGeneratorEntityUtil {
+    private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static final String SQL = "SELECT * FROM ";// 数据库操作
+    // 数据库配置信息
+    private static final String URL = "jdbc:mysql://www.wu2020.top:3306/INFORMATION_SCHEMA";
+    private static final String NAME = "root";
+    private static final String PASS = "wujiawei";
+    private static final String DRIVER = "com.mysql.jdbc.Driver";
+    //指定实体生成所在包的路径
+    private static String basePath = new File("").getAbsolutePath();
+    //指定包名
+    private static String packageOutPath = "com.cj.entity";
+    //主键
+    private static String pk;
     //表名
     private String tableName;
     //列名数组
@@ -36,27 +49,38 @@ public class MySQLGeneratorEntityUtil {
     private boolean needBigDecimal = false;
     //是否创建EntityHelper
     private boolean needEntityHelper = true;
-    private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    private static final String SQL = "SELECT * FROM ";// 数据库操作
-
-    // 数据库配置信息
-    private static final String URL = "jdbc:mysql://www.wu2020.top:3306/INFORMATION_SCHEMA";
-    private static final String NAME = "root";
-    private static final String PASS = "wujiawei";
-    private static final String DRIVER = "com.mysql.jdbc.Driver";
-
-    //指定实体生成所在包的路径
-    private static String basePath = new File("").getAbsolutePath();
-    //指定包名
-    private static String packageOutPath = "com.cj.entity";
     //作者名字
     private String authorName = "呐喊";
     //指定需要生成的表的表名，全部生成设置为null
     private String[] generateTables = {"Columns"};
-    //主键
-    private static String pk;
 
     private MySQLGeneratorEntityUtil() {
+    }
+
+    /**
+     * 功能：获取并创建实体所在的路径目录
+     *
+     * @return
+     */
+    private static String pkgDirName() {
+        String dirName = basePath + "/src/" + packageOutPath.replace(".", "/");
+        File dir = new File(dirName);
+        if (!dir.exists()) {
+            dir.mkdirs();
+            System.out.println("mkdirs dir 【" + dirName + "】");
+        }
+        return dirName;
+    }
+
+    public static void main(String[] args) {
+        MySQLGeneratorEntityUtil instance = new MySQLGeneratorEntityUtil();
+        //instance.basePath=""; //指定生成的位置,默认是当前工程
+        try {
+            instance.generate();
+            System.out.println("generate Entity to classes successful!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -270,21 +294,6 @@ public class MySQLGeneratorEntityUtil {
     }
 
     /**
-     * 功能：获取并创建实体所在的路径目录
-     *
-     * @return
-     */
-    private static String pkgDirName() {
-        String dirName = basePath + "/src/" + packageOutPath.replace(".", "/");
-        File dir = new File(dirName);
-        if (!dir.exists()) {
-            dir.mkdirs();
-            System.out.println("mkdirs dir 【" + dirName + "】");
-        }
-        return dirName;
-    }
-
-    /**
      * 生成EntityHelper
      */
     private void EntityHelper() {
@@ -380,16 +389,5 @@ public class MySQLGeneratorEntityUtil {
         }
         if (pw != null)
             pw.close();
-    }
-
-    public static void main(String[] args) {
-        MySQLGeneratorEntityUtil instance = new MySQLGeneratorEntityUtil();
-        //instance.basePath=""; //指定生成的位置,默认是当前工程
-        try {
-            instance.generate();
-            System.out.println("generate Entity to classes successful!");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

@@ -19,32 +19,57 @@ public @interface EasyTable {
 
     /**
      * 表注释
-     * @return
+     *
+     * @return String
      */
     String comment() default "";
 
     /**
      * kafka  schema 名称
-     * @return
+     *
+     * @return String
      */
     String kafkaSchemaName() default "";
 
     /**
      * kafka 主题 为空使用类名
-     * @return
+     *
+     * @return String
      */
     String kafkaTopicName() default "";
 
     /**
      * kafka code编码
-     * @return
+     *
+     * @return String
      */
     String kafkaCode() default "";
 
-        /**
+    /**
      * 数据库名 schema
-     * @return
+     *
+     * @return String
      */
     String schema() default "";
+
+    /**
+     * Elasticsearch 索引前缀
+     *
+     * @return String
+     */
+    String indexPrefix() default "";
+
+    /**
+     * Elasticsearch 索引时间格式
+     *
+     * @return String
+     */
+    String indexFormat() default "";
+
+    /**
+     * Elasticsearch 索引后缀
+     */
+    String indexSuffix() default "";
+
 
 }

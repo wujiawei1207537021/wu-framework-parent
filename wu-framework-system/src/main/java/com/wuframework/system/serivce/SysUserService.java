@@ -28,11 +28,12 @@ public interface SysUserService extends IService<DefaultSysUser> {
 
     /**
      * 新增用户
+     *
      * @param sysUser
      * @param defaultSysUser
      * @return
      */
-    default Result save(DefaultSysUser sysUser,DefaultSysUserDetails defaultSysUser) {
+    default Result save(DefaultSysUser sysUser, DefaultSysUserDetails defaultSysUser) {
         sysUser.setUserIdCreate(defaultSysUser.getUserId());
         sysUser.setPassword(DigestUtils.md5Hex(sysUser.getPassword()));
         if (null == sysUser.getDeptId()) {
@@ -41,7 +42,9 @@ public interface SysUserService extends IService<DefaultSysUser> {
         sysUser.insert();
         return ResultFactory.successOf(sysUser);
 
-    };
+    }
+
+    ;
 
     /**
      * 根据手机号与密码进行登录
@@ -193,7 +196,7 @@ public interface SysUserService extends IService<DefaultSysUser> {
      */
     void appSaveUser(DefaultSysUser sysUser, DefaultSysUser currentUser);
 
-    default Result getAllByPage(Page page, DefaultSysUser defaultSysUserQO,boolean pagination, DefaultSysUserDetails current) {
+    default Result getAllByPage(Page page, DefaultSysUser defaultSysUserQO, boolean pagination, DefaultSysUserDetails current) {
         EntityWrapper<DefaultSysUser> userEntityWrapper = new EntityWrapper<>();
         Optional.ofNullable(defaultSysUserQO.getUserId()).ifPresent(userId -> userEntityWrapper.eq("user_id", userId));
         Optional.ofNullable(defaultSysUserQO.getUsername()).ifPresent(userName -> userEntityWrapper.like("username", defaultSysUserQO.getUsername()));
@@ -214,10 +217,13 @@ public interface SysUserService extends IService<DefaultSysUser> {
 
     /**
      * 获取用户信息
+     *
      * @param defaultSysUserDetails
      * @return
      */
-  default   Result info(DefaultSysUserDetails defaultSysUserDetails){
-      return ResultFactory.successOf(defaultSysUserDetails);
-  };
+    default Result info(DefaultSysUserDetails defaultSysUserDetails) {
+        return ResultFactory.successOf(defaultSysUserDetails);
+    }
+
+    ;
 }

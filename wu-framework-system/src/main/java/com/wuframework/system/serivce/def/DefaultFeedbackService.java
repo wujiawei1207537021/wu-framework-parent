@@ -17,11 +17,11 @@ import org.springframework.util.ObjectUtils;
 import java.util.Optional;
 
 @Service("defaultFeedbackService")
-public class DefaultFeedbackService  extends ServiceImpl<DefaultFeedbackMapper, SysFeedback>  implements FeedbackService {
+public class DefaultFeedbackService extends ServiceImpl<DefaultFeedbackMapper, SysFeedback> implements FeedbackService {
 
     @Override
     public Result saveFeedBack(SysFeedback sysFeedback, DefaultSysUserDetails defaultSysUserDetails) {
-        if(ObjectUtils.isEmpty(sysFeedback.getFeedbackUserPhone())){
+        if (ObjectUtils.isEmpty(sysFeedback.getFeedbackUserPhone())) {
             sysFeedback.setFeedbackUserPhone(defaultSysUserDetails.getMobile());
             sysFeedback.setFeedbackUserId(defaultSysUserDetails.getUserId());
         }
@@ -31,12 +31,12 @@ public class DefaultFeedbackService  extends ServiceImpl<DefaultFeedbackMapper, 
 
     @Override
     public Result selectFeedBackList(UniversalSearchQO universalSearchQO, Page page, DefaultSysUserDetails defaultSysUserDetails) {
-        Wrapper<SysFeedback> feedbackEntityWrapper=new EntityWrapper<>();
+        Wrapper<SysFeedback> feedbackEntityWrapper = new EntityWrapper<>();
         Optional.ofNullable(universalSearchQO.getType()).ifPresent(type -> feedbackEntityWrapper.eq("feedback_type", type));
         Optional.ofNullable(universalSearchQO.getStatus()).ifPresent(status -> feedbackEntityWrapper.eq("feedback_status", status));
         Optional.ofNullable(universalSearchQO.getKeyWord()).ifPresent(keyWord -> feedbackEntityWrapper.like("feedback_content", keyWord));
-        if(universalSearchQO.getPagination()){
-            baseMapper.selectPage(page,feedbackEntityWrapper);
+        if (universalSearchQO.getPagination()) {
+            baseMapper.selectPage(page, feedbackEntityWrapper);
         }
         return ResultFactory.successOf(baseMapper.selectList(feedbackEntityWrapper));
     }

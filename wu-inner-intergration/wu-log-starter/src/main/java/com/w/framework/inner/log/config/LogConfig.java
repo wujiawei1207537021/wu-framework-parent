@@ -3,7 +3,6 @@ package com.w.framework.inner.log.config;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
  * @ Description : 用于自动注入 @ Author : wujiawei @ CreateDate : 2019/12/17 0017 11:36 @

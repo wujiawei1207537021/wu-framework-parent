@@ -23,7 +23,7 @@ public class CustomPersistenceRepository {
 
 
     public String getResultType() {
-        if(ObjectUtils.isEmpty(resultClass)){
+        if (ObjectUtils.isEmpty(resultClass)) {
             return resultType;
         }
         return resultClass.getName();

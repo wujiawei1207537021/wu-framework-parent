@@ -16,20 +16,19 @@ public class ArabicNumeralsToChineseNumerals {
     /**
      * 单位
      */
-    public static String[] CN_UNITS = new String[] { "个", "十", "百", "千", "万", "十",
-            "百", "千", "亿", "十", "百", "千", "万" };
+    public static String[] CN_UNITS = new String[]{"个", "十", "百", "千", "万", "十",
+            "百", "千", "亿", "十", "百", "千", "万"};
 
     /**
      * 汉字
      */
-    public static String[] CN_CHARS = new String[] { "零", "一", "二", "三", "四",
-            "五", "六", "七", "八", "九" };
+    public static String[] CN_CHARS = new String[]{"零", "一", "二", "三", "四",
+            "五", "六", "七", "八", "九"};
 
     /**
      * 数值转换为中文字符串
      *
-     * @param num
-     * 需要转换的数值
+     * @param num 需要转换的数值
      * @return
      */
     public static String cvt(long num) {
@@ -37,14 +36,13 @@ public class ArabicNumeralsToChineseNumerals {
     }
 
     /**
-     *
-     * @param suffix 后缀
-     * @param prefix 前缀
+     * @param suffix       后缀
+     * @param prefix       前缀
      * @param num
      * @param isColloquial
      * @return
      */
-    public static String cvt(String prefix,String suffix,long num, boolean isColloquial) {
+    public static String cvt(String prefix, String suffix, long num, boolean isColloquial) {
         String[] result = convert(num, isColloquial);
         StringBuffer strs = new StringBuffer(32);
         strs.append(prefix);
@@ -58,10 +56,8 @@ public class ArabicNumeralsToChineseNumerals {
     /**
      * 数值转换为中文字符串(口语化)
      *
-     * @param num
-     *            需要转换的数值
-     * @param isColloquial
-     *            是否口语化。例如12转换为'十二'而不是'一十二'。
+     * @param num          需要转换的数值
+     * @param isColloquial 是否口语化。例如12转换为'十二'而不是'一十二'。
      * @return
      */
     public static String cvt(long num, boolean isColloquial) {
@@ -76,20 +72,18 @@ public class ArabicNumeralsToChineseNumerals {
     /**
      * 将数值转换为中文
      *
-     * @param num
-     *            需要转换的数值
-     * @param isColloquial
-     *            是否口语化。例如12转换为'十二'而不是'一十二'。
+     * @param num          需要转换的数值
+     * @param isColloquial 是否口语化。例如12转换为'十二'而不是'一十二'。
      * @return
      */
     public static String[] convert(long num, boolean isColloquial) {
         if (num < 10) {// 10以下直接返回对应汉字
-            return new String[] { CN_CHARS[(int) num] };// ASCII2int
+            return new String[]{CN_CHARS[(int) num]};// ASCII2int
         }
 
         char[] chars = String.valueOf(num).toCharArray();
         if (chars.length > CN_UNITS.length) {// 超过单位表示范围的返回空
-            return new String[] {};
+            return new String[]{};
         }
 
         boolean isLastUnitStep = false;// 记录上次单位进位
@@ -139,7 +133,7 @@ public class ArabicNumeralsToChineseNumerals {
                 cnchars.remove(0);
             }
         }
-        return cnchars.toArray(new String[] {});
+        return cnchars.toArray(new String[]{});
     }
 
     public static void main(String[] args) {
@@ -163,7 +157,7 @@ public class ArabicNumeralsToChineseNumerals {
             }
 
             System.out.println(String.format("%-12s \t %s", data,
-                    new ArabicNumeralsToChineseNumerals().cvt(num,true)));
+                    new ArabicNumeralsToChineseNumerals().cvt(num, true)));
 
         }
 

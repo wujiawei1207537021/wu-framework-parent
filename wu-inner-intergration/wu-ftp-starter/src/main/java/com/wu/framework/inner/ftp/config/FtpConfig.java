@@ -33,9 +33,9 @@ public class FtpConfig implements InitializingBean {
      */
     private String password;
 
-    private Integer connectTimeout=1000*30;
+    private Integer connectTimeout = 1000 * 30;
 
-    private String encoding="UTF-8";
+    private String encoding = "UTF-8";
 
     @Override
     public void afterPropertiesSet() throws Exception {

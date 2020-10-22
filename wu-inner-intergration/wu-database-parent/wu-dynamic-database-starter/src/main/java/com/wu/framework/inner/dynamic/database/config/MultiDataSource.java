@@ -13,8 +13,8 @@ import java.util.Map;
  */
 public class MultiDataSource {
 
-//     主数据源
-    private  String master;
-//    所有数据源
+    //    所有数据源
     public final Map<String, CustomDataSource> CUSTOM_DATA_SOURCE_MAP = new HashMap<>();
+    //     主数据源
+    private String master;
 }

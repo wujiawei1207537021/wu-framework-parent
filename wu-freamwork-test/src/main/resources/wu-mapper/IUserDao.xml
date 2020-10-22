@@ -9,6 +9,6 @@
     </select>
 
     <delete id="delete" resultType="com.wu.framework.inner.database.test.pojo.DataBaseUser">
-        delete  from user
+        delete from user
     </delete>
 </mapper>

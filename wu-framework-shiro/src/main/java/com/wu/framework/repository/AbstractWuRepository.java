@@ -25,7 +25,7 @@ public abstract class AbstractWuRepository<R> implements WuRepository<R>, Applic
     public void instanceR() {
         Class<R> type = this.getClassOfR();
         try {
-            repository=   ShiroContextUtil.getApplicationContext().getBean(type);
+            repository = ShiroContextUtil.getApplicationContext().getBean(type);
 //            repository = applicationContext.getBean(type);
         } catch (Exception e) {
             // Oops, no default constructor
@@ -43,7 +43,7 @@ public abstract class AbstractWuRepository<R> implements WuRepository<R>, Applic
     @Override
     public void setApplicationContext(ApplicationContext applicationContext)
             throws BeansException {
-        System.out.println("........."+applicationContext);
+        System.out.println("........." + applicationContext);
         this.applicationContext = applicationContext;
     }
 

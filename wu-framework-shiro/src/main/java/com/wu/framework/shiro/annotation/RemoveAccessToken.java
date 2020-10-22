@@ -9,9 +9,8 @@ import java.lang.annotation.Target;
 
 /**
  * 移出令牌据信息
- *
- *  {@link RemoveAccessTokenInterceptor}
- *
+ * <p>
+ * {@link RemoveAccessTokenInterceptor}
  */
 
 @Target({ElementType.METHOD})

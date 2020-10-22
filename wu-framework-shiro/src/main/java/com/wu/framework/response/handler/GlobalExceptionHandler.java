@@ -11,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import springfox.documentation.schema.Maps;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -27,6 +26,7 @@ public class GlobalExceptionHandler {
     /**
      * 所有异常报错
      * TODO  策略处理
+     *
      * @param ex
      * @return
      * @throws Exception
@@ -58,10 +58,9 @@ public class GlobalExceptionHandler {
             return handlerNotValidException(ex);
         } else if (ex instanceof SQLIntegrityConstraintViolationException) {
             return ResultFactory.of(DefaultResultCode.SQL_INTEGRITY_CONSTRAINT_VIOLATION_EXCEPTION);
-        } else  if(ex instanceof ShiroException){
+        } else if (ex instanceof ShiroException) {
             return ResultFactory.of(DefaultResultCode.TOKEN_INVALIDATION);
-        }
-            else {
+        } else {
             // 其他异常错误
             return ResultFactory.of(DefaultResultCode.DEFAULT_ERROR, ex.getMessage());
         }

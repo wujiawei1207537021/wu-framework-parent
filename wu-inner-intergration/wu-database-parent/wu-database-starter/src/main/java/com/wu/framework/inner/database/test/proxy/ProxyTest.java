@@ -12,7 +12,7 @@ public class ProxyTest {
 
     public static void main(String[] args) throws Exception {
 
-        InterfaceInvocationHandler interfaceInvocationHandler =new InterfaceInvocationHandler();
+        InterfaceInvocationHandler interfaceInvocationHandler = new InterfaceInvocationHandler();
         InterfaceClass interfaceClass = (InterfaceClass) Proxy.newProxyInstance(InterfaceClass.class.getClassLoader(),
                 new Class[]{InterfaceClass.class}, interfaceInvocationHandler);
         interfaceClass.cc();

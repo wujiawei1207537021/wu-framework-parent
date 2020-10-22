@@ -24,7 +24,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -41,7 +40,7 @@ import java.util.Map;
  */
 @Slf4j
 @Api(tags = "系统用户管理模块")
-@CustomController({"/sysuser","/system/user"})
+@CustomController({"/sysuser", "/system/user"})
 public class SysUserController {
 
     private SysUserService sysUserService;
@@ -66,7 +65,7 @@ public class SysUserController {
     @GetMapping("/info")
     @ApiOperation(value = "获取用户信息")
     public Result info(@AccessTokenUser DefaultSysUserDetails defaultSysUserDetails) {
-        return sysUserService.info( defaultSysUserDetails);
+        return sysUserService.info(defaultSysUserDetails);
     }
 
     /**
@@ -74,14 +73,14 @@ public class SysUserController {
      *
      * @return
      */
-    @RequiredRole(orRoles = {"super_admin","manufacturer"})
+    @RequiredRole(orRoles = {"super_admin", "manufacturer"})
     @GetMapping()
     @ApiOperation(value = "获取人员列表")
     public Result get(@RequestPage final Page page,
                       @ModelAttribute("user") final DefaultSysUser defaultSysUserQO,
-                      @RequestParam(defaultValue = "false",required = false) boolean pagination,
+                      @RequestParam(defaultValue = "false", required = false) boolean pagination,
                       @AccessTokenUser DefaultSysUserDetails defaultSysUserDetails) {
-        return sysUserService.getAllByPage(page, defaultSysUserQO,pagination, defaultSysUserDetails);
+        return sysUserService.getAllByPage(page, defaultSysUserQO, pagination, defaultSysUserDetails);
     }
 
     @Deprecated
@@ -100,11 +99,11 @@ public class SysUserController {
      * @param defaultSysUserDetails
      * @return
      */
-    @RequiredRole(orRoles = {"manufacturer","super_admin"})
+    @RequiredRole(orRoles = {"manufacturer", "super_admin"})
     @PostMapping()
     @ApiOperation(value = "人员新增")
     public Result save(@RequestBody DefaultSysUser sysUser, @AccessTokenUser DefaultSysUserDetails defaultSysUserDetails) {
-        return sysUserService.save(sysUser,defaultSysUserDetails);
+        return sysUserService.save(sysUser, defaultSysUserDetails);
     }
 
     /**
@@ -113,7 +112,7 @@ public class SysUserController {
      * @param defaultSysUser
      * @return
      */
-    @RequiredRole(orRoles = {"manufacturer","super_admin"})
+    @RequiredRole(orRoles = {"manufacturer", "super_admin"})
     @PutMapping()
     @ApiOperation(value = "修改人员")
     public Result updateUser(@RequestBody final DefaultSysUser defaultSysUser) {
@@ -126,7 +125,7 @@ public class SysUserController {
      *
      * @return
      */
-    @RequiredRole(orRoles = {"manufacturer","super_admin"})
+    @RequiredRole(orRoles = {"manufacturer", "super_admin"})
     @PostMapping("/stop")
     @ApiOperation(value = "停用人员")
     public Result stop(final Long userId) {
@@ -138,7 +137,8 @@ public class SysUserController {
 
     /**
      * 获取人员的vo对象
-     *包含部门未启用
+     * 包含部门未启用
+     *
      * @return
      */
     @Deprecated
@@ -184,7 +184,7 @@ public class SysUserController {
     @RequiredRole
     @PostMapping("/restuserpwd")
     @ApiOperation(value = "重置密码")
-    public Result resetUserPassword( @RequestBody Map<String, String> data) {
+    public Result resetUserPassword(@RequestBody Map<String, String> data) {
         String password = data.get("password");
         Integer userId = Integer.valueOf(data.get("userId"));
         if (StringUtils.isBlank(password) || null == userId) {
@@ -211,7 +211,7 @@ public class SysUserController {
      * @param roleId 角色编号
      * @return
      */
-    @RequiredRole(orRoles = {"manufacturer","super_admin"})
+    @RequiredRole(orRoles = {"manufacturer", "super_admin"})
     @ApiOperation(value = "根据角色编号查询用户列表")
     @GetMapping("/role/{roleId}")
     public Result getUserListByRole(@PathVariable(value = "roleId") final Long roleId) {

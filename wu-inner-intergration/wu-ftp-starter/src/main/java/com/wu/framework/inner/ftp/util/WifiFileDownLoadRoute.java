@@ -5,10 +5,10 @@ package com.wu.framework.inner.ftp.util;
  * @Author 吴佳伟
  * @Date 2020-05-22 2:30 下午
  */
+
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 
 //@Component

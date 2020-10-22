@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConverter;
 import lombok.Data;
-import org.springframework.boot.configurationprocessor.json.JSONArray;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -81,7 +80,7 @@ public class ResultSetConverter {
         List<Map> mapList = resultSet2Map(resultSet, true);
         List<T> ts = mapList.stream().map(map -> {
             try {
-                String  m = objectMapper.writeValueAsString(map);
+                String m = objectMapper.writeValueAsString(map);
                 return objectMapper.readValue(m, clazz);
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
@@ -92,18 +91,16 @@ public class ResultSetConverter {
     }
 
 
-
-
     public static void main(String[] args) {
-        List<Map> mapList =new ArrayList<>();
-        for (int i = 0; i <10 ; i++) {
-            Map map=new HashMap();
-            map.put("key","val"+i);
+        List<Map> mapList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            Map map = new HashMap();
+            map.put("key", "val" + i);
             mapList.add(map);
         }
         List<xxx> ts = mapList.stream().map(map -> {
             try {
-                String  m = objectMapper.writeValueAsString(map);
+                String m = objectMapper.writeValueAsString(map);
                 return objectMapper.readValue(m, xxx.class);
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
@@ -114,7 +111,7 @@ public class ResultSetConverter {
     }
 
     @Data
-   static class xxx{
+    static class xxx {
         private String key;
     }
 }

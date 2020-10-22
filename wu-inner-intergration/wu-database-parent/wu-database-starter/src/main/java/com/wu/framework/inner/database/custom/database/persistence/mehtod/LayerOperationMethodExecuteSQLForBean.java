@@ -1,7 +1,7 @@
 package com.wu.framework.inner.database.custom.database.persistence.mehtod;
 
-import com.wu.framework.inner.database.custom.database.persistence.stereotype.GetCustomRepositoryOnDifferentMethods;
 import com.wu.framework.inner.database.custom.database.persistence.domain.CustomPersistenceRepository;
+import com.wu.framework.inner.database.custom.database.persistence.stereotype.GetCustomRepositoryOnDifferentMethods;
 
 import java.lang.reflect.Method;
 import java.sql.PreparedStatement;

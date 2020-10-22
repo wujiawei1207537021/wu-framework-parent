@@ -2,12 +2,12 @@ package com.wuframework.system.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.wuframework.db.annotation.RequestPage;
 import com.wuframework.response.Result;
 import com.wuframework.response.ResultFactory;
 import com.wuframework.response.enmus.DefaultResultCode;
 import com.wuframework.shiro.annotation.AccessTokenUser;
 import com.wuframework.shiro.annotation.CustomController;
-import com.wuframework.db.annotation.RequestPage;
 import com.wuframework.shiro.annotation.RequiredRole;
 import com.wuframework.system.common.consts.CacheConsts;
 import com.wuframework.system.common.entity.DefaultSysUser;
@@ -20,9 +20,6 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.*;
 
 /**
  * <p>
@@ -33,7 +30,7 @@ import java.util.*;
  * @since 2018-11-08
  */
 @Api(tags = "系统角色管理模块")
-@CustomController({"/sysrole","/system/role"})
+@CustomController({"/sysrole", "/system/role"})
 public class SysRoleController {
 
     @Autowired
@@ -47,7 +44,7 @@ public class SysRoleController {
 
     @ApiOperation(value = "分页获取角色数据", notes = "获取当前人员可管理角色清单")
     @GetMapping()
-    public Result getRoleListPage(@ModelAttribute  SysRole role, @AccessTokenUser DefaultSysUser sysUser, @RequestPage Page page) {
+    public Result getRoleListPage(@ModelAttribute SysRole role, @AccessTokenUser DefaultSysUser sysUser, @RequestPage Page page) {
         role.setUserIdCreate(sysUser.getUserId());
         return ResultFactory.successOf(this.sysRoleService.getRoleListPage(role, page));
     }

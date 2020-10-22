@@ -12,24 +12,24 @@ import java.util.Date;
  * @date : 2020/8/3 下午9:45
  */
 @Data
-public abstract class  TemplateParameterAbstractEntity {
+public abstract class TemplateParameterAbstractEntity {
 
     /**
      * 主方法路径
      */
-    private String mainPath="com.wu";
+    private String mainPath = "com.wu";
     /**
      * 包名
      */
-    private String packageName="com.wu";
+    private String packageName = "com.wu";
     /**
      * 模块名
      */
-    private String moduleName="module";
+    private String moduleName = "module";
     /**
      * 作者
      */
-    private String author="wujiawei";
+    private String author = "wujiawei";
     /**
      * 邮箱
      */
@@ -41,5 +41,5 @@ public abstract class  TemplateParameterAbstractEntity {
     /**
      * 创建时间
      */
-    private String dateTime= DateUtils.format(new Date(), DateUtils.DATE_TIME_PATTERN);
+    private String dateTime = DateUtils.format(new Date(), DateUtils.DATE_TIME_PATTERN);
 }

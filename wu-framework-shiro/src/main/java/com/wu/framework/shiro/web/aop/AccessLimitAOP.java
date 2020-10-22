@@ -5,15 +5,14 @@ import com.wu.framework.response.Result;
 import com.wu.framework.response.ResultFactory;
 import com.wu.framework.response.enmus.DefaultResultCode;
 import com.wu.framework.response.exceptions.CustomException;
-import com.wu.framework.shiro.login.ILoginService;
 import com.wu.framework.shiro.annotation.AccessLimit;
 import com.wu.framework.shiro.config.pro.ShiroProperties;
+import com.wu.framework.shiro.login.ILoginService;
 import com.wu.framework.shiro.model.UserDetails;
 import com.wu.framework.shiro.util.ExpiryMap;
 import com.wu.framework.shiro.util.ReflectiveUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
-import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -154,8 +153,8 @@ public class AccessLimitAOP {
                     parameter = arg;
                 }
             }
-            if(ObjectUtils.isEmpty(parameter)){
-                throw new CustomException("AccessLimit 注解使用错误 属性："+paramName+"不存在");
+            if (ObjectUtils.isEmpty(parameter)) {
+                throw new CustomException("AccessLimit 注解使用错误 属性：" + paramName + "不存在");
             }
             key += ReflectiveUtil.getBaseClassValByAttributeName(parameter, paramName);
 //            System.out.println(key);

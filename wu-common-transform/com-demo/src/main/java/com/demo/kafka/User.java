@@ -13,7 +13,7 @@ import lombok.Data;
 @KafkaSchema(name = "test_kafka_user")
 public class User {
 
-//    @KafkaSchemaFile(field = "test_id")
+    //    @KafkaSchemaFile(field = "test_id")
     private Integer id;
 
     @KafkaSchemaFile(field = "test_name")

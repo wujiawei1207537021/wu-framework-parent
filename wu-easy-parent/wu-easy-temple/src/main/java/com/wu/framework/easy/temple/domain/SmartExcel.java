@@ -3,8 +3,6 @@ package com.wu.framework.easy.temple.domain;
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 /**
  * @author : 吴佳伟
  * @version 1.0
@@ -15,9 +13,9 @@ import java.time.LocalDateTime;
 public class SmartExcel {
 
     @JSONField(name = "标题")
-    private String title="标题" ;
+    private String title = "标题";
 
     @JSONField(name = "内容")
-    private String content="内容";
+    private String content = "内容";
 
 }

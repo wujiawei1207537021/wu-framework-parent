@@ -35,12 +35,12 @@ public class ApplicationStartedEventListener implements ApplicationListener<Cont
 
 
     @PostConstruct
-    public void  ss(){
+    public void ss() {
         System.out.println("start");
     }
 
     @PreDestroy
-    public void  preDestory(){
+    public void preDestory() {
         System.out.println("end");
     }
 }

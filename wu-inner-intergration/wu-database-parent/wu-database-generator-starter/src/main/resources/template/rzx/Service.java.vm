@@ -20,7 +20,7 @@ public class ${className}Service {
     @Autowired
     private ${className}Dao ${classname}Dao;
 
-    public Object insert(${className}Entity ${classname}){
+    public Object insert(${className}Entity ${classname}) {
         return ${classname}Dao.insert(${classname});
     }
 

@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
-public class JpaConfig   {
+public class JpaConfig {
 
 
 //    @Bean
@@ -17,8 +17,8 @@ public class JpaConfig   {
 //    }
 
     @Bean
-    public HibernateProperties hibernateProperties(){
-        HibernateProperties hibernateProperties=new HibernateProperties();
+    public HibernateProperties hibernateProperties() {
+        HibernateProperties hibernateProperties = new HibernateProperties();
         hibernateProperties.setDdlAuto("update");
         return hibernateProperties;
     }

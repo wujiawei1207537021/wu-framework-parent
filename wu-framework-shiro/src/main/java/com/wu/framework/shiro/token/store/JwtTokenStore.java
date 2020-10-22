@@ -3,11 +3,11 @@ package com.wu.framework.shiro.token.store;
 import com.auth0.jwt.interfaces.Claim;
 import com.wu.framework.shiro.config.pro.ShiroProperties;
 import com.wu.framework.shiro.domain.AccessToken;
+import com.wu.framework.shiro.domain.Authentication;
 import com.wu.framework.shiro.domain.DefaultAccessToken;
 import com.wu.framework.shiro.exceptions.TokenAuthorizationException;
 import com.wu.framework.shiro.model.UserDetails;
 import com.wu.framework.shiro.token.TokenStore;
-import com.wu.framework.shiro.domain.Authentication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 
 import java.util.Collection;
@@ -48,9 +48,9 @@ public class JwtTokenStore implements TokenStore {
 
     @Override
     public void removeAccessToken(String var1) {
-        UserDetails userDetails=  jwtAccessTokenConverter.readAccessToken(var1, UserDetails.class);
+        UserDetails userDetails = jwtAccessTokenConverter.readAccessToken(var1, UserDetails.class);
         // 默认删除web 令牌
-        accessTokenMap.remove(userDetails.getUsername()+"_"+"web");
+        accessTokenMap.remove(userDetails.getUsername() + "_" + "web");
     }
 
     @Override
@@ -111,6 +111,7 @@ public class JwtTokenStore implements TokenStore {
 
     /**
      * 校验token是否过期
+     *
      * @param accessToken
      * @return
      */

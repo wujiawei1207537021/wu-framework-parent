@@ -11,6 +11,7 @@ import com.wuframework.system.component.QR.QRProBO;
 public interface QRCodeLoginService {
     /**
      * 二维码登录服务
+     *
      * @param qrbo
      * @return
      */
@@ -18,6 +19,7 @@ public interface QRCodeLoginService {
 
     /**
      * 用户绑定二维码
+     *
      * @param qrBindBO
      * @param userId
      * @return
@@ -26,6 +28,7 @@ public interface QRCodeLoginService {
 
     /**
      * 获取二维码
+     *
      * @param type
      * @param qrProBO
      * @return

@@ -19,7 +19,7 @@ public class LayerOperationFactory<T> implements FactoryBean<T> {
     private final LayerOperationProxy layerOperationProxy;
 
 
-    public LayerOperationFactory( Class<T> interfaceType, LayerOperationProxy layerOperationProxy) {
+    public LayerOperationFactory(Class<T> interfaceType, LayerOperationProxy layerOperationProxy) {
         this.interfaceType = interfaceType;
         this.layerOperationProxy = layerOperationProxy;
     }

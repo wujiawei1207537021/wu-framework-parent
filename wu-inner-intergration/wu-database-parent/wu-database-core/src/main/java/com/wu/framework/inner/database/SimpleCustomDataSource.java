@@ -7,8 +7,6 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
@@ -24,7 +22,7 @@ import java.util.logging.Logger;
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @AutoConfigureAfter(name = "com.wu.framework.inner.database.config.SimpleCustomDatabaseConfiguration")
-@ConditionalOnBean(value =ICustomDatabaseConfiguration.class,name = "simpleCustomDatabaseConfiguration")
+@ConditionalOnBean(value = ICustomDatabaseConfiguration.class, name = "simpleCustomDatabaseConfiguration")
 public class SimpleCustomDataSource extends DefaultListableBeanFactory implements CustomDataSource, InitializingBean {
 
 
@@ -52,11 +50,11 @@ public class SimpleCustomDataSource extends DefaultListableBeanFactory implement
     @SneakyThrows
     @Override
     public Connection getConnection() throws SQLException {
-        if(null==connection|| connection.isClosed()){
-                Class.forName(iCustomDatabaseConfiguration.getDriver().getName());
-                connection= DriverManager.getConnection(iCustomDatabaseConfiguration.getUrl(), iCustomDatabaseConfiguration.getUsername(), iCustomDatabaseConfiguration.getPassword());
+        if (null == connection || connection.isClosed()) {
+            Class.forName(iCustomDatabaseConfiguration.getDriver().getName());
+            connection = DriverManager.getConnection(iCustomDatabaseConfiguration.getUrl(), iCustomDatabaseConfiguration.getUsername(), iCustomDatabaseConfiguration.getPassword());
         }
-       return connection;
+        return connection;
     }
 
     /**
@@ -181,24 +179,6 @@ public class SimpleCustomDataSource extends DefaultListableBeanFactory implement
     }
 
     /**
-     * <p>Sets the maximum time in seconds that this data source will wait
-     * while attempting to connect to a database.  A value of zero
-     * specifies that the timeout is the default system timeout
-     * if there is one; otherwise, it specifies that there is no timeout.
-     * When a <code>DataSource</code> object is created, the login timeout is
-     * initially zero.
-     *
-     * @param seconds the data source login time limit
-     * @throws SQLException if a database access error occurs.
-     * @see #getLoginTimeout
-     * @since 1.4
-     */
-    @Override
-    public void setLoginTimeout(int seconds) throws SQLException {
-
-    }
-
-    /**
      * Gets the maximum time in seconds that this data source can wait
      * while attempting to connect to a database.  A value of zero
      * means that the timeout is the default system timeout
@@ -214,6 +194,24 @@ public class SimpleCustomDataSource extends DefaultListableBeanFactory implement
     @Override
     public int getLoginTimeout() throws SQLException {
         return 0;
+    }
+
+    /**
+     * <p>Sets the maximum time in seconds that this data source will wait
+     * while attempting to connect to a database.  A value of zero
+     * specifies that the timeout is the default system timeout
+     * if there is one; otherwise, it specifies that there is no timeout.
+     * When a <code>DataSource</code> object is created, the login timeout is
+     * initially zero.
+     *
+     * @param seconds the data source login time limit
+     * @throws SQLException if a database access error occurs.
+     * @see #getLoginTimeout
+     * @since 1.4
+     */
+    @Override
+    public void setLoginTimeout(int seconds) throws SQLException {
+
     }
 
     /**

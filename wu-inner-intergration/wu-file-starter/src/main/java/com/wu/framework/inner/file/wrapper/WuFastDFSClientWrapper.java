@@ -1,7 +1,6 @@
 package com.wu.framework.inner.file.wrapper;
 
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
-
 import com.wu.framework.inner.file.wrapper.config.WuFdfsFileProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,6 @@ public class WuFastDFSClientWrapper extends WuFastDFSClientParentWrapper {
     public WuFastDFSClientWrapper(FastFileStorageClient storageClient, WuFdfsFileProperties wuFdfsFileProperties) {
         super(storageClient, wuFdfsFileProperties);
     }
-
 
 
 }

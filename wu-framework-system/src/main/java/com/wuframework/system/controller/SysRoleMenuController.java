@@ -12,7 +12,6 @@ import io.swagger.annotations.ApiParam;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,7 +24,7 @@ import java.util.List;
  * @since 2018-11-08
  */
 @Api(tags = "系统角色管理模块")
-@CustomController({"/sysrolemenu","/system/role/menu"})
+@CustomController({"/sysrolemenu", "/system/role/menu"})
 public class SysRoleMenuController {
     @Autowired
     private SysRoleMenuService sysRoleMenuService;

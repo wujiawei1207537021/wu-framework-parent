@@ -1,14 +1,14 @@
 package com.wu.framework.easy.stereotype.upsert.component.mysql;
 
 
-import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
-import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.stereotype.dynamic.toolkit.DynamicEasyUpsertDSContextHolder;
-import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
-import com.wu.framework.easy.stereotype.upsert.ienum.UserDictionaryService;
 import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
 import com.wu.framework.easy.stereotype.upsert.component.MySQLEasyUpsertAbstract;
 import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
+import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
+import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
+import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
+import com.wu.framework.easy.stereotype.upsert.ienum.UserDictionaryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -48,7 +48,7 @@ public class MySQLMultipleEasyUpsert extends MySQLEasyUpsertAbstract implements 
     @Override
     protected DataSource determineDataSource() {
         EasyUpsertDS easyUpsertDS = DynamicEasyUpsertDSContextHolder.peek();
-        if (!ObjectUtils.isEmpty(easyUpsertDS)&&dataSourceMap.containsKey(easyUpsertDS.name())) {
+        if (!ObjectUtils.isEmpty(easyUpsertDS) && dataSourceMap.containsKey(easyUpsertDS.name())) {
             return dataSourceMap.get(easyUpsertDS.name());
         }
         return dataSourceMap.get(primary);

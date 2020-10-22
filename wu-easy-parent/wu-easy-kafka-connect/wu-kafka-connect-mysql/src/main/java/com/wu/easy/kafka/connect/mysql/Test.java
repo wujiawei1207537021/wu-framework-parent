@@ -16,7 +16,7 @@ import java.util.Map;
 public class Test {
 
     public static void main(String[] args) {
-        SinkConnector sinkConnector =new SinkConnector() {
+        SinkConnector sinkConnector = new SinkConnector() {
             @Override
             public void start(Map<String, String> map) {
 

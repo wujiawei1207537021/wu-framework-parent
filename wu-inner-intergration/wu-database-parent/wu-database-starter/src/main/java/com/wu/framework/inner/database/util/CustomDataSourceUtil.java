@@ -57,7 +57,7 @@ public class CustomDataSourceUtil {
         beanDefinitionSet.forEach(beanDefinition -> {
             GenericBeanDefinition definition = (GenericBeanDefinition) beanDefinition;
             try {
-                if(null!=annotationType&& null==AnnotationUtils.getAnnotation(definition.getBeanClass(),annotationType)){
+                if (null != annotationType && null == AnnotationUtils.getAnnotation(definition.getBeanClass(), annotationType)) {
                     return;
                 }
                 classSet.add(Class.forName(beanDefinition.getBeanClassName()));

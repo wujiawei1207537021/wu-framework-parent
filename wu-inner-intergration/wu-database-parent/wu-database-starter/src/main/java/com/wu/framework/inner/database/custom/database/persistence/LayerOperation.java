@@ -8,7 +8,7 @@ import java.util.List;
  * @describe: 自定义数据库持久层操作合集
  * @date : 2020/7/3 下午8:48
  */
-public interface LayerOperation   {
+public interface LayerOperation {
 
     /**
      * 批量更新或插入

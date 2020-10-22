@@ -1,7 +1,7 @@
 package com.wu.framework.inner.database.custom.database.persistence.mehtod;
 
-import com.wu.framework.inner.database.custom.database.persistence.domain.CustomPersistenceRepository;
 import com.wu.framework.inner.database.converter.PreparedStatementSQLConverter;
+import com.wu.framework.inner.database.custom.database.persistence.domain.CustomPersistenceRepository;
 import com.wu.framework.inner.database.custom.database.persistence.stereotype.GetCustomRepositoryOnDifferentMethods;
 import org.springframework.util.ObjectUtils;
 

@@ -19,10 +19,11 @@ public class DefaultSysRolePermissionService implements SysRolePermissionService
     @Resource
     private SysRolePermissionJpaRepository sysRolePermissionJpaRepository;
     @Resource
-    private  SysPermissionJpaRepository sysPermissionJpaRepository;
+    private SysPermissionJpaRepository sysPermissionJpaRepository;
 
     /**
      * 添加角色权限
+     *
      * @param roleId
      * @param permissionIds
      * @return
@@ -42,6 +43,7 @@ public class DefaultSysRolePermissionService implements SysRolePermissionService
 
     /**
      * 更新角色权限
+     *
      * @param roleId
      * @param permissionIds
      * @return
@@ -56,6 +58,7 @@ public class DefaultSysRolePermissionService implements SysRolePermissionService
 
     /**
      * 根据角色ID查询权限
+     *
      * @param roleId
      * @return
      */

@@ -12,12 +12,14 @@ import org.springframework.util.Assert;
  * @Author 吴佳伟
  * @Date 2020-05-22 2:58 下午
  */
-public class FtpAccessor  implements InitializingBean {
+public class FtpAccessor implements InitializingBean {
 
-    /** Logger available to subclasses */
+    /**
+     * Logger available to subclasses
+     */
     protected final Log logger = LogFactory.getLog(getClass());
 
-    private  FtpConnectionFactory connectionFactory;
+    private FtpConnectionFactory connectionFactory;
 
     public FtpAccessor(FtpConnectionFactory connectionFactory) {
         this.connectionFactory = connectionFactory;
@@ -37,6 +39,14 @@ public class FtpAccessor  implements InitializingBean {
         return connectionFactory;
     }
 
+    /**
+     * Sets the connection factory.
+     *
+     * @param connectionFactory The connectionFactory to set.
+     */
+    public void setConnectionFactory(FtpConnectionFactory connectionFactory) {
+        this.connectionFactory = connectionFactory;
+    }
 
     public FtpConnectionFactory getRequiredConnectionFactory() {
 
@@ -47,14 +57,5 @@ public class FtpAccessor  implements InitializingBean {
         }
 
         return connectionFactory;
-    }
-
-    /**
-     * Sets the connection factory.
-     *
-     * @param connectionFactory The connectionFactory to set.
-     */
-    public void setConnectionFactory(FtpConnectionFactory connectionFactory) {
-        this.connectionFactory = connectionFactory;
     }
 }

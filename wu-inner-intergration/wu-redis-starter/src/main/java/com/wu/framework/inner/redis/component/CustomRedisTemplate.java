@@ -2,9 +2,9 @@ package com.wu.framework.inner.redis.component;
 
 
 import com.wu.framework.inner.redis.CustomRedis;
+import com.wu.framework.inner.redis.CustomRedisDBEnum;
 import com.wu.framework.inner.redis.annotation.DynamicRedisDB;
 import com.wu.framework.inner.redis.enums.DefaultCustomRedisDBEnum;
-import com.wu.framework.inner.redis.CustomRedisDBEnum;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
 

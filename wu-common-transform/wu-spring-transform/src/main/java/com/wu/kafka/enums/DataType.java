@@ -12,9 +12,9 @@ public enum DataType {
     private Class clazz;
     private String alias;
 
-    public static String getAlias(Class clazz){
+    public static String getAlias(Class clazz) {
         for (DataType value : values()) {
-            if(value.getClazz() == clazz){
+            if (value.getClazz() == clazz) {
                 return value.getAlias();
             }
         }

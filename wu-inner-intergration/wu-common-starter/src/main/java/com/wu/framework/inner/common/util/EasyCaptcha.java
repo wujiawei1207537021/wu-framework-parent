@@ -1,5 +1,3 @@
-
-
 package com.wu.framework.inner.common.util;
 
 import cn.hutool.captcha.LineCaptcha;
@@ -11,12 +9,12 @@ import java.awt.image.BufferedImage;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * @describe : 创建验证码
  * @author : 吴佳伟
- * @date : 2020/6/17
  * @version 1.0
+ * @describe : 创建验证码
+ * @date : 2020/6/17
  */
-public class EasyCaptcha extends LineCaptcha{
+public class EasyCaptcha extends LineCaptcha {
 
     private static final long serialVersionUID = -9042552338521307038L;
 
@@ -28,7 +26,7 @@ public class EasyCaptcha extends LineCaptcha{
 
     @Override
     protected void generateCode() {
-        this.code = RandomUtil.randomString(CAPTCHA_CODE,this.generator.getLength());
+        this.code = RandomUtil.randomString(CAPTCHA_CODE, this.generator.getLength());
     }
 
     @Override
@@ -36,7 +34,7 @@ public class EasyCaptcha extends LineCaptcha{
         // 图像buffer
         final BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         final ThreadLocalRandom random = RandomUtil.getRandom();
-        final Graphics2D g = ImageUtil.createGraphics(image, new Color(249,249,249));
+        final Graphics2D g = ImageUtil.createGraphics(image, new Color(249, 249, 249));
 
         // 干扰线
         drawInterfere(g, random);
@@ -60,7 +58,7 @@ public class EasyCaptcha extends LineCaptcha{
     /**
      * 绘制干扰线
      *
-     * @param g {@link Graphics2D}画笔
+     * @param g      {@link Graphics2D}画笔
      * @param random 随机对象
      */
     private void drawInterfere(Graphics2D g, ThreadLocalRandom random) {

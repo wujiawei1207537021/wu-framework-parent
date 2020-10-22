@@ -31,7 +31,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- *
  * init 数据库
  */
 @Slf4j
@@ -103,12 +102,12 @@ public class SystemInit implements CommandLineRunner {
 //            方法上有权限注解
             for (Method method : methods) {
                 //含有指定注解的方法
-                if (!ObjectUtils.isEmpty(AnnotationUtils.findAnnotation(method,RequiredPermission.class))| classHasRequiredRoleAnnotation) {
+                if (!ObjectUtils.isEmpty(AnnotationUtils.findAnnotation(method, RequiredPermission.class)) | classHasRequiredRoleAnnotation) {
                     //当前支持的请求
                     for (PermissionTypeEnums permissionTypeEnmus : PermissionTypeEnums.values()) {
                         Annotation annotation = AnnotationUtils.findAnnotation(method, permissionTypeEnmus.getAClass());
                         if (!ObjectUtils.isEmpty(annotation)) {
-                            ApiOperation apiOperation = AnnotationUtils.findAnnotation(method,ApiOperation.class);
+                            ApiOperation apiOperation = AnnotationUtils.findAnnotation(method, ApiOperation.class);
                             String remark = "";
                             if (!ObjectUtils.isEmpty(apiOperation)) {
                                 remark = apiOperation.value();
@@ -119,8 +118,8 @@ public class SystemInit implements CommandLineRunner {
                                 method1.setAccessible(true);
                                 // 单个方法上的路径 （数组）
                                 String[] methodControllerValues = (String[]) method1.invoke(annotation);
-                                if(ObjectUtils.isEmpty(methodControllerValues)){
-                                    methodControllerValues= new String[]{""};
+                                if (ObjectUtils.isEmpty(methodControllerValues)) {
+                                    methodControllerValues = new String[]{""};
                                 }
                                 for (String classControllerValue : classControllerValues) {
                                     for (String methodControllerValue : methodControllerValues) {

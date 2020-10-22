@@ -29,8 +29,6 @@ public class DingTalkQRCodeLoginService implements QRCodeService {
     private SysUserJpaRepository sysUserJpaRepository;
 
 
-
-
     /**
      * 获取openID
      *
@@ -46,7 +44,7 @@ public class DingTalkQRCodeLoginService implements QRCodeService {
         try {
             response = client.execute(req, qrProperties.getDingtalk().getAccessKey(), qrProperties.getDingtalk().getAccessSecret());
             if (response.isSuccess()) {
-                System.out.println("用户钉钉openID"+response.getUserInfo().getOpenid());
+                System.out.println("用户钉钉openID" + response.getUserInfo().getOpenid());
                 return response.getUserInfo().getOpenid();
             } else {
                 System.out.println(response.getErrmsg());
@@ -65,7 +63,7 @@ public class DingTalkQRCodeLoginService implements QRCodeService {
      */
     @Override
     public DefaultSysUser getUser(QRBO qrbo) {
-        String o=getOpenId(qrbo.getCode());
+        String o = getOpenId(qrbo.getCode());
         if (!ObjectUtils.isEmpty(o)) {
             DefaultSysUser defaultSysUser = sysUserJpaRepository.findByDingtalkOpenId(o);
             if (ObjectUtils.isEmpty(defaultSysUser)) {
@@ -81,7 +79,7 @@ public class DingTalkQRCodeLoginService implements QRCodeService {
     public DefaultSysUser setOpenID(QRBindBO qrBindBO, DefaultSysUser defaultSysUser) {
         if (qrBindBO.getBind()) {
             String openId = getOpenId(qrBindBO.getCode());
-            if(!ObjectUtils.isEmpty(sysUserJpaRepository.findByDingtalkOpenId(openId))){
+            if (!ObjectUtils.isEmpty(sysUserJpaRepository.findByDingtalkOpenId(openId))) {
                 throw new CustomException("当前钉钉账号已经绑定其他用户");
             }
             defaultSysUser.setDingtalkOpenId(openId);
@@ -95,32 +93,32 @@ public class DingTalkQRCodeLoginService implements QRCodeService {
     @Override
     public Result qRCodeProperties(QRProBO qrProBO) {
 //        指定属性
-        if(!ObjectUtils.isEmpty(qrProBO.getAttribute())){
-            if("accessSecret".equals(qrProBO.getAttribute())){
+        if (!ObjectUtils.isEmpty(qrProBO.getAttribute())) {
+            if ("accessSecret".equals(qrProBO.getAttribute())) {
                 return ResultFactory.errorOf("敏感字段权限不足");
             }
             try {
-                Field filed=   QRProperties.Dingtalk.class.getDeclaredField(qrProBO.getAttribute());
+                Field filed = QRProperties.Dingtalk.class.getDeclaredField(qrProBO.getAttribute());
                 filed.setAccessible(true);
-              return   ResultFactory.successOf( filed.get(qrProperties.getDingtalk()));
+                return ResultFactory.successOf(filed.get(qrProperties.getDingtalk()));
             } catch (IllegalAccessException | NoSuchFieldException e) {
                 e.printStackTrace();
                 return ResultFactory.errorOf("属性不存在");
             }
         }
 //        所有属性
-        if(qrProBO.getAllAttribute()){
-            QRProperties.Dingtalk dingtalk=qrProperties.getDingtalk();
+        if (qrProBO.getAllAttribute()) {
+            QRProperties.Dingtalk dingtalk = qrProperties.getDingtalk();
             dingtalk.setAccessSecret(null);
-            return  ResultFactory.successOf(dingtalk);
+            return ResultFactory.successOf(dingtalk);
         }
 //        url
-        String url="https://oapi.dingtalk.com/connect/qrconnect?appid=";
+        String url = "https://oapi.dingtalk.com/connect/qrconnect?appid=";
 //        return "https://oapi.dingtalk.com/connect/qrconnect?appid=dingoauysihjy3mstkwadn&response_type=code&scope=snsapi_login&state=1&redirect_uri=http://saas.yuntsoft.com/login";
-        if(ObjectUtils.isEmpty(qrProperties.getDingtalk().getQRCodeUrl())){
-            url= url+qrProperties.getDingtalk().getAccessKey()+"&response_type=code&scope=snsapi_login&state="+ QRStrategy.DINGTALK+"&redirect_uri="+qrProperties.getDingtalk().getRedirectUri();
-        }else {
-            url= qrProperties.getDingtalk().getQRCodeUrl();
+        if (ObjectUtils.isEmpty(qrProperties.getDingtalk().getQRCodeUrl())) {
+            url = url + qrProperties.getDingtalk().getAccessKey() + "&response_type=code&scope=snsapi_login&state=" + QRStrategy.DINGTALK + "&redirect_uri=" + qrProperties.getDingtalk().getRedirectUri();
+        } else {
+            url = qrProperties.getDingtalk().getQRCodeUrl();
         }
         return ResultFactory.successOf(url);
     }

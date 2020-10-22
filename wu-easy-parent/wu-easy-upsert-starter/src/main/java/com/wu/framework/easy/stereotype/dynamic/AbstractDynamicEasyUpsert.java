@@ -1,8 +1,8 @@
 package com.wu.framework.easy.stereotype.dynamic;
 
 
-import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
 import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
+import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
 
 /**
  * description EasyUpsert获取IEasyUpsert和注解CustomDS抽象类
@@ -12,8 +12,8 @@ import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
  */
 public abstract class AbstractDynamicEasyUpsert {
 
-     public abstract EasyUpsertDS determineEasyUpsertDS();
+    public abstract EasyUpsertDS determineEasyUpsertDS();
 
-     public abstract IEasyUpsert determineIEasyUpsert();
+    public abstract IEasyUpsert determineIEasyUpsert();
 
 }

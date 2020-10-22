@@ -14,6 +14,8 @@ import com.wu.framework.response.ResultCode;
 
 
 public class CustomResponseException extends RuntimeException implements ResultCode {
+    private Integer code;
+
     public CustomResponseException(String message) {
         super(message);
     }
@@ -21,12 +23,12 @@ public class CustomResponseException extends RuntimeException implements ResultC
     public CustomResponseException(Throwable cause) {
         super(cause);
     }
+
     public CustomResponseException(ResultCode resultCode) {
         super(resultCode.getMessage());
-        this.code=resultCode.getCode();
+        this.code = resultCode.getCode();
     }
 
-    private Integer code;
     /**
      * 错误编码
      *

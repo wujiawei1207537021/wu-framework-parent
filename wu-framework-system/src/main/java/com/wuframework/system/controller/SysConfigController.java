@@ -24,13 +24,14 @@ public class SysConfigController {
 
     @Resource
     private SysDeptMapper sysDeptMapper;
+
     @ApiOperation("测试cc")
     @PostMapping
     public void cc() {
 //        sysDeptMapper.delete(null);
     }
 
-//    @RequiredPermission()
+    //    @RequiredPermission()
     @ApiOperation("测试cc")
     @GetMapping("/cc")
     public void cc1() {

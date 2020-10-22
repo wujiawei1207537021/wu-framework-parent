@@ -5,6 +5,7 @@ import com.wu.framework.easy.excel.util.ISheetShowContextMethod;
 import lombok.SneakyThrows;
 import org.apache.poi.hssf.usermodel.*;
 import org.springframework.core.annotation.AnnotationUtils;
+
 import java.io.ByteArrayOutputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 
 /**
  * description 正常Excel导出工具
+ *
  * @author 吴佳伟
  * @date 2020/10/6 下午8:28
  */
@@ -48,6 +50,7 @@ public class NormalExcelExportService implements ExcelExcelService {
 
     /**
      * 正常单工作簿导出
+     *
      * @param workbook
      * @param sheetName
      * @param filedColumnAnnotation
@@ -94,14 +97,14 @@ public class NormalExcelExportService implements ExcelExcelService {
                 String headerName;
                 if (useAnnotation) {
                     Annotation filedAnnotation = field.getAnnotation(filedColumnAnnotation);
-                    if (null==filedAnnotation){
+                    if (null == filedAnnotation) {
                         return;
-                    }else {
+                    } else {
                         Map<String, Object> annotationAttributes = AnnotationUtils.getAnnotationAttributes(filedAnnotation);
                         headerName = String.valueOf(annotationAttributes.getOrDefault(filedColumnAnnotationAttribute, field.getName()));
                     }
                 } else {
-                    headerName=field.getName();
+                    headerName = field.getName();
                 }
                 HSSFRichTextString text = new HSSFRichTextString(headerName);
                 hssfCell.setCellValue(text);

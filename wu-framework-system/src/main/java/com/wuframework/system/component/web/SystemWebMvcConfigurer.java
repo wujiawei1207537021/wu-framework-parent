@@ -13,7 +13,7 @@ import javax.annotation.Resource;
 @Component
 public class SystemWebMvcConfigurer implements WebMvcConfigurer {
 
-//    @Bean
+    //    @Bean
 //    public AccessPermissionInterceptor accessPermissionInterceptor(){
 //        return new AccessPermissionInterceptor();
 //    }

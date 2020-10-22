@@ -31,8 +31,8 @@ public class LayerOperationMethodFactory implements ImportBeanDefinitionRegistra
             GenericBeanDefinition definition = (GenericBeanDefinition) beanDefinition;
             try {
                 String beanName = beanDefinition.getBeanClassName();
-                Class clazz=Class.forName(beanDefinition.getBeanClassName());
-                if(clazz.isInterface()){
+                Class clazz = Class.forName(beanDefinition.getBeanClassName());
+                if (clazz.isInterface()) {
                     continue;
                 }
                 RootBeanDefinition rootBeanDefinition = new RootBeanDefinition(clazz);

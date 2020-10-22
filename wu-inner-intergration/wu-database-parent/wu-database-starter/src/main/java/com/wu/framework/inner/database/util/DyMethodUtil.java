@@ -38,8 +38,8 @@ public class DyMethodUtil {
         Map<String, Object> map = new HashMap<>();
         map.put("alive", "4==3");
         map.put("out", System.out);
-        map.put("money",2100);
-        String expression="2100>=2000&&2100<=4000";
+        map.put("money", 2100);
+        String expression = "2100>=2000&&2100<=4000";
 //        String expression = "out.print(alive)";
         Object o = invokeMethod(expression, null);
         System.out.println(o);

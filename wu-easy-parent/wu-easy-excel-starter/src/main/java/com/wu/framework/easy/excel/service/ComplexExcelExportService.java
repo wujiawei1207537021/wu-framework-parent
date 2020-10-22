@@ -216,20 +216,6 @@ public class ComplexExcelExportService implements ExcelExcelService {
         }
     }
 
-
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class CreateCell {
-        private HSSFSheet sheet;
-        private HSSFRow hssfRow;
-        private Integer rowStartIndex;
-        private int cellStartIndex;
-        private int additionalCell;
-        private Object fieldVal;
-        private EasyExcel easyExcel;
-    }
-
     /**
      * description 多个sheet 导出
      *
@@ -297,6 +283,19 @@ public class ComplexExcelExportService implements ExcelExcelService {
         int a = 99;
         a = xx(a);
         System.out.println("外面的结果" + a);
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class CreateCell {
+        private HSSFSheet sheet;
+        private HSSFRow hssfRow;
+        private Integer rowStartIndex;
+        private int cellStartIndex;
+        private int additionalCell;
+        private Object fieldVal;
+        private EasyExcel easyExcel;
     }
 }
 

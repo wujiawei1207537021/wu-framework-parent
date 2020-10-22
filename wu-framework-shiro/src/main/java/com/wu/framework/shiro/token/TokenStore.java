@@ -1,8 +1,8 @@
 package com.wu.framework.shiro.token;
 
 import com.wu.framework.shiro.domain.AccessToken;
-import com.wu.framework.shiro.model.UserDetails;
 import com.wu.framework.shiro.domain.Authentication;
+import com.wu.framework.shiro.model.UserDetails;
 
 import java.util.Collection;
 
@@ -46,6 +46,7 @@ public interface TokenStore {
 
     /**
      * 刷新令牌内信息
+     *
      * @param var1
      * @return
      */

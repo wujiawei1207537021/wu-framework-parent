@@ -33,6 +33,7 @@ public class EasyDynamicDataSourceConfig {
 
     /**
      * 切换方式
+     *
      * @return
      */
     @Bean
@@ -45,7 +46,8 @@ public class EasyDynamicDataSourceConfig {
     }
 
     /**
-     *  注解直接操作切换方式+入库
+     * 注解直接操作切换方式+入库
+     *
      * @return
      */
     @Bean

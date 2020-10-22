@@ -15,8 +15,10 @@ import java.util.List;
 public class DefaultSysPermissionService implements SysPermissionService {
     @Resource
     private SysPermissionJpaRepository sysPermissionJpaRepository;
+
     /**
      * 添加权限
+     *
      * @param sysPermission
      * @return
      */
@@ -27,6 +29,7 @@ public class DefaultSysPermissionService implements SysPermissionService {
 
     /**
      * 更新权限
+     *
      * @param sysPermission
      * @return
      */
@@ -37,12 +40,13 @@ public class DefaultSysPermissionService implements SysPermissionService {
 
     /**
      * 查询权限
+     *
      * @param universalSearchQO
      * @return
      */
     @Override
     public Result queryList(UniversalSearchQO universalSearchQO) {
-       List<SysPermission> sysPermissionList= sysPermissionJpaRepository.queryList(universalSearchQO);
+        List<SysPermission> sysPermissionList = sysPermissionJpaRepository.queryList(universalSearchQO);
         return ResultFactory.successOf(sysPermissionList);
     }
 }

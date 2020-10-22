@@ -1,8 +1,8 @@
 package com.wu.framework.database.generator.controller;
 
 
-import com.wu.framework.inner.database.domain.Page;
 import com.wu.framework.database.generator.service.SysGeneratorService;
+import com.wu.framework.inner.database.domain.Page;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,9 +29,9 @@ public class SysGeneratorController {
      */
     @ResponseBody
     @GetMapping("/list")
-    public Page list(@RequestParam(required = false,defaultValue = "") String  tableName,@RequestParam Integer size,@RequestParam Integer current) {
+    public Page list(@RequestParam(required = false, defaultValue = "") String tableName, @RequestParam Integer size, @RequestParam Integer current) {
         System.out.println(IOUtils.class);
-        Page page = sysGeneratorService.queryList(tableName,size,current);
+        Page page = sysGeneratorService.queryList(tableName, size, current);
         return page;
     }
 

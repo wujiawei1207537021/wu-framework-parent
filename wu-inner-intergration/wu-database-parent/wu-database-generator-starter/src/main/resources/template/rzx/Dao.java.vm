@@ -6,7 +6,7 @@ import tk.mybatis.mapper.common.Mapper;
 
 /**
  * ${comments}
- * 
+ *
  * @author ${author}
  * @date ${datetime}
  *
@@ -15,5 +15,5 @@ import tk.mybatis.mapper.common.Mapper;
  */
 @Repository
 public interface ${className}Dao extends Mapper<${className}Entity> {
-	
+
 }

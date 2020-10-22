@@ -1,9 +1,9 @@
 package com.wu.framework.inner.redis;
 
-public  interface CustomRedisDBEnum extends CustomRedis {
+public interface CustomRedisDBEnum extends CustomRedis {
 
 
-      Integer getDb();
+    Integer getDb();
 
-      String getMsg();
+    String getMsg();
 }

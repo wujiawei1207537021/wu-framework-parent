@@ -3,8 +3,6 @@ package com.wu.framework.inner.db.consts;
 
 /**
  * DB 配置
- *
- *
  */
 public class DBConfigConsts {
     /**

@@ -7,6 +7,7 @@ import com.wuframework.system.common.entity.SysPermission;
 public interface SysPermissionService {
     /**
      * 添加权限
+     *
      * @param sysPermission
      * @return
      */
@@ -14,6 +15,7 @@ public interface SysPermissionService {
 
     /**
      * 更新权限
+     *
      * @param sysPermission
      * @return
      */
@@ -21,6 +23,7 @@ public interface SysPermissionService {
 
     /**
      * 查询权限
+     *
      * @param universalSearchQO
      * @return
      */

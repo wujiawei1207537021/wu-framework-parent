@@ -17,7 +17,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 import java.util.Objects;
@@ -31,7 +30,7 @@ import java.util.Objects;
  * @since 2019-02-14
  */
 @Api(tags = "系统字典管理模块")
-@CustomController({"/sysdict","/system/dict"})
+@CustomController({"/sysdict", "/system/dict"})
 public class SysDictController {
 
     @Autowired

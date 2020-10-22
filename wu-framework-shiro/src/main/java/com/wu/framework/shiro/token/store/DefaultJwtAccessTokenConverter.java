@@ -7,12 +7,13 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.wu.framework.shiro.config.pro.ShiroProperties;
 import com.wu.framework.shiro.domain.AccessToken;
 import com.wu.framework.shiro.domain.DefaultAccessToken;
 import com.wu.framework.shiro.exceptions.ExtractScopeException;
 import com.wu.framework.shiro.exceptions.TokenAuthorizationException;
 import com.wu.framework.shiro.model.UserDetails;
-import com.wu.framework.shiro.config.pro.ShiroProperties;
+
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.Map;
@@ -20,14 +21,13 @@ import java.util.Map;
 public class DefaultJwtAccessTokenConverter implements JwtAccessTokenConverter {
 
 
-  private final  JSONObject jsonObject=new JSONObject();
+    private final JSONObject jsonObject = new JSONObject();
     private final String USER = "user";
     private final String USER_ID = "user_id";
     private final String SCOPE = "scope";
     private final String ACCESS_TOKEN = "access_token";
-    private String clientIdAttribute = "client_id";
-
     private final ShiroProperties shiroProperties;
+    private String clientIdAttribute = "client_id";
 
     public DefaultJwtAccessTokenConverter(ShiroProperties shiroProperties) {
         this.shiroProperties = shiroProperties;
@@ -54,7 +54,7 @@ public class DefaultJwtAccessTokenConverter implements JwtAccessTokenConverter {
      *
      * @return
      */
-    public  ShiroProperties getShiroProperties() {
+    public ShiroProperties getShiroProperties() {
         return shiroProperties;
     }
 
@@ -164,7 +164,7 @@ public class DefaultJwtAccessTokenConverter implements JwtAccessTokenConverter {
                     .withClaim(SCOPE, scope)
                     .withExpiresAt(new Date(System.currentTimeMillis() + getShiroProperties().getExpireTime()))
                     .sign(algorithm);
-        } catch (UnsupportedEncodingException  e) {
+        } catch (UnsupportedEncodingException e) {
             throw new TokenAuthorizationException("令牌授权异常");
         }
     }
@@ -181,7 +181,7 @@ public class DefaultJwtAccessTokenConverter implements JwtAccessTokenConverter {
             System.out.println(jwt.getClaim(name).asString());
             return JSONObject.parseObject(jwt.getClaim(name).asString(), clzz);
             //            return jwt.getClaim(name).as(clzz);
-        } catch (JWTDecodeException  e) {
+        } catch (JWTDecodeException e) {
             throw new TokenAuthorizationException("解析令牌失败");
         }
     }

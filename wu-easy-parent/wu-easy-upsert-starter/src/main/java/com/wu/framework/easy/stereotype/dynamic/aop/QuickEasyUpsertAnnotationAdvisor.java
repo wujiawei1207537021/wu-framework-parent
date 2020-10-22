@@ -1,9 +1,9 @@
 package com.wu.framework.easy.stereotype.dynamic.aop;
 
-import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
-import com.wu.framework.easy.stereotype.upsert.dynamic.QuickEasyUpsert;
 import com.wu.framework.easy.stereotype.dynamic.AbstractDynamicEasyUpsert;
 import com.wu.framework.easy.stereotype.dynamic.toolkit.DynamicEasyUpsertDSContextHolder;
+import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
+import com.wu.framework.easy.stereotype.upsert.dynamic.QuickEasyUpsert;
 import lombok.NonNull;
 import org.aopalliance.aop.Advice;
 import org.aopalliance.intercept.MethodInterceptor;
@@ -88,7 +88,7 @@ public class QuickEasyUpsertAnnotationAdvisor extends AbstractPointcutAdvisor im
             try {
                 DynamicEasyUpsertDSContextHolder.push(easyUpsertDS);
                 Object object = invocation.proceed();
-                if (null==object){
+                if (null == object) {
                     return null;
                 }
                 if (object instanceof Collection) {
@@ -105,7 +105,7 @@ public class QuickEasyUpsertAnnotationAdvisor extends AbstractPointcutAdvisor im
         public QuickEasyUpsert determineQuickEasyUpsert(MethodInvocation invocation) {
             Method method = invocation.getMethod();
             Class<?> declaringClass = method.getDeclaringClass();
-            QuickEasyUpsert ds = AnnotatedElementUtils.findMergedAnnotation(method,QuickEasyUpsert.class) !=null?
+            QuickEasyUpsert ds = AnnotatedElementUtils.findMergedAnnotation(method, QuickEasyUpsert.class) != null ?
                     AnnotatedElementUtils.findMergedAnnotation(method, QuickEasyUpsert.class)
                     : AnnotatedElementUtils.findMergedAnnotation(declaringClass, QuickEasyUpsert.class);
             return ds;
@@ -114,7 +114,7 @@ public class QuickEasyUpsertAnnotationAdvisor extends AbstractPointcutAdvisor im
         public EasyUpsertDS determineCustomDS(MethodInvocation invocation) {
             Method method = invocation.getMethod();
             Class<?> declaringClass = method.getDeclaringClass();
-            EasyUpsertDS ds = AnnotatedElementUtils.findMergedAnnotation(method,EasyUpsertDS.class)!=null ?
+            EasyUpsertDS ds = AnnotatedElementUtils.findMergedAnnotation(method, EasyUpsertDS.class) != null ?
                     AnnotatedElementUtils.findMergedAnnotation(method, EasyUpsertDS.class)
                     : AnnotatedElementUtils.findMergedAnnotation(declaringClass, EasyUpsertDS.class);
             return ds;

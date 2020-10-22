@@ -136,7 +136,7 @@ public class DefaultSysDictService extends ServiceImpl<SysDictMapper, SysDict> i
 
     @Override
     public Result all() {
-        List<SysDict> sysDictList= sysDictMapper.selectList(null);
+        List<SysDict> sysDictList = sysDictMapper.selectList(null);
         return ResultFactory.successOf(sysDictList);
     }
 }

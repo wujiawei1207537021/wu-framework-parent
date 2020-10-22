@@ -28,8 +28,8 @@ public class DefaultSysUserMessageService implements SysUserMessageService {
         Example example = Example.of(sysUserMessage);
         List<SysUserMessage> sysUserMessageList = new ArrayList<>();
         if (universalSearchQO.getPagination()) {
-            PageRequest pageRequest= PageRequest.of(page.getCurrent()-1,page.getSize());
-            sysUserMessageList=sysUserMessageJpaRepository.findAll(example,pageRequest).toList();
+            PageRequest pageRequest = PageRequest.of(page.getCurrent() - 1, page.getSize());
+            sysUserMessageList = sysUserMessageJpaRepository.findAll(example, pageRequest).toList();
             page.setRecords(sysUserMessageList);
             return ResultFactory.successOf(page);
         }

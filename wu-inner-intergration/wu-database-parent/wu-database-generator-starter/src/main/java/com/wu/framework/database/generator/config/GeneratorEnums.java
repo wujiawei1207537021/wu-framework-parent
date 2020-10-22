@@ -38,7 +38,6 @@ public enum GeneratorEnums {
     bit("bit", Boolean.class),
 
 
-
     CHAR1("char", String.class),
     varchar("varchar", String.class),
     tinytext("tinytext", String.class),
@@ -62,7 +61,6 @@ public enum GeneratorEnums {
     BINARY_FLOAT("BINARY_FLOAT", Float.class),
 
 
-
     DOUBLE("DOUBLE", Double.class),
     BINARY_DOUBLE("BINARY_DOUBLE", Double.class),
     DECIMAL("DECIMAL", BigDecimal.class),
@@ -74,7 +72,7 @@ public enum GeneratorEnums {
 
     NVARCHAR("NVARCHAR", String.class),
     NVARCHAR2("DATE", String.class),
-    CLOB("CLOB",String.class),
+    CLOB("CLOB", String.class),
     BLOB("BLOB", String.class),
 
 
@@ -92,18 +90,19 @@ public enum GeneratorEnums {
     private String type;
     private Class clazz;
 
-    public static Class typeClazz(String type){
+    public static Class typeClazz(String type) {
         for (GeneratorEnums generatorEnums : values()) {
-            if(generatorEnums.type.equals(type)){
+            if (generatorEnums.type.equals(type)) {
                 return generatorEnums.clazz;
             }
         }
         return String.class;
     }
+
     @AllArgsConstructor
     @Getter
     public enum GeneratorTypeEnums {
-        MySQL,ORACLE,SQL_SERVER, POSTGRES_SQL;
+        MySQL, ORACLE, SQL_SERVER, POSTGRES_SQL;
 
     }
 

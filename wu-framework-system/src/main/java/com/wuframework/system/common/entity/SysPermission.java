@@ -11,7 +11,6 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
@@ -31,7 +30,7 @@ public class SysPermission extends Model<SysPermission> {
     @Column(name = "permission_id", nullable = false, columnDefinition = "INTEGER   COMMENT '权限ID'")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @TableId(value = "permission_id", type = IdType.AUTO)
-    @NotNull(message = "权限ID不能为空",groups = ValidType.Update.class)
+    @NotNull(message = "权限ID不能为空", groups = ValidType.Update.class)
     private Integer permissionId;
 
     @ApiModelProperty(value = "权限类型 CRUD")

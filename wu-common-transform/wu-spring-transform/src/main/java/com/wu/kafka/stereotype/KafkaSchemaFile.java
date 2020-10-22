@@ -1,7 +1,5 @@
 package com.wu.kafka.stereotype;
 
-import java.lang.annotation.*;
-
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
@@ -10,13 +8,13 @@ public @interface KafkaSchemaFile {
 
     String name() default "";
 
-    String field() ;
+    String field();
 
     int version() default 1;
 
     int scale() default 0;
 
-    String parameters() default "" ;
+    String parameters() default "";
 
     String type() default "string";
 

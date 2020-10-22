@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
  * @since 2018-11-08
  */
 @Service("defaultSysUserService")
-public  class DefaultSysUserService extends ServiceImpl<DefaultSysUserMapper, DefaultSysUser> implements SysUserService {
+public class DefaultSysUserService extends ServiceImpl<DefaultSysUserMapper, DefaultSysUser> implements SysUserService {
 
     @Resource
     private DefaultSysUserMapper defaultSysUserMapper;
@@ -305,7 +305,6 @@ public  class DefaultSysUserService extends ServiceImpl<DefaultSysUserMapper, De
     }
 
 
-
     /**
      * @param userDTO
      * @param sysUser
@@ -316,7 +315,7 @@ public  class DefaultSysUserService extends ServiceImpl<DefaultSysUserMapper, De
     public Result getUserAllByUserDTO(UserDTO userDTO, DefaultSysUserDetails sysUser, Page page) {
         final boolean isNotAll = Optional.ofNullable(userDTO.getIsAll()).orElse(true);
         Integer deptId = Optional.ofNullable(userDTO.getDeptId()).orElse(sysUser.getDeptId());
-        if(ObjectUtils.isEmpty(deptId)){
+        if (ObjectUtils.isEmpty(deptId)) {
             return ResultFactory.errorOf("部门ID为空");
         }
         List<SysDept> list = this.sysDeptService.getDeptChildrenByParentId(deptId, null);

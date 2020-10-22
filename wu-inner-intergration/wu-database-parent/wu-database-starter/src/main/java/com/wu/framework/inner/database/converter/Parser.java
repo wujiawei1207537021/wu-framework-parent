@@ -85,10 +85,10 @@ public class Parser {
                 parsePlaceholder = parameters[i].getName();
             }
             Object val = args[i];
-            val = ObjectUtils.isEmpty(val) ? "null" : "\""+val.toString()+"\"";
+            val = ObjectUtils.isEmpty(val) ? "null" : "\"" + val.toString() + "\"";
             s = s.replace(parsePlaceholder, (String) val);
         }
-        return s.replace("and","&&");
+        return s.replace("and", "&&");
     }
 
     /**
@@ -193,6 +193,7 @@ public class Parser {
         }
         return countSQL;
     }
+
     /**
      * 获取接口参数中分页对象
      *
@@ -230,7 +231,7 @@ public class Parser {
                 stringBuffer.append(" ORDER BY ").append(page.getDescs()).append(" DESC ");
             }
         }
-        stringBuffer.append(" LIMIT ").append(page.getCurrent()-1).append(",").append(page.getSize());
+        stringBuffer.append(" LIMIT ").append(page.getCurrent() - 1).append(",").append(page.getSize());
         return stringBuffer.toString();
     }
 

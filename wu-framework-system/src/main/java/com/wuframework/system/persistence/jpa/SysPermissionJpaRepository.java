@@ -19,5 +19,5 @@ public interface SysPermissionJpaRepository extends JpaRepository<SysPermission,
      * @return
      */
     @Query("select s from SysPermission s where (s.permissionType=:#{#universalSearchQO.type} or :#{#universalSearchQO.type} is null) and (s.permissionCompletePath like concat('%',:#{#universalSearchQO.keyWord},'%') or :#{#universalSearchQO.keyWord} is null) order by  s.permissionId")
-    List<SysPermission> queryList(@Param("universalSearchQO")UniversalSearchQO universalSearchQO);
+    List<SysPermission> queryList(@Param("universalSearchQO") UniversalSearchQO universalSearchQO);
 }

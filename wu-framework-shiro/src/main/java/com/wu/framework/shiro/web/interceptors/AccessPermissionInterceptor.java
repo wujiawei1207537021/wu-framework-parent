@@ -1,16 +1,17 @@
 package com.wu.framework.shiro.web.interceptors;
 
 import com.wu.framework.response.enmus.DefaultResultCode;
-import com.wu.framework.shiro.login.ILoginService;
-import com.wu.framework.shiro.login.UserDetailsService;
 import com.wu.framework.shiro.annotation.RequiredRole;
 import com.wu.framework.shiro.config.pro.ShiroProperties;
+import com.wu.framework.shiro.login.ILoginService;
+import com.wu.framework.shiro.login.UserDetailsService;
 import com.wu.framework.shiro.model.UserDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -73,8 +74,8 @@ public class AccessPermissionInterceptor implements HandlerInterceptor {
                 return userDetails != null;
             }
             //数据库查询
-            userDetails= userDetailsService.loadUserByUsername(userDetails.getUsername());
-            request.setAttribute("AccessTokenUser",userDetails);
+            userDetails = userDetailsService.loadUserByUsername(userDetails.getUsername());
+            request.setAttribute("AccessTokenUser", userDetails);
             if (ObjectUtils.isEmpty(userDetails.getRoleSignList())) {
                 return false;
             }

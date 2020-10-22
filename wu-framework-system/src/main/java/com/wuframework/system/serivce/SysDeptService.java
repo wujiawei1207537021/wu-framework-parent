@@ -3,8 +3,8 @@ package com.wuframework.system.serivce;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.wuframework.system.common.dto.DeptDTO;
-import com.wuframework.system.common.entity.SysDept;
 import com.wuframework.system.common.entity.DefaultSysUser;
+import com.wuframework.system.common.entity.SysDept;
 import com.wuframework.system.common.vo.*;
 
 import java.util.List;

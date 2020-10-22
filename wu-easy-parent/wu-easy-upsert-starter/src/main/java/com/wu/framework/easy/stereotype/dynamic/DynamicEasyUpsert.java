@@ -1,12 +1,12 @@
 package com.wu.framework.easy.stereotype.dynamic;
 
 
-import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
-import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.stereotype.dynamic.toolkit.DynamicEasyUpsertDSContextHolder;
-import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
 import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
+import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
+import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
+import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -95,8 +95,8 @@ public class DynamicEasyUpsert extends AbstractDynamicEasyUpsert implements Init
                 }
                 primary = iEasyUpsertMap.keySet().iterator().next();
                 log.info("当前的默认方式是 {} ", primary);
-            }else {
-                if(iEasyUpsertMap.containsKey(upsertConfig.getEasyUpsertType())){
+            } else {
+                if (iEasyUpsertMap.containsKey(upsertConfig.getEasyUpsertType())) {
                     primary = upsertConfig.getEasyUpsertType();
                     log.info("当前的默认方式是 {} ", upsertConfig.getEasyUpsertType());
                 }

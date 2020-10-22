@@ -73,12 +73,12 @@ public @interface GetCustomRepositoryOnDifferentMethods {
         /**
          * {@link LayerOperation#executeSQL(String, Class)}
          */
-        EXECUTE_SQL("executeSQL","执行SQL"),
+        EXECUTE_SQL("executeSQL", "执行SQL"),
 
         /**
          * {@link LayerOperation#executeSQLForBean(String, Class)}
          */
-        EXECUTE_SQL_FOR_BEAN("executeSQLForBean","执行SQLFor Bean"),
+        EXECUTE_SQL_FOR_BEAN("executeSQLForBean", "执行SQLFor Bean"),
         /**
          * {@link LayerOperation#miss()}
          */

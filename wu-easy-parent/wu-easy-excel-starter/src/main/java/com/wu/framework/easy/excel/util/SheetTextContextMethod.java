@@ -9,14 +9,14 @@ import java.util.List;
  * @author 吴佳伟
  * @date 2020/10/6 下午2:36
  */
-public class SheetTextContextMethod implements ISheetShowContextMethod{
+public class SheetTextContextMethod implements ISheetShowContextMethod {
 
     @Override
     public List<String> sheetContext(long size, long limit) {
-        List<String> stringList=new ArrayList<>();
+        List<String> stringList = new ArrayList<>();
         long page = (size + limit - 1) / limit;
         for (int i = 1; i <= page; i++) {
-            stringList.add(ArabicNumeralsToChineseNumerals.cvt("第","页",i,true));
+            stringList.add(ArabicNumeralsToChineseNumerals.cvt("第", "页", i, true));
         }
         return stringList;
     }

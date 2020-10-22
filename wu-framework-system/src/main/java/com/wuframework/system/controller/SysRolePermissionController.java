@@ -10,7 +10,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -35,6 +34,7 @@ public class SysRolePermissionController {
 
     /**
      * 只有更新 {@link #update(Integer, List)}
+     *
      * @param roleId
      * @param permissionIds
      * @return
@@ -42,16 +42,16 @@ public class SysRolePermissionController {
     @Deprecated
     @ApiOperation("添加角色权限")
     @PostMapping("/{roleId}")
-    public Result save(@ApiParam("角色ID") @PathVariable Integer roleId,@NotNull @ApiParam("权限IDs") @RequestBody()List<Integer> permissionIds) {
-        return sysRolePermissionService.save(roleId,permissionIds);
+    public Result save(@ApiParam("角色ID") @PathVariable Integer roleId, @NotNull @ApiParam("权限IDs") @RequestBody() List<Integer> permissionIds) {
+        return sysRolePermissionService.save(roleId, permissionIds);
     }
 
     @RequiredRole("super_admin")
     @RequiredPermission
     @ApiOperation("更新角色权限")
     @PutMapping("/{roleId}")
-    public Result update(@ApiParam("角色ID") @PathVariable() Integer roleId,@ApiParam("权限IDs") @RequestBody()List<Integer> permissionIds) {
-        return sysRolePermissionService.update(roleId,permissionIds);
+    public Result update(@ApiParam("角色ID") @PathVariable() Integer roleId, @ApiParam("权限IDs") @RequestBody() List<Integer> permissionIds) {
+        return sysRolePermissionService.update(roleId, permissionIds);
     }
 
     @ApiOperation("查找角色权限")

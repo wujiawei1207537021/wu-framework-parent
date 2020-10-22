@@ -13,9 +13,9 @@ public class QRProBO {
     private String attribute;
 
     @ApiModelProperty(value = "完整二维码地址")
-    private Boolean url=false;
+    private Boolean url = false;
 
     @ApiModelProperty(value = "二维码 所有属性")
-    private Boolean allAttribute=false;
+    private Boolean allAttribute = false;
 
 }

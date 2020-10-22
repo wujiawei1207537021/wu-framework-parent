@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public enum DefaultCustomRedisDBEnum implements CustomRedisDBEnum {
 
-    SYS_DEFAULT( 0, "默认数据库");
+    SYS_DEFAULT(0, "默认数据库");
 
     /**
      * 数据库

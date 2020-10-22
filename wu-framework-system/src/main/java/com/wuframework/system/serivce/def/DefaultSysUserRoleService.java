@@ -105,7 +105,7 @@ public class DefaultSysUserRoleService extends ServiceImpl<SysUserRoleMapper, Sy
 
     @Override
     public List<String> listRoleSign(Integer userId) {
-       return baseMapper.listRoleSign(userId);
+        return baseMapper.listRoleSign(userId);
     }
 
     /**

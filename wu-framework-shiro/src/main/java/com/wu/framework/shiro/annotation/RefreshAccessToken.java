@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RefreshAccessToken {
 
-    String refreshType() default  "user_name";
+    String refreshType() default "user_name";
 
     Class paramType() default String.class;
 

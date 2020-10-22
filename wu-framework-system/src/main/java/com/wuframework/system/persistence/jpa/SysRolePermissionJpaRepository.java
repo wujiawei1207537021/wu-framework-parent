@@ -10,9 +10,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface SysRolePermissionJpaRepository extends JpaRepository<SysRolePermission,Integer> {
+public interface SysRolePermissionJpaRepository extends JpaRepository<SysRolePermission, Integer> {
     /**
      * 删除角色所有权限
+     *
      * @param roleId
      */
     @Modifying

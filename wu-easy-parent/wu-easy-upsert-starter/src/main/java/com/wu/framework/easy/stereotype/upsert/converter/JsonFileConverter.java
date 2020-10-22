@@ -4,7 +4,7 @@ package com.wu.framework.easy.stereotype.upsert.converter;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wu.framework.easy.stereotype.upsert.EasyTableFile;
+import com.wu.framework.easy.stereotype.upsert.EasyTableField;
 import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.util.ObjectUtils;
@@ -92,26 +92,26 @@ public class JsonFileConverter {
                 if (!declaredField.isAccessible()) {
                     declaredField.setAccessible(true);
                 }
-                if(UpsertJsonMessage.ignoredFields.contains(declaredField.getName())){
+                if (UpsertJsonMessage.ignoredFields.contains(declaredField.getName())) {
                     continue;
                 }
-                EasyTableFile easyTableFile = AnnotatedElementUtils.getMergedAnnotation(declaredField, EasyTableFile.class);
+                EasyTableField easyTableField = AnnotatedElementUtils.getMergedAnnotation(declaredField, EasyTableField.class);
                 Object v = null;
                 try {
                     v = declaredField.get(bean);
-                    if (ObjectUtils.isEmpty(v) && null != easyTableFile && !ObjectUtils.isEmpty(easyTableFile.fieldDefaultValue())) {
-                        v = easyTableFile.fieldDefaultValue();
+                    if (ObjectUtils.isEmpty(v) && null != easyTableField && !ObjectUtils.isEmpty(easyTableField.fieldDefaultValue())) {
+                        v = easyTableField.fieldDefaultValue();
                     }
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
                 String defaultKey = CamelAndUnderLineConverter.humpToLine2(declaredField.getName());
-                if (!ObjectUtils.isEmpty(easyTableFile)) {
-                    if (!easyTableFile.exist()) {
+                if (!ObjectUtils.isEmpty(easyTableField)) {
+                    if (!easyTableField.exist()) {
                         continue;
                     } else {
-                        if (!ObjectUtils.isEmpty(easyTableFile.value())) {
-                            defaultKey = easyTableFile.value();
+                        if (!ObjectUtils.isEmpty(easyTableField.value())) {
+                            defaultKey = easyTableField.value();
                         }
                     }
                 }

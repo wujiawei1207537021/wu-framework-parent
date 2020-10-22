@@ -2,7 +2,7 @@ package com.wu.framework.inner.database.converter;
 
 
 import com.wu.framework.easy.stereotype.upsert.EasyTable;
-import com.wu.framework.easy.stereotype.upsert.EasyTableFile;
+import com.wu.framework.easy.stereotype.upsert.EasyTableField;
 import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConverter;
 import com.wu.framework.inner.database.domain.ConvertedField;
 import org.springframework.core.annotation.AnnotatedElementUtils;
@@ -45,8 +45,8 @@ public class SQLConverter {
         stringBuilder.append("(");
         for (int i = 0; i < fields.length; i++) {
             Field declaredField = fields[i];
-            EasyTableFile
-                    tableField =  AnnotatedElementUtils.findMergedAnnotation(declaredField, EasyTableFile.class);
+            EasyTableField
+                    tableField = AnnotatedElementUtils.findMergedAnnotation(declaredField, EasyTableField.class);
             String fieldName;
             if (ObjectUtils.isEmpty(tableField)) {
                 fieldName = CamelAndUnderLineConverter.humpToLine2(declaredField.getName());
@@ -119,9 +119,9 @@ public class SQLConverter {
         Field[] fields = clazz.getDeclaredFields();
         for (int i = 0; i < fields.length; i++) {
             Field declaredField = fields[i];
-            EasyTableFile tableField =  AnnotatedElementUtils.findMergedAnnotation(declaredField, EasyTableFile.class);
+            EasyTableField tableField = AnnotatedElementUtils.findMergedAnnotation(declaredField, EasyTableField.class);
             String fieldName = CamelAndUnderLineConverter.humpToLine2(declaredField.getName());
-            String type = EasyTableFile.FileType.getTypeByClass(declaredField.getType());
+            String type = EasyTableField.FileType.getTypeByClass(declaredField.getType());
             String comment = CamelAndUnderLineConverter.humpToLine2(declaredField.getName());
             if (!ObjectUtils.isEmpty(tableField)) {
                 if (!tableField.exist()) {
@@ -204,7 +204,7 @@ public class SQLConverter {
 //                // 包含    AND T.address LIKE CONCAT('%',#{condition.address}, '%')
 //                builder.append(" AND T." + convertedFieldName + " LIKE CONCAT('%',#{condition." + fieldName + "}, '%') \n");
 //            } else {
-                builder.append(" AND T." + convertedFieldName + " = #{condition." + fieldName + "} \n");
+            builder.append(" AND T." + convertedFieldName + " = #{condition." + fieldName + "} \n");
 //            }
             builder.append("</if> \n");
         }

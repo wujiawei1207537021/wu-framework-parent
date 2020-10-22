@@ -17,9 +17,7 @@ public class ValGet {
 
     public static Page getPageRequest4Request(HttpServletRequest request, DBPageConfigPro dbPageConfigPro) {
         PageRequest pageRequest = getJpaPageRequest4Request(request, dbPageConfigPro);
-        getPageAndSize(x->{
-            return null;
-        },request,dbPageConfigPro);
+        getPageAndSize(x -> null, request, dbPageConfigPro);
         return new Page(pageRequest.getPageNumber() + 1, pageRequest.getPageSize());
     }
 
@@ -36,7 +34,7 @@ public class ValGet {
         return PageRequest.of(current - 1, size);
     }
 
-    private static Object getPageAndSize(CustomMultiParamFunction customMultiParamFunction, Object... objects){
-    return customMultiParamFunction.multiParam(objects);
+    private static Object getPageAndSize(CustomMultiParamFunction customMultiParamFunction, Object... objects) {
+        return customMultiParamFunction.multiParam(objects);
     }
 }

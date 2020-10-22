@@ -51,7 +51,7 @@ public enum DefaultResultCode implements ResultCode {
      */
     SQL_EXCEPTION(110001, "SQL语法错误异常"),
     SQL_INTEGRITY_CONSTRAINT_VIOLATION_EXCEPTION(110002, "SQL完整性约束违反异常"),
-    TRANSACTION_REQUIRED_EXCEPTION(110003,"要求开启事务管理"),
+    TRANSACTION_REQUIRED_EXCEPTION(110003, "要求开启事务管理"),
     /**
      * QR
      */
@@ -61,7 +61,7 @@ public enum DefaultResultCode implements ResultCode {
     /**
      * 默认的系统控制
      */
-    REFLEX_EXCEPTION(9998,"反射异常"),
+    REFLEX_EXCEPTION(9998, "反射异常"),
     DEFAULT_ERROR(9999, "请求异常!");
 
     /**

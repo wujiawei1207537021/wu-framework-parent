@@ -1,9 +1,9 @@
 package com.wu.framework.shiro.login;
 
-import com.wu.framework.shiro.config.pro.ShiroProperties;
-import com.wu.framework.shiro.domain.AccessToken;
 import com.wu.framework.response.Result;
 import com.wu.framework.response.ResultFactory;
+import com.wu.framework.shiro.config.pro.ShiroProperties;
+import com.wu.framework.shiro.domain.AccessToken;
 import com.wu.framework.shiro.domain.LoginUserBO;
 import com.wu.framework.shiro.model.UserDetails;
 import com.wu.framework.shiro.token.TokenStore;
@@ -65,7 +65,7 @@ public class LoginService implements ILoginService {
 
 
     @Override
-    public Result<AccessToken> accessToken(UserDetails userDetails ,String scope) {
+    public Result<AccessToken> accessToken(UserDetails userDetails, String scope) {
         return ResultFactory.successOf(tokenStore.getAccessToken(userDetails, scope));
     }
 
@@ -103,7 +103,7 @@ public class LoginService implements ILoginService {
      */
     @Override
     public UserDetails user(String accessToken) {
-      return tokenStore.readAccessToken(accessToken, shiroProperties.getUserDetails());
+        return tokenStore.readAccessToken(accessToken, shiroProperties.getUserDetails());
     }
 
 

@@ -9,7 +9,7 @@ import lombok.Data;
  * @date : 2020/8/2 下午10:29
  */
 @Data
-public class QO  {
+public class QO {
 
     private String tableName;
 }

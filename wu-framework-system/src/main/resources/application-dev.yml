@@ -68,7 +68,7 @@ spring:
   #应用名称
   application:
     name: system-base
-#    version: '@project.version@'
+    #    version: '@project.version@'
     accesspath: ${fdfs.file.accesspath}
   servlet:
     multipart:

@@ -6,10 +6,10 @@ import org.springframework.stereotype.Indexed;
 import java.lang.annotation.*;
 
 /**
- * @describe: 扫描实体路径
  * @author : 吴佳伟
- * @date : 2020/8/12 下午8:35
  * @version : 1.0
+ * @describe: 扫描实体路径
+ * @date : 2020/8/12 下午8:35
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
