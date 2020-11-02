@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>wu-easy-upsert-starter</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <description>简单数据插入或更新</description>
 
     <dependencies>
