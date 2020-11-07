@@ -7,6 +7,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
@@ -23,7 +24,8 @@ import java.util.logging.Logger;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @AutoConfigureAfter(name = "com.wu.framework.inner.database.config.SimpleCustomDatabaseConfiguration")
 @ConditionalOnBean(value = ICustomDatabaseConfiguration.class, name = "simpleCustomDatabaseConfiguration")
-public class SimpleCustomDataSource extends DefaultListableBeanFactory implements CustomDataSource, InitializingBean {
+@Configuration(value = "simpleEasyDataSource")
+public class SimpleEasyDataSource extends DefaultListableBeanFactory implements EasyDataSource, InitializingBean {
 
 
     private final ICustomDatabaseConfiguration iCustomDatabaseConfiguration;
@@ -32,7 +34,7 @@ public class SimpleCustomDataSource extends DefaultListableBeanFactory implement
     protected Connection connection;
 
 
-    public SimpleCustomDataSource(ICustomDatabaseConfiguration iCustomDatabaseConfiguration) {
+    public SimpleEasyDataSource(ICustomDatabaseConfiguration iCustomDatabaseConfiguration) {
         this.iCustomDatabaseConfiguration = iCustomDatabaseConfiguration;
     }
 

@@ -1,6 +1,6 @@
 package com.wu.framework.inner.dynamic.database.config;
 
-import com.wu.framework.inner.database.CustomDataSource;
+import com.wu.framework.inner.database.EasyDataSource;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +14,7 @@ import java.util.Map;
 public class MultiDataSource {
 
     //    所有数据源
-    public final Map<String, CustomDataSource> CUSTOM_DATA_SOURCE_MAP = new HashMap<>();
+    public final Map<String, EasyDataSource> CUSTOM_DATA_SOURCE_MAP = new HashMap<>();
     //     主数据源
     private String master;
 }

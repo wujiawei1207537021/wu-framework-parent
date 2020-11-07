@@ -1,6 +1,6 @@
 package com.wu.framework.inner.database.custom.database.persistence.proxy;
 
-import com.wu.framework.inner.database.CustomDataSourceAdapter;
+import com.wu.framework.inner.database.EasyDataSourceAdapter;
 import com.wu.framework.inner.database.custom.database.persistence.domain.CustomPersistenceRepository;
 import com.wu.framework.inner.database.custom.database.persistence.mehtod.LayerOperationMethod;
 import com.wu.framework.inner.database.custom.database.persistence.stereotype.GetCustomRepositoryOnDifferentMethods;
@@ -25,8 +25,8 @@ public class LayerOperationProxy implements InvocationHandler, InitializingBean 
     private final Connection connection;
     private final List<LayerOperationMethod> layerOperationMethods;
 
-    public LayerOperationProxy(CustomDataSourceAdapter customDataSourceAdapter, List<LayerOperationMethod> layerOperationMethods) throws SQLException {
-        this.connection = customDataSourceAdapter.getCustomDataSource().getConnection();
+    public LayerOperationProxy(EasyDataSourceAdapter easyDataSourceAdapter, List<LayerOperationMethod> layerOperationMethods) throws SQLException {
+        this.connection = easyDataSourceAdapter.getEasyDataSource().getConnection();
         this.layerOperationMethods = layerOperationMethods;
     }
 

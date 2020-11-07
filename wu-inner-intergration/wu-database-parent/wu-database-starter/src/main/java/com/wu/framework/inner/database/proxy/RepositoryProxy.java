@@ -1,6 +1,6 @@
 package com.wu.framework.inner.database.proxy;
 
-import com.wu.framework.inner.database.CustomDataSourceAdapter;
+import com.wu.framework.inner.database.EasyDataSourceAdapter;
 import com.wu.framework.inner.database.config.xxConfig;
 import com.wu.framework.inner.database.converter.Parser;
 import com.wu.framework.inner.database.domain.CustomRepository;
@@ -39,8 +39,8 @@ public class RepositoryProxy implements InvocationHandler, InitializingBean {
     private Map<String, CustomRepository> customRepositoryMap;
 
 
-    public RepositoryProxy(CustomDataSourceAdapter customDataSourceAdapter) throws SQLException {
-        this.connection = customDataSourceAdapter.getCustomDataSource().getConnection();
+    public RepositoryProxy(EasyDataSourceAdapter easyDataSourceAdapter) throws SQLException {
+        this.connection = easyDataSourceAdapter.getEasyDataSource().getConnection();
     }
 
     @Override

@@ -7,7 +7,8 @@ import org.springframework.util.ObjectUtils;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-import java.util.List;
+import java.sql.Array;
+import java.util.*;
 
 /**
  * description database 配置优先
@@ -28,11 +29,10 @@ public class IUpsertHandler implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        List list = (List) args[0];
-        if (ObjectUtils.isEmpty(list)) {
+        if (ObjectUtils.isEmpty(args)) {
             return false;
         }
-        return abstractDynamicEasyUpsert.determineIEasyUpsert().upsert(list);
+        return  abstractDynamicEasyUpsert.determineIEasyUpsert().fuzzyUpsert(args);
     }
 }
 

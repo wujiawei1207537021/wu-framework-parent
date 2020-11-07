@@ -1,7 +1,7 @@
 package com.wu.framework.inner.dynamic.database.component.aop;
 
-import com.wu.framework.inner.database.CustomDataSource;
-import com.wu.framework.inner.database.CustomDataSourceAdapter;
+import com.wu.framework.inner.database.EasyDataSource;
+import com.wu.framework.inner.database.EasyDataSourceAdapter;
 import com.wu.framework.inner.dynamic.database.component.CDS;
 import com.wu.framework.inner.dynamic.database.config.DynamicDatabaseConfig;
 import org.aspectj.lang.JoinPoint;
@@ -25,12 +25,12 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 @AutoConfigureAfter(value = {DynamicDatabaseConfig.class})
 @ConditionalOnBean(value = DynamicDatabaseConfig.class)
 @ConditionalOnProperty(prefix = "spring.wu.dynamic.database", value = "enable", havingValue = "true")
-public class MultiDataSourceSwitching implements CustomDataSourceAdapter, InitializingBean {
+public class MultiDataSourceSwitching implements EasyDataSourceAdapter, InitializingBean {
 
     private final Logger logger = LoggerFactory.getLogger(MultiDataSourceSwitching.class);
     private final DynamicDatabaseConfig dynamicDatabaseConfig;
     // 当前使用的数据源
-    private CustomDataSource customDataSource;
+    private EasyDataSource easyDataSource;
 
     public MultiDataSourceSwitching(DynamicDatabaseConfig dynamicDatabaseConfig) {
         this.dynamicDatabaseConfig = dynamicDatabaseConfig;
@@ -44,7 +44,7 @@ public class MultiDataSourceSwitching implements CustomDataSourceAdapter, Initia
     @Before("pointcutCustomDB(CDS)")
     public void customDBBefore(JoinPoint point, CDS CDS) {
         String name = CDS.value();
-        this.customDataSource =
+        this.easyDataSource =
                 dynamicDatabaseConfig.CUSTOM_DATA_SOURCE_MAP.getOrDefault(name,
                         dynamicDatabaseConfig.CUSTOM_DATA_SOURCE_MAP.values().iterator().next());
     }
@@ -55,10 +55,10 @@ public class MultiDataSourceSwitching implements CustomDataSourceAdapter, Initia
     }
 
     @Override
-    public CustomDataSource getCustomDataSource() {
-        if (null == customDataSource) {
+    public EasyDataSource getEasyDataSource() {
+        if (null == easyDataSource) {
             return dynamicDatabaseConfig.CUSTOM_DATA_SOURCE_MAP.values().iterator().next();
         }
-        return customDataSource;
+        return easyDataSource;
     }
 }

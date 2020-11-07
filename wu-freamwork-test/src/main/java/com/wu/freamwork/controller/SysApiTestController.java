@@ -4,7 +4,6 @@ import com.wu.framework.easy.stereotype.web.EasyController;
 import com.wu.freamwork.domain.SysApiUserTestPO;
 import com.wu.freamwork.service.SysApiTestService;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 

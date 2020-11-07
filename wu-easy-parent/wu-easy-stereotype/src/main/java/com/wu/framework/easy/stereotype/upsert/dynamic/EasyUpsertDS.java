@@ -34,6 +34,6 @@ public @interface EasyUpsertDS {
     /**
      * 数据源类型 默认MySQL
      */
-    EasyUpsertType easyUpsertType() default EasyUpsertType.AUTO;
+    EasyUpsertType type() default EasyUpsertType.AUTO;
 
 }

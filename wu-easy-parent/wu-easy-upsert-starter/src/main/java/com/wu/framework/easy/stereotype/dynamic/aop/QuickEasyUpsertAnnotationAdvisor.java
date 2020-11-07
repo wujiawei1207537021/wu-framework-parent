@@ -18,9 +18,6 @@ import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * description  自定义快速一数据源切换(Kafka、MySQL多数据源-mybatis)切面绑定
@@ -91,11 +88,7 @@ public class QuickEasyUpsertAnnotationAdvisor extends AbstractPointcutAdvisor im
                 if (null == object) {
                     return null;
                 }
-                if (object instanceof Collection) {
-                    abstractDynamicEasyUpsert.determineIEasyUpsert().upsert((List<? extends Object>) object);
-                } else {
-                    abstractDynamicEasyUpsert.determineIEasyUpsert().upsert(Arrays.asList(object));
-                }
+                abstractDynamicEasyUpsert.determineIEasyUpsert().fuzzyUpsert(object);
                 return object;
             } finally {
                 DynamicEasyUpsertDSContextHolder.poll();

@@ -35,7 +35,7 @@ public @interface QuickEasyUpsert {
     /**
      * 数据源类型 默认MySQL
      */
-    @AliasFor(attribute = "easyUpsertType", annotation = EasyUpsertDS.class)
-    EasyUpsertType easyUpsertType() default EasyUpsertType.AUTO;
+    @AliasFor(attribute = "type", annotation = EasyUpsertDS.class)
+    EasyUpsertType type() default EasyUpsertType.AUTO;
 
 }

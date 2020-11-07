@@ -1,17 +1,36 @@
 package com.wu.framework.inner.database.config;
 
+import com.wu.framework.easy.stereotype.upsert.EasyTable;
 import com.wu.framework.inner.database.DDLAutoOperate;
+import com.wu.framework.inner.database.EasyDataSourceAdapter;
+import com.wu.framework.inner.database.SimpleEasyDataSource;
+import com.wu.framework.inner.database.converter.SQLConverter;
 import com.wu.framework.inner.database.domain.CustomRepository;
 import com.wu.framework.inner.database.handler.RepositoryProxyFactory;
 import com.wu.framework.inner.database.proxy.RepositoryProxy;
+import com.wu.framework.inner.database.stereotype.ScanEntity;
+import com.wu.framework.inner.database.util.CustomDataSourceUtil;
 import com.wu.framework.inner.database.util.ScanXmlPathUtil;
+import lombok.AllArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.util.ObjectUtils;
 
-import java.util.Map;
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.*;
 
 /**
  * @author : Jia wei Wu
@@ -19,7 +38,6 @@ import java.util.Map;
  * @describe :
  * @date : 2020/9/13 下午8:10
  */
-
 public class xxConfig implements InitializingBean {
 
     public static Map<String, CustomRepository> customRepositoryMap;
@@ -27,11 +45,13 @@ public class xxConfig implements InitializingBean {
     private final DatabaseMapperConfiguration databaseMapperConfiguration;
     private final RepositoryProxy repositoryProxy;
     private final DefaultListableBeanFactory defaultListableBeanFactory;
+    private final ICustomDatabaseConfiguration iCustomDatabaseConfiguration;
 
-    public xxConfig(DatabaseMapperConfiguration databaseMapperConfiguration, RepositoryProxy repositoryProxy, DefaultListableBeanFactory defaultListableBeanFactory) {
+    public xxConfig(DatabaseMapperConfiguration databaseMapperConfiguration, RepositoryProxy repositoryProxy, DefaultListableBeanFactory defaultListableBeanFactory, ICustomDatabaseConfiguration iCustomDatabaseConfiguration) {
         this.databaseMapperConfiguration = databaseMapperConfiguration;
         this.repositoryProxy = repositoryProxy;
         this.defaultListableBeanFactory = defaultListableBeanFactory;
+        this.iCustomDatabaseConfiguration = iCustomDatabaseConfiguration;
     }
 
     //    TODO
@@ -61,5 +81,44 @@ public class xxConfig implements InitializingBean {
             defaultListableBeanFactory.registerSingleton(clazz.getSimpleName(), repositoryProxyFactory);
             log.info("init interface of mapper:" + clazz.getName());
         }
+
+
+        //
+
+
+        log.info("init simpleCustomDatabaseConfiguration config:" + iCustomDatabaseConfiguration.getDriver().getName());
+        if (iCustomDatabaseConfiguration.getDdlAuto().equals(ICustomDatabaseConfiguration.DDLAuto.CREATE)) {
+            Connection connection = EasyDataSourceAdapter.createDataSource(iCustomDatabaseConfiguration).getConnection();
+            Map<String, Object> objectMap = new HashMap<>();
+//                    applicationContext.getBeansWithAnnotation(ScanEntity.class);
+            List<String> scanEntityPath = new ArrayList<>();
+            for (Map.Entry<String, Object> stringObjectEntry : objectMap.entrySet()) {
+                ScanEntity scanEntity = AnnotationUtils.getAnnotation(stringObjectEntry.getValue().getClass(), ScanEntity.class);
+                if (ObjectUtils.isEmpty(scanEntity.basePackage())) {
+                    scanEntityPath.addAll(Arrays.asList(scanEntity.basePackage()));
+                }
+                if (ObjectUtils.isEmpty(scanEntity.value())) {
+                    scanEntityPath.add(scanEntity.value());
+                }
+            }
+            Set<Class> classSet = CustomDataSourceUtil.scanClass(scanEntityPath, EasyTable.class);
+            if (ObjectUtils.isEmpty(classSet)) {
+                return;
+            }
+            for (Class aClass : classSet) {
+                String createTableSQL = SQLConverter.createTableSQL(aClass);
+                PreparedStatement preparedStatement = connection.prepareStatement(createTableSQL);
+                preparedStatement.execute();
+                preparedStatement.close();
+                log.info("init table of class:" + aClass.getSimpleName());
+            }
+        }
+
+    }
+
+    @Bean
+    public DataSource dataSource(){
+        System.out.println("shideya");
+        return EasyDataSourceAdapter.createDataSource(iCustomDatabaseConfiguration);
     }
 }

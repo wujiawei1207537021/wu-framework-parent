@@ -67,10 +67,10 @@ public class DynamicEasyUpsert extends AbstractDynamicEasyUpsert implements Init
     }
 
     private IEasyUpsert getIEasyUpsert(EasyUpsertDS peek) {
-        if (ObjectUtils.isEmpty(peek) || peek.easyUpsertType().equals(EasyUpsertType.AUTO)) {
+        if (ObjectUtils.isEmpty(peek) || peek.type().equals(EasyUpsertType.AUTO)) {
             return determinePrimaryDataSource();
-        } else if (iEasyUpsertMap.containsKey(peek.easyUpsertType())) {
-            return iEasyUpsertMap.get(peek.easyUpsertType());
+        } else if (iEasyUpsertMap.containsKey(peek.type())) {
+            return iEasyUpsertMap.get(peek.type());
         } else {
             throw new RuntimeException("不能找到类型为" + peek + "的数据源");
         }
@@ -137,7 +137,7 @@ public class DynamicEasyUpsert extends AbstractDynamicEasyUpsert implements Init
              * 数据源类型 默认MySQL
              */
             @Override
-            public EasyUpsertType easyUpsertType() {
+            public EasyUpsertType type() {
                 return upsertConfig.getEasyUpsertType();
             }
         };

@@ -1,7 +1,7 @@
 package com.wu.framework.inner.dynamic.database.config;
 
-import com.wu.framework.inner.database.CustomDataSource;
-import com.wu.framework.inner.database.SimpleCustomDataSource;
+import com.wu.framework.inner.database.EasyDataSource;
+import com.wu.framework.inner.database.SimpleEasyDataSource;
 import com.wu.framework.inner.database.config.ICustomDatabaseConfiguration;
 import lombok.Data;
 import org.slf4j.Logger;
@@ -25,7 +25,7 @@ import java.util.Map;
 @ConfigurationProperties(prefix = "spring.wu.dynamic.database")
 public class DynamicDatabaseConfig implements InitializingBean {
 
-    public final Map<String, CustomDataSource> CUSTOM_DATA_SOURCE_MAP = new HashMap<>();
+    public final Map<String, EasyDataSource> CUSTOM_DATA_SOURCE_MAP = new HashMap<>();
     private final Logger logger = LoggerFactory.getLogger(DynamicDatabaseConfig.class);
     private boolean enable = true;
     private Map<String, DatabaseConfig> databaseConfigMap = new HashMap<>();
@@ -38,7 +38,7 @@ public class DynamicDatabaseConfig implements InitializingBean {
         }
         logger.info("init dynamic database config for {}", databaseConfigMap.keySet());
         for (Map.Entry<String, DatabaseConfig> stringDatabaseConfigEntry : databaseConfigMap.entrySet()) {
-            CUSTOM_DATA_SOURCE_MAP.put(stringDatabaseConfigEntry.getKey(), new SimpleCustomDataSource(stringDatabaseConfigEntry.getValue()));
+            CUSTOM_DATA_SOURCE_MAP.put(stringDatabaseConfigEntry.getKey(), new SimpleEasyDataSource(stringDatabaseConfigEntry.getValue()));
         }
     }
 

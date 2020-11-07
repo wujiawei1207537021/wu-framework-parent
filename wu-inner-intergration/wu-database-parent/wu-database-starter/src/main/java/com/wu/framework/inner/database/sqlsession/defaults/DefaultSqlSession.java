@@ -1,6 +1,6 @@
 package com.wu.framework.inner.database.sqlsession.defaults;
 
-import com.wu.framework.inner.database.CustomDataSourceAdapter;
+import com.wu.framework.inner.database.EasyDataSourceAdapter;
 import com.wu.framework.inner.database.proxy.RepositoryProxy;
 import com.wu.framework.inner.database.sqlsession.SqlSession;
 
@@ -19,8 +19,8 @@ public class DefaultSqlSession implements SqlSession {
     private final Connection connection;
     private final RepositoryProxy repositoryProxy;
 
-    public DefaultSqlSession(CustomDataSourceAdapter customDataSourceAdapter, RepositoryProxy repositoryProxy) throws SQLException {
-        this.connection = customDataSourceAdapter.getCustomDataSource().getConnection();
+    public DefaultSqlSession(EasyDataSourceAdapter easyDataSourceAdapter, RepositoryProxy repositoryProxy) throws SQLException {
+        this.connection = easyDataSourceAdapter.getEasyDataSource().getConnection();
         this.repositoryProxy = repositoryProxy;
     }
 
