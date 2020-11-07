@@ -26,7 +26,7 @@ public class ConvertApiImpl implements ConvertApi {
      * @date 2020/8/6 下午7:54
      */
     @Override
-    public Map<String, Map<String, String>> getConvertAllDataByCodes(List<String> ConvertCodes, boolean order) {
+    public Map<String, Map<String, String>> getConvertDataByItems(List<String> ConvertCodes, boolean order) {
         Map<String, Map<String, String>> map=new LinkedHashMap();
         Map<String, String> itemMap=new LinkedHashMap();
         itemMap.put("1","男");

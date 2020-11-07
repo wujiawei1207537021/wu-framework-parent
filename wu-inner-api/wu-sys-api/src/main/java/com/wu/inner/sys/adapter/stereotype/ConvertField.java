@@ -26,7 +26,7 @@ public @interface ConvertField {
     /**
      * 字典
      */
-    String ConvertItem() default "";
+    String convertItem() default "";
 
     /**
      *
@@ -39,7 +39,7 @@ public @interface ConvertField {
      * 分割字符
      * @return
      */
-    String [] ConvertSplitCharacter() default ",";
+    String [] convertSplitCharacter() default ",";
 
 
     /**

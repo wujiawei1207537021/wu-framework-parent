@@ -41,12 +41,12 @@ public class DefaultConvertAdapterService extends ConvertAdapterAbstract {
             }
             return o.getClass();
         }).toArray(Class[]::new);
-        List<String> dicCode = getConvertCodeByClass(classes);
-        if (ObjectUtils.isEmpty(dicCode)) {
+        List<String> convertItemList = getConvertItemByClass(classes);
+        if (ObjectUtils.isEmpty(convertItemList)) {
             return;
         }
         try {
-            map = convertApi.getConvertAllDataByCodes(dicCode, true);
+            map = convertApi.getConvertDataByItems(convertItemList, true);
         } catch (Exception e) {
             log.error("fail to init api:{}", e.getMessage());
         }
@@ -56,7 +56,7 @@ public class DefaultConvertAdapterService extends ConvertAdapterAbstract {
     void convert(Object object) {
         Class clazz = object.getClass();
         Field[] clazzDeclaredFields = clazz.getDeclaredFields();
-        Map<String, Field> fieldMap = Arrays.stream(clazzDeclaredFields).collect(Collectors.toMap(field -> field.getName(), field -> {
+        Map<String, Field> fieldMap = Arrays.stream(clazzDeclaredFields).collect(Collectors.toMap(Field::getName, field -> {
             if (!field.isAccessible()) {
                 field.setAccessible(true);
             }
@@ -79,19 +79,19 @@ public class DefaultConvertAdapterService extends ConvertAdapterAbstract {
                 if (ObjectUtils.isEmpty(convertField) || ObjectUtils.isEmpty(fieldVal)) {
                     continue;
                 }
-                String ConvertItem = getConvertItem(field, convertField);
+                String convertItem = getConvertItem(field, convertField);
                 // TODO 是否判断树形 或列表
                 String entryName;
                 String entryVal = "";
-                if (!ObjectUtils.isEmpty(map.get(ConvertItem))) {
+                if (!ObjectUtils.isEmpty(map.get(convertItem))) {
                     String[] keys;
-                    if (!ObjectUtils.isEmpty(convertField.ConvertSplitCharacter())) {
-                        keys = String.valueOf(fieldVal).split(String.join("|", convertField.ConvertSplitCharacter()));
+                    if (!ObjectUtils.isEmpty(convertField.convertSplitCharacter())) {
+                        keys = String.valueOf(fieldVal).split(String.join("|", convertField.convertSplitCharacter()));
                     } else {
                         keys = new String[]{String.valueOf(fieldVal)};
                     }
                     // 取数值
-                    entryVal = Arrays.stream(keys).map(s -> map.get(ConvertItem).getOrDefault(s, convertField.defaultValue())).collect(Collectors.joining(","));
+                    entryVal = Arrays.stream(keys).map(s -> map.get(convertItem).getOrDefault(s, convertField.defaultValue())).collect(Collectors.joining(","));
                 }
                 if (ObjectUtils.isEmpty(convertField.chineseNameProperty())) {
                     entryName = fieldName + "Name";
@@ -117,26 +117,26 @@ public class DefaultConvertAdapterService extends ConvertAdapterAbstract {
     }
 
 
-    private List<String> getConvertCodeByClass(Class... classes) {
-        List<String> ConvertCodeList = new ArrayList<>();
+    private List<String> getConvertItemByClass(Class... classes) {
+        List<String> convertItemList = new ArrayList<>();
         if (ObjectUtils.isEmpty(classes)) {
-            return ConvertCodeList;
+            return convertItemList;
         }
         for (Class aClass : classes) {
             Field[] fields = aClass.getDeclaredFields();
             for (Field field : fields) {
                 ConvertField convertField = AnnotationUtils.findAnnotation(field, ConvertField.class);
-                String ConvertItem = getConvertItem(field, convertField);
-                if (ObjectUtils.isEmpty(ConvertItem)) {
+                String convertItem = getConvertItem(field, convertField);
+                if (ObjectUtils.isEmpty(convertItem)) {
                     continue;
                 }
-                if (ConvertCodeList.contains(ConvertItem)) {
+                if (convertItemList.contains(convertItem)) {
                     continue;
                 }
-                ConvertCodeList.add(ConvertItem);
+                convertItemList.add(convertItem);
             }
         }
-        return ConvertCodeList;
+        return convertItemList;
     }
 
     /**
@@ -150,10 +150,10 @@ public class DefaultConvertAdapterService extends ConvertAdapterAbstract {
      */
     public String getConvertItem(Field field, ConvertField convertField) {
         //  Annotation annotation = AnnotationUtils.getAnnotation(field, clazz);
-        // 默认返回       convertField.ConvertItem
+        // 默认返回       convertField.convertItem
         if (null == convertField) {
             return null;
         }
-        return convertField.ConvertItem();
+        return convertField.convertItem();
     }
 }
