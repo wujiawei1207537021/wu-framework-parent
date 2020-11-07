@@ -13,7 +13,7 @@ import com.wu.framework.easy.stereotype.upsert.entity.kafka.TargetJsonSchema;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.CustomTableAnnotation;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
-import com.wu.framework.easy.stereotype.upsert.ienum.UserDictionaryService;
+import com.wu.framework.easy.stereotype.upsert.ienum.UserConvertService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 
@@ -33,12 +33,12 @@ import java.util.concurrent.Future;
 @EasyUpsertStrategy(value = EasyUpsertType.KAFKA)
 public class KafkaEasyUpsert implements IEasyUpsert {
 
-    private final UserDictionaryService userDictionaryService;
+    private final UserConvertService userConvertService;
     private final UpsertConfig upsertConfig;
     private final EasyUpsertExtractKafkaProducer easyUpsertExtractKafkaProducer;
 
-    public KafkaEasyUpsert(UserDictionaryService userDictionaryService, UpsertConfig upsertConfig, EasyUpsertExtractKafkaProducer easyUpsertExtractKafkaProducer) {
-        this.userDictionaryService = userDictionaryService;
+    public KafkaEasyUpsert(UserConvertService userConvertService, UpsertConfig upsertConfig, EasyUpsertExtractKafkaProducer easyUpsertExtractKafkaProducer) {
+        this.userConvertService = userConvertService;
         this.upsertConfig = upsertConfig;
         this.easyUpsertExtractKafkaProducer = easyUpsertExtractKafkaProducer;
     }
@@ -63,10 +63,10 @@ public class KafkaEasyUpsert implements IEasyUpsert {
             KafkaJsonMessage kafkaJsonMessage = KafkaJsonMessage.newInstance("", schemaName);
 
             Map iEnumList = new HashMap();
-            if (null != userDictionaryService) {
-                iEnumList = userDictionaryService.userDictionary(list.get(0).getClass());
+            if (null != userConvertService) {
+                iEnumList = userConvertService.userConvert(list.get(0).getClass());
             }
-            iEnumList.putAll(EasyAnnotationConverter.collectionDictionary(clazz));
+            iEnumList.putAll(EasyAnnotationConverter.collectionConvert(clazz));
             for (Object value : list) {
                 kafkaJsonMessage.setPayload(JsonFileConverter.parseBean2map(value, iEnumList));
                 easyUpsertExtractKafkaProducer.sendAsync(customTableAnnotation.getKafkaCode(), customTableAnnotation.getKafkaTopicName(), kafkaJsonMessage);

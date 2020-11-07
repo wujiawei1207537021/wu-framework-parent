@@ -12,7 +12,7 @@ import org.springframework.util.ObjectUtils;
 import java.lang.reflect.Field;
 import java.util.*;
 
-import static com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter.annotationDictionaryConversion;
+import static com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter.annotationConvertConversion;
 
 /**
  * @Description 转换含有KafkaSchemaFile 注解的类参数
@@ -115,7 +115,7 @@ public class JsonFileConverter {
                         }
                     }
                 }
-                v = annotationDictionaryConversion(declaredField, v, iEnumList);
+                v = annotationConvertConversion(declaredField, v, iEnumList);
                 map.put(defaultKey, v);
             }
         } catch (Exception e) {

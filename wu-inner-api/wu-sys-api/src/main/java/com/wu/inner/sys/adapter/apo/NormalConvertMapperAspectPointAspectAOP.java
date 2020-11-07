@@ -21,10 +21,10 @@ public class NormalConvertMapperAspectPointAspectAOP {
 
 
 
-    private ConvertAdapter defaultConvertDictionaryService;
+    private ConvertAdapter defaultConvertConvertService;
 
     public NormalConvertMapperAspectPointAspectAOP(ConvertApi convertApi) {
-        this.defaultConvertDictionaryService = new DefaultConvertAdapterService(convertApi);
+        this.defaultConvertConvertService = new DefaultConvertAdapterService(convertApi);
     }
 
 
@@ -36,7 +36,7 @@ public class NormalConvertMapperAspectPointAspectAOP {
 
     @AfterReturning(pointcut = "NormalConvertMapperAspectPoint(normalConvertMapper)", returning = "returnValue")
     public void afterReturning(JoinPoint point, NormalConvertMapper normalConvertMapper, Object returnValue) {
-       defaultConvertDictionaryService.convertObjects(returnValue);
+       defaultConvertConvertService.convertObjects(returnValue);
     }
 
 

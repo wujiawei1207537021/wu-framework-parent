@@ -18,7 +18,7 @@ public class ConvertApiImpl implements ConvertApi {
     /**
      * description 查询多个字典
      *
-     * @param dictionaryCodes
+     * @param ConvertCodes
      * @param order           控制 code 和name 的顺序
      * @return
      * @exception/throws
@@ -26,7 +26,7 @@ public class ConvertApiImpl implements ConvertApi {
      * @date 2020/8/6 下午7:54
      */
     @Override
-    public Map<String, Map<String, String>> getDictionaryAllDataByCodes(List<String> dictionaryCodes, boolean order) {
+    public Map<String, Map<String, String>> getConvertAllDataByCodes(List<String> ConvertCodes, boolean order) {
         Map<String, Map<String, String>> map=new LinkedHashMap();
         Map<String, String> itemMap=new LinkedHashMap();
         itemMap.put("1","男");

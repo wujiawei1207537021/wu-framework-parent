@@ -24,7 +24,7 @@ public class SysApiTestServiceImpl implements SysApiTestService {
         List<SysApiUserTestPO> sysApiUserTestPOList=new ArrayList<>();
         for (int i = 0; i <10 ; i++) {
             SysApiUserTestPO sysApiUserTestPO=new SysApiUserTestPO();
-            sysApiUserTestPO.setSex(i%2);
+            sysApiUserTestPO.setSex(i%3);
             sysApiUserTestPO.setAge(i);
             sysApiUserTestPO.setName("第:"+i);
             sysApiUserTestPOList.add(sysApiUserTestPO);

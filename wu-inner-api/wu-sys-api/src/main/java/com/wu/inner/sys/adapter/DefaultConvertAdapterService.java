@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ObjectUtils;
-import com.wu.inner.sys.adapter.stereotype.ConvertDictionaryFieldBean;
+import com.wu.inner.sys.adapter.stereotype.ConvertFieldBean;
 import com.wu.inner.sys.adapter.stereotype.ConvertField;
 import com.wu.inner.sys.api.ConvertApi;
 
@@ -41,12 +41,12 @@ public class DefaultConvertAdapterService extends ConvertAdapterAbstract {
             }
             return o.getClass();
         }).toArray(Class[]::new);
-        List<String> dicCode = getDictionaryCodeByClass(classes);
+        List<String> dicCode = getConvertCodeByClass(classes);
         if (ObjectUtils.isEmpty(dicCode)) {
             return;
         }
         try {
-            map = convertApi.getDictionaryAllDataByCodes(dicCode, true);
+            map = convertApi.getConvertAllDataByCodes(dicCode, true);
         } catch (Exception e) {
             log.error("fail to init api:{}", e.getMessage());
         }
@@ -70,8 +70,8 @@ public class DefaultConvertAdapterService extends ConvertAdapterAbstract {
                 String fieldName = field.getName();
                 Object fieldVal = field.get(object);
                 Class fieldType = field.getType();
-                ConvertDictionaryFieldBean convertDictionaryFieldBean = field.getAnnotation(ConvertDictionaryFieldBean.class);
-                if (!ObjectUtils.isEmpty(convertDictionaryFieldBean)) {
+                ConvertFieldBean convertFieldBean = field.getAnnotation(ConvertFieldBean.class);
+                if (!ObjectUtils.isEmpty(convertFieldBean)) {
                     convertObjects(fieldVal);
                     continue;
                 }
@@ -79,19 +79,19 @@ public class DefaultConvertAdapterService extends ConvertAdapterAbstract {
                 if (ObjectUtils.isEmpty(convertField) || ObjectUtils.isEmpty(fieldVal)) {
                     continue;
                 }
-                String dictionaryItem = getDictionaryItem(field, convertField);
+                String ConvertItem = getConvertItem(field, convertField);
                 // TODO 是否判断树形 或列表
                 String entryName;
                 String entryVal = "";
-                if (!ObjectUtils.isEmpty(map.get(dictionaryItem))) {
+                if (!ObjectUtils.isEmpty(map.get(ConvertItem))) {
                     String[] keys;
-                    if (!ObjectUtils.isEmpty(convertField.dictionarySplitCharacter())) {
-                        keys = String.valueOf(fieldVal).split(String.join("|", convertField.dictionarySplitCharacter()));
+                    if (!ObjectUtils.isEmpty(convertField.ConvertSplitCharacter())) {
+                        keys = String.valueOf(fieldVal).split(String.join("|", convertField.ConvertSplitCharacter()));
                     } else {
                         keys = new String[]{String.valueOf(fieldVal)};
                     }
                     // 取数值
-                    entryVal = Arrays.stream(keys).map(s -> map.get(dictionaryItem).getOrDefault(s, convertField.defaultValue())).collect(Collectors.joining(","));
+                    entryVal = Arrays.stream(keys).map(s -> map.get(ConvertItem).getOrDefault(s, convertField.defaultValue())).collect(Collectors.joining(","));
                 }
                 if (ObjectUtils.isEmpty(convertField.chineseNameProperty())) {
                     entryName = fieldName + "Name";
@@ -117,26 +117,26 @@ public class DefaultConvertAdapterService extends ConvertAdapterAbstract {
     }
 
 
-    private List<String> getDictionaryCodeByClass(Class... classes) {
-        List<String> dictionaryCodeList = new ArrayList<>();
+    private List<String> getConvertCodeByClass(Class... classes) {
+        List<String> ConvertCodeList = new ArrayList<>();
         if (ObjectUtils.isEmpty(classes)) {
-            return dictionaryCodeList;
+            return ConvertCodeList;
         }
         for (Class aClass : classes) {
             Field[] fields = aClass.getDeclaredFields();
             for (Field field : fields) {
                 ConvertField convertField = AnnotationUtils.findAnnotation(field, ConvertField.class);
-                String dictionaryItem = getDictionaryItem(field, convertField);
-                if (ObjectUtils.isEmpty(dictionaryItem)) {
+                String ConvertItem = getConvertItem(field, convertField);
+                if (ObjectUtils.isEmpty(ConvertItem)) {
                     continue;
                 }
-                if (dictionaryCodeList.contains(dictionaryItem)) {
+                if (ConvertCodeList.contains(ConvertItem)) {
                     continue;
                 }
-                dictionaryCodeList.add(dictionaryItem);
+                ConvertCodeList.add(ConvertItem);
             }
         }
-        return dictionaryCodeList;
+        return ConvertCodeList;
     }
 
     /**
@@ -148,12 +148,12 @@ public class DefaultConvertAdapterService extends ConvertAdapterAbstract {
      * @author Jia wei Wu
      * @date 2020/8/25 上午9:30
      */
-    public String getDictionaryItem(Field field, ConvertField convertField) {
+    public String getConvertItem(Field field, ConvertField convertField) {
         //  Annotation annotation = AnnotationUtils.getAnnotation(field, clazz);
-        // 默认返回       convertField.dictionaryItem
+        // 默认返回       convertField.ConvertItem
         if (null == convertField) {
             return null;
         }
-        return convertField.dictionaryItem();
+        return convertField.ConvertItem();
     }
 }

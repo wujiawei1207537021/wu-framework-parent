@@ -21,7 +21,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter.annotationDictionaryConversion;
+import static com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter.annotationConvertConversion;
 
 /**
  * 自定义 生成新增更新或插入 支持字段映射 sql
@@ -286,7 +286,7 @@ public class SQLConverter {
                         // 时间格式处理
                         Object tempFieldVal = getDate(fieldVal, sf);
                         if (null == tempFieldVal) {
-                            fieldVal = annotationDictionaryConversion(declaredField, fieldVal, iEnumList);
+                            fieldVal = annotationConvertConversion(declaredField, fieldVal, iEnumList);
                             fieldVal = fieldVal.toString().replaceAll("'", "\"");
                         } else {
                             fieldVal = tempFieldVal;

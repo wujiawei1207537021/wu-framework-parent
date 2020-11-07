@@ -4,7 +4,7 @@ import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
 import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
 import com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter;
 import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
-import com.wu.framework.easy.stereotype.upsert.ienum.UserDictionaryService;
+import com.wu.framework.easy.stereotype.upsert.ienum.UserConvertService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 
@@ -29,11 +29,11 @@ import java.util.concurrent.Future;
 public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, InitializingBean {
 
 
-    private final UserDictionaryService userDictionaryService;
+    private final UserConvertService userConvertService;
     private final UpsertConfig upsertConfig;
 
-    public MySQLEasyUpsertAbstract(UserDictionaryService userDictionaryService, UpsertConfig upsertConfig) {
-        this.userDictionaryService = userDictionaryService;
+    public MySQLEasyUpsertAbstract(UserConvertService userConvertService, UpsertConfig upsertConfig) {
+        this.userConvertService = userConvertService;
         this.upsertConfig = upsertConfig;
     }
 
@@ -67,10 +67,10 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, Initializi
             // 第一个参数 clazz
             Class clazz = list.get(0).getClass();
             Map<String, Map<String, String>> iEnumList = new HashMap<String, Map<String, String>>();
-            if (null != userDictionaryService) {
-                iEnumList = userDictionaryService.userDictionary(clazz);
+            if (null != userConvertService) {
+                iEnumList = userConvertService.userConvert(clazz);
             }
-            iEnumList.putAll(EasyAnnotationConverter.collectionDictionary(clazz));
+            iEnumList.putAll(EasyAnnotationConverter.collectionConvert(clazz));
             String queryString = SQLConverter.upsertPreparedStatementSQL(list, clazz, iEnumList);
             if (upsertConfig.isPrintSql()) {
                 log.info("执行sql: {}", queryString);

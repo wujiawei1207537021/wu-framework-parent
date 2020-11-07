@@ -83,7 +83,7 @@ public @interface EasyTableField {
      *
      * @return
      */
-    String dictionary() default "";
+    String Convert() default "";
 
 
     CustomTableFileIndexType indexType() default CustomTableFileIndexType.FILE_TYPE;

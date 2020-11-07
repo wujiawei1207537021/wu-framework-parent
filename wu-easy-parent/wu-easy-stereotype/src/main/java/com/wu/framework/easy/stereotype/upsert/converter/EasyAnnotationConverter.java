@@ -114,7 +114,7 @@ public class EasyAnnotationConverter {
      * @author Jia wei Wu
      * @date 2020/8/4 下午4:39
      */
-    public static Object annotationDictionaryConversion(Field field, Object fieldVal, Map<String, Map<String, String>> iEnumList) {
+    public static Object annotationConvertConversion(Field field, Object fieldVal, Map<String, Map<String, String>> iEnumList) {
         EasyTableField easyTableField = AnnotatedElementUtils.getMergedAnnotation(field, EasyTableField.class);
         // 确认枚举转换
         if (null != easyTableField && !DefaultIEnum.class.equals(easyTableField.iEnum()) && easyTableField.iEnum().isEnum()) {
@@ -137,12 +137,12 @@ public class EasyAnnotationConverter {
                 // 转换后的字典
                 List<String> res = new ArrayList<>();
                 // 字典api转换
-                if (!ObjectUtils.isEmpty(easyTableField.dictionary())) {
-                    Map<String, String> dictionaryMap = iEnumList.get(easyTableField.dictionary());
-                    if (!ObjectUtils.isEmpty(dictionaryMap)) {
+                if (!ObjectUtils.isEmpty(easyTableField.Convert())) {
+                    Map<String, String> ConvertMap = iEnumList.get(easyTableField.Convert());
+                    if (!ObjectUtils.isEmpty(ConvertMap)) {
                         for (String val : splitContent) {
-                            if (dictionaryMap.containsKey(val)) {
-                                res.add(dictionaryMap.get(val));
+                            if (ConvertMap.containsKey(val)) {
+                                res.add(ConvertMap.get(val));
                                 continue;
                             }
                         }
@@ -178,7 +178,7 @@ public class EasyAnnotationConverter {
      * @param clazz
      * @return
      */
-    public static Map<String, Map<String, String>> collectionDictionary(Class clazz) {
+    public static Map<String, Map<String, String>> collectionConvert(Class clazz) {
         Map<String, Map<String, String>> enumMap = new HashMap<>();
         for (Field declaredField : clazz.getDeclaredFields()) {
             EasyTableField easyTableField = AnnotatedElementUtils.getMergedAnnotation(declaredField, EasyTableField.class);

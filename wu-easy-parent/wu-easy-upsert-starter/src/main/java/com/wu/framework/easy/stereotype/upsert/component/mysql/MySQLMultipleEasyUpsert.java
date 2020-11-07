@@ -8,7 +8,7 @@ import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
-import com.wu.framework.easy.stereotype.upsert.ienum.UserDictionaryService;
+import com.wu.framework.easy.stereotype.upsert.ienum.UserConvertService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -32,16 +32,16 @@ public class MySQLMultipleEasyUpsert extends MySQLEasyUpsertAbstract implements 
 
 
     private final DataSource dataSource;
-    private final UserDictionaryService userDictionaryService;
+    private final UserConvertService userConvertService;
     private final UpsertConfig upsertConfig;
     private String primary;
     private Map<String, DataSource> dataSourceMap = new LinkedHashMap<>();
 
-    public MySQLMultipleEasyUpsert(DataSource dataSource, UserDictionaryService userDictionaryService, UpsertConfig upsertConfig) {
-        super(userDictionaryService, upsertConfig);
+    public MySQLMultipleEasyUpsert(DataSource dataSource, UserConvertService userConvertService, UpsertConfig upsertConfig) {
+        super(userConvertService, upsertConfig);
         this.dataSource = dataSource;
         this.upsertConfig = upsertConfig;
-        this.userDictionaryService = userDictionaryService;
+        this.userConvertService = userConvertService;
 
     }
 

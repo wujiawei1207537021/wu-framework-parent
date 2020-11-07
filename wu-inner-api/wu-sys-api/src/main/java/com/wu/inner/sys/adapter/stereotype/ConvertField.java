@@ -3,7 +3,7 @@ package com.wu.inner.sys.adapter.stereotype;
 import java.lang.annotation.*;
 
 /**
- * 转换字典项字段注解 需要对象中包含属性值为name
+ * 转换字段注解 需要对象中包含属性值为name
  */
 @Documented
 @Target({ElementType.FIELD,ElementType.TYPE})
@@ -16,7 +16,7 @@ public @interface ConvertField {
      *
      * @return
      */
-    DictionaryEntryType type() default DictionaryEntryType.LIST;
+    ConvertEntryType type() default ConvertEntryType.LIST;
 
     /**
      * 字典项转换中文名称后的属性 默认是字典项+Name
@@ -26,7 +26,7 @@ public @interface ConvertField {
     /**
      * 字典
      */
-    String dictionaryItem() default "";
+    String ConvertItem() default "";
 
     /**
      *
@@ -39,13 +39,13 @@ public @interface ConvertField {
      * 分割字符
      * @return
      */
-    String [] dictionarySplitCharacter() default ",";
+    String [] ConvertSplitCharacter() default ",";
 
 
     /**
      * 字典项类型
      */
-    enum DictionaryEntryType {
+    enum ConvertEntryType {
         /**
          * 树状
          */
