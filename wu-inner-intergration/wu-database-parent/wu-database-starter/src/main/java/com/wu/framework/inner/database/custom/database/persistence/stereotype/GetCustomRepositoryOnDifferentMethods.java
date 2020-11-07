@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 import java.util.List;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version : 1.0
  * @describe: 获取不同方法上的CustomRepository
  * @date : 2020/7/3 下午10:31

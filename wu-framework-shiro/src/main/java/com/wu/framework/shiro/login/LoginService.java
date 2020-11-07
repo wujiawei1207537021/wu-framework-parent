@@ -86,7 +86,7 @@ public class LoginService implements ILoginService {
      *
      * @param accessToken@return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/10/4 下午4:59
      */
     @Override

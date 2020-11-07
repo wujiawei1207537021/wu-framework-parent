@@ -10,7 +10,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * @describe :
  * @date : 2020/6/17
@@ -22,7 +22,7 @@ public class QRCodeGenerator {
     /**
      * @return byte[]
      * @params [text, width, height]
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/6/17 10:48 下午
      **/
     public static byte[] getQRCodeImage(String contents, int width, int height) {

@@ -15,7 +15,7 @@ import java.sql.*;
 import java.util.logging.Logger;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * @describe :
  * @date : 2020/8/28 下午10:57

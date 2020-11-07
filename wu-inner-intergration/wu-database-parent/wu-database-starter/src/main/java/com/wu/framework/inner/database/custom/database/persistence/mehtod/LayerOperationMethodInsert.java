@@ -9,7 +9,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * @describe :  自定义数据库持久层操作方法插入
  * @date : 2020/7/3 下午10:28

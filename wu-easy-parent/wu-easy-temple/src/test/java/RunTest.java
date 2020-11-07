@@ -4,7 +4,7 @@ import domain.PassengerTerminal;
 /**
  * description
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/10/21 上午9:33
  */
 public class RunTest {

@@ -14,7 +14,7 @@ import java.util.List;
 //import com.wu.framework.inner.dynamic.database.component.CDS;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * @describe : 数据库测试
  * @date : 2020/6/27 下午7:15
@@ -49,7 +49,7 @@ public class DataBaseTestController implements CommandLineRunner {
      *
      * @return
      * @params
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/7/5 下午1:55
      **/
 //    @Scheduled(fixedRate = 1000)
@@ -75,7 +75,7 @@ public class DataBaseTestController implements CommandLineRunner {
      *
      * @return
      * @params
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/7/5 下午1:56
      **/
     public void insert() {
@@ -100,7 +100,7 @@ public class DataBaseTestController implements CommandLineRunner {
      *
      * @return
      * @params
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/7/5 下午1:56
      **/
     public void update() {
@@ -127,7 +127,7 @@ public class DataBaseTestController implements CommandLineRunner {
      *
      * @return
      * @params
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/7/5 下午5:05
      **/
     public void delete() {
@@ -148,7 +148,7 @@ public class DataBaseTestController implements CommandLineRunner {
      *
      * @return
      * @params
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/7/5 下午5:05
      **/
     public void select() {

@@ -3,7 +3,7 @@ package com.wu.framework.inner.database;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * @describe : 单个数据源适配器
  * @date : 2020/8/28 下午11:11

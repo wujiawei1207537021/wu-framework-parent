@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * description KafkaSchema 转换操作
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/6/29 上午10:48
  */
 public class ConverterClass2KafkaSchema {
@@ -26,7 +26,7 @@ public class ConverterClass2KafkaSchema {
      * @param clazz
      * @return TargetJsonSchema
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/6/29 上午10:54
      */
     public static TargetJsonSchema converterClass2TargetJsonSchema(Class clazz, boolean forcedDuplicateNameSwitch) {

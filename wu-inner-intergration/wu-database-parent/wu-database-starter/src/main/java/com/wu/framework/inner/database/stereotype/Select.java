@@ -5,7 +5,7 @@ import org.springframework.stereotype.Indexed;
 import java.lang.annotation.*;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version : 1.0
  * @describe: 查询sql 注解
  * @date : 2020/7/31 下午10:25

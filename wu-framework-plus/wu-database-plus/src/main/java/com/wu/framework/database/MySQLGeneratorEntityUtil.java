@@ -1,7 +1,7 @@
 package com.wu.framework.database;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * @describe :
  * @date : 2020/7/10 下午10:50

@@ -7,7 +7,7 @@ import java.lang.reflect.Proxy;
 /**
  * description
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/7/14 下午8:08
  */
 public class IUpsertHandlerFactory<T> implements FactoryBean<T> {

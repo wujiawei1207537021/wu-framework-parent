@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * description Repository<T, ID> 持久层接口
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/10/10 下午12:29
  */
 public interface CrudRepository<T, ID> extends Repository<T, ID> {

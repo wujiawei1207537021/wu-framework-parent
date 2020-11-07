@@ -15,7 +15,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * @describe :
  * @date : 2020/7/31 下午10:43
@@ -30,7 +30,7 @@ public class Parser {
      *
      * @return
      * @params
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/8/9 下午8:31
      **/
     public static String parse2(Method method, Object[] args, CustomRepository customRepository) {
@@ -71,7 +71,7 @@ public class Parser {
      *
      * @return
      * @params
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/8/12 下午8:26
      **/
     public static String substituteObjectsInCharacters(Method method, Object[] args, String s) {

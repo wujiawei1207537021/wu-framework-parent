@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * description database 配置优先
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/7/14 下午8:03
  */
 

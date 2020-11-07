@@ -9,7 +9,7 @@ import org.springframework.util.Assert;
 
 /**
  * @Description
- * @Author 吴佳伟
+ * @Author Jia wei Wu
  * @Date 2020-05-22 2:58 下午
  */
 public class FtpAccessor implements InitializingBean {

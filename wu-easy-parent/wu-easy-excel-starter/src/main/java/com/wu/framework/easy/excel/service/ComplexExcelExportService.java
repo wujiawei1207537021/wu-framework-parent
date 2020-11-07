@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 /**
  * description 复杂Excel导出工具
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/10/6 下午8:28
  */
 public class ComplexExcelExportService implements ExcelExcelService {
@@ -34,7 +34,7 @@ public class ComplexExcelExportService implements ExcelExcelService {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/10/6 上午11:12
      */
     @SneakyThrows
@@ -120,7 +120,7 @@ public class ComplexExcelExportService implements ExcelExcelService {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/10/7 上午10:19
      */
     public static void createCellHeader(HSSFRow hssfRow, HSSFCellStyle style, int i, int additionalHeader, Field field, EasyExcel easyExcel) {
@@ -222,7 +222,7 @@ public class ComplexExcelExportService implements ExcelExcelService {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/10/6 上午11:12
      */
     public static byte[] exportExcelMultipleSheet(EasyExcel easyExcel, List<String> titlist, List<List> dataSet) {

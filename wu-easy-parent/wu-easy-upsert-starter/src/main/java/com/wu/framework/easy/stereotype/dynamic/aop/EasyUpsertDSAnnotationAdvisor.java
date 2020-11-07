@@ -21,7 +21,7 @@ import java.lang.reflect.Method;
 /**
  * description 自定义一数据源切面绑定
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/9/11 上午9:24
  */
 public class EasyUpsertDSAnnotationAdvisor extends AbstractPointcutAdvisor implements BeanFactoryAware {
@@ -63,7 +63,7 @@ public class EasyUpsertDSAnnotationAdvisor extends AbstractPointcutAdvisor imple
     /**
      * description 切面处理
      *
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/9/11 上午9:28
      */
     public static class EasyUpsertDSAnnotationInterceptor implements MethodInterceptor {

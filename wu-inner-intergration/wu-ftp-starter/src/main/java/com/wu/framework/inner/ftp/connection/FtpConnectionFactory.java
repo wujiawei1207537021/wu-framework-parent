@@ -6,7 +6,7 @@ import org.springframework.dao.support.PersistenceExceptionTranslator;
 
 /**
  * @Description
- * @Author 吴佳伟
+ * @Author Jia wei Wu
  * @Date 2020-05-22 3:01 下午
  */
 public interface FtpConnectionFactory extends PersistenceExceptionTranslator {

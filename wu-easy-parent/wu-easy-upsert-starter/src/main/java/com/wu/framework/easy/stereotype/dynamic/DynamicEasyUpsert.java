@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * description EasyUpsert获取IEasyUpsert和注解CustomDS实现类
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/9/14 下午2:55
  */
 public class DynamicEasyUpsert extends AbstractDynamicEasyUpsert implements InitializingBean {

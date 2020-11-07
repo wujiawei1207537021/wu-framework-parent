@@ -20,7 +20,7 @@ import java.util.concurrent.TimeoutException;
 /**
  * description EasyUpsertExtractKafkaProducer
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/7/16 下午1:27
  */
 @Slf4j

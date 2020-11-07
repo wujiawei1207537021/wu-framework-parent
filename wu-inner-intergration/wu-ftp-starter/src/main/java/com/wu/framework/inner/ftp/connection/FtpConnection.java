@@ -4,7 +4,7 @@ import org.apache.commons.net.SocketClient;
 
 /**
  * @Description
- * @Author 吴佳伟
+ * @Author Jia wei Wu
  * @Date 2020-05-22 3:04 下午
  */
 public interface FtpConnection {

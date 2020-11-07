@@ -7,7 +7,7 @@ import org.springframework.stereotype.Indexed;
 import java.lang.annotation.*;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version : 1.0
  * @describe: 唯一索引
  * @date : 2020/7/4 下午8:25

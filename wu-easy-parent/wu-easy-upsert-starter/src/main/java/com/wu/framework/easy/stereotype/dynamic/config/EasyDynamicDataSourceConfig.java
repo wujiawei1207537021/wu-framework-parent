@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * description 自定义一数据源配置注入
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/9/11 上午9:39
  */
 public class EasyDynamicDataSourceConfig {

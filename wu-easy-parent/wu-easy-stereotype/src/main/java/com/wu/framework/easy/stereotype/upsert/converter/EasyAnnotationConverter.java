@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 /**
  * description 解析 EasyTable 中的参数
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/7/16 下午2:12
  */
 public class EasyAnnotationConverter {
@@ -111,7 +111,7 @@ public class EasyAnnotationConverter {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/8/4 下午4:39
      */
     public static Object annotationDictionaryConversion(Field field, Object fieldVal, Map<String, Map<String, String>> iEnumList) {

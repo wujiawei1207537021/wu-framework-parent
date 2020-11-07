@@ -9,7 +9,7 @@ import java.lang.annotation.*;
 /**
  * EasyController
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @params
  * @return
  * @date 2020/9/18 下午10:19

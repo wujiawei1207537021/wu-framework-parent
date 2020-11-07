@@ -12,7 +12,7 @@ import org.springframework.core.type.filter.TypeFilter;
 import java.util.Set;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * @describe : 自动扫描包com.wu.framework.inner.database.custom.database.persistence.mehtod 下面的class
  * @date : 2020/7/4 下午3:40

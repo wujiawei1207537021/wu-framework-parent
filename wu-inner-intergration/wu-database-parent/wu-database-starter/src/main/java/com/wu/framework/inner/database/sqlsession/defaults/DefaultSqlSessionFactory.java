@@ -4,7 +4,7 @@ import com.wu.framework.inner.database.sqlsession.SqlSession;
 import com.wu.framework.inner.database.sqlsession.SqlSessionFactory;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * @describe :
  * @date : 2020/6/25 下午11:10

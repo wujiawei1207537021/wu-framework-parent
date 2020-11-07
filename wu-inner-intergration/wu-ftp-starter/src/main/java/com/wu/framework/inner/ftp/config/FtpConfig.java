@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * @Description
- * @Author 吴佳伟
+ * @Author Jia wei Wu
  * @Date 2020-05-22 3:09 下午
  */
 @Slf4j

@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version : 1.0
  * @describe: 根据ID更新  自定义数据库持久层操作方法I按ID列表删除
  * @date : 2020/7/4 下午7:22

@@ -24,7 +24,7 @@ import java.util.*;
 
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * @describe : 数据库连接配置
  * @date : 2020/6/25 下午10:57

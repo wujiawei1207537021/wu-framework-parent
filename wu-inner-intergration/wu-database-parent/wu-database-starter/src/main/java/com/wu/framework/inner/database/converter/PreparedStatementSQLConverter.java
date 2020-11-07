@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * 自定义 生成新增更新或插入 支持字段映射 sql 可以执行的sql 工具
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/6/23 10:15 上午
  */
 public class PreparedStatementSQLConverter {
@@ -93,7 +93,7 @@ public class PreparedStatementSQLConverter {
      *
      * @return
      * @params
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/7/3 下午9:48
      **/
     public static <T> String tableName(Class<T> clazz) {
@@ -136,7 +136,7 @@ public class PreparedStatementSQLConverter {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/7/8 下午2:04
      */
     public static <T> List<ConvertedField> fieldNamesOnAnnotation(Class<T> clazz, EasyTableField.CustomTableFileIndexType customTableFileIndexType) {
@@ -180,7 +180,7 @@ public class PreparedStatementSQLConverter {
      *
      * @return
      * @params
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/7/4 下午4:27
      **/
     public static <T> String insertPreparedStatementSQL(Collection collection, Class<T> clazz) {
@@ -237,7 +237,7 @@ public class PreparedStatementSQLConverter {
      *
      * @return
      * @params
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/7/5 下午2:11
      **/
     public static String updatePreparedStatementSQL(Object o) {
@@ -290,7 +290,7 @@ public class PreparedStatementSQLConverter {
      *
      * @return
      * @params
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/7/5 下午4:00
      **/
     public static <T> String deletePreparedStatementSQL(Object o) {
@@ -333,7 +333,7 @@ public class PreparedStatementSQLConverter {
      *
      * @return
      * @params
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/7/5 下午4:00
      **/
     public static <T> String selectPreparedStatementSQL(Object o) {

@@ -3,7 +3,7 @@ package com.wu.framework.easy.stereotype.upsert.process;
 /**
  * description 预处理、数据处理、转换
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/10/22 下午2:10
  */
 public interface DataProcess {
@@ -14,7 +14,7 @@ public interface DataProcess {
      * @param clazz
      * @return Object
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/10/22 下午2:20
      */
     ProcessResult classAnalyze(Class clazz);
@@ -25,7 +25,7 @@ public interface DataProcess {
      * @param sourceData 源数据
      * @return ProcessResult
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/10/22 下午2:23
      */
     ProcessResult dataPack(Object sourceData);
@@ -34,7 +34,7 @@ public interface DataProcess {
     /**
      * description 预处理结果
      *
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/10/22 下午3:06
      */
     interface ProcessResult {

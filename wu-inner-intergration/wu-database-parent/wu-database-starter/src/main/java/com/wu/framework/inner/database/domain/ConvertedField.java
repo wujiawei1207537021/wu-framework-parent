@@ -4,7 +4,7 @@ import com.wu.framework.easy.stereotype.upsert.EasyTableField;
 import lombok.Data;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * @describe : 转换后的字段
  * @date : 2020/7/4 下午10:17

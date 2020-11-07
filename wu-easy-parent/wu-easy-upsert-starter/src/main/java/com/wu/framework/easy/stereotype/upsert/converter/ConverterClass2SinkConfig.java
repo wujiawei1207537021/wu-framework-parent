@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 /**
  * description 将class 转换为 Sink 任务
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/7/16 下午1:43
  */
 public class ConverterClass2SinkConfig {

@@ -5,7 +5,7 @@ import org.apache.commons.net.SocketClient;
 
 /**
  * @Description
- * @Author 吴佳伟
+ * @Author Jia wei Wu
  * @Date 2020-05-22 4:47 下午
  */
 public abstract class AbstractFtpConnection extends SocketClient implements FtpConnection {

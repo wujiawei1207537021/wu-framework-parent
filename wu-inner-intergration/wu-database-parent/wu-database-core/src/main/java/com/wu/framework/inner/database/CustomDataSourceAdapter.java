@@ -1,7 +1,7 @@
 package com.wu.framework.inner.database;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * @describe : 适配器
  * @date : 2020/8/28 下午11:10

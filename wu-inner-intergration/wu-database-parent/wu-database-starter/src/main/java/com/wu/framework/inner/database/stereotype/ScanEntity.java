@@ -6,7 +6,7 @@ import org.springframework.stereotype.Indexed;
 import java.lang.annotation.*;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version : 1.0
  * @describe: 扫描实体路径
  * @date : 2020/8/12 下午8:35

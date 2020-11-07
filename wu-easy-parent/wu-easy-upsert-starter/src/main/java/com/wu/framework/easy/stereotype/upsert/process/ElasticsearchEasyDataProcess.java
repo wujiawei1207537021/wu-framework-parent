@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * description Elasticsearch 数据预处理
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/10/22 下午2:26
  */
 public class ElasticsearchEasyDataProcess implements DataProcess {
@@ -20,7 +20,7 @@ public class ElasticsearchEasyDataProcess implements DataProcess {
      * @param clazz
      * @return Object
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/10/22 下午2:20
      */
     @Override
@@ -44,7 +44,7 @@ public class ElasticsearchEasyDataProcess implements DataProcess {
      * @param sourceData 源数据
      * @return ProcessResult
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/10/22 下午2:23
      */
     @Override
@@ -56,7 +56,7 @@ public class ElasticsearchEasyDataProcess implements DataProcess {
     /**
      * description Elasticsearch 预处理结果
      *
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/10/22 下午2:58
      */
     @Data
@@ -71,7 +71,7 @@ public class ElasticsearchEasyDataProcess implements DataProcess {
     /**
      * description Elasticsearch 处理结果
      *
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/10/22 下午3:16
      */
     @Data

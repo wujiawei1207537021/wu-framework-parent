@@ -9,7 +9,7 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version : 1.0
  * @describe: 批量插入 自定义数据库持久层操作方法插入列表
  * @date : 2020/7/4 下午7:22

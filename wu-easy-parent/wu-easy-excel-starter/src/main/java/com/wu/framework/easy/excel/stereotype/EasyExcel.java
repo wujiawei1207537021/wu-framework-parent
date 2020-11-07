@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 /**
  * description 导出注解
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/10/5 下午7:08
  */
 @Target({ElementType.TYPE, ElementType.METHOD})

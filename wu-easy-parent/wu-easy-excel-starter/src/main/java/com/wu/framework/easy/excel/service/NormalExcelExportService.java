@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 /**
  * description 正常Excel导出工具
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/10/6 下午8:28
  */
 public class NormalExcelExportService implements ExcelExcelService {
@@ -26,7 +26,7 @@ public class NormalExcelExportService implements ExcelExcelService {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/10/6 上午11:12
      */
     @SneakyThrows
@@ -143,7 +143,7 @@ public class NormalExcelExportService implements ExcelExcelService {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/10/6 上午11:12
      */
     public static byte[] exportExcelMultipleSheet(EasyExcel easyExcel, List<String> titlist, List<List> dataSet) {

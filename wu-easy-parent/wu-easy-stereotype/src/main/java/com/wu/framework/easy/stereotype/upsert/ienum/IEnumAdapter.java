@@ -3,7 +3,7 @@ package com.wu.framework.easy.stereotype.upsert.ienum;
 /**
  * description 枚举配置适配器
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/8/15 下午1:25
  */
 public interface IEnumAdapter {

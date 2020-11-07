@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.Date;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * @describe :
  * @date : 2020/7/17 下午11:52

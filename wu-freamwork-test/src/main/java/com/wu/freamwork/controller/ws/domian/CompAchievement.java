@@ -8,7 +8,7 @@ import lombok.Data;
 /**
  * description  信用_公路建设市场企业业绩信息表
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/7/14 下午1:34
  */
 @Data

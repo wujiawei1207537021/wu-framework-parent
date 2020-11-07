@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * @describe : 解析ResultSet
  * @date : 2020/7/8 下午9:21
@@ -29,7 +29,7 @@ public class ResultSetConverter {
      * @param resultSet
      * @param whetherHump
      * @return
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/7/8 下午9:30
      **/
     public static List<Map> resultSet2Map(ResultSet resultSet, boolean whetherHump) {
@@ -69,7 +69,7 @@ public class ResultSetConverter {
      *
      * @param resultSet
      * @return
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/7/8 下午9:31
      **/
     public static List<Map> resultSet2Map(ResultSet resultSet) {

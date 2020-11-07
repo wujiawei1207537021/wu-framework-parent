@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * description 线路牌信息表
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/6/22 2:37 下午
  */
 @Data

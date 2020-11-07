@@ -11,7 +11,7 @@ import java.lang.reflect.Field;
 
 /**
  * @Description 转换含有KafkaSchemaFile 注解的类参数
- * @Author 吴佳伟
+ * @Author Jia wei Wu
  * @Date 2020-05-15 2:54 下午
  */
 public class JsonKafkaSchemaFileConverter {
@@ -24,7 +24,7 @@ public class JsonKafkaSchemaFileConverter {
      * @return
      * @description 单个对象转换
      * @exception/throws 无
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/5/15 3:10 下午
      */
     public static String simpleBean2String(Object bean) {
@@ -41,7 +41,7 @@ public class JsonKafkaSchemaFileConverter {
      * @return
      * @description 单个对象转换
      * @exception/throws 无
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/5/15 3:10 下午
      */
     public static String listBean2String(Object bean) {
@@ -60,7 +60,7 @@ public class JsonKafkaSchemaFileConverter {
      * @return
      * @description 对象转换成map
      * @exception/throws 无
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/5/15 4:04 下午
      */
     public static Map<String, Object> parseBean2map(Object bean) {
@@ -98,7 +98,7 @@ public class JsonKafkaSchemaFileConverter {
      * @return
      * @description 数组对象转换
      * @exception/throws 无
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/5/15 4:05 下午
      */
     public static List<String> parseArray(String str) {

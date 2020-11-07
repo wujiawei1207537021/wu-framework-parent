@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * description 自定义一表注解属性
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/9/3 上午9:52
  */
 @Data

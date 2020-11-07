@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * description Elasticsearch
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/10/22 下午1:55
  */
 @EasyUpsertStrategy(value = EasyUpsertType.ES)
@@ -23,7 +23,7 @@ class ElasticsearchEasyUpsert implements IEasyUpsert {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/10/22 下午2:02
      */
     protected void asySend() {

@@ -16,7 +16,7 @@ import static com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationCo
 
 /**
  * @Description 转换含有KafkaSchemaFile 注解的类参数
- * @Author 吴佳伟
+ * @Author Jia wei Wu
  * @Date 2020-05-15 2:54 下午
  */
 public class JsonFileConverter {
@@ -28,7 +28,7 @@ public class JsonFileConverter {
      * @return java.lang.String
      * @description 单个对象转换成JSON 字符串
      * @exception/throws 无
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/5/18 1:52 下午
      */
     public static String simpleBean2JSONString(Object bean) {
@@ -42,7 +42,7 @@ public class JsonFileConverter {
      * @return java.util.List<java.lang.String>
      * @description 将bean集合对象转换成 JSON String
      * @exception/throws 无
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/5/18 1:50 下午
      */
     public static String listBean2JSONString(Collection collection) {
@@ -58,7 +58,7 @@ public class JsonFileConverter {
      * @return java.util.List<java.lang.String>
      * @description 将bean集合对象转换成 JSON String 集合
      * @exception/throws 无
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/5/18 1:50 下午
      */
     public static List<String> listBean2ListJSONString(Collection collection) {
@@ -74,7 +74,7 @@ public class JsonFileConverter {
      * @return java.util.Map<java.lang.String, java.lang.Object>
      * @description 将bean 对象转换成map对象
      * @exception/throws 无
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/5/18 1:53 下午
      */
     public static Map<String, Object> parseBean2map(Object bean) {
@@ -129,7 +129,7 @@ public class JsonFileConverter {
      * @return java.util.List<java.lang.String>
      * @description 将String 字符串转换成List 集合
      * @exception/throws 无
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/5/18 1:54 下午
      */
     public static List<String> parseArray(String str) {

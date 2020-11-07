@@ -10,7 +10,7 @@ import java.sql.SQLException;
 /**
  * description 自定义数据库持久层操作方法
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/7/28 上午8:55
  */
 public interface LayerOperationMethod {

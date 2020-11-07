@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 /**
  * description MySQL单数据源插入数据
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/9/11 上午10:22
  */
 @Slf4j

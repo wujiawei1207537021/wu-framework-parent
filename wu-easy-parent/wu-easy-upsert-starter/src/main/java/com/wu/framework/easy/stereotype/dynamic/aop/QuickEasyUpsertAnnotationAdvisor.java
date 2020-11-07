@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * description  自定义快速一数据源切换(Kafka、MySQL多数据源-mybatis)切面绑定
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/9/11 上午9:24
  */
 public class QuickEasyUpsertAnnotationAdvisor extends AbstractPointcutAdvisor implements BeanFactoryAware {
@@ -69,7 +69,7 @@ public class QuickEasyUpsertAnnotationAdvisor extends AbstractPointcutAdvisor im
     /**
      * description  自定义快速一数据源切换(Kafka、MySQL多数据源-mybatis)切面处理
      *
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/9/11 上午9:28
      */
     public static class QuickEasyUpsertAnnotationInterceptor implements MethodInterceptor {

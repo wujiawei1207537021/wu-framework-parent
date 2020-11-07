@@ -24,7 +24,7 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * @describe : 执行sql 的代理类
  * @date : 2020/6/25 下午11:19

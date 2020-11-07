@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 /**
  * description
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/10/19 上午8:59
  */
 @Slf4j
@@ -36,7 +36,7 @@ public class ExcelController {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/10/19 上午8:59
      */
     @EasyExcel(fileName = "车辆缺失数据")

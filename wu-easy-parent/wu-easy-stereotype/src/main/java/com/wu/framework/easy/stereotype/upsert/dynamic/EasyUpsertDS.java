@@ -10,7 +10,7 @@ import java.lang.annotation.*;
  * description 自定义一数据源切换(Kafka、MySQL多数据源-mybatis)
  *
  * @param
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @return
  * @exception/throws
  * @date 2020/9/11 上午9:17

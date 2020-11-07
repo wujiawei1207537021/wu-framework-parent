@@ -9,9 +9,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>wu-inner-interface</artifactId>
+    <artifactId>wu-inner-api</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0</version>
+    <modules>
+        <module>wu-sys-api</module>
+    </modules>
 
 
 </project>

@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * description 更新插入json数据
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/9/7 下午2:19
  */
 public class UpsertJsonMessage {

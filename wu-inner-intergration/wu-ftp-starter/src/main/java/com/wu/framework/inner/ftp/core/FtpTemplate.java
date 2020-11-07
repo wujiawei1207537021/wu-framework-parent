@@ -5,7 +5,7 @@ import org.springframework.beans.factory.BeanClassLoaderAware;
 
 /**
  * @Description
- * @Author 吴佳伟
+ * @Author Jia wei Wu
  * @Date 2020-05-22 2:56 下午
  */
 public class FtpTemplate<K, V> extends FtpAccessor implements FtpOperations<K, V>, BeanClassLoaderAware {

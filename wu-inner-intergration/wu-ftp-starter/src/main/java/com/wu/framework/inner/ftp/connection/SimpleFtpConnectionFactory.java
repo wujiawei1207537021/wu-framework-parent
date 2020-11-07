@@ -12,7 +12,7 @@ import org.springframework.util.ObjectUtils;
 
 /**
  * @Description
- * @Author 吴佳伟
+ * @Author Jia wei Wu
  * @Date 2020-05-22 5:04 下午
  */
 public class SimpleFtpConnectionFactory implements FtpConnectionFactory {

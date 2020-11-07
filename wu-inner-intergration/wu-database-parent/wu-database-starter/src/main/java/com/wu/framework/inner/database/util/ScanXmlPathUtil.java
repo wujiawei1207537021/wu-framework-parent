@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * @describe : 扫描xml
  * @date : 2020/6/25 下午11:59

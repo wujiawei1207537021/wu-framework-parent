@@ -26,7 +26,7 @@ import static com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationCo
 /**
  * 自定义 生成新增更新或插入 支持字段映射 sql
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/6/23 10:15 上午
  */
 public class SQLConverter {
@@ -192,7 +192,7 @@ public class SQLConverter {
      *
      * @return
      * @params
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/7/3 下午9:48
      **/
     public static <T> String tableName(Class<T> clazz) {
@@ -222,7 +222,7 @@ public class SQLConverter {
      * @param collection
      * @return String
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/9/17 下午1:21
      */
     public static <T> String upsertPreparedStatementSQL(Collection collection, Class<T> clazz, Map iEnumList) {
@@ -318,7 +318,7 @@ public class SQLConverter {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/9/17 下午2:31
      */
     public static String getDate(Object o, SimpleDateFormat sf) {
@@ -342,7 +342,7 @@ public class SQLConverter {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/7/13 下午6:40
      */
     public static List<Class> scanClass(String classPath) {
@@ -404,7 +404,7 @@ public class SQLConverter {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/7/8 下午1:06
      */
     public static String createSelectSQL(Class clazz) {
@@ -474,7 +474,7 @@ public class SQLConverter {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/9/17 下午1:29
      */
     public static <T> List<ConvertedField> fieldNamesOnAnnotation(Class<T> clazz, EasyTableField.CustomTableFileIndexType customTableFileIndexType) {

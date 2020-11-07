@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * description 字段名和需要映射属性名
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/9/17 下午1:28
  */
 @Data

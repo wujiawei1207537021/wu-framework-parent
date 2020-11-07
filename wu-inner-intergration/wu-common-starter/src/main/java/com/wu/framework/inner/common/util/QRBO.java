@@ -8,7 +8,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * @describe : 二维码业务实体
  * @date : 2020/6/17 11:02 下午
@@ -44,7 +44,7 @@ public class QRBO {
 
 
     /**
-     * @author : 吴佳伟
+     * @author : Jia wei Wu
      * @version : 1.0
      * @describe: 密码文字
      * @date : 2020/6/17 11:11 下午

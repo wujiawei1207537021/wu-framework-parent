@@ -6,7 +6,7 @@ import org.springframework.stereotype.Indexed;
 import java.lang.annotation.*;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version : 1.0
  * @describe: 分页注解  指定位置添加分页
  * @date : 2020/8/2 下午6:11

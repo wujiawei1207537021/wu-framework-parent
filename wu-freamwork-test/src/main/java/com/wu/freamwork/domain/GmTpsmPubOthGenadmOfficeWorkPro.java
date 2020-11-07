@@ -3,7 +3,7 @@ package com.wu.freamwork.domain;
 /**
  * description
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/7/9 上午11:31
  */
 

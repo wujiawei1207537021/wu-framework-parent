@@ -3,7 +3,7 @@ package com.wu.framework.easy.stereotype.upsert.process;
 /**
  * description Kafka 数据预处理
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/10/22 下午2:25
  */
 public class KafkaDataProcess implements DataProcess {
@@ -15,7 +15,7 @@ public class KafkaDataProcess implements DataProcess {
      * @param clazz
      * @return Object
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/10/22 下午2:20
      */
     @Override
@@ -29,7 +29,7 @@ public class KafkaDataProcess implements DataProcess {
      * @param sourceData 源数据
      * @return ProcessResult
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/10/22 下午2:23
      */
     @Override

@@ -19,7 +19,7 @@ import static com.wu.framework.inner.database.converter.PreparedStatementSQLConv
 /**
  * 自定义 生成新增更新或插入 支持字段映射 sql
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/6/23 10:15 上午
  */
 public class SQLConverter {
@@ -155,7 +155,7 @@ public class SQLConverter {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/7/8 下午1:06
      */
     public static String createSelectSQL(Class clazz) {

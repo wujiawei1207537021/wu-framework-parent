@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * description 数据库字段注解  支持兼容 @JsonProperty
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/7/16 上午9:17
  */
 @Target({ElementType.FIELD, ElementType.ANNOTATION_TYPE})

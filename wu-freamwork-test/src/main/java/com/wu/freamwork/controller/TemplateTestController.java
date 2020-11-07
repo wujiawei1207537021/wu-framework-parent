@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 import static java.lang.Thread.sleep;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version : 1.0
  * @describe: 测试https
  * @date : 2020/6/17 10:42 下午
