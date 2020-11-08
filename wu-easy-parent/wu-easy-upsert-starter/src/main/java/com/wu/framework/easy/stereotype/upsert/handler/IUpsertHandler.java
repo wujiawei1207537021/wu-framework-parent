@@ -7,8 +7,6 @@ import org.springframework.util.ObjectUtils;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-import java.sql.Array;
-import java.util.*;
 
 /**
  * description database 配置优先
@@ -32,7 +30,16 @@ public class IUpsertHandler implements InvocationHandler {
         if (ObjectUtils.isEmpty(args)) {
             return false;
         }
-        return  abstractDynamicEasyUpsert.determineIEasyUpsert().fuzzyUpsert(args);
+        Object arg = args[0];
+        if (arg instanceof Object[]) {
+            Object[] objects = (Object[]) arg;
+            for (Object o : objects) {
+                abstractDynamicEasyUpsert.determineIEasyUpsert().fuzzyUpsert(o);
+            }
+        }else {
+            abstractDynamicEasyUpsert.determineIEasyUpsert().fuzzyUpsert(arg);
+        }
+        return true;
     }
 }
 

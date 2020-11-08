@@ -128,7 +128,7 @@ public class SQLConverter {
         for (int i = 0; i < fields.length; i++) {
             Field declaredField = fields[i];
             EasyTableField tableField = AnnotatedElementUtils.findMergedAnnotation(declaredField, EasyTableField.class);
-            String fieldName = CamelAndUnderLineConverter.humpToLine2(declaredField.getName());
+            String fieldName = "`"+CamelAndUnderLineConverter.humpToLine2(declaredField.getName())+"`";
             String type = EasyTableField.FileType.getTypeByClass(declaredField.getType());
             String comment = CamelAndUnderLineConverter.humpToLine2(declaredField.getName());
             if (!ObjectUtils.isEmpty(tableField)) {
@@ -164,7 +164,7 @@ public class SQLConverter {
                 }
             }
             fieldNames.add(fieldName);
-            sqlBuffer.append("`").append(fieldName).append("`").append(type).append(" COMMENT '").append(comment).append("', \n ");
+            sqlBuffer.append(fieldName).append(type).append(" COMMENT '").append(comment).append("', \n ");
         }
         sqlBuffer.append("`is_deleted` tinyint(1) DEFAULT '0' COMMENT '是否删除',\n" +
                 "  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',\n" +
