@@ -50,7 +50,8 @@ public class KafkaEasyUpsert implements IEasyUpsert {
             Thread.currentThread().setName(threadName);
             Class clazz = list.get(0).getClass();
             // 模块名称+业务+表名
-            CustomTableAnnotation customTableAnnotation = LocalStorageClassAnnotation.getCustomTableAnnotationAttr(clazz, upsertConfig.isForceDuplicateNameSwitch());
+            CustomTableAnnotation customTableAnnotation =
+                    LocalStorageClassAnnotation.getCustomTableAnnotationAttr(clazz, upsertConfig.isForceDuplicateNameSwitch());
             String schemaName = customTableAnnotation.getKafkaSchemaName();
 
             TargetJsonSchema targetJsonSchema = KafkaJsonMessage.targetSchemaMap.get(schemaName);

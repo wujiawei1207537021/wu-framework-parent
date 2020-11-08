@@ -85,11 +85,6 @@ public class UpsertConfig implements InitializingBean {
     @Deprecated
     @PostConstruct
     public void init() {
-//        if (!accessViaKafkaSwitch) {
-//            // 拦截bean Kafka 注入
-//            return;
-//        }
-//        super.init();
         if (ObjectUtils.isEmpty(schema)) {
             setSchema(new ArrayList<>());
         }

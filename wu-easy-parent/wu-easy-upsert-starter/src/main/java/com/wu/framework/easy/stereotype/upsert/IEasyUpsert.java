@@ -1,6 +1,7 @@
 package com.wu.framework.easy.stereotype.upsert;
 
 
+import com.wu.framework.easy.stereotype.upsert.factory.EasyThreadFactory;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -11,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 public interface IEasyUpsert {
 
     ThreadPoolExecutor easyUpsertExecutor = new ThreadPoolExecutor(5, 10, 200, TimeUnit.MILLISECONDS,
-            new ArrayBlockingQueue<Runnable>(20));
+            new ArrayBlockingQueue<>(20), new EasyThreadFactory());
 
     <T> Object upsert(List<T> list) throws Exception;
 
