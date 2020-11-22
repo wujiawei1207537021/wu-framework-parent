@@ -4,6 +4,7 @@ package com.wu.framework.inner.database.converter;
 import com.wu.framework.easy.stereotype.upsert.EasyTable;
 import com.wu.framework.easy.stereotype.upsert.EasyTableField;
 import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConverter;
+import com.wu.framework.inner.database.expand.database.persistence.domain.Persistence;
 import com.wu.framework.inner.database.domain.ConvertedField;
 import com.wu.framework.inner.database.test.pojo.DataBaseUser;
 import lombok.var;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 自定义 生成新增更新或插入 支持字段映射 sql 可以执行的sql 工具
@@ -375,11 +377,25 @@ public class PreparedStatementSQLConverter {
         for (Field declaredField : DataBaseUser.class.getDeclaredFields()) {
             Annotation annotation = AnnotationUtils.getAnnotation(declaredField, EasyTableField.class);
             Annotation[] declaredAnnotationsByType = declaredField.getDeclaredAnnotationsByType(Annotation.class);
-            if (annotation instanceof EasyTableField) {
+            if (annotation != null) {
                 System.out.println("shide");
             }
         }
     }
+
+    public static String activeInsertPreparedStatementSQL(Object object) {
+        Persistence persistence = PersistenceConverter.activeInsertPrepared(object);
+        StringBuffer stringBuffer=new StringBuffer(persistence.getExecutionEnum().getExecution());
+        stringBuffer.append(persistence.getTableName());
+        stringBuffer.append("(");
+        stringBuffer.append(String.join(",",persistence.getColumnList()));
+        stringBuffer.append(") values ( ");
+        stringBuffer.append(persistence.getCondition());
+        stringBuffer.append(" ) ON DUPLICATE KEY UPDATE ");
+        stringBuffer.append(persistence.getColumnList().stream().map(s -> s+" =VALUES ("+s+")").collect(Collectors.joining(",")));
+        return  stringBuffer.toString();
+    }
+
 
     public <A extends Annotation> A getAnnotation(Class<A> annotationType) {
         return this.getClass().getAnnotation(annotationType);

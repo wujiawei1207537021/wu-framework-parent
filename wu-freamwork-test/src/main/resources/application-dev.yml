@@ -6,6 +6,16 @@ spring:
       username: root
       password: wujiawei
 
+  datasource:
+    dynamic:
+      p6spy: true
+      datasource:
+        master:
+          username: root
+          password: wujiawei
+          url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+          driver-class-name: com.mysql.cj.jdbc.Driver
+
 #    dynamic:
 #      database:
 #        enable: off

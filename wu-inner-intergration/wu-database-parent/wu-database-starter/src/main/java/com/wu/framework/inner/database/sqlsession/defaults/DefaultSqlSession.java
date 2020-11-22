@@ -1,9 +1,9 @@
 package com.wu.framework.inner.database.sqlsession.defaults;
 
-import com.wu.framework.inner.database.EasyDataSourceAdapter;
 import com.wu.framework.inner.database.proxy.RepositoryProxy;
 import com.wu.framework.inner.database.sqlsession.SqlSession;
 
+import javax.sql.DataSource;
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -19,8 +19,8 @@ public class DefaultSqlSession implements SqlSession {
     private final Connection connection;
     private final RepositoryProxy repositoryProxy;
 
-    public DefaultSqlSession(EasyDataSourceAdapter easyDataSourceAdapter, RepositoryProxy repositoryProxy) throws SQLException {
-        this.connection = easyDataSourceAdapter.getEasyDataSource().getConnection();
+    public DefaultSqlSession(DataSource dataSource, RepositoryProxy repositoryProxy) throws SQLException {
+        this.connection = dataSource.getConnection();
         this.repositoryProxy = repositoryProxy;
     }
 

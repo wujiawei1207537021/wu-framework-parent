@@ -2,7 +2,7 @@ package com.wu.framework.inner.database.test.pojo;
 
 import com.wu.framework.easy.stereotype.upsert.EasyTable;
 import com.wu.framework.easy.stereotype.upsert.EasyTableField;
-import com.wu.framework.inner.database.custom.database.persistence.stereotype.CustomId;
+import com.wu.framework.inner.database.expand.database.persistence.stereotype.CustomId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

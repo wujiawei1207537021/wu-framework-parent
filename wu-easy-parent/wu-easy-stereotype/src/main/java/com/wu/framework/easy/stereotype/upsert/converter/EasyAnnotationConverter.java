@@ -70,6 +70,13 @@ public class EasyAnnotationConverter {
         return getKafkaSchemaName(clazz, false);
     }
 
+    /**
+     * @param clazz               类
+     * @param deduplicationSwitch 是否强制去重
+     * @return
+     * @author Jia wei Wu
+     * @date 2020/11/21 下午10:48
+     **/
     public static String getKafkaSchemaName(Class clazz, boolean deduplicationSwitch) {
         EasyTable easyTable = AnnotationUtils.getAnnotation(clazz, EasyTable.class);
         if (null != easyTable && !ObjectUtils.isEmpty(easyTable.kafkaSchemaName())) {
@@ -98,8 +105,6 @@ public class EasyAnnotationConverter {
                     pk = easyUnique.value();
                 }
                 uniqueList.add(pk);
-            } else {
-                continue;
             }
         }
         return uniqueList;
@@ -137,8 +142,8 @@ public class EasyAnnotationConverter {
                 // 转换后的字典
                 List<String> res = new ArrayList<>();
                 // 字典api转换
-                if (!ObjectUtils.isEmpty(easyTableField.Convert())) {
-                    Map<String, String> ConvertMap = iEnumList.get(easyTableField.Convert());
+                if (!ObjectUtils.isEmpty(easyTableField.convert())) {
+                    Map<String, String> ConvertMap = iEnumList.get(easyTableField.convert());
                     if (!ObjectUtils.isEmpty(ConvertMap)) {
                         for (String val : splitContent) {
                             if (ConvertMap.containsKey(val)) {
