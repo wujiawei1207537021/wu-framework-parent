@@ -3,6 +3,7 @@ package com.wu.framework.easy.stereotype.upsert.component;
 import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
  * @date 2020/10/22 下午1:55
  */
 @EasyUpsertStrategy(value = EasyUpsertType.ES)
+@ConditionalOnProperty(prefix = "spring.kafka", value = "bootstrap-servers")
 class ElasticsearchEasyUpsert implements IEasyUpsert {
 
 

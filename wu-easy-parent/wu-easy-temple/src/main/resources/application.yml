@@ -27,6 +27,14 @@ spring:
             url: jdbc:mysql://127.0.0.1:3306/test
             username: root
             password: wujiawei
+#  elasticsearch:
+#    rest:
+#      uris:
+#  data:
+#    elasticsearch:
+#      client:
+#        reactive:
+#          socket-timeout: 1800
 #          localhost:
 #            driver: com.mysql.jdbc.Driver
 #            url: jdbc:mysql://127.0.0.1:3306/test
