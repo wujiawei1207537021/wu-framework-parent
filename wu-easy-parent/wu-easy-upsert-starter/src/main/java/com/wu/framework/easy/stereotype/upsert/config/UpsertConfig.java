@@ -59,17 +59,6 @@ public class UpsertConfig implements InitializingBean {
      */
     private List<String> ignoredFields;
 
-    /**
-     * 已经会自动创建schema
-     */
-    @Deprecated
-    private List<Class> schemaClass = new ArrayList<>();
-
-    /**
-     * 已经会自动创建schema
-     */
-    @Deprecated
-    private List<String> schemaClassPath;
 
     /**
      * 主数据源类型
@@ -82,35 +71,6 @@ public class UpsertConfig implements InitializingBean {
     private Integer batchLimit = 1000;
 
 
-    @Deprecated
-    @PostConstruct
-    public void init() {
-        if (ObjectUtils.isEmpty(schema)) {
-            setSchema(new ArrayList<>());
-        }
-        // 指定路径下的类
-        scanClass();
-        setSchema(new ArrayList<>(getSchema()));
-        if (ObjectUtils.isEmpty(schemaClass)) {
-            return;
-        }
-
-        for (Class value : schemaClass) {
-            EasyTable easyTable = AnnotationUtils.getAnnotation(value, EasyTable.class);
-            TargetJsonSchema targetJsonSchema = new TargetJsonSchema();
-            targetJsonSchema.setName(EasyAnnotationConverter.getKafkaSchemaName(value, forceDuplicateNameSwitch));
-            if (!ObjectUtils.isEmpty(easyTable) && !ObjectUtils.isEmpty(easyTable.name())) {
-                targetJsonSchema.setName(easyTable.name());
-            }
-            for (TargetJsonSchema jsonSchema : getSchema()) {
-                if (jsonSchema.getName().equals(targetJsonSchema.getName())) {
-                    continue;
-                }
-            }
-            targetJsonSchema = ConverterClass2KafkaSchema.converterClass2TargetJsonSchema(value, forceDuplicateNameSwitch);
-            schema.add(targetJsonSchema);
-        }
-    }
 
 
     @Override
@@ -127,32 +87,6 @@ public class UpsertConfig implements InitializingBean {
         }
         log.info("动态Schema-加载 {} 成功", this.getSchema().size());
 
-    }
-
-    @Deprecated
-    private void scanClass() {
-        if (ObjectUtils.isEmpty(schemaClassPath)) {
-            return;
-        }
-        ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider(false);
-
-        TypeFilter includeFilter = (metadataReader, metadataReaderFactory) -> true;
-        provider.addIncludeFilter(includeFilter);
-        Set<BeanDefinition> beanDefinitionSet = new HashSet<>();
-        for (String s : schemaClassPath) {
-            // 指定扫描的包名
-            Set<BeanDefinition> candidateComponents = provider.findCandidateComponents(s);
-            beanDefinitionSet.addAll(candidateComponents);
-        }
-        beanDefinitionSet.forEach(beanDefinition -> {
-            GenericBeanDefinition definition = (GenericBeanDefinition) beanDefinition;
-            try {
-                schemaClass.add(Class.forName(beanDefinition.getBeanClassName()));
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-//            System.out.println(definition.getBeanClassName());
-        });
     }
 
 
