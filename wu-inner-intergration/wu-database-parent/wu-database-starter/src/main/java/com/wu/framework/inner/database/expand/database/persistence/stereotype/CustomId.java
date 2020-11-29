@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Indexed
-@EasyTableField(indexType = EasyTableField.CustomTableFileIndexType.AUTOMATIC, comment = "主键")
+@EasyTableField(indexType = EasyTableField.TableFileIndexType.AUTOMATIC, comment = "主键")
 public @interface CustomId {
     @AliasFor(annotation = EasyTableField.class, attribute = "value")
     String value() default "";

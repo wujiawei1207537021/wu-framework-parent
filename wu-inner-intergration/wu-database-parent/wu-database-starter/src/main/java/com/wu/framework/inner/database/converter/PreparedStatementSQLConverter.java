@@ -44,7 +44,7 @@ public class PreparedStatementSQLConverter {
         stringBuilder.append(tableName).append("(");
         // 添加字段
         List<ConvertedField> convertedFieldList = fieldNamesOnAnnotation(clazz);
-//        convertedFieldList=convertedFieldList.stream().filter(convertedField->!convertedField.getFieldIndexType().equals(EasyTableField.CustomTableFileIndexType.AUTOMATIC)).collect(Collectors.toList());
+//        convertedFieldList=convertedFieldList.stream().filter(convertedField->!convertedField.getFieldIndexType().equals(EasyTableField.TableFileIndexType.AUTOMATIC)).collect(Collectors.toList());
         for (ConvertedField convertedField : convertedFieldList) {
             if (convertedFieldList.indexOf(convertedField) != 0) {
                 stringBuilder.append(", ");
@@ -141,7 +141,7 @@ public class PreparedStatementSQLConverter {
      * @author Jia wei Wu
      * @date 2020/7/8 下午2:04
      */
-    public static <T> List<ConvertedField> fieldNamesOnAnnotation(Class<T> clazz, EasyTableField.CustomTableFileIndexType customTableFileIndexType) {
+    public static <T> List<ConvertedField> fieldNamesOnAnnotation(Class<T> clazz, EasyTableField.TableFileIndexType tableFileIndexType) {
         List<ConvertedField> convertedFieldList = new ArrayList<>();
         for (Field declaredField : clazz.getDeclaredFields()) {
             if (!declaredField.isAccessible()) {
@@ -154,7 +154,7 @@ public class PreparedStatementSQLConverter {
                     continue;
                 }
                 // 判断是否是我想要的类型
-                if (!ObjectUtils.isEmpty(customTableFileIndexType) && !customTableFileIndexType.equals(easyTableField.indexType())) {
+                if (!ObjectUtils.isEmpty(tableFileIndexType) && !tableFileIndexType.equals(easyTableField.indexType())) {
                     continue;
                 }
                 if (!ObjectUtils.isEmpty(easyTableField.value())) {
@@ -259,7 +259,7 @@ public class PreparedStatementSQLConverter {
                     field.setAccessible(true);
                 }
                 Object fieldVal = field.get(o);
-                if (convertedField.getFieldIndexType().equals(EasyTableField.CustomTableFileIndexType.FILE_TYPE)) {
+                if (convertedField.getFieldIndexType().equals(EasyTableField.TableFileIndexType.FILE_TYPE)) {
                     if (punctuationFlag) {
                         stringBuffer.append(",");
                     }
@@ -303,7 +303,7 @@ public class PreparedStatementSQLConverter {
         // where
         stringBuffer.append(" where ");
         boolean punctuationFlag = false;
-        List<ConvertedField> convertedFieldList = fieldNamesOnAnnotation(clazz, EasyTableField.CustomTableFileIndexType.ID);
+        List<ConvertedField> convertedFieldList = fieldNamesOnAnnotation(clazz, EasyTableField.TableFileIndexType.ID);
 
         for (ConvertedField convertedField : convertedFieldList) {
             try {

@@ -16,7 +16,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Indexed
-@EasyTableField(indexType = EasyTableField.CustomTableFileIndexType.UNIQUE)
+@EasyTableField(indexType = EasyTableField.TableFileIndexType.UNIQUE)
 public @interface CustomUnique {
 
     @AliasFor(annotation = EasyTableField.class, attribute = "value")

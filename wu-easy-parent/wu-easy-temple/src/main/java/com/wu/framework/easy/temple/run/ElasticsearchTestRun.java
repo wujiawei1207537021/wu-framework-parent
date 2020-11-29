@@ -31,14 +31,16 @@ public class ElasticsearchTestRun {
 
     @ApiOperation(value = "Elasticsearch-Search", tags = "Elasticsearch")
     @PostMapping("/_search")
-    public void elasticsearchSearch() {
+    public SearchHits<ElasticsearchUser> elasticsearchSearch() {
         Query query = Query.findAll();
-        SearchHits<UserLog> userLogSearchHits = elasticsearchRestTemplate.search(query, UserLog.class);
+        SearchHits<ElasticsearchUser> userLogSearchHits = elasticsearchRestTemplate.search(query, ElasticsearchUser.class);
+        return userLogSearchHits;
     }
 
     @ApiOperation(value = "Elasticsearch-Save", tags = "Elasticsearch")
     @PostMapping("/_save")
     public void save() {
+//        elasticsearchRestTemplate.bulkUpdate();
         elasticsearchRepositoryService.save();
     }
 
@@ -46,7 +48,10 @@ public class ElasticsearchTestRun {
     @PostMapping("/_create")
     public void create() {
         IndexOperations indexOperations = elasticsearchRestTemplate.indexOps(ElasticsearchUser.class);
-        indexOperations.create();
+        if(!indexOperations.exists()){
+            indexOperations.create();
+        }
+        indexOperations.createMapping(ElasticsearchUser.class);
     }
 
 }

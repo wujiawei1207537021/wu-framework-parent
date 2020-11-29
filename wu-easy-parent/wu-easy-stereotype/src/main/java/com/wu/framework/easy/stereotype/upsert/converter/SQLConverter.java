@@ -159,7 +159,7 @@ public class SQLConverter {
                     }
                 }
                 // 记录索引字段
-                if (tableField.indexType().equals(EasyTableField.CustomTableFileIndexType.UNIQUE)) {
+                if (tableField.indexType().equals(EasyTableField.TableFileIndexType.UNIQUE)) {
                     uniqueList.add(fieldName);
                 }
             }
@@ -477,7 +477,7 @@ public class SQLConverter {
      * @author Jia wei Wu
      * @date 2020/9/17 下午1:29
      */
-    public static <T> List<ConvertedField> fieldNamesOnAnnotation(Class<T> clazz, EasyTableField.CustomTableFileIndexType customTableFileIndexType) {
+    public static <T> List<ConvertedField> fieldNamesOnAnnotation(Class<T> clazz, EasyTableField.TableFileIndexType tableFileIndexType) {
         List<ConvertedField> convertedFieldList = new ArrayList<>();
         for (Field declaredField : clazz.getDeclaredFields()) {
             if (!declaredField.isAccessible()) {
@@ -490,7 +490,7 @@ public class SQLConverter {
                     continue;
                 }
                 // 判断是否是我想要的类型
-                if (!ObjectUtils.isEmpty(customTableFileIndexType) && !customTableFileIndexType.equals(easyTableField.indexType())) {
+                if (!ObjectUtils.isEmpty(tableFileIndexType) && !tableFileIndexType.equals(easyTableField.indexType())) {
                     continue;
                 }
                 if (!ObjectUtils.isEmpty(easyTableField.value())) {

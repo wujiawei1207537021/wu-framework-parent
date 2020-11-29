@@ -28,26 +28,47 @@ import java.util.List;
 @Indexed
 public @interface EasyTableField {
 
+    /**
+     * 字段名
+     */
     @AliasFor(attribute = "name")
     String value() default "";
 
     @AliasFor(attribute = "value")
     String name() default "";
 
+    /**
+     * 字段类型
+     */
     // 数据库字段 当前支持 varchar number  int 默认是 varchar
     String type() default "";
 
+    /**
+     * 字段描述
+     */
     String comment() default "";
 
+    /**
+     * 是否存在
+     */
     boolean exist() default true;
 
 
+    /**
+     * 字段版本
+     */
     int version() default 1;
 
     int scale() default 0;
 
+    /**
+     * 参数
+     */
     String parameters() default "";
 
+    /**
+     * 可选的
+     */
     boolean optional() default true;
 
     /**
@@ -57,15 +78,11 @@ public @interface EasyTableField {
 
     /**
      * 转换指定类型的枚举 DefaultIEnum 不转换  转换失败默认是-1
-     *
-     * @return
      */
     Class<? extends IEnum> iEnum() default DefaultIEnum.class;
 
     /**
      * 数据格式
-     *
-     * @return
      */
     String dataType() default "";
 
@@ -86,9 +103,12 @@ public @interface EasyTableField {
     String convert() default "";
 
 
-    CustomTableFileIndexType indexType() default CustomTableFileIndexType.FILE_TYPE;
+    /**
+     * 字段索引类型(数据库)
+     */
+    TableFileIndexType indexType() default TableFileIndexType.FILE_TYPE;
 
-    enum CustomTableFileIndexType {
+    enum TableFileIndexType {
         FILE_TYPE,
         ID,
         UNIQUE,
@@ -122,7 +142,7 @@ public @interface EasyTableField {
 
     @AllArgsConstructor
     @Getter
-    static enum JavaSchemaDataType {
+    enum JavaSchemaDataType {
         STRING(String.class, "string"),
         INT(Integer.class, "int32"),
         LONG(Long.class, "int64"),

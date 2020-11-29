@@ -11,6 +11,10 @@ import java.lang.annotation.*;
 @Indexed
 public @interface EasyTable {
 
+    /**
+     * 表名
+     * @return
+     */
     @AliasFor(attribute = "name")
     String value() default "";
 

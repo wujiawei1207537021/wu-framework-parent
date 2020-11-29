@@ -31,14 +31,11 @@ public class EasyUpsertExtractKafkaProducer implements InitializingBean {
 
     private final KafkaProducer<String, String> kafkaProducer;
 
-    private final UpsertConfig upsertConfig;
+    //    private final DataAccessLogHelper dataAccessLogHelper; //TODO
 
-//    private final DataAccessLogHelper dataAccessLogHelper; //TODO
+    public EasyUpsertExtractKafkaProducer(KafkaProperties kafkaProperties) {
 
-    public EasyUpsertExtractKafkaProducer(KafkaProperties kafkaProperties, UpsertConfig upsertConfig) {
-
-        this.upsertConfig = upsertConfig;
-//        this.dataAccessLogHelper = dataAccessLogHelper;
+        //        this.dataAccessLogHelper = dataAccessLogHelper;
         Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getBootstrapServers());
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);

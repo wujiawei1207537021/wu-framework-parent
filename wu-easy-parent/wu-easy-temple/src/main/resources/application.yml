@@ -27,9 +27,9 @@ spring:
             url: jdbc:mysql://127.0.0.1:3306/test
             username: root
             password: wujiawei
-#  elasticsearch:
-#    rest:
-#      uris:
+  elasticsearch:
+    rest:
+      uris: "http://k8s.wu2020.top:9200"
 #  data:
 #    elasticsearch:
 #      client:
