@@ -1,16 +1,12 @@
 package com.wu.framework.easy.temple.run;
 
 import com.wu.framework.easy.stereotype.upsert.component.IUpsert;
-import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
-import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.stereotype.web.EasyController;
 import com.wu.framework.easy.temple.domain.UserLog;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.wu.framework.easy.temple.service.RunService;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.annotation.Resource;
-import javax.sql.DataSource;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +20,14 @@ import java.util.List;
 @EasyController("/upsert")
 public class UpsertController {
 
-    @Autowired
-    private DataSource dataSource;
 
-    @Resource
-    private IUpsert iUpsert;
+    private final IUpsert iUpsert;
+    private final RunService runService;
+
+    public UpsertController(IUpsert iUpsert, RunService runService) {
+        this.iUpsert = iUpsert;
+        this.runService = runService;
+    }
 
 
     @GetMapping("/more")
@@ -39,7 +38,6 @@ public class UpsertController {
         }
     }
 
-    @EasyUpsertDS(type = EasyUpsertType.MySQL)
     @GetMapping()
     public List<UserLog> upsert(Integer size) {
         List<UserLog> userLogList = new ArrayList<>();
@@ -55,7 +53,9 @@ public class UpsertController {
         return userLogList;
     }
 
-    public static void main(String[] args) {
-        SQLConverter.createTableSQL(UserLog.class);
+    @GetMapping("/size")
+    public void upsertSize(Integer size) {
+       runService.run(size);
     }
+
 }

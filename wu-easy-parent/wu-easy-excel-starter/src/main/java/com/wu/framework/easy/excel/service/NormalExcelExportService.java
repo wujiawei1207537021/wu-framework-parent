@@ -39,10 +39,10 @@ public class NormalExcelExportService implements ExcelExcelService {
             ISheetShowContextMethod iSheetShowContextMethod = easyExcel.sheetShowContext().getISheetShowContextMethod().newInstance();
             List<String> sheetContextList = iSheetShowContextMethod.sheetContext(collection.size(), easyExcel.limit());
             for (int i = 0; i < splitList.size(); i++) {
-                normalSingleSheet(workbook, sheetContextList.get(i), easyExcel.filedColumnAnnotation(), easyExcel.filedColumnAnnotationAttribute(), easyExcel.useAnnotation(), splitList.get(i));
+                normalSingleSheet(workbook, sheetContextList.get(i), easyExcel.fieldColumnAnnotation(), easyExcel.fieldColumnAnnotationAttribute(), easyExcel.useAnnotation(), splitList.get(i));
             }
         } else {
-            normalSingleSheet(workbook, easyExcel.fileName(), easyExcel.filedColumnAnnotation(), easyExcel.filedColumnAnnotationAttribute(), easyExcel.useAnnotation(), collection);
+            normalSingleSheet(workbook, easyExcel.fileName(), easyExcel.fieldColumnAnnotation(), easyExcel.fieldColumnAnnotationAttribute(), easyExcel.useAnnotation(), collection);
         }
         workbook.write(out);
         return out.toByteArray();

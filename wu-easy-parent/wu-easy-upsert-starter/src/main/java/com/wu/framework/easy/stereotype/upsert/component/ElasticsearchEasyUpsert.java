@@ -3,7 +3,6 @@ package com.wu.framework.easy.stereotype.upsert.component;
 import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
-import com.wu.framework.easy.stereotype.upsert.process.DataProcess;
 import com.wu.framework.easy.stereotype.upsert.process.ElasticsearchEasyDataProcess;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchRestClientProperties;
@@ -12,6 +11,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * description Elasticsearch
@@ -42,12 +42,16 @@ class ElasticsearchEasyUpsert implements IEasyUpsert {
      * @author Jia wei Wu
      * @date 2020/10/22 下午2:02
      */
-    protected void asySend(String index, String indexType, ElasticsearchEasyDataProcess.ElasticsearchProcessResult dataPack) {
-        WebClient webClient = WebClient.
-                create(elasticsearchRestClientProperties.getUris().get(0));
+    protected void asySend(ElasticsearchEasyDataProcess.ElasticsearchPreProcessResult elasticsearchPreProcessResult,
+                           String uri,
+                           ElasticsearchEasyDataProcess.ElasticsearchProcessResult dataPack) {
+        WebClient webClient = WebClient.create(uri);
         Mono<String> bodyToMono = webClient
                 .put()
-                .uri("/{1}/{2}/1001",index,indexType)  //服务请求路径，基于baseUrl
+                .uri("/{1}/{2}/{3}",
+                        elasticsearchPreProcessResult.getIndex(),
+                        elasticsearchPreProcessResult.getIndexType(),
+                        UUID.randomUUID().getLeastSignificantBits())  //服务请求路径，基于baseUrl
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(dataPack)   //发送请求体
                 .retrieve() // 获取响应体
@@ -57,12 +61,17 @@ class ElasticsearchEasyUpsert implements IEasyUpsert {
 
     @Override
     public <T> Object upsert(List<T> list) throws Exception {
-        ElasticsearchEasyDataProcess.ElasticsearchPreProcessResult processResult = elasticsearchEasyDataProcess.classAnalyze(list.get(0).getClass());
-        for (T sourceData : list) {
-            ElasticsearchEasyDataProcess.ElasticsearchProcessResult dataPack =
-                    elasticsearchEasyDataProcess.dataPack(sourceData);
-            asySend(processResult.getIndex(),processResult.getIndex(),dataPack);
-        }
+        ElasticsearchEasyDataProcess.ElasticsearchPreProcessResult processResult =
+                elasticsearchEasyDataProcess.classAnalyze(list.get(0).getClass());
+        easyUpsertExecutor.execute(() -> {
+            elasticsearchRestClientProperties.getUris().forEach(uri -> {
+                for (T sourceData : list) {
+                    ElasticsearchEasyDataProcess.ElasticsearchProcessResult dataPack =
+                            elasticsearchEasyDataProcess.dataPack(sourceData);
+                    asySend(processResult, uri, dataPack);
+                }
+            });
+        });
         return true;
     }
 }

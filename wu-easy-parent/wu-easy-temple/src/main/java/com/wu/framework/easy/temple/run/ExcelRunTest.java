@@ -48,7 +48,7 @@ public class ExcelRunTest {
     }
 
 
-    @EasyExcel(fileName = "非原生注解导出数据", filedColumnAnnotation = JSONField.class, filedColumnAnnotationAttribute = "name", multipleSheet = true, limit = 1000, sheetShowContext = EasyExcel.SheetShowContext.TEXT)
+    @EasyExcel(fileName = "非原生注解导出数据", fieldColumnAnnotation = JSONField.class, fieldColumnAnnotationAttribute = "name", multipleSheet = true, limit = 1000, sheetShowContext = EasyExcel.SheetShowContext.TEXT)
     @GetMapping("/run2/{size}")
     public List<UseExcel> run2(@PathVariable Integer size) {
         List<UseExcel> useExcelList = new ArrayList<>();
@@ -93,7 +93,7 @@ public class ExcelRunTest {
         return useExcelList;
     }
 
-    @EasyExcel(fileName = "复杂数据导出", isComplicated = true, filedColumnAnnotation = JSONField.class, sheetShowContext = EasyExcel.SheetShowContext.TEXT)
+    @EasyExcel(fileName = "复杂数据导出", isComplicated = true, fieldColumnAnnotation = JSONField.class, sheetShowContext = EasyExcel.SheetShowContext.TEXT)
     @GetMapping("/run5/{size}")
     public List<ComplexUseExcel> run5(@PathVariable Integer size) {
 

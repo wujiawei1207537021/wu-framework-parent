@@ -84,7 +84,7 @@ public class ComplexExcelExportService implements ExcelExcelService {
             List<Field> fieldList;
             if (easyExcel.useAnnotation()) {
                 fieldList = Arrays.stream(ts.getClass().getDeclaredFields()).
-                        filter(field -> null != field.getAnnotation(easyExcel.filedColumnAnnotation()) || null != field.getAnnotation(EasyExcelBean.class)).
+                        filter(field -> null != field.getAnnotation(easyExcel.fieldColumnAnnotation()) || null != field.getAnnotation(EasyExcelBean.class)).
                         peek(field -> field.setAccessible(true)).
                         collect(Collectors.toList());
             } else {
@@ -131,7 +131,7 @@ public class ComplexExcelExportService implements ExcelExcelService {
                 // 集合中的范性
                 Class paramClass = (Class) parameterizedType.getActualTypeArguments()[0];
                 List<Field> paramClassFieldList = Arrays.stream(paramClass.getDeclaredFields()).
-                        filter(paramClassField -> null != paramClassField.getAnnotation(easyExcel.filedColumnAnnotation()) ||
+                        filter(paramClassField -> null != paramClassField.getAnnotation(easyExcel.fieldColumnAnnotation()) ||
                                 null != paramClassField.getAnnotation(EasyExcelBean.class)).
                         peek(paramClassField -> paramClassField.setAccessible(true)).
                         collect(Collectors.toList());
@@ -146,12 +146,12 @@ public class ComplexExcelExportService implements ExcelExcelService {
             hssfCell.setCellStyle(style);
             String headerName;
             if (easyExcel.useAnnotation()) {
-                Annotation filedAnnotation = field.getAnnotation(easyExcel.filedColumnAnnotation());
+                Annotation filedAnnotation = field.getAnnotation(easyExcel.fieldColumnAnnotation());
                 if (null == filedAnnotation) {
                     return;
                 } else {
                     Map<String, Object> annotationAttributes = AnnotationUtils.getAnnotationAttributes(filedAnnotation);
-                    headerName = String.valueOf(annotationAttributes.getOrDefault(easyExcel.filedColumnAnnotationAttribute(), field.getName()));
+                    headerName = String.valueOf(annotationAttributes.getOrDefault(easyExcel.fieldColumnAnnotationAttribute(), field.getName()));
                 }
             } else {
                 headerName = field.getName();
@@ -194,7 +194,7 @@ public class ComplexExcelExportService implements ExcelExcelService {
             // 非基本数据类型
             Class paramClass = fieldVal.getClass();
             List<Field> paramClassFieldList = Arrays.stream(paramClass.getDeclaredFields()).
-                    filter(paramClassField -> null != paramClassField.getAnnotation(easyExcel.filedColumnAnnotation()) || null != paramClassField.getAnnotation(EasyExcelBean.class)).
+                    filter(paramClassField -> null != paramClassField.getAnnotation(easyExcel.fieldColumnAnnotation()) || null != paramClassField.getAnnotation(EasyExcelBean.class)).
                     peek(paramClassField -> paramClassField.setAccessible(true)).
                     collect(Collectors.toList());
             // 临时的额外列数

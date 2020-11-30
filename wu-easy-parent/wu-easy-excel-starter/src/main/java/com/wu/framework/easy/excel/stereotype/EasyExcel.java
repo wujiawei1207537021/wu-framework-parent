@@ -56,7 +56,7 @@ public @interface EasyExcel {
      *
      * @return Class
      */
-    Class<? extends Annotation> filedColumnAnnotation() default EasyExcelFiled.class;
+    Class<? extends Annotation> fieldColumnAnnotation() default EasyExcelFiled.class;
 
     /**
      * useAnnotation true 有效
@@ -64,7 +64,7 @@ public @interface EasyExcel {
      *
      * @return String
      */
-    String filedColumnAnnotationAttribute() default "name";
+    String fieldColumnAnnotationAttribute() default "name";
 
     /**
      * 多个 sheet

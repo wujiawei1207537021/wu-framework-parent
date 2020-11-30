@@ -3,6 +3,7 @@ package com.wu.framework.easy.stereotype.upsert.process;
 import com.wu.framework.easy.stereotype.upsert.EasyTable;
 import com.wu.framework.easy.stereotype.upsert.EasyTableField;
 import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConverter;
+import com.wu.framework.easy.stereotype.upsert.converter.JavaBasicTypeConversion;
 import lombok.Data;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.Assert;
@@ -12,7 +13,6 @@ import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -22,6 +22,7 @@ import java.util.Map;
  * @date 2020/10/22 下午2:26
  */
 public class ElasticsearchEasyDataProcess implements DataProcess {
+
     /**
      * description 类解析
      *
@@ -34,12 +35,14 @@ public class ElasticsearchEasyDataProcess implements DataProcess {
     @Override
     public ElasticsearchPreProcessResult classAnalyze(Class clazz) {
         ElasticsearchPreProcessResult elasticsearchPreProcessResult = new ElasticsearchPreProcessResult();
-        String index = clazz.getSimpleName();
+        String index = CamelAndUnderLineConverter.humpToMidLine2(clazz.getSimpleName());
+        String indexType = "doc";
         EasyTable table = AnnotationUtils.getAnnotation(clazz, EasyTable.class);
         if (null != table) {
             String prefix = table.indexPrefix();
             String format = table.indexFormat();
             String suffix = table.indexSuffix();
+            indexType = table.indexType();
             if (ObjectUtils.isEmpty(format)) {
                 index = prefix + suffix;
             } else {
@@ -47,6 +50,7 @@ public class ElasticsearchEasyDataProcess implements DataProcess {
             }
         }
         elasticsearchPreProcessResult.setIndex(index);
+        elasticsearchPreProcessResult.setIndexType(indexType);
         return elasticsearchPreProcessResult;
     }
 
@@ -63,14 +67,14 @@ public class ElasticsearchEasyDataProcess implements DataProcess {
     public ElasticsearchProcessResult dataPack(Object sourceData) {
         Assert.notNull(sourceData, "sourceData must not be null.");
         Field[] declaredFields = sourceData.getClass().getDeclaredFields();
-        ElasticsearchProcessResult<String,Object> source = new ElasticsearchProcessResult<>();
+        ElasticsearchProcessResult<String, Object> source = new ElasticsearchProcessResult<>();
         for (Field field : declaredFields) {
             field.setAccessible(true);
             EasyTableField tableField = AnnotationUtils.getAnnotation(field, EasyTableField.class);
             String fieldName = CamelAndUnderLineConverter.humpToLine2(field.getName());
             Object fieldValue = new Object();
             try {
-                fieldValue = field.get(sourceData);
+                fieldValue = JavaBasicTypeConversion.toString(field.get(sourceData));
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
@@ -99,6 +103,11 @@ public class ElasticsearchEasyDataProcess implements DataProcess {
          * Elasticsearch 索引
          */
         private String index;
+
+        /**
+         * 索引类型
+         */
+        private String indexType;
     }
 
     /**
@@ -108,8 +117,7 @@ public class ElasticsearchEasyDataProcess implements DataProcess {
      * @date 2020/10/22 下午3:16
      */
     @Data
-    public class ElasticsearchProcessResult<K,V> extends HashMap<K,V>
-            implements Map<K,V>, ProcessResult {
+    public class ElasticsearchProcessResult<K, V> extends HashMap<K, V> implements Map<K, V>, ProcessResult {
 
 
     }

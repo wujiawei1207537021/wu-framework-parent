@@ -18,7 +18,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-@EasyExcel(useAnnotation = false, filedColumnAnnotation = JSONField.class)
+@EasyExcel(useAnnotation = false, fieldColumnAnnotation = JSONField.class)
 public @interface EasyExcelTemp {
 
     /**

@@ -33,7 +33,7 @@ public class RunTest {
         return runService.run(size);
     }
 
-    @EasyExcel(fileName = "非原生注解导出数据", filedColumnAnnotation = EasyTableField.class, multipleSheet = true, limit = 10)
+    @EasyExcel(fileName = "非原生注解导出数据", fieldColumnAnnotation = EasyTableField.class, multipleSheet = true, limit = 10)
     @GetMapping("/run1")
     public List<UserLog> run1() {
         return runService.run1();

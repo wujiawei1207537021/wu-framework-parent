@@ -1,5 +1,7 @@
 package com.wu.framework.easy.temple.run;
 
+import com.wu.framework.easy.stereotype.upsert.dynamic.QuickEasyUpsert;
+import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.stereotype.web.EasyController;
 import com.wu.framework.easy.temple.domain.ElasticsearchUser;
 import com.wu.framework.easy.temple.domain.UserLog;
@@ -10,6 +12,10 @@ import org.springframework.data.elasticsearch.core.IndexOperations;
 import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.query.Query;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author : 吴佳伟
@@ -48,10 +54,9 @@ public class ElasticsearchTestRun {
     @PostMapping("/_create")
     public void create() {
         IndexOperations indexOperations = elasticsearchRestTemplate.indexOps(ElasticsearchUser.class);
-        if(!indexOperations.exists()){
+        if (!indexOperations.exists()) {
             indexOperations.create();
         }
         indexOperations.createMapping(ElasticsearchUser.class);
     }
-
 }

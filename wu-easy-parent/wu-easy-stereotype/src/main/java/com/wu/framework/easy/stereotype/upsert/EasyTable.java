@@ -75,5 +75,10 @@ public @interface EasyTable {
      */
     String indexSuffix() default "";
 
+    /**
+     * Elasticsearch 索引类型
+     */
+    String indexType() default "";
+
 
 }
