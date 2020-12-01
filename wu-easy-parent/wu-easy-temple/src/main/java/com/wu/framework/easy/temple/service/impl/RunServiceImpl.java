@@ -1,6 +1,7 @@
 package com.wu.framework.easy.temple.service.impl;
 
 import com.wu.framework.easy.stereotype.upsert.dynamic.QuickEasyUpsert;
+import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.temple.domain.UserLog;
 import com.wu.framework.easy.temple.service.RunService;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ import java.util.List;
  * @date : 2020/9/18 下午11:34
  */
 
-@QuickEasyUpsert
+@QuickEasyUpsert(type = EasyUpsertType.ES)
 @Service
 public class RunServiceImpl implements RunService {
 

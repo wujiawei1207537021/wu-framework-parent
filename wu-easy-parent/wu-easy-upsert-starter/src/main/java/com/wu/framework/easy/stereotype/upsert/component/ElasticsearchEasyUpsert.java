@@ -11,7 +11,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * description Elasticsearch
@@ -35,7 +34,7 @@ class ElasticsearchEasyUpsert implements IEasyUpsert {
      * description 异步发送
      *
      * @param
-     * @param index
+     * @param elasticsearchPreProcessResult
      * @param dataPack
      * @return
      * @exception/throws
@@ -48,10 +47,9 @@ class ElasticsearchEasyUpsert implements IEasyUpsert {
         WebClient webClient = WebClient.create(uri);
         Mono<String> bodyToMono = webClient
                 .put()
-                .uri("/{1}/{2}/{3}",
+                .uri("/{1}/{2}",
                         elasticsearchPreProcessResult.getIndex(),
-                        elasticsearchPreProcessResult.getIndexType(),
-                        UUID.randomUUID().getLeastSignificantBits())  //服务请求路径，基于baseUrl
+                        elasticsearchPreProcessResult.getIndexType())  //服务请求路径，基于baseUrl
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(dataPack)   //发送请求体
                 .retrieve() // 获取响应体

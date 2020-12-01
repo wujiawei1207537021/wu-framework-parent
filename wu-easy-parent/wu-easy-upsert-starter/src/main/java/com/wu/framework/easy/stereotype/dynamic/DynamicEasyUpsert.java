@@ -63,6 +63,7 @@ public class DynamicEasyUpsert extends AbstractDynamicEasyUpsert implements Init
 
 
     private IEasyUpsert determinePrimaryDataSource() {
+        log.info("使用默认方式:【{}】",primary);
         return iEasyUpsertMap.get(primary);
     }
 
@@ -70,6 +71,7 @@ public class DynamicEasyUpsert extends AbstractDynamicEasyUpsert implements Init
         if (ObjectUtils.isEmpty(peek) || peek.type().equals(EasyUpsertType.AUTO)) {
             return determinePrimaryDataSource();
         } else if (iEasyUpsertMap.containsKey(peek.type())) {
+            log.info("使用方式:【{}】",peek.type());
             return iEasyUpsertMap.get(peek.type());
         } else {
             throw new RuntimeException("不能找到类型为" + peek + "的数据源");
@@ -99,6 +101,9 @@ public class DynamicEasyUpsert extends AbstractDynamicEasyUpsert implements Init
                 if (iEasyUpsertMap.containsKey(upsertConfig.getEasyUpsertType())) {
                     primary = upsertConfig.getEasyUpsertType();
                     log.info("当前的默认方式是 {} ", upsertConfig.getEasyUpsertType());
+                }else {
+                    primary = iEasyUpsertMap.keySet().iterator().next();
+                    log.info("无法找到方式 【{}】 使用默认方式【{}】 ", upsertConfig.getEasyUpsertType(),primary);
                 }
             }
         }
