@@ -5,11 +5,15 @@ import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.stereotype.upsert.process.ElasticsearchEasyDataProcess;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchRestClientProperties;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.web.reactive.function.client.ClientResponse;
+import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
@@ -17,6 +21,8 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * description Elasticsearch
@@ -24,15 +30,20 @@ import java.util.Map;
  * @author Jia wei Wu
  * @date 2020/10/22 下午1:55
  */
+@Slf4j
 @EasyUpsertStrategy(value = EasyUpsertType.ES)
 @ConditionalOnProperty(prefix = "spring.elasticsearch.rest", value = "uris")
-class ElasticsearchEasyUpsert implements IEasyUpsert , InitializingBean {
+class ElasticsearchEasyUpsert implements IEasyUpsert, InitializingBean {
 
     private final ElasticsearchRestClientProperties elasticsearchRestClientProperties;
     private final ElasticsearchEasyDataProcess elasticsearchEasyDataProcess;
     private final UpsertConfig upsertConfig;
-    protected final Map<String, WebClient> WEB_CLIENT_MAP = new HashMap<>();
-    protected final WebClient webClient = WebClient.builder().build();
+    protected final WebClient webClient = WebClient.builder().exchangeStrategies(ExchangeStrategies.builder()
+            .codecs(configurer -> configurer
+                    .defaultCodecs()
+                    .maxInMemorySize(16 * 1024 * 1024))
+            .build())
+            .build();
 
     ElasticsearchEasyUpsert(ElasticsearchRestClientProperties elasticsearchRestClientProperties, ElasticsearchEasyDataProcess elasticsearchEasyDataProcess, UpsertConfig upsertConfig) {
         this.elasticsearchRestClientProperties = elasticsearchRestClientProperties;
@@ -43,8 +54,8 @@ class ElasticsearchEasyUpsert implements IEasyUpsert , InitializingBean {
     /**
      * description 异步发送
      *
-     * @param
-     * @param dataPack
+     * @param uri
+     * @param file
      * @return
      * @exception/throws
      * @author Jia wei Wu
@@ -54,24 +65,30 @@ class ElasticsearchEasyUpsert implements IEasyUpsert , InitializingBean {
         Mono<String> bodyToMono = webClient
                 .post()
                 .uri(uri + "/_bulk")
-                .contentType(MediaType.MULTIPART_FORM_DATA)
+                .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(new FileSystemResource(file))//发送请求体
                 .retrieve() // 获取响应体
+                .onStatus(httpStatus -> httpStatus.equals(HttpStatus.ACCEPTED), clientResponse -> null)
                 .bodyToMono(String.class);//响应数据类型转换
-        System.out.println(bodyToMono.block());
+//        System.out.println(bodyToMono.block());
         file.delete();
     }
 
     @Override
     public <T> Object upsert(List<T> list) throws Exception {
-        ElasticsearchEasyDataProcess.ElasticsearchPreProcessResult processResult =
-                elasticsearchEasyDataProcess.classAnalyze(list.get(0).getClass());
+
+        Integer total = (list.size() + upsertConfig.getBatchLimit() - 1) / upsertConfig.getBatchLimit();
+        log.info("计划处理写入文件 【{}】 个", total);
+        int stepCount = 1;
+        // 文件写入本地
+        List<List<T>> splitList = splitList(list, upsertConfig.getBatchLimit());
+        for (List<T> ts : splitList) {
+            log.info("处理步写入文件 【{}】 步 ,总文件 【{}】", stepCount, total);
+            elasticsearchEasyDataProcess.writeFileToLocal(ts);
+            stepCount++;
+        }
+        log.info("分步写入本地文件完成✅");
         easyUpsertExecutor.execute(() -> {
-            // 文件写入本地
-            List<List<T>> splitList = splitList(list, upsertConfig.getBatchLimit());
-            for (List<T> ts : splitList) {
-                elasticsearchEasyDataProcess.writeFileToLocal(ts);
-            }
             send();
         });
         return true;

@@ -12,7 +12,6 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,20 +43,16 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, Initializi
     public <T> Object upsert(List<T> list) throws Exception {
         DataSource dataSource = determineDataSource();
         String threadName = Thread.currentThread().getName();
-        if (list.size() > upsertConfig.getBatchLimit()) {
-            Integer total = (list.size() + upsertConfig.getBatchLimit() - 1) / upsertConfig.getBatchLimit();
-            log.info("计划处理步骤 【{}】 步", total);
-            List<List<T>> splitList = splitList(list, upsertConfig.getBatchLimit());
-            int stepCount = 1;
-            for (List<T> ts : splitList) {
-                log.info("处理步骤第 【{}】 步 ,总步数 【{}】", stepCount, total);
-                execute(threadName, dataSource, ts);
-                stepCount++;
-            }
-            log.info("分步操作完成✅");
-        } else {
-            execute(threadName, dataSource, list);
+        Integer total = (list.size() + upsertConfig.getBatchLimit() - 1) / upsertConfig.getBatchLimit();
+        log.info("计划处理步骤 【{}】 步", total);
+        List<List<T>> splitList = splitList(list, upsertConfig.getBatchLimit());
+        int stepCount = 1;
+        for (List<T> ts : splitList) {
+            log.info("处理步骤第 【{}】 步 ,总步数 【{}】", stepCount, total);
+            execute(threadName, dataSource, ts);
+            stepCount++;
         }
+        log.info("分步操作完成✅");
         return true;
     }
 
@@ -104,7 +99,6 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, Initializi
         });
         return task.get();
     }
-
 
 
 }

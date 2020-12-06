@@ -10,6 +10,7 @@
     5.Mybatis多数据源切换 @EasyUpsertDS
     6.Kafka与MySQL 自由切换 @EasyUpsertDS
     7.@QuickEasyUpsert 无代码数据保存
+    8.支持ES数据批量插入
     
 ### log
     com.supconit.its.eslog.util.DataAccessLogHelper,\
