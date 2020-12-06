@@ -2,6 +2,8 @@ package com.wu.framework.easy.stereotype.upsert;
 
 
 import com.wu.framework.easy.stereotype.upsert.factory.EasyThreadFactory;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -19,19 +21,44 @@ public interface IEasyUpsert {
 
     /**
      * 模糊插入
+     *
      * @param objects
      * @param <T>
      * @return
      * @throws Exception
      */
-   default  <T> Object fuzzyUpsert(Object... objects) throws Exception{
-       for (Object object : objects) {
-           if(object instanceof List){
-               upsert((List) object);
-           }else {
-               upsert(Collections.singletonList(object));
-           }
-       }
-       return true;
-   };
+    default <T> Object fuzzyUpsert(Object... objects) throws Exception {
+        for (Object object : objects) {
+            if (object instanceof List) {
+                upsert((List) object);
+            } else {
+                upsert(Collections.singletonList(object));
+            }
+        }
+        return true;
+    }
+
+    ;
+
+    /**
+     * @return
+     * @describe 将List分割成多个List
+     * @params
+     * @author 吴佳伟
+     * @date 2020/12/6 5:34 下午
+     **/
+    default <T> List<List<T>> splitList(List<T> source, int groupSize) {
+        int length = source.size();
+        // 计算可以分成多少组
+        int num = (length + groupSize - 1) / groupSize;
+        List<List<T>> newList = new ArrayList<>(num);
+        for (int i = 0; i < num; i++) {
+            // 开始位置
+            int fromIndex = i * groupSize;
+            // 结束位置
+            int toIndex = Math.min((i + 1) * groupSize, length);
+            newList.add(source.subList(fromIndex, toIndex));
+        }
+        return newList;
+    }
 }

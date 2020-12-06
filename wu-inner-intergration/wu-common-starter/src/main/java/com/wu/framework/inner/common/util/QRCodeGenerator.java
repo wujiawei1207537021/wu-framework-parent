@@ -43,8 +43,7 @@ public class QRCodeGenerator {
             e.printStackTrace();
             System.out.println("Could not generate QR Code, IOException :: " + e.getMessage());
         }
-        byte[] pngData = pngOutputStream.toByteArray();
-        return pngData;
+        return pngOutputStream.toByteArray();
     }
 
 

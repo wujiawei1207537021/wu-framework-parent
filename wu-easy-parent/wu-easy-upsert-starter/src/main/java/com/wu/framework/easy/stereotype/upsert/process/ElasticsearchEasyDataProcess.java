@@ -1,19 +1,29 @@
 package com.wu.framework.easy.stereotype.upsert.process;
 
+import com.alibaba.fastjson.JSONObject;
 import com.wu.framework.easy.stereotype.upsert.EasyTable;
 import com.wu.framework.easy.stereotype.upsert.EasyTableField;
+import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
 import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConverter;
 import com.wu.framework.easy.stereotype.upsert.converter.JavaBasicTypeConversion;
+import com.wu.framework.easy.stereotype.upsert.util.FileUtil;
 import lombok.Data;
+import lombok.SneakyThrows;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.Assert;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.util.ObjectUtils;
 
+import java.io.BufferedWriter;
 import java.lang.reflect.Field;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * description Elasticsearch 数据预处理
@@ -22,6 +32,15 @@ import java.util.Map;
  * @date 2020/10/22 下午2:26
  */
 public class ElasticsearchEasyDataProcess implements DataProcess {
+    private final static String INDEX_FORMAT = "{\"index\":{\"_index\":\"%s\",\"_type\":\"%s\"}}";
+    protected static final Map<Class, String> CLAZZ_INDEX = new ConcurrentHashMap<>();
+    public static final String ES_UPSERT_FILE_SUFFIX = ".upes";
+
+    private final UpsertConfig upsertConfig;
+
+    public ElasticsearchEasyDataProcess(UpsertConfig upsertConfig) {
+        this.upsertConfig = upsertConfig;
+    }
 
     /**
      * description 类解析
@@ -53,6 +72,7 @@ public class ElasticsearchEasyDataProcess implements DataProcess {
         elasticsearchPreProcessResult.setIndexType(indexType);
         return elasticsearchPreProcessResult;
     }
+
 
     /**
      * description 数据包装
@@ -89,6 +109,46 @@ public class ElasticsearchEasyDataProcess implements DataProcess {
         return source;
     }
 
+    /**
+     * @param
+     * @return
+     * @describe 获取类格式化后的 bulk索引文档
+     * @author 吴佳伟
+     * @date 2020/12/6 5:29 下午
+     **/
+    protected String getBulkIndexDoc(Class clazz) {
+        if (!CLAZZ_INDEX.containsKey(clazz)) {
+            ElasticsearchPreProcessResult elasticsearchPreProcessResult = classAnalyze(clazz);
+            CLAZZ_INDEX.put(clazz, String.format(INDEX_FORMAT, elasticsearchPreProcessResult.getIndex()
+                    , elasticsearchPreProcessResult.getIndexType()));
+        }
+        return CLAZZ_INDEX.get(clazz);
+    }
+
+    /**
+     * @return
+     * @describe 写入文件到本地
+     * @params
+     * @author 吴佳伟
+     * @date 2020/12/6 5:36 下午
+     **/
+    @SneakyThrows
+    public <T> void writeFileToLocal(List<T> source) {
+        BufferedWriter bufferedWriter = FileUtil.createFile(
+                upsertConfig.getCacheFileAddress(),
+                LocalDate.now().toString(),
+                ES_UPSERT_FILE_SUFFIX,
+                String.valueOf(System.currentTimeMillis()));
+        for (T t : source) {
+            bufferedWriter.write(getBulkIndexDoc(t.getClass()));
+            bufferedWriter.newLine();
+            ElasticsearchProcessResult elasticsearchProcessResult = dataPack(t);
+            String s = JSONObject.toJSONString(elasticsearchProcessResult);
+            bufferedWriter.write(s);
+            bufferedWriter.newLine();
+        }
+        bufferedWriter.close();
+    }
 
     /**
      * description Elasticsearch 预处理结果
@@ -117,8 +177,7 @@ public class ElasticsearchEasyDataProcess implements DataProcess {
      * @date 2020/10/22 下午3:16
      */
     @Data
-    public class ElasticsearchProcessResult<K, V> extends HashMap<K, V> implements Map<K, V>, ProcessResult {
-
+    public class ElasticsearchProcessResult<K, V> extends HashMap<K,V> implements Map<K,V>, ProcessResult {
 
     }
 

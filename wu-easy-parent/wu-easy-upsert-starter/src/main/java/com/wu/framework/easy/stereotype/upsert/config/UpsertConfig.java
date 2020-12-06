@@ -2,9 +2,6 @@ package com.wu.framework.easy.stereotype.upsert.config;
 
 
 import com.google.common.collect.Maps;
-import com.wu.framework.easy.stereotype.upsert.EasyTable;
-import com.wu.framework.easy.stereotype.upsert.converter.ConverterClass2KafkaSchema;
-import com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter;
 import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
 import com.wu.framework.easy.stereotype.upsert.entity.kafka.KafkaJsonMessage;
 import com.wu.framework.easy.stereotype.upsert.entity.kafka.TargetJsonSchema;
@@ -12,20 +9,11 @@ import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.core.type.filter.TypeFilter;
 import org.springframework.util.ObjectUtils;
 
-import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * description 插入或者更新 配置
@@ -70,7 +58,10 @@ public class UpsertConfig implements InitializingBean {
      */
     private Integer batchLimit = 1000;
 
-
+    /**
+     * 缓存文件地址
+     */
+    private String cacheFileAddress=System.getProperty("user.dir");
 
 
     @Override
