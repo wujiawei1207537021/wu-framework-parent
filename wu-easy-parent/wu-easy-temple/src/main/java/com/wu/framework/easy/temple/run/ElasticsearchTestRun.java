@@ -1,21 +1,22 @@
 package com.wu.framework.easy.temple.run;
 
-import com.wu.framework.easy.stereotype.upsert.dynamic.QuickEasyUpsert;
-import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.stereotype.web.EasyController;
+import com.wu.framework.easy.temple.domain.DynGpsVehRun;
 import com.wu.framework.easy.temple.domain.ElasticsearchUser;
-import com.wu.framework.easy.temple.domain.UserLog;
+import com.wu.framework.easy.temple.repository.ElasticsearchGPSRepository;
 import com.wu.framework.easy.temple.service.ElasticsearchRepositoryService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.IndexOperations;
 import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.query.Query;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author : 吴佳伟
@@ -28,11 +29,13 @@ public class ElasticsearchTestRun {
 
     private final ElasticsearchRestTemplate elasticsearchRestTemplate;
     private final ElasticsearchRepositoryService elasticsearchRepositoryService;
+    private final ElasticsearchGPSRepository elasticsearchGPSRepository;
 
     public ElasticsearchTestRun(ElasticsearchRestTemplate elasticsearchRestTemplate,
-                                ElasticsearchRepositoryService elasticsearchRepositoryService) {
+                                ElasticsearchRepositoryService elasticsearchRepositoryService, ElasticsearchGPSRepository elasticsearchGPSRepository) {
         this.elasticsearchRestTemplate = elasticsearchRestTemplate;
         this.elasticsearchRepositoryService = elasticsearchRepositoryService;
+        this.elasticsearchGPSRepository = elasticsearchGPSRepository;
     }
 
     @ApiOperation(value = "Elasticsearch-Search", tags = "Elasticsearch")
@@ -58,5 +61,13 @@ public class ElasticsearchTestRun {
             indexOperations.create();
         }
         indexOperations.createMapping(ElasticsearchUser.class);
+    }
+
+    @ApiOperation(value = "findAll", tags = "Elasticsearch")
+    @GetMapping("/_findAll")
+    public List<DynGpsVehRun> findAll() {
+        List<DynGpsVehRun> dynGpsVehRunList=
+                elasticsearchGPSRepository.findAllByIndustryAndGpsVdate("080","2020-12-02");
+        return dynGpsVehRunList;
     }
 }

@@ -29,7 +29,9 @@ spring:
             password: wujiawei
   elasticsearch:
     rest:
-      uris: "http://k8s.wu2020.top:9200"
+      uris: "http://81.69.3.45:30820"
+  jpa:
+    show-sql: true
 #  data:
 #    elasticsearch:
 #      client:
