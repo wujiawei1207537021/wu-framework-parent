@@ -9,7 +9,7 @@ spring:
         master:
           username: root
           password: wujiawei
-          url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+          url: jdbc:mysql://www.wu2020.top:3306/test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
           driver-class-name: com.mysql.cj.jdbc.Driver
 
   wu:
@@ -29,7 +29,7 @@ spring:
             password: wujiawei
   elasticsearch:
     rest:
-      uris: "http://81.69.3.45:30820"
+      uris: "http://k8s.wu2020.top:9200"
   jpa:
     show-sql: true
 #  data:

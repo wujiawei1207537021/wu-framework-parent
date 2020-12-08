@@ -1,8 +1,6 @@
 package com.wu.framework.easy.stereotype.upsert.converter;
 
 
-import org.springframework.lang.NonNull;
-
 import java.time.LocalDateTime;
 
 /**
@@ -14,7 +12,10 @@ import java.time.LocalDateTime;
 public class JavaBasicTypeConversion {
 
 
-    public static Object toString(@NonNull Object o) {
+    public static Object toString(Object o) {
+        if (null == o) {
+            return o;
+        }
         Class clazz = o.getClass();
         if (clazz.isAssignableFrom(LocalDateTime.class)) {
             LocalDateTime v = (LocalDateTime) o;

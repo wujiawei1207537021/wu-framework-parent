@@ -10,19 +10,13 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchRestClientProperties;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 /**
  * description Elasticsearch
@@ -67,9 +61,9 @@ class ElasticsearchEasyUpsert implements IEasyUpsert, InitializingBean {
                 .uri(uri + "/_bulk")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(new FileSystemResource(file))//发送请求体
-                .retrieve() // 获取响应体
-                .onStatus(httpStatus -> httpStatus.equals(HttpStatus.ACCEPTED), clientResponse -> null)
-                .bodyToMono(String.class);//响应数据类型转换
+                .exchange().doOnSuccess(clientResponse -> System.out.println("clientResponse.statusCode() = " + clientResponse.statusCode()))
+                .flatMap(clientResponse -> clientResponse.bodyToMono(String.class));
+        bodyToMono.block();
 //        System.out.println(bodyToMono.block());
         file.delete();
     }
@@ -102,14 +96,15 @@ class ElasticsearchEasyUpsert implements IEasyUpsert, InitializingBean {
     private void send() {
         elasticsearchRestClientProperties.getUris().forEach(uri -> {
             // 指定类型文件
-            File file = new File(upsertConfig.getCacheFileAddress());
-            final File[] listFiles = file.listFiles((dir, name) -> {
+            File cacheFile = new File(upsertConfig.getCacheFileAddress());
+            final File[] listFiles = cacheFile.listFiles((dir, name) -> {
                 String fileName = name.toLowerCase();
                 return fileName.endsWith(ElasticsearchEasyDataProcess.ES_UPSERT_FILE_SUFFIX);
             });
             // 发送数据
-            for (File listFile : listFiles) {
-                asySend(uri, listFile);
+            for (File file : listFiles) {
+                log.info("分步发送ES数据 【{}】 个", file);
+                asySend(uri, file);
             }
         });
     }

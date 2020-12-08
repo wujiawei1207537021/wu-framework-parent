@@ -1,7 +1,12 @@
 package com.wu.framework.easy.temple.domain;
 
+import com.wu.framework.easy.excel.stereotype.EasyExcelFiled;
+import com.wu.framework.easy.stereotype.upsert.EasyTableField;
 import lombok.Data;
 import org.springframework.data.elasticsearch.annotations.Document;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * sys_eqp_opemng_dyn_gps_veh_run
@@ -22,6 +27,8 @@ public class DynGpsVehRun  {
      * 号牌号码
      */
     private String plateNum;
+    private Long gpsTimestamp;
+    private String  location;
 
     /**
      * 经度
@@ -58,6 +65,7 @@ public class DynGpsVehRun  {
      * GPS时间（时分秒）
      */
     private String gpsVtime;
+    private String businessScopeCode;
     /**
      * 速度车辆行驶记录设备
      */
@@ -82,5 +90,11 @@ public class DynGpsVehRun  {
 
     private String updateTime;
 
+
     private String industry;
+    private Integer businessType;
+
+
+    @EasyTableField(name = "@timestamp@")
+    private String timestamp= LocalDateTime.now().toString()+"+0800";
 }
