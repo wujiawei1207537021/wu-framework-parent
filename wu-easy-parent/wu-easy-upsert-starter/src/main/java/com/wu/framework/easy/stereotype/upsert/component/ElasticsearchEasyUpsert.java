@@ -61,7 +61,8 @@ class ElasticsearchEasyUpsert implements IEasyUpsert, InitializingBean {
                 .uri(uri + "/_bulk")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(new FileSystemResource(file))//发送请求体
-                .exchange().doOnSuccess(clientResponse -> System.out.println("clientResponse.statusCode() = " + clientResponse.statusCode()))
+                .exchange()
+                .doOnSuccess(clientResponse -> System.out.println("clientResponse.statusCode() = " + clientResponse.statusCode()))
                 .flatMap(clientResponse -> clientResponse.bodyToMono(String.class));
         bodyToMono.block();
 //        System.out.println(bodyToMono.block());
