@@ -9,6 +9,8 @@ import com.wu.framework.easy.temple.domain.ComplexUseExcel;
 import com.wu.framework.easy.temple.domain.SmartExcel;
 import com.wu.framework.easy.temple.domain.UseExcel;
 import com.wu.framework.easy.temple.service.RunService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -22,6 +24,7 @@ import java.util.List;
  * @describe :
  * @date : 2020/9/18 下午11:32
  */
+@Api(tags = "导出注解测试")
 @EasyController("/excel")
 public class ExcelRunTest {
 
@@ -33,6 +36,7 @@ public class ExcelRunTest {
 
 
     @EasyExcel(fileName = "导出数据")
+    @ApiOperation(tags = "导出注解测试", value = "使用原生注解有效")
     @GetMapping("/run/{size}")
     public List<UseExcel> run(@PathVariable Integer size) {
         List<UseExcel> useExcelList = new ArrayList<>();
@@ -49,6 +53,7 @@ public class ExcelRunTest {
 
 
     @EasyExcel(fileName = "非原生注解导出数据", fieldColumnAnnotation = JSONField.class, fieldColumnAnnotationAttribute = "name", multipleSheet = true, limit = 1000, sheetShowContext = EasyExcel.SheetShowContext.TEXT)
+    @ApiOperation(tags = "导出注解测试", value = "非原生注解导出数据")
     @GetMapping("/run2/{size}")
     public List<UseExcel> run2(@PathVariable Integer size) {
         List<UseExcel> useExcelList = new ArrayList<>();
@@ -64,6 +69,7 @@ public class ExcelRunTest {
     }
 
     @EasyExcel(fileName = "导出所有字段", useAnnotation = false)
+    @ApiOperation(tags = "导出注解测试", value = "导出所有字段")
     @GetMapping("/run3/{size}")
     public List<UseExcel> run3(@PathVariable Integer size) {
         List<UseExcel> useExcelList = new ArrayList<>();
@@ -79,6 +85,7 @@ public class ExcelRunTest {
     }
 
     @EasyExcelTemp(fileName = "自定义注解导出")
+    @ApiOperation(tags = "导出注解测试", value = "自定义注解导出")
     @GetMapping("/run4/{size}")
     public List<UseExcel> run4(@PathVariable Integer size) {
         List<UseExcel> useExcelList = new ArrayList<>();
@@ -94,6 +101,7 @@ public class ExcelRunTest {
     }
 
     @EasyExcel(fileName = "复杂数据导出", isComplicated = true, fieldColumnAnnotation = JSONField.class, sheetShowContext = EasyExcel.SheetShowContext.TEXT)
+    @ApiOperation(tags = "导出注解测试", value = "复杂数据导出")
     @GetMapping("/run5/{size}")
     public List<ComplexUseExcel> run5(@PathVariable Integer size) {
 

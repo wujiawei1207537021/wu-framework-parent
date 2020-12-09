@@ -1,6 +1,7 @@
 package com.wu.framework.easy.temple.domain;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.wu.framework.easy.excel.stereotype.EasyExcelFiled;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -14,15 +15,19 @@ import java.time.LocalDateTime;
 @Data
 public class UseExcel {
 
-    @JSONField(name = "id")
+    @EasyExcelFiled(name = "原生注解-id")
+    @JSONField(name = "JSONField注解-id")
     private Integer id;
 
-    @JSONField(name = "当前时间")
+    @EasyExcelFiled(name = "原生注解-当前时间")
+    @JSONField(name = "JSONField注解-当前时间")
     private LocalDateTime currentTime;
 
-    @JSONField(name = "描述")
+    @EasyExcelFiled(name = "原生注解-描述")
+    @JSONField(name = "JSONField注解-描述")
     private String desc;
 
-    @JSONField(name = "类型")
+    @EasyExcelFiled(name = "原生注解-类型")
+    @JSONField(name = "JSONField注解-类型")
     private String type;
 }

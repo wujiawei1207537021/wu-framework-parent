@@ -1,6 +1,8 @@
 package com.wu.framework.easy.excel.stereotype;
 
 
+import org.apache.poi.ss.usermodel.FillPatternType;
+
 import java.lang.annotation.*;
 
 /**
@@ -21,4 +23,15 @@ public @interface EasyExcelFiled {
      * @return String
      */
     String name();
+
+    /**
+     * 列颜色
+     * @return
+     */
+    String color() default "";
+
+    /**
+     * The enumeration value indicating the style of fill pattern being used for a cell format.
+     */
+    FillPatternType fillPatternType() default FillPatternType.NO_FILL ;
 }

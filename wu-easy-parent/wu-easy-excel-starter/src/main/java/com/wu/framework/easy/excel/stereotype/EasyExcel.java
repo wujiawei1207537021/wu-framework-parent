@@ -1,5 +1,7 @@
 package com.wu.framework.easy.excel.stereotype;
 
+import com.wu.framework.easy.excel.service.style.DefaultStyle;
+import com.wu.framework.easy.excel.service.style.Style;
 import com.wu.framework.easy.excel.util.ISheetShowContextMethod;
 import com.wu.framework.easy.excel.util.SheetNumContextMethod;
 import com.wu.framework.easy.excel.util.SheetTextContextMethod;
@@ -26,6 +28,12 @@ public @interface EasyExcel {
      * @return String
      */
     String fileName() default "temp";
+
+    /**
+     * 工作簿名字
+     * @return
+     */
+    String sheetName() default "sheet";
 
     /**
      * 文件后缀
@@ -86,6 +94,8 @@ public @interface EasyExcel {
      * 工作簿展示内容
      */
     SheetShowContext sheetShowContext() default SheetShowContext.NUM;
+
+    Class<? extends Style> style() default DefaultStyle.class;
 
     @Getter
     @AllArgsConstructor

@@ -1,6 +1,8 @@
 package com.wu.framework.easy.excel.service;
 
+import com.wu.framework.easy.excel.service.style.Style;
 import com.wu.framework.easy.excel.stereotype.EasyExcel;
+import com.wu.framework.easy.excel.stereotype.EasyExcelFiled;
 import com.wu.framework.easy.excel.util.ISheetShowContextMethod;
 import lombok.SneakyThrows;
 import org.apache.poi.hssf.usermodel.*;
@@ -39,29 +41,138 @@ public class NormalExcelExportService implements ExcelExcelService {
             ISheetShowContextMethod iSheetShowContextMethod = easyExcel.sheetShowContext().getISheetShowContextMethod().newInstance();
             List<String> sheetContextList = iSheetShowContextMethod.sheetContext(collection.size(), easyExcel.limit());
             for (int i = 0; i < splitList.size(); i++) {
-                normalSingleSheet(workbook, sheetContextList.get(i), easyExcel.fieldColumnAnnotation(), easyExcel.fieldColumnAnnotationAttribute(), easyExcel.useAnnotation(), splitList.get(i));
+                int finalI = i;
+                EasyExcel tempEasyExcel = new EasyExcel() {
+                    @Override
+                    public Class<? extends Annotation> annotationType() {
+                        return easyExcel.annotationType();
+                    }
+
+                    /**
+                     * 文件名
+                     *
+                     * @return String
+                     */
+                    @Override
+                    public String fileName() {
+                        return easyExcel.fileName();
+                    }
+
+                    /**
+                     * 工作簿名字
+                     *
+                     * @return
+                     */
+                    @Override
+                    public String sheetName() {
+                        return sheetContextList.get(finalI);
+                    }
+
+                    /**
+                     * 文件后缀
+                     *
+                     * @return String
+                     */
+                    @Override
+                    public String suffix() {
+                        return easyExcel.suffix();
+                    }
+
+                    /**
+                     * 默认 false
+                     * 是否复杂导出
+                     *
+                     * @return boolean
+                     */
+                    @Override
+                    public boolean isComplicated() {
+                        return easyExcel.isComplicated();
+                    }
+
+                    /**
+                     * 默认 false 通过参数中注解获取表头字段
+                     * 是否使用注解方式获取表头
+                     *
+                     * @return boolean
+                     */
+                    @Override
+                    public boolean useAnnotation() {
+                        return easyExcel.useAnnotation();
+                    }
+
+                    /**
+                     * useAnnotation true 有效
+                     * 字段列名注解
+                     *
+                     * @return Class
+                     */
+                    @Override
+                    public Class<? extends Annotation> fieldColumnAnnotation() {
+                        return easyExcel.fieldColumnAnnotation();
+                    }
+
+                    /**
+                     * useAnnotation true 有效
+                     * 字段列名注解属性名
+                     *
+                     * @return String
+                     */
+                    @Override
+                    public String fieldColumnAnnotationAttribute() {
+                        return easyExcel.fieldColumnAnnotationAttribute();
+                    }
+
+                    /**
+                     * 多个 sheet
+                     *
+                     * @return boolean
+                     */
+                    @Override
+                    public boolean multipleSheet() {
+                        return easyExcel.multipleSheet();
+                    }
+
+                    /**
+                     * multipleSheet true 有效
+                     * 工作簿每页限制长度
+                     *
+                     * @return int
+                     */
+                    @Override
+                    public int limit() {
+                        return easyExcel.limit();
+                    }
+
+                    /**
+                     * multipleSheet true 有效
+                     * 工作簿展示内容
+                     */
+                    @Override
+                    public SheetShowContext sheetShowContext() {
+                        return easyExcel.sheetShowContext();
+                    }
+
+                    @Override
+                    public Class<? extends Style> style() {
+                        return easyExcel.style();
+                    }
+                };
+                normalSingleSheet(workbook, tempEasyExcel, splitList.get(i));
             }
         } else {
-            normalSingleSheet(workbook, easyExcel.fileName(), easyExcel.fieldColumnAnnotation(), easyExcel.fieldColumnAnnotationAttribute(), easyExcel.useAnnotation(), collection);
+            normalSingleSheet(workbook, easyExcel, collection);
         }
         workbook.write(out);
         return out.toByteArray();
     }
 
     /**
-     * 正常单工作簿导出
-     *
      * @param workbook
-     * @param sheetName
-     * @param filedColumnAnnotation
-     * @param filedColumnAnnotationAttribute
-     * @param useAnnotation
+     * @param easyExcel
      * @param collection
+     * @describe 正常单工作簿导出
      */
-    public static void normalSingleSheet(HSSFWorkbook workbook,
-                                         String sheetName,
-                                         Class<? extends Annotation> filedColumnAnnotation,
-                                         String filedColumnAnnotationAttribute, boolean useAnnotation, Collection collection) {
+    public static void normalSingleSheet(HSSFWorkbook workbook, EasyExcel easyExcel, Collection collection) {
         try {
             //首先检查数据看是否是正确的
             Iterator iterator = collection.iterator();
@@ -71,7 +182,7 @@ public class NormalExcelExportService implements ExcelExcelService {
             //取得实际泛型类
             Object ts = iterator.next();
             /* 生成一个表格 */
-            HSSFSheet sheet = workbook.createSheet(sheetName);
+            HSSFSheet sheet = workbook.createSheet(easyExcel.sheetName());
             // 设置表格默认列宽度为15个字节
             sheet.setDefaultColumnWidth(20);
             // 生成一个样式
@@ -79,9 +190,9 @@ public class NormalExcelExportService implements ExcelExcelService {
             // 设置标题样式
 //            style = ExcelStyle.setHeadStyle(workbook, style);
             List<Field> fieldList;
-            if (useAnnotation) {
+            if (easyExcel.useAnnotation()) {
                 fieldList = Arrays.stream(ts.getClass().getDeclaredFields()).
-                        filter(field -> null != field.getAnnotation(filedColumnAnnotation)).
+                        filter(field -> null != field.getAnnotation(easyExcel.fieldColumnAnnotation())).
                         peek(field -> field.setAccessible(true)).
                         collect(Collectors.toList());
             } else {
@@ -95,13 +206,20 @@ public class NormalExcelExportService implements ExcelExcelService {
                 hssfCell.setCellStyle(style);
                 Field field = fieldList.get(i);
                 String headerName;
-                if (useAnnotation) {
-                    Annotation filedAnnotation = field.getAnnotation(filedColumnAnnotation);
+                if (easyExcel.useAnnotation()) {
+                    Annotation filedAnnotation = field.getAnnotation(easyExcel.fieldColumnAnnotation());
                     if (null == filedAnnotation) {
                         return;
                     } else {
+                        // 判断是 EasyExcelFiled
+                        if (filedAnnotation.annotationType().isAssignableFrom(EasyExcelFiled.class)) {
+                            final Class<? extends Style> styleClass = easyExcel.style();
+                            final Style newInstance = styleClass.newInstance();
+                            HSSFCellStyle tempStyle=  newInstance.init(workbook,(EasyExcelFiled)filedAnnotation);
+                            hssfCell.setCellStyle(tempStyle);
+                        }
                         Map<String, Object> annotationAttributes = AnnotationUtils.getAnnotationAttributes(filedAnnotation);
-                        headerName = String.valueOf(annotationAttributes.getOrDefault(filedColumnAnnotationAttribute, field.getName()));
+                        headerName = String.valueOf(annotationAttributes.getOrDefault(easyExcel.fieldColumnAnnotationAttribute(), field.getName()));
                     }
                 } else {
                     headerName = field.getName();
