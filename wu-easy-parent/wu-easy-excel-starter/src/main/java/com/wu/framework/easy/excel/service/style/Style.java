@@ -1,9 +1,6 @@
 package com.wu.framework.easy.excel.service.style;
 
-import com.wu.framework.easy.excel.stereotype.EasyExcelFiled;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 /**
  * @author : 吴佳伟
@@ -13,12 +10,20 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
  */
 public interface Style {
 
-    HSSFCellStyle color(HSSFWorkbook workbook, EasyExcelFiled easyExcelFiled);
 
-    HSSFFont font(HSSFWorkbook workbook, EasyExcelFiled easyExcelFiled);
+    /**
+     * 标题样式
+     * @param styleParam
+     * @return
+     */
+    HSSFCellStyle titleStyle(StyleParam styleParam);
 
-    default HSSFCellStyle init(HSSFWorkbook workbook, EasyExcelFiled filedAnnotation) {
-      return   color(workbook, filedAnnotation);
-    }
+    /**
+     * 列样式
+     * @param styleParam
+     * @return
+     */
+    HSSFCellStyle columnStyle(StyleParam styleParam);
+
 
 }

@@ -30,4 +30,8 @@ public class UseExcel {
     @EasyExcelFiled(name = "原生注解-类型")
     @JSONField(name = "JSONField注解-类型")
     private String type;
+
+    @EasyExcelFiled(name = "原生注解-是否删除")
+    @JSONField(name = "JSONField注解-是否删除")
+    private boolean isDelete;
 }

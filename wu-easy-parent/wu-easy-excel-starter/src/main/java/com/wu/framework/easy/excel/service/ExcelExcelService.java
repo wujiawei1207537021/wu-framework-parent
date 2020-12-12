@@ -2,13 +2,18 @@ package com.wu.framework.easy.excel.service;
 
 import com.wu.framework.easy.excel.stereotype.EasyExcel;
 import lombok.SneakyThrows;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
+import org.apache.poi.ss.usermodel.CellType;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public interface ExcelExcelService {
+
+    /**
+     * 表头
+     */
+    int TITLE_COLUMN = 0;
 
     @SneakyThrows
     static byte[] exportExcel(EasyExcel easyExcel, Collection collection) {
@@ -31,5 +36,39 @@ public interface ExcelExcelService {
             result.add(subList);
         }
         return result;
+    }
+
+    /**
+     * 设置行列内容
+     */
+    static void setRowColumnContent(HSSFCell hssfCell, Object value) {
+        final Class<?> valueClass = value.getClass();
+        if (valueClass.isAssignableFrom(String.class)) {
+            hssfCell.setCellValue(String.valueOf(value));
+        } else if (valueClass.isAssignableFrom(Double.class)) {
+            hssfCell.setCellType(CellType.NUMERIC);
+            hssfCell.setCellValue((Double) value);
+        } else if (valueClass.isAssignableFrom(Integer.class)) {
+            hssfCell.setCellType(CellType.NUMERIC);
+            hssfCell.setCellValue((Integer) value);
+        } else if (valueClass.isAssignableFrom(Long.class)) {
+            hssfCell.setCellType(CellType.NUMERIC);
+            hssfCell.setCellValue((Long) value);
+        } else if (valueClass.isAssignableFrom(Float.class)) {
+            hssfCell.setCellType(CellType.NUMERIC);
+            hssfCell.setCellValue((Float) value);
+        } else if (valueClass.isAssignableFrom(Date.class)) {
+            hssfCell.setCellType(CellType.STRING);
+            hssfCell.setCellValue((Date) value);
+        } else if (valueClass.isAssignableFrom(Calendar.class)) {
+            hssfCell.setCellValue((Calendar) value);
+        } else if (valueClass.isAssignableFrom(Boolean.class)) {
+            hssfCell.setCellType(CellType.BOOLEAN);
+            hssfCell.setCellValue((Boolean) value);
+        } else if (valueClass.isAssignableFrom(HSSFRichTextString.class)) {
+            hssfCell.setCellValue((HSSFRichTextString) value);
+        } else {
+            hssfCell.setCellValue(String.valueOf(value));
+        }
     }
 }

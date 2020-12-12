@@ -95,6 +95,10 @@ public @interface EasyExcel {
      */
     SheetShowContext sheetShowContext() default SheetShowContext.NUM;
 
+    /**
+     * 样式添加类
+     * @return
+     */
     Class<? extends Style> style() default DefaultStyle.class;
 
     @Getter

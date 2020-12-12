@@ -1,6 +1,8 @@
 package com.wu.framework.easy.excel.stereotype;
 
 
+import com.wu.framework.easy.excel.enums.FontName;
+import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.FillPatternType;
 
 import java.lang.annotation.*;
@@ -25,13 +27,71 @@ public @interface EasyExcelFiled {
     String name();
 
     /**
-     * 列颜色
+     * 列宽
      * @return
      */
-    String color() default "";
+    int width() default 30;
 
     /**
-     * The enumeration value indicating the style of fill pattern being used for a cell format.
+     * 设置自动换行
+     * @return
      */
-    FillPatternType fillPatternType() default FillPatternType.NO_FILL ;
+    boolean wrapText() default false;
+    /**
+     * 背景填充
+     */
+    FillPatternType fillPatternType() default FillPatternType.SOLID_FOREGROUND ;
+
+    /**
+     * title背景颜色
+     * {@link HSSFColor.HSSFColorPredefined#index}
+     * @return
+     */
+    short titleBackgroundColor() default 0x30;
+
+    /**
+     * 标题字体颜色
+     * @return
+     */
+    short titleFontColor() default 16;
+
+    /**
+     * 标题字体
+     * @return
+     */
+    String titleFontName() default "黑体";
+
+    /**
+     * 标题字体大小
+     * @return
+     */
+    short titleFontSize() default 16;
+
+    /**
+     * 列字体颜色
+     * @return
+     */
+    short columnFontColor() default 16;
+
+    /**
+     * 列字体
+     * @return
+     */
+    String columnFontName() default "黑体";
+
+    /**
+     * 列字体大小
+     * @return
+     */
+    short columnFontSize() default 10;
+
+    /**
+     * 列背景
+     * @return
+     */
+    short columnBackgroundColor() default 0x30;
+//    /**
+//     * 列背景表达式
+//     */
+//    String columnBGExpression() default "";
 }

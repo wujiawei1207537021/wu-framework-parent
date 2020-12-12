@@ -1,8 +1,8 @@
 package com.wu.framework.easy.excel.service;
 
 import com.wu.framework.easy.excel.service.style.Style;
+import com.wu.framework.easy.excel.service.style.StyleParam;
 import com.wu.framework.easy.excel.stereotype.EasyExcel;
-import com.wu.framework.easy.excel.stereotype.EasyExcelFiled;
 import com.wu.framework.easy.excel.util.ISheetShowContextMethod;
 import lombok.SneakyThrows;
 import org.apache.poi.hssf.usermodel.*;
@@ -200,7 +200,7 @@ public class NormalExcelExportService implements ExcelExcelService {
             }
 
             // 产生表格标题行
-            HSSFRow row = sheet.createRow(0);
+            HSSFRow row = sheet.createRow(TITLE_COLUMN);
             for (int i = 0; i < fieldList.size(); i++) {
                 HSSFCell hssfCell = row.createCell(i);
                 hssfCell.setCellStyle(style);
@@ -211,13 +211,11 @@ public class NormalExcelExportService implements ExcelExcelService {
                     if (null == filedAnnotation) {
                         return;
                     } else {
-                        // 判断是 EasyExcelFiled
-                        if (filedAnnotation.annotationType().isAssignableFrom(EasyExcelFiled.class)) {
-                            final Class<? extends Style> styleClass = easyExcel.style();
-                            final Style newInstance = styleClass.newInstance();
-                            HSSFCellStyle tempStyle=  newInstance.init(workbook,(EasyExcelFiled)filedAnnotation);
-                            hssfCell.setCellStyle(tempStyle);
-                        }
+                        final Class<? extends Style> styleClass = easyExcel.style();
+                        final Style newInstance = styleClass.newInstance();
+                        HSSFCellStyle tempStyle =
+                                newInstance.titleStyle(new StyleParam(workbook, sheet, filedAnnotation, i));
+                        hssfCell.setCellStyle(tempStyle);
                         Map<String, Object> annotationAttributes = AnnotationUtils.getAnnotationAttributes(filedAnnotation);
                         headerName = String.valueOf(annotationAttributes.getOrDefault(easyExcel.fieldColumnAnnotationAttribute(), field.getName()));
                     }
@@ -225,7 +223,7 @@ public class NormalExcelExportService implements ExcelExcelService {
                     headerName = field.getName();
                 }
                 HSSFRichTextString text = new HSSFRichTextString(headerName);
-                hssfCell.setCellValue(text);
+                ExcelExcelService.setRowColumnContent(hssfCell,text);
             }
             int index = 0;
             // 循环整个集合
@@ -244,9 +242,19 @@ public class NormalExcelExportService implements ExcelExcelService {
                     }
                 } else {
                     for (int i = 0; i < fieldList.size(); i++) {
-                        HSSFCell cell = row.createCell(i);
-                        String textValue = String.valueOf(fieldList.get(i).get(t));
-                        cell.setCellValue(textValue);
+                        final Field field = fieldList.get(i);
+                        HSSFCell hssfCell = row.createCell(i);
+                        if (easyExcel.useAnnotation()) {
+                            Annotation filedAnnotation = field.getAnnotation(easyExcel.fieldColumnAnnotation());
+                            if (null != filedAnnotation) {
+                                final Class<? extends Style> styleClass = easyExcel.style();
+                                final Style newInstance = styleClass.newInstance();
+                                HSSFCellStyle tempStyle =
+                                        newInstance.columnStyle(new StyleParam(workbook, sheet, filedAnnotation, i));
+                                hssfCell.setCellStyle(tempStyle);
+                            }
+                        }
+                        ExcelExcelService.setRowColumnContent(hssfCell,field.get(t));
                     }
                 }
             }
