@@ -68,7 +68,7 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, Initializi
             iEnumList.putAll(EasyAnnotationConverter.collectionConvert(clazz));
             String queryString = SQLConverter.upsertPreparedStatementSQL(list, clazz, iEnumList);
             if (upsertConfig.isPrintSql()) {
-                log.info("执行sql: {}", queryString);
+                log.info("Execute SQL : {}", queryString);
             }
             PreparedStatement pstm = null;
             Connection connection = null;

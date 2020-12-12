@@ -91,7 +91,7 @@ public @interface EasyExcel {
 
     /**
      * multipleSheet true 有效
-     * 工作簿展示内容
+     * 工作簿名字内容
      */
     SheetShowContext sheetShowContext() default SheetShowContext.NUM;
 

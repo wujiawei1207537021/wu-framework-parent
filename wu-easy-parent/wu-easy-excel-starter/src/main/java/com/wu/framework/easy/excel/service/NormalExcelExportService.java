@@ -223,11 +223,12 @@ public class NormalExcelExportService implements ExcelExcelService {
                     headerName = field.getName();
                 }
                 HSSFRichTextString text = new HSSFRichTextString(headerName);
-                ExcelExcelService.setRowColumnContent(hssfCell,text);
+                ExcelExcelService.setRowColumnContent(hssfCell, text);
             }
             int index = 0;
             // 循环整个集合
             iterator = collection.iterator();
+            List<HSSFCellStyle> columnStyleList = new LinkedList<>();
             while (iterator.hasNext()) {
                 //从第二行开始写，第一行是标题
                 index++;
@@ -249,12 +250,18 @@ public class NormalExcelExportService implements ExcelExcelService {
                             if (null != filedAnnotation) {
                                 final Class<? extends Style> styleClass = easyExcel.style();
                                 final Style newInstance = styleClass.newInstance();
-                                HSSFCellStyle tempStyle =
-                                        newInstance.columnStyle(new StyleParam(workbook, sheet, filedAnnotation, i));
+                                HSSFCellStyle tempStyle;
+                                if (columnStyleList.size() != fieldList.size()) {
+                                    tempStyle =
+                                            newInstance.columnStyle(new StyleParam(workbook, sheet, filedAnnotation, i));
+                                    columnStyleList.add(tempStyle);
+                                } else {
+                                    tempStyle = columnStyleList.get(i);
+                                }
                                 hssfCell.setCellStyle(tempStyle);
                             }
                         }
-                        ExcelExcelService.setRowColumnContent(hssfCell,field.get(t));
+                        ExcelExcelService.setRowColumnContent(hssfCell, field.get(t));
                     }
                 }
             }

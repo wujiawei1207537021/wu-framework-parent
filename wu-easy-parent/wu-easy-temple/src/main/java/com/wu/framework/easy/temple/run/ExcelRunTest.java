@@ -51,6 +51,12 @@ public class ExcelRunTest {
         return useExcelList;
     }
 
+    @EasyExcel(fileName = "导出数据多个工作簿",multipleSheet = true)
+    @ApiOperation(tags = "导出注解测试", value = "使用原生注解有效多个工作簿")
+    @GetMapping("/run1/{size}")
+    public List<UseExcel> run1(@PathVariable Integer size) {
+        return run(size);
+    }
 
     @EasyExcel(fileName = "非原生注解导出数据", fieldColumnAnnotation = JSONField.class, fieldColumnAnnotationAttribute = "name", multipleSheet = true, limit = 1000, sheetShowContext = EasyExcel.SheetShowContext.TEXT)
     @ApiOperation(tags = "导出注解测试", value = "非原生注解导出数据")
