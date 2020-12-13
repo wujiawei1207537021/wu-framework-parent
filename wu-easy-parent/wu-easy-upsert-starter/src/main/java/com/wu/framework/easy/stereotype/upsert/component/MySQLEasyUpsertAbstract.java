@@ -1,5 +1,6 @@
 package com.wu.framework.easy.stereotype.upsert.component;
 
+import com.wu.framework.easy.stereotype.upsert.EasyTable;
 import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
 import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
 import com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter;
@@ -7,11 +8,12 @@ import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
 import com.wu.framework.easy.stereotype.upsert.ienum.UserConvertService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.core.annotation.AnnotatedElementUtils;
+import org.springframework.util.ObjectUtils;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,34 +63,65 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, Initializi
             Thread.currentThread().setName(threadName);
             // 第一个参数 clazz
             Class clazz = list.get(0).getClass();
-            Map<String, Map<String, String>> iEnumList = new HashMap<String, Map<String, String>>();
+            EasyTable easyTable = AnnotatedElementUtils.getMergedAnnotation(clazz, EasyTable.class);
+            Map<String, Map<String, String>> iEnumList = new HashMap<>();
             if (null != userConvertService) {
                 iEnumList = userConvertService.userConvert(clazz);
             }
             iEnumList.putAll(EasyAnnotationConverter.collectionConvert(clazz));
-            String queryString = SQLConverter.upsertPreparedStatementSQL(list, clazz, iEnumList);
+            String upsertSQL = SQLConverter.upsertPreparedStatementSQL(list, clazz, iEnumList);
             if (upsertConfig.isPrintSql()) {
-                log.info("Execute SQL : {}", queryString);
+                log.error("Execute SQL : {}", upsertSQL);
             }
-            PreparedStatement pstm = null;
+            PreparedStatement upsertStatement = null;
             Connection connection = null;
-            boolean rs;
+            boolean rs = false;
             try {
                 connection = dataSource.getConnection();
-//                System.out.println("connection = " + connection.toString());
+                String tableName = EasyAnnotationConverter.getTableName(clazz);
+                //初始化表
+                if (null != easyTable && easyTable.perfectTable()) {
+                    ResultSet resultSet = connection.getMetaData().getTables(null, null, tableName, null);
+                    if (!resultSet.next()) {
+                        String tableSQL = SQLConverter.createTableSQL(clazz);
+                        Statement statement = connection.createStatement();
+                        for (String s : tableSQL.split(";")) {
+                            statement.addBatch(s);
+                        }
+                        //执行建表语句
+                        statement.executeBatch();
+                    } else {
+                        ResultSet columns = connection.getMetaData().getColumns(null, "%", tableName, "%");
+                        List<String> columnNameList = new ArrayList<>();
+                        while (columns.next()) {
+                            String columnName = columns.getString("COLUMN_NAME");
+                            String columnType = columns.getString("TYPE_NAME");
+                            int datasize = columns.getInt("COLUMN_SIZE");
+                            int digits = columns.getInt("DECIMAL_DIGITS");
+                            int nullable = columns.getInt("NULLABLE");
+                            columnNameList.add(columnName);
+                            System.out.println(columnName + " " + columnType + " " + datasize + " " + digits + " " + nullable);
+                        }
+                        final String alterTableSQL = SQLConverter.alterTableSQL(columnNameList, clazz);
+                        if(ObjectUtils.isEmpty(alterTableSQL)){
+                            Statement statement = connection.createStatement();
+                            statement.executeUpdate(alterTableSQL);
+                        }
+                    }
+                }
                 //获取PreparedStatement对象
-                pstm = connection.prepareStatement(queryString);
+                upsertStatement = connection.prepareStatement(upsertSQL);
                 //执行SQL语句，获取结果集
-                rs = pstm.execute();
+                rs = upsertStatement.execute();
             } catch (Exception e) {
                 log.error(e.toString());
                 throw new RuntimeException(e);
             } finally {
-                if (pstm != null) {
+                if (upsertStatement != null) {
                     try {
                         connection.close();
 //                        System.out.println("关闭链接");
-                        pstm.close();
+                        upsertStatement.close();
                     } catch (SQLException throwables) {
 //                        System.out.println("关闭链接异常");
                         throwables.printStackTrace();

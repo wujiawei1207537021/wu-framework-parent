@@ -2,7 +2,6 @@ package com.wu.framework.easy.stereotype.upsert.converter;
 
 
 import com.wu.framework.easy.stereotype.upsert.EasyTableField;
-import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
 import com.wu.framework.easy.stereotype.upsert.entity.kafka.TargetJsonSchema;
 import org.apache.kafka.common.protocol.types.Type;
 import org.springframework.core.annotation.AnnotatedElementUtils;

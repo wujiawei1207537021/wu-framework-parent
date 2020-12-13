@@ -3,13 +3,13 @@ package com.wu.framework.easy.stereotype.upsert.entity.stereotye;
 import lombok.Data;
 
 /**
- * description 自定义一表注解属性
+ * description 表注解属性
  *
  * @author Jia wei Wu
  * @date 2020/9/3 上午9:52
  */
 @Data
-public class CustomTableAnnotation {
+public class EasyTableAnnotation {
 
     /**
      * 类名

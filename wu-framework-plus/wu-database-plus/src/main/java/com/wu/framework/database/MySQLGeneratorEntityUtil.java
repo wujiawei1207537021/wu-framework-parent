@@ -63,7 +63,7 @@ public class MySQLGeneratorEntityUtil {
      * @return
      */
     private static String pkgDirName() {
-        String dirName = basePath + "/src/" + packageOutPath.replace(".", "/");
+        String dirName = basePath +File.separator+ "src"+File.separator + packageOutPath.replace(".", "/");
         File dir = new File(dirName);
         if (!dir.exists()) {
             dir.mkdirs();

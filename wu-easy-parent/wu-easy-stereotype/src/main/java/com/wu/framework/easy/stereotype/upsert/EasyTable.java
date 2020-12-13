@@ -22,6 +22,11 @@ public @interface EasyTable {
     String name() default "";
 
     /**
+     * 完善表
+     * @return
+     */
+    boolean perfectTable() default false;
+    /**
      * 表注释
      *
      * @return String

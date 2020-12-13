@@ -34,7 +34,7 @@
         <dependency>
             <groupId>top.wu2020</groupId>
             <artifactId>wu-easy-stereotype</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>

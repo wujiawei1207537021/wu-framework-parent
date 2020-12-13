@@ -2,7 +2,6 @@ package com.wu.framework.easy.stereotype.upsert.config;
 
 
 import com.google.common.collect.Maps;
-import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
 import com.wu.framework.easy.stereotype.upsert.entity.kafka.KafkaJsonMessage;
 import com.wu.framework.easy.stereotype.upsert.entity.kafka.TargetJsonSchema;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;

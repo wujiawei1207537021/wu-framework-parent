@@ -20,10 +20,10 @@ public class LocalStorageClassAnnotation {
     private static final String PREFIX = "easy_upsert_";
     private static final Logger log = LoggerFactory.getLogger(LocalStorageClassAnnotation.class);
 
-    public static Map<Class, CustomTableAnnotation> CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP = new HashMap<>();
+    public static Map<Class, EasyTableAnnotation> CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP = new HashMap<>();
 
 
-    public static CustomTableAnnotation getCustomTableAnnotationAttr(Class clazz, boolean isForceDuplicateNameSwitch) {
+    public static EasyTableAnnotation getCustomTableAnnotationAttr(Class clazz, boolean isForceDuplicateNameSwitch) {
         if (!CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.containsKey(clazz)) {
             String kafkaCode = PREFIX + EasyAnnotationConverter.getKafkaCode(clazz);
             String className = clazz.getName();
@@ -33,16 +33,16 @@ public class LocalStorageClassAnnotation {
             String kafkaSchemaName = EasyAnnotationConverter.getKafkaSchemaName(clazz, isForceDuplicateNameSwitch);
 
 
-            CustomTableAnnotation customTableAnnotation = new CustomTableAnnotation();
-            customTableAnnotation.setComment(comment);
-            customTableAnnotation.setClassName(className);
-            customTableAnnotation.setName(name);
-            customTableAnnotation.setKafkaSchemaName(kafkaSchemaName);
-            customTableAnnotation.setKafkaTopicName(kafkaTopicName);
-            customTableAnnotation.setKafkaCode(kafkaCode);
+            EasyTableAnnotation easyTableAnnotation = new EasyTableAnnotation();
+            easyTableAnnotation.setComment(comment);
+            easyTableAnnotation.setClassName(className);
+            easyTableAnnotation.setName(name);
+            easyTableAnnotation.setKafkaSchemaName(kafkaSchemaName);
+            easyTableAnnotation.setKafkaTopicName(kafkaTopicName);
+            easyTableAnnotation.setKafkaCode(kafkaCode);
             log.info("Initialize {} annotation parameters  className:[{}],tableName:[{}],comment:[{}],kafkaTopicName:[{}],kafkaSchemaName:[{}],kafkaCode:[{}]", clazz,
                     className, name, comment, kafkaTopicName, kafkaSchemaName, kafkaCode);
-            CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.put(clazz, customTableAnnotation);
+            CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.put(clazz, easyTableAnnotation);
         }
         return CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.get(clazz);
     }

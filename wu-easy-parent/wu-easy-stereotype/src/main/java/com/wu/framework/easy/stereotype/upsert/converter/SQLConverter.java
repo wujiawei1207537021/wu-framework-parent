@@ -4,6 +4,7 @@ import com.wu.framework.easy.stereotype.upsert.EasyTable;
 import com.wu.framework.easy.stereotype.upsert.EasyTableField;
 import com.wu.framework.easy.stereotype.upsert.entity.ConvertedField;
 import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
+import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasyTableAnnotation;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
@@ -97,8 +98,24 @@ public class SQLConverter {
      *
      * @param clazz 数据传输类
      */
+//    SQL 描述
+    public static final String SQL_DESC =
+            "-- ——————————————————————————\n" +
+                    "-- create table %s  %s  \n" +  // 表名  表描述
+                    "-- add by  %s  %s  \n" +   // 作者  日期
+                    "-- ——————————————————————————" + "\n";
+    //    删表
+    public static final String SQL_DROP = "DROP TABLE IF EXISTS `%s`;\n";
+    //    默认字段
+    public static final String SQL_DEFAULT_FIELD =
+            "`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',\n" +
+                    "`is_deleted` tinyint(1) DEFAULT '0' COMMENT '是否删除',\n" +
+                    "`create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',\n" +
+                    "`update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',\n" +
+                    "PRIMARY KEY (`id`) USING BTREE\n";
+
+
     public static String createTableSQL(Class clazz) {
-        StringBuilder sqlBuffer = new StringBuilder();
         EasyTable tableNameAnnotation = AnnotationUtils.getAnnotation(clazz, EasyTable.class);
         List<String> fieldNames = new ArrayList<>();
         List<Integer> ignoredIndex = new ArrayList<>();
@@ -111,24 +128,18 @@ public class SQLConverter {
             }
             tableComment = tableNameAnnotation.comment();
         }
-        sqlBuffer.append("-- ——————————————————————————\n" +
-                "--  create table " + tableName + " " + tableComment + " \n" +
-                "-- add by " + AUTHOR + " " + LocalDate.now() + "\n" +
-                "-- ——————————————————————————" + "\n");
-        sqlBuffer.append("DROP TABLE IF EXISTS `");
-        sqlBuffer.append(tableName + "`;\n");
-        sqlBuffer.append("create table `").append(tableName);
-        sqlBuffer.append("` ( \n").append("`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',");
-
+        StringBuilder createTableSQLBuffer = new StringBuilder(
+                String.format(SQL_DESC, tableName, tableComment, AUTHOR, LocalDate.now()));
+        createTableSQLBuffer.append(String.format(SQL_DROP, tableName));
+        createTableSQLBuffer.append("CREATE TABLE `").append(tableName).append("` ( \n");
         // 是否为一索引
         List<String> uniqueList = new ArrayList<>();
-
         // 添加字段
         Field[] fields = clazz.getDeclaredFields();
         for (int i = 0; i < fields.length; i++) {
             Field declaredField = fields[i];
             EasyTableField tableField = AnnotatedElementUtils.findMergedAnnotation(declaredField, EasyTableField.class);
-            String fieldName = "`"+CamelAndUnderLineConverter.humpToLine2(declaredField.getName())+"`";
+            String fieldName = "`" + CamelAndUnderLineConverter.humpToLine2(declaredField.getName()) + "`";
             String type = EasyTableField.FileType.getTypeByClass(declaredField.getType());
             String comment = CamelAndUnderLineConverter.humpToLine2(declaredField.getName());
             if (!ObjectUtils.isEmpty(tableField)) {
@@ -141,22 +152,7 @@ public class SQLConverter {
                     fieldName = tableField.value();
                 }
                 if (!ObjectUtils.isEmpty(tableField.type())) {
-                    // 过滤oracle
                     type = tableField.type();
-                    if (type.startsWith("VARCHAR2")) {
-
-                        String num = type.replace("VARCHAR2", "");
-                        num = num.replace("(", "");
-                        num = num.replace(")", "");
-                        if (Integer.parseInt(num) > 500) {
-                            type = " text ";
-                        } else {
-                            type = type.replace("VARCHAR2", "varchar");
-                        }
-                    }
-                    if (type.startsWith("NUMBER")) {
-                        type = type.replace("NUMBER", "int ");
-                    }
                 }
                 // 记录索引字段
                 if (tableField.indexType().equals(EasyTableField.TableFileIndexType.UNIQUE)) {
@@ -164,26 +160,23 @@ public class SQLConverter {
                 }
             }
             fieldNames.add(fieldName);
-            sqlBuffer.append(fieldName).append(type).append(" COMMENT '").append(comment).append("', \n ");
+            createTableSQLBuffer.append(fieldName).append(type).append(" COMMENT '").append(comment).append("', \n");
         }
-        sqlBuffer.append("`is_deleted` tinyint(1) DEFAULT '0' COMMENT '是否删除',\n" +
-                "  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',\n" +
-                "  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',\n" +
-                "PRIMARY KEY (`id`) USING BTREE\n");
+        createTableSQLBuffer.append(SQL_DEFAULT_FIELD);
 //        UNIQUE KEY `plate_num_color` (`plate_num`,`plate_color`),
         if (!ObjectUtils.isEmpty(uniqueList)) {
-            sqlBuffer.append(" , UNIQUE KEY `");
-            sqlBuffer.append(uniqueList.stream().collect(Collectors.joining("_")));
-            sqlBuffer.append("` (`");
-            sqlBuffer.append(uniqueList.stream().collect(Collectors.joining("`,`")));
-            sqlBuffer.append("`)");
+            createTableSQLBuffer.append(" , UNIQUE KEY `");
+            createTableSQLBuffer.append(String.join("_", uniqueList));
+            createTableSQLBuffer.append("` (`");
+            createTableSQLBuffer.append(String.join("`,`", uniqueList));
+            createTableSQLBuffer.append("`)");
         }
-        sqlBuffer.append(") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='");
-        sqlBuffer.append(tableComment).append("';\n");
-        sqlBuffer.append("-- ------end \n" +
+        createTableSQLBuffer.append(") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='");
+        createTableSQLBuffer.append(tableComment).append("';\n");
+        createTableSQLBuffer.append("-- ------end \n" +
                 "-- ——————————————————————————\n");
-        System.out.println(sqlBuffer);
-        return sqlBuffer.toString();
+        System.out.println(createTableSQLBuffer);
+        return createTableSQLBuffer.toString();
     }
 
 
@@ -485,6 +478,7 @@ public class SQLConverter {
             }
             EasyTableField easyTableField = AnnotatedElementUtils.findMergedAnnotation(declaredField, EasyTableField.class);
             String convertedFieldName = CamelAndUnderLineConverter.humpToLine2(declaredField.getName());
+            ConvertedField convertedField = new ConvertedField();
             if (!ObjectUtils.isEmpty(easyTableField)) {
                 if (!easyTableField.exist()) {
                     continue;
@@ -496,17 +490,45 @@ public class SQLConverter {
                 if (!ObjectUtils.isEmpty(easyTableField.value())) {
                     convertedFieldName = easyTableField.value();
                 }
+                convertedField.setComment(easyTableField.comment());
+                convertedField.setFieldIndexType(easyTableField.indexType());
             }
-            ConvertedField convertedField = new ConvertedField();
             convertedField.setConvertedFieldName(convertedFieldName);
             convertedField.setFieldName(declaredField.getName());
             convertedField.setClazz(declaredField.getType());
-            if (!ObjectUtils.isEmpty(easyTableField)) {
-                convertedField.setFieldIndexType(easyTableField.indexType());
-            }
+            convertedField.setType(EasyTableField.FileType.getTypeByClass(declaredField.getType()));
             convertedFieldList.add(convertedField);
         }
         return convertedFieldList;
     }
 
+    /**
+     * @param columnNameList 数据库字段
+     * @param tableClass     表类型
+     * @return
+     * @describe 更改表
+     * @author 吴佳伟
+     * @date 2020/12/12 9:12 下午
+     **/
+    public static String alterTableSQL(List<String> columnNameList, Class tableClass) {
+        // 添加列
+        //        ALTER TABLE tableName
+        //      ADD columnName VARCHAR(255) 'comment'
+        String ALTER_TABLE = "ALTER TABLE %s ";
+        String ADD_FIELD = " ADD %s %s %s "; // 字段名 字段类型 字段备注
+        List<ConvertedField> convertedFieldList = fieldNamesOnAnnotation(tableClass, null);
+        String ADD_SQL = convertedFieldList.stream().
+                filter(convertedField -> !columnNameList.contains(convertedField.getConvertedFieldName().replaceAll("`",""))).
+                map(convertedField ->
+                        String.format(ADD_FIELD,
+                                convertedField.getConvertedFieldName(),
+                                convertedField.getType(),
+                                convertedField.getComment())).
+                collect(Collectors.joining(","));
+        if (ObjectUtils.isEmpty(ADD_SQL)) return null;
+        // 更改列
+        //        modify columnName varchar2(255)
+        String MODIFY_FIELD = " MODIFY %s %s %s "; // 字段名 字段类型 字段备注
+        return String.join("", String.format(ALTER_TABLE, EasyAnnotationConverter.getTableName(tableClass)), ADD_SQL, "");
+    }
 }

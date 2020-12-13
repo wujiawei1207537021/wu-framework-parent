@@ -50,11 +50,11 @@
                     <version>3.1</version>
                 </dependency>
 
-                <dependency>
-                    <groupId>top.wu2020</groupId>
-                    <artifactId>wu-database-core</artifactId>
-                    <version>1.0.0</version>
-                </dependency>
+<!--                <dependency>-->
+<!--                    <groupId>top.wu2020</groupId>-->
+<!--                    <artifactId>wu-database-core</artifactId>-->
+<!--                    <version>1.0.0</version>-->
+<!--                </dependency>-->
         <dependency>
             <groupId>top.wu2020</groupId>
             <artifactId>wu-easy-stereotype</artifactId>

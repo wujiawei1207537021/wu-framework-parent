@@ -170,8 +170,6 @@ public class EasyAnnotationConverter {
             } else {
                 return e.getEnumConstants()[0].getDefaultCode();
             }
-
-
         }
         // 不转换直接跳出
         return fieldVal;

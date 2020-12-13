@@ -10,7 +10,7 @@ import com.wu.framework.easy.stereotype.upsert.converter.JsonFileConverter;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.stereotype.upsert.entity.kafka.KafkaJsonMessage;
 import com.wu.framework.easy.stereotype.upsert.entity.kafka.TargetJsonSchema;
-import com.wu.framework.easy.stereotype.upsert.entity.stereotye.CustomTableAnnotation;
+import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasyTableAnnotation;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.stereotype.upsert.ienum.UserConvertService;
@@ -50,9 +50,9 @@ public class KafkaEasyUpsert implements IEasyUpsert {
             Thread.currentThread().setName(threadName);
             Class clazz = list.get(0).getClass();
             // 模块名称+业务+表名
-            CustomTableAnnotation customTableAnnotation =
+            EasyTableAnnotation easyTableAnnotation =
                     LocalStorageClassAnnotation.getCustomTableAnnotationAttr(clazz, upsertConfig.isForceDuplicateNameSwitch());
-            String schemaName = customTableAnnotation.getKafkaSchemaName();
+            String schemaName = easyTableAnnotation.getKafkaSchemaName();
 
             TargetJsonSchema targetJsonSchema = KafkaJsonMessage.targetSchemaMap.get(schemaName);
             if (targetJsonSchema == null) {
@@ -70,7 +70,7 @@ public class KafkaEasyUpsert implements IEasyUpsert {
             iEnumList.putAll(EasyAnnotationConverter.collectionConvert(clazz));
             for (Object value : list) {
                 kafkaJsonMessage.setPayload(JsonFileConverter.parseBean2map(value, iEnumList));
-                easyUpsertExtractKafkaProducer.sendAsync(customTableAnnotation.getKafkaCode(), customTableAnnotation.getKafkaTopicName(), kafkaJsonMessage);
+                easyUpsertExtractKafkaProducer.sendAsync(easyTableAnnotation.getKafkaCode(), easyTableAnnotation.getKafkaTopicName(), kafkaJsonMessage);
             }
             return true;
         });

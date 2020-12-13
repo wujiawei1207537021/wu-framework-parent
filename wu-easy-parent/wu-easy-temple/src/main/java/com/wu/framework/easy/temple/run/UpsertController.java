@@ -1,16 +1,17 @@
 package com.wu.framework.easy.temple.run;
 
 import com.wu.framework.easy.stereotype.upsert.component.IUpsert;
-import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
+import com.wu.framework.easy.stereotype.upsert.entity.ConvertedField;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.stereotype.web.EasyController;
 import com.wu.framework.easy.temple.domain.DynGpsVehRun;
 import com.wu.framework.easy.temple.domain.UserLog;
 import com.wu.framework.easy.temple.service.RunService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.time.LocalDate;
+import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,7 @@ public class UpsertController {
     }
 
 
+    @ApiOperation(tags = "快速插入数据", value = "多数据")
     @GetMapping("/more")
     public void moreUpsert(Integer limit) {
         for (int i = 1; i <= limit; i++) {
@@ -42,21 +44,28 @@ public class UpsertController {
         }
     }
 
+    @EasyUpsertDS(type = EasyUpsertType.MySQL)
+    @ApiOperation(tags = "快速插入数据", value = "入DB")
     @GetMapping()
     public List<UserLog> upsert(Integer size) {
+        for (Field declaredField : ConvertedField.class.getDeclaredFields()) {
+            System.out.println(declaredField.getName());
+        }
         List<UserLog> userLogList = new ArrayList<>();
         size = size == null ? 100000 : size;
-        for (int i = 1; i <= size; i++) {
+        for (int i = 0; i <= size; i++) {
             UserLog userLog = new UserLog();
             userLog.setCurrentTime(LocalDateTime.now());
             userLog.setContent("创建时间:" + userLog.getCurrentTime());
-            userLog.setUserId(i);
+            userLog.setUserId(i+1);
             userLogList.add(userLog);
         }
         iUpsert.upsert(userLogList, userLogList, new UserLog());
         return userLogList;
     }
 
+    @EasyUpsertDS(type = EasyUpsertType.MySQL)
+    @ApiOperation(tags = "快速插入数据", value = "service 实现类操作数据插入")
     @GetMapping("/size")
     public void upsertSize(Integer size) {
         runService.run(size);
@@ -72,6 +81,7 @@ public class UpsertController {
      * @date 2020/12/7 下午6:32
      */
     @EasyUpsertDS(type = EasyUpsertType.ES)
+    @ApiOperation(tags = "快速插入数据", value = "操作数据入ES")
     @GetMapping("/bigDataPartitionTest")
     public void bigDataPartitionTest(Integer size) {
         List<DynGpsVehRun> dynGpsVehRunList = new ArrayList<>();
@@ -79,26 +89,6 @@ public class UpsertController {
         dynGpsVehRun.setRunId("闽E06F57_1403_net_car");
         dynGpsVehRun.setPlateNum("闽E06F57");
         dynGpsVehRun.setGpsTimestamp(1605231662000L);
-        /**
-         * gps_time": "2020-11-13 09:41:02",
-         * "location": "",
-         * "lng": ,
-         * "lat": ,
-         * "speed": 23,
-         * "direction": 279,
-         * "alarm": 0,
-         * "industry": "090",
-         * "business_type": 9,
-         * "mars_lat": 24.51603155461966,
-         * "mars_lng": 117.65594955014237,
-         * "gps_vdate": "2020-11-13",
-         * "gps_vtime": "",
-         * "business_scope_code": "1403",
-         * "ve2": null,
-         * "ve3": null,
-         * "altitude": null,
-         * "@timestamp@": "2020-11-13T09:38:50.350+0800"
-         */
         dynGpsVehRun.setGpsTime("2020-11-13 09:41:02");
         dynGpsVehRun.setLocation("24.519004,117.651156");
         dynGpsVehRun.setLng(117.651156);
@@ -113,7 +103,6 @@ public class UpsertController {
         dynGpsVehRun.setGpsVdate("2020-11-13");
         dynGpsVehRun.setGpsVtime("09:41:02");
         dynGpsVehRun.setBusinessScopeCode("1403");
-
         for (int i = 0; i <size ; i++) {
             dynGpsVehRunList.add(dynGpsVehRun);
         }
