@@ -247,11 +247,12 @@ public class EasyAnnotationConverter {
      * @author 吴佳伟
      * @date 2020/12/14 下午12:26
      */
-    public static List extractData(Class<? extends Annotation> classAnnotation, List extractList, Object... objects) {
+    public static List<List> extractData(Class<? extends Annotation> classAnnotation, List<List> extractList, Object... objects) {
         if (extractList == null) extractList = new ArrayList();
         for (Object object : objects) {
             Class<?> aClass = object.getClass();
             if (null == AnnotationUtils.getAnnotation(aClass, classAnnotation)) {
+                extractList.add(Collections.singletonList(object));
                 continue;
             }
             for (Field field : aClass.getDeclaredFields()) {
@@ -266,9 +267,12 @@ public class EasyAnnotationConverter {
                 }
                 if(null==o)continue;;
                 if (smartMark.drillDown()) {
-                    extractList.addAll(extractData(classAnnotation, extractList, o));
+                     List<List> lists = extractData(classAnnotation, extractList, o);
+                    for (List list : lists) {
+                        extractList.addAll(list);
+                    }
                 }
-                extractList.add(o);
+                extractList.add(Collections.singletonList(o));
             }
         }
         return extractList;

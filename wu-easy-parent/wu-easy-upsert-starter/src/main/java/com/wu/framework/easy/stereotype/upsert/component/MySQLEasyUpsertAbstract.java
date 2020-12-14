@@ -100,10 +100,10 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, Initializi
                             int digits = columns.getInt("DECIMAL_DIGITS");
                             int nullable = columns.getInt("NULLABLE");
                             columnNameList.add(columnName);
-                            System.out.println(columnName + " " + columnType + " " + datasize + " " + digits + " " + nullable);
+//                            System.out.println(columnName + " " + columnType + " " + datasize + " " + digits + " " + nullable);
                         }
                         final String alterTableSQL = SQLConverter.alterTableSQL(columnNameList, clazz);
-                        if(ObjectUtils.isEmpty(alterTableSQL)){
+                        if(!ObjectUtils.isEmpty(alterTableSQL)){
                             Statement statement = connection.createStatement();
                             statement.executeUpdate(alterTableSQL);
                         }

@@ -2,11 +2,14 @@ package com.wu.framework.easy.temple.run;
 
 import com.wu.framework.easy.stereotype.upsert.component.IUpsert;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
+import com.wu.framework.easy.stereotype.upsert.dynamic.QuickEasyUpsert;
 import com.wu.framework.easy.stereotype.upsert.entity.ConvertedField;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.stereotype.web.EasyController;
 import com.wu.framework.easy.temple.domain.DynGpsVehRun;
+import com.wu.framework.easy.temple.domain.UseExcel;
 import com.wu.framework.easy.temple.domain.UserLog;
+import com.wu.framework.easy.temple.domain.bo.ExtractBo;
 import com.wu.framework.easy.temple.service.RunService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,9 +51,6 @@ public class UpsertController {
     @ApiOperation(tags = "快速插入数据", value = "入DB")
     @GetMapping()
     public List<UserLog> upsert(Integer size) {
-        for (Field declaredField : ConvertedField.class.getDeclaredFields()) {
-            System.out.println(declaredField.getName());
-        }
         List<UserLog> userLogList = new ArrayList<>();
         size = size == null ? 100000 : size;
         for (int i = 0; i <= size; i++) {
@@ -110,5 +110,25 @@ public class UpsertController {
     }
 
 
+    @QuickEasyUpsert(type = EasyUpsertType.MySQL)
+    @ApiOperation(tags = "快速插入数据", value = "复杂数据DB")
+    @GetMapping("/complexData")
+    public ExtractBo complexData(){
+        UserLog userLog = new UserLog();
+        userLog.setCurrentTime(LocalDateTime.now());
+        userLog.setContent("创建时间:" + userLog.getCurrentTime());
+        userLog.setUserId(1);
+
+        UseExcel useExcel = new UseExcel();
+        useExcel.setCurrentTime(LocalDateTime.now());
+        useExcel.setDesc("默认方式导出数据");
+        useExcel.setExcelId(2);
+        useExcel.setType("默认方式双注解导出");
+
+        ExtractBo extractBo=new ExtractBo();
+        extractBo.setUserLog(userLog);
+        extractBo.setUseExcel(useExcel);
+        return extractBo;
+    }
 
 }

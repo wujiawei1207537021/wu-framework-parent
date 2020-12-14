@@ -44,7 +44,7 @@ public class ExcelRunTest {
             UseExcel useExcel = new UseExcel();
             useExcel.setCurrentTime(LocalDateTime.now());
             useExcel.setDesc("默认方式导出数据");
-            useExcel.setId(i);
+            useExcel.setExcelId(i);
             useExcel.setType("默认方式双注解导出");
             useExcelList.add(useExcel);
         }
@@ -67,7 +67,7 @@ public class ExcelRunTest {
             UseExcel useExcel = new UseExcel();
             useExcel.setCurrentTime(LocalDateTime.now());
             useExcel.setDesc("自定义字段注解方式导出数据");
-            useExcel.setId(i);
+            useExcel.setExcelId(i);
             useExcel.setType("自定义字段注解导出");
             useExcelList.add(useExcel);
         }
@@ -83,7 +83,7 @@ public class ExcelRunTest {
             UseExcel useExcel = new UseExcel();
             useExcel.setCurrentTime(LocalDateTime.now());
             useExcel.setDesc("不使用注解导出所有字段");
-            useExcel.setId(i);
+            useExcel.setExcelId(i);
             useExcel.setType("导出所有字段");
             useExcelList.add(useExcel);
         }
@@ -99,7 +99,7 @@ public class ExcelRunTest {
             UseExcel useExcel = new UseExcel();
             useExcel.setCurrentTime(LocalDateTime.now());
             useExcel.setDesc("自定义注解导出");
-            useExcel.setId(i);
+            useExcel.setExcelId(i);
             useExcel.setType("自定义注解导出");
             useExcelList.add(useExcel);
         }
@@ -116,7 +116,7 @@ public class ExcelRunTest {
             UseExcel useExcel = new UseExcel();
             useExcel.setCurrentTime(LocalDateTime.now());
             useExcel.setDesc("复杂数据导出内部数据");
-            useExcel.setId(i);
+            useExcel.setExcelId(i);
             useExcel.setType("复杂数据导出内部数据");
             useExcelList.add(useExcel);
         }
