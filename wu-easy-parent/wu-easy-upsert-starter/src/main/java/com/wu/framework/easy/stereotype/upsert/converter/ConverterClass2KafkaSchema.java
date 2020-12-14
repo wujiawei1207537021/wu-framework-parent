@@ -1,7 +1,8 @@
 package com.wu.framework.easy.stereotype.upsert.converter;
 
 
-import com.wu.framework.easy.stereotype.upsert.EasyTableField;
+import com.wu.framework.easy.stereotype.upsert.EasySmartField;
+import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
 import com.wu.framework.easy.stereotype.upsert.entity.kafka.TargetJsonSchema;
 import org.apache.kafka.common.protocol.types.Type;
 import org.springframework.core.annotation.AnnotatedElementUtils;
@@ -41,24 +42,24 @@ public class ConverterClass2KafkaSchema {
                 continue;
             }
             TargetJsonSchema.Field t = new TargetJsonSchema.Field();
-            EasyTableField easyTableField = AnnotatedElementUtils.findMergedAnnotation(field, EasyTableField.class);
+            EasySmartField easySmartField = AnnotatedElementUtils.findMergedAnnotation(field, EasySmartField.class);
             String fieldName = "";
             String name = "";
             String type = "";
             boolean optional = true;
             fieldName = CamelAndUnderLineConverter.humpToLine2(field.getName());
-            type = EasyTableField.JavaSchemaDataType.getAlias(field.getType());
-            if (!ObjectUtils.isEmpty(easyTableField)) {
-                if (!easyTableField.exist()) {
+            type = EasySmartField.JavaSchemaDataType.getAlias(field.getType());
+            if (!ObjectUtils.isEmpty(easySmartField)) {
+                if (!easySmartField.exist()) {
                     continue;
                 }
-                String fieldNameTemp = easyTableField.name();
+                String fieldNameTemp = easySmartField.name();
                 if (!ObjectUtils.isEmpty(fieldNameTemp)) {
                     fieldName = fieldNameTemp;
                 }
                 // 数据库字段类型
-                type = databaseFieldConversionSchemaType(easyTableField.type()).toLowerCase();
-                optional = easyTableField.optional();
+                type = databaseFieldConversionSchemaType(easySmartField.type()).toLowerCase();
+                optional = easySmartField.optional();
             }
             t.setField(fieldName);
             t.setType(type);

@@ -1,9 +1,12 @@
 package com.wu.framework.easy.stereotype.upsert.entity.stereotye;
 
-import com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter;
+import com.wu.framework.easy.stereotype.upsert.EasySmart;
+import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConverter;
 import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.util.ObjectUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,13 +28,30 @@ public class LocalStorageClassAnnotation {
 
     public static EasyTableAnnotation getCustomTableAnnotationAttr(Class clazz, boolean isForceDuplicateNameSwitch) {
         if (!CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.containsKey(clazz)) {
-            String kafkaCode = PREFIX + EasyAnnotationConverter.getKafkaCode(clazz);
+            String kafkaTopicName = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
+            EasySmart easySmart = AnnotationUtils.getAnnotation(clazz, EasySmart.class);
+            String kafkaCode = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
             String className = clazz.getName();
-            String name = EasyAnnotationConverter.getTableName(clazz);
-            String comment = EasyAnnotationConverter.getComment(clazz);
-            String kafkaTopicName = EasyAnnotationConverter.getKafkaTopicName(clazz);
-            String kafkaSchemaName = EasyAnnotationConverter.getKafkaSchemaName(clazz, isForceDuplicateNameSwitch);
+            String name = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
+            String comment = "";
+            String kafkaSchemaName = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
 
+            if (null != easySmart) {
+                if (!ObjectUtils.isEmpty(easySmart.kafkaTopicName())) {
+                    kafkaTopicName = easySmart.kafkaTopicName();
+                }
+                if (!ObjectUtils.isEmpty(easySmart.kafkaCode())) {
+                    kafkaCode = easySmart.kafkaCode();
+                } if (!ObjectUtils.isEmpty(easySmart.tableName())) {
+                    name = easySmart.tableName();
+                }
+                if (!ObjectUtils.isEmpty(easySmart.kafkaSchemaName())) {
+                    kafkaSchemaName = easySmart.kafkaSchemaName();
+                }
+            }
+            if (isForceDuplicateNameSwitch) {
+                kafkaSchemaName = CamelAndUnderLineConverter.humpToLine2(clazz.getName().replace(".", "_"));
+            }
 
             EasyTableAnnotation easyTableAnnotation = new EasyTableAnnotation();
             easyTableAnnotation.setComment(comment);

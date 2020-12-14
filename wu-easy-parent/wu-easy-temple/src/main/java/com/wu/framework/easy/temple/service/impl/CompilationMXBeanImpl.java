@@ -17,10 +17,10 @@ public class CompilationMXBeanImpl implements TestMXBean {
 
     /**
      * Returns an {@link ObjectName ObjectName} instance representing
-     * the object name of this platform managed object.
+     * the object tableName of this platform managed object.
      *
      * @return an {@link ObjectName ObjectName} instance representing
-     * the object name of this platform managed object.
+     * the object tableName of this platform managed object.
      */
     @Override
     public ObjectName getObjectName() {

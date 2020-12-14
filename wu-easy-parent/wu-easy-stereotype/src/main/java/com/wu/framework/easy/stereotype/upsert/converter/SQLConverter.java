@@ -1,10 +1,9 @@
 package com.wu.framework.easy.stereotype.upsert.converter;
 
-import com.wu.framework.easy.stereotype.upsert.EasyTable;
-import com.wu.framework.easy.stereotype.upsert.EasyTableField;
+import com.wu.framework.easy.stereotype.upsert.EasySmart;
+import com.wu.framework.easy.stereotype.upsert.EasySmartField;
 import com.wu.framework.easy.stereotype.upsert.entity.ConvertedField;
 import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
-import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasyTableAnnotation;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
@@ -50,7 +49,7 @@ public class SQLConverter {
         stringBuilder.append("(");
         for (int i = 0; i < fields.length; i++) {
             Field declaredField = fields[i];
-            EasyTableField tableField = AnnotationUtils.getAnnotation(declaredField, EasyTableField.class);
+            EasySmartField tableField = AnnotationUtils.getAnnotation(declaredField, EasySmartField.class);
             String fieldName = CamelAndUnderLineConverter.humpToLine2(declaredField.getName());
             if (!ObjectUtils.isEmpty(tableField)) {
                 if (!tableField.exist()) {
@@ -116,15 +115,15 @@ public class SQLConverter {
 
 
     public static String createTableSQL(Class clazz) {
-        EasyTable tableNameAnnotation = AnnotationUtils.getAnnotation(clazz, EasyTable.class);
+        EasySmart tableNameAnnotation = AnnotationUtils.getAnnotation(clazz, EasySmart.class);
         List<String> fieldNames = new ArrayList<>();
         List<Integer> ignoredIndex = new ArrayList<>();
         String tableComment = "";
         String tableName = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
         // 添加表名
         if (!ObjectUtils.isEmpty(tableNameAnnotation)) {
-            if (!ObjectUtils.isEmpty(tableNameAnnotation.name())) {
-                tableName = tableNameAnnotation.name();
+            if (!ObjectUtils.isEmpty(tableNameAnnotation.tableName())) {
+                tableName = tableNameAnnotation.tableName();
             }
             tableComment = tableNameAnnotation.comment();
         }
@@ -138,9 +137,9 @@ public class SQLConverter {
         Field[] fields = clazz.getDeclaredFields();
         for (int i = 0; i < fields.length; i++) {
             Field declaredField = fields[i];
-            EasyTableField tableField = AnnotatedElementUtils.findMergedAnnotation(declaredField, EasyTableField.class);
+            EasySmartField tableField = AnnotatedElementUtils.findMergedAnnotation(declaredField, EasySmartField.class);
             String fieldName = "`" + CamelAndUnderLineConverter.humpToLine2(declaredField.getName()) + "`";
-            String type = EasyTableField.FileType.getTypeByClass(declaredField.getType());
+            String type = EasySmartField.FileType.getTypeByClass(declaredField.getType());
             String comment = CamelAndUnderLineConverter.humpToLine2(declaredField.getName());
             if (!ObjectUtils.isEmpty(tableField)) {
                 if (!tableField.exist()) {
@@ -155,7 +154,7 @@ public class SQLConverter {
                     type = tableField.type();
                 }
                 // 记录索引字段
-                if (tableField.indexType().equals(EasyTableField.TableFileIndexType.UNIQUE)) {
+                if (tableField.indexType().equals(EasySmartField.TableFileIndexType.UNIQUE)) {
                     uniqueList.add(fieldName);
                 }
             }
@@ -189,9 +188,9 @@ public class SQLConverter {
      * @date 2020/7/3 下午9:48
      **/
     public static <T> String tableName(Class<T> clazz) {
-        EasyTable tableNameAnnotation = AnnotationUtils.getAnnotation(clazz, EasyTable.class);
-        if (!ObjectUtils.isEmpty(tableNameAnnotation) && !ObjectUtils.isEmpty(tableNameAnnotation.name())) {
-            return tableNameAnnotation.name();
+        EasySmart tableNameAnnotation = AnnotationUtils.getAnnotation(clazz, EasySmart.class);
+        if (!ObjectUtils.isEmpty(tableNameAnnotation) && !ObjectUtils.isEmpty(tableNameAnnotation.tableName())) {
+            return tableNameAnnotation.tableName();
         } else {
             return CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
         }
@@ -235,7 +234,7 @@ public class SQLConverter {
             if (UpsertJsonMessage.ignoredFields.contains(declaredField.getName())) {
                 continue;
             }
-            EasyTableField tableField = AnnotatedElementUtils.findMergedAnnotation(declaredField, EasyTableField.class);
+            EasySmartField tableField = AnnotatedElementUtils.findMergedAnnotation(declaredField, EasySmartField.class);
             String fieldName = CamelAndUnderLineConverter.humpToLine2(declaredField.getName());
             if (!ObjectUtils.isEmpty(tableField)) {
                 if (!tableField.exist()) {
@@ -265,13 +264,13 @@ public class SQLConverter {
                         continue;
                     }
                     Object fieldVal = declaredField.get(o);
-                    EasyTableField easyTableField = AnnotationUtils.getAnnotation(declaredField, EasyTableField.class);
-                    if (!ObjectUtils.isEmpty(easyTableField) && !easyTableField.exist()) {
+                    EasySmartField easySmartField = AnnotationUtils.getAnnotation(declaredField, EasySmartField.class);
+                    if (!ObjectUtils.isEmpty(easySmartField) && !easySmartField.exist()) {
                         continue;
                     }
                     if (ObjectUtils.isEmpty(fieldVal)) {
-                        if (null != easyTableField && !ObjectUtils.isEmpty(easyTableField.fieldDefaultValue())) {
-                            fieldVal = easyTableField.fieldDefaultValue();
+                        if (null != easySmartField && !ObjectUtils.isEmpty(easySmartField.fieldDefaultValue())) {
+                            fieldVal = easySmartField.fieldDefaultValue();
                         } else {
                             fieldVal = "NULL";
                         }
@@ -378,7 +377,7 @@ public class SQLConverter {
 
     public static void clearConsole() {
         try {
-            String os = System.getProperty("os.name");
+            String os = System.getProperty("os.tableName");
 
             if (os.contains("Windows")) {
                 Runtime.getRuntime().exec("cls");
@@ -470,33 +469,33 @@ public class SQLConverter {
      * @author Jia wei Wu
      * @date 2020/9/17 下午1:29
      */
-    public static <T> List<ConvertedField> fieldNamesOnAnnotation(Class<T> clazz, EasyTableField.TableFileIndexType tableFileIndexType) {
+    public static <T> List<ConvertedField> fieldNamesOnAnnotation(Class<T> clazz, EasySmartField.TableFileIndexType tableFileIndexType) {
         List<ConvertedField> convertedFieldList = new ArrayList<>();
         for (Field declaredField : clazz.getDeclaredFields()) {
             if (!declaredField.isAccessible()) {
                 declaredField.setAccessible(true);
             }
-            EasyTableField easyTableField = AnnotatedElementUtils.findMergedAnnotation(declaredField, EasyTableField.class);
+            EasySmartField easySmartField = AnnotatedElementUtils.findMergedAnnotation(declaredField, EasySmartField.class);
             String convertedFieldName = CamelAndUnderLineConverter.humpToLine2(declaredField.getName());
             ConvertedField convertedField = new ConvertedField();
-            if (!ObjectUtils.isEmpty(easyTableField)) {
-                if (!easyTableField.exist()) {
+            if (!ObjectUtils.isEmpty(easySmartField)) {
+                if (!easySmartField.exist()) {
                     continue;
                 }
                 // 判断是否是我想要的类型
-                if (!ObjectUtils.isEmpty(tableFileIndexType) && !tableFileIndexType.equals(easyTableField.indexType())) {
+                if (!ObjectUtils.isEmpty(tableFileIndexType) && !tableFileIndexType.equals(easySmartField.indexType())) {
                     continue;
                 }
-                if (!ObjectUtils.isEmpty(easyTableField.value())) {
-                    convertedFieldName = easyTableField.value();
+                if (!ObjectUtils.isEmpty(easySmartField.value())) {
+                    convertedFieldName = easySmartField.value();
                 }
-                convertedField.setComment(easyTableField.comment());
-                convertedField.setFieldIndexType(easyTableField.indexType());
+                convertedField.setComment(easySmartField.comment());
+                convertedField.setFieldIndexType(easySmartField.indexType());
             }
             convertedField.setConvertedFieldName(convertedFieldName);
             convertedField.setFieldName(declaredField.getName());
             convertedField.setClazz(declaredField.getType());
-            convertedField.setType(EasyTableField.FileType.getTypeByClass(declaredField.getType()));
+            convertedField.setType(EasySmartField.FileType.getTypeByClass(declaredField.getType()));
             convertedFieldList.add(convertedField);
         }
         return convertedFieldList;

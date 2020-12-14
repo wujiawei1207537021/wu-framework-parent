@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +27,7 @@ import java.util.List;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Indexed
-public @interface EasyTableField {
+public @interface EasySmartField {
 
     /**
      * 字段名
@@ -118,7 +119,7 @@ public @interface EasyTableField {
     @Getter
     @AllArgsConstructor
     enum FileType {
-        STRING(Arrays.asList(String.class), " varchar(255) "),
+        STRING(Collections.singletonList(String.class), " varchar(255) "),
         BYTE(Arrays.asList(Byte.class, byte.class), " varbinary(1024) "),
         INTEGER(Arrays.asList(Integer.class, int.class), " int(11) "),
         LONG(Arrays.asList(Long.class, long.class), " bigint "),

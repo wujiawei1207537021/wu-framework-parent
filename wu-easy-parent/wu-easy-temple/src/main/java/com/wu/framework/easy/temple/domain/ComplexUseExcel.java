@@ -34,6 +34,6 @@ public class ComplexUseExcel {
     private List<UseExcel> useExcelList;
 
 //
-//    @JSONField(name = "例外")
+//    @JSONField(tableName = "例外")
 //    private String makeAnException="例外";
 }

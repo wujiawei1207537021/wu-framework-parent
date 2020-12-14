@@ -1,8 +1,8 @@
 package com.wu.framework.easy.stereotype.upsert.process;
 
 import com.alibaba.fastjson.JSONObject;
-import com.wu.framework.easy.stereotype.upsert.EasyTable;
-import com.wu.framework.easy.stereotype.upsert.EasyTableField;
+import com.wu.framework.easy.stereotype.upsert.EasySmart;
+import com.wu.framework.easy.stereotype.upsert.EasySmartField;
 import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
 import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConverter;
 import com.wu.framework.easy.stereotype.upsert.converter.JavaBasicTypeConversion;
@@ -11,8 +11,6 @@ import lombok.Data;
 import lombok.SneakyThrows;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.Assert;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.util.ObjectUtils;
 
 import java.io.BufferedWriter;
@@ -56,7 +54,7 @@ public class ElasticsearchEasyDataProcess implements DataProcess {
         ElasticsearchPreProcessResult elasticsearchPreProcessResult = new ElasticsearchPreProcessResult();
         String index = CamelAndUnderLineConverter.humpToMidLine2(clazz.getSimpleName());
         String indexType = "doc";
-        EasyTable table = AnnotationUtils.getAnnotation(clazz, EasyTable.class);
+        EasySmart table = AnnotationUtils.getAnnotation(clazz, EasySmart.class);
         if (null != table) {
             String prefix = table.indexPrefix();
             String format = table.indexFormat();
@@ -90,7 +88,7 @@ public class ElasticsearchEasyDataProcess implements DataProcess {
         ElasticsearchProcessResult<String, Object> source = new ElasticsearchProcessResult<>();
         for (Field field : declaredFields) {
             field.setAccessible(true);
-            EasyTableField tableField = AnnotationUtils.getAnnotation(field, EasyTableField.class);
+            EasySmartField tableField = AnnotationUtils.getAnnotation(field, EasySmartField.class);
             String fieldName = CamelAndUnderLineConverter.humpToLine2(field.getName());
             Object fieldValue = new Object();
             try {

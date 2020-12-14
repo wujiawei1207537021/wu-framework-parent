@@ -22,7 +22,7 @@ public class Sink {
     public static String SOURCE_CONNECTOR_PREFIX = "source:";
     public static String SINK_CONNECTOR_PREFIX = "sink:";
 
-    public static String CONFIG_KEY_NAME = "name";
+    public static String CONFIG_KEY_NAME = "tableName";
     public static String CONFIG_KEY_CONNECTOR_CLASS = "connector.class";
     public static String CONFIG_KEY_VALUE_CONVERTER = "value.converter";
 

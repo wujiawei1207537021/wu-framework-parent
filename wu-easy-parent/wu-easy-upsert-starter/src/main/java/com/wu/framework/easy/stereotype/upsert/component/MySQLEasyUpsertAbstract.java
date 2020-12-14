@@ -1,6 +1,6 @@
 package com.wu.framework.easy.stereotype.upsert.component;
 
-import com.wu.framework.easy.stereotype.upsert.EasyTable;
+import com.wu.framework.easy.stereotype.upsert.EasySmart;
 import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
 import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
 import com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter;
@@ -63,7 +63,7 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, Initializi
             Thread.currentThread().setName(threadName);
             // 第一个参数 clazz
             Class clazz = list.get(0).getClass();
-            EasyTable easyTable = AnnotatedElementUtils.getMergedAnnotation(clazz, EasyTable.class);
+            EasySmart easySmart = AnnotatedElementUtils.getMergedAnnotation(clazz, EasySmart.class);
             Map<String, Map<String, String>> iEnumList = new HashMap<>();
             if (null != userConvertService) {
                 iEnumList = userConvertService.userConvert(clazz);
@@ -80,7 +80,7 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, Initializi
                 connection = dataSource.getConnection();
                 String tableName = EasyAnnotationConverter.getTableName(clazz);
                 //初始化表
-                if (null != easyTable && easyTable.perfectTable()) {
+                if (null != easySmart && easySmart.perfectTable()) {
                     ResultSet resultSet = connection.getMetaData().getTables(null, null, tableName, null);
                     if (!resultSet.next()) {
                         String tableSQL = SQLConverter.createTableSQL(clazz);

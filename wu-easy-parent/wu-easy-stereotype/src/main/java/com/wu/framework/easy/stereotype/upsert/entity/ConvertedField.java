@@ -1,6 +1,6 @@
 package com.wu.framework.easy.stereotype.upsert.entity;
 
-import com.wu.framework.easy.stereotype.upsert.EasyTableField;
+import com.wu.framework.easy.stereotype.upsert.EasySmartField;
 import lombok.Data;
 
 /**
@@ -23,7 +23,7 @@ public class ConvertedField {
     /**
      * 数据库字段索引类型
      */
-    private EasyTableField.TableFileIndexType fieldIndexType;
+    private EasySmartField.TableFileIndexType fieldIndexType;
     /**
      * 字段类型
      */

@@ -1,11 +1,9 @@
 package com.wu.framework.easy.temple.domain;
 
-import com.wu.framework.easy.excel.stereotype.EasyExcelFiled;
-import com.wu.framework.easy.stereotype.upsert.EasyTableField;
+import com.wu.framework.easy.stereotype.upsert.EasySmartField;
 import lombok.Data;
 import org.springframework.data.elasticsearch.annotations.Document;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -95,6 +93,6 @@ public class DynGpsVehRun  {
     private Integer businessType;
 
 
-    @EasyTableField(name = "@timestamp@")
+    @EasySmartField(name = "@timestamp@")
     private String timestamp= LocalDateTime.now().toString()+"+0800";
 }

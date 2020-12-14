@@ -4,7 +4,7 @@ package com.wu.framework.easy.stereotype.upsert.converter;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wu.framework.easy.stereotype.upsert.EasyTableField;
+import com.wu.framework.easy.stereotype.upsert.EasySmartField;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.util.ObjectUtils;
 
@@ -94,23 +94,23 @@ public class JsonFileConverter {
                 if (UpsertJsonMessage.ignoredFields.contains(declaredField.getName())) {
                     continue;
                 }
-                EasyTableField easyTableField = AnnotatedElementUtils.getMergedAnnotation(declaredField, EasyTableField.class);
+                EasySmartField easySmartField = AnnotatedElementUtils.getMergedAnnotation(declaredField, EasySmartField.class);
                 Object v = null;
                 try {
                     v = declaredField.get(bean);
-                    if (ObjectUtils.isEmpty(v) && null != easyTableField && !ObjectUtils.isEmpty(easyTableField.fieldDefaultValue())) {
-                        v = easyTableField.fieldDefaultValue();
+                    if (ObjectUtils.isEmpty(v) && null != easySmartField && !ObjectUtils.isEmpty(easySmartField.fieldDefaultValue())) {
+                        v = easySmartField.fieldDefaultValue();
                     }
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
                 String defaultKey = CamelAndUnderLineConverter.humpToLine2(declaredField.getName());
-                if (!ObjectUtils.isEmpty(easyTableField)) {
-                    if (!easyTableField.exist()) {
+                if (!ObjectUtils.isEmpty(easySmartField)) {
+                    if (!easySmartField.exist()) {
                         continue;
                     } else {
-                        if (!ObjectUtils.isEmpty(easyTableField.value())) {
-                            defaultKey = easyTableField.value();
+                        if (!ObjectUtils.isEmpty(easySmartField.value())) {
+                            defaultKey = easySmartField.value();
                         }
                     }
                 }

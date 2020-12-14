@@ -15,19 +15,19 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Indexed
-@EasyTableField(indexType = EasyTableField.TableFileIndexType.UNIQUE)
+@EasySmartField(indexType = EasySmartField.TableFileIndexType.UNIQUE)
 public @interface EasyUnique {
 
-    @AliasFor(annotation = EasyTableField.class)
+    @AliasFor(annotation = EasySmartField.class)
     String value() default "";
 
-    @AliasFor(annotation = EasyTableField.class)
+    @AliasFor(annotation = EasySmartField.class)
     String name() default "";
 
-    @AliasFor(annotation = EasyTableField.class, attribute = "type")
+    @AliasFor(annotation = EasySmartField.class, attribute = "type")
     String type() default "";
 
-    @AliasFor(annotation = EasyTableField.class, attribute = "comment")
+    @AliasFor(annotation = EasySmartField.class, attribute = "comment")
     String comment() default "";
 }
 

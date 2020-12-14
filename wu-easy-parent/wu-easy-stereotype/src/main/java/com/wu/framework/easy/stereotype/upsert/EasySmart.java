@@ -4,22 +4,26 @@ import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Indexed;
 
 import java.lang.annotation.*;
-
+/**
+ * description EasySmart
+ * @author 吴佳伟
+ * @date 2020/12/14 下午12:05
+ */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Indexed
-public @interface EasyTable {
+public @interface EasySmart {
 
     /**
      * 表名
      * @return
      */
-    @AliasFor(attribute = "name")
+    @AliasFor(attribute = "tableName")
     String value() default "";
 
     @AliasFor(attribute = "value")
-    String name() default "";
+    String tableName() default "";
 
     /**
      * 完善表

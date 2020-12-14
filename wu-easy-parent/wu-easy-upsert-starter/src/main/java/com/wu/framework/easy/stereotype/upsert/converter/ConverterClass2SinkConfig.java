@@ -26,13 +26,13 @@ public class ConverterClass2SinkConfig {
      * ### sink任务toDB
      * <p>
      * {
-     * "name": "net_car_company_db",
+     * "tableName": "net_car_company_db",
      * "sinkConfig": {
      * "topics": "connect_sink_net_car_company_db",
      * "connection.url": "jdbc:mysql://172.17.1.58:30806/baseinfo",
      * "connection.user": "root",
      * "connection.password": "supconit",
-     * "table.name.format": "ct_taxi_rh_org_opemng_bas_comp",
+     * "table.tableName.format": "ct_taxi_rh_org_opemng_bas_comp",
      * "pk.fields": "comp_id",
      * "db.timezone": "Asia/Shanghai",
      * "insert.mode": "upsert"
@@ -83,7 +83,7 @@ public class ConverterClass2SinkConfig {
      * ### sink任务toES
      * <p>
      * {
-     * "name": "net_car_company_toes",
+     * "tableName": "net_car_company_toes",
      * "sinkConfig": {
      * "topics": "connect_sink_net_car_company_es",
      * "connection.url": "http://172.17.1.58:30820",

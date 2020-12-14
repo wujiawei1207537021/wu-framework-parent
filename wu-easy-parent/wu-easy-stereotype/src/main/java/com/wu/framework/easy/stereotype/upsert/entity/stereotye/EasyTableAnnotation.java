@@ -1,6 +1,9 @@
 package com.wu.framework.easy.stereotype.upsert.entity.stereotye;
 
+import com.wu.framework.easy.stereotype.upsert.entity.ConvertedField;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * description 表注解属性
@@ -43,4 +46,9 @@ public class EasyTableAnnotation {
      * kafka code 编码
      */
     private String kafkaCode;
+
+    /**
+     * 字段
+     */
+    private List<ConvertedField> convertedFieldList;
 }
