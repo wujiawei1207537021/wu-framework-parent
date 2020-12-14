@@ -1,5 +1,6 @@
 package com.wu.framework.easy.temple.domain;
 
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.wu.framework.easy.stereotype.upsert.EasySmartField;
 import lombok.Data;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Document(indexName = "sys_veh_dyn_gps_es_2020.12_m")
-public class DynGpsVehRun  {
+public class DynGpsVehRun extends Model<DynGpsVehRun> {
 
     private String  id;
     /**
