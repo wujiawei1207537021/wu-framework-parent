@@ -7,7 +7,7 @@ public interface ElasticsearchRepositoryService {
      *
      * @return
      * @params
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/11/25 下午9:17
      **/
     void save();

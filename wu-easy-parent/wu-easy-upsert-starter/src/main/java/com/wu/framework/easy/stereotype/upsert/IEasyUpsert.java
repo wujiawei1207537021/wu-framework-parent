@@ -49,7 +49,7 @@ public interface IEasyUpsert {
      * @return
      * @describe 将List分割成多个List
      * @params
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/12/6 5:34 下午
      **/
     default <T> List<List<T>> splitList(List<T> source, int groupSize) {

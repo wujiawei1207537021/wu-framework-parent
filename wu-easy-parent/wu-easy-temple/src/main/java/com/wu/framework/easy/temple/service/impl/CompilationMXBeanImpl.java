@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import javax.management.ObjectName;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * @describe :
  * @date : 2020/11/7 下午10:04

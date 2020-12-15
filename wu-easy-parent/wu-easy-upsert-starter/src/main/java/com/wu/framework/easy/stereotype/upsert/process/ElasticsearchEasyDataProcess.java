@@ -111,7 +111,7 @@ public class ElasticsearchEasyDataProcess implements DataProcess {
      * @param
      * @return
      * @describe 获取类格式化后的 bulk索引文档
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/12/6 5:29 下午
      **/
     protected String getBulkIndexDoc(Class clazz) {
@@ -127,7 +127,7 @@ public class ElasticsearchEasyDataProcess implements DataProcess {
      * @return
      * @describe 写入文件到本地
      * @params
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/12/6 5:36 下午
      **/
     @SneakyThrows

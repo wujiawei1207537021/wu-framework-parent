@@ -506,7 +506,7 @@ public class SQLConverter {
      * @param tableClass     表类型
      * @return
      * @describe 更改表
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/12/12 9:12 下午
      **/
     public static String alterTableSQL(List<String> columnNameList, Class tableClass) {

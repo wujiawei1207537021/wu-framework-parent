@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * @describe :
  * @date : 2020/11/7 下午5:57
@@ -77,7 +77,7 @@ public class UpsertController {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/12/7 下午6:32
      */
     @EasyUpsertDS(type = EasyUpsertType.ES)

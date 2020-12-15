@@ -1,7 +1,6 @@
 package com.wu.framework.easy.temple.domain.bo;
 
 import com.wu.framework.easy.stereotype.upsert.EasySmart;
-import com.wu.framework.easy.stereotype.upsert.EasySmartField;
 import com.wu.framework.easy.stereotype.upsert.SmartMark;
 import com.wu.framework.easy.temple.domain.UseExcel;
 import com.wu.framework.easy.temple.domain.UserLog;
@@ -15,11 +14,15 @@ import lombok.Data;
  */
 @Data
 @EasySmart
-public class ExtractBo {
+public class MoreExtractBo {
 
-    @SmartMark
+
+    @SmartMark(drillDown = true)
+    private ExtractBo extractBo;
+
+    @SmartMark(drillDown = true)
     private UserLog userLog;
 
-    @SmartMark
+    @SmartMark(drillDown = true)
     private UseExcel useExcel;
 }

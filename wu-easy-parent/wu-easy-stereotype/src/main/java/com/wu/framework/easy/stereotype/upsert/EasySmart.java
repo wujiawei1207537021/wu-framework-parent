@@ -6,7 +6,7 @@ import org.springframework.stereotype.Indexed;
 import java.lang.annotation.*;
 /**
  * description EasySmart
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/12/14 下午12:05
  */
 @Target(ElementType.TYPE)

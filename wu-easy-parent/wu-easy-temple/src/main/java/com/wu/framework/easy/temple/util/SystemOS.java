@@ -1,7 +1,7 @@
 package com.wu.framework.easy.temple.util;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * @describe :
  * @date : 2020/12/1 下午10:19

@@ -244,7 +244,7 @@ public class EasyAnnotationConverter {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/12/14 下午12:26
      */
     public static List<List> extractData(Class<? extends Annotation> classAnnotation, List<List> extractList, Object... objects) {

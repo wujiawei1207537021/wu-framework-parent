@@ -33,7 +33,7 @@ public class JavaBasicTypeConversion {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/12/9 下午3:48
      */
     public static Object defaultBasicDataType(Object o) {

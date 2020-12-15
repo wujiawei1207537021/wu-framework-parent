@@ -6,7 +6,7 @@ import java.lang.annotation.*;
  * description SmartMark 智能标记
  * {@link EasySmart}
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2020/12/14 下午12:07
  */
 @Target(ElementType.FIELD)

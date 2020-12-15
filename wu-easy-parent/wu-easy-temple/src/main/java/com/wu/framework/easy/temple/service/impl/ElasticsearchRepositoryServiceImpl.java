@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * @describe :
  * @date : 2020/11/25 下午9:15
@@ -29,7 +29,7 @@ public class ElasticsearchRepositoryServiceImpl implements ElasticsearchReposito
      *
      * @return
      * @params
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2020/11/25 下午9:17
      **/
     @Override
