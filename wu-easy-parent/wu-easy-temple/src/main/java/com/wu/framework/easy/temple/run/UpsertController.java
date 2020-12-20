@@ -1,20 +1,20 @@
 package com.wu.framework.easy.temple.run;
 
 import com.wu.framework.easy.stereotype.upsert.component.IUpsert;
+import com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
 import com.wu.framework.easy.stereotype.upsert.dynamic.QuickEasyUpsert;
-import com.wu.framework.easy.stereotype.upsert.entity.ConvertedField;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.stereotype.web.EasyController;
 import com.wu.framework.easy.temple.domain.DynGpsVehRun;
 import com.wu.framework.easy.temple.domain.UseExcel;
 import com.wu.framework.easy.temple.domain.UserLog;
 import com.wu.framework.easy.temple.domain.bo.ExtractBo;
+import com.wu.framework.easy.temple.domain.bo.MoreExtractBo;
 import com.wu.framework.easy.temple.service.RunService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +57,7 @@ public class UpsertController {
             UserLog userLog = new UserLog();
             userLog.setCurrentTime(LocalDateTime.now());
             userLog.setContent("创建时间:" + userLog.getCurrentTime());
-            userLog.setUserId(i+1);
+            userLog.setUserId(i + 1);
             userLogList.add(userLog);
         }
         iUpsert.upsert(userLogList, userLogList, new UserLog());
@@ -74,6 +74,7 @@ public class UpsertController {
 
     /**
      * description 大数据分区测试
+     *
      * @param
      * @return
      * @exception/throws
@@ -85,7 +86,7 @@ public class UpsertController {
     @GetMapping("/bigDataPartitionTest")
     public void bigDataPartitionTest(Integer size) {
         List<DynGpsVehRun> dynGpsVehRunList = new ArrayList<>();
-        DynGpsVehRun dynGpsVehRun=new DynGpsVehRun();
+        DynGpsVehRun dynGpsVehRun = new DynGpsVehRun();
         dynGpsVehRun.setRunId("闽E06F57_1403_net_car");
         dynGpsVehRun.setPlateNum("闽E06F57");
         dynGpsVehRun.setGpsTimestamp(1605231662000L);
@@ -103,7 +104,7 @@ public class UpsertController {
         dynGpsVehRun.setGpsVdate("2020-11-13");
         dynGpsVehRun.setGpsVtime("09:41:02");
         dynGpsVehRun.setBusinessScopeCode("1403");
-        for (int i = 0; i <size ; i++) {
+        for (int i = 0; i < size; i++) {
             dynGpsVehRunList.add(dynGpsVehRun);
         }
         iUpsert.upsert(dynGpsVehRunList);
@@ -113,7 +114,7 @@ public class UpsertController {
     @QuickEasyUpsert(type = EasyUpsertType.MySQL)
     @ApiOperation(tags = "快速插入数据", value = "复杂数据DB")
     @GetMapping("/complexData")
-    public ExtractBo complexData(){
+    public ExtractBo complexData() {
         UserLog userLog = new UserLog();
         userLog.setCurrentTime(LocalDateTime.now());
         userLog.setContent("创建时间:" + userLog.getCurrentTime());
@@ -125,10 +126,25 @@ public class UpsertController {
         useExcel.setExcelId(2);
         useExcel.setType("默认方式双注解导出");
 
-        ExtractBo extractBo=new ExtractBo();
+        ExtractBo extractBo = new ExtractBo();
         extractBo.setUserLog(userLog);
         extractBo.setUseExcel(useExcel);
+
+        EasyAnnotationConverter.extractData(null, extractBo);
         return extractBo;
+    }
+
+    @QuickEasyUpsert(type = EasyUpsertType.MySQL)
+    @ApiOperation(tags = "快速插入数据", value = "复杂数据DB")
+    @GetMapping("/moreExtractBo")
+    public MoreExtractBo moreExtractBo() {
+        MoreExtractBo moreExtractBo=new MoreExtractBo();
+         ExtractBo extractBo = complexData();
+         moreExtractBo.setExtractBo(extractBo);
+         moreExtractBo.setUseExcel(extractBo.getUseExcel());
+         moreExtractBo.setUserLog(extractBo.getUserLog());
+         moreExtractBo.setUserLogList(runService.run(1000));
+        return moreExtractBo;
     }
 
 }

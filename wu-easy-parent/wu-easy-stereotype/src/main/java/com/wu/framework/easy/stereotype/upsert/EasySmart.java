@@ -4,8 +4,10 @@ import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Indexed;
 
 import java.lang.annotation.*;
+
 /**
  * description EasySmart
+ *
  * @author Jia wei Wu
  * @date 2020/12/14 下午12:05
  */
@@ -17,6 +19,7 @@ public @interface EasySmart {
 
     /**
      * 表名
+     *
      * @return
      */
     @AliasFor(attribute = "tableName")
@@ -27,9 +30,17 @@ public @interface EasySmart {
 
     /**
      * 完善表
+     *
      * @return
      */
     boolean perfectTable() default false;
+
+    /**
+     * 数据下钻
+     * the field use Annotation with {@link SmartMark}
+     */
+    boolean dataDrillDown() default false;
+
     /**
      * 表注释
      *

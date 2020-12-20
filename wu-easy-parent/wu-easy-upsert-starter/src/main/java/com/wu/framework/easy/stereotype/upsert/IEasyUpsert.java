@@ -5,7 +5,6 @@ import com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter
 import com.wu.framework.easy.stereotype.upsert.factory.EasyThreadFactory;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -33,7 +32,7 @@ public interface IEasyUpsert {
             if (object instanceof List) {
                 upsert((List) object);
             } else {
-                List<List> listList = EasyAnnotationConverter.extractData(EasySmart.class, null, object);
+                List<List> listList = EasyAnnotationConverter.extractData(null, object);
                 for (List list : listList) {
                     upsert(list);
                 }

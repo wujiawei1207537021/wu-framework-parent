@@ -13,7 +13,6 @@ import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ObjectUtils;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -31,7 +30,7 @@ public class EasyAnnotationConverter {
      */
     private final static String DEFAULT = "DEFAULT";
 
-    private static Logger log = LoggerFactory.getLogger(EasyAnnotationConverter.class);
+    private final static Logger log = LoggerFactory.getLogger(EasyAnnotationConverter.class);
 
     /**
      * 获取  EasySmart 上的 kafkaTopicName
@@ -247,32 +246,34 @@ public class EasyAnnotationConverter {
      * @author Jia wei Wu
      * @date 2020/12/14 下午12:26
      */
-    public static List<List> extractData(Class<? extends Annotation> classAnnotation, List<List> extractList, Object... objects) {
-        if (extractList == null) extractList = new ArrayList();
+    public static List<List> extractData(List<List> extractList, Object... objects) {
+        if (extractList == null) extractList = new ArrayList<List>();
         for (Object object : objects) {
             Class<?> aClass = object.getClass();
-            if (null == AnnotationUtils.getAnnotation(aClass, classAnnotation)) {
+            // 类上没有注解 不下钻
+            final EasySmart easySmart = AnnotationUtils.getAnnotation(aClass, EasySmart.class);
+            if (null == easySmart||!easySmart.dataDrillDown()) {
                 extractList.add(Collections.singletonList(object));
                 continue;
             }
             for (Field field : aClass.getDeclaredFields()) {
                 field.setAccessible(true);
-                SmartMark smartMark = AnnotationUtils.getAnnotation(field, SmartMark.class);
-                if (null == smartMark) continue;
+                SmartMark smartMarkField = AnnotationUtils.getAnnotation(field, SmartMark.class);
+                if (null == smartMarkField) continue;
+                Class<?> fieldType = field.getType();
                 Object o = null;
                 try {
                     o = field.get(object);
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
-                if(null==o)continue;;
-                if (smartMark.drillDown()) {
-                     List<List> lists = extractData(classAnnotation, extractList, o);
-                    for (List list : lists) {
-                        extractList.addAll(list);
-                    }
+                if (null == o) continue;
+                //
+                if(Iterable.class.isAssignableFrom(fieldType)){
+                    extractList.add((List) o);
+                    continue;
                 }
-                extractList.add(Collections.singletonList(o));
+                extractData(extractList, o);
             }
         }
         return extractList;

@@ -11,6 +11,8 @@
     6.Kafka与MySQL 自由切换 @EasyUpsertDS
     7.@QuickEasyUpsert 无代码数据保存
     8.支持ES数据批量插入
+    9.新增数据库自动建表
+    10.新增复杂数据快速插入
     
 ### log
     com.supconit.its.eslog.util.DataAccessLogHelper,\
