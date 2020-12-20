@@ -11,5 +11,9 @@ public enum EasyUpsertType {
     AUTO,
     MySQL,
     KAFKA,
-    ES;
+    ES,
+    REDIS,
+    ROCKETMQ,
+    ACTIVEMQ,
+    MQTT;
 }

@@ -10,6 +10,10 @@ com.wu.framework.easy.stereotype.upsert.component.KafkaEasyUpsert,\
 com.wu.framework.easy.stereotype.upsert.component.mysql.MySQLSimpleEasyUpsert,\
 com.wu.framework.easy.stereotype.upsert.component.mysql.MySQLMultipleEasyUpsert,\
 com.wu.framework.easy.stereotype.upsert.component.ElasticsearchEasyUpsert,\
+com.wu.framework.easy.stereotype.upsert.component.ActiveMQUpsert,\
+com.wu.framework.easy.stereotype.upsert.component.RedisUpsert,\
+com.wu.framework.easy.stereotype.upsert.component.RocketMQUpsert,\
+com.wu.framework.easy.stereotype.upsert.component.MQTTUpsert,\
 com.wu.framework.easy.stereotype.dynamic.DynamicEasyUpsert,\
 com.wu.framework.easy.stereotype.upsert.process.ElasticsearchEasyDataProcess,\
 com.wu.framework.easy.stereotype.upsert.process.KafkaDataProcess,\

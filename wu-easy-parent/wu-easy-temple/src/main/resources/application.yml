@@ -32,6 +32,13 @@ spring:
       uris: "http://k8s.wu2020.top:9200"
   jpa:
     show-sql: true
+  activemq:
+    broker-url: 127.0.0.1:6631
+  redis:
+    host: 127.0.0.1
+  rsocket:
+    server:
+      address: 127.0.0.1
 #  data:
 #    elasticsearch:
 #      client:

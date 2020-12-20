@@ -27,7 +27,7 @@ import java.util.List;
 @Slf4j
 @EasyUpsertStrategy(value = EasyUpsertType.ES)
 @ConditionalOnProperty(prefix = "spring.elasticsearch.rest", value = "uris")
-class ElasticsearchEasyUpsert implements IEasyUpsert, InitializingBean {
+public class ElasticsearchEasyUpsert implements IEasyUpsert, InitializingBean {
 
     private final ElasticsearchRestClientProperties elasticsearchRestClientProperties;
     private final ElasticsearchEasyDataProcess elasticsearchEasyDataProcess;
