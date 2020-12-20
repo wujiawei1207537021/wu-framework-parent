@@ -105,6 +105,7 @@ public class SQLConverter {
                     "-- ——————————————————————————" + "\n";
     //    删表
     public static final String SQL_DROP = "DROP TABLE IF EXISTS `%s`;\n";
+
     //    默认字段
     public static final String SQL_DEFAULT_FIELD =
             "`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',\n" +

@@ -28,7 +28,7 @@ public class JavaBasicTypeConversion {
     }
 
     /**
-     * description 获取默认基本数据类型
+     * description 获取基本数据类型默认值
      *
      * @param
      * @return
@@ -41,19 +41,19 @@ public class JavaBasicTypeConversion {
             return o;
         }
         Class<?> aClass = o.getClass();
-        if (aClass.isAssignableFrom(Integer.class)) {
+        if (Integer.class.isAssignableFrom(aClass)) {
             return 0;
-        } else if (aClass.isAssignableFrom(Double.class)) {
+        } else if (Double.class.isAssignableFrom(aClass)) {
             return 0.00;
-        } else if (aClass.isAssignableFrom(Float.class)) {
+        } else if (Float.class.isAssignableFrom(aClass)) {
             return 0f;
-        } else if (aClass.isAssignableFrom(Long.class)) {
+        } else if (Long.class.isAssignableFrom(aClass)) {
             return 0L;
-        } else if (aClass.isAssignableFrom(Short.class)) {
+        } else if (Short.class.isAssignableFrom(aClass)) {
             return 0;
-        } else if (aClass.isAssignableFrom(Byte.class)) {
+        } else if (Byte.class.isAssignableFrom(aClass)) {
             return 0;
-        } else if (aClass.isAssignableFrom(BigDecimal.class)) {
+        } else if (BigDecimal.class.isAssignableFrom(aClass)) {
             return 0;
         }else return o;
     }

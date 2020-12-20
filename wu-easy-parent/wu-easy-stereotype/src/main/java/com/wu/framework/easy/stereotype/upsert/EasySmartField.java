@@ -12,10 +12,9 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * description 数据库字段注解  支持兼容 @JsonProperty
@@ -130,6 +129,16 @@ public @interface EasySmartField {
         private List<Class> clazz;
         private String type;
 
+        private static Map<Class, String> TYPE_MAP = new HashMap<>();
+
+        static {
+            for (FileType fileType : values()) {
+                Map<Class, String> classStringMap =
+                        fileType.clazz.stream().collect(Collectors.toMap(Function.identity(), c -> fileType.type));
+                TYPE_MAP.putAll(classStringMap);
+            }
+        }
+
         public static String getTypeByClass(Class clazz) {
             for (FileType fileType : values()) {
                 if (fileType.clazz.contains(clazz)) {
@@ -159,13 +168,12 @@ public @interface EasySmartField {
         private Class clazz;
         private String alias;
 
+        private static final Map<Class, String> JAVA_SCHEMA_TYPE =
+                Arrays.stream(values()).
+                        collect(Collectors.toMap(JavaSchemaDataType::getClazz, JavaSchemaDataType::getAlias));
+
         public static String getAlias(Class clazz) {
-            for (JavaSchemaDataType value : values()) {
-                if (value.getClazz() == clazz) {
-                    return value.getAlias();
-                }
-            }
-            return STRING.getAlias();
+            return JAVA_SCHEMA_TYPE.getOrDefault(clazz, STRING.alias);
         }
 
         public static String getESAlias(Class clazz) {
