@@ -61,7 +61,7 @@ public class UpsertConfig implements InitializingBean {
     /**
      * 缓存文件地址
      */
-    private String cacheFileAddress=System.getProperty("user.dir");
+    private String cacheFileAddress = System.getProperty("user.dir");
 
 
     @Override

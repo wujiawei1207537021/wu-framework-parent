@@ -20,7 +20,7 @@ public class CMD {
             String line;
             BufferedReader stdoutReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             StringBuffer out = new StringBuffer();
-            while ((line = stdoutReader.readLine()) != null ) {
+            while ((line = stdoutReader.readLine()) != null) {
                 out.append(line);
             }
             try {
@@ -37,6 +37,7 @@ public class CMD {
     }
 
     public static void main(String[] args) {
-        System.out.println(executeLinuxCmd("pwd"));;
+        System.out.println(executeLinuxCmd("pwd"));
+        ;
     }
 }

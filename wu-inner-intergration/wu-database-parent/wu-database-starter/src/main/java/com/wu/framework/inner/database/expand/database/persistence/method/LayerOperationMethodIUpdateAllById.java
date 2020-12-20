@@ -39,6 +39,7 @@ public class LayerOperationMethodIUpdateAllById extends AbstractLayerOperationMe
             throw new IllegalArgumentException("fail invoke this method in method" + method.getName());
         }
     }
+
     /**
      * description 执行SQL 语句
      *

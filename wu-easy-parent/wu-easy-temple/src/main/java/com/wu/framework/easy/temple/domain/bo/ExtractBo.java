@@ -13,7 +13,7 @@ import lombok.Data;
  * @date : 2020/12/14 9:40 下午
  */
 @Data
-@EasySmart(perfectTable = true,dataDrillDown = true)
+@EasySmart(perfectTable = true, dataDrillDown = true)
 public class ExtractBo {
 
     @SmartMark

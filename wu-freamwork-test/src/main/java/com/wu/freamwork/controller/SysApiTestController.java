@@ -22,8 +22,9 @@ public class SysApiTestController {
     public SysApiTestController(SysApiTestService sysApiTestService) {
         this.sysApiTestService = sysApiTestService;
     }
+
     @GetMapping("/transform")
-    public List<SysApiUserTestPO> transformUser(){
+    public List<SysApiUserTestPO> transformUser() {
         return sysApiTestService.transformUser();
     }
 }

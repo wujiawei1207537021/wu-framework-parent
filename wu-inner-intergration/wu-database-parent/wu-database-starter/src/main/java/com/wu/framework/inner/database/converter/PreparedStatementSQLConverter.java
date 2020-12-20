@@ -4,8 +4,8 @@ package com.wu.framework.inner.database.converter;
 import com.wu.framework.easy.stereotype.upsert.EasyTable;
 import com.wu.framework.easy.stereotype.upsert.EasyTableField;
 import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConverter;
-import com.wu.framework.inner.database.expand.database.persistence.domain.Persistence;
 import com.wu.framework.inner.database.domain.ConvertedField;
+import com.wu.framework.inner.database.expand.database.persistence.domain.Persistence;
 import com.wu.framework.inner.database.test.pojo.DataBaseUser;
 import lombok.var;
 import org.springframework.core.annotation.AnnotatedElementUtils;
@@ -385,15 +385,15 @@ public class PreparedStatementSQLConverter {
 
     public static String activeInsertPreparedStatementSQL(Object object) {
         Persistence persistence = PersistenceConverter.activeInsertPrepared(object);
-        StringBuffer stringBuffer=new StringBuffer(persistence.getExecutionEnum().getExecution());
+        StringBuffer stringBuffer = new StringBuffer(persistence.getExecutionEnum().getExecution());
         stringBuffer.append(persistence.getTableName());
         stringBuffer.append("(");
-        stringBuffer.append(String.join(",",persistence.getColumnList()));
+        stringBuffer.append(String.join(",", persistence.getColumnList()));
         stringBuffer.append(") values ( ");
         stringBuffer.append(persistence.getCondition());
         stringBuffer.append(" ) ON DUPLICATE KEY UPDATE ");
-        stringBuffer.append(persistence.getColumnList().stream().map(s -> s+" =VALUES ("+s+")").collect(Collectors.joining(",")));
-        return  stringBuffer.toString();
+        stringBuffer.append(persistence.getColumnList().stream().map(s -> s + " =VALUES (" + s + ")").collect(Collectors.joining(",")));
+        return stringBuffer.toString();
     }
 
 

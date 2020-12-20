@@ -1,7 +1,6 @@
 package com.wu.framework.easy.temple.service.impl;
 
 import com.wu.framework.easy.temple.service.TestMXBean;
-import org.springframework.stereotype.Service;
 
 import javax.management.ObjectName;
 

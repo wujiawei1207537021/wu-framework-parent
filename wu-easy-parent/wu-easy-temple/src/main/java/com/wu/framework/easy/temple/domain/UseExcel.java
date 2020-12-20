@@ -4,7 +4,6 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.wu.framework.easy.excel.stereotype.EasyExcelFiled;
 import com.wu.framework.easy.stereotype.upsert.EasySmart;
 import com.wu.framework.easy.stereotype.upsert.EasySmartField;
-import com.wu.framework.easy.stereotype.upsert.SmartMark;
 import lombok.Data;
 
 import java.time.LocalDateTime;

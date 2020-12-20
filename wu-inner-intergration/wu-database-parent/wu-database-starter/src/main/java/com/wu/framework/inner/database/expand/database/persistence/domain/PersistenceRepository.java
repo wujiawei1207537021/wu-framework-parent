@@ -7,10 +7,10 @@ import org.springframework.lang.NonNull;
 import org.springframework.util.ObjectUtils;
 
 /**
- * @describe: 预执行SQL需要的属性
  * @author : Jia wei Wu
- * @date : 2020/11/21 下午8:49
  * @version : 1.0
+ * @describe: 预执行SQL需要的属性
+ * @date : 2020/11/21 下午8:49
  */
 @Data
 @AllArgsConstructor

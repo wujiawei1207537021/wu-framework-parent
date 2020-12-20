@@ -10,7 +10,7 @@ public interface ConvertApi {
      * description 查询多个字典
      *
      * @param convertItems
-     * @param order           控制 code 和name 的顺序
+     * @param order        控制 code 和name 的顺序
      * @return
      * @exception/throws
      * @author Jia wei Wu

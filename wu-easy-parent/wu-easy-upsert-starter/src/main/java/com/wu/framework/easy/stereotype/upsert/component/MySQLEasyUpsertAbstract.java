@@ -103,7 +103,7 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, Initializi
 //                            System.out.println(columnName + " " + columnType + " " + datasize + " " + digits + " " + nullable);
                         }
                         final String alterTableSQL = SQLConverter.alterTableSQL(columnNameList, clazz);
-                        if(!ObjectUtils.isEmpty(alterTableSQL)){
+                        if (!ObjectUtils.isEmpty(alterTableSQL)) {
                             Statement statement = connection.createStatement();
                             statement.executeUpdate(alterTableSQL);
                         }

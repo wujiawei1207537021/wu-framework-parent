@@ -55,6 +55,6 @@ public class JavaBasicTypeConversion {
             return 0;
         } else if (BigDecimal.class.isAssignableFrom(aClass)) {
             return 0;
-        }else return o;
+        } else return o;
     }
 }

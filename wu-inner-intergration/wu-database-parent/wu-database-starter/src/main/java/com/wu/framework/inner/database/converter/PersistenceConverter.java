@@ -36,7 +36,7 @@ public class PersistenceConverter {
         // 列对应值
         List<String> columnValueList = new ArrayList<>();
         // 表名
-        String tableName= EasyAnnotationConverter.getTableName(object.getClass());
+        String tableName = EasyAnnotationConverter.getTableName(object.getClass());
         for (Field declaredField : object.getClass().getDeclaredFields()) {
             declaredField.setAccessible(true);
             Object o = declaredField.get(object);
@@ -52,11 +52,11 @@ public class PersistenceConverter {
             columnList.add(column);
             columnValueList.add(o.toString());
         }
-        Persistence persistence =new Persistence();
+        Persistence persistence = new Persistence();
         persistence.setExecutionEnum(Persistence.ExecutionEnum.INSERT);
         persistence.setTableName(tableName);
         persistence.setColumnList(columnList);
-        persistence.setCondition(String.join(",",columnValueList));
+        persistence.setCondition(String.join(",", columnValueList));
         return persistence;
     }
 

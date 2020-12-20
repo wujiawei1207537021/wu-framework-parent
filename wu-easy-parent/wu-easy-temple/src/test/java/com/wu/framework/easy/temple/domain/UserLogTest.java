@@ -13,11 +13,11 @@ import javax.annotation.Resource;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public  class UserLogTest {
+public class UserLogTest {
 
     @Test
-    public void insert(){
-        UserLog userLog=new UserLog();
+    public void insert() {
+        UserLog userLog = new UserLog();
         userLog.setType("2");
         userLog.insert();
     }
@@ -26,11 +26,11 @@ public  class UserLogTest {
     private UserLogServiceImpl userLogService;
 
     @Test
-    public void save(){
-        UserBo userLog=new UserBo();
+    public void save() {
+        UserBo userLog = new UserBo();
         userLog.setType("2");
-        UserLog userLog1=new UserLog();
-        BeanUtils.copyProperties(userLog,userLog1);
+        UserLog userLog1 = new UserLog();
+        BeanUtils.copyProperties(userLog, userLog1);
         userLogService.save(userLog1);
     }
 

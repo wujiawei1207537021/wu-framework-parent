@@ -35,11 +35,11 @@
             <artifactId>wu-database-starter</artifactId>
             <version>1.0.0</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>top.wu2020</groupId>-->
-<!--            <artifactId>wu-database-generator-starter</artifactId>-->
-<!--            <version>1.0.0</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>top.wu2020</groupId>-->
+        <!--            <artifactId>wu-database-generator-starter</artifactId>-->
+        <!--            <version>1.0.0</version>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>commons-lang</groupId>

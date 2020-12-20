@@ -1,13 +1,13 @@
 package com.wu.inner.sys.adapter;
 
 
+import com.wu.inner.sys.adapter.stereotype.ConvertField;
+import com.wu.inner.sys.adapter.stereotype.ConvertFieldBean;
+import com.wu.inner.sys.api.ConvertApi;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ObjectUtils;
-import com.wu.inner.sys.adapter.stereotype.ConvertFieldBean;
-import com.wu.inner.sys.adapter.stereotype.ConvertField;
-import com.wu.inner.sys.api.ConvertApi;
 
 import java.lang.reflect.Field;
 import java.util.*;

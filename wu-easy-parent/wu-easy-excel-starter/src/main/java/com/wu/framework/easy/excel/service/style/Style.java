@@ -13,6 +13,7 @@ public interface Style {
 
     /**
      * 标题样式
+     *
      * @param styleParam
      * @return
      */
@@ -20,6 +21,7 @@ public interface Style {
 
     /**
      * 列样式
+     *
      * @param styleParam
      * @return
      */

@@ -25,6 +25,6 @@ public class StyleParam {
     private Integer columnIndex;
 
     public <T extends Annotation> T getFiledAnnotation(Class<T> filedAnnotationClass) {
-        return (T)filedAnnotation;
+        return (T) filedAnnotation;
     }
 }

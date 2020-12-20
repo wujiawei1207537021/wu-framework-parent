@@ -34,8 +34,8 @@ public class FileUtil {
         return new BufferedWriter(new FileWriter(file));
     }
 
-    public static BufferedWriter createFile(String path, String prefix,String suffix,String fileName) {
-       return createFile(path,prefix+fileName+suffix);
+    public static BufferedWriter createFile(String path, String prefix, String suffix, String fileName) {
+        return createFile(path, prefix + fileName + suffix);
     }
 
 

@@ -42,7 +42,8 @@ public class LocalStorageClassAnnotation {
                 }
                 if (!ObjectUtils.isEmpty(easySmart.kafkaCode())) {
                     kafkaCode = easySmart.kafkaCode();
-                } if (!ObjectUtils.isEmpty(easySmart.tableName())) {
+                }
+                if (!ObjectUtils.isEmpty(easySmart.tableName())) {
                     name = easySmart.tableName();
                 }
                 if (!ObjectUtils.isEmpty(easySmart.kafkaSchemaName())) {

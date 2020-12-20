@@ -19,7 +19,7 @@ public class ConvertApiImpl implements ConvertApi {
      * description 查询多个字典
      *
      * @param ConvertCodes
-     * @param order           控制 code 和name 的顺序
+     * @param order        控制 code 和name 的顺序
      * @return
      * @exception/throws
      * @author Jia wei Wu
@@ -27,11 +27,11 @@ public class ConvertApiImpl implements ConvertApi {
      */
     @Override
     public Map<String, Map<String, String>> getConvertDataByItems(List<String> ConvertCodes, boolean order) {
-        Map<String, Map<String, String>> map=new LinkedHashMap();
-        Map<String, String> itemMap=new LinkedHashMap();
-        itemMap.put("1","男");
-        itemMap.put("2","女");
-        map.put("SEX",itemMap);
+        Map<String, Map<String, String>> map = new LinkedHashMap();
+        Map<String, String> itemMap = new LinkedHashMap();
+        itemMap.put("1", "男");
+        itemMap.put("2", "女");
+        map.put("SEX", itemMap);
         return map;
     }
 }

@@ -3,7 +3,6 @@ package com.wu.framework.easy.stereotype.upsert.component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;

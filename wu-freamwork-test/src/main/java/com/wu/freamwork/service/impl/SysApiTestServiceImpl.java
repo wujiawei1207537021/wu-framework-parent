@@ -16,17 +16,17 @@ import java.util.List;
  */
 @Service
 public class SysApiTestServiceImpl implements SysApiTestService {
-    
+
 
     @NormalConvertMapper
     @Override
     public List<SysApiUserTestPO> transformUser() {
-        List<SysApiUserTestPO> sysApiUserTestPOList=new ArrayList<>();
-        for (int i = 0; i <10 ; i++) {
-            SysApiUserTestPO sysApiUserTestPO=new SysApiUserTestPO();
-            sysApiUserTestPO.setSex(i%3);
+        List<SysApiUserTestPO> sysApiUserTestPOList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            SysApiUserTestPO sysApiUserTestPO = new SysApiUserTestPO();
+            sysApiUserTestPO.setSex(i % 3);
             sysApiUserTestPO.setAge(i);
-            sysApiUserTestPO.setName("第:"+i);
+            sysApiUserTestPO.setName("第:" + i);
             sysApiUserTestPOList.add(sysApiUserTestPO);
         }
         return sysApiUserTestPOList;

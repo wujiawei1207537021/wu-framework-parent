@@ -34,12 +34,12 @@ public class ElasticsearchRepositoryServiceImpl implements ElasticsearchReposito
      **/
     @Override
     public void save() {
-        List<ElasticsearchUser> elasticsearchUserList=new ArrayList<>();
+        List<ElasticsearchUser> elasticsearchUserList = new ArrayList<>();
 
-        for (int i = 0; i <10 ; i++) {
-            ElasticsearchUser elasticsearchUser=new ElasticsearchUser();
+        for (int i = 0; i < 10; i++) {
+            ElasticsearchUser elasticsearchUser = new ElasticsearchUser();
             elasticsearchUser.setId(i);
-            elasticsearchUser.setName(i+"号");
+            elasticsearchUser.setName(i + "号");
             elasticsearchUserList.add(elasticsearchUser);
         }
         elasticsearchUserRepository.saveAll(elasticsearchUserList);

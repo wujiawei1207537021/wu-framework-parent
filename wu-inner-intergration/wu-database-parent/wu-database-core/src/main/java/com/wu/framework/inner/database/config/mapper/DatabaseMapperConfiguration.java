@@ -1,5 +1,6 @@
 package com.wu.framework.inner.database.config.mapper;
 
+import com.wu.framework.inner.database.config.ICustomDatabaseScanBean;
 import com.wu.framework.inner.database.util.ScanXmlPathUtil;
 import lombok.Data;
 import org.apache.commons.logging.Log;

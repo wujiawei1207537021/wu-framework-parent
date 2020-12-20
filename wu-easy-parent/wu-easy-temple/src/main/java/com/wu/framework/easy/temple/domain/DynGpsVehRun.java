@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Document(indexName = "sys_veh_dyn_gps_es_2020.12_m")
 public class DynGpsVehRun extends Model<DynGpsVehRun> {
 
-    private String  id;
+    private String id;
     /**
      * 信息ID
      */
@@ -27,7 +27,7 @@ public class DynGpsVehRun extends Model<DynGpsVehRun> {
      */
     private String plateNum;
     private Long gpsTimestamp;
-    private String  location;
+    private String location;
 
     /**
      * 经度
@@ -95,5 +95,5 @@ public class DynGpsVehRun extends Model<DynGpsVehRun> {
 
 
     @EasySmartField(name = "@timestamp@")
-    private String timestamp= LocalDateTime.now().toString()+"+0800";
+    private String timestamp = LocalDateTime.now().toString() + "+0800";
 }

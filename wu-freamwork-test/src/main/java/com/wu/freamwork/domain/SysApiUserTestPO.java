@@ -15,7 +15,7 @@ public class SysApiUserTestPO {
     private String name;
     private Integer age;
 
-    @ConvertField(convertItem = "SEX",defaultValue = "未知的多尴尬")
+    @ConvertField(convertItem = "SEX", defaultValue = "未知的多尴尬")
     private Integer sex;
 
     private String sexName;

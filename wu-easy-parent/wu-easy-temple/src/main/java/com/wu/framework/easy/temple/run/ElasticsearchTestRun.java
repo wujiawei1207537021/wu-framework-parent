@@ -13,10 +13,7 @@ import org.springframework.data.elasticsearch.core.query.Query;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author : Jia wei Wu
@@ -66,8 +63,8 @@ public class ElasticsearchTestRun {
     @ApiOperation(value = "findAll", tags = "Elasticsearch")
     @GetMapping("/_findAll")
     public List<DynGpsVehRun> findAll() {
-        List<DynGpsVehRun> dynGpsVehRunList=
-                elasticsearchGPSRepository.findAllByIndustryAndGpsVdate("080","2020-12-02");
+        List<DynGpsVehRun> dynGpsVehRunList =
+                elasticsearchGPSRepository.findAllByIndustryAndGpsVdate("080", "2020-12-02");
         return dynGpsVehRunList;
     }
 }

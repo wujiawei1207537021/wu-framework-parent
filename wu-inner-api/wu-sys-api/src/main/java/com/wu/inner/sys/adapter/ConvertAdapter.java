@@ -11,6 +11,6 @@ import org.springframework.beans.factory.InitializingBean;
  */
 public interface ConvertAdapter extends InitializingBean {
 
-    void convertObjects( Object... objects);
+    void convertObjects(Object... objects);
 
 }

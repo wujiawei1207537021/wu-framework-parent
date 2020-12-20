@@ -9,7 +9,6 @@ import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.filter.TypeFilter;
 
-import java.lang.reflect.Method;
 import java.util.Set;
 
 /**

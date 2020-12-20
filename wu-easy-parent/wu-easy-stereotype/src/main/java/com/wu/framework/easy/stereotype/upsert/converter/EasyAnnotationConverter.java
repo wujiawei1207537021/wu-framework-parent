@@ -252,7 +252,7 @@ public class EasyAnnotationConverter {
             Class<?> aClass = object.getClass();
             // 类上没有注解 不下钻
             final EasySmart easySmart = AnnotationUtils.getAnnotation(aClass, EasySmart.class);
-            if (null == easySmart||!easySmart.dataDrillDown()) {
+            if (null == easySmart || !easySmart.dataDrillDown()) {
                 extractList.add(Collections.singletonList(object));
                 continue;
             }
@@ -269,7 +269,7 @@ public class EasyAnnotationConverter {
                 }
                 if (null == o) continue;
                 //
-                if(Iterable.class.isAssignableFrom(fieldType)){
+                if (Iterable.class.isAssignableFrom(fieldType)) {
                     extractList.add((List) o);
                     continue;
                 }

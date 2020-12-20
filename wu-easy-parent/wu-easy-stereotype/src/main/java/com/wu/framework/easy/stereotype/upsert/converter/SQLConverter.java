@@ -518,7 +518,7 @@ public class SQLConverter {
         String ADD_FIELD = " ADD %s %s %s "; // 字段名 字段类型 字段备注
         List<ConvertedField> convertedFieldList = fieldNamesOnAnnotation(tableClass, null);
         String ADD_SQL = convertedFieldList.stream().
-                filter(convertedField -> !columnNameList.contains(convertedField.getConvertedFieldName().replaceAll("`",""))).
+                filter(convertedField -> !columnNameList.contains(convertedField.getConvertedFieldName().replaceAll("`", ""))).
                 map(convertedField ->
                         String.format(ADD_FIELD,
                                 convertedField.getConvertedFieldName(),

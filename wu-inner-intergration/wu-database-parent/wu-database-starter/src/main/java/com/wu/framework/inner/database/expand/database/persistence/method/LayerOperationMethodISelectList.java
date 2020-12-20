@@ -35,6 +35,7 @@ public class LayerOperationMethodISelectList extends AbstractLayerOperationMetho
         persistenceRepository.setResultClass(clazz);
         return persistenceRepository;
     }
+
     /**
      * description 执行SQL 语句
      *

@@ -3,7 +3,6 @@ package com.wu.freamwork.controller;
 
 import com.wu.framework.easy.stereotype.web.EasyController;
 import com.wu.framework.inner.database.expand.database.persistence.LayerOperation;
-import com.wu.framework.inner.database.test.dao.IUserDao;
 import com.wu.framework.inner.database.test.pojo.DataBaseUser;
 import org.springframework.boot.CommandLineRunner;
 

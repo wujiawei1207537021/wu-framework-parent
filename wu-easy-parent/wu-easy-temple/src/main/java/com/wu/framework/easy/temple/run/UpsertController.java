@@ -138,12 +138,12 @@ public class UpsertController {
     @ApiOperation(tags = "快速插入数据", value = "复杂数据DB")
     @GetMapping("/moreExtractBo")
     public MoreExtractBo moreExtractBo() {
-        MoreExtractBo moreExtractBo=new MoreExtractBo();
-         ExtractBo extractBo = complexData();
-         moreExtractBo.setExtractBo(extractBo);
-         moreExtractBo.setUseExcel(extractBo.getUseExcel());
-         moreExtractBo.setUserLog(extractBo.getUserLog());
-         moreExtractBo.setUserLogList(runService.run(1000));
+        MoreExtractBo moreExtractBo = new MoreExtractBo();
+        ExtractBo extractBo = complexData();
+        moreExtractBo.setExtractBo(extractBo);
+        moreExtractBo.setUseExcel(extractBo.getUseExcel());
+        moreExtractBo.setUserLog(extractBo.getUserLog());
+        moreExtractBo.setUserLogList(runService.run(1000));
         return moreExtractBo;
     }
 

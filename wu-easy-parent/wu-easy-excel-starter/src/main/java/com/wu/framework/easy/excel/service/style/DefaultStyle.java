@@ -23,7 +23,7 @@ public class DefaultStyle implements Style {
      */
     @Override
     public HSSFCellStyle titleStyle(StyleParam styleParam) {
-        EasyExcelFiled easyExcelFiled =styleParam.getFiledAnnotation(EasyExcelFiled.class);
+        EasyExcelFiled easyExcelFiled = styleParam.getFiledAnnotation(EasyExcelFiled.class);
         final HSSFCellStyle style = styleParam.getWorkbook().createCellStyle();
 //        设置背景色：   style.setFillBackgroundColor(IndexedColors.BLUE.index);
 
@@ -43,7 +43,7 @@ public class DefaultStyle implements Style {
         font.setFontHeightInPoints(easyExcelFiled.titleFontSize());//设置字体大小
         style.setFont(font);//选择需要用到的字体格式
 //        设置列宽:
-        styleParam.getHssfSheet().setColumnWidth(styleParam.getColumnIndex(), easyExcelFiled.width()*255); //第一个参数代表列id(从0开始),第2个参数代表宽度值
+        styleParam.getHssfSheet().setColumnWidth(styleParam.getColumnIndex(), easyExcelFiled.width() * 255); //第一个参数代表列id(从0开始),第2个参数代表宽度值
         style.setWrapText(easyExcelFiled.wrapText());//设置自动换行
         return style;
     }
@@ -56,7 +56,7 @@ public class DefaultStyle implements Style {
      */
     @Override
     public HSSFCellStyle columnStyle(StyleParam styleParam) {
-        EasyExcelFiled easyExcelFiled =styleParam.getFiledAnnotation(EasyExcelFiled.class);
+        EasyExcelFiled easyExcelFiled = styleParam.getFiledAnnotation(EasyExcelFiled.class);
         final HSSFCellStyle style = styleParam.getWorkbook().createCellStyle();
 //        设置背景色：
         style.setFillBackgroundColor(easyExcelFiled.columnBackgroundColor());// 设置背景色
@@ -75,7 +75,7 @@ public class DefaultStyle implements Style {
         style.setFont(font);//选择需要用到的字体格式
         style.setFont(font);//选择需要用到的字体格式
 //        设置列宽:
-        styleParam.getHssfSheet().setColumnWidth(styleParam.getColumnIndex(), easyExcelFiled.width()*255); //第一个参数代表列id(从0开始),第2个参数代表宽度值
+        styleParam.getHssfSheet().setColumnWidth(styleParam.getColumnIndex(), easyExcelFiled.width() * 255); //第一个参数代表列id(从0开始),第2个参数代表宽度值
         style.setWrapText(easyExcelFiled.wrapText());//设置自动换行
         return style;
     }

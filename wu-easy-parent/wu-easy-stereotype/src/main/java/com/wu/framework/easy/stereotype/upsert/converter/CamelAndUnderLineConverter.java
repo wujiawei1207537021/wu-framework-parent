@@ -58,7 +58,7 @@ public class CamelAndUnderLineConverter {
     /**
      * 驼峰转字符
      *
-     * @param hump         humpToMidLine2
+     * @param hump      humpToMidLine2
      * @param character -
      * @return String hump-to-mid-line-2
      * @author Jia wei Wu

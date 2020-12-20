@@ -6,7 +6,7 @@ import java.lang.annotation.*;
  * 转换字段注解 需要对象中包含属性值为name
  */
 @Documented
-@Target({ElementType.FIELD,ElementType.TYPE})
+@Target({ElementType.FIELD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 public @interface ConvertField {
@@ -29,7 +29,6 @@ public @interface ConvertField {
     String convertItem() default "";
 
     /**
-     *
      * 默认值
      */
     String defaultValue() default "";
@@ -37,9 +36,10 @@ public @interface ConvertField {
 
     /**
      * 分割字符
+     *
      * @return
      */
-    String [] convertSplitCharacter() default ",";
+    String[] convertSplitCharacter() default ",";
 
 
     /**

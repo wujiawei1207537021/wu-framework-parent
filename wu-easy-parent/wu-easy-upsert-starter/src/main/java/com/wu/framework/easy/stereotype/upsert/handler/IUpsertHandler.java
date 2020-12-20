@@ -36,7 +36,7 @@ public class IUpsertHandler implements InvocationHandler {
             for (Object o : objects) {
                 abstractDynamicEasyUpsert.determineIEasyUpsert().fuzzyUpsert(o);
             }
-        }else {
+        } else {
             abstractDynamicEasyUpsert.determineIEasyUpsert().fuzzyUpsert(arg);
         }
         return true;

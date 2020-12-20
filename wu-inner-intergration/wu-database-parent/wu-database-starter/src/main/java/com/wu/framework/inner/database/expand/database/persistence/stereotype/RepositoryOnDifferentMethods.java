@@ -29,10 +29,10 @@ public @interface RepositoryOnDifferentMethods {
 
 
     /**
-     * @describe: 持久层声明代理方法
      * @author : Jia wei Wu
-     * @date : 2020/11/22 上午11:05
      * @version : 1.0
+     * @describe: 持久层声明代理方法
+     * @date : 2020/11/22 上午11:05
      */
     @Getter
     @AllArgsConstructor
@@ -52,7 +52,7 @@ public @interface RepositoryOnDifferentMethods {
         /**
          * {@link LayerOperation#activeUpsert(Object)}
          */
-        ACTIVE_UPSERT("activeUpsert","更新或者插入单个 去除空值"),
+        ACTIVE_UPSERT("activeUpsert", "更新或者插入单个 去除空值"),
         /**
          * {@link LayerOperation#updateById(Object)}
          */

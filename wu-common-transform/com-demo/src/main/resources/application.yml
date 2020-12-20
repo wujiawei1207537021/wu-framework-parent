@@ -18,4 +18,4 @@ data-process:
   consumer-group-id: "connect-transform:test_todb"
   #对应kafka-connect任务的名称
   task-name: "mysql_test_tokafka"
-  schema-class:  com.demo.kafka.User
+  schema-class: com.demo.kafka.User

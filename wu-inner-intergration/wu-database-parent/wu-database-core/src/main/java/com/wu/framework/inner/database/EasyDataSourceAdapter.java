@@ -29,10 +29,11 @@ public interface EasyDataSourceAdapter {
 
     /**
      * 创建数据连接对象
+     *
      * @param iCustomDatabaseConfiguration
      * @return
      */
-    static DataSource createDataSource(ICustomDatabaseConfiguration iCustomDatabaseConfiguration){
+    static DataSource createDataSource(ICustomDatabaseConfiguration iCustomDatabaseConfiguration) {
         return new SimpleEasyDataSource(iCustomDatabaseConfiguration);
     }
 

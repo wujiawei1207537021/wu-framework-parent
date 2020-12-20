@@ -175,7 +175,7 @@ public class ElasticsearchEasyDataProcess implements DataProcess {
      * @date 2020/10/22 下午3:16
      */
     @Data
-    public class ElasticsearchProcessResult<K, V> extends HashMap<K,V> implements Map<K,V>, ProcessResult {
+    public class ElasticsearchProcessResult<K, V> extends HashMap<K, V> implements Map<K, V>, ProcessResult {
 
     }
 

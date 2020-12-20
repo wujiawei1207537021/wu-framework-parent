@@ -109,7 +109,7 @@ public class xxConfig implements InitializingBean {
     }
 
     @Bean
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         System.out.println("shideya");
         return EasyDataSourceAdapter.createDataSource(iCustomDatabaseConfiguration);
     }

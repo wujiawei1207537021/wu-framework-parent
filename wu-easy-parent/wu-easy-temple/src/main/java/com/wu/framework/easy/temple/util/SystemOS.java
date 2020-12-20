@@ -8,14 +8,12 @@ package com.wu.framework.easy.temple.util;
  */
 public class SystemOS {
 
-        /**
-         * @param args
-         */
-        public static void main(String[] args) {
-            System.out.println(System.getProperty("os.tableName").toLowerCase());
-        }
-
-
+    /**
+     * @param args
+     */
+    public static void main(String[] args) {
+        System.out.println(System.getProperty("os.tableName").toLowerCase());
+    }
 
 
 }
