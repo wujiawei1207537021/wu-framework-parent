@@ -156,6 +156,14 @@ public class NormalExcelExportService implements ExcelExcelService {
                     public Class<? extends Style> style() {
                         return easyExcel.style();
                     }
+
+                    /**
+                     * 表头固定
+                     */
+                    @Override
+                    public boolean titleFixedHead() {
+                        return easyExcel.titleFixedHead();
+                    }
                 };
                 normalSingleSheet(workbook, tempEasyExcel, splitList.get(i));
             }
@@ -201,6 +209,9 @@ public class NormalExcelExportService implements ExcelExcelService {
 
             // 产生表格标题行
             HSSFRow row = sheet.createRow(TITLE_COLUMN);
+            if (easyExcel.titleFixedHead()) {
+                sheet.createFreezePane(fieldList.size(), TITLE_COLUMN+1);
+            }
             for (int i = 0; i < fieldList.size(); i++) {
                 HSSFCell hssfCell = row.createCell(i);
                 hssfCell.setCellStyle(style);

@@ -70,7 +70,7 @@ public @interface EasyExcelFiled {
      *
      * @return
      */
-    short titleFontSize() default 16;
+    short titleFontSize() default 12;
 
     /**
      * 列字体颜色

@@ -1,6 +1,6 @@
 package com.wu.framework.inner.database.expand.database.persistence.stereotype;
 
-import com.wu.framework.easy.stereotype.upsert.EasyTableField;
+import com.wu.framework.easy.stereotype.upsert.EasySmartField;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Indexed;
 
@@ -16,13 +16,13 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Indexed
-@EasyTableField(indexType = EasyTableField.TableFileIndexType.UNIQUE)
+@EasySmartField(indexType = EasySmartField.TableFileIndexType.UNIQUE)
 public @interface CustomUnique {
 
-    @AliasFor(annotation = EasyTableField.class, attribute = "value")
+    @AliasFor(annotation = EasySmartField.class, attribute = "value")
     String value() default "";
 
-    @AliasFor(annotation = EasyTableField.class, attribute = "name")
+    @AliasFor(annotation = EasySmartField.class, attribute = "name")
     String name() default "";
 
 }

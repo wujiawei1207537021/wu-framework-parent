@@ -103,6 +103,11 @@ public @interface EasyExcel {
      */
     Class<? extends Style> style() default DefaultStyle.class;
 
+    /**
+     * 表头固定
+     */
+    boolean titleFixedHead() default true;
+
     @Getter
     @AllArgsConstructor
     enum SheetShowContext {

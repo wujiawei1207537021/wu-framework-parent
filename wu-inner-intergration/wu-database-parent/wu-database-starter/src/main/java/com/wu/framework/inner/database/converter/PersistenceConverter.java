@@ -1,6 +1,6 @@
 package com.wu.framework.inner.database.converter;
 
-import com.wu.framework.easy.stereotype.upsert.EasyTableField;
+import com.wu.framework.easy.stereotype.upsert.EasySmartField;
 import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConverter;
 import com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter;
 import com.wu.framework.inner.database.expand.database.persistence.domain.Persistence;
@@ -43,7 +43,7 @@ public class PersistenceConverter {
             if (o == null) {
                 continue;
             }
-            EasyTableField tableField = AnnotatedElementUtils.findMergedAnnotation(declaredField, EasyTableField.class);
+            EasySmartField tableField = AnnotatedElementUtils.findMergedAnnotation(declaredField, EasySmartField.class);
             if (tableField == null || !tableField.exist()) {
                 continue;
             }

@@ -26,9 +26,7 @@ public class DefaultStyle implements Style {
         EasyExcelFiled easyExcelFiled = styleParam.getFiledAnnotation(EasyExcelFiled.class);
         final HSSFCellStyle style = styleParam.getWorkbook().createCellStyle();
 //        设置背景色：   style.setFillBackgroundColor(IndexedColors.BLUE.index);
-
         style.setFillForegroundColor(easyExcelFiled.titleBackgroundColor());
-//        style.setFillForegroundColor(easyExcelFiled.titleBackgroundColor());// 设置背景色
         style.setFillPattern(easyExcelFiled.fillPatternType()); //填充样式
 //       设置边框:
         style.setBorderBottom(BorderStyle.THIN); //下边框

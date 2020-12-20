@@ -28,12 +28,12 @@
         <dependency>
             <groupId>top.wu2020</groupId>
             <artifactId>wu-template-starter</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </dependency>
         <dependency>
             <groupId>top.wu2020</groupId>
             <artifactId>wu-database-starter</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </dependency>
         <!--        <dependency>-->
         <!--            <groupId>top.wu2020</groupId>-->
@@ -65,7 +65,7 @@
         <dependency>
             <groupId>top.wu2020</groupId>
             <artifactId>wu-easy-excel-starter</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </dependency>
 
         <dependency>
