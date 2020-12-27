@@ -35,7 +35,8 @@ spring:
   activemq:
     broker-url: 127.0.0.1:6631
   redis:
-    host: 127.0.0.1
+    host: www.wu2020.top
+    password: 123456
   rsocket:
     server:
       address: 127.0.0.1

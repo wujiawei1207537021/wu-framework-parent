@@ -6,6 +6,7 @@ import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 
+
 import java.util.List;
 
 /**
@@ -18,8 +19,12 @@ import java.util.List;
 @ConditionalOnProperty(prefix = "spring.redis", value = "host")
 @EasyUpsertStrategy(value = EasyUpsertType.REDIS)
 public class RedisUpsert implements IEasyUpsert {
+
+
+
     @Override
     public <T> Object upsert(List<T> list) throws Exception {
+
         return null;
     }
 }
