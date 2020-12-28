@@ -1,5 +1,6 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
+import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConverter;
 import com.wu.framework.inner.lazy.database.converter.PreparedStatementSQLConverter;
 import com.wu.framework.inner.lazy.database.domain.ConvertedField;
 import org.springframework.util.ObjectUtils;
@@ -71,7 +72,7 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
                 }
             } else {
                 List<ConvertedField> convertedFieldList = PreparedStatementSQLConverter.fieldNamesOnAnnotation(domainClass);
-                Map<String, String> convertedFieldMap = convertedFieldList.stream().collect(Collectors.toMap(ConvertedField::getConvertedFieldName, ConvertedField::getFieldName));
+                Map<String, String> convertedFieldMap = convertedFieldList.stream().collect(Collectors.toMap(ConvertedField::getFieldName, ConvertedField::getFieldName));
                 while (rs.next()) {
                     //实例化要封装的实体类对象
                     E obj = (E) domainClass.newInstance();
@@ -82,16 +83,20 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
                     //遍历总列数
                     for (int i = 1; i <= columnCount; i++) {
                         //获取每列的名称，列名的序号是从1开始的
-                        String columnName = rsmd.getColumnName(i);
-                        String fieldName = convertedFieldMap.get(columnName);
+                        String columnName = rsmd.getColumnName(i).toLowerCase();
+                        columnName=CamelAndUnderLineConverter.lineToHump(columnName);
+                         String columnLabel = rsmd.getColumnLabel(i);
+                        String fieldName = convertedFieldMap.getOrDefault(columnName,convertedFieldMap.get(columnLabel));
                         if (ObjectUtils.isEmpty(fieldName)) {
                             continue;
                         }
                         //根据得到列名，获取每列的值
-                        Object columnValue = rs.getObject(columnName);
+//                        Object columnValue = rs.getObject(columnName);
                         Field field = domainClass.getDeclaredField(fieldName);
                         field.setAccessible(true);
-                        columnValue = convertToTheCorrespondingType(columnValue, field.getType());
+                        rs.getObject(i,field.getType());
+//                        columnValue = convertToTheCorrespondingType(columnValue, field.getType());
+                        Object columnValue=rs.getObject(i,field.getType());
                         field.set(obj, columnValue);
                     }
                     //把赋好值的对象加入到集合中
