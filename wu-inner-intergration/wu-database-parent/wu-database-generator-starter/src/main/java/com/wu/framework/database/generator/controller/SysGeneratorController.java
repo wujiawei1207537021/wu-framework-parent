@@ -2,7 +2,8 @@ package com.wu.framework.database.generator.controller;
 
 
 import com.wu.framework.database.generator.service.SysGeneratorService;
-import com.wu.framework.inner.database.domain.Page;
+import com.wu.framework.easy.stereotype.web.EasyController;
+import com.wu.framework.inner.lazy.database.domain.Page;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-@Controller
-@RequestMapping("/sys/generator")
+@EasyController("/sys/generator")
 public class SysGeneratorController {
 
     private final SysGeneratorService sysGeneratorService;

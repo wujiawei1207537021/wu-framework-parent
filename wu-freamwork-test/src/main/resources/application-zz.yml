@@ -1,10 +1,10 @@
 spring:
-  wu:
-    database:
-      url: jdbc:mysql://172.17.1.58:30806/baseinfo?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
-      username: root
-      password: supconit
-      driver: com.mysql.cj.jdbc.Driver
+  datasource:
     dynamic:
-      database:
-        enable: off
+      p6spy: true
+      datasource:
+        master:
+          username: industry_supervision
+          password: supconit
+          url: jdbc:mysql://81.69.3.45:30806/industry_supervision?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+          driver-class-name: com.mysql.cj.jdbc.Driver

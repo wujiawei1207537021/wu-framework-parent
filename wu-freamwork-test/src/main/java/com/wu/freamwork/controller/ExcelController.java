@@ -3,7 +3,7 @@ package com.wu.freamwork.controller;
 import com.wu.framework.easy.excel.stereotype.EasyExcel;
 import com.wu.framework.easy.excel.util.FastExcelImp;
 import com.wu.framework.easy.stereotype.web.EasyController;
-import com.wu.framework.inner.database.expand.database.persistence.LayerOperation;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import com.wu.freamwork.domain.Veh;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,9 +24,9 @@ import java.util.stream.Collectors;
 @EasyController("/excel")
 public class ExcelController {
 
-    private final LayerOperation layerOperation;
+    private final LazyOperation layerOperation;
 
-    public ExcelController(LayerOperation layerOperation) {
+    public ExcelController(LazyOperation layerOperation) {
         this.layerOperation = layerOperation;
     }
 

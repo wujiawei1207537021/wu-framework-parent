@@ -30,16 +30,12 @@
             <artifactId>wu-template-starter</artifactId>
             <version>1.0.1</version>
         </dependency>
+
         <dependency>
             <groupId>top.wu2020</groupId>
-            <artifactId>wu-database-starter</artifactId>
+            <artifactId>wu-database-generator-starter</artifactId>
             <version>1.0.1</version>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>top.wu2020</groupId>-->
-        <!--            <artifactId>wu-database-generator-starter</artifactId>-->
-        <!--            <version>1.0.0</version>-->
-        <!--        </dependency>-->
 
         <dependency>
             <groupId>commons-lang</groupId>
@@ -57,11 +53,6 @@
             <version>2.6</version>
         </dependency>
 
-        <!--        <dependency>-->
-        <!--            <groupId>top.wu2020</groupId>-->
-        <!--            <artifactId>wu-dynamic-database-starter</artifactId>-->
-        <!--            <version>1.0.0</version>-->
-        <!--        </dependency>-->
         <dependency>
             <groupId>top.wu2020</groupId>
             <artifactId>wu-easy-excel-starter</artifactId>

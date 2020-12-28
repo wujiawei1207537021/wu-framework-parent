@@ -16,7 +16,7 @@
     <modules>
         <!--wudb-->
         <module>wu-db-starter</module>
-        <module>wu-database-starter</module>
+        <module>wu-database-lazy-starter</module>
         <module>wu-dynamic-database-starter</module>
         <module>wu-database-generator-starter</module>
         <module>wu-database-core</module>
