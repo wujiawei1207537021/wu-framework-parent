@@ -44,4 +44,18 @@ public class RunServiceImpl implements RunService {
     public void run2(Integer size) {
         run(size);
     }
+
+    public static void main(String[] args) {
+        List<UserLog> userLogList = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            UserLog userLog = new UserLog();
+            userLog.setCurrentTime(LocalDateTime.now());
+            userLog.setContent("创建时间:" + userLog.getCurrentTime());
+            userLog.setUserId(i);
+            userLogList.add(userLog);
+        }
+        userLogList.forEach(userLog -> userLog.setUserId(1));
+        System.out.println(userLogList);
+
+    }
 }
