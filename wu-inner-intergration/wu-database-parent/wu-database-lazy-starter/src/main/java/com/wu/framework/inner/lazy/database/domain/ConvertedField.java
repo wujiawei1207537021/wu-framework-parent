@@ -13,6 +13,7 @@ import lombok.Data;
 public class ConvertedField {
     private String fieldName;
 
+    @Deprecated
     private String convertedFieldName;
     /**
      * 数据库字段索引类型
