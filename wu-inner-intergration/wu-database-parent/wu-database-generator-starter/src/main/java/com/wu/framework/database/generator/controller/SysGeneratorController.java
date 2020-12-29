@@ -28,7 +28,6 @@ public class SysGeneratorController {
     @ResponseBody
     @GetMapping("/list")
     public Page list(@RequestParam(required = false, defaultValue = "") String tableName, @RequestParam Integer size, @RequestParam Integer current) {
-        System.out.println(IOUtils.class);
         Page page = sysGeneratorService.queryList(tableName, size, current);
         return page;
     }
@@ -57,7 +56,21 @@ public class SysGeneratorController {
     @ResponseBody
     @GetMapping("/table/val")
     public Map queryColumnsMap(String tableName) {
-        return sysGeneratorService.queryColumnsMap(tableName);
+        return sysGeneratorService.queryTableColumnDefaultValue(tableName);
+    }
+
+
+    /**
+     * description 表字段对应查询条件
+     * @param
+     * @return
+     * @exception/throws
+     * @author 吴佳伟
+     * @date 2020/12/29 下午12:30
+     */
+    @GetMapping("/table/conditions")
+    public String tableQueryConditions(String tableName) {
+        return sysGeneratorService.tableQueryConditions(tableName);
     }
 
 }

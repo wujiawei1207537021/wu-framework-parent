@@ -5,6 +5,10 @@ import com.wu.framework.database.generator.entity.ColumnEntity;
 import com.wu.framework.database.generator.entity.EncapsulatedTableInfo;
 import com.wu.framework.database.generator.entity.TableEntity;
 import com.wu.framework.database.generator.utils.GenUtils;
+import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConverter;
+import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
+
+import com.wu.framework.easy.stereotype.upsert.entity.ConvertedField;
 import com.wu.framework.inner.lazy.database.domain.Page;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import org.apache.commons.io.IOUtils;
@@ -15,6 +19,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.zip.ZipOutputStream;
 
 @Component
@@ -33,13 +38,15 @@ public class SysGeneratorService {
         Page page = new Page<>();
         page.setCurrent(current);
         page.setSize(size);
-        String sql = "select table_name tableName, engine, table_comment tableComment, create_time createTime from information_schema.tables where table_schema = (select database())   %s order by create_time desc limit %s, %s";
+        String sql = "select table_name tableName, engine, table_comment tableComment, create_time createTime from information_schema.tables where table_schema = (select database())   %s order by create_time desc ";
         if (ObjectUtils.isEmpty(tableName)) {
             tableName = "";
         } else {
             tableName = " and table_name like '%" + tableName + "%'";
         }
-        List<LinkedHashMap> list = lazyOperation.executeSQL(String.format(sql, tableName, current - 1, size), LinkedHashMap.class);
+        List<LinkedHashMap> list = lazyOperation.executeSQL(String.format(sql+" limit %s, %s", tableName, current - 1, size), LinkedHashMap.class);
+//        Integer total= lazyOperation.executeSQLForBean(String.format("select count(1) from ("+sql+") T",tableName), Integer.class);
+//        page.setTotal(total);
         page.setRecord(list);
         return page;
     }
@@ -63,7 +70,7 @@ public class SysGeneratorService {
             //查询列信息
             List<ColumnEntity> columns = queryColumns(tableName);
             //查询一条记录信息
-            Map columnValMap = queryColumnsMap(tableName);
+            Map columnValMap = queryTableColumnDefaultValue(tableName);
             EncapsulatedTableInfo encapsulatedTableInfo = new EncapsulatedTableInfo();
             encapsulatedTableInfo.setTableEntity(table);
             encapsulatedTableInfo.setColumnEntityList(columns);
@@ -81,9 +88,29 @@ public class SysGeneratorService {
      * @param tableName
      * @return
      */
-    public Map queryColumnsMap(String tableName) {
+    public Map queryTableColumnDefaultValue(String tableName) {
         String SQL = "select  * from %s limit 1";
         return lazyOperation.executeSQLForBean(String.format(SQL, tableName), Map.class);
     }
 
+
+    /**
+     * description 表字段对应查询条件
+     * @param
+     * @return
+     * @exception/throws
+     * @author 吴佳伟
+     * @date 2020/12/29 下午12:31
+     */
+    public String tableQueryConditions(String tableName) {
+        List<ColumnEntity> columnEntityList = queryColumns(tableName);
+        List<ConvertedField> convertedFieldList = columnEntityList.stream().map(columnEntity -> {
+            ConvertedField convertedField = new ConvertedField();
+            convertedField.setConvertedFieldName(columnEntity.getColumnName());
+            convertedField.setFieldName(CamelAndUnderLineConverter.lineToHump(columnEntity.getColumnName()));
+            convertedField.setType(columnEntity.getDataType());
+            return convertedField;
+        }).collect(Collectors.toList());
+       return SQLConverter.createSelectSQL(convertedFieldList,tableName);
+    }
 }

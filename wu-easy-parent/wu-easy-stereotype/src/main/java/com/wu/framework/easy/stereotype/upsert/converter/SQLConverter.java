@@ -461,6 +461,73 @@ public class SQLConverter {
         return builder.toString();
     }
 
+
+    /**
+     * description 不完整创建sql查询语句
+     * @param
+     * @return
+     * @exception/throws
+     * @author 吴佳伟
+     * @date 2020/12/29 下午12:39
+     */
+    public static String createSelectSQL(List<ConvertedField> convertedFieldList,String tableName) {
+        /**
+         *     <sql id="SEARCH_CONDITION_SQL">
+         *         <where>
+         *             <if test="condition.netName!=null and condition.netName !=''">
+         *                 AND T.NET_NAME LIKE CONCAT('%',#{condition.netName,jdbcType=VARCHAR},'%')
+         *             </if>
+         *             <if test="condition.status !=null and condition.status !=''">
+         *                 AND T.STATUS = #{condition.status,jdbcType=VARCHAR}
+         *             </if>
+         *             <if test="condition.rentCountUp !=null and condition.rentCountUp !=''">
+         *                 AND T.RENT_COUNT > #{condition.rentCountUp,jdbcType=NUMERIC}
+         *             </if>
+         *             <if test="condition.rentCountDown !=null and condition.rentCountDown !=''">
+         *                 AND T.RENT_COUNT &lt; #{condition.rentCountDown,jdbcType=NUMERIC}
+         *             </if>
+         *             <if test="condition.restoreCountUp !=null and condition.restoreCountUp !=''">
+         *                 AND T.RESTORE_COUNT > #{condition.restoreCountUp,jdbcType=NUMERIC}
+         *             </if>
+         *             <if test="condition.restoreCountDown !=null and condition.restoreCountDown !=''">
+         *                 AND T.RESTORE_COUNT &lt; #{condition.restoreCountDown,jdbcType=NUMERIC}
+         *             </if>
+         *         </where>
+         *     </sql>
+         *
+         *
+         *         <select id="selectPageBikeStation" resultType="BikeStationDto">
+         *         SELECT T.*
+         *         FROM
+         *         ct_pub_bike_infr_station_capcon_bas T
+         *         <include refid="SEARCH_CONDITION_SQL"/>
+         *     </select>
+         *
+         */
+        StringBuilder builder = new StringBuilder("  <sql id=\"SEARCH_CONDITION_SQL\"> \n <where> \n");
+        // 条件
+        for (ConvertedField convertedField : convertedFieldList) {
+            String convertedFieldName = convertedField.getConvertedFieldName();
+            String fieldName = convertedField.getFieldName();
+            builder.append("<if test=\"condition." + fieldName + "!=null and condition." + fieldName + " !=''\"> \n");
+//            if (convertedField.getClazz().equals(String.class)) {
+//                // 包含    AND T.address LIKE CONCAT('%',#{condition.address}, '%')
+//                builder.append(" AND T." + convertedFieldName + " LIKE CONCAT('%',#{condition." + fieldName + "}, '%') \n");
+//            } else {
+            builder.append(" AND T." + convertedFieldName + " = #{condition." + fieldName + "} \n");
+//            }
+            builder.append("</if> \n");
+        }
+        builder.append("  </where> \n </sql>\n");
+        // 查询sql
+        String beanName=CamelAndUnderLineConverter.lineToHump(tableName);
+        builder.append(" <select id=\"select" + beanName + "\" resultType=\"" + beanName + "\"> \n");
+        builder.append("SELECT T.* FROM ");
+        builder.append(tableName).append(" T \n");
+        builder.append("<include refid=\"SEARCH_CONDITION_SQL\"/> \n </select>\n");
+        System.out.println(builder.toString());
+        return builder.toString();
+    }
     /**
      * description  抽取 字段名和需要映射属性名
      *

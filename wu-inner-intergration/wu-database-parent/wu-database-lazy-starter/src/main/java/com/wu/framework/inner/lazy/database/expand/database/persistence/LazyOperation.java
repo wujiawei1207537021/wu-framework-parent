@@ -107,6 +107,14 @@ public interface LazyOperation {
      */
     <T> List<T> executeSQL(String sql, Class<T> t);
 
+    /**
+     * description 执行SQL 返回指定类型
+     * @param
+     * @return
+     * @exception/throws
+     * @author 吴佳伟
+     * @date 2020/12/29 下午1:44
+     */
     <T> T executeSQLForBean(String sql, Class<T> t);
 
     void miss();

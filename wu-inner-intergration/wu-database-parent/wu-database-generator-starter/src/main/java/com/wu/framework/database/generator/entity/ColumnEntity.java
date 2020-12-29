@@ -9,7 +9,7 @@ public class ColumnEntity {
     //列名类型
     private String dataType;
     //列名备注
-    private String comments;
+    private String columnComment;
 
     //属性名称(第一个字母大写)，如：user_name => UserName
     private String attrName;
@@ -42,12 +42,12 @@ public class ColumnEntity {
         this.dataType = dataType;
     }
 
-    public String getComments() {
-        return comments;
+    public String getColumnComment() {
+        return columnComment;
     }
 
-    public void setComments(String comments) {
-        this.comments = comments;
+    public void setColumnComment(String columnComment) {
+        this.columnComment = columnComment;
     }
 
     public String getAttrName() {

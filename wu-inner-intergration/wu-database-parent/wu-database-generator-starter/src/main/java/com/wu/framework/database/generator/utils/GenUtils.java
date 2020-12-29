@@ -64,11 +64,11 @@ public class GenUtils {
             columnEntity.setAttrName(attrName);
             columnEntity.setAttrname(StringUtils.uncapitalize(attrName));
             if (null == encapsulatedTableInfo.getARecord()) {
-                columnEntity.setVal(columnEntity.getComments());
+                columnEntity.setVal(columnEntity.getColumnComment());
             } else {
                 Object v = encapsulatedTableInfo.getARecord().get(columnEntity.getColumnName());
                 if (null == v) {
-                    columnEntity.setVal(columnEntity.getComments());
+                    columnEntity.setVal(columnEntity.getColumnComment());
                 } else {
                     columnEntity.setVal(v.toString());
                 }
@@ -126,7 +126,7 @@ public class GenUtils {
             tpl.merge(context, sw);
             try {
                 //添加到zip
-                zip.putNextEntry(new ZipEntry(getFileName(template, encapsulatedTableInfo.getTableEntity().getClassName(), encapsulatedTableInfo.getPackageName(), encapsulatedTableInfo.getModuleName())));
+                zip.putNextEntry(new ZipEntry(Objects.requireNonNull(getFileName(template, encapsulatedTableInfo.getTableEntity().getClassName(), encapsulatedTableInfo.getPackageName(), encapsulatedTableInfo.getModuleName()))));
                 IOUtils.write(sw.toString(), zip, "UTF-8");
                 IOUtils.closeQuietly(sw);
                 zip.closeEntry();
