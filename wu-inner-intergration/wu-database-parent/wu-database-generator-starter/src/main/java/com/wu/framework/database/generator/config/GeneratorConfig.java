@@ -3,6 +3,7 @@ package com.wu.framework.database.generator.config;
 import com.wu.framework.database.generator.utils.DateUtils;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Date;
@@ -15,6 +16,7 @@ import java.util.Date;
  */
 @Data
 @Configuration
+@ComponentScan(basePackages = "com.wu.framework.database.generator")
 @ConfigurationProperties(prefix = "wu.framework.generator")
 public class GeneratorConfig {
     private String mainPath = "com.wu";

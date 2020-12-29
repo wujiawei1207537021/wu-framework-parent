@@ -5,9 +5,7 @@ import com.wu.framework.database.generator.service.SysGeneratorService;
 import com.wu.framework.easy.stereotype.web.EasyController;
 import com.wu.framework.inner.lazy.database.domain.Page;
 import org.apache.commons.io.IOUtils;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 

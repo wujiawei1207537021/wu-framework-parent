@@ -8,6 +8,7 @@ import com.wu.framework.database.generator.utils.GenUtils;
 import com.wu.framework.inner.lazy.database.domain.Page;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import org.apache.commons.io.IOUtils;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipOutputStream;
 
+@Component
 public class SysGeneratorService {
 
     private final GeneratorConfig generatorConfig;

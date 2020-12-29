@@ -19,7 +19,6 @@
             <version>1.0.1</version>
         </dependency>
 
-
         <dependency>
             <artifactId>velocity</artifactId>
             <groupId>org.apache.velocity</groupId>
@@ -46,6 +45,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-easy-excel-starter</artifactId>
+            <version>1.0.1</version>
         </dependency>
 
 

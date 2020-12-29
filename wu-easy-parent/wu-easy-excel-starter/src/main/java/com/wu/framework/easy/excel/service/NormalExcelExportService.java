@@ -206,36 +206,53 @@ public class NormalExcelExportService implements ExcelExcelService {
             } else {
                 fieldList = Arrays.stream(ts.getClass().getDeclaredFields()).peek(field -> field.setAccessible(true)).collect(Collectors.toList());
             }
-
+            // 获取数据实体类型
+            iterator=collection.iterator();
+            Object next = iterator.next();
+            Class<?> dataEntityType = next.getClass();
             // 产生表格标题行
             HSSFRow row = sheet.createRow(TITLE_COLUMN);
-            if (easyExcel.titleFixedHead()) {
-                sheet.createFreezePane(fieldList.size(), TITLE_COLUMN+1);
-            }
-            for (int i = 0; i < fieldList.size(); i++) {
-                HSSFCell hssfCell = row.createCell(i);
-                hssfCell.setCellStyle(style);
-                Field field = fieldList.get(i);
-                String headerName;
-                if (easyExcel.useAnnotation()) {
-                    Annotation filedAnnotation = field.getAnnotation(easyExcel.fieldColumnAnnotation());
-                    if (null == filedAnnotation) {
-                        return;
-                    } else {
-                        final Class<? extends Style> styleClass = easyExcel.style();
-                        final Style newInstance = styleClass.newInstance();
-                        HSSFCellStyle tempStyle =
-                                newInstance.titleStyle(new StyleParam(workbook, sheet, filedAnnotation, i));
-                        hssfCell.setCellStyle(tempStyle);
-                        Map<String, Object> annotationAttributes = AnnotationUtils.getAnnotationAttributes(filedAnnotation);
-                        headerName = String.valueOf(annotationAttributes.getOrDefault(easyExcel.fieldColumnAnnotationAttribute(), field.getName()));
-                    }
-                } else {
-                    headerName = field.getName();
+            if(Map.class.isAssignableFrom(dataEntityType)){
+                Set<String> keySet = ((Map<String, String>) next).keySet();
+                int i=0;
+                for (String key : keySet) {
+                    HSSFCell hssfCell = row.createCell(i);
+                    hssfCell.setCellStyle(style);
+                    HSSFRichTextString text = new HSSFRichTextString(key);
+                    ExcelExcelService.setRowColumnContent(hssfCell, text);
+                    i++;
                 }
-                HSSFRichTextString text = new HSSFRichTextString(headerName);
-                ExcelExcelService.setRowColumnContent(hssfCell, text);
+            }else {
+                if (easyExcel.titleFixedHead()) {
+                    sheet.createFreezePane(fieldList.size(), TITLE_COLUMN+1);
+                }
+                for (int i = 0; i < fieldList.size(); i++) {
+                    HSSFCell hssfCell = row.createCell(i);
+                    hssfCell.setCellStyle(style);
+                    Field field = fieldList.get(i);
+                    String headerName;
+                    if (easyExcel.useAnnotation()) {
+                        Annotation filedAnnotation = field.getAnnotation(easyExcel.fieldColumnAnnotation());
+                        if (null == filedAnnotation) {
+                            return;
+                        } else {
+                            final Class<? extends Style> styleClass = easyExcel.style();
+                            final Style newInstance = styleClass.newInstance();
+                            HSSFCellStyle tempStyle =
+                                    newInstance.titleStyle(new StyleParam(workbook, sheet, filedAnnotation, i));
+                            hssfCell.setCellStyle(tempStyle);
+                            Map<String, Object> annotationAttributes = AnnotationUtils.getAnnotationAttributes(filedAnnotation);
+                            headerName = String.valueOf(annotationAttributes.getOrDefault(easyExcel.fieldColumnAnnotationAttribute(), field.getName()));
+                        }
+                    } else {
+                        headerName = field.getName();
+                    }
+                    HSSFRichTextString text = new HSSFRichTextString(headerName);
+                    ExcelExcelService.setRowColumnContent(hssfCell, text);
+                }
             }
+
+
             int index = 0;
             // 循环整个集合
             iterator = collection.iterator();

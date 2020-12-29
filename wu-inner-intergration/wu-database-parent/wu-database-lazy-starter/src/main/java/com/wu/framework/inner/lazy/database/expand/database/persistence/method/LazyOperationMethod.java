@@ -29,12 +29,11 @@ public interface LazyOperationMethod {
     default Object execute(PreparedStatement preparedStatement, String resultType) throws SQLException {
         try {
             return preparedStatement.execute();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException sqlException) {
+            throw sqlException;
         } finally {
             preparedStatement.close();
         }
-        return false;
     }
 
 }
