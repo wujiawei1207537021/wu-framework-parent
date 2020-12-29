@@ -5,7 +5,7 @@ $(function () {
         colModel: [
             {label: '表名', name: 'tableName', width: 100, key: true},
             {label: 'Engine', name: 'ENGINE', width: 70},
-            {label: '表备注', name: 'tableComment', width: 100},
+            {label: '表备注', name: 'tableComment', width: 100, editable: true},
             {label: '创建时间', name: 'createTime', width: 100}
         ],
         viewrecords: true,
@@ -33,9 +33,20 @@ $(function () {
         gridComplete: function () {
             //隐藏grid底部滚动条
             $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
+        },
+        onCellSelect: function (cellContent) {
+            $.get('sys/generator/table/conditions?tableName=' + cellContent,
+                function (data){
+                    // $('div:#generator_info').html(data);
+                    // var data = '这是一个测试例子';
+                    // document.getElementById('generator_info').innerHTML = data;
+                    console.log(data)
+                }
+            )
         }
     });
 });
+
 
 var vm = new Vue({
     el: '#rrapp',
@@ -70,6 +81,9 @@ var vm = new Vue({
                 author = "";
             }
             location.href = "sys/generator/code?tables=" + tableNames.join() + "&moduleName=" + moduleName + "&packageName=" + packageName + "&author=" + author;
+        },
+        _generator_info: function () {
+
         }
     }
 });
