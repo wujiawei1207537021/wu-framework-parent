@@ -2,6 +2,7 @@ package com.wu.framework.easy.stereotype.upsert.entity;
 
 import com.wu.framework.easy.stereotype.upsert.EasySmartField;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * description 字段名和需要映射属性名
@@ -9,6 +10,7 @@ import lombok.Data;
  * @author Jia wei Wu
  * @date 2020/9/17 下午1:28
  */
+@Accessors(chain = true)
 @Data
 public class ConvertedField {
     /**
@@ -36,5 +38,22 @@ public class ConvertedField {
      * 字段描述
      */
     private String comment;
+
+    /**
+     * 字段是否存在
+     */
+    boolean exist= true;
+
+
+    /**
+    * @params 创建SQL column
+     * "`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',\n" +
+    * @return
+    * @author 吴佳伟
+    * @date 2020/12/31 9:19 下午
+    **/
+    public String createColumn(){
+        return convertedFieldName+" "+type+" COMMENT '"+comment+"', \n";
+    }
 }
 

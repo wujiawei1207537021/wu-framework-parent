@@ -1,0 +1,28 @@
+package com.wu.framework.easy.stereotype.log;
+
+import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
+import lombok.Data;
+
+/**
+ * @author : 吴佳伟
+ * @version 1.0
+ * @describe :
+ * @date : 2021/1/1 3:38 下午
+ */
+@Data
+public class EasyUpsertLog {
+
+    /**
+     * 日志类型
+     */
+    private String  type;
+    /**
+     * 日志内容
+     */
+    private String context;
+    /**
+     * 作者
+     */
+    private String author= SQLConverter.AUTHOR;
+
+}

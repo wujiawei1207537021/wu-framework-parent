@@ -9,6 +9,7 @@ import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.stereotype.upsert.ienum.UserConvertService;
+import com.wu.framework.easy.stereotype.upsert.process.MySQLDataProcess;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -36,13 +37,14 @@ public class MySQLMultipleEasyUpsert extends MySQLEasyUpsertAbstract implements 
     private final UpsertConfig upsertConfig;
     private String primary;
     private Map<String, DataSource> dataSourceMap = new LinkedHashMap<>();
+    private final MySQLDataProcess mySQLDataProcess;
 
-    public MySQLMultipleEasyUpsert(DataSource dataSource, UserConvertService userConvertService, UpsertConfig upsertConfig) {
-        super(userConvertService, upsertConfig);
+    public MySQLMultipleEasyUpsert(DataSource dataSource, UserConvertService userConvertService, UpsertConfig upsertConfig, MySQLDataProcess mySQLDataProcess) {
+        super(userConvertService, upsertConfig, mySQLDataProcess);
         this.dataSource = dataSource;
         this.upsertConfig = upsertConfig;
         this.userConvertService = userConvertService;
-
+        this.mySQLDataProcess = mySQLDataProcess;
     }
 
     @Override
@@ -63,5 +65,6 @@ public class MySQLMultipleEasyUpsert extends MySQLEasyUpsertAbstract implements 
         Field dataSourceMapDeclaredField = dataSource.getClass().getDeclaredField("dataSourceMap");
         dataSourceMapDeclaredField.setAccessible(true);
         dataSourceMap = (Map<String, DataSource>) dataSourceMapDeclaredField.get(dataSource);
+        super.afterPropertiesSet();
     }
 }

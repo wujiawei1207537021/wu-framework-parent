@@ -3,6 +3,7 @@ package com.wu.framework.easy.stereotype.upsert;
 
 import com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter;
 import com.wu.framework.easy.stereotype.upsert.factory.EasyThreadFactory;
+import org.springframework.beans.factory.InitializingBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 
-public interface IEasyUpsert {
+public interface IEasyUpsert extends InitializingBean {
 
     ThreadPoolExecutor easyUpsertExecutor = new ThreadPoolExecutor(5, 10, 200, TimeUnit.MILLISECONDS,
             new ArrayBlockingQueue<>(20), new EasyThreadFactory());
@@ -30,19 +31,17 @@ public interface IEasyUpsert {
     default <T> Object fuzzyUpsert(Object... objects) throws Exception {
         for (Object object : objects) {
             if (object instanceof List) {
-                upsert((List) object);
+                upsert((List<T>) object);
             } else {
                 List<List> listList = EasyAnnotationConverter.extractData(null, object);
                 for (List list : listList) {
-                    upsert(list);
+                    upsert((List<T>)list);
                 }
 
             }
         }
         return true;
     }
-
-    ;
 
     /**
      * @return
@@ -64,5 +63,10 @@ public interface IEasyUpsert {
             newList.add(source.subList(fromIndex, toIndex));
         }
         return newList;
+    }
+
+    @Override
+    default void afterPropertiesSet() throws Exception {
+
     }
 }

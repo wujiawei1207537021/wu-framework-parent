@@ -17,7 +17,7 @@ public interface DataProcess {
      * @author Jia wei Wu
      * @date 2020/10/22 下午2:20
      */
-    ProcessResult classAnalyze(Class clazz);
+    Object classAnalyze(Class clazz);
 
     /**
      * description 数据包装
@@ -28,7 +28,7 @@ public interface DataProcess {
      * @author Jia wei Wu
      * @date 2020/10/22 下午2:23
      */
-    ProcessResult dataPack(Object sourceData);
+    Object dataPack(Object sourceData);
 
 
     /**

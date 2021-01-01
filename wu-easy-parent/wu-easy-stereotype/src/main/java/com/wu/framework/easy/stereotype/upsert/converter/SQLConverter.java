@@ -4,6 +4,8 @@ import com.wu.framework.easy.stereotype.upsert.EasySmart;
 import com.wu.framework.easy.stereotype.upsert.EasySmartField;
 import com.wu.framework.easy.stereotype.upsert.entity.ConvertedField;
 import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
+import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasyTableAnnotation;
+import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
@@ -15,7 +17,6 @@ import org.springframework.util.ObjectUtils;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -116,67 +117,70 @@ public class SQLConverter {
 
 
     public static String createTableSQL(Class clazz) {
-        EasySmart tableNameAnnotation = AnnotationUtils.getAnnotation(clazz, EasySmart.class);
-        List<String> fieldNames = new ArrayList<>();
-        List<Integer> ignoredIndex = new ArrayList<>();
-        String tableComment = "";
-        String tableName = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
-        // 添加表名
-        if (!ObjectUtils.isEmpty(tableNameAnnotation)) {
-            if (!ObjectUtils.isEmpty(tableNameAnnotation.tableName())) {
-                tableName = tableNameAnnotation.tableName();
-            }
-            tableComment = tableNameAnnotation.comment();
-        }
-        StringBuilder createTableSQLBuffer = new StringBuilder(
-                String.format(SQL_DESC, tableName, tableComment, AUTHOR, LocalDate.now()));
-        createTableSQLBuffer.append(String.format(SQL_DROP, tableName));
-        createTableSQLBuffer.append("CREATE TABLE `").append(tableName).append("` ( \n");
-        // 是否为一索引
-        List<String> uniqueList = new ArrayList<>();
-        // 添加字段
-        Field[] fields = clazz.getDeclaredFields();
-        for (int i = 0; i < fields.length; i++) {
-            Field declaredField = fields[i];
-            EasySmartField tableField = AnnotatedElementUtils.findMergedAnnotation(declaredField, EasySmartField.class);
-            String fieldName = "`" + CamelAndUnderLineConverter.humpToLine2(declaredField.getName()) + "`";
-            String type = EasySmartField.FileType.getTypeByClass(declaredField.getType());
-            String comment = CamelAndUnderLineConverter.humpToLine2(declaredField.getName());
-            if (!ObjectUtils.isEmpty(tableField)) {
-                if (!tableField.exist()) {
-                    ignoredIndex.add(i);
-                    continue;
-                }
-                comment = tableField.comment();
-                if (!ObjectUtils.isEmpty(tableField.value())) {
-                    fieldName = tableField.value();
-                }
-                if (!ObjectUtils.isEmpty(tableField.type())) {
-                    type = tableField.type();
-                }
-                // 记录索引字段
-                if (tableField.indexType().equals(EasySmartField.TableFileIndexType.UNIQUE)) {
-                    uniqueList.add(fieldName);
-                }
-            }
-            fieldNames.add(fieldName);
-            createTableSQLBuffer.append(fieldName).append(type).append(" COMMENT '").append(comment).append("', \n");
-        }
-        createTableSQLBuffer.append(SQL_DEFAULT_FIELD);
-//        UNIQUE KEY `plate_num_color` (`plate_num`,`plate_color`),
-        if (!ObjectUtils.isEmpty(uniqueList)) {
-            createTableSQLBuffer.append(" , UNIQUE KEY `");
-            createTableSQLBuffer.append(String.join("_", uniqueList));
-            createTableSQLBuffer.append("` (`");
-            createTableSQLBuffer.append(String.join("`,`", uniqueList));
-            createTableSQLBuffer.append("`)");
-        }
-        createTableSQLBuffer.append(") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='");
-        createTableSQLBuffer.append(tableComment).append("';\n");
-        createTableSQLBuffer.append("-- ------end \n" +
-                "-- ——————————————————————————\n");
-        System.out.println(createTableSQLBuffer);
-        return createTableSQLBuffer.toString();
+        EasyTableAnnotation easyTableAnnotation = LocalStorageClassAnnotation.getEasyTableAnnotation(clazz,true);
+
+//        EasySmart tableNameAnnotation = AnnotationUtils.getAnnotation(clazz, EasySmart.class);
+//        List<String> fieldNames = new ArrayList<>();
+//        List<Integer> ignoredIndex = new ArrayList<>();
+//        String tableComment = "";
+//        String tableName = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
+//        // 添加表名
+//        if (!ObjectUtils.isEmpty(tableNameAnnotation)) {
+//            if (!ObjectUtils.isEmpty(tableNameAnnotation.tableName())) {
+//                tableName = tableNameAnnotation.tableName();
+//            }
+//            tableComment = tableNameAnnotation.comment();
+//        }
+//        StringBuilder createTableSQLBuffer = new StringBuilder(
+//                String.format(SQL_DESC, tableName, tableComment, AUTHOR, LocalDate.now()));
+//        createTableSQLBuffer.append(String.format(SQL_DROP, tableName));
+//        createTableSQLBuffer.append("CREATE TABLE `").append(tableName).append("` ( \n");
+//        // 是否为一索引
+//        List<String> uniqueList = new ArrayList<>();
+//        // 添加字段
+//        Field[] fields = clazz.getDeclaredFields();
+//        for (int i = 0; i < fields.length; i++) {
+//            Field declaredField = fields[i];
+//            EasySmartField tableField = AnnotatedElementUtils.findMergedAnnotation(declaredField, EasySmartField.class);
+//            String fieldName = "`" + CamelAndUnderLineConverter.humpToLine2(declaredField.getName()) + "`";
+//            String type = EasySmartField.FileType.getTypeByClass(declaredField.getType());
+//            String comment = CamelAndUnderLineConverter.humpToLine2(declaredField.getName());
+//            if (!ObjectUtils.isEmpty(tableField)) {
+//                if (!tableField.exist()) {
+//                    ignoredIndex.add(i);
+//                    continue;
+//                }
+//                comment = tableField.comment();
+//                if (!ObjectUtils.isEmpty(tableField.value())) {
+//                    fieldName = tableField.value();
+//                }
+//                if (!ObjectUtils.isEmpty(tableField.type())) {
+//                    type = tableField.type();
+//                }
+//                // 记录索引字段
+//                if (tableField.indexType().equals(EasySmartField.TableFileIndexType.UNIQUE)) {
+//                    uniqueList.add(fieldName);
+//                }
+//            }
+//            fieldNames.add(fieldName);
+//            createTableSQLBuffer.append(fieldName).append(type).append(" COMMENT '").append(comment).append("', \n");
+//        }
+//        createTableSQLBuffer.append(SQL_DEFAULT_FIELD);
+////        UNIQUE KEY `plate_num_color` (`plate_num`,`plate_color`),
+//        if (!ObjectUtils.isEmpty(uniqueList)) {
+//            createTableSQLBuffer.append(" , UNIQUE KEY `");
+//            createTableSQLBuffer.append(String.join("_", uniqueList));
+//            createTableSQLBuffer.append("` (`");
+//            createTableSQLBuffer.append(String.join("`,`", uniqueList));
+//            createTableSQLBuffer.append("`)");
+//        }
+//        createTableSQLBuffer.append(") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='");
+//        createTableSQLBuffer.append(tableComment).append("';\n");
+//        createTableSQLBuffer.append("-- ------end \n" +
+//                "-- ——————————————————————————\n");
+//        System.out.println(createTableSQLBuffer);
+//        return createTableSQLBuffer.toString();
+        return easyTableAnnotation.toTableSQL();
     }
 
 
@@ -464,13 +468,14 @@ public class SQLConverter {
 
     /**
      * description 不完整创建sql查询语句
+     *
      * @param
      * @return
      * @exception/throws
      * @author 吴佳伟
      * @date 2020/12/29 下午12:39
      */
-    public static String createSelectSQL(List<ConvertedField> convertedFieldList,String tableName) {
+    public static String createSelectSQL(List<ConvertedField> convertedFieldList, String tableName) {
         /**
          *     <sql id="SEARCH_CONDITION_SQL">
          *         <where>
@@ -520,7 +525,7 @@ public class SQLConverter {
         }
         builder.append("  </where> \n </sql>\n");
         // 查询sql
-        String beanName=CamelAndUnderLineConverter.lineToHump(tableName);
+        String beanName = CamelAndUnderLineConverter.lineToHump(tableName);
         builder.append(" <select id=\"select" + beanName + "\" resultType=\"" + beanName + "\"> \n");
         builder.append("SELECT T.* FROM ");
         builder.append(tableName).append(" T \n");
@@ -528,6 +533,7 @@ public class SQLConverter {
         System.out.println(builder.toString());
         return builder.toString();
     }
+
     /**
      * description  抽取 字段名和需要映射属性名
      *

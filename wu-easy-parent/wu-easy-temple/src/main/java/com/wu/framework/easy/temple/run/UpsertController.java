@@ -4,6 +4,7 @@ import com.wu.framework.easy.stereotype.upsert.component.IUpsert;
 import com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
 import com.wu.framework.easy.stereotype.upsert.dynamic.QuickEasyUpsert;
+import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.stereotype.web.EasyController;
 import com.wu.framework.easy.temple.domain.DynGpsVehRun;
@@ -14,6 +15,7 @@ import com.wu.framework.easy.temple.domain.bo.MoreExtractBo;
 import com.wu.framework.easy.temple.service.RunService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -40,19 +42,19 @@ public class UpsertController {
 
     @ApiOperation(tags = "快速插入数据", value = "多数据")
     @GetMapping("/more")
-    public void moreUpsert(Integer limit) {
+    public void moreUpsert(@RequestParam(required = false, defaultValue = "100") Integer limit) {
         for (int i = 1; i <= limit; i++) {
             System.out.println("第:" + i + "次");
-            upsert(null);
+            upsert(100);
         }
     }
 
     @EasyUpsertDS(type = EasyUpsertType.MySQL)
     @ApiOperation(tags = "快速插入数据", value = "入DB")
     @GetMapping()
-    public List<UserLog> upsert(Integer size) {
+    public List<UserLog> upsert(@RequestParam(required = false, defaultValue = "100") Integer size) {
         List<UserLog> userLogList = new ArrayList<>();
-        size = size == null ? 100000 : size;
+        size=size==null?1000:size;
         for (int i = 0; i <= size; i++) {
             UserLog userLog = new UserLog();
             userLog.setCurrentTime(LocalDateTime.now());
@@ -67,7 +69,7 @@ public class UpsertController {
     @EasyUpsertDS(type = EasyUpsertType.MySQL)
     @ApiOperation(tags = "快速插入数据", value = "service 实现类操作数据插入")
     @GetMapping("/size")
-    public void upsertSize(Integer size) {
+    public void upsertSize(@RequestParam(required = false, defaultValue = "100") Integer size) {
         runService.run(size);
     }
 
@@ -84,7 +86,7 @@ public class UpsertController {
     @EasyUpsertDS(type = EasyUpsertType.ES)
     @ApiOperation(tags = "快速插入数据", value = "操作数据入ES")
     @GetMapping("/bigDataPartitionTest")
-    public void bigDataPartitionTest(Integer size) {
+    public void bigDataPartitionTest(@RequestParam(required = false, defaultValue = "100") Integer size) {
         List<DynGpsVehRun> dynGpsVehRunList = new ArrayList<>();
         DynGpsVehRun dynGpsVehRun = new DynGpsVehRun();
         dynGpsVehRun.setRunId("闽E06F57_1403_net_car");
@@ -146,5 +148,23 @@ public class UpsertController {
         moreExtractBo.setUserLogList(runService.run(1000));
         return moreExtractBo;
     }
+
+    @QuickEasyUpsert(type = EasyUpsertType.MySQL)
+    @ApiOperation(tags = "快速插入数据", value = "复杂数据EasyHashMap")
+    @GetMapping("/easyHashMap")
+    public List<EasyHashMap> easyHashMap(
+            @RequestParam(required = false, defaultValue = "1000") Integer size) {
+        List<EasyHashMap> easyHashMapList = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            EasyHashMap easyHashMap = new EasyHashMap("uniqueLabel");
+            easyHashMap.put("第一个字段", "第一个字段");
+            easyHashMap.put("第二个字段", "第二个字段");
+            easyHashMap.put("第三个字段", "第三个字段");
+            easyHashMap.put("第四个字段", "第四个字段");
+            easyHashMapList.add(easyHashMap);
+        }
+        return easyHashMapList;
+    }
+
 
 }

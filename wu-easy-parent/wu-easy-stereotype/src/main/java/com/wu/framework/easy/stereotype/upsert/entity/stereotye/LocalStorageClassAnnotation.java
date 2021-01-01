@@ -2,6 +2,7 @@ package com.wu.framework.easy.stereotype.upsert.entity.stereotye;
 
 import com.wu.framework.easy.stereotype.upsert.EasySmart;
 import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConverter;
+import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
 import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,13 +27,13 @@ public class LocalStorageClassAnnotation {
     public static Map<Class, EasyTableAnnotation> CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP = new HashMap<>();
 
 
-    public static EasyTableAnnotation getCustomTableAnnotationAttr(Class clazz, boolean isForceDuplicateNameSwitch) {
+    public static EasyTableAnnotation getEasyTableAnnotation(Class clazz, boolean isForceDuplicateNameSwitch) {
         if (!CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.containsKey(clazz)) {
             String kafkaTopicName = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
             EasySmart easySmart = AnnotationUtils.getAnnotation(clazz, EasySmart.class);
             String kafkaCode = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
             String className = clazz.getName();
-            String name = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
+            String tableName = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
             String comment = "";
             String kafkaSchemaName = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
 
@@ -44,7 +45,7 @@ public class LocalStorageClassAnnotation {
                     kafkaCode = easySmart.kafkaCode();
                 }
                 if (!ObjectUtils.isEmpty(easySmart.tableName())) {
-                    name = easySmart.tableName();
+                    tableName = easySmart.tableName();
                 }
                 if (!ObjectUtils.isEmpty(easySmart.kafkaSchemaName())) {
                     kafkaSchemaName = easySmart.kafkaSchemaName();
@@ -57,12 +58,14 @@ public class LocalStorageClassAnnotation {
             EasyTableAnnotation easyTableAnnotation = new EasyTableAnnotation();
             easyTableAnnotation.setComment(comment);
             easyTableAnnotation.setClassName(className);
-            easyTableAnnotation.setName(name);
+            easyTableAnnotation.setClazz(clazz);
+            easyTableAnnotation.setTableName(tableName);
             easyTableAnnotation.setKafkaSchemaName(kafkaSchemaName);
             easyTableAnnotation.setKafkaTopicName(kafkaTopicName);
             easyTableAnnotation.setKafkaCode(kafkaCode);
+            easyTableAnnotation.setConvertedFieldList(SQLConverter.fieldNamesOnAnnotation(clazz,null));
             log.info("Initialize {} annotation parameters  className:[{}],tableName:[{}],comment:[{}],kafkaTopicName:[{}],kafkaSchemaName:[{}],kafkaCode:[{}]", clazz,
-                    className, name, comment, kafkaTopicName, kafkaSchemaName, kafkaCode);
+                    className, tableName, comment, kafkaTopicName, kafkaSchemaName, kafkaCode);
             CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.put(clazz, easyTableAnnotation);
         }
         return CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.get(clazz);

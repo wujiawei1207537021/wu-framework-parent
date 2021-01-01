@@ -7,6 +7,7 @@ import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.stereotype.upsert.ienum.UserConvertService;
+import com.wu.framework.easy.stereotype.upsert.process.MySQLDataProcess;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -28,10 +29,12 @@ public class MySQLSimpleEasyUpsert extends MySQLEasyUpsertAbstract implements IE
 
 
     private final DataSource dataSource;
+    private final MySQLDataProcess mySQLDataProcess;
 
-    public MySQLSimpleEasyUpsert(DataSource dataSource, UserConvertService userConvertService, UpsertConfig upsertConfig) {
-        super(userConvertService, upsertConfig);
+    public MySQLSimpleEasyUpsert(DataSource dataSource, UserConvertService userConvertService, UpsertConfig upsertConfig, MySQLDataProcess mySQLDataProcess) {
+        super(userConvertService, upsertConfig, mySQLDataProcess);
         this.dataSource = dataSource;
+        this.mySQLDataProcess = mySQLDataProcess;
     }
 
     @Override
@@ -40,8 +43,4 @@ public class MySQLSimpleEasyUpsert extends MySQLEasyUpsertAbstract implements IE
     }
 
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-
-    }
 }

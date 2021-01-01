@@ -63,6 +63,10 @@ public class UpsertConfig implements InitializingBean {
      */
     private String cacheFileAddress = System.getProperty("user.dir");
 
+    /**
+     * 记录日志
+     */
+    private boolean recordLog = false;
 
     @Override
     public void afterPropertiesSet() throws Exception {

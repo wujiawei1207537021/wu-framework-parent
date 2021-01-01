@@ -6,6 +6,8 @@ import org.springframework.util.ObjectUtils;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import static org.springframework.boot.ansi.AnsiStyle.UNDERLINE;
+
 /**
  * @author : Jia wei Wu
  * @version 1.0
@@ -13,6 +15,7 @@ import java.time.LocalDateTime;
  * @date : 2020/11/30 下午21:47
  */
 public class JavaBasicTypeConversion {
+
 
 
     public static Object toString(Object o) {
@@ -37,24 +40,32 @@ public class JavaBasicTypeConversion {
      * @date 2020/12/9 下午3:48
      */
     public static Object defaultBasicDataType(Object o) {
-        if (!ObjectUtils.isEmpty(o)) {
+        Class<?> aClass = o.getClass();
+        Object temp = defaultBasicData(aClass);
+        if (!ObjectUtils.isEmpty(temp)) {
             return o;
         }
-        Class<?> aClass = o.getClass();
-        if (Integer.class.isAssignableFrom(aClass)) {
+        return temp;
+    }
+
+    public static Object defaultBasicData(Class clazz) {
+        if (!ObjectUtils.isEmpty(clazz)) {
+            return clazz;
+        }
+        if (Integer.class.isAssignableFrom(clazz)) {
             return 0;
-        } else if (Double.class.isAssignableFrom(aClass)) {
+        } else if (Double.class.isAssignableFrom(clazz)) {
             return 0.00;
-        } else if (Float.class.isAssignableFrom(aClass)) {
+        } else if (Float.class.isAssignableFrom(clazz)) {
             return 0f;
-        } else if (Long.class.isAssignableFrom(aClass)) {
+        } else if (Long.class.isAssignableFrom(clazz)) {
             return 0L;
-        } else if (Short.class.isAssignableFrom(aClass)) {
+        } else if (Short.class.isAssignableFrom(clazz)) {
             return 0;
-        } else if (Byte.class.isAssignableFrom(aClass)) {
+        } else if (Byte.class.isAssignableFrom(clazz)) {
             return 0;
-        } else if (BigDecimal.class.isAssignableFrom(aClass)) {
+        } else if (BigDecimal.class.isAssignableFrom(clazz)) {
             return 0;
-        } else return o;
+        } else return null;
     }
 }

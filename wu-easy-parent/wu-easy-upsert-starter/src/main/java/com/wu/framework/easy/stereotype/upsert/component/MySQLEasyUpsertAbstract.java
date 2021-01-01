@@ -1,19 +1,23 @@
 package com.wu.framework.easy.stereotype.upsert.component;
 
+import com.wu.framework.easy.stereotype.log.EasyUpsertLog;
 import com.wu.framework.easy.stereotype.upsert.EasySmart;
 import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
 import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
 import com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter;
-import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
+import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
+import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasyTableAnnotation;
+import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
 import com.wu.framework.easy.stereotype.upsert.ienum.UserConvertService;
+import com.wu.framework.easy.stereotype.upsert.process.MySQLDataProcess;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.annotation.AnnotatedElementUtils;
-import org.springframework.util.ObjectUtils;
 
 import javax.sql.DataSource;
-import java.sql.*;
-import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,10 +36,12 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, Initializi
 
     private final UserConvertService userConvertService;
     private final UpsertConfig upsertConfig;
+    private final MySQLDataProcess mySQLDataProcess;
 
-    public MySQLEasyUpsertAbstract(UserConvertService userConvertService, UpsertConfig upsertConfig) {
+    public MySQLEasyUpsertAbstract(UserConvertService userConvertService, UpsertConfig upsertConfig, MySQLDataProcess mySQLDataProcess) {
         this.userConvertService = userConvertService;
         this.upsertConfig = upsertConfig;
+        this.mySQLDataProcess = mySQLDataProcess;
     }
 
     protected abstract DataSource determineDataSource();
@@ -62,6 +68,7 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, Initializi
         Future task = easyUpsertExecutor.submit((Callable) () -> {
             Thread.currentThread().setName(threadName);
             // 第一个参数 clazz
+//            ParameterizedType parameterizedType = (ParameterizedType) list.getClass().getGenericSuperclass();
             Class clazz = list.get(0).getClass();
             EasySmart easySmart = AnnotatedElementUtils.getMergedAnnotation(clazz, EasySmart.class);
             Map<String, Map<String, String>> iEnumList = new HashMap<>();
@@ -69,45 +76,20 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, Initializi
                 iEnumList = userConvertService.userConvert(clazz);
             }
             iEnumList.putAll(EasyAnnotationConverter.collectionConvert(clazz));
-            String upsertSQL = SQLConverter.upsertPreparedStatementSQL(list, clazz, iEnumList);
+            EasyTableAnnotation easyTableAnnotation = mySQLDataProcess.dataAnalyze(clazz, EasyHashMap.class.isAssignableFrom(clazz) ? (EasyHashMap) list.get(0) : null);
+            easyTableAnnotation.setIEnumList(iEnumList);
+            String upsertSQL = mySQLDataProcess.dataPack(list, easyTableAnnotation);
             if (upsertConfig.isPrintSql()) {
                 log.error("Execute SQL : {}", upsertSQL);
             }
             PreparedStatement upsertStatement = null;
             Connection connection = null;
-            boolean rs = false;
+            boolean rs;
             try {
                 connection = dataSource.getConnection();
-                String tableName = EasyAnnotationConverter.getTableName(clazz);
                 //初始化表
-                if (null != easySmart && easySmart.perfectTable()) {
-                    ResultSet resultSet = connection.getMetaData().getTables(null, null, tableName, null);
-                    if (!resultSet.next()) {
-                        String tableSQL = SQLConverter.createTableSQL(clazz);
-                        Statement statement = connection.createStatement();
-                        for (String s : tableSQL.split(";")) {
-                            statement.addBatch(s);
-                        }
-                        //执行建表语句
-                        statement.executeBatch();
-                    } else {
-                        ResultSet columns = connection.getMetaData().getColumns(null, "%", tableName, "%");
-                        List<String> columnNameList = new ArrayList<>();
-                        while (columns.next()) {
-                            String columnName = columns.getString("COLUMN_NAME");
-                            String columnType = columns.getString("TYPE_NAME");
-                            int datasize = columns.getInt("COLUMN_SIZE");
-                            int digits = columns.getInt("DECIMAL_DIGITS");
-                            int nullable = columns.getInt("NULLABLE");
-                            columnNameList.add(columnName);
-//                            System.out.println(columnName + " " + columnType + " " + datasize + " " + digits + " " + nullable);
-                        }
-                        final String alterTableSQL = SQLConverter.alterTableSQL(columnNameList, clazz);
-                        if (!ObjectUtils.isEmpty(alterTableSQL)) {
-                            Statement statement = connection.createStatement();
-                            statement.executeUpdate(alterTableSQL);
-                        }
-                    }
+                if ((null != easySmart && easySmart.perfectTable()) | EasyHashMap.class.isAssignableFrom(clazz)) {
+                    mySQLDataProcess.perfectTable(easyTableAnnotation, dataSource);
                 }
                 //获取PreparedStatement对象
                 upsertStatement = connection.prepareStatement(upsertSQL);
@@ -133,5 +115,11 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, Initializi
         return task.get();
     }
 
-
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        if (upsertConfig.isRecordLog()) {
+            mySQLDataProcess.perfectTable(
+                    LocalStorageClassAnnotation.getEasyTableAnnotation(EasyUpsertLog.class, true), determineDataSource());
+        }
+    }
 }
