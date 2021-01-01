@@ -4,7 +4,6 @@ import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.P
 import com.wu.framework.inner.lazy.database.expand.database.persistence.method.LazyOperationMethod;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.RepositoryOnDifferentMethods;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.annotation.AnnotationUtils;
 
 import javax.sql.DataSource;
@@ -12,7 +11,6 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,13 +23,13 @@ import java.util.Map;
  */
 public class LazyOperationProxy implements InvocationHandler, InitializingBean {
 
-    private final Connection connection;
+    private final DataSource dataSource;
     private final List<LazyOperationMethod> lazyOperationMethods;
     // method LazyOperationMethod
     private final static Map<String, LazyOperationMethod> LAZY_OPERATION_METHOD_MAP = new HashMap<>();
 
-    public LazyOperationProxy(DataSource dataSource, List<LazyOperationMethod> lazyOperationMethods) throws SQLException {
-        this.connection = dataSource.getConnection();
+    public LazyOperationProxy(DataSource dataSource, List<LazyOperationMethod> lazyOperationMethods) {
+        this.dataSource = dataSource;
         this.lazyOperationMethods = lazyOperationMethods;
     }
 
@@ -40,8 +38,16 @@ public class LazyOperationProxy implements InvocationHandler, InitializingBean {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         LazyOperationMethod lazyOperationMethod = LAZY_OPERATION_METHOD_MAP.get(method.getName());
         PersistenceRepository  persistenceRepository = lazyOperationMethod.getPersistenceRepository(method, args);
+        Connection connection = dataSource.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());
-        return lazyOperationMethod.execute(preparedStatement, persistenceRepository.getResultType());
+        try {
+            return lazyOperationMethod.execute(preparedStatement, persistenceRepository.getResultType());
+        }catch (Exception exception){
+            throw  exception;
+        }finally {
+            connection.close();
+        }
+
     }
 
     @Override
