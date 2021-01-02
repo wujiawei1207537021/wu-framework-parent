@@ -1,6 +1,7 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
 import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConverter;
+import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
 import com.wu.framework.inner.lazy.database.converter.PreparedStatementSQLConverter;
 import com.wu.framework.inner.lazy.database.domain.ConvertedField;
 import org.springframework.util.ObjectUtils;
@@ -53,7 +54,7 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
             // Map 数值
             if (Map.class.isAssignableFrom(domainClass)) {
                 while (rs.next()) {
-                    Map hashMap = new LinkedHashMap();
+                    Map hashMap = new EasyHashMap();
                     //取出结果集的元信息：ResultSetMetaData
                     ResultSetMetaData resultSetMetaData = rs.getMetaData();
                     //取出总列数
