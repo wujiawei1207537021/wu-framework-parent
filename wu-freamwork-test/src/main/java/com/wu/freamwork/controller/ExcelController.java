@@ -42,7 +42,7 @@ public class ExcelController {
     @EasyExcel(fileName = "车辆缺失数据")
     @PostMapping("/check/veh")
     public List<Veh> checkVeh(@RequestBody MultipartFile multipartFile) {
-        List<Veh> impVehList = FastExcelImp.praseExcel(multipartFile, Veh.class);
+        List<Veh> impVehList = FastExcelImp.parseExcel(multipartFile, Veh.class);
         System.out.println("车辆导入数据:" + impVehList);
         log.info("解析车辆{}条数", impVehList.size());
         // 查询省厅所有的车辆

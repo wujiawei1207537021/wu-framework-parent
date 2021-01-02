@@ -27,7 +27,7 @@ public class ExcelImpRunTest {
      */
     @PostMapping("/imp1")
     public String import1(@RequestBody MultipartFile multipartFile) {
-        List<UseExcel> userLogList = FastExcelImp.praseExcel(multipartFile, UseExcel.class);
+        List<UseExcel> userLogList = FastExcelImp.parseExcel(multipartFile, UseExcel.class);
         return userLogList.toString();
     }
 

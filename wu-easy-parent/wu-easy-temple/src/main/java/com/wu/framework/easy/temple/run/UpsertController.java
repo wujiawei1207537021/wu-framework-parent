@@ -13,10 +13,12 @@ import com.wu.framework.easy.temple.domain.UserLog;
 import com.wu.framework.easy.temple.domain.bo.ExtractBo;
 import com.wu.framework.easy.temple.domain.bo.MoreExtractBo;
 import com.wu.framework.easy.temple.service.RunService;
+import com.zaxxer.hikari.HikariDataSource;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.sql.DataSource;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,10 +35,12 @@ public class UpsertController {
 
     private final IUpsert iUpsert;
     private final RunService runService;
+    private final DataSource dataSource;
 
-    public UpsertController(IUpsert iUpsert, RunService runService) {
+    public UpsertController(IUpsert iUpsert, RunService runService, DataSource dataSource) {
         this.iUpsert = iUpsert;
         this.runService = runService;
+        this.dataSource = dataSource;
     }
 
 
@@ -54,7 +58,7 @@ public class UpsertController {
     @GetMapping()
     public List<UserLog> upsert(@RequestParam(required = false, defaultValue = "100") Integer size) {
         List<UserLog> userLogList = new ArrayList<>();
-        size=size==null?1000:size;
+        size = size == null ? 1000 : size;
         for (int i = 0; i <= size; i++) {
             UserLog userLog = new UserLog();
             userLog.setCurrentTime(LocalDateTime.now());

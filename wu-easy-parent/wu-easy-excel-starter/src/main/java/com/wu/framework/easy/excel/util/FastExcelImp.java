@@ -22,16 +22,16 @@ public class FastExcelImp {
      * @param <T>
      * @return
      */
-    public static <T> List<T> praseExcel(String path, Class<T> clazz) {
+    public static <T> List<T> parseExcel(String path, Class<T> clazz) {
         File file = new File(path);
-//       return this.praseExcel(file,clazz);
+//       return this.parseExcel(file,clazz);
         Workbook workbook = null;
         try {
             workbook = WorkbookFactory.create(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return praseExcel(workbook, clazz);
+        return parseExcel(workbook, clazz);
     }
 
     /**
@@ -42,14 +42,14 @@ public class FastExcelImp {
      * @param <T>
      * @return
      */
-    public static <T> List<T> praseExcel(MultipartFile file, Class<T> clazz) {
+    public static <T> List<T> parseExcel(MultipartFile file, Class<T> clazz) {
         InputStream is = null;
         try {
             is = file.getInputStream();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return praseExcel(is, clazz);
+        return parseExcel(is, clazz);
     }
 
     /**
@@ -60,17 +60,18 @@ public class FastExcelImp {
      * @param <T>
      * @return
      */
-    public static <T> List<T> praseExcel(InputStream is, Class<T> clazz) {
+    public static <T> List<T> parseExcel(InputStream is, Class<T> clazz) {
+
         Workbook workbook = null;
         try {
             workbook = WorkbookFactory.create(is);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return praseExcel(workbook, clazz);
+        return parseExcel(workbook, clazz);
     }
 
-    public static <T> List<T> praseExcel(Workbook workbook, Class<T> clazz) {
+    public static <T> List<T> parseExcel(Workbook workbook, Class<T> clazz) {
         Sheet sheet = workbook.getSheetAt(0);
         List<T> rst = new ArrayList<>();
         if (sheet == null) {
@@ -105,9 +106,7 @@ public class FastExcelImp {
                 }
                 rst.add(inst);
             }
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
         return rst;

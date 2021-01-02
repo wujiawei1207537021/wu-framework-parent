@@ -1,7 +1,5 @@
 package com.wu.framework.easy.temple.domain;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.wu.framework.easy.excel.stereotype.EasyExcelFiled;
 import com.wu.framework.easy.stereotype.upsert.EasySmart;
 import com.wu.framework.easy.stereotype.upsert.EasySmartField;
@@ -17,8 +15,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @EasySmart(perfectTable = true)
-@TableName("user_log")
-public class UserLog extends Model<UserLog> {
+public class UserLog {
 
     @EasySmartField(name = "user_id")
     private Integer userId;

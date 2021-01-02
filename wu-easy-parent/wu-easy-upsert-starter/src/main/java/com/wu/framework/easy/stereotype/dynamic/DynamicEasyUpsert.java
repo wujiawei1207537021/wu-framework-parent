@@ -83,11 +83,11 @@ public class DynamicEasyUpsert extends AbstractDynamicEasyUpsert implements Init
         //        数据源类型存放
         primaryEasyUpsertDS = defaultCustomDS();
         if (!ObjectUtils.isEmpty(iEasyUpsertList)) {
-            log.info("初始共加载 {} 种方式", iEasyUpsertList.size());
+            log.info("EasyUpsert 初始共加载 {} 种方式", iEasyUpsertList.size());
             for (IEasyUpsert iEasyUpsert : iEasyUpsertList) {
                 EasyUpsertStrategy easyUpsertStrategy = AnnotationUtils.findAnnotation(iEasyUpsert.getClass(), EasyUpsertStrategy.class);
                 if (null != easyUpsertStrategy) {
-                    log.info("动态方式-加载 {} 成功", easyUpsertStrategy.easyUpsertType());
+                    log.info("EasyUpsert 动态方式-加载 {} 成功", easyUpsertStrategy.easyUpsertType());
                     iEasyUpsertMap.put(easyUpsertStrategy.easyUpsertType(), iEasyUpsert);
                 }
             }
