@@ -1,10 +1,13 @@
 package com.wu.framework.easy.temple.run;
 
 import com.wu.framework.easy.excel.util.FastExcelImp;
+import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
 import com.wu.framework.easy.stereotype.web.EasyController;
 import com.wu.framework.easy.temple.domain.UseExcel;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -29,6 +32,18 @@ public class ExcelImpRunTest {
     public String import1(@RequestBody MultipartFile multipartFile) {
         List<UseExcel> userLogList = FastExcelImp.parseExcel(multipartFile, UseExcel.class);
         return userLogList.toString();
+    }
+
+    @PostMapping("/easy/hash-map")
+    public List saveCity(@RequestParam MultipartFile file) {
+        List<EasyHashMap> easyHashMapList = FastExcelImp.parseExcel(file, EasyHashMap.class);
+        if (ObjectUtils.isEmpty(easyHashMapList)) {
+            return easyHashMapList;
+        }
+        EasyHashMap firstEasyHashMap = new EasyHashMap(file.getName());
+        firstEasyHashMap.putAll(easyHashMapList.get(0));
+        easyHashMapList.add(0, firstEasyHashMap);
+        return easyHashMapList;
     }
 
 }

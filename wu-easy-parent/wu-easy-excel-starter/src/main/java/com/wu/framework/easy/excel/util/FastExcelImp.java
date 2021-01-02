@@ -100,8 +100,12 @@ public class FastExcelImp {
                 if (Map.class.isAssignableFrom(clazz)) {
                         Map map=new HashMap();
                     cellNames.entrySet().stream().forEach(stringIntegerEntry -> {
-                        final Cell cell = r.getCell(stringIntegerEntry.getValue());
-                        map.put(stringIntegerEntry.getKey(),cellFormat.apply(cell).text);
+                         Cell cell = r.getCell(stringIntegerEntry.getValue());
+                         Object v="";
+                        if (cell != null) {
+                            v=cellFormat.apply(cell).text;
+                        }
+                        map.put(stringIntegerEntry.getKey(),v);
                     });
                        rst.add((T) map);
                 } else {
