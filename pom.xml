@@ -53,7 +53,7 @@
         <github.global.server>github</github.global.server>
 
         <wu-db-starter.version>1.0.1</wu-db-starter.version>
-        <wu-redis-starter.version>1.0.0</wu-redis-starter.version>
+        <wu-redis-lazy-starter.version>1.0.0</wu-redis-lazy-starter.version>
         <wu-log-starter.version>1.0.0</wu-log-starter.version>
         <wu-swagger-starter.version>1.0.1</wu-swagger-starter.version>
         <wu-file-starter.version>1.0.1</wu-file-starter.version>
@@ -113,8 +113,8 @@
             <!--redis-->
             <dependency>
                 <groupId>top.wu2020</groupId>
-                <artifactId>wu-redis-starter</artifactId>
-                <version>${wu-redis-starter.version}</version>
+                <artifactId>wu-redis-lazy-starter</artifactId>
+                <version>${wu-redis-lazy-starter.version}</version>
             </dependency>
             <!--文件资源服务-->
             <dependency>

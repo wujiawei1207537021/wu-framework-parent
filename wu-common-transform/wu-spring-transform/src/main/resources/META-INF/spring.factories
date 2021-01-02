@@ -1,4 +1,0 @@
-# Auto Configure
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.wu.kafka.config.WuTransformConfig,\
-com.wu.kafka.config.WuDataProcessConfig

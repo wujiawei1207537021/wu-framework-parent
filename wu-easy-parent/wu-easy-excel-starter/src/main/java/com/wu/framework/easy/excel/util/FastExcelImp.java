@@ -1,7 +1,11 @@
 package com.wu.framework.easy.excel.util;
 
 import com.wu.framework.easy.excel.stereotype.EasyExcelFiled;
+import org.apache.poi.ss.format.CellFormat;
+import org.apache.poi.ss.format.CellFormatResult;
+import org.apache.poi.ss.format.CellFormatType;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.util.LocaleUtil;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,6 +15,8 @@ import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.*;
+
+import static org.apache.poi.ss.usermodel.CellType.*;
 
 public class FastExcelImp {
 
@@ -83,28 +89,39 @@ public class FastExcelImp {
         // key:表头,value:对应的列数
         Map<String, Integer> cellNames = getCellMapping(row, lastCellNum);
         // key:映射的表头名字,value:对应的字段
-        Map<String, Field> annotations = getFieldMapping(clazz);
+        Map<String, Field> fieldMap = getFieldMapping(clazz);
         int lastRowNum = sheet.getLastRowNum();
         Set<String> keys = cellNames.keySet();
         try {
+            CellFormat cellFormat = CellFormat.getInstance(LocaleUtil.getUserLocale(),"General");
             for (int rowIndex = (++firstRowNum); rowIndex <= lastRowNum; rowIndex++) {
-                T inst = clazz.newInstance();
                 Row r = sheet.getRow(rowIndex);
-                for (String key : keys) {
-                    Field field = annotations.get(key);
-                    if (field == null) {
-                        continue;
+
+                if (Map.class.isAssignableFrom(clazz)) {
+                        Map map=new HashMap();
+                    cellNames.entrySet().stream().forEach(stringIntegerEntry -> {
+                        final Cell cell = r.getCell(stringIntegerEntry.getValue());
+                        map.put(stringIntegerEntry.getKey(),cellFormat.apply(cell).text);
+                    });
+                       rst.add((T) map);
+                } else {
+                    T inst = clazz.newInstance();
+                    for (String key : keys) {
+                        Field field = fieldMap.get(key);
+                        if (field == null) {
+                            continue;
+                        }
+                        Integer col = cellNames.get(key);
+                        Cell cel = r.getCell(col);
+                        if (cel == null) {
+                            continue;
+                        }
+                        field.setAccessible(true);
+                        field.set(inst, cellFormat.apply(cel).text);
                     }
-                    Integer col = cellNames.get(key);
-                    Cell cel = r.getCell(col);
-                    if (cel == null) {
-                        continue;
-                    }
-                    field.setAccessible(true);
-                    String val = cel.getStringCellValue();
-                    field.set(inst, val);
+                    rst.add(inst);
                 }
-                rst.add(inst);
+
             }
         } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
@@ -157,21 +174,7 @@ public class FastExcelImp {
      * @return
      */
     private static <T> Map<String, Field> getFieldMapping(Class<T> clazz) {
-        // key:映射的表头名字,value:对应的字段
-        Map<String, Field> annotations = new HashMap<>();
-        Field[] fields = clazz.getDeclaredFields();
-        if (fields == null || fields.length < 1) {
-            return annotations;
-        }
-        for (Field field : fields) {
-            EasyExcelFiled mapping = field.getAnnotation(EasyExcelFiled.class);
-            if (mapping == null) {
-                annotations.put(field.getName(), field);
-            } else {
-                annotations.put(mapping.name(), field);
-            }
-        }
-        return annotations;
+        return getFieldMapping(clazz, EasyExcelFiled.class, "name");
     }
 
 //    /***
@@ -220,6 +223,7 @@ public class FastExcelImp {
 //        }
 //        return clazz;
 //    }
+
 
 
 }

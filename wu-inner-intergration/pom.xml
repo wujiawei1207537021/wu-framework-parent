@@ -22,7 +22,7 @@
         <!--wuswagger-->
         <module>wu-swagger-starter</module>
         <!--wuredis-->
-        <module>wu-redis-starter</module>
+        <module>wu-redis-lazy-starter</module>
         <!--wufile-->
         <module>wu-file-starter</module>
         <!--wulog-->

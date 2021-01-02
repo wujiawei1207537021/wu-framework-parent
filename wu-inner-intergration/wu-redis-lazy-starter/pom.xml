@@ -3,26 +3,25 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>wu-common-transform</artifactId>
+        <artifactId>wu-inner-intergration</artifactId>
         <groupId>top.wu2020</groupId>
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>com-demo</artifactId>
+    <artifactId>wu-redis-lazy-starter</artifactId>
+    <description>redis</description>
 
     <dependencies>
+        <!--redis依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>top.wu2020</groupId>
-            <artifactId>wu-spring-transform</artifactId>
-            <version>1.0.0</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
         </dependency>
-
     </dependencies>
 
 </project>
