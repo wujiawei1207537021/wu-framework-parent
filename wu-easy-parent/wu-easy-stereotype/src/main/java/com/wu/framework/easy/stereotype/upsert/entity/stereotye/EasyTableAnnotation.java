@@ -2,6 +2,7 @@ package com.wu.framework.easy.stereotype.upsert.entity.stereotye;
 
 import com.wu.framework.easy.stereotype.upsert.EasySmartField;
 import com.wu.framework.easy.stereotype.upsert.entity.ConvertedField;
+import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
 import lombok.Data;
 import org.springframework.util.ObjectUtils;
 
@@ -75,7 +76,7 @@ public class EasyTableAnnotation {
      * @author 吴佳伟
      * @date 2020/12/31 9:00 下午
      **/
-    public String toTableSQL() {
+    public String creatTableSQL() {
         StringBuilder createTableSQLBuffer = new StringBuilder(
                 String.format(SQL_DESC, tableName, comment, AUTHOR, LocalDate.now()));
         createTableSQLBuffer.append(String.format(SQL_DROP, tableName));
@@ -88,7 +89,8 @@ public class EasyTableAnnotation {
 
         // 添加字段
         convertedFieldList.stream().
-                filter(ConvertedField::isExist).forEach(convertedField -> {
+                filter(ConvertedField::isExist).
+                filter(convertedField -> !UpsertJsonMessage.ignoredFields.contains(convertedField.getConvertedFieldName())).forEach(convertedField -> {
             createTableSQLBuffer.append(convertedField.createColumn());
         });
         createTableSQLBuffer.append(SQL_DEFAULT_FIELD);
