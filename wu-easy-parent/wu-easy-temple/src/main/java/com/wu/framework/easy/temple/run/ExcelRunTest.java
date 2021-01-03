@@ -3,6 +3,7 @@ package com.wu.framework.easy.temple.run;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.wu.framework.easy.excel.stereotype.EasyExcel;
+import com.wu.framework.easy.excel.util.EasyExcelUtil;
 import com.wu.framework.easy.stereotype.web.EasyController;
 import com.wu.framework.easy.temple.EasyExcelTemp;
 import com.wu.framework.easy.temple.domain.ComplexUseExcel;
@@ -13,6 +14,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -110,7 +112,6 @@ public class ExcelRunTest {
     @ApiOperation(tags = "导出注解测试", value = "复杂数据导出")
     @GetMapping("/run5/{size}")
     public List<ComplexUseExcel> run5(@PathVariable Integer size) {
-
         List<UseExcel> useExcelList = new ArrayList<>();
         for (int i = 1; i <= 4; i++) {
             UseExcel useExcel = new UseExcel();
@@ -133,5 +134,14 @@ public class ExcelRunTest {
             complexUseExcelList.add(complexUseExcel);
         }
         return complexUseExcelList;
+    }
+
+
+    @EasyExcel(fileName = "导出数据")
+    @ApiOperation(tags = "导出注解测试", value = "使用原生注解有效(自定义一导出文件名称)")
+    @GetMapping("/run6/{size}")
+    public List<UseExcel> run6(@PathVariable Integer size, @RequestParam String fileName) {
+        EasyExcelUtil.modifyCurrentMethodEasyExcelFileName(this.getClass(),fileName);
+       return run(size);
     }
 }

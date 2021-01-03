@@ -80,7 +80,7 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, Initializi
             easyTableAnnotation.setIEnumList(iEnumList);
             String upsertSQL = mySQLDataProcess.dataPack(list, easyTableAnnotation);
             if (upsertConfig.isPrintSql()) {
-                log.error("Execute SQL : {}", upsertSQL);
+                System.err.println(String.format("Execute SQL : {%s}", upsertSQL));
             }
             PreparedStatement upsertStatement = null;
             Connection connection = null;
