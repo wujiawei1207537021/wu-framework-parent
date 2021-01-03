@@ -1,6 +1,6 @@
 package com.wu.framework.inner.redis;
 
-public interface CustomRedisDBEnum extends CustomRedis {
+public interface LazyRedisDBEnum extends LazyRedis {
 
 
     Integer getDb();

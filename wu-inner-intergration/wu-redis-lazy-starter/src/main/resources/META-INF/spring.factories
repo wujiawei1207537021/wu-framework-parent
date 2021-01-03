@@ -1,5 +1,4 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.wu.framework.inner.redis.component.CustomRedisTemplate,\
-com.wu.framework.inner.redis.aop.DynamicRedisDBAOP,\
-com.wu.framework.inner.redis.aop.RedisClearAOP
+com.wu.framework.inner.redis.component.LazyRedisTemplate,\
+com.wu.framework.inner.redis.aop.DynamicRedisDBAOP

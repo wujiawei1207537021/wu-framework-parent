@@ -81,6 +81,11 @@
             <version>0.2.7</version>
         </dependency>
 
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-redis-lazy-starter</artifactId>
+        </dependency>
+
     </dependencies>
     <!--    <build>-->
     <!--        <plugins>-->

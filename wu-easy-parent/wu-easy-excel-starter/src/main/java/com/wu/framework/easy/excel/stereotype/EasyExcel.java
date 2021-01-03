@@ -16,7 +16,7 @@ import java.lang.annotation.*;
  * @author Jia wei Wu
  * @date 2020/10/5 下午7:08
  */
-@Target({ElementType.METHOD})
+@Target({ElementType.METHOD,ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
@@ -52,7 +52,7 @@ public @interface EasyExcel {
     boolean isComplicated() default false;
 
     /**
-     * 默认 false 通过参数中注解获取表头字段
+     * 默认 true 通过参数中注解获取表头字段
      * 是否使用注解方式获取表头
      *
      * @return boolean
