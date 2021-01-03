@@ -1,5 +1,6 @@
 package com.wu.framework.inner.database.domain;
 
+import com.wu.framework.inner.lazy.database.stereotype.CustomRepositoryXmlScan;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

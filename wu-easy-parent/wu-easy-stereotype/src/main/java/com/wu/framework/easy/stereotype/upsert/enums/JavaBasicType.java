@@ -54,7 +54,7 @@ public enum JavaBasicType {
     SQL_DATE(java.sql.Date.class, java.sql.Date.valueOf(LocalDate.now())),
 
     ;
-    public static EasyHashMap DEFAULT_VALUE_HASHMAP = new EasyHashMap<Class, Object>();
+    public static EasyHashMap<Class,Object> DEFAULT_VALUE_HASHMAP = new EasyHashMap<Class, Object>();
 
     static {
         Arrays.stream(values()).forEach(javaBasicType -> DEFAULT_VALUE_HASHMAP.put(javaBasicType.clazz, javaBasicType.defaultValue));
@@ -62,4 +62,36 @@ public enum JavaBasicType {
 
     private Class clazz;
     private Object defaultValue;
+
+
+    /**
+     * 转换为基本数据类型对象
+    * @param
+    * @return
+    * @author 吴佳伟
+    * @date 2021/1/3 1:03 下午
+    **/
+    public static Object convertBasicTypeBean(Class clazz, Object obj){
+        if(null==obj)return JavaBasicType.DEFAULT_VALUE_HASHMAP.get(clazz);
+        if (clazz.equals(Integer.class) || clazz.equals(int.class)) {
+            return Integer.valueOf(obj.toString());
+        } else if (clazz.equals(String.class)) {
+            return obj.toString();
+        } else if (clazz.equals(Long.class) || clazz.equals(long.class)) {
+            return Long.valueOf(obj.toString());
+        } else if (clazz.equals(Short.class) || clazz.equals(short.class)) {
+            return Short.valueOf(obj.toString());
+        } else if (clazz.equals(Double.class) || clazz.equals(double.class)) {
+            return Double.valueOf(obj.toString());
+        } else if (clazz.equals(Float.class) || clazz.equals(float.class)) {
+            return Float.valueOf(obj.toString());
+        } else if (clazz.equals(Boolean.class) || clazz.equals(boolean.class)) {
+            return Boolean.valueOf(obj.toString());
+        } else if (clazz.equals(Byte.class) || clazz.equals(byte.class)) {
+            return Byte.valueOf(obj.toString());
+        } else if (clazz.equals(Character.class) || clazz.equals(char.class)) {
+            return obj;
+        }
+        return obj;
+    }
 }

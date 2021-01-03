@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * kafka connect的JsonSchema格式
  *
- * @author 黄珺
+ * @author
  * @date 2019-08-30
  */
 @Data

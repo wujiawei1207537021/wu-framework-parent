@@ -98,7 +98,7 @@ public class FastExcelImp {
                 Row r = sheet.getRow(rowIndex);
 
                 if (Map.class.isAssignableFrom(clazz)) {
-                        Map map=new HashMap();
+                        Map map= (Map) clazz.newInstance();
                     cellNames.entrySet().stream().forEach(stringIntegerEntry -> {
                          Cell cell = r.getCell(stringIntegerEntry.getValue());
                          Object v="";

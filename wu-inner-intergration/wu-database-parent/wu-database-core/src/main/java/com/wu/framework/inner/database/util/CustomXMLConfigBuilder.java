@@ -2,8 +2,9 @@ package com.wu.framework.inner.database.util;
 
 
 import com.wu.framework.inner.database.domain.CustomRepository;
-import com.wu.framework.inner.database.io.CustomResources;
-import com.wu.framework.inner.database.stereotype.CustomRepositoryXmlScan;
+
+import com.wu.framework.inner.lazy.database.io.CustomResources;
+import com.wu.framework.inner.lazy.database.stereotype.CustomRepositoryXmlScan;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;

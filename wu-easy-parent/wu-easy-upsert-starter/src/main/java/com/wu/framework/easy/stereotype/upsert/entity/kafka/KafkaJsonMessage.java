@@ -14,7 +14,7 @@ import static com.wu.framework.easy.stereotype.upsert.util.JsonUtils.parseObject
  * kafka connect json格式数据，需要带有json schema
  *
  * @param <T> value的类型
- * @author 黄珺
+ * @author
  * @date 2019-08-30
  */
 @Data

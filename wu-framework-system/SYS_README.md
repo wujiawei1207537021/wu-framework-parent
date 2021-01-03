@@ -1,7 +1,7 @@
 ## 简介
     不可以与oauth2 一起使用
     基于 spring-boot-starter-parent   2.2.1.RELEASE
-    当前版本 1.0.0
+    当前版本 1.0.1
     
 ### 依赖
     1.wu-framework-shiro 1.0.5
@@ -18,7 +18,7 @@
             <dependency>
                 <groupId>com.wu</groupId>
                 <artifactId>wu-framework-system</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>1.0.1-SNAPSHOT</version>
             </dependency>
 
 ### 使用方式      

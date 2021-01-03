@@ -5,17 +5,17 @@
     <parent>
         <artifactId>wu-inner-intergration</artifactId>
         <groupId>top.wu2020</groupId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>wu-database-parent</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <packaging>pom</packaging>
     <description>数据库</description>
     <modules>
         <!--wudb-->
-        <module>wu-db-starter</module>
+<!--        <module>wu-db-starter</module>-->
         <module>wu-database-lazy-starter</module>
         <module>wu-dynamic-database-starter</module>
         <module>wu-database-generator-starter</module>

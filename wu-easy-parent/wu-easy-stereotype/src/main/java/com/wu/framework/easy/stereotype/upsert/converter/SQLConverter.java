@@ -180,7 +180,7 @@ public class SQLConverter {
 //                "-- ——————————————————————————\n");
 //        System.out.println(createTableSQLBuffer);
 //        return createTableSQLBuffer.toString();
-        return easyTableAnnotation.toTableSQL();
+        return easyTableAnnotation.creatTableSQL();
     }
 
 

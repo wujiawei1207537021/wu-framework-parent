@@ -24,6 +24,7 @@ public class LazyOperationMethodInsertList extends AbstractLazyOperationMethod {
         if (args[0] instanceof Collection && !ObjectUtils.isEmpty(args)) {
             Collection collection = (Collection) args[0];
             Class clazz = collection.iterator().next().getClass();
+//            queryString = SQLConverter.upsertPreparedStatementSQL(collection, clazz);
             queryString = PreparedStatementSQLConverter.insertPreparedStatementSQL(collection, clazz);
             PersistenceRepository persistenceRepository = new PersistenceRepository();
             persistenceRepository.setQueryString(queryString);

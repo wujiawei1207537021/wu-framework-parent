@@ -1,13 +1,14 @@
 package com.wu.framework.inner.database.converter;
 
 import com.wu.framework.inner.database.domain.CustomRepository;
-import com.wu.framework.inner.database.domain.Page;
-import com.wu.framework.inner.database.stereotype.PageNote;
-import com.wu.framework.inner.database.stereotype.Param;
+import com.wu.framework.inner.lazy.database.domain.Page;
+import com.wu.framework.inner.lazy.database.stereotype.PageNote;
+import com.wu.framework.inner.lazy.database.stereotype.Param;
 import org.apache.commons.jexl3.JexlEngine;
 import org.apache.commons.jexl3.JexlExpression;
 import org.apache.commons.jexl3.internal.Engine;
 import org.springframework.util.ObjectUtils;
+
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;

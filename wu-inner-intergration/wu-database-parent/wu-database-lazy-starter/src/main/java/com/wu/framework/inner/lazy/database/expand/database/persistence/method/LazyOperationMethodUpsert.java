@@ -1,6 +1,6 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
-import com.wu.framework.inner.lazy.database.converter.PreparedStatementSQLConverter;
+import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.RepositoryOnDifferentMethods;
 import org.springframework.util.ObjectUtils;
@@ -15,7 +15,7 @@ import java.util.Collection;
  * @date : 2020/7/3 下午10:28
  */
 @RepositoryOnDifferentMethods(RepositoryOnDifferentMethods.LayerOperationMethodEnum.UPSERT_LIST)
-public class LazyOperationMethodUpInsert extends AbstractLazyOperationMethod {
+public class LazyOperationMethodUpsert extends AbstractLazyOperationMethod {
 
     @Override
     public PersistenceRepository getPersistenceRepository(Method method, Object[] args) throws IllegalArgumentException {
@@ -23,7 +23,7 @@ public class LazyOperationMethodUpInsert extends AbstractLazyOperationMethod {
         if (args[0] instanceof Collection && !ObjectUtils.isEmpty(args)) {
             Collection collection = (Collection) args[0];
             Class clazz = collection.iterator().next().getClass();
-            String queryString = PreparedStatementSQLConverter.upsertPreparedStatementSQL(collection, clazz);
+            String queryString = SQLConverter.upsertPreparedStatementSQL(collection, clazz);
             PersistenceRepository persistenceRepository = new PersistenceRepository();
             persistenceRepository.setQueryString(queryString);
             persistenceRepository.setResultClass(clazz);

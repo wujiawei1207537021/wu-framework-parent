@@ -6,9 +6,11 @@ import com.wu.framework.inner.lazy.database.expand.database.persistence.stereoty
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
+@Accessors(chain = true)
 @Data
 @EasySmart(value = "user", comment = "用户信息表")
 @AllArgsConstructor
@@ -16,7 +18,7 @@ import java.io.Serializable;
 public class DataBaseUser implements Serializable {
     //
     @CustomId(value = "id")
-    private int id;
+    private Integer id;
 
     //    @EasySmartField(value = "username",comment = "username")
     @CustomId(value = "username")
@@ -33,5 +35,5 @@ public class DataBaseUser implements Serializable {
     private String address;
 
     @CustomId(value = "age")
-    private int age;
+    private Integer age;
 }

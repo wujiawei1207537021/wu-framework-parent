@@ -1,12 +1,10 @@
 package com.wu.framework.easy.stereotype.upsert.process;
 
-import com.wu.framework.easy.stereotype.log.EasyUpsertLog;
 import com.wu.framework.easy.stereotype.upsert.entity.ConvertedField;
 import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
 import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasyTableAnnotation;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
-import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.stereotype.upsert.enums.JavaBasicType;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.ReflectionUtils;
@@ -15,12 +13,9 @@ import javax.sql.DataSource;
 import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -143,7 +138,7 @@ public class MySQLDataProcess {
             //
             String perfectTableSQL;
             if (!resultSet.next()) {
-                String createTableSQL = easyTableAnnotation.toTableSQL();
+                String createTableSQL = easyTableAnnotation.creatTableSQL();
                 Statement statement = connection.createStatement();
                 for (String s : createTableSQL.split(";")) {
                     statement.addBatch(s);

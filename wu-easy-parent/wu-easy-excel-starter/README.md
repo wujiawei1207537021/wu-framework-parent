@@ -3,7 +3,7 @@
      <dependency>
         <groupId>com.wu</groupId>
         <artifactId>wu-easy-excel-starter</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
      </dependency>
      
 ### 基本用法

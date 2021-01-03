@@ -1,6 +1,7 @@
 package com.wu.framework.inner.database.util;
 
-import com.wu.framework.inner.database.config.SimpleCustomDatabaseConfiguration;
+
+import com.wu.framework.inner.database.config.mapper.SimpleCustomDatabaseConfiguration;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;

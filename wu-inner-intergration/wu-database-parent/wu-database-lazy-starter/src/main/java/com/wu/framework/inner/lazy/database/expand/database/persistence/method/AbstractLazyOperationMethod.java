@@ -1,7 +1,7 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
 import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConverter;
-import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
+import com.wu.framework.easy.stereotype.upsert.enums.JavaBasicType;
 import com.wu.framework.inner.lazy.database.converter.PreparedStatementSQLConverter;
 import com.wu.framework.inner.lazy.database.domain.ConvertedField;
 import org.springframework.util.ObjectUtils;
@@ -12,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -54,7 +53,7 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
             // Map 数值
             if (Map.class.isAssignableFrom(domainClass)) {
                 while (rs.next()) {
-                    Map hashMap = new EasyHashMap();
+                    Map hashMap = (Map) domainClass.newInstance();
                     //取出结果集的元信息：ResultSetMetaData
                     ResultSetMetaData resultSetMetaData = rs.getMetaData();
                     //取出总列数
@@ -70,6 +69,12 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
                     //把赋好值的对象加入到集合中
                     list.add(hashMap);
                 }
+            } else if (isWrapClass(domainClass)) {
+                //基本数据类型
+                while (rs.next()) {
+                    Object convertBasicTypeBean = JavaBasicType.convertBasicTypeBean(domainClass, rs.getObject(1));
+                    list.add(convertBasicTypeBean);
+                }
             } else {
                 List<ConvertedField> convertedFieldList = PreparedStatementSQLConverter.fieldNamesOnAnnotation(domainClass);
                 Map<String, String> convertedFieldMap = convertedFieldList.stream().collect(Collectors.toMap(ConvertedField::getFieldName, ConvertedField::getFieldName));
@@ -84,9 +89,9 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
                     for (int i = 1; i <= columnCount; i++) {
                         //获取每列的名称，列名的序号是从1开始的
                         String columnName = rsmd.getColumnName(i).toLowerCase();
-                        columnName=CamelAndUnderLineConverter.lineToHump(columnName);
-                         String columnLabel = rsmd.getColumnLabel(i);
-                        String fieldName = convertedFieldMap.getOrDefault(columnName,convertedFieldMap.get(columnLabel));
+                        columnName = CamelAndUnderLineConverter.lineToHump(columnName);
+                        String columnLabel = rsmd.getColumnLabel(i);
+                        String fieldName = convertedFieldMap.getOrDefault(columnName, convertedFieldMap.get(columnLabel));
                         if (ObjectUtils.isEmpty(fieldName)) {
                             continue;
                         }
@@ -94,9 +99,9 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
 //                        Object columnValue = rs.getObject(columnName);
                         Field field = domainClass.getDeclaredField(fieldName);
                         field.setAccessible(true);
-                        rs.getObject(i,field.getType());
+                        rs.getObject(i, field.getType());
 //                        columnValue = convertToTheCorrespondingType(columnValue, field.getType());
-                        Object columnValue=rs.getObject(i,field.getType());
+                        Object columnValue = rs.getObject(i, field.getType());
                         field.set(obj, columnValue);
                     }
                     //把赋好值的对象加入到集合中
@@ -110,37 +115,6 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
     }
 
     /**
-     * 将object 转换成相应的类型
-     *
-     * @param obj
-     * @param clazz
-     * @return
-     */
-    protected Object convertToTheCorrespondingType(Object obj, Class clazz) {
-        obj = obj == null ? "" : obj;
-        if (clazz.equals(Integer.class) || clazz.equals(int.class)) {
-            return Integer.valueOf(obj.toString());
-        } else if (clazz.equals(String.class)) {
-            return obj.toString();
-        } else if (clazz.equals(Long.class) || clazz.equals(long.class)) {
-            return Long.valueOf(obj.toString());
-        } else if (clazz.equals(Short.class) || clazz.equals(short.class)) {
-            return Short.valueOf(obj.toString());
-        } else if (clazz.equals(Double.class) || clazz.equals(double.class)) {
-            return Double.valueOf(obj.toString());
-        } else if (clazz.equals(Float.class) || clazz.equals(float.class)) {
-            return Float.valueOf(obj.toString());
-        } else if (clazz.equals(Boolean.class) || clazz.equals(boolean.class)) {
-            return Boolean.valueOf(obj.toString());
-        } else if (clazz.equals(Byte.class) || clazz.equals(byte.class)) {
-            return Byte.valueOf(obj.toString());
-        } else if (clazz.equals(Character.class) || clazz.equals(char.class)) {
-            return obj;
-        }
-        return obj;
-    }
-
-    /**
      * 转换成对应的对象
      *
      * @param obj
@@ -151,5 +125,22 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
         return null;
     }
 
+
+    /**
+     * 是否基本数据类型
+     *
+     * @param
+     * @return
+     * @author 吴佳伟
+     * @date 2021/1/3 12:54 下午
+     **/
+    public static boolean isWrapClass(Class clazz) {
+        try {
+            if(String.class.isAssignableFrom(clazz))return true;
+            return ((Class) clazz.getField("TYPE").get(null)).isPrimitive();
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
 }

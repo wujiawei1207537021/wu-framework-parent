@@ -1,6 +1,7 @@
 package com.wu.freamwork.controller;
 
 
+import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
 import com.wu.framework.easy.stereotype.web.EasyController;
 
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
@@ -20,7 +21,7 @@ import java.util.List;
  * @describe : 数据库测试
  * @date : 2020/6/27 下午7:15
  */
-//@EasyController
+@EasyController
 public class DataBaseTestController implements CommandLineRunner {
 
     @Resource
@@ -37,9 +38,10 @@ public class DataBaseTestController implements CommandLineRunner {
 //        select();
 //        System.out.println(iUserDao.findAll());
 //        SQLConverter.createSelectSQL(OmTpsmPubOthEqpOpemngVehicleRegistration.class);
-        List<DataBaseUser> ss = layerOperation.executeSQL("select * from user", DataBaseUser.class);
+        List<String> ss = layerOperation.executeSQL("select id from user", String.class);
+
         System.out.println(ss);
-        layerOperation.activeUpsert(new DataBaseUser());
+        layerOperation.activeUpsert(new DataBaseUser().setAge(20));
     }
 
     /**
