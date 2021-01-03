@@ -27,10 +27,11 @@ public class IUpsertHandler implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        if (ObjectUtils.isEmpty(args)) {
+
+        Object arg;
+        if (ObjectUtils.isEmpty(args)||null==(arg=args[0])) {
             return false;
         }
-        Object arg = args[0];
         if (arg instanceof Object[]) {
             Object[] objects = (Object[]) arg;
             for (Object o : objects) {
