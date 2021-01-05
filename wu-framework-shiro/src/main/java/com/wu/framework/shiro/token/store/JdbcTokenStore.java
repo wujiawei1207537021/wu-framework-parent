@@ -1,98 +1,89 @@
 package com.wu.framework.shiro.token.store;
 
+import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import com.wu.framework.shiro.config.pro.ShiroProperties;
 import com.wu.framework.shiro.domain.AccessToken;
 import com.wu.framework.shiro.domain.Authentication;
 import com.wu.framework.shiro.domain.DefaultAccessToken;
 import com.wu.framework.shiro.domain.DefaultAuthentication;
-import com.wu.framework.shiro.exceptions.TokenAuthorizationException;
 import com.wu.framework.shiro.model.UserDetails;
 import com.wu.framework.shiro.token.TokenStore;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.support.SqlLobValue;
-import org.springframework.util.Assert;
-import org.springframework.util.ObjectUtils;
 import org.springframework.util.SerializationUtils;
 
 import javax.sql.DataSource;
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Types;
 import java.util.*;
 
 @ConditionalOnBean(DataSource.class)
 @ConditionalOnProperty(prefix = "spring.shiro", value = "token-store", havingValue = "JDBC_TOKEN_STORE", matchIfMissing = true)
 public class JdbcTokenStore implements TokenStore {
     private static final Log LOG = LogFactory.getLog(JdbcTokenStore.class);
+
     private static final String DEFAULT_ACCESS_TOKEN_INSERT_STATEMENT =
-            "insert into access_token (token_id, token, authentication_id, user_name, client_id, authentication, refresh_token) values (?, ?, ?, ?, ?, ?, ?)";
+            "insert into access_token (token_id, token, authentication_id, user_name, client_id, authentication, refresh_token) values (%s, %s, %s, %s, %s, %s, %s)";
     private static final String DEFAULT_ACCESS_TOKEN_SELECT_STATEMENT =
-            "select token_id, token from access_token where token_id = ?";
+            "select token_id, token from access_token where token_id = %s";
     private static final String DEFAULT_ACCESS_TOKEN_AUTHENTICATION_SELECT_STATEMENT =
-            "select token_id, authentication from access_token where token_id = ?";
+            "select token_id, authentication from access_token where token_id = %s";
     private static final String DEFAULT_ACCESS_TOKEN_FROM_AUTHENTICATION_SELECT_STATEMENT =
-            "select token_id, token from access_token where authentication_id = ?";
+            "select token_id, token from access_token where authentication_id = %s";
     private static final String DEFAULT_ACCESS_TOKENS_FROM_USERNAME_AND_CLIENT_SELECT_STATEMENT =
-            "select token_id, token from access_token where user_name = ? and client_id = ?";
+            "select token_id, token from access_token where user_name = %s and client_id = %s";
     private static final String DEFAULT_ACCESS_TOKENS_FROM_USERNAME_SELECT_STATEMENT =
-            "select token_id, token from access_token where user_name = ?";
+            "select token_id, token from access_token where user_name = %s";
     private static final String DEFAULT_ACCESS_TOKENS_FROM_CLIENTID_SELECT_STATEMENT =
-            "select token_id, token from access_token where client_id = ?";
+            "select token_id, token from access_token where client_id = %s";
     private static final String DEFAULT_ACCESS_TOKEN_DELETE_STATEMENT =
-            "delete from access_token where token_id = ?";
+            "delete from access_token where token_id = %s";
     private static final String DEFAULT_ACCESS_TOKEN_DELETE_FROM_REFRESH_TOKEN_STATEMENT =
-            "delete from access_token where refresh_token = ?";
+            "delete from access_token where refresh_token = %s";
     private static final String DEFAULT_REFRESH_TOKEN_INSERT_STATEMENT =
-            "insert into refresh_token (token_id, token, authentication) values (?, ?, ?)";
+            "insert into refresh_token (token_id, token, authentication) values (%s, %s, %s)";
     private static final String DEFAULT_REFRESH_TOKEN_SELECT_STATEMENT =
-            "select token_id, token from refresh_token where token_id = ?";
+            "select token_id, token from refresh_token where token_id = %s";
     private static final String DEFAULT_REFRESH_TOKEN_AUTHENTICATION_SELECT_STATEMENT =
-            "select token_id, authentication from refresh_token where token_id = ?";
+            "select token_id, authentication from refresh_token where token_id = %s";
     private static final String DEFAULT_REFRESH_TOKEN_DELETE_STATEMENT =
-            "delete from refresh_token where token_id = ?";
-    private final JdbcTemplate jdbcTemplate;
+            "delete from refresh_token where token_id = %s";
+    private final LazyOperation lazyOperation;
     private final ShiroProperties shiroProperties;
     private String insertAccessTokenSql =
-            "insert into access_token (token_id, token, authentication_id, user_name, client_id, authentication, refresh_token) values (?, ?, ?, ?, ?, ?, ?)";
+            "insert into access_token (token_id, token, authentication_id, user_name, client_id, authentication, refresh_token) values (%s, %s, %s, %s, %s, %s, %s)";
     private String updateAccessTokenSql =
-            "update access_token set authentication=? where user_name=?";
+            "update access_token set authentication=%s where user_name=%s";
     private String selectAccessTokenSql =
-            "select token_id, token from access_token where token_id = ?";
+            "select token_id, token from access_token where token_id = %s";
     private String selectAccessTokenAuthenticationSql =
-            "select token_id, authentication from access_token where token_id = ?";
+            "select token_id, authentication from access_token where token_id = %s";
     private String selectAccessTokenFromAuthenticationSql =
-            "select token_id, token from access_token where authentication_id = ?";
+            "select token_id, token from access_token where authentication_id = %s";
     private String selectAccessTokensFromUserNameAndClientIdSql =
-            "select token_id, token from access_token where user_name = ? and client_id = ?";
+            "select token_id, token from access_token where user_name = %s and client_id = %s";
     private String selectAccessTokensFromUserNameSql =
-            "select token_id, token from access_token where user_name = ?";
+            "select token_id, token from access_token where user_name = %s";
     private String selectAccessTokensFromClientIdSql =
-            "select token_id, token from access_token where client_id = ?";
-    private String deleteAccessTokenSql = "delete from access_token where token_id = ?";
+            "select token_id, token from access_token where client_id = %s";
+    private String deleteAccessTokenSql = "delete from access_token where token_id = %s";
     private String insertRefreshTokenSql =
-            "insert into refresh_token (token_id, token, authentication) values (?, ?, ?)";
+            "insert into refresh_token (token_id, token, authentication) values (%s, %s, %s)";
     private String selectRefreshTokenSql =
-            "select token_id, token from refresh_token where token_id = ?";
+            "select token_id, token from refresh_token where token_id = %s";
     private String selectRefreshTokenAuthenticationSql =
-            "select token_id, authentication from refresh_token where token_id = ?";
-    private String deleteRefreshTokenSql = "delete from refresh_token where token_id = ?";
+            "select token_id, authentication from refresh_token where token_id = %s";
+    private String deleteRefreshTokenSql = "delete from refresh_token where token_id = %s";
     private String deleteAccessTokenFromRefreshTokenSql =
-            "delete from access_token where refresh_token = ?";
+            "delete from access_token where refresh_token = %s";
 
-    public JdbcTokenStore(DataSource dataSource, ShiroProperties shiroProperties) {
+    public JdbcTokenStore(LazyOperation lazyOperation, ShiroProperties shiroProperties) {
+        this.lazyOperation = lazyOperation;
         this.shiroProperties = shiroProperties;
-        Assert.notNull(dataSource, "DataSource required");
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
 //    public static void main(String[] args) {
@@ -100,33 +91,13 @@ public class JdbcTokenStore implements TokenStore {
 //    user.setUsername("jjjj");
 //    user.setPassword("xx");
 //    JdbcTokenStore jdbcTokenStore=new JdbcTokenStore(null);
-//    String ss=jdbcTokenStore.extractTokenKey(user.toString());
+//    String ss=extractTokenKey(user.toString());
 //    System.out.println(ss);
 //    }
 
     public AccessToken getAccessToken(String authenticationId) {
-        AccessToken accessToken = null;
-        String key = "";
-
-        try {
-            accessToken =
-                    (AccessToken)
-                            this.jdbcTemplate.queryForObject(
-                                    this.selectAccessTokenFromAuthenticationSql,
-                                    new RowMapper<AccessToken>() {
-                                        @Override
-                                        public AccessToken mapRow(ResultSet rs, int rowNum) throws SQLException {
-                                            return JdbcTokenStore.this.deserializeAccessToken(rs.getBytes(2));
-                                        }
-                                    },
-                                    new Object[]{authenticationId});
-        } catch (EmptyResultDataAccessException var5) {
-            if (LOG.isDebugEnabled()) {
-            }
-
-        } catch (IllegalArgumentException var6) {
-        }
-
+        AccessToken accessToken = deserializeAccessToken(
+                lazyOperation.executeSQLForBean(String.format(selectAccessTokenFromAuthenticationSql, authenticationId), DefaultAccessToken.class).getAccessToken().getBytes());
         return accessToken;
     }
 
@@ -136,111 +107,77 @@ public class JdbcTokenStore implements TokenStore {
     }
 
     @Override
-    public <T> T readAccessToken(String var1, Class<T> clazz) {
+    public <T> T readAccessToken(String token, Class<T> clazz) {
         //TODO  令牌过期问题
-        try {
-            Authentication authentication = this.jdbcTemplate.queryForObject(
-                    this.selectAccessTokenAuthenticationSql,
-                    new JdbcTokenStore.SafeAuthenticationRowMapper(),
-                    new Object[]{extractTokenKey(var1)});
-            if (ObjectUtils.isEmpty(authentication)) {
-                throw new TokenAuthorizationException("令牌过期");
-            }
-            return (T) authentication.getUserDetails();
-        } catch (EmptyResultDataAccessException exception) {
-            throw new TokenAuthorizationException("令牌过期");
-        }
+        DefaultAuthentication defaultAccessToken = lazyOperation.executeSQLForBean(String.format(selectAccessTokenAuthenticationSql, extractTokenKey(token)), DefaultAuthentication.class);
+//            Authentication authentication = this.lazyOperation.queryForObject(
+//                    this.selectAccessTokenAuthenticationSql,
+//                    new SafeAuthenticationRowMapper(),
+//                    new Object[]{extractTokenKey(token)});
+//            if (ObjectUtils.isEmpty(authentication)) {
+//                throw new TokenAuthorizationException("令牌过期");
+//            }
+        return (T) defaultAccessToken.getUserDetails();
+
     }
 
     @Override
     public void removeAccessToken(String var1) {
-        jdbcTemplate.update(
-                JdbcTokenStore.this.deleteAccessTokenSql, new Object[]{extractTokenKey(var1)});
+        lazyOperation.executeSQLForBean(String.format(this.deleteAccessTokenSql, extractTokenKey(var1)), Boolean.class);
     }
 
     @Override
-    public AccessToken getAccessToken(Authentication var1) {
+    public AccessToken getAccessToken(Authentication authentication) {
         return null;
     }
 
     public void removeRefreshToken(String token) {
-        this.jdbcTemplate.update(
-                this.deleteRefreshTokenSql, new Object[]{this.extractTokenKey(token)});
+        this.lazyOperation.executeSQLForBean(String.format(this.deleteRefreshTokenSql, this.extractTokenKey(token)), Boolean.class);
     }
 
     public void removeAccessTokenUsingRefreshToken(String refreshToken) {
-        this.jdbcTemplate.update(
+        this.lazyOperation.executeSQLForBean(String.format(
                 this.deleteAccessTokenFromRefreshTokenSql,
-                new Object[]{this.extractTokenKey(refreshToken)},
-                new int[]{12});
+                this.extractTokenKey(refreshToken)),
+                Boolean.class);
     }
 
     @Override
     public Collection<AccessToken> findTokensByClientId(String clientId) {
         Object accessTokens1 = new ArrayList();
 
-        try {
-            accessTokens1 =
-                    this.jdbcTemplate.query(
-                            this.selectAccessTokensFromClientIdSql,
-                            new JdbcTokenStore.SafeAccessTokenRowMapper(),
-                            new Object[]{clientId});
-        } catch (EmptyResultDataAccessException var4) {
-            if (LOG.isInfoEnabled()) {
-                LOG.info("Failed to find access token for clientId " + clientId);
-            }
-        }
-
-        List<AccessToken> accessTokens = this.removeNulls((List) accessTokens1);
+        accessTokens1 =
+                this.lazyOperation.executeSQLForBean(String.format(
+                        this.selectAccessTokensFromClientIdSql,
+                        clientId), Boolean.class);
+        List accessTokens = this.removeNulls((List) accessTokens1);
         return accessTokens;
     }
 
     public Collection<AccessToken> findTokensByUserName(String userName) {
-        Object accessTokens1 = new ArrayList();
-
-        try {
-            accessTokens1 =
-                    this.jdbcTemplate.query(
-                            this.selectAccessTokensFromUserNameSql,
-                            new JdbcTokenStore.SafeAccessTokenRowMapper(),
-                            new Object[]{userName});
-        } catch (EmptyResultDataAccessException var4) {
-            if (LOG.isInfoEnabled()) {
-                LOG.info("Failed to find access token for userName " + userName);
-            }
-        }
-
+        Object
+                accessTokens1 =
+                this.lazyOperation.executeSQLForBean(String.format(
+                        this.selectAccessTokensFromUserNameSql,
+                        userName), Object.class);
         List<AccessToken> accessTokens = this.removeNulls((List) accessTokens1);
         return accessTokens;
     }
 
     @Override
     public Collection<AccessToken> findTokensByClientIdAndUserName(String clientId, String userName) {
-        Object accessTokens1 = new ArrayList();
-
-        try {
-            accessTokens1 =
-                    this.jdbcTemplate.query(
-                            this.selectAccessTokensFromUserNameAndClientIdSql,
-                            new JdbcTokenStore.SafeAccessTokenRowMapper(),
-                            new Object[]{userName, clientId});
-        } catch (EmptyResultDataAccessException var5) {
-            if (LOG.isInfoEnabled()) {
-                LOG.info(
-                        "Failed to find access token for clientId " + clientId + " and userName " + userName);
-            }
-        }
-
-        List<AccessToken> accessTokens = this.removeNulls((List) accessTokens1);
+        Object accessTokens1 =
+                this.lazyOperation.executeSQLForBean(String.format(
+                        this.selectAccessTokensFromUserNameAndClientIdSql,
+                        userName, clientId), Boolean.class);
+        List accessTokens = this.removeNulls((List) accessTokens1);
         return accessTokens;
     }
 
     private List<AccessToken> removeNulls(List<AccessToken> accessTokens) {
         List<AccessToken> tokens = new ArrayList();
-        Iterator var3 = accessTokens.iterator();
 
-        while (var3.hasNext()) {
-            AccessToken token = (AccessToken) var3.next();
+        for (AccessToken token : accessTokens) {
             if (token != null) {
                 tokens.add(token);
             }
@@ -250,46 +187,41 @@ public class JdbcTokenStore implements TokenStore {
     }
 
     @Override
-    public AccessToken getAccessToken(UserDetails var1, String scope) {
+    public AccessToken getAccessToken(UserDetails userDetails, String scope) {
         //数据加密
         AccessToken accessToken = new DefaultAccessToken();
         Authentication authentication = new DefaultAuthentication();
         authentication.setScope(scope);
-        authentication.setUserDetails(var1);
+        authentication.setUserDetails(userDetails);
         //查询
 //        System.out.println(authentication.tosin());
-//        System.out.println(var1.tosin());
+//        System.out.println(userDetails.tosin());
 //        System.out.println(extractTokenKey(authentication.tosin()));
         try {
-            accessToken = this.jdbcTemplate.queryForObject(
+            accessToken = this.lazyOperation.executeSQLForBean(String.format(
                     this.selectAccessTokenFromAuthenticationSql,
-                    new JdbcTokenStore.SafeAccessTokenRowMapper(),
-                    new Object[]{extractTokenKey(authentication.tosin())});
-            if (ObjectUtils.isEmpty(accessToken)) {
-                throw new EmptyResultDataAccessException(0);
-            }
+                    extractTokenKey(authentication.tosin())), DefaultAccessToken.class);
             if (accessToken.getExpiresDate().before(new Date())) {
-                jdbcTemplate.update(
-                        JdbcTokenStore.this.deleteAccessTokenSql, new Object[]{extractTokenKey(accessToken.getAccessToken())});
-                throw new EmptyResultDataAccessException(0);
+                lazyOperation.executeSQLForBean(String.format(
+                        this.deleteAccessTokenSql, extractTokenKey(accessToken.getAccessToken())), Boolean.class);
             } else {
                 accessToken.setExpiresIn(accessToken.getExpiresDate().getTime() - System.currentTimeMillis());
             }
 
-        } catch (EmptyResultDataAccessException var4) {
+        } catch (Exception var4) {
             LOG.info("Failed to find access token for clientId " + var4);
             //token_id, token, authentication_id, user_name, client_id, authentication, refresh_token
             //加密数据存储
             assert accessToken != null;
-            accessToken.setAccessToken(this.extractTokenKey(var1.toString()) + System.currentTimeMillis());
+            accessToken.setAccessToken(this.extractTokenKey(userDetails.toString()) + System.currentTimeMillis());
             accessToken.setRefreshToken(this.extractTokenKey(accessToken.getAccessToken()));
             accessToken.setScope(scope);
-            jdbcTemplate.update(insertAccessTokenSql, new Object[]{extractTokenKey(accessToken.getAccessToken()),
-                    new SqlLobValue(serializeAccessToken(accessToken)), extractTokenKey(authentication.tosin()),
-                    var1.getUsername(),
+            lazyOperation.executeSQLForBean(String.format(
+                    insertAccessTokenSql, extractTokenKey(accessToken.getAccessToken()),
+                    Arrays.toString(serializeAccessToken(accessToken)), extractTokenKey(authentication.tosin()),
+                    userDetails.getUsername(),
                     null,
-                    new SqlLobValue(serializeAuthentication(authentication)), extractTokenKey(accessToken.getRefreshToken())}, new int[]{
-                    Types.VARCHAR, Types.BLOB, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.BLOB, Types.VARCHAR});
+                    Arrays.toString(serializeAuthentication(authentication)), extractTokenKey(accessToken.getRefreshToken())), Boolean.class);
             if (LOG.isInfoEnabled()) {
                 LOG.info("Failed to find access token for clientId " + accessToken);
             }
@@ -302,15 +234,15 @@ public class JdbcTokenStore implements TokenStore {
     /**
      * 刷新令牌内信息
      *
-     * @param var1
+     * @param userDetails
      * @return
      */
     @Override
-    public void refreshAccessToken(UserDetails var1) {
+    public void refreshAccessToken(UserDetails userDetails) {
         Authentication authentication = new DefaultAuthentication();
         authentication.setScope("web");
-        authentication.setUserDetails(var1);
-        jdbcTemplate.update(updateAccessTokenSql, new Object[]{new SqlLobValue(serializeAuthentication(authentication)), var1.getUsername()}, new int[]{Types.BLOB, Types.VARCHAR});
+        authentication.setUserDetails(userDetails);
+        lazyOperation.executeSQLForBean(String.format(updateAccessTokenSql, Arrays.toString(serializeAuthentication(authentication)), userDetails.getUsername()), Boolean.class);
     }
 
     protected String extractTokenKey(String value) {
@@ -325,13 +257,8 @@ public class JdbcTokenStore implements TokenStore {
                         "MD5 algorithm not available.  Fatal (should be in the JDK).");
             }
 
-            try {
-                byte[] bytes = digest.digest(value.getBytes("UTF-8"));
-                return String.format("%032x", new BigInteger(1, bytes));
-            } catch (UnsupportedEncodingException var4) {
-                throw new IllegalStateException(
-                        "UTF-8 encoding not available.  Fatal (should be in the JDK).");
-            }
+            byte[] bytes = digest.digest(value.getBytes(StandardCharsets.UTF_8));
+            return String.format("%032x", new BigInteger(1, bytes));
         }
     }
 
@@ -408,37 +335,5 @@ public class JdbcTokenStore implements TokenStore {
         this.selectAccessTokensFromClientIdSql = selectAccessTokensFromClientIdSql;
     }
 
-    private final class SafeAccessTokenRowMapper implements RowMapper<AccessToken> {
-        private SafeAccessTokenRowMapper() {
-        }
 
-        @Override
-        public AccessToken mapRow(ResultSet rs, int rowNum) throws SQLException {
-            try {
-                return JdbcTokenStore.this.deserializeAccessToken(rs.getBytes(2));
-            } catch (IllegalArgumentException var5) {
-                String token = rs.getString(1);
-                JdbcTokenStore.this.jdbcTemplate.update(
-                        JdbcTokenStore.this.deleteAccessTokenSql, new Object[]{token});
-                return null;
-            }
-        }
-    }
-
-    private final class SafeAuthenticationRowMapper implements RowMapper<Authentication> {
-        private SafeAuthenticationRowMapper() {
-        }
-
-        @Override
-        public Authentication mapRow(ResultSet rs, int rowNum) throws SQLException {
-            try {
-                return JdbcTokenStore.this.deserializeAuthentication(rs.getBytes(2));
-            } catch (IllegalArgumentException var5) {
-                String token = rs.getString(1);
-                JdbcTokenStore.this.jdbcTemplate.update(
-                        JdbcTokenStore.this.deleteAccessTokenSql, new Object[]{token});
-                return null;
-            }
-        }
-    }
 }

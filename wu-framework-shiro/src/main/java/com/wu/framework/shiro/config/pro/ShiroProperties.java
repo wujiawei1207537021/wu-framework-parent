@@ -53,7 +53,7 @@ public class ShiroProperties {
     /**
      * 忽略的路径
      */
-    private List<String> unCheckApiPath = Arrays.asList("/token/**", "/error/**", "/swagger-ui.html/**", "/favicon.ico", "/swagger-resources/**", "/webjars/**");
+    private List<String> unCheckApiPath = Arrays.asList("/token/**", "/error/**", "/swagger-ui.html/**", "/favicon.ico", "/swagger-resources/**", "/webjars/**","/v3/api-docs");
 
     public void setUnCheckApiPath(List<String> unCheckApiPath) {
         unCheckApiPath.addAll(this.unCheckApiPath);

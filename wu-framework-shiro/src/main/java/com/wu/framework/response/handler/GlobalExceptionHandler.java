@@ -5,7 +5,6 @@ import com.wu.framework.response.ResultFactory;
 import com.wu.framework.response.enmus.DefaultResultCode;
 import com.wu.framework.shiro.exceptions.ShiroException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -34,9 +33,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public Result allExceptionHandler(Exception ex) {
         ex.printStackTrace();
-        if (ex instanceof BadSqlGrammarException) {
-            return ResultFactory.of(DefaultResultCode.SQL_EXCEPTION);
-        } else if (ex instanceof SQLException) {
+        if (ex instanceof SQLException) {
             return ResultFactory.of(DefaultResultCode.SQL_EXCEPTION);
         } else if (ex instanceof ClassCastException) {
             return ResultFactory.of(DefaultResultCode.CLASS_CAST_EXCEPTION);

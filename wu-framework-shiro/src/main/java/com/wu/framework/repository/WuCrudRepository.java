@@ -1,12 +1,10 @@
 package com.wu.framework.repository;
 
 import com.wu.framework.response.Result;
-import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
-@NoRepositoryBean
+
 public interface WuCrudRepository<R, T, ID> extends WuRepository<R> {
 
     @PostMapping()

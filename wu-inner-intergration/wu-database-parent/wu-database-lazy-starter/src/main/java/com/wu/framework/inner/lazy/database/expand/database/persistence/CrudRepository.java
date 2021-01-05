@@ -9,6 +9,8 @@ import java.util.List;
  * @date 2020/10/10 下午12:29
  */
 public interface CrudRepository<T, ID> extends Repository<T, ID> {
+    
+    <T> void save(T t);
 
     /**
      * 批量更新或插入
@@ -92,4 +94,17 @@ public interface CrudRepository<T, ID> extends Repository<T, ID> {
      */
     <T> List<T> selectAll(T t);
 
+    void delete(T t);
+
+    Object count();
+
+    <ID> Object findAllById(Iterable<ID> ids);
+
+    Object findById(ID id);
+
+    Object existsById(ID id);
+
+    <S extends T> void saveAll(Iterable<S> iterable);
+
+    Object findAll();
 }

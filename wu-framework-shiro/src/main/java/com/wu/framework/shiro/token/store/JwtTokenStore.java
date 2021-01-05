@@ -39,9 +39,9 @@ public class JwtTokenStore implements TokenStore {
 //    }
 
     @Override
-    public <T> T readAccessToken(String var1, Class<T> clazz) {
-        if (verifyExp(var1)) {
-            return jwtAccessTokenConverter.readAccessToken(var1, clazz);
+    public <T> T readAccessToken(String token, Class<T> clazz) {
+        if (verifyExp(token)) {
+            return jwtAccessTokenConverter.readAccessToken(token, clazz);
         }
         throw new TokenAuthorizationException("令牌过期");
     }
@@ -54,28 +54,28 @@ public class JwtTokenStore implements TokenStore {
     }
 
     @Override
-    public AccessToken getAccessToken(Authentication var1) {
+    public AccessToken getAccessToken(Authentication authentication) {
 
         return null;
     }
 
     @Override
-    public AccessToken getAccessToken(UserDetails var1, String scope) {
+    public AccessToken getAccessToken(UserDetails userDetails, String scope) {
         // 判断是否存在
         DefaultAccessToken defaultAccessToken;
-        if (accessTokenMap.containsKey(var1.getUsername() + "_" + scope)) {
-            defaultAccessToken = accessTokenMap.get(var1.getUsername() + "_" + scope);
+        if (accessTokenMap.containsKey(userDetails.getUsername() + "_" + scope)) {
+            defaultAccessToken = accessTokenMap.get(userDetails.getUsername() + "_" + scope);
             // 是否过期
             if (verifyExp(defaultAccessToken) != null) {
                 return verifyExp(defaultAccessToken);
             }
-            accessTokenMap.remove(var1.getUsername() + "_" + scope);
+            accessTokenMap.remove(userDetails.getUsername() + "_" + scope);
         }
         // 过期创建新的令牌
         defaultAccessToken =
-                (DefaultAccessToken) jwtAccessTokenConverter.createAccessToken(var1, scope);
-        accessTokenMap.put(var1.getUsername() + "_" + scope, defaultAccessToken);
-        return jwtAccessTokenConverter.createAccessToken(var1, scope);
+                (DefaultAccessToken) jwtAccessTokenConverter.createAccessToken(userDetails, scope);
+        accessTokenMap.put(userDetails.getUsername() + "_" + scope, defaultAccessToken);
+        return jwtAccessTokenConverter.createAccessToken(userDetails, scope);
     }
 
     @Override

@@ -24,25 +24,25 @@ public interface TokenStore {
     /**
      * 解析令牌
      *
-     * @param var1  token
+     * @param token  token
      * @param clazz 返回实体类型
      * @param <T>
      * @return
      */
-    <T> T readAccessToken(String var1, Class<T> clazz);
+    <T> T readAccessToken(String token, Class<T> clazz);
 
     void removeAccessToken(String var1);
 
-    AccessToken getAccessToken(Authentication var1);
+    AccessToken getAccessToken(Authentication authentication);
 
     /**
      * 获取令牌
      *
-     * @param var1  用户信息
+     * @param userDetails  用户信息
      * @param scope 范围(web app phone )
      * @return
      */
-    AccessToken getAccessToken(UserDetails var1, String scope);
+    AccessToken getAccessToken(UserDetails userDetails, String scope);
 
     /**
      * 刷新令牌内信息

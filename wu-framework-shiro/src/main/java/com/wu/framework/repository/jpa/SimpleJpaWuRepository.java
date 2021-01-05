@@ -1,10 +1,11 @@
 package com.wu.framework.repository.jpa;
 
+import com.wu.framework.inner.lazy.database.expand.database.persistence.CrudRepository;
 import com.wu.framework.repository.WuCrudRepository;
 import com.wu.framework.response.Result;
 import com.wu.framework.response.ResultFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
+
 
 import java.util.List;
 
@@ -67,7 +68,7 @@ public class SimpleJpaWuRepository<R extends CrudRepository<T, ID>, T, ID> imple
 
     @Override
     public Result deleteList() {
-        repository.deleteAll();
+        repository.deleteAll(null);
         return ResultFactory.successOf();
     }
 

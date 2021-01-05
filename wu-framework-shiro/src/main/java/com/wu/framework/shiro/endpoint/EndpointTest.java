@@ -4,7 +4,6 @@ import com.wu.framework.response.Result;
 import com.wu.framework.response.ResultFactory;
 import com.wu.framework.shiro.annotation.AccessLimit;
 import com.wu.framework.shiro.domain.LoginUserBO;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class EndpointTest {
 
     @AccessLimit(seconds = 30, maxCount = 3, needLogin = false, checkAccessParam = true, paramName = "username")
-    @ApiOperation("demo1")
     @PostMapping("/demo1")
     public Result demo1(String username) {
         System.out.println("当前接口 限制 30s内 访问3次到达上线");
@@ -24,7 +22,6 @@ public class EndpointTest {
     }
 
     @AccessLimit(seconds = 30, maxCount = 3, needLogin = false, requestSuccessLimit = false, checkAccessParam = true, paramType = LoginUserBO.class, paramName = "username")
-    @ApiOperation("demo2")
     @PostMapping("/demo2")
     public Result demo2(@RequestBody LoginUserBO loginUserBO) {
         System.out.println("当前接口 限制 30s内 访问3次到达上线");
@@ -35,7 +32,6 @@ public class EndpointTest {
     }
 
     @AccessLimit(seconds = 30, maxCount = 3)
-    @ApiOperation("demo3")
     @PostMapping("/demo3")
     public Result demo3() {
         System.out.println("当前接口 限制 30s内 访问3次到达上线");

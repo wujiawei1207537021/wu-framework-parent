@@ -4,14 +4,13 @@ package com.wu.framework.response.handler;
 import com.wu.framework.response.Result;
 import com.wu.framework.response.ResultFactory;
 import com.wu.framework.response.enmus.DefaultResultCode;
-import org.hibernate.exception.ConstraintViolationException;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.yaml.snakeyaml.constructor.DuplicateKeyException;
 
-import javax.persistence.TransactionRequiredException;
+import javax.transaction.TransactionRequiredException;
+import javax.validation.ConstraintViolationException;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 
@@ -29,11 +28,11 @@ public class GlobalDataAccessExceptionHandler {
      * @param exception
      * @return
      */
-    @ExceptionHandler({BadSqlGrammarException.class, SQLException.class})
-    public Result sqlException(Exception exception) {
-        exception.printStackTrace();
-        return ResultFactory.of(DefaultResultCode.SQL_EXCEPTION, exception.getMessage());
-    }
+//    @ExceptionHandler({BadSqlGrammarException.class, SQLException.class})
+//    public Result sqlException(Exception exception) {
+//        exception.printStackTrace();
+//        return ResultFactory.of(DefaultResultCode.SQL_EXCEPTION, exception.getMessage());
+//    }
 
     @ExceptionHandler({SQLIntegrityConstraintViolationException.class, ConstraintViolationException.class})
     public Result sQLIntegrityConstraintViolationException(Exception exception) {

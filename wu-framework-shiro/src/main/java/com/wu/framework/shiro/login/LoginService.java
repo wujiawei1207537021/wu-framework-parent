@@ -46,7 +46,7 @@ public class LoginService implements ILoginService {
 
 
     @Override
-    public Result<AccessToken> accessToken(String username, String password, String scope) {
+    public Result accessToken(String username, String password, String scope) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         //支持MD5密码校验
         String md5Password = DigestUtils.md5DigestAsHex(password.getBytes());
