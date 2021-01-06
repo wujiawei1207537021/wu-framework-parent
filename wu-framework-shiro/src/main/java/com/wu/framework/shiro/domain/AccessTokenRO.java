@@ -14,7 +14,7 @@ import java.util.Date;
  */
 
 
-public interface AccessToken extends Serializable {
+public interface AccessTokenRO extends Serializable {
     String getAccessToken();
 
     void setAccessToken(String accessToken);

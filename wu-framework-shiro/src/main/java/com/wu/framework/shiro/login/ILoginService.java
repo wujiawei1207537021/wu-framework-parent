@@ -1,7 +1,7 @@
 package com.wu.framework.shiro.login;
 
 import com.wu.framework.response.Result;
-import com.wu.framework.shiro.domain.AccessToken;
+import com.wu.framework.shiro.domain.AccessTokenRO;
 import com.wu.framework.shiro.domain.LoginUserBO;
 import com.wu.framework.shiro.model.UserDetails;
 
@@ -10,7 +10,7 @@ public interface ILoginService {
      * @param loginUserBO
      * @return
      */
-    Result<AccessToken> accessToken(LoginUserBO loginUserBO);
+    Result<AccessTokenRO> accessToken(LoginUserBO loginUserBO);
 
     /**
      * @param username
@@ -18,7 +18,7 @@ public interface ILoginService {
      * @param scope
      * @return
      */
-    Result<AccessToken> accessToken(String username, String password, String scope);
+    Result<AccessTokenRO> accessToken(String username, String password, String scope);
 
     /**
      * 用户信息直接加密
@@ -27,7 +27,7 @@ public interface ILoginService {
      * @param scope
      * @return
      */
-    Result<AccessToken> accessToken(UserDetails userDetails, String scope);
+    Result<AccessTokenRO> accessToken(UserDetails userDetails, String scope);
 
     /**
      * 解析令牌
@@ -55,4 +55,13 @@ public interface ILoginService {
      * @date 2020/10/4 下午4:59
      */
     Boolean checkToken(String accessToken);
+
+    /**
+     * 创建用户
+    * @param
+    * @return
+    * @author 吴佳伟
+    * @date 2021/1/6 8:34 下午
+    **/
+    Result<AccessTokenRO> createUser(LoginUserBO loginUserBO);
 }

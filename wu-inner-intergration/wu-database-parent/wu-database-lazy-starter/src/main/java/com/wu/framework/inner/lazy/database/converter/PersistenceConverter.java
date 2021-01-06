@@ -44,13 +44,13 @@ public class PersistenceConverter {
                 continue;
             }
             EasySmartField tableField = AnnotatedElementUtils.findMergedAnnotation(declaredField, EasySmartField.class);
-            if (tableField == null || !tableField.exist()) {
+            if (tableField != null && !tableField.exist()) {
                 continue;
             }
-            String column = ObjectUtils.isEmpty(tableField.name()) ?
+            String column = ObjectUtils.isEmpty(tableField) ?
                     CamelAndUnderLineConverter.humpToLine2(declaredField.getName()) : tableField.name();
             columnList.add(column);
-            columnValueList.add(o.toString());
+            columnValueList.add("'"+o.toString()+"'");
         }
         Persistence persistence = new Persistence();
         persistence.setExecutionEnum(Persistence.ExecutionEnum.INSERT);

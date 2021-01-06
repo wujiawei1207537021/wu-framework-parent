@@ -8,8 +8,8 @@ import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.wu.framework.shiro.config.pro.ShiroProperties;
-import com.wu.framework.shiro.domain.AccessToken;
-import com.wu.framework.shiro.domain.DefaultAccessToken;
+import com.wu.framework.shiro.domain.AccessTokenRO;
+import com.wu.framework.shiro.domain.DefaultAccessTokenRO;
 import com.wu.framework.shiro.exceptions.ExtractScopeException;
 import com.wu.framework.shiro.exceptions.TokenAuthorizationException;
 import com.wu.framework.shiro.model.UserDetails;
@@ -59,8 +59,8 @@ public class DefaultJwtAccessTokenConverter implements JwtAccessTokenConverter {
     }
 
     @Override
-    public AccessToken extractAccessToken(String value, Map<String, ?> map) {
-        DefaultAccessToken defaultAccessToken = new DefaultAccessToken();
+    public AccessTokenRO extractAccessToken(String value, Map<String, ?> map) {
+        DefaultAccessTokenRO defaultAccessToken = new DefaultAccessTokenRO();
         defaultAccessToken.setAccessToken(value);
         defaultAccessToken.setScope(this.extractScope(map));
         if (map.containsKey("exp")) {
@@ -72,8 +72,8 @@ public class DefaultJwtAccessTokenConverter implements JwtAccessTokenConverter {
     }
 
     @Override
-    public AccessToken createAccessToken(UserDetails var1, String scope) {
-        DefaultAccessToken defaultAccessToken = new DefaultAccessToken();
+    public AccessTokenRO createAccessToken(UserDetails var1, String scope) {
+        DefaultAccessTokenRO defaultAccessToken = new DefaultAccessTokenRO();
         String accessToken = creatToken(var1, scope);
         defaultAccessToken.setAccessToken(accessToken);
         defaultAccessToken.setScope(scope);

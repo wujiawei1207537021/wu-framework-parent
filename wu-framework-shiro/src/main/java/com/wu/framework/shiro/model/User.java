@@ -1,13 +1,15 @@
 package com.wu.framework.shiro.model;
 
+import com.wu.framework.easy.stereotype.upsert.EasySmart;
 import lombok.Data;
+
 import java.util.List;
 
 /**
  * @author wjw
  */
-//@Entity
 @Data
+@EasySmart(tableName = "sys_user")
 public class User extends AbstractUserDetails {
 
 

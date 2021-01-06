@@ -6,6 +6,8 @@ import com.wu.framework.inner.lazy.database.expand.database.persistence.stereoty
 import org.springframework.util.ObjectUtils;
 
 import java.lang.reflect.Method;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Arrays;
 
 /**
@@ -33,5 +35,20 @@ public class LazyOperationMethodInsert extends AbstractLazyOperationMethod {
         } else {
             throw new IllegalArgumentException("fail invoke this method in method" + method.getName());
         }
+    }
+
+    /**
+     * description 执行SQL 语句
+     *
+     * @param preparedStatement
+     * @param resultType
+     * @return
+     * @params
+     * @author Jia wei Wu
+     * @date 2020/11/22 上午11:02
+     */
+    @Override
+    public Object execute(PreparedStatement preparedStatement, String resultType) throws SQLException {
+        return super.execute(preparedStatement, resultType);
     }
 }

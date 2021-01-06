@@ -1,6 +1,6 @@
 package com.wu.framework.shiro.token;
 
-import com.wu.framework.shiro.domain.AccessToken;
+import com.wu.framework.shiro.domain.AccessTokenRO;
 import com.wu.framework.shiro.domain.Authentication;
 import com.wu.framework.shiro.model.UserDetails;
 
@@ -19,7 +19,7 @@ import java.util.Collection;
 
 public interface TokenStore {
 
-    AccessToken convertAccessToken(String var1);
+    AccessTokenRO convertAccessToken(String var1);
 
     /**
      * 解析令牌
@@ -33,7 +33,7 @@ public interface TokenStore {
 
     void removeAccessToken(String var1);
 
-    AccessToken getAccessToken(Authentication authentication);
+    AccessTokenRO getAccessToken(Authentication authentication);
 
     /**
      * 获取令牌
@@ -42,7 +42,7 @@ public interface TokenStore {
      * @param scope 范围(web app phone )
      * @return
      */
-    AccessToken getAccessToken(UserDetails userDetails, String scope);
+    AccessTokenRO getAccessToken(UserDetails userDetails, String scope);
 
     /**
      * 刷新令牌内信息
@@ -52,7 +52,7 @@ public interface TokenStore {
      */
     void refreshAccessToken(UserDetails var1);
 
-    Collection<AccessToken> findTokensByClientIdAndUserName(String var1, String var2);
+    Collection<AccessTokenRO> findTokensByClientIdAndUserName(String var1, String var2);
 
-    Collection<AccessToken> findTokensByClientId(String var1);
+    Collection<AccessTokenRO> findTokensByClientId(String var1);
 }

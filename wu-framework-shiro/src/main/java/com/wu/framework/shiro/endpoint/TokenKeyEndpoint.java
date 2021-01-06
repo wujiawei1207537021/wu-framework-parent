@@ -4,7 +4,7 @@ package com.wu.framework.shiro.endpoint;
 import com.wu.framework.easy.stereotype.web.EasyController;
 import com.wu.framework.response.Result;
 import com.wu.framework.shiro.annotation.AccessLimit;
-import com.wu.framework.shiro.domain.AccessToken;
+import com.wu.framework.shiro.domain.AccessTokenRO;
 import com.wu.framework.shiro.domain.LoginUserBO;
 import com.wu.framework.shiro.login.ILoginService;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,7 +28,7 @@ public class TokenKeyEndpoint {
      */
     @AccessLimit(seconds = 30, maxCount = 3, needLogin = false, requestSuccessLimit = false, checkAccessParam = true, paramType = LoginUserBO.class, paramName = "username")
     @PostMapping("/access_token")
-    public Result<AccessToken> accessToken(@RequestBody LoginUserBO loginUserBO) {
+    public Result<AccessTokenRO> accessToken(@RequestBody LoginUserBO loginUserBO) {
         return ILoginService.accessToken(loginUserBO);
     }
 
@@ -43,4 +43,17 @@ public class TokenKeyEndpoint {
     public Result removeAccessToken(@PathVariable String accessToken) {
         return ILoginService.removeAccessToken(accessToken);
     }
+
+    /**
+     *  创建用户
+    * @param
+    * @return
+    * @author 吴佳伟
+    * @date 2021/1/6 8:33 下午
+    **/
+    @PostMapping("/create_user")
+    public Result<AccessTokenRO> createUser(@RequestBody LoginUserBO loginUserBO) {
+        return ILoginService.createUser(loginUserBO);
+    }
+
 }

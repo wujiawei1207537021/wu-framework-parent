@@ -2,10 +2,11 @@ package com.wu.framework.shiro.token.store;
 
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import com.wu.framework.shiro.config.pro.ShiroProperties;
-import com.wu.framework.shiro.domain.AccessToken;
+import com.wu.framework.shiro.domain.AccessTokenRO;
 import com.wu.framework.shiro.domain.Authentication;
-import com.wu.framework.shiro.domain.DefaultAccessToken;
+import com.wu.framework.shiro.domain.DefaultAccessTokenRO;
 import com.wu.framework.shiro.domain.DefaultAuthentication;
+import com.wu.framework.shiro.model.AccessToken;
 import com.wu.framework.shiro.model.UserDetails;
 import com.wu.framework.shiro.token.TokenStore;
 import org.apache.commons.logging.Log;
@@ -95,21 +96,22 @@ public class JdbcTokenStore implements TokenStore {
 //    System.out.println(ss);
 //    }
 
-    public AccessToken getAccessToken(String authenticationId) {
-        AccessToken accessToken = deserializeAccessToken(
-                lazyOperation.executeSQLForBean(String.format(selectAccessTokenFromAuthenticationSql, authenticationId), DefaultAccessToken.class).getAccessToken().getBytes());
-        return accessToken;
+    public AccessTokenRO getAccessToken(String authenticationId) {
+        AccessTokenRO accessTokenRO = deserializeAccessToken(
+                lazyOperation.executeSQLForBean(String.format(selectAccessTokenFromAuthenticationSql, authenticationId), DefaultAccessTokenRO.class).getAccessToken().getBytes());
+        return accessTokenRO;
     }
 
     @Override
-    public AccessToken convertAccessToken(String var1) {
+    public AccessTokenRO convertAccessToken(String var1) {
         return null;
     }
 
     @Override
     public <T> T readAccessToken(String token, Class<T> clazz) {
         //TODO  令牌过期问题
-        DefaultAuthentication defaultAccessToken = lazyOperation.executeSQLForBean(String.format(selectAccessTokenAuthenticationSql, extractTokenKey(token)), DefaultAuthentication.class);
+        AccessToken accessToken = lazyOperation.
+                executeSQLForBean(String.format(  "select token_id, authentication from access_token where token_id = '%s'", extractTokenKey(token)), AccessToken.class);
 //            Authentication authentication = this.lazyOperation.queryForObject(
 //                    this.selectAccessTokenAuthenticationSql,
 //                    new SafeAuthenticationRowMapper(),
@@ -117,7 +119,8 @@ public class JdbcTokenStore implements TokenStore {
 //            if (ObjectUtils.isEmpty(authentication)) {
 //                throw new TokenAuthorizationException("令牌过期");
 //            }
-        return (T) defaultAccessToken.getUserDetails();
+        final Authentication authentication = deserializeAuthentication(accessToken.getAuthentication());
+        return (T) authentication.getUserDetails();
 
     }
 
@@ -127,7 +130,7 @@ public class JdbcTokenStore implements TokenStore {
     }
 
     @Override
-    public AccessToken getAccessToken(Authentication authentication) {
+    public AccessTokenRO getAccessToken(Authentication authentication) {
         return null;
     }
 
@@ -143,7 +146,7 @@ public class JdbcTokenStore implements TokenStore {
     }
 
     @Override
-    public Collection<AccessToken> findTokensByClientId(String clientId) {
+    public Collection<AccessTokenRO> findTokensByClientId(String clientId) {
         Object accessTokens1 = new ArrayList();
 
         accessTokens1 =
@@ -154,18 +157,18 @@ public class JdbcTokenStore implements TokenStore {
         return accessTokens;
     }
 
-    public Collection<AccessToken> findTokensByUserName(String userName) {
+    public Collection<AccessTokenRO> findTokensByUserName(String userName) {
         Object
                 accessTokens1 =
                 this.lazyOperation.executeSQLForBean(String.format(
                         this.selectAccessTokensFromUserNameSql,
                         userName), Object.class);
-        List<AccessToken> accessTokens = this.removeNulls((List) accessTokens1);
-        return accessTokens;
+        List<AccessTokenRO> accessTokenROS = this.removeNulls((List) accessTokens1);
+        return accessTokenROS;
     }
 
     @Override
-    public Collection<AccessToken> findTokensByClientIdAndUserName(String clientId, String userName) {
+    public Collection<AccessTokenRO> findTokensByClientIdAndUserName(String clientId, String userName) {
         Object accessTokens1 =
                 this.lazyOperation.executeSQLForBean(String.format(
                         this.selectAccessTokensFromUserNameAndClientIdSql,
@@ -174,10 +177,10 @@ public class JdbcTokenStore implements TokenStore {
         return accessTokens;
     }
 
-    private List<AccessToken> removeNulls(List<AccessToken> accessTokens) {
-        List<AccessToken> tokens = new ArrayList();
+    private List<AccessTokenRO> removeNulls(List<AccessTokenRO> accessTokenROS) {
+        List<AccessTokenRO> tokens = new ArrayList();
 
-        for (AccessToken token : accessTokens) {
+        for (AccessTokenRO token : accessTokenROS) {
             if (token != null) {
                 tokens.add(token);
             }
@@ -187,9 +190,9 @@ public class JdbcTokenStore implements TokenStore {
     }
 
     @Override
-    public AccessToken getAccessToken(UserDetails userDetails, String scope) {
+    public AccessTokenRO getAccessToken(UserDetails userDetails, String scope) {
         //数据加密
-        AccessToken accessToken = new DefaultAccessToken();
+        AccessTokenRO accessTokenRO = new DefaultAccessTokenRO();
         Authentication authentication = new DefaultAuthentication();
         authentication.setScope(scope);
         authentication.setUserDetails(userDetails);
@@ -197,38 +200,40 @@ public class JdbcTokenStore implements TokenStore {
 //        System.out.println(authentication.tosin());
 //        System.out.println(userDetails.tosin());
 //        System.out.println(extractTokenKey(authentication.tosin()));
+        AccessToken accessToken=new AccessToken();
+
         try {
-            accessToken = this.lazyOperation.executeSQLForBean(String.format(
+            accessTokenRO = this.lazyOperation.executeSQLForBean(String.format(
                     this.selectAccessTokenFromAuthenticationSql,
-                    extractTokenKey(authentication.tosin())), DefaultAccessToken.class);
-            if (accessToken.getExpiresDate().before(new Date())) {
+                    extractTokenKey(authentication.tosin())), DefaultAccessTokenRO.class);
+            if (accessTokenRO.getExpiresDate().before(new Date())) {
                 lazyOperation.executeSQLForBean(String.format(
-                        this.deleteAccessTokenSql, extractTokenKey(accessToken.getAccessToken())), Boolean.class);
+                        this.deleteAccessTokenSql, extractTokenKey(accessTokenRO.getAccessToken())), Boolean.class);
             } else {
-                accessToken.setExpiresIn(accessToken.getExpiresDate().getTime() - System.currentTimeMillis());
+                accessTokenRO.setExpiresIn(accessTokenRO.getExpiresDate().getTime() - System.currentTimeMillis());
             }
 
         } catch (Exception var4) {
             LOG.info("Failed to find access token for clientId " + var4);
             //token_id, token, authentication_id, user_name, client_id, authentication, refresh_token
             //加密数据存储
-            assert accessToken != null;
-            accessToken.setAccessToken(this.extractTokenKey(userDetails.toString()) + System.currentTimeMillis());
-            accessToken.setRefreshToken(this.extractTokenKey(accessToken.getAccessToken()));
-            accessToken.setScope(scope);
-            lazyOperation.executeSQLForBean(String.format(
-                    insertAccessTokenSql, extractTokenKey(accessToken.getAccessToken()),
-                    Arrays.toString(serializeAccessToken(accessToken)), extractTokenKey(authentication.tosin()),
-                    userDetails.getUsername(),
-                    null,
-                    Arrays.toString(serializeAuthentication(authentication)), extractTokenKey(accessToken.getRefreshToken())), Boolean.class);
-            if (LOG.isInfoEnabled()) {
-                LOG.info("Failed to find access token for clientId " + accessToken);
-            }
-            accessToken.setExpiresIn(shiroProperties.getExpireTime());
+            assert accessTokenRO != null;
+            accessTokenRO.setAccessToken(this.extractTokenKey(userDetails.toString()) + System.currentTimeMillis());
+            accessTokenRO.setRefreshToken(this.extractTokenKey(accessTokenRO.getAccessToken()));
+            accessTokenRO.setScope(scope);
+
+            // token_id, token, authentication_id, user_name, client_id, authentication, refresh_token
+            accessToken.setTokenId(extractTokenKey(accessTokenRO.getAccessToken())).setToken(serializeAccessToken(accessTokenRO))
+                    .setAuthenticationId(extractTokenKey(authentication.tosin()))
+                    .setUserName(userDetails.getUsername())
+                    .setClientId(null)
+                    .setAuthentication(serializeAuthentication(authentication))
+                    .setRefreshToken( extractTokenKey(accessTokenRO.getRefreshToken()));
+            lazyOperation.activeUpsert(accessToken);
+            accessTokenRO.setExpiresIn(shiroProperties.getExpireTime());
         }
-        accessToken.setExpiresDate(null);
-        return accessToken;
+        accessTokenRO.setExpiresDate(null);
+        return accessTokenRO;
     }
 
     /**
@@ -262,14 +267,14 @@ public class JdbcTokenStore implements TokenStore {
         }
     }
 
-    protected byte[] serializeAccessToken(AccessToken token) {
+    protected byte[] serializeAccessToken(AccessTokenRO token) {
         token.setExpiresDate(new Date(shiroProperties.getExpireTime() + System.currentTimeMillis()));
         return SerializationUtils.serialize(token);
     }
 
 
-    protected AccessToken deserializeAccessToken(byte[] token) {
-        return (AccessToken) SerializationUtils.deserialize(token);
+    protected AccessTokenRO deserializeAccessToken(byte[] token) {
+        return (AccessTokenRO) SerializationUtils.deserialize(token);
     }
 
     protected byte[] serializeAuthentication(Authentication authentication) {

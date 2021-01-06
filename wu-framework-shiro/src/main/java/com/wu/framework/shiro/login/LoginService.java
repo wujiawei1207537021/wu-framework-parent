@@ -3,7 +3,7 @@ package com.wu.framework.shiro.login;
 import com.wu.framework.response.Result;
 import com.wu.framework.response.ResultFactory;
 import com.wu.framework.shiro.config.pro.ShiroProperties;
-import com.wu.framework.shiro.domain.AccessToken;
+import com.wu.framework.shiro.domain.AccessTokenRO;
 import com.wu.framework.shiro.domain.LoginUserBO;
 import com.wu.framework.shiro.model.UserDetails;
 import com.wu.framework.shiro.token.TokenStore;
@@ -40,7 +40,7 @@ public class LoginService implements ILoginService {
      * @return
      */
     @Override
-    public Result<AccessToken> accessToken(LoginUserBO loginUserBO) {
+    public Result<AccessTokenRO> accessToken(LoginUserBO loginUserBO) {
         return accessToken(loginUserBO.getUsername(), loginUserBO.getPassword(), loginUserBO.getScope());
     }
 
@@ -65,7 +65,7 @@ public class LoginService implements ILoginService {
 
 
     @Override
-    public Result<AccessToken> accessToken(UserDetails userDetails, String scope) {
+    public Result<AccessTokenRO> accessToken(UserDetails userDetails, String scope) {
         return ResultFactory.successOf(tokenStore.getAccessToken(userDetails, scope));
     }
 
@@ -93,6 +93,19 @@ public class LoginService implements ILoginService {
     public Boolean checkToken(String accessToken) {
         UserDetails userDetails = user(accessToken);
         return userDetails != null;
+    }
+
+    /**
+     * 创建用户
+     *
+     * @param loginUserBO@return
+     * @author 吴佳伟
+     * @date 2021/1/6 8:34 下午
+     **/
+    @Override
+    public Result<AccessTokenRO> createUser(LoginUserBO loginUserBO) {
+        userDetailsService.createUser(loginUserBO);
+        return accessToken(userDetailsService.loadUserByUsername(loginUserBO.getUsername()), loginUserBO.getScope());
     }
 
     /**

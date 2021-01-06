@@ -1,6 +1,6 @@
 package com.wu.framework.shiro.token.store;
 
-import com.wu.framework.shiro.domain.AccessToken;
+import com.wu.framework.shiro.domain.AccessTokenRO;
 import com.wu.framework.shiro.model.UserDetails;
 
 import java.util.Map;
@@ -14,7 +14,7 @@ public interface JwtAccessTokenConverter {
      * @param map
      * @return
      */
-    AccessToken extractAccessToken(String value, Map<String, ?> map);
+    AccessTokenRO extractAccessToken(String value, Map<String, ?> map);
 
     /**
      * 创建访问令牌
@@ -23,7 +23,7 @@ public interface JwtAccessTokenConverter {
      * @param scope
      * @return
      */
-    AccessToken createAccessToken(UserDetails var1, String scope);
+    AccessTokenRO createAccessToken(UserDetails var1, String scope);
 
     /**
      * 令牌解码

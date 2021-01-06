@@ -20,6 +20,8 @@ public class PersistenceRepository {
     private String queryString;//sql
     private String resultType;//实体类的全限定类名
     private Class resultClass;//实体类
+    
+    private String executionType;//执行类型
 
 
     public String getResultType() {
@@ -27,5 +29,11 @@ public class PersistenceRepository {
             return resultType;
         }
         return resultClass.getName();
+    }
+
+    @NonNull
+    public String getQueryString() {
+        System.err.printf("执行SQL: %S%n",queryString);
+        return queryString;
     }
 }

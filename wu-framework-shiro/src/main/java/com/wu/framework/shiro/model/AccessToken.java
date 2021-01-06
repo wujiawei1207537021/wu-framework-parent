@@ -1,6 +1,7 @@
 package com.wu.framework.shiro.model;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 
 /**
@@ -13,7 +14,7 @@ import lombok.Data;
  * @ Version       :  1.0
  */
 
-
+@Accessors(chain = true)
 @Data
 public class AccessToken {
 

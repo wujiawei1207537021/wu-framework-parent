@@ -2,9 +2,9 @@ package com.wu.framework.shiro.token.store;
 
 import com.auth0.jwt.interfaces.Claim;
 import com.wu.framework.shiro.config.pro.ShiroProperties;
-import com.wu.framework.shiro.domain.AccessToken;
+import com.wu.framework.shiro.domain.AccessTokenRO;
 import com.wu.framework.shiro.domain.Authentication;
-import com.wu.framework.shiro.domain.DefaultAccessToken;
+import com.wu.framework.shiro.domain.DefaultAccessTokenRO;
 import com.wu.framework.shiro.exceptions.TokenAuthorizationException;
 import com.wu.framework.shiro.model.UserDetails;
 import com.wu.framework.shiro.token.TokenStore;
@@ -19,7 +19,7 @@ import static java.util.Collections.synchronizedMap;
 @ConditionalOnMissingBean(JdbcTokenStore.class)
 public class JwtTokenStore implements TokenStore {
 
-    private final Map<String, DefaultAccessToken> accessTokenMap =
+    private final Map<String, DefaultAccessTokenRO> accessTokenMap =
             synchronizedMap(new LinkedHashMap<>());
 
     private final ShiroProperties shiroProperties;
@@ -54,15 +54,15 @@ public class JwtTokenStore implements TokenStore {
     }
 
     @Override
-    public AccessToken getAccessToken(Authentication authentication) {
+    public AccessTokenRO getAccessToken(Authentication authentication) {
 
         return null;
     }
 
     @Override
-    public AccessToken getAccessToken(UserDetails userDetails, String scope) {
+    public AccessTokenRO getAccessToken(UserDetails userDetails, String scope) {
         // 判断是否存在
-        DefaultAccessToken defaultAccessToken;
+        DefaultAccessTokenRO defaultAccessToken;
         if (accessTokenMap.containsKey(userDetails.getUsername() + "_" + scope)) {
             defaultAccessToken = accessTokenMap.get(userDetails.getUsername() + "_" + scope);
             // 是否过期
@@ -73,7 +73,7 @@ public class JwtTokenStore implements TokenStore {
         }
         // 过期创建新的令牌
         defaultAccessToken =
-                (DefaultAccessToken) jwtAccessTokenConverter.createAccessToken(userDetails, scope);
+                (DefaultAccessTokenRO) jwtAccessTokenConverter.createAccessToken(userDetails, scope);
         accessTokenMap.put(userDetails.getUsername() + "_" + scope, defaultAccessToken);
         return jwtAccessTokenConverter.createAccessToken(userDetails, scope);
     }
@@ -84,19 +84,19 @@ public class JwtTokenStore implements TokenStore {
     }
 
     @Override
-    public AccessToken convertAccessToken(String tokenValue) {
+    public AccessTokenRO convertAccessToken(String tokenValue) {
         return this.jwtAccessTokenConverter.extractAccessToken(
                 tokenValue, this.jwtAccessTokenConverter.decode(tokenValue));
     }
 
     @Override
-    public Collection<AccessToken> findTokensByClientIdAndUserName(String var1, String var2) {
+    public Collection<AccessTokenRO> findTokensByClientIdAndUserName(String var1, String var2) {
 
         return null;
     }
 
     @Override
-    public Collection<AccessToken> findTokensByClientId(String var1) {
+    public Collection<AccessTokenRO> findTokensByClientId(String var1) {
         return null;
     }
 
@@ -115,7 +115,7 @@ public class JwtTokenStore implements TokenStore {
      * @param accessToken
      * @return
      */
-    private DefaultAccessToken verifyExp(DefaultAccessToken accessToken) {
+    private DefaultAccessTokenRO verifyExp(DefaultAccessTokenRO accessToken) {
         Map<String, Claim> claimMap =
                 (Map<String, Claim>) jwtAccessTokenConverter.decode(accessToken.getAccessToken());
 

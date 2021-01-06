@@ -1,5 +1,6 @@
 package com.wu.framework.shiro.domain;
 
+import com.wu.framework.easy.stereotype.upsert.EasySmart;
 import lombok.Data;
 
 /**
@@ -7,6 +8,7 @@ import lombok.Data;
  * wujiawei @ UpdateDate : 2019/12/12 0012 9:03 @ UpdateRemark : 修改内容 @ Version : 1.0
  */
 @Data
+@EasySmart(tableName = "sys_user")
 public class LoginUserBO {
 
     /**

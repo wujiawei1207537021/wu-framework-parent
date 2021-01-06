@@ -11,7 +11,7 @@ import java.util.Date;
  * UpdateUser : wujiawei @ UpdateDate : 2019/12/9 0009 17:58 @ UpdateRemark : 修改内容 @ Version : 1.0
  */
 @Data
-public class DefaultAccessToken implements AccessToken, Serializable {
+public class DefaultAccessTokenRO implements AccessTokenRO, Serializable {
 
     /**
      * 令牌

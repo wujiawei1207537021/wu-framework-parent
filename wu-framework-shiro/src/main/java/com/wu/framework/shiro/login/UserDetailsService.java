@@ -1,5 +1,6 @@
 package com.wu.framework.shiro.login;
 
+import com.wu.framework.shiro.domain.LoginUserBO;
 import com.wu.framework.shiro.model.UserDetails;
 
 /**
@@ -19,4 +20,13 @@ public interface UserDetailsService {
      * @return
      */
     UserDetails loadUserByUsername(String userName);
+
+    /**
+     * 创建用户
+    * @param
+    * @return
+    * @author 吴佳伟
+    * @date 2021/1/6 8:37 下午
+    **/
+    void createUser(LoginUserBO loginUserBO);
 }
