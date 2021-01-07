@@ -9,6 +9,7 @@ import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.util.ObjectUtils;
 
 import java.lang.reflect.Field;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +51,12 @@ public class PersistenceConverter {
             String column = ObjectUtils.isEmpty(tableField) ?
                     CamelAndUnderLineConverter.humpToLine2(declaredField.getName()) : tableField.name();
             columnList.add(column);
-            columnValueList.add("'"+o.toString()+"'");
+            if(byte[].class.isAssignableFrom(declaredField.getType())){
+                columnValueList.add("'"+new String((byte[]) o)+"'");
+            }else {
+                columnValueList.add("'"+o.toString()+"'");
+            }
+
         }
         Persistence persistence = new Persistence();
         persistence.setExecutionEnum(Persistence.ExecutionEnum.INSERT);

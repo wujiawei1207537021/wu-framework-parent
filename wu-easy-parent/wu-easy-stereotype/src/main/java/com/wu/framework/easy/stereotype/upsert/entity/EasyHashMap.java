@@ -72,4 +72,12 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V> {
         ParameterizedType parameterizedType = (ParameterizedType) getClass().getGenericSuperclass();
         return parameterizedType.getActualTypeArguments();
     }
+
+    public String getUniqueLabel() {
+        return uniqueLabel;
+    }
+
+    public void setUniqueLabel(String uniqueLabel) {
+        this.uniqueLabel = uniqueLabel;
+    }
 }
