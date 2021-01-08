@@ -9,6 +9,7 @@ import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConver
 import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
 
 import com.wu.framework.easy.stereotype.upsert.entity.ConvertedField;
+import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
 import com.wu.framework.inner.lazy.database.domain.Page;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import org.apache.commons.io.IOUtils;
@@ -90,7 +91,7 @@ public class SysGeneratorService {
      */
     public Map queryTableColumnDefaultValue(String tableName) {
         String SQL = "select  * from %s limit 1";
-        return lazyOperation.executeSQLForBean(String.format(SQL, tableName), Map.class);
+        return lazyOperation.executeSQLForBean(String.format(SQL, tableName), EasyHashMap.class);
     }
 
 

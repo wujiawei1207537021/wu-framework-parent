@@ -89,11 +89,11 @@
             <version>0.2.7</version>
         </dependency>
 
-        <dependency>
-            <groupId>top.wu2020</groupId>
-            <artifactId>wu-framework-shiro</artifactId>
-            <version>1.0.8</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>top.wu2020</groupId>-->
+<!--            <artifactId>wu-framework-shiro</artifactId>-->
+<!--            <version>1.0.8</version>-->
+<!--        </dependency>-->
 
     </dependencies>
 
