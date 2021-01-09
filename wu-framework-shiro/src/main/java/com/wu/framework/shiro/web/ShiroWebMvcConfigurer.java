@@ -3,6 +3,7 @@ package com.wu.framework.shiro.web;
 import com.wu.framework.shiro.config.pro.ShiroProperties;
 import com.wu.framework.shiro.web.interceptors.AccessPermissionInterceptor;
 import com.wu.framework.shiro.web.interceptors.RemoveAccessTokenInterceptor;
+import com.wu.framework.shiro.web.interceptors.ShiroHandlerInterceptorAbstract;
 import com.wu.framework.shiro.web.methodresolver.AccessTokenUserMethodArgumentResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
@@ -24,15 +25,15 @@ public class ShiroWebMvcConfigurer implements WebMvcConfigurer {
 
     public final AccessTokenUserMethodArgumentResolver accessTokenUserMethodArgumentResolver;
 
-    public final AccessPermissionInterceptor accessInterceptor;
+    public final ShiroHandlerInterceptorAbstract shiroHandlerInterceptorAbstract;
 
     private final RemoveAccessTokenInterceptor removeAccessTokenInterceptor;
 
     private final ShiroProperties shiroProperties;
 
-    public ShiroWebMvcConfigurer(AccessTokenUserMethodArgumentResolver accessTokenUserMethodArgumentResolver, AccessPermissionInterceptor accessInterceptor, RemoveAccessTokenInterceptor removeAccessTokenInterceptor, ShiroProperties shiroProperties) {
+    public ShiroWebMvcConfigurer(AccessTokenUserMethodArgumentResolver accessTokenUserMethodArgumentResolver, ShiroHandlerInterceptorAbstract shiroHandlerInterceptorAbstract, RemoveAccessTokenInterceptor removeAccessTokenInterceptor, ShiroProperties shiroProperties) {
         this.accessTokenUserMethodArgumentResolver = accessTokenUserMethodArgumentResolver;
-        this.accessInterceptor = accessInterceptor;
+        this.shiroHandlerInterceptorAbstract = shiroHandlerInterceptorAbstract;
         this.removeAccessTokenInterceptor = removeAccessTokenInterceptor;
         this.shiroProperties = shiroProperties;
     }
@@ -61,7 +62,7 @@ public class ShiroWebMvcConfigurer implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(accessInterceptor).addPathPatterns("/**").excludePathPatterns(shiroProperties.getUnCheckApiPath());
+        registry.addInterceptor(shiroHandlerInterceptorAbstract).addPathPatterns("/**").excludePathPatterns(shiroProperties.getUnCheckApiPath());
         registry.addInterceptor(removeAccessTokenInterceptor).addPathPatterns("/**");
     }
 

@@ -10,6 +10,7 @@ com.wu.framework.shiro.util.ShiroContextUtil,\
 com.wu.framework.shiro.web.aop.AccessLimitAOP,\
 com.wu.framework.shiro.web.aop.RefreshAccessTokenAOP,\
 com.wu.framework.shiro.web.interceptors.AccessPermissionInterceptor,\
+com.wu.framework.shiro.web.interceptors.SessionPermissionInterceptor,\
 com.wu.framework.shiro.web.interceptors.RemoveAccessTokenInterceptor,\
 com.wu.framework.shiro.web.methodresolver.AccessTokenUserMethodArgumentResolver,\
 com.wu.framework.shiro.web.ShiroWebMvcConfigurer

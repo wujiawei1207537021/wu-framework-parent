@@ -19,6 +19,8 @@ public class User extends AbstractUserDetails {
 
     protected List permissionList;
 
+    private String userId;
+
 //    protected List<String> roleSignList;
 
     @Override

@@ -2,6 +2,7 @@ package com.wu.framework.shiro.token.store;
 
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import com.wu.framework.shiro.config.pro.ShiroProperties;
+import com.wu.framework.shiro.constant.ShiroConfigConstant;
 import com.wu.framework.shiro.domain.AccessTokenRO;
 import com.wu.framework.shiro.domain.Authentication;
 import com.wu.framework.shiro.domain.DefaultAccessTokenRO;
@@ -23,7 +24,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 @ConditionalOnBean(DataSource.class)
-@ConditionalOnProperty(prefix = "spring.shiro", value = "token-store", havingValue = "JDBC_TOKEN_STORE", matchIfMissing = true)
+@ConditionalOnProperty(prefix = ShiroConfigConstant.SHIRO_PREFIX, value = "token-store", havingValue = "JDBC_TOKEN_STORE", matchIfMissing = true)
 public class JdbcTokenStore implements TokenStore {
     private static final Log LOG = LogFactory.getLog(JdbcTokenStore.class);
 
