@@ -58,9 +58,10 @@
             <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-redis-lazy-starter</artifactId>
         </dependency>
+
 
     </dependencies>
 </project>

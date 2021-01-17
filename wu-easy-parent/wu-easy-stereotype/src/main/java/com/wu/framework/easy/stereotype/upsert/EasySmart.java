@@ -100,5 +100,10 @@ public @interface EasySmart {
      */
     String indexType() default "";
 
+    /**
+     * redis key
+     */
+    String redisKey() default "";
+
 
 }

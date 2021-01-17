@@ -5,8 +5,6 @@ spring:
   profiles:
     active: mb-dy
 
-
-
   elasticsearch:
     rest:
       uris: "http://k8s.wu2020.top:9200"
