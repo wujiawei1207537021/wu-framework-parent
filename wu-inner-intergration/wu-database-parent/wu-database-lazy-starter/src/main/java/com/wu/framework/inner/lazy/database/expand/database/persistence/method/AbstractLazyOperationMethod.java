@@ -63,7 +63,7 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
                         //获取每列的名称，列名的序号是从1开始的
                         String columnName = resultSetMetaData.getColumnName(i);
                         //根据得到列名，获取每列的值
-                        Object columnValue = rs.getObject(columnName);
+                        Object columnValue = rs.getObject(i);
                         hashMap.put(columnName, columnValue);
                     }
                     //把赋好值的对象加入到集合中
