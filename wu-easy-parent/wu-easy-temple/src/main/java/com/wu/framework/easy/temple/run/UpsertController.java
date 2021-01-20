@@ -13,7 +13,6 @@ import com.wu.framework.easy.temple.domain.UserLog;
 import com.wu.framework.easy.temple.domain.bo.ExtractBo;
 import com.wu.framework.easy.temple.domain.bo.MoreExtractBo;
 import com.wu.framework.easy.temple.service.RunService;
-import com.zaxxer.hikari.HikariDataSource;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -171,4 +170,10 @@ public class UpsertController {
     }
 
 
+    @QuickEasyUpsert(type = EasyUpsertType.REDIS)
+    @ApiOperation(tags = "快速插入数据", value = "Redis 数据插入")
+    @GetMapping("/redis")
+    public List redis(@RequestParam(required = false, defaultValue = "1000") Integer size) {
+        return runService.run(size);
+    }
 }

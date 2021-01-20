@@ -1,6 +1,7 @@
 package com.wu.framework.shiro.config.pro;
 
 
+import com.wu.framework.shiro.constant.ShiroConfigConstant;
 import com.wu.framework.shiro.model.UserDetails;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "spring.shiro")
+@ConfigurationProperties(prefix = ShiroConfigConstant.SHIRO_PREFIX)
 public class ShiroProperties {
     /**
      * token的名称
@@ -39,6 +40,10 @@ public class ShiroProperties {
      * 令牌模式
      */
     private TokenStoreEnum TokenStore = TokenStoreEnum.JDBC_TOKEN_STORE;
+    /**
+     * 校验方式
+     */
+    private Verification verification=Verification.TOKEN;
 
     /**
      * 返回实体格式
@@ -63,5 +68,9 @@ public class ShiroProperties {
     public enum TokenStoreEnum {
         JDBC_TOKEN_STORE,
         JWT_TOKEN_STORE;
+    }
+    enum Verification{
+        TOKEN,
+        SESSION;
     }
 }

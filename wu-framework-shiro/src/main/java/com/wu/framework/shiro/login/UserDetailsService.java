@@ -29,4 +29,7 @@ public interface UserDetailsService {
     * @date 2021/1/6 8:37 下午
     **/
     void createUser(LoginUserBO loginUserBO);
+
+
+    UserDetails loadUserById(String userId);
 }

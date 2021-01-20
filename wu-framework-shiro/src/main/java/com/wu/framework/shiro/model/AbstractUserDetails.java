@@ -10,24 +10,25 @@ import java.util.List;
 @Data
 public abstract class AbstractUserDetails implements UserDetails {
 
+
     /**
      * 用户名
      */
-    protected String username;
+    private String username;
 
     /**
      * 用户密码
      */
-    protected String password;
+    private String password;
 
     /**
      * 用户权限
      */
-    protected List permissionList;
+    private List permissionList;
 
     /**
      * 用户角色标示
      */
-    protected List<String> roleSignList;
+    private List<String> roleSignList;
 
 }

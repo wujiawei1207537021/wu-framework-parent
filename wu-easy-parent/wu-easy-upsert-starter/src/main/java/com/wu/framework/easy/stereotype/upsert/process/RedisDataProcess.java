@@ -1,12 +1,15 @@
 package com.wu.framework.easy.stereotype.upsert.process;
 
+import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasyTableAnnotation;
+import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
+
 /**
  * description Redis 数据预处理
  *
  * @author Jia wei Wu
  * @date 2020/10/22 下午2:25
  */
-public class RedisDataProcess implements DataProcess {
+public class RedisDataProcess   {
 
 
     /**
@@ -18,9 +21,8 @@ public class RedisDataProcess implements DataProcess {
      * @author Jia wei Wu
      * @date 2020/10/22 下午2:20
      */
-    @Override
-    public ProcessResult classAnalyze(Class clazz) {
-        return null;
+    public EasyTableAnnotation classAnalyze(Class clazz) {
+        return LocalStorageClassAnnotation.getEasyTableAnnotation(clazz, true);
     }
 
     /**
@@ -32,8 +34,7 @@ public class RedisDataProcess implements DataProcess {
      * @author Jia wei Wu
      * @date 2020/10/22 下午2:23
      */
-    @Override
-    public ProcessResult dataPack(Object sourceData) {
+    public DataProcess.ProcessResult dataPack(Object sourceData) {
         return null;
     }
 }

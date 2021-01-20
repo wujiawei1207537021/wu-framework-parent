@@ -7,6 +7,7 @@ import com.wu.framework.shiro.domain.AccessTokenRO;
 import com.wu.framework.shiro.domain.LoginUserBO;
 import com.wu.framework.shiro.model.UserDetails;
 import com.wu.framework.shiro.token.TokenStore;
+import com.wu.framework.shiro.util.ShiroSessionContextUtil;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.ObjectUtils;
 
@@ -55,6 +56,7 @@ public class LoginService implements ILoginService {
             return ResultFactory.invalidTokenAuthorizationOf("令牌授权失败(用户不存在)");
         }
         if (userDetails.getPassword().equals(md5Password)) {
+            ShiroSessionContextUtil.setSessionAttribute(userDetails);
             //返回令牌
             return accessToken(userDetails, scope);
         } else {

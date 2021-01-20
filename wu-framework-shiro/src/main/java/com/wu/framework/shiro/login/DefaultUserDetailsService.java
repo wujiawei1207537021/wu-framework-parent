@@ -24,8 +24,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String userName) {
         User u = new User();
         u.setUsername(userName);
-        User user = lazyOperation.selectOne(u);
-        return user;
+        return lazyOperation.selectOne(u);
     }
 
     /**
@@ -40,5 +39,12 @@ public class DefaultUserDetailsService implements UserDetailsService {
         String md5Password = DigestUtils.md5DigestAsHex(loginUserBO.getPassword().getBytes());
         loginUserBO.setPassword(md5Password);
         lazyOperation.activeUpsert(loginUserBO);
+    }
+
+    @Override
+    public UserDetails loadUserById(String userId) {
+        User u = new User();
+        u.setUserId(userId);
+        return lazyOperation.selectOne(u);
     }
 }

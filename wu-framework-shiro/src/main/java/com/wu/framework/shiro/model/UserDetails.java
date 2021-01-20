@@ -45,6 +45,8 @@ public interface UserDetails extends Serializable {
      */
     List<String> getRoleSignList();
 
+    String getUserId();
+
     /**
      * 签名string
      *
