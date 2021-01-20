@@ -95,6 +95,17 @@
 <!--            <version>1.0.8</version>-->
 <!--        </dependency>-->
 
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-easy-upsert-starter</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+
     </dependencies>
 
 

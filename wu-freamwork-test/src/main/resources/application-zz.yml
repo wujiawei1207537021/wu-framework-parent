@@ -6,5 +6,5 @@ spring:
         master:
           username: root
           password: supconit
-          url: jdbc:mysql://81.69.3.45:30806/industry_supervision?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+          url: jdbc:mysql://172.17.1.58:30806/upms_itt_merge?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
           driver-class-name: com.mysql.cj.jdbc.Driver

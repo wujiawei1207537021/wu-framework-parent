@@ -2,6 +2,7 @@ package com.wu.freamwork.controller;
 
 
 import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
+import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
 import com.wu.framework.easy.stereotype.web.EasyController;
 
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
@@ -21,7 +22,7 @@ import java.util.List;
  * @describe : 数据库测试
  * @date : 2020/6/27 下午7:15
  */
-//@EasyController
+@EasyController
 public class DataBaseTestController implements CommandLineRunner {
 
     @Resource
@@ -31,16 +32,23 @@ public class DataBaseTestController implements CommandLineRunner {
     //    @CDS("localhost")
     @Override
     public void run(String... args) throws Exception {
-        upsert();
+//        upsert();
 //        insert();
 //        update();
 //        delete();
 //        select();
 //        System.out.println(iUserDao.findAll());
 //        SQLConverter.createSelectSQL(OmTpsmPubOthEqpOpemngVehicleRegistration.class);
-        List<String> ss = layerOperation.executeSQL("select id from user", String.class);
-        System.out.println(ss);
-        layerOperation.activeUpsert(new DataBaseUser().setAge(20));
+//        List<String> ss = layerOperation.executeSQL("select id from user", String.class);
+//        System.out.println(ss);
+//        layerOperation.activeUpsert(new DataBaseUser().setAge(20));
+        // 获取数据库中所有的表
+        String sql = "select table_name tableName, engine, table_comment tableComment, create_time createTime from information_schema.tables where table_schema = (select database()) ";
+        List<EasyHashMap> easyHashMaps = layerOperation.executeSQL(sql, EasyHashMap.class);
+        System.out.println(easyHashMaps);
+
+        // 获取表中所有的数据
+        // 将数据转换为更新语句
     }
 
     /**
