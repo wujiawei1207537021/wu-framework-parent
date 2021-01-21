@@ -54,10 +54,13 @@ public enum JavaBasicType {
     SQL_DATE(java.sql.Date.class, java.sql.Date.valueOf(LocalDate.now())),
 
     ;
+
     public static EasyHashMap<Class,Object> DEFAULT_VALUE_HASHMAP = new EasyHashMap<Class, Object>();
+    public static EasyHashMap<String,Object> DEFAULT_CLASS_NAME_VALUE_HASHMAP = new EasyHashMap<String, Object>();
 
     static {
         Arrays.stream(values()).forEach(javaBasicType -> DEFAULT_VALUE_HASHMAP.put(javaBasicType.clazz, javaBasicType.defaultValue));
+        Arrays.stream(values()).forEach(javaBasicType -> DEFAULT_CLASS_NAME_VALUE_HASHMAP.put(javaBasicType.clazz.getName(), javaBasicType.defaultValue));
     }
 
     private Class clazz;

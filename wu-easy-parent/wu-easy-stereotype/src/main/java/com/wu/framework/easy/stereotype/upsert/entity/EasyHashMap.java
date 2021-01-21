@@ -39,6 +39,19 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V> {
      * @date 2020/12/31 6:52 下午
      **/
     public EasyTableAnnotation toEasyTableAnnotation() {
+        return toEasyTableAnnotation(false);
+    }
+
+    /**
+     * description
+     *
+     * @param isCapitalized 是否大写
+     * @return
+     * @exception/throws
+     * @author 吴佳伟
+     * @date 2021/1/20 下午5:28
+     */
+    public EasyTableAnnotation toEasyTableAnnotation(boolean isCapitalized) {
         EasyTableAnnotation easyTableAnnotation = new EasyTableAnnotation();
         easyTableAnnotation.setClassName(this.getClass().getName());
         easyTableAnnotation.setClazz(this.getClass());
@@ -49,12 +62,19 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V> {
         easyTableAnnotation.setKafkaSchemaName(UUID.randomUUID() + uniqueLabel);
         List<ConvertedField> convertedFieldList = new ArrayList<>();
         forEach((key, value) -> {
+            String fieldName;
+            if (isCapitalized) {
+                fieldName = key.toString().toUpperCase();
+            } else {
+                fieldName = key.toString().toLowerCase();
+            }
             ConvertedField convertedField = new ConvertedField();
-            convertedField.setFieldName(key.toString());
-            convertedField.setType(EasySmartField.FileType.getTypeByClass(value.getClass()));
+            convertedField.setFieldName(fieldName);
+            Class fieldClazz=null==value?String.class:value.getClass();
+            convertedField.setType(EasySmartField.FileType.getTypeByClass(fieldClazz));
             convertedField.setComment(String.format("字段创建时间%s", LocalDateTime.now()));
-            convertedField.setClazz(value.getClass());
-            convertedField.setConvertedFieldName(CamelAndUnderLineConverter.humpToLine2(key.toString()));
+            convertedField.setClazz(fieldClazz);
+            convertedField.setConvertedFieldName(CamelAndUnderLineConverter.humpToLine2(fieldName));
             convertedField.setFieldIndexType(EasySmartField.TableFileIndexType.FILE_TYPE);
             convertedFieldList.add(convertedField);
         });

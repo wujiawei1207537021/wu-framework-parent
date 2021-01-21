@@ -1,15 +1,17 @@
 package com.wu.freamwork.controller;
 
 
-import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
+import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
 import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
+import com.wu.framework.easy.stereotype.upsert.process.MySQLDataProcess;
+import com.wu.framework.easy.stereotype.upsert.util.FileUtil;
 import com.wu.framework.easy.stereotype.web.EasyController;
 
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import com.wu.framework.inner.lazy.database.test.pojo.DataBaseUser;
 import org.springframework.boot.CommandLineRunner;
 
-import javax.annotation.Resource;
+import java.io.BufferedWriter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +27,15 @@ import java.util.List;
 @EasyController
 public class DataBaseTestController implements CommandLineRunner {
 
-    @Resource
-    private LazyOperation layerOperation;
+    private final  LazyOperation layerOperation;
+    private final UpsertConfig upsertConfig;
+    private final MySQLDataProcess mySQLDataProcess;
+
+    public DataBaseTestController(LazyOperation layerOperation, UpsertConfig upsertConfig, MySQLDataProcess mySQLDataProcess) {
+        this.layerOperation = layerOperation;
+        this.upsertConfig = upsertConfig;
+        this.mySQLDataProcess = mySQLDataProcess;
+    }
 
 
     //    @CDS("localhost")
@@ -45,7 +54,27 @@ public class DataBaseTestController implements CommandLineRunner {
         // 获取数据库中所有的表
         String sql = "select table_name tableName, engine, table_comment tableComment, create_time createTime from information_schema.tables where table_schema = (select database()) ";
         List<EasyHashMap> easyHashMaps = layerOperation.executeSQL(sql, EasyHashMap.class);
-        System.out.println(easyHashMaps);
+
+        BufferedWriter file = FileUtil.createFile(upsertConfig.getCacheFileAddress(), "hc升级sql脚本.sql");
+        for (EasyHashMap easyHashMap : easyHashMaps) {
+            String countSQL="select count(1) from %s ";
+            String tableName = easyHashMap.get("TABLE_NAME").toString();
+            Integer count = layerOperation.executeSQLForBean(String.format(countSQL, tableName.toString()), Integer.class);
+            if(count!=0){
+                String  selectSQL="select * from %s ";
+                List<EasyHashMap> tableDateList = layerOperation.executeSQL(String.format(selectSQL, tableName), EasyHashMap.class);
+                System.out.println(tableDateList);
+                file.write("-- "+ tableName);
+                file.newLine();
+                EasyHashMap easyHashMap1 = tableDateList.get(0);
+                easyHashMap1.setUniqueLabel(tableName);
+                String s = mySQLDataProcess.dataPack(tableDateList, easyHashMap1.toEasyTableAnnotation(false));
+                file.write(s);
+                file.write(";");
+                file.newLine();
+            }
+        }
+        file.close();
 
         // 获取表中所有的数据
         // 将数据转换为更新语句
