@@ -4,6 +4,7 @@ import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOper
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.core.annotation.AliasFor;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Indexed;
 
 import java.lang.annotation.*;
@@ -18,6 +19,7 @@ import java.util.List;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
+@Component
 @Indexed
 public @interface RepositoryOnDifferentMethods {
 

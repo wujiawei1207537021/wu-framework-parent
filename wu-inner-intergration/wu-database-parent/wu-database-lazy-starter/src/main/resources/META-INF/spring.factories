@@ -5,7 +5,6 @@ com.wu.framework.inner.lazy.database.sqlsession.defaults.DefaultSqlSession,\
 com.wu.framework.inner.lazy.database.sqlsession.defaults.DefaultSqlSessionFactory,\
 com.wu.framework.inner.lazy.database.expand.database.persistence.proxy.LazyOperationProxy,\
 com.wu.framework.inner.lazy.database.expand.database.persistence.config.LazyOperationProxyBeanDefinitionRegistry,\
-com.wu.framework.inner.lazy.database.expand.database.persistence.factory.LazyOperationMethodFactory
-
+com.wu.framework.inner.lazy.database.expand.database.persistence.method.LazyMethodConfig
 
 

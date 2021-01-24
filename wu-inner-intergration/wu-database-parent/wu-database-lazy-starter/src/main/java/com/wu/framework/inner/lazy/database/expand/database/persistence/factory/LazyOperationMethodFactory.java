@@ -14,9 +14,10 @@ import java.util.Set;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe : 自动扫描包com.wu.framework.inner.database.expand.database.persistence.method 下面的class
+ * @describe : 自动扫描包com.wu.framework.inner.database.expand.database.persistence.method 下面的class  不使用手动注册bean
  * @date : 2020/7/4 下午3:40
  */
+@Deprecated
 public class LazyOperationMethodFactory implements ImportBeanDefinitionRegistrar {
     @Override
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
