@@ -6,6 +6,7 @@ import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
 import com.wu.framework.easy.stereotype.upsert.process.MySQLDataProcess;
 import com.wu.framework.easy.stereotype.upsert.util.FileUtil;
 import com.wu.framework.easy.stereotype.web.EasyController;
+import com.wu.framework.inner.lazy.database.domain.Page;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import com.wu.framework.inner.lazy.database.test.pojo.DataBaseUser;
 import org.springframework.boot.CommandLineRunner;
@@ -50,7 +51,9 @@ public class DataBaseTestController implements CommandLineRunner {
 //        List<String> ss = layerOperation.executeSQL("select id from user", String.class);
 //        System.out.println(ss);
 //        layerOperation.activeUpsert(new DataBaseUser().setAge(20));
-        hc();
+//        hc();
+        Page<DataBaseUser> page = layerOperation.page(new Page(), DataBaseUser.class,null);
+        System.out.println(page);
     }
 
     /**

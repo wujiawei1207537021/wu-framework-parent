@@ -1,5 +1,9 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence;
 
+import com.sun.istack.internal.NotNull;
+import com.wu.framework.inner.lazy.database.domain.Page;
+import org.springframework.lang.NonNull;
+
 import java.util.List;
 
 /**
@@ -98,6 +102,14 @@ public interface LazyOperation {
     <T> List<T> selectAll(T t);
 
     /**
+     * 分页查询
+     *
+     * @param <T>
+     * @return
+     */
+    <T> Page<T> page(@NonNull Page page, @NotNull Class<T> returnType, String sql, Object... params);
+
+    /**
      * 执行sql
      *
      * @param sql
@@ -109,6 +121,7 @@ public interface LazyOperation {
 
     /**
      * description 执行SQL 返回指定类型
+     *
      * @param
      * @return
      * @exception/throws

@@ -396,6 +396,18 @@ public class PreparedStatementSQLConverter {
         return stringBuffer.toString();
     }
 
+    /**
+     * 分页查询sql
+     *
+     * @param object
+     * @return
+     * @author 吴佳伟
+     * @date 2021/1/24 6:48 下午
+     **/
+    public static String pagePreparedStatementSQL(Object object) {
+        return null;
+    }
+
 
     public <A extends Annotation> A getAnnotation(Class<A> annotationType) {
         return this.getClass().getAnnotation(annotationType);

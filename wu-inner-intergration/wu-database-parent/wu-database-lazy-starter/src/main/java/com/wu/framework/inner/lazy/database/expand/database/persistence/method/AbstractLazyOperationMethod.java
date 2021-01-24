@@ -44,18 +44,26 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
         }
     }
 
-    public <E> List<E> resultSetConverter(ResultSet rs, String resultType) {
+    public <E> List<E> resultSetConverter(ResultSet resultSet, String resultType)  {
+        Class domainClass = null;
         try {
-            Class domainClass = Class.forName(resultType);
+            domainClass = Class.forName(resultType);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return resultSetConverter(resultSet,domainClass);
+    }
+    public <E> List<E> resultSetConverter(ResultSet resultSet, Class<E> domainClass) {
+        try {
             //封装结果集
             List list = new ArrayList();//定义返回值
 
             // Map 数值
             if (Map.class.isAssignableFrom(domainClass)) {
-                while (rs.next()) {
+                while (resultSet.next()) {
                     Map hashMap = (Map) domainClass.newInstance();
                     //取出结果集的元信息：ResultSetMetaData
-                    ResultSetMetaData resultSetMetaData = rs.getMetaData();
+                    ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
                     //取出总列数
                     int columnCount = resultSetMetaData.getColumnCount();
                     //遍历总列数
@@ -65,7 +73,7 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
                         // 获取数据库列字段类型
                         String columnClassName = resultSetMetaData.getColumnClassName(i);
                         //根据得到列名，获取每列的值
-                        Object columnValue = rs.getObject(i);
+                        Object columnValue = resultSet.getObject(i);
 //                        if(null==columnValue)columnValue=JavaBasicType.DEFAULT_CLASS_NAME_VALUE_HASHMAP.get(columnClassName);
                         hashMap.put(columnName, columnValue);
                     }
@@ -74,18 +82,18 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
                 }
             } else if (isWrapClass(domainClass)) {
                 //基本数据类型
-                while (rs.next()) {
-                    Object convertBasicTypeBean = JavaBasicType.convertBasicTypeBean(domainClass, rs.getObject(1));
+                while (resultSet.next()) {
+                    Object convertBasicTypeBean = JavaBasicType.convertBasicTypeBean(domainClass, resultSet.getObject(1));
                     list.add(convertBasicTypeBean);
                 }
             } else {
                 List<ConvertedField> convertedFieldList = PreparedStatementSQLConverter.fieldNamesOnAnnotation(domainClass);
                 Map<String, String> convertedFieldMap = convertedFieldList.stream().collect(Collectors.toMap(ConvertedField::getFieldName, ConvertedField::getFieldName));
-                while (rs.next()) {
+                while (resultSet.next()) {
                     //实例化要封装的实体类对象
                     E obj = (E) domainClass.newInstance();
                     //取出结果集的元信息：ResultSetMetaData
-                    ResultSetMetaData rsmd = rs.getMetaData();
+                    ResultSetMetaData rsmd = resultSet.getMetaData();
                     //取出总列数
                     int columnCount = rsmd.getColumnCount();
                     //遍历总列数
@@ -99,12 +107,12 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
                             continue;
                         }
                         //根据得到列名，获取每列的值
-//                        Object columnValue = rs.getObject(columnName);
+//                        Object columnValue = resultSet.getObject(columnName);
                         Field field = domainClass.getDeclaredField(fieldName);
                         field.setAccessible(true);
-                        rs.getObject(i, field.getType());
+                        resultSet.getObject(i, field.getType());
 //                        columnValue = convertToTheCorrespondingType(columnValue, field.getType());
-                        Object columnValue = rs.getObject(i, field.getType());
+                        Object columnValue = resultSet.getObject(i, field.getType());
                         field.set(obj, columnValue);
                     }
                     //把赋好值的对象加入到集合中
@@ -139,11 +147,18 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
      **/
     public static boolean isWrapClass(Class clazz) {
         try {
-            if(String.class.isAssignableFrom(clazz))return true;
+            if (String.class.isAssignableFrom(clazz)) return true;
             return ((Class) clazz.getField("TYPE").get(null)).isPrimitive();
         } catch (Exception e) {
             return false;
         }
+    }
+
+    /**
+     * 装载sql参数
+     */
+    public String loadSqlParameters(String sqlFormat, Object... params) {
+        return String.format(sqlFormat, params);
     }
 
 }

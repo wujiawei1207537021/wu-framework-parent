@@ -2,6 +2,8 @@ package com.wu.framework.inner.lazy.database.domain;
 
 import lombok.Data;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
 
@@ -119,6 +121,4 @@ public class Page<T> {
         this.searchCount = searchCount;
         this.openSort = openSort;
     }
-
-
 }

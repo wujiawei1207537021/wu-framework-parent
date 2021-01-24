@@ -1,6 +1,7 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import java.lang.reflect.Method;
@@ -15,7 +16,7 @@ import java.sql.SQLException;
  */
 public interface LazyOperationMethod {
 
-    @Nullable
+    @NonNull
     PersistenceRepository getPersistenceRepository(Method method, Object[] args) throws IllegalArgumentException;
 
     /**

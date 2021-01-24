@@ -1,5 +1,6 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype;
 
+import com.wu.framework.inner.lazy.database.domain.Page;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -83,6 +84,11 @@ public @interface RepositoryOnDifferentMethods {
          * {@link LazyOperation#selectAll(Object)}
          */
         SELECT_ALL("selectAll", "查询所有"),
+
+        /**
+         * {@link LazyOperation#page(Page, Object, String, Object...)}
+         */
+        PAGE("page", "分页查询"),
         /**
          * {@link LazyOperation#executeSQL(String, Class)}
          */

@@ -9,8 +9,9 @@ server:
 spring:
   profiles:
     active: dev
-  shiro:
-    verification: session
+  wu:
+    shiro:
+      verification: session
 wu:
   database:
     mapper:
