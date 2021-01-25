@@ -103,7 +103,6 @@
         <dependency>
             <groupId>top.wu2020</groupId>
             <artifactId>wu-easy-upsert-starter</artifactId>
-            <version>1.0.1</version>
         </dependency>
 
     </dependencies>

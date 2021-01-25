@@ -52,7 +52,8 @@ public class DataBaseTestController implements CommandLineRunner {
 //        System.out.println(ss);
 //        layerOperation.activeUpsert(new DataBaseUser().setAge(20));
 //        hc();
-        Page<DataBaseUser> page = layerOperation.page(new Page(), DataBaseUser.class,null);
+        Page<DataBaseUser> dataBaseUserPage = new Page<DataBaseUser>(1,1000);
+        Page<DataBaseUser> page = layerOperation.page(dataBaseUserPage, DataBaseUser.class,null);
         System.out.println(page);
     }
 

@@ -57,6 +57,7 @@
         <wu-log-starter.version>1.0.1</wu-log-starter.version>
         <wu-swagger-starter.version>1.0.1</wu-swagger-starter.version>
         <wu-file-starter.version>1.0.1</wu-file-starter.version>
+        <wu-framework-parent.version>1.0.1</wu-framework-parent.version>
 
         <spring-boot-starter.version>2.3.2.RELEASE</spring-boot-starter.version>
     </properties>
@@ -71,7 +72,6 @@
         <module>wu-framework-plus</module>
         <module>wu-easy-parent</module>
         <module>wu-bionic-parent</module>
-        <!--        <module>wu-common-transform</module>-->
     </modules>
 
     <dependencies>
@@ -99,29 +99,35 @@
                 <scope>import</scope>
             </dependency>
 
-            <!--数据库-->
+            <!--数据库 即将弃用 考虑重构架构 -->
             <dependency>
                 <groupId>top.wu2020</groupId>
                 <artifactId>wu-db-starter</artifactId>
                 <version>${wu-db-starter.version}</version>
             </dependency>
-            <!--swagger-->
+            <!--     懒人数据库       -->
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-database-lazy-starter</artifactId>
+                <version>${wu-framework-parent.version}</version>
+            </dependency>
+            <!--swagger 即将启用 原因swagger 官方推出starter 包 -->
             <dependency>
                 <groupId>top.wu2020</groupId>
                 <artifactId>wu-swagger-starter</artifactId>
                 <version>${wu-swagger-starter.version}</version>
             </dependency>
-            <!--redis-->
+            <!--懒人redis-->
             <dependency>
                 <groupId>top.wu2020</groupId>
                 <artifactId>wu-redis-lazy-starter</artifactId>
-                <version>${wu-redis-lazy-starter.version}</version>
+                <version>${wu-framework-parent.version}</version>
             </dependency>
             <!--文件资源服务-->
             <dependency>
                 <groupId>top.wu2020</groupId>
                 <artifactId>wu-file-starter</artifactId>
-                <version>${wu-file-starter.version}</version>
+                <version>${wu-framework-parent.version}</version>
             </dependency>
             <!--      日志      -->
             <dependency>
@@ -129,6 +135,33 @@
                 <artifactId>wu-log-starter</artifactId>
                 <version>${wu-log-starter.version}</version>
             </dependency>
+            <!--     简单数据插入       -->
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-easy-upsert-starter</artifactId>
+                <version>${wu-framework-parent.version}</version>
+            </dependency>
+
+            <!--    通用        -->
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-common-starter</artifactId>
+                <version>${wu-framework-parent.version}</version>
+            </dependency>
+            <!--     模板       -->
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-template-starter</artifactId>
+                <version>${wu-framework-parent.version}</version>
+            </dependency>
+
+            <!--  数据库code生成        -->
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-database-generator-starter</artifactId>
+                <version>${wu-framework-parent.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
