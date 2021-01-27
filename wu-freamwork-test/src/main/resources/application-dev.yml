@@ -16,6 +16,9 @@ spring:
           url: jdbc:mysql://www.wu2020.top:3306/test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
           driver-class-name: com.mysql.cj.jdbc.Driver
 
+  kafka:
+    bootstrap-servers: "81.69.3.45:9092"
+
 #    dynamic:
 #      database:
 #        enable: off

@@ -63,7 +63,7 @@ public class MonitorCurrentMethodAdvisor extends AbstractPointcutAdvisor impleme
             long start = System.currentTimeMillis();
             Object object = invocation.proceed();
             long end = System.currentTimeMillis();
-            System.out.printf("当前方法%S执行时间:%S %n", invocation.getMethod().getName(), end - start);
+            System.out.printf("当前方法%S执行时间:%s(毫秒) %n", invocation.getMethod().getName(), end - start);
             return object;
         }
     }
