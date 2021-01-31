@@ -3,6 +3,8 @@ package com.wu.framework.easy.stereotype.upsert.entity;
 import com.wu.framework.easy.stereotype.upsert.EasySmartField;
 import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConverter;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasyTableAnnotation;
+import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
+import com.wu.framework.easy.stereotype.upsert.enums.NormalUsedString;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -70,7 +72,7 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V> {
             }
             ConvertedField convertedField = new ConvertedField();
             convertedField.setFieldName(fieldName);
-            Class fieldClazz=null==value?String.class:value.getClass();
+            Class fieldClazz = null == value ? String.class : value.getClass();
             convertedField.setType(EasySmartField.FileType.getTypeByClass(fieldClazz));
             convertedField.setComment(String.format("字段创建时间%s", LocalDateTime.now()));
             convertedField.setClazz(fieldClazz);
@@ -99,5 +101,33 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V> {
 
     public void setUniqueLabel(String uniqueLabel) {
         this.uniqueLabel = uniqueLabel;
+    }
+
+    /**
+     * @return String  class 字符串
+     * @describe 生成class
+     * @author Jia wei Wu
+     * @date 2021/1/31 8:12 下午
+     **/
+    public StringBuffer generateClass() {
+        StringBuffer clazzStringBuffer = new StringBuffer(LocalStorageClassAnnotation.DOMAIN_CLASS_TEMP);
+        EasyHashMap<Class,String> classStringEasyHashMap=new EasyHashMap<>();
+        forEach((k, v) -> {
+            Class vClass= v==null? String.class :v.getClass();
+            classStringEasyHashMap.put(vClass,vClass.getSimpleName());
+        });
+        for (Class aClass : classStringEasyHashMap.keySet()) {
+            clazzStringBuffer.append("import").append(NormalUsedString.SPACE).append(aClass.getName()).append(NormalUsedString.SEMICOLON).append(NormalUsedString.NEWLINE);
+        }
+        clazzStringBuffer.append(NormalUsedString.NEWLINE);
+        clazzStringBuffer.append(String.format("public class %s {", uniqueLabel)).append(NormalUsedString.NEWLINE);
+        forEach((k, v) -> clazzStringBuffer.append(NormalUsedString.PRIVATE).append(NormalUsedString.SPACE).
+                // 字段类型
+                append(v == null ? NormalUsedString.STRING : v.getClass().getSimpleName()).append(NormalUsedString.SPACE).
+                // 字段名称
+                append(CamelAndUnderLineConverter.lineToHump(k.toString())).
+                append(NormalUsedString.SEMICOLON).append(NormalUsedString.NEWLINE));
+        clazzStringBuffer.append(NormalUsedString.RIGHT_BRACE);
+        return clazzStringBuffer;
     }
 }

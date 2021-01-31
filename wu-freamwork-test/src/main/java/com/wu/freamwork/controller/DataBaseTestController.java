@@ -278,6 +278,7 @@ public class DataBaseTestController implements CommandLineRunner {
                 file.write("-- " + tableName);
                 file.newLine();
                 EasyHashMap tableInfo = tableDateList.get(0);
+                System.out.println(tableInfo.generateClass());
                 tableInfo.setUniqueLabel(tableName);
                 String s = mySQLDataProcess.dataPack(tableDateList, tableInfo.toEasyTableAnnotation(false));
                 s = s.replaceAll("'true'", "1").

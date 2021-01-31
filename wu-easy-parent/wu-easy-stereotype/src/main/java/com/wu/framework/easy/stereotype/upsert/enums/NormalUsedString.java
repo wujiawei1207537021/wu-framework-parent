@@ -75,9 +75,14 @@ public interface NormalUsedString {
     String HTML_LT 			= "&lt;";
     String HTML_GT 			= "&gt;";
 
+    String CLASS            = "class";
+    String PUBLIC           = "public";
+    String PRIVATE          = "private";
+    String STRING           = "String";
     // ---------------------------------------------------------------- array
 
     String[] EMPTY_ARRAY = new String[0];
 
     byte[] BYTES_NEW_LINE = "\n".getBytes();
+
 }
