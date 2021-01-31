@@ -52,9 +52,11 @@ public class DataBaseTestController implements CommandLineRunner {
 //        System.out.println(ss);
 //        layerOperation.activeUpsert(new DataBaseUser().setAge(20));
 //        hc();
-        Page<DataBaseUser> dataBaseUserPage = new Page<DataBaseUser>(1,1000);
-        Page<DataBaseUser> page = layerOperation.page(dataBaseUserPage, DataBaseUser.class,null);
+        Page<DataBaseUser> dataBaseUserPage = new Page<DataBaseUser>(1, 1000);
+        Page<DataBaseUser> page = layerOperation.page(dataBaseUserPage, DataBaseUser.class, null);
         System.out.println(page);
+        // 数据迁移
+        dataMigration("take_out");
     }
 
     /**
@@ -189,7 +191,7 @@ public class DataBaseTestController implements CommandLineRunner {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jiawei Wu
      * @date 2021/1/21 下午7:31
      */
     public void hc() throws Exception {
@@ -247,5 +249,45 @@ public class DataBaseTestController implements CommandLineRunner {
 
         // 获取表中所有的数据
         // 将数据转换为更新语句
+    }
+
+    /**
+     * @param nameDatabase 数据库名 默认当前连接数据
+     *                     System.getProperty("user.dir") 数据文件地址
+     * @return
+     * @author Jiawei Wu
+     * @date 2021/1/31 6:40 下午
+     **/
+    public void dataMigration(String nameDatabase) throws Exception {
+        // 当前数据库
+        if(nameDatabase==null){
+            nameDatabase=layerOperation.executeSQLForBean("select database()",String.class);
+        }
+        // 获取数据库中所有的表
+        String sqlSelectTable = "select concat('%s.',table_name) tableName, engine, table_comment tableComment, create_time createTime from information_schema.tables where table_schema = '%s' ";
+        List<EasyHashMap> allTables = layerOperation.executeSQL(String.format(sqlSelectTable, nameDatabase,nameDatabase), EasyHashMap.class);
+        BufferedWriter file = FileUtil.createFile(upsertConfig.getCacheFileAddress(), String.format("数据库%s数据.sql", nameDatabase));
+        for (EasyHashMap table : allTables) {
+            String countSQL = "select count(1) from %s ";
+            String tableName = table.get("tableName").toString();
+            Integer count = layerOperation.executeSQLForBean(String.format(countSQL, tableName), Integer.class);
+            if (count != 0) {
+                String selectSQL = "select * from %s ";
+                List<EasyHashMap> tableDateList = layerOperation.executeSQL(String.format(selectSQL, tableName), EasyHashMap.class);
+                System.out.println(tableDateList);
+                file.write("-- " + tableName);
+                file.newLine();
+                EasyHashMap tableInfo = tableDateList.get(0);
+                tableInfo.setUniqueLabel(tableName);
+                String s = mySQLDataProcess.dataPack(tableDateList, tableInfo.toEasyTableAnnotation(false));
+                s = s.replaceAll("'true'", "1").
+                        replaceAll("'false'", "0").
+                        replaceAll("'null'", "null");
+                file.write(s);
+                file.write(";");
+                file.newLine();
+            }
+        }
+        file.close();
     }
 }

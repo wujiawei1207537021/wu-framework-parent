@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author : 吴佳伟
+ * @author : Jiawei Wu
  * @version 1.0
  * @describe : EasyExcel注解动态修改工具
  * @date : 2021/1/3 4:57 下午
@@ -23,7 +23,7 @@ public class EasyExcelUtil {
     /**
      * @return
      * @params 修改EasyExcel注解文件名
-     * @author 吴佳伟
+     * @author Jiawei Wu
      * @date 2021/1/3 5:25 下午
      **/
     public static void modifyCurrentMethodEasyExcelFileName(Class clazz, String fileName) {
@@ -39,7 +39,7 @@ public class EasyExcelUtil {
     /**
      * @return
      * @params 修改EasyExcel 注解
-     * @author 吴佳伟
+     * @author Jiawei Wu
      * @date 2021/1/3 5:24 下午
      **/
     public static void modifyCurrentMethodEasyExcel(Class clazz, Map<String, Object> params) throws NoSuchFieldException, IllegalAccessException {
@@ -50,7 +50,7 @@ public class EasyExcelUtil {
     /**
      * @return
      * @params 修改方法注解
-     * @author 吴佳伟
+     * @author Jiawei Wu
      * @date 2021/1/3 4:58 下午
      **/
     public static void modifyCurrentMethodAnnotation(Class clazz, Class<? extends Annotation> methodAnnotation,

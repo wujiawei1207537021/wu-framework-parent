@@ -19,10 +19,10 @@ import java.util.stream.Collectors;
 /**
  * description
  *
- * @author 吴佳伟
+ * @author Jiawei Wu
  * @date 2021/1/27 上午10:24
  */
-@EasyController
+//@EasyController
 public class KafkaController {
 
 
@@ -44,7 +44,7 @@ public class KafkaController {
 
 
     //    @KafkaListener( groupId = "wujiawei", concurrency = "100", topicPartitions = {@TopicPartition(partitionOffsets = @PartitionOffset(partition = "0",initialOffset = "0"),topic = "connect_source_jt809_dnygps")})
-    @KafkaListener(groupId = "wujiawei", concurrency = "100", topics = {"connect_source_jt809_dnygps"})
+//    @KafkaListener(groupId = "wujiawei", concurrency = "100", topics = {"connect_source_jt809_dnygps"})
     public void processMessage(ConsumerRecord<String, String> record) throws IOException {
 //        确认消费
 

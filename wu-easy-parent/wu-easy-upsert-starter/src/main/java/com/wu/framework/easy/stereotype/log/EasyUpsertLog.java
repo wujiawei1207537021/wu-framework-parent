@@ -4,7 +4,7 @@ import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
 import lombok.Data;
 
 /**
- * @author : 吴佳伟
+ * @author : Jiawei Wu
  * @version 1.0
  * @describe :
  * @date : 2021/1/1 3:38 下午

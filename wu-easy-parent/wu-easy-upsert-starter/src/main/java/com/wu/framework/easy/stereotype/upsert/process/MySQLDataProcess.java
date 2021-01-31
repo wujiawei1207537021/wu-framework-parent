@@ -46,7 +46,7 @@ public class MySQLDataProcess {
     /**
      * @return
      * @params 数据解析
-     * @author 吴佳伟
+     * @author Jiawei Wu
      * @date 2020/12/31 10:56 下午
      **/
     public EasyTableAnnotation dataAnalyze(Class clazz, EasyHashMap easyHashMap) {
@@ -108,11 +108,11 @@ public class MySQLDataProcess {
                             }
                             if (null != fieldVal) {
                                 fieldVal = annotationConvertConversion(field, fieldVal, easyTableAnnotation.getIEnumList());
-                                fieldVal = fieldVal.toString().replaceAll("'", "\"");
+                                return "'"+fieldVal.toString().replaceAll("'", "\"")+"'";
                             } else {
-                                fieldVal = JavaBasicType.DEFAULT_VALUE_HASHMAP.get(field.getType());
+//                                fieldVal = JavaBasicType.DEFAULT_VALUE_HASHMAP.get(field.getType());
+                              return null;
                             }
-                            return "'" + fieldVal + "'";
                         }).collect(Collectors.joining(",")) + ")";
                 tempList.add(temp);
             }
@@ -125,7 +125,7 @@ public class MySQLDataProcess {
     /**
      * @return
      * @params 完善表
-     * @author 吴佳伟
+     * @author Jiawei Wu
      * @date 2020/12/31 8:18 下午
      **/
     public int perfectTable(EasyTableAnnotation easyTableAnnotation, DataSource dataSource) throws Exception {

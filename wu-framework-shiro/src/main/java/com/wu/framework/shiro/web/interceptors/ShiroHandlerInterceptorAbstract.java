@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author : 吴佳伟
+ * @author : Jiawei Wu
  * @version 1.0
  * @describe :
  * @date : 2021/1/8 9:50 下午

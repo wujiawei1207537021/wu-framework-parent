@@ -401,7 +401,7 @@ public class PreparedStatementSQLConverter {
      *
      * @param object
      * @return
-     * @author 吴佳伟
+     * @author Jiawei Wu
      * @date 2021/1/24 6:48 下午
      **/
     public static String pagePreparedStatementSQL(Object object) {

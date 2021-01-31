@@ -1,6 +1,5 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence;
 
-import com.sun.istack.internal.NotNull;
 import com.wu.framework.inner.lazy.database.domain.Page;
 import org.springframework.lang.NonNull;
 
@@ -107,7 +106,7 @@ public interface LazyOperation {
      * @param <T>
      * @return
      */
-    <T> Page<T> page(@NonNull Page page, @NotNull Class<T> returnType, String sql, Object... params);
+    <T> Page<T> page(@NonNull Page page, @NonNull Class<T> returnType, String sql, Object... params);
 
     /**
      * 执行sql
@@ -125,7 +124,7 @@ public interface LazyOperation {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jiawei Wu
      * @date 2020/12/29 下午1:44
      */
     <T> T executeSQLForBean(String sql, Class<T> t);

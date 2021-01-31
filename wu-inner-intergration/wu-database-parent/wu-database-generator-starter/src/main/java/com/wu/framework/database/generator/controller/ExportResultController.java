@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * description 导出结果
  *
- * @author 吴佳伟
+ * @author Jiawei Wu
  * @date 2020/12/29 上午11:01
  */
 @EasyController("/export")
@@ -32,7 +32,7 @@ public class ExportResultController {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jiawei Wu
      * @date 2020/12/29 上午11:04
      */
     @EasyExcel

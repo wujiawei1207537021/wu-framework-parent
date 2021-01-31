@@ -31,7 +31,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
      * 创建用户
      *
      * @param loginUserBO@return
-     * @author 吴佳伟
+     * @author Jiawei Wu
      * @date 2021/1/6 8:37 下午
      **/
     @Override

@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 /**
  * description Es使用sql 工具
  *
- * @author 吴佳伟
+ * @author Jiawei Wu
  * @date 2021/1/5 下午4:37
  */
 public class ElasticsearchSQLTemplate {
@@ -95,7 +95,7 @@ public class ElasticsearchSQLTemplate {
         int scrollTime = 1;
         scrollList.addAll(result2JavaBean(esResult, clazz));
         while (!ObjectUtils.isEmpty(esResult.getCursor())) {
-            System.out.println(String.format("ES滚动查询数据 %s", scrollTime++));
+            System.out.println(String.format("ES滚动查询数据 第%s次", scrollTime++));
             ESResult cursorEsResult = cursor(esResult.getCursor());
             cursorEsResult.setColumns(esResult.getColumns());
             esResult = cursorEsResult;
@@ -120,7 +120,7 @@ public class ElasticsearchSQLTemplate {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jiawei Wu
      * @date 2021/1/6 上午10:01
      */
     private <T> List<T> result2JavaBean(ESResult esResult, Class<T> clazz) {

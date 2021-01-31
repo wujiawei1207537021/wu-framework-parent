@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
- * @author : 吴佳伟
+ * @author : Jiawei Wu
  * @version 1.0
  * @describe :
  * @date : 2021/1/8 8:55 下午

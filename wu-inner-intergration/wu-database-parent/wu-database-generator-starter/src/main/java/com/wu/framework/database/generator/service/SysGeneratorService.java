@@ -100,7 +100,7 @@ public class SysGeneratorService {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jiawei Wu
      * @date 2020/12/29 下午12:31
      */
     public String tableQueryConditions(String tableName) {

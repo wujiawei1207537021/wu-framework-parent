@@ -3,7 +3,7 @@ package com.wu.framework.easy.stereotype.upsert.enums;
 /**
  * description 常用字符
  *
- * @author 吴佳伟
+ * @author Jiawei Wu
  * @date 2021/1/4 上午11:57
  */
 

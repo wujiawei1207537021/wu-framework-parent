@@ -73,7 +73,7 @@ public class EasyTableAnnotation {
     /**
      * @return
      * @params 使用建表语句
-     * @author 吴佳伟
+     * @author Jiawei Wu
      * @date 2020/12/31 9:00 下午
      **/
     public String creatTableSQL() {
@@ -117,7 +117,7 @@ public class EasyTableAnnotation {
      *
      * @return
      * @param currentColumnNameList 当前字段
-     * @author 吴佳伟
+     * @author Jiawei Wu
      * @date 2020/12/31 9:32 下午
      **/
     public String alterTableSQL(List<ConvertedField> currentColumnNameList) {

@@ -5,7 +5,7 @@ import com.wu.framework.easy.stereotype.web.EasyController;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * @author : 吴佳伟
+ * @author : Jiawei Wu
  * @version 1.0
  * @describe :
  * @date : 2020/12/30 8:02 下午

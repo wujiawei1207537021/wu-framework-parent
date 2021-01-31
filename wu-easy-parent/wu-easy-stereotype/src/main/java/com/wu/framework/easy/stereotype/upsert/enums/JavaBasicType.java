@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 /**
- * @author : 吴佳伟
+ * @author : Jiawei Wu
  * @version : 1.0
  * @describe: Java 基础Class 对应默认值
  * @date : 2021/1/1 1:10 下午
@@ -71,7 +71,7 @@ public enum JavaBasicType {
      * 转换为基本数据类型对象
     * @param
     * @return
-    * @author 吴佳伟
+    * @author Jiawei Wu
     * @date 2021/1/3 1:03 下午
     **/
     public static Object convertBasicTypeBean(Class clazz, Object obj){

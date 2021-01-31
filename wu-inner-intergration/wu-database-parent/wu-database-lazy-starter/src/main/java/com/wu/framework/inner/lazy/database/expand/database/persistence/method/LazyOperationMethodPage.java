@@ -89,7 +89,7 @@ public class LazyOperationMethodPage extends AbstractLazyOperationMethod {
      *
      * @param connection
      * @return
-     * @author 吴佳伟
+     * @author Jiawei Wu
      * @date 2021/1/24 9:27 下午
      **/
     private void count(Connection connection) throws SQLException {

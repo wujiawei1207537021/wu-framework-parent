@@ -49,7 +49,7 @@ public class ConvertedField {
     * @params 创建SQL column
      * "`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',\n" +
     * @return
-    * @author 吴佳伟
+    * @author Jiawei Wu
     * @date 2020/12/31 9:19 下午
     **/
     public String createColumn(){

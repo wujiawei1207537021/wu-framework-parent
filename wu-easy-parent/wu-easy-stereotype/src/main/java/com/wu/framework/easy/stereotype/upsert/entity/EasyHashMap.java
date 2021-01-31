@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 /**
- * @author : 吴佳伟
+ * @author : Jiawei Wu
  * @version 1.0
  * @describe : 使用此对象会自动创建数据库表
  * @date : 2020/12/31 6:42 下午
@@ -35,7 +35,7 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V> {
     /**
      * @return
      * @params 转换成 EasyTableAnnotation
-     * @author 吴佳伟
+     * @author Jiawei Wu
      * @date 2020/12/31 6:52 下午
      **/
     public EasyTableAnnotation toEasyTableAnnotation() {
@@ -48,7 +48,7 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V> {
      * @param isCapitalized 是否大写
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jiawei Wu
      * @date 2021/1/20 下午5:28
      */
     public EasyTableAnnotation toEasyTableAnnotation(boolean isCapitalized) {
@@ -85,7 +85,7 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V> {
     /**
      * @return
      * @params 获取范型
-     * @author 吴佳伟
+     * @author Jiawei Wu
      * @date 2020/12/31 7:25 下午
      **/
     public Type[] getClassParadigm() {

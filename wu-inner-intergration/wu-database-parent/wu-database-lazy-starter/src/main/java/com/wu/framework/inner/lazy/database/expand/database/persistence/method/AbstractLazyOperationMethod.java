@@ -142,7 +142,7 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
      *
      * @param
      * @return
-     * @author 吴佳伟
+     * @author Jiawei Wu
      * @date 2021/1/3 12:54 下午
      **/
     public static boolean isWrapClass(Class clazz) {

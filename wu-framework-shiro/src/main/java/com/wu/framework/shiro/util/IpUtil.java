@@ -1,7 +1,7 @@
 package com.wu.framework.shiro.util;
 
 /**
- * @author : 吴佳伟
+ * @author : Jiawei Wu
  * @version 1.0
  * @describe :
  * @date : 2021/1/9 3:41 下午
