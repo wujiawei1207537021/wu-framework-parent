@@ -86,7 +86,7 @@ public @interface RepositoryOnDifferentMethods {
         SELECT_ALL("selectAll", "查询所有"),
 
         /**
-         * {@link LazyOperation#page(Page, Object, String, Object...)}
+         * {@link LazyOperation#page(Page, Class, String, Object...)}
          */
         PAGE("page", "分页查询"),
         /**

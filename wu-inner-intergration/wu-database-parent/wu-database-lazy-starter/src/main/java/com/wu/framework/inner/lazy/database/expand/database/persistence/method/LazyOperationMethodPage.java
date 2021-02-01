@@ -50,7 +50,7 @@ public class LazyOperationMethodPage extends AbstractLazyOperationMethod {
         }
         String listSql = loadSqlParameters(sqlFormat, params);
         countSql = loadSqlParameters(COUNT_SQL, listSql);
-        limitSql = loadSqlParameters(LIMIT_SQL, listSql, page.getCurrent()+1, page.getSize());
+        limitSql = loadSqlParameters(LIMIT_SQL, listSql, (page.getCurrent()-1)*page.getSize(), page.getSize());
 
         queryString = countSql + DELIMITER + limitSql;
         PersistenceRepository persistenceRepository = new PersistenceRepository();

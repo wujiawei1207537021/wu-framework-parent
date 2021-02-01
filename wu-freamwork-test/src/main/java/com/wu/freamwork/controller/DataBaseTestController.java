@@ -3,6 +3,7 @@ package com.wu.freamwork.controller;
 
 import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
 import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
+import com.wu.framework.easy.stereotype.upsert.enums.NormalUsedString;
 import com.wu.framework.easy.stereotype.upsert.process.MySQLDataProcess;
 import com.wu.framework.easy.stereotype.upsert.util.FileUtil;
 import com.wu.framework.easy.stereotype.web.EasyController;
@@ -56,7 +57,7 @@ public class DataBaseTestController implements CommandLineRunner {
         Page<DataBaseUser> page = layerOperation.page(dataBaseUserPage, DataBaseUser.class, null);
         System.out.println(page);
         // 数据迁移
-        dataMigration("take_out");
+        dataMigration(null);
     }
 
     /**
@@ -260,35 +261,61 @@ public class DataBaseTestController implements CommandLineRunner {
      **/
     public void dataMigration(String nameDatabase) throws Exception {
         // 当前数据库
-        if(nameDatabase==null){
-            nameDatabase=layerOperation.executeSQLForBean("select database()",String.class);
+        if (nameDatabase == null) {
+            nameDatabase = layerOperation.executeSQLForBean("select database()", String.class);
         }
         // 获取数据库中所有的表
         String sqlSelectTable = "select concat('%s.',table_name) tableName, engine, table_comment tableComment, create_time createTime from information_schema.tables where table_schema = '%s' ";
-        List<EasyHashMap> allTables = layerOperation.executeSQL(String.format(sqlSelectTable, nameDatabase,nameDatabase), EasyHashMap.class);
+        List<EasyHashMap> allTables = layerOperation.executeSQL(String.format(sqlSelectTable, nameDatabase, nameDatabase), EasyHashMap.class);
         BufferedWriter file = FileUtil.createFile(upsertConfig.getCacheFileAddress(), String.format("数据库%s数据.sql", nameDatabase));
         for (EasyHashMap table : allTables) {
             String countSQL = "select count(1) from %s ";
             String tableName = table.get("tableName").toString();
             Integer count = layerOperation.executeSQLForBean(String.format(countSQL, tableName), Integer.class);
             if (count != 0) {
+                EasyHashMap tableInfo;
                 String selectSQL = "select * from %s ";
-                List<EasyHashMap> tableDateList = layerOperation.executeSQL(String.format(selectSQL, tableName), EasyHashMap.class);
-                System.out.println(tableDateList);
-                file.write("-- " + tableName);
-                file.newLine();
-                EasyHashMap tableInfo = tableDateList.get(0);
-                System.out.println(tableInfo.generateClass());
-                tableInfo.setUniqueLabel(tableName);
-                String s = mySQLDataProcess.dataPack(tableDateList, tableInfo.toEasyTableAnnotation(false));
-                s = s.replaceAll("'true'", "1").
-                        replaceAll("'false'", "0").
-                        replaceAll("'null'", "null");
-                file.write(s);
-                file.write(";");
-                file.newLine();
+                if (count > 1000) {
+
+                    Page page = new Page<>(1, 1000);
+                    do {
+                        layerOperation.page(page, EasyHashMap.class, selectSQL, tableName);
+                        final List<EasyHashMap> record = (List<EasyHashMap>) page.getRecord();
+                        tableInfo = record.get(0);
+                        file.write("-- " + tableName);
+                        file.newLine();
+                        tableInfo.setUniqueLabel(tableName);
+                        String s = mySQLDataProcess.dataPack(record, tableInfo.toEasyTableAnnotation(false));
+                        s = s.replaceAll("'true'", "1").
+                                replaceAll("'false'", "0").
+                                replaceAll("'null'", NormalUsedString.NULL);
+                        file.write(s);
+                        file.write(NormalUsedString.SEMICOLON);
+                        file.newLine();
+                        System.out.println("当前查询页数:"+page.getCurrent());
+                        page.setCurrent(page.getCurrent()+1);
+                    }while (page.getRecord()!=null&&page.getRecord().size()==page.getSize());
+
+
+                } else {
+                    List<EasyHashMap> tableDateList = layerOperation.executeSQL(String.format(selectSQL, tableName), EasyHashMap.class);
+                    file.write("-- " + tableName);
+                    file.newLine();
+                    tableInfo = tableDateList.get(0);
+                    tableInfo.setUniqueLabel(tableName);
+                    System.out.println(tableInfo.generateClass());
+                    String s = mySQLDataProcess.dataPack(tableDateList, tableInfo.toEasyTableAnnotation(false));
+                    s = s.replaceAll("'true'", "1").
+                            replaceAll("'false'", "0").
+                            replaceAll("'null'", NormalUsedString.NULL);
+                    file.write(s);
+                    file.write(NormalUsedString.SEMICOLON);
+                    file.newLine();
+                }
+
             }
         }
+        System.out.println("数据备份结束输出文件地址:"+upsertConfig.getCacheFileAddress());
         file.close();
     }
 }
