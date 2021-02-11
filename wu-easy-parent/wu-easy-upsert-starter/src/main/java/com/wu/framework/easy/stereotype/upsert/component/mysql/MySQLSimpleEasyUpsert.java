@@ -21,15 +21,14 @@ import javax.sql.DataSource;
 
 
 /**
- * description MySQL单数据源插入数据
+ * description MySQL HikariDataSource 单数据源插入数据
  *
  * @author Jia wei Wu
  * @date 2020/9/11 上午10:22
  */
 @Slf4j
 @ConditionalOnClass(name = "com.zaxxer.hikari.HikariDataSource")
-//@Conditional({EasyUpsertDataSourceCondition.class})
-@ConditionalOnMissingBean(MySQLMultipleEasyUpsert.class)
+@ConditionalOnMissingBean(MySQLBeanEasyUpsert.class)
 @EasyUpsertStrategy(value = EasyUpsertType.MySQL)
 public class MySQLSimpleEasyUpsert extends MySQLEasyUpsertAbstract implements IEasyUpsert {
 

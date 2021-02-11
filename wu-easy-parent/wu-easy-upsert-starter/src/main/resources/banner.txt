@@ -10,5 +10,5 @@ $$   ____|$$  __$$ | \____$$\ $$ |  $$ |        $$ |  $$ |$$ |  $$ | \____$$\ $$
                               \$$$$$$  |                  $$ |
                                \______/                   \__|
 ${AnsiColor.BLUE}数据快速插入或者更新${application.version}${AnsiColor.DEFAULT}
-${AnsiColor.GREEN}Spring Boot Powered by ${spring-boot.formatted-version}${AnsiColor.DEFAULT}
+${AnsiColor.GREEN}Spring Boot Powered by ${spring-boot.version}${AnsiColor.DEFAULT}
                                                                                                      

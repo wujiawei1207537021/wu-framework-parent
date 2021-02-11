@@ -13,6 +13,7 @@
     8.支持ES数据批量插入
     9.新增数据库自动建表
     10.新增复杂数据快速插入
+    11.支持手动注入mysql数据源
 ### MYSQL  数据源 com.zaxxer.hikari.HikariDataSource &com.baomidou.dynamic.datasource.DynamicRoutingDataSource
     
 ### log
