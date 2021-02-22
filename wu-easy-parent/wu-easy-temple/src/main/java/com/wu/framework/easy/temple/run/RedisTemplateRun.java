@@ -1,7 +1,7 @@
 package com.wu.framework.easy.temple.run;
 
 import com.wu.framework.easy.stereotype.web.EasyController;
-import com.wu.framework.inner.redis.annotation.DynamicRedis;
+import com.wu.framework.inner.redis.annotation.LazyRedis;
 import com.wu.framework.inner.redis.component.LazyRedisTemplate;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -53,7 +53,7 @@ public class RedisTemplateRun {
     /***
      * 测试自定义一redis
      */
-    @DynamicRedis(database = 1)
+    @LazyRedis(database = 1)
     @GetMapping("/set1")
     public Object setRedis() {
         lazyRedisTemplate.opsForValue().set("test1", "test1");
@@ -63,7 +63,7 @@ public class RedisTemplateRun {
     /***
      * 测试自定义redis 切换数据库
      */
-    @DynamicRedis(database = 2)
+    @LazyRedis(database = 2)
     @GetMapping("/set2")
     public Object setRedis2() {
         lazyRedisTemplate.opsForValue().set("test2", "test2");

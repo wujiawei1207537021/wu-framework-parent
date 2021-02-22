@@ -19,16 +19,16 @@ public class AccessLimitAOP {
 //    }
 //
 //
-//    @Before(value = "accessLimitPoint(accessLimit)", argNames = "point,accessLimit")
-//    public void permissionCheck(JoinPoint point, AccessLimit accessLimit) {
+//    @Before(value = "accessLimitPoint(accessLimit)", argNames = "com.wu.bionic.point,accessLimit")
+//    public void permissionCheck(JoinPoint com.wu.bionic.point, AccessLimit accessLimit) {
 ////        System.out.println("@Before：模拟权限检查...");
 ////        System.out.println("@Before：目标方法为：" +
-////                point.getSignature().getDeclaringTypeName() +
-////                "." + point.getSignature().getName());
-////        System.out.println("@Before：参数为：" + Arrays.toString(point.getArgs()));
-////        System.out.println("@Before：被织入的目标对象为：" + point.getTarget());
+////                com.wu.bionic.point.getSignature().getDeclaringTypeName() +
+////                "." + com.wu.bionic.point.getSignature().getName());
+////        System.out.println("@Before：参数为：" + Arrays.toString(com.wu.bionic.point.getArgs()));
+////        System.out.println("@Before：被织入的目标对象为：" + com.wu.bionic.point.getTarget());
 //
-//        String key = getKey(accessLimit, point);
+//        String key = getKey(accessLimit, com.wu.bionic.point);
 //        int seconds = accessLimit.seconds();
 //        int maxCount = accessLimit.maxCount();
 //        // 没有访问记录
@@ -45,30 +45,30 @@ public class AccessLimitAOP {
 //    }
 //
 //
-//    @After(value = "accessLimitPoint(accessLimit)", argNames = "point,accessLimit")
-//    public void releaseResource(JoinPoint point, AccessLimit accessLimit) {
+//    @After(value = "accessLimitPoint(accessLimit)", argNames = "com.wu.bionic.point,accessLimit")
+//    public void releaseResource(JoinPoint com.wu.bionic.point, AccessLimit accessLimit) {
 ////        System.out.println("@After：模拟释放资源...");
 ////        System.out.println("@After：目标方法为：" +
-////                point.getSignature().getDeclaringTypeName() +
-////                "." + point.getSignature().getName());
-////        System.out.println("@After：参数为：" + Arrays.toString(point.getArgs()));
-////        System.out.println("@After：被织入的目标对象为：" + point.getTarget());
+////                com.wu.bionic.point.getSignature().getDeclaringTypeName() +
+////                "." + com.wu.bionic.point.getSignature().getName());
+////        System.out.println("@After：参数为：" + Arrays.toString(com.wu.bionic.point.getArgs()));
+////        System.out.println("@After：被织入的目标对象为：" + com.wu.bionic.point.getTarget());
 //
 //    }
 //
 //    @AfterReturning(pointcut = "accessLimitPoint(accessLimit)",
-//            returning = "returnValue", argNames = "point,accessLimit,returnValue")
-//    public void log(JoinPoint point, AccessLimit accessLimit, Object returnValue) {
+//            returning = "returnValue", argNames = "com.wu.bionic.point,accessLimit,returnValue")
+//    public void log(JoinPoint com.wu.bionic.point, AccessLimit accessLimit, Object returnValue) {
 //        // 请求成功或者失败 次数进行更改
 ////        System.out.println("@AfterReturning：模拟日志记录功能...");
 ////        System.out.println("@AfterReturning：目标方法为：" +
-////                point.getSignature().getDeclaringTypeName() +
-////                "." + point.getSignature().getName());
+////                com.wu.bionic.point.getSignature().getDeclaringTypeName() +
+////                "." + com.wu.bionic.point.getSignature().getName());
 ////        System.out.println("@AfterReturning：参数为：" +
-////                Arrays.toString(point.getArgs()));
+////                Arrays.toString(com.wu.bionic.point.getArgs()));
 ////        System.out.println("@AfterReturning：返回值为：" + returnValue);
-////        System.out.println("@AfterReturning：被织入的目标对象为：" + point.getTarget());
-//        String key = getKey(accessLimit, point);
+////        System.out.println("@AfterReturning：被织入的目标对象为：" + com.wu.bionic.point.getTarget());
+//        String key = getKey(accessLimit, com.wu.bionic.point);
 //        // 请求成功限制
 //        if (accessLimit.requestSuccessLimit()) {
 //
@@ -91,9 +91,9 @@ public class AccessLimitAOP {
 //    }
 //
 //    @AfterThrowing(pointcut = "accessLimitPoint(accessLimit)",
-//            throwing = "exception", argNames = "point,accessLimit,exception")
-//    public void afterThrowing(JoinPoint point, AccessLimit accessLimit, Exception exception) {
-//        String key = getKey(accessLimit, point);
+//            throwing = "exception", argNames = "com.wu.bionic.point,accessLimit,exception")
+//    public void afterThrowing(JoinPoint com.wu.bionic.point, AccessLimit accessLimit, Exception exception) {
+//        String key = getKey(accessLimit, com.wu.bionic.point);
 //        //异常抛出
 //        if (!accessLimit.requestSuccessLimit() & !ObjectUtils.isEmpty(exception)) {
 //            accessLimitMap.put(key, accessLimitMap.get(key) + 1, accessLimitMap.getExpiryTime(key) - System.currentTimeMillis());
@@ -104,10 +104,10 @@ public class AccessLimitAOP {
 //     * 获取键 key
 //     *
 //     * @param accessLimit
-//     * @param point
+//     * @param com.wu.bionic.point
 //     * @return
 //     */
-//    private String getKey(AccessLimit accessLimit, JoinPoint point) {
+//    private String getKey(AccessLimit accessLimit, JoinPoint com.wu.bionic.point) {
 //        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 //        boolean needLogin = accessLimit.needLogin();
 //        String key = requestAttributes.getRequest().getRequestURI();
@@ -130,7 +130,7 @@ public class AccessLimitAOP {
 //            Class type = accessLimit.paramType();
 //            String paramName = accessLimit.paramName();
 //            Object parameter = null;
-//            for (Object arg : point.getArgs()) {
+//            for (Object arg : com.wu.bionic.point.getArgs()) {
 //                if (arg.getClass().equals(type)) {
 //                    parameter = arg;
 //                }

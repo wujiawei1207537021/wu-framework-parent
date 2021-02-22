@@ -20,7 +20,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target({TYPE,METHOD})
 @Retention(RUNTIME)
-public @interface DynamicRedis {
+public @interface LazyRedis {
     /**
      * 默认redis数据库
      *

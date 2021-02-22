@@ -58,6 +58,8 @@
         <wu-swagger-starter.version>1.0.1</wu-swagger-starter.version>
         <wu-file-starter.version>1.0.1</wu-file-starter.version>
         <wu-framework-parent.version>1.0.1</wu-framework-parent.version>
+        <wu-easy-upsert-starter.version>1.0.1</wu-easy-upsert-starter.version>
+        <wu-database-lazy-starter.version>1.0.1</wu-database-lazy-starter.version>
 
         <spring-boot-starter.version>2.4.2</spring-boot-starter.version>
     </properties>
@@ -109,9 +111,9 @@
             <dependency>
                 <groupId>top.wu2020</groupId>
                 <artifactId>wu-database-lazy-starter</artifactId>
-                <version>${wu-framework-parent.version}</version>
+                <version>${wu-database-lazy-starter.version}</version>
             </dependency>
-            <!--swagger 即将启用 原因swagger 官方推出starter 包 -->
+            <!--swagger 即将弃用 原因swagger 官方推出starter 包 -->
             <dependency>
                 <groupId>top.wu2020</groupId>
                 <artifactId>wu-swagger-starter</artifactId>
@@ -121,7 +123,7 @@
             <dependency>
                 <groupId>top.wu2020</groupId>
                 <artifactId>wu-redis-lazy-starter</artifactId>
-                <version>${wu-framework-parent.version}</version>
+                <version>${wu-redis-lazy-starter.version}</version>
             </dependency>
             <!--文件资源服务-->
             <dependency>

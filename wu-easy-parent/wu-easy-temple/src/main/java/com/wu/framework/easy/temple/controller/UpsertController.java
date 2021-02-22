@@ -1,4 +1,4 @@
-package com.wu.framework.easy.temple.run;
+package com.wu.framework.easy.temple.controller;
 
 import com.wu.framework.easy.stereotype.upsert.component.IUpsert;
 import com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter;
@@ -34,12 +34,10 @@ public class UpsertController {
 
     private final IUpsert iUpsert;
     private final RunService runService;
-    private final DataSource dataSource;
 
-    public UpsertController(IUpsert iUpsert, RunService runService, DataSource dataSource) {
+    public UpsertController(IUpsert iUpsert, RunService runService) {
         this.iUpsert = iUpsert;
         this.runService = runService;
-        this.dataSource = dataSource;
     }
 
 

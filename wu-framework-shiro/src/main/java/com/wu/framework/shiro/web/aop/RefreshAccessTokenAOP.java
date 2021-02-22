@@ -9,7 +9,7 @@ public class RefreshAccessTokenAOP {
 //    }
 //
 //    @Around("refreshAccessTokenPointcut(refreshAccessToken)")
-//    private Object around(ProceedingJoinPoint point, RefreshAccessToken refreshAccessToken) throws Throwable {
+//    private Object around(ProceedingJoinPoint com.wu.bionic.point, RefreshAccessToken refreshAccessToken) throws Throwable {
 //        // 异常日志信息
 //        String exceptionLog = null;
 //        StackTraceElement[] stackTrace = null;
@@ -21,7 +21,7 @@ public class RefreshAccessTokenAOP {
 //        final Long start = System.currentTimeMillis();
 //        try {
 //            //目标方法开始执行
-//            result = point.proceed();
+//            result = com.wu.bionic.point.proceed();
 //        } catch (Throwable throwable) {
 //            isException = true;
 //            exceptionLog = throwable.getMessage();
