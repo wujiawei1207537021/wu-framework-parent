@@ -12,6 +12,7 @@ import org.springframework.util.ReflectionUtils;
 import javax.sql.DataSource;
 import java.lang.reflect.Field;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
@@ -134,7 +135,8 @@ public class MySQLDataProcess {
         int updateColumn = 0;
         try {
             connection = dataSource.getConnection();
-            ResultSet resultSet = connection.getMetaData().getTables(null, null, tableName, null);
+            DatabaseMetaData metaData = connection.getMetaData();
+            ResultSet resultSet = metaData.getTables(null, null, tableName, null);
             //
             String perfectTableSQL;
             if (!resultSet.next()) {
@@ -148,7 +150,8 @@ public class MySQLDataProcess {
                 updateColumn = executeBatch.length;
                 perfectTableSQL = createTableSQL;
             } else {
-                ResultSet columns = connection.getMetaData().getColumns(null, "%", tableName, "%");
+                String string = resultSet.getString(1);
+                ResultSet columns = metaData.getColumns(null, "%", tableName, "%");
                 List<ConvertedField> currentColumnNameList = new ArrayList<>();
                 while (columns.next()) {
                     String columnName = columns.getString("COLUMN_NAME");

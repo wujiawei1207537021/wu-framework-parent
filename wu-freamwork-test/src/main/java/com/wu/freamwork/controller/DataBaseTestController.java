@@ -1,9 +1,16 @@
 package com.wu.freamwork.controller;
 
 
+import com.baomidou.dynamic.datasource.DynamicRoutingDataSource;
+import com.sun.media.sound.JavaSoundAudioClip;
+import com.wu.framework.easy.stereotype.dynamic.toolkit.DynamicEasyUpsertDSContextHolder;
+import com.wu.framework.easy.stereotype.upsert.component.IUpsert;
 import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
+import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
 import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
+import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.stereotype.upsert.enums.NormalUsedString;
+import com.wu.framework.easy.stereotype.upsert.handler.IUpsertHandler;
 import com.wu.framework.easy.stereotype.upsert.process.MySQLDataProcess;
 import com.wu.framework.easy.stereotype.upsert.util.FileUtil;
 import com.wu.framework.easy.stereotype.web.EasyController;
@@ -12,10 +19,19 @@ import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOper
 import com.wu.framework.inner.lazy.database.test.pojo.DataBaseUser;
 import org.springframework.boot.CommandLineRunner;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.lang.annotation.Annotation;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 //import com.wu.framework.inner.dynamic.database.component.CDS;
 
@@ -31,11 +47,13 @@ public class DataBaseTestController implements CommandLineRunner {
     private final LazyOperation layerOperation;
     private final UpsertConfig upsertConfig;
     private final MySQLDataProcess mySQLDataProcess;
+    private final IUpsert iUpsert;
 
-    public DataBaseTestController(LazyOperation layerOperation, UpsertConfig upsertConfig, MySQLDataProcess mySQLDataProcess) {
+    public DataBaseTestController(LazyOperation layerOperation, UpsertConfig upsertConfig, MySQLDataProcess mySQLDataProcess, IUpsert iUpsert) {
         this.layerOperation = layerOperation;
         this.upsertConfig = upsertConfig;
         this.mySQLDataProcess = mySQLDataProcess;
+        this.iUpsert = iUpsert;
     }
 
 
@@ -57,7 +75,8 @@ public class DataBaseTestController implements CommandLineRunner {
         Page<DataBaseUser> page = layerOperation.page(dataBaseUserPage, DataBaseUser.class, null);
         System.out.println(page);
         // 数据迁移
-        dataMigration(null);
+//        dataMigration(null);
+        dataMigration("test","upsert");
     }
 
     /**
@@ -292,9 +311,9 @@ public class DataBaseTestController implements CommandLineRunner {
                         file.write(s);
                         file.write(NormalUsedString.SEMICOLON);
                         file.newLine();
-                        System.out.println("当前查询页数:"+page.getCurrent());
-                        page.setCurrent(page.getCurrent()+1);
-                    }while (page.getRecord()!=null&&page.getRecord().size()==page.getSize());
+                        System.out.println("当前查询页数:" + page.getCurrent());
+                        page.setCurrent(page.getCurrent() + 1);
+                    } while (page.getRecord() != null && page.getRecord().size() == page.getSize());
 
 
                 } else {
@@ -315,7 +334,104 @@ public class DataBaseTestController implements CommandLineRunner {
 
             }
         }
-        System.out.println("数据备份结束输出文件地址:"+upsertConfig.getCacheFileAddress());
+        System.out.println("数据备份结束输出文件地址:" + upsertConfig.getCacheFileAddress());
         file.close();
     }
+
+
+    /**
+     * @param source 源数据库
+     * @param target 目标
+     * @description 多线程奔跑 🏃
+     * @author 吴佳伟
+     * @date 2021/2/22 下午8:07
+     */
+    public void dataMigration(String source, String target) throws Exception {
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(5, 50, 20, TimeUnit.MILLISECONDS,
+                new ArrayBlockingQueue<Runnable>(20));
+        // 当前数据库
+        if (source == null) {
+            source = layerOperation.executeSQLForBean("select database()", String.class);
+        }
+        // 获取数据库中所有的表
+        String sqlSelectTable = "select concat('%s.',table_name) tableName, engine, table_comment tableComment, create_time createTime from information_schema.tables where table_schema = '%s' ";
+        List<EasyHashMap> allTables = layerOperation.executeSQL(String.format(sqlSelectTable, source, source), EasyHashMap.class);
+        EasyUpsertDS easyUpsertDS = new EasyUpsertDS() {
+            @Override
+            public Class<? extends Annotation> annotationType() {
+                return EasyUpsertDS.class;
+            }
+
+            @Override
+            public String value() {
+                return target;
+            }
+
+            @Override
+            public String name() {
+                return target;
+            }
+
+            @Override
+            public EasyUpsertType type() {
+                return EasyUpsertType.MySQL;
+            }
+        };
+        String finalSource = source;
+        allTables.forEach(easyHashMap -> {
+            threadPoolExecutor.execute(()->{
+                singleTableDataProcess(finalSource,easyHashMap,easyUpsertDS);
+            });
+        });
+
+        System.out.println("数据备份结束输出文件地址:" + upsertConfig.getCacheFileAddress());
+    }
+
+    /**
+     * description 单表数据处理
+     * @param
+     * @return
+     * @exception/throws
+     * @author 吴佳伟
+     * @date 2021/2/23 下午6:48
+     */
+    public void singleTableDataProcess(String source,EasyHashMap table,EasyUpsertDS easyUpsertDS){
+        String countSQL = "select count(1) from %s ";
+        String tableName = table.get("tableName").toString();
+        Integer count = layerOperation.executeSQLForBean(String.format(countSQL, tableName), Integer.class);
+        if (count != 0) {
+            EasyHashMap tableInfo;
+            String selectSQL = "select * from %s ";
+            if (count > 1000) {
+                Page page = new Page<>(1, 1000);
+                do {
+                    layerOperation.page(page, EasyHashMap.class, selectSQL, tableName);
+                    final List<EasyHashMap> record = (List<EasyHashMap>) page.getRecord();
+                    tableInfo = record.get(0);
+                    tableInfo.setUniqueLabel(tableName);
+                    DynamicEasyUpsertDSContextHolder.push(easyUpsertDS);
+                    iUpsert.upsert(record);
+                    DynamicEasyUpsertDSContextHolder.clear();
+                    System.out.println("当前查询页数:" + page.getCurrent());
+                    page.setCurrent(page.getCurrent() + 1);
+                } while (page.getRecord() != null && page.getRecord().size() == page.getSize());
+            } else {
+                List<EasyHashMap> tableDateList = layerOperation.executeSQL(String.format(selectSQL, tableName), EasyHashMap.class);
+                tableInfo = tableDateList.get(0);
+                tableInfo.setUniqueLabel(tableName.replace(source,easyUpsertDS.name()));
+                DynamicEasyUpsertDSContextHolder.push(easyUpsertDS);
+                iUpsert.upsert(tableDateList);
+                DynamicEasyUpsertDSContextHolder.clear();
+            }
+        }
+    }
+
+    public static void main(String[] args) throws Exception{
+
+        JavaSoundAudioClip javaSoundAudioClip = new JavaSoundAudioClip(new FileInputStream(new File("/Users/wujiawei/Desktop/aa.mp3")));
+//        AudioClip audioClip = Applet.newAudioClip(new URL("/Users/wujiawei/Music/QQ音/任贤齐,张柏芝-星语心愿.mp3"));
+//        audioClip.play();
+        javaSoundAudioClip.play();
+    }
+
 }

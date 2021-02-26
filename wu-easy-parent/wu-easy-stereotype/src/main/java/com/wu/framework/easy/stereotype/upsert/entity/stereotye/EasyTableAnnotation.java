@@ -122,7 +122,7 @@ public class EasyTableAnnotation {
      **/
     public String alterTableSQL(List<ConvertedField> currentColumnNameList) {
         String ALTER_TABLE = "ALTER TABLE %s ";
-        String ADD_FIELD = " ADD %s %s %s "; // 字段名 字段类型 字段备注
+        String ADD_FIELD = " ADD %s %s comment '%s' "; // 字段名 字段类型 字段备注
          Map<String, ConvertedField> map = currentColumnNameList.stream().
                  collect(Collectors.toMap(ConvertedField::getConvertedFieldName, convertedField -> convertedField));
 

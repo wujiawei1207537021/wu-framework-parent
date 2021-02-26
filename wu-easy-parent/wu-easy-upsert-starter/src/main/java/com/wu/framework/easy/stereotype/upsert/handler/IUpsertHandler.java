@@ -15,7 +15,6 @@ import java.lang.reflect.Method;
  * @date 2020/7/14 下午8:03
  */
 
-@Slf4j
 public class IUpsertHandler implements InvocationHandler {
 
 
