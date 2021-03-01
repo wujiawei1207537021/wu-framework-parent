@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.util.ObjectUtils;
 
+import java.io.InputStream;
+import java.util.List;
+
 /**
  * @author : Jia wei Wu
  * @version : 1.0
@@ -22,6 +25,11 @@ public class PersistenceRepository {
     private Class resultClass;//实体类
     
     private String executionType;//执行类型
+
+    /**
+     * 二进制数据
+     */
+    private List<InputStream> binaryList;
 
 
     public String getResultType() {

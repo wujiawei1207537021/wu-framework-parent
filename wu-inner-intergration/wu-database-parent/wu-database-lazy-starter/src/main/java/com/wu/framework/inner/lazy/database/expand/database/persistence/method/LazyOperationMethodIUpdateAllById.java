@@ -49,7 +49,7 @@ public class LazyOperationMethodIUpdateAllById extends AbstractLazyOperationMeth
      * @date 2020/11/22 上午11:02
      **/
     @Override
-    public Object execute(PreparedStatement preparedStatement, String resultType) throws SQLException {
+    public Object execute(PreparedStatement preparedStatement, PersistenceRepository persistenceRepository) throws SQLException {
         try {
             return preparedStatement.executeBatch();
         } catch (SQLException sqlException) {

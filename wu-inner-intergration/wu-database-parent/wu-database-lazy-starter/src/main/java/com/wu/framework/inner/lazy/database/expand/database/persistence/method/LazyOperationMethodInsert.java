@@ -41,14 +41,14 @@ public class LazyOperationMethodInsert extends AbstractLazyOperationMethod {
      * description 执行SQL 语句
      *
      * @param preparedStatement
-     * @param resultType
+     * @param persistenceRepository
      * @return
      * @params
      * @author Jia wei Wu
      * @date 2020/11/22 上午11:02
      */
     @Override
-    public Object execute(PreparedStatement preparedStatement, String resultType) throws SQLException {
-        return super.execute(preparedStatement, resultType);
+    public Object execute(PreparedStatement preparedStatement, PersistenceRepository persistenceRepository) throws SQLException {
+        return super.execute(preparedStatement, persistenceRepository);
     }
 }

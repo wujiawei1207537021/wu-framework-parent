@@ -2,7 +2,6 @@ package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 
 import java.lang.reflect.Method;
 import java.sql.PreparedStatement;
@@ -27,7 +26,7 @@ public interface LazyOperationMethod {
      * @author Jia wei Wu
      * @date 2020/11/22 上午11:02
      **/
-    default Object execute(PreparedStatement preparedStatement, String resultType) throws SQLException {
+    default Object execute(PreparedStatement preparedStatement, PersistenceRepository persistenceRepository) throws SQLException {
         try {
             return preparedStatement.execute();
         } catch (SQLException sqlException) {

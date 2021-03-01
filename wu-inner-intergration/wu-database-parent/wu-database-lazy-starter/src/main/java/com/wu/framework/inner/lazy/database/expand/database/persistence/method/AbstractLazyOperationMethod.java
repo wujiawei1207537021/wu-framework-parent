@@ -4,6 +4,7 @@ import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConver
 import com.wu.framework.easy.stereotype.upsert.enums.JavaBasicType;
 import com.wu.framework.inner.lazy.database.converter.PreparedStatementSQLConverter;
 import com.wu.framework.inner.lazy.database.domain.ConvertedField;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 import org.springframework.util.ObjectUtils;
 
 import java.lang.reflect.Field;
@@ -34,7 +35,7 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
      * @date 2020/11/22 上午11:02
      **/
     @Override
-    public Object execute(PreparedStatement preparedStatement, String resultType) throws SQLException {
+    public Object execute(PreparedStatement preparedStatement, PersistenceRepository persistenceRepository) throws SQLException {
         try {
             return preparedStatement.execute();
         } catch (SQLException sqlException) {

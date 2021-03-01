@@ -42,7 +42,7 @@ public class LazyOperationMethodIDeleteById extends AbstractLazyOperationMethod 
      * @date 2020/11/22 上午11:02
      **/
     @Override
-    public Object execute(PreparedStatement preparedStatement, String resultType) throws SQLException {
+    public Object execute(PreparedStatement preparedStatement, PersistenceRepository persistenceRepository) throws SQLException {
         try {
             return preparedStatement.executeUpdate();
         } catch (SQLException sqlException) {

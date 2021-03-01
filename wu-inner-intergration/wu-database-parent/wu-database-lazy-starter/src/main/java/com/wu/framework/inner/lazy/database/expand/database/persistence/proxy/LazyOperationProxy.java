@@ -36,17 +36,17 @@ public class LazyOperationProxy implements InvocationHandler, InitializingBean {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        String methodName=method.getName();
+        String methodName = method.getName();
         LazyOperationMethod lazyOperationMethod = LAZY_OPERATION_METHOD_MAP.get(methodName);
-        if (null==lazyOperationMethod) throw  new RuntimeException(String.format("无法处理方法【%s】",methodName));
-        PersistenceRepository  persistenceRepository = lazyOperationMethod.getPersistenceRepository(method, args);
+        if (null == lazyOperationMethod) throw new RuntimeException(String.format("无法处理方法【%s】", methodName));
+        PersistenceRepository persistenceRepository = lazyOperationMethod.getPersistenceRepository(method, args);
         Connection connection = dataSource.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());
         try {
-            return lazyOperationMethod.execute(preparedStatement, persistenceRepository.getResultType());
-        }catch (Exception exception){
-            throw  exception;
-        }finally {
+            return lazyOperationMethod.execute(preparedStatement, persistenceRepository);
+        } catch (Exception exception) {
+            throw exception;
+        } finally {
             connection.close();
         }
 

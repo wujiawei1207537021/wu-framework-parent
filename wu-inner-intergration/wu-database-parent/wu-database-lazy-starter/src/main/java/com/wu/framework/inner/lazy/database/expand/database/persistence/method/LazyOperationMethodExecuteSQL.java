@@ -7,7 +7,6 @@ import java.lang.reflect.Method;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -39,10 +38,10 @@ public class LazyOperationMethodExecuteSQL extends AbstractLazyOperationMethod {
      * @date 2020/11/22 上午11:02
      **/
     @Override
-    public Object execute(PreparedStatement preparedStatement, String resultType) throws SQLException {
+    public Object execute(PreparedStatement preparedStatement, PersistenceRepository persistenceRepository) throws SQLException {
         try {
             ResultSet resultSet = preparedStatement.executeQuery();
-            List result = resultSetConverter(resultSet, resultType);
+            List result = resultSetConverter(resultSet, persistenceRepository.getResultType());
             return result;
         } catch (SQLException sqlException) {
             throw sqlException;

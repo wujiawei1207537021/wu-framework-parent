@@ -1,11 +1,16 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
-import com.wu.framework.inner.lazy.database.converter.PreparedStatementSQLConverter;
+import com.wu.framework.easy.stereotype.upsert.enums.NormalUsedString;
+import com.wu.framework.inner.lazy.database.converter.PersistenceConverter;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.Persistence;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.RepositoryOnDifferentMethods;
 import org.springframework.util.ObjectUtils;
 
 import java.lang.reflect.Method;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.stream.Collectors;
 
 /**
  * @author : Jia wei Wu
@@ -22,10 +27,35 @@ public class LazyOperationMethodActiveInsert extends AbstractLazyOperationMethod
             throw new IllegalArgumentException("fail invoke this method in method" + method.getName());
         }
         Object object = args[0];
-        String sql = PreparedStatementSQLConverter.activeInsertPreparedStatementSQL(object);
+
+        Persistence persistence = PersistenceConverter.activeInsertPrepared(object);
+        StringBuffer stringBuffer = new StringBuffer(persistence.getExecutionEnum().getExecution());
+        stringBuffer.append(persistence.getTableName());
+        stringBuffer.append(NormalUsedString.LEFT_BRACKET);
+        stringBuffer.append(String.join(",", persistence.getColumnList()));
+        stringBuffer.append(") values ( ");
+        stringBuffer.append(persistence.getCondition());
+        stringBuffer.append(" ) ON DUPLICATE KEY UPDATE ");
+        stringBuffer.append(persistence.getColumnList().stream().map(s -> s + " =VALUES (" + s + ")").collect(Collectors.joining(",")));
+        String sql =stringBuffer.toString();
         PersistenceRepository persistenceRepository = new PersistenceRepository();
         persistenceRepository.setQueryString(sql);
-
+        persistenceRepository.setBinaryList(persistence.getBinaryList());
         return persistenceRepository;
+    }
+
+    /**
+     * description 执行SQL 语句
+     *
+     * @param preparedStatement
+     * @param persistenceRepository
+     * @return
+     * @params
+     * @author Jia wei Wu
+     * @date 2020/11/22 上午11:02
+     */
+    @Override
+    public Object execute(PreparedStatement preparedStatement, PersistenceRepository persistenceRepository) throws SQLException {
+        return super.execute(preparedStatement, persistenceRepository);
     }
 }

@@ -1,6 +1,5 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
-import com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasyTableAnnotation;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
 import com.wu.framework.inner.lazy.database.domain.Page;
@@ -13,7 +12,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -68,12 +66,12 @@ public class LazyOperationMethodPage extends AbstractLazyOperationMethod {
      * @date 2020/11/22 上午11:02
      **/
     @Override
-    public Object execute(PreparedStatement preparedStatement, String resultType) throws SQLException {
+    public Object execute(PreparedStatement preparedStatement, PersistenceRepository persistenceRepository) throws SQLException {
         try {
             Connection connection = preparedStatement.getConnection();
             count(connection);
             ResultSet resultSet = preparedStatement.executeQuery(limitSql);
-            List result = resultSetConverter(resultSet, resultType);
+            List result = resultSetConverter(resultSet, persistenceRepository.getResultType());
             page.setRecord(result);
             return page;
         } catch (SQLException exception) {

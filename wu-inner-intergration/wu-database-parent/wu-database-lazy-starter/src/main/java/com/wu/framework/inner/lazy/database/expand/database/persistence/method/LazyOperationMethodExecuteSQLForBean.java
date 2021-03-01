@@ -39,10 +39,10 @@ public class LazyOperationMethodExecuteSQLForBean extends AbstractLazyOperationM
      * @date 2020/11/22 上午11:02
      **/
     @Override
-    public Object execute(PreparedStatement preparedStatement, String resultType) throws SQLException {
+    public Object execute(PreparedStatement preparedStatement, PersistenceRepository persistenceRepository) throws SQLException {
         try {
             ResultSet resultSet=preparedStatement.executeQuery();
-            List result = resultSetConverter(resultSet, resultType);
+            List result = resultSetConverter(resultSet, persistenceRepository.getResultType());
             if (result.size() > 1) {
                 throw new IllegalArgumentException(" expected one but found " + result.size());
             }

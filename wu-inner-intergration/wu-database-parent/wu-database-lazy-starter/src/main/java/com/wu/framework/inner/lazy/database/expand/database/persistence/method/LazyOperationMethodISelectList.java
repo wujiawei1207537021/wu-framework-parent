@@ -45,10 +45,10 @@ public class LazyOperationMethodISelectList extends AbstractLazyOperationMethod 
      * @date 2020/11/22 上午11:02
      **/
     @Override
-    public Object execute(PreparedStatement preparedStatement, String resultType) throws SQLException {
+    public Object execute(PreparedStatement preparedStatement, PersistenceRepository persistenceRepository) throws SQLException {
         try {
             ResultSet resultSet = preparedStatement.executeQuery();
-            List result = resultSetConverter(resultSet, resultType);
+            List result = resultSetConverter(resultSet, persistenceRepository.getResultType());
             return result;
         } catch (SQLException throwables) {
             throwables.printStackTrace();

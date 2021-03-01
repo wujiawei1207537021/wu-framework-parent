@@ -4,6 +4,7 @@ package com.wu.framework.inner.lazy.database.converter;
 import com.wu.framework.easy.stereotype.upsert.EasySmart;
 import com.wu.framework.easy.stereotype.upsert.EasySmartField;
 import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConverter;
+import com.wu.framework.easy.stereotype.upsert.enums.NormalUsedString;
 import com.wu.framework.inner.lazy.database.domain.ConvertedField;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.Persistence;
 import com.wu.framework.inner.lazy.database.test.pojo.DataBaseUser;
@@ -387,7 +388,7 @@ public class PreparedStatementSQLConverter {
         Persistence persistence = PersistenceConverter.activeInsertPrepared(object);
         StringBuffer stringBuffer = new StringBuffer(persistence.getExecutionEnum().getExecution());
         stringBuffer.append(persistence.getTableName());
-        stringBuffer.append("(");
+        stringBuffer.append(NormalUsedString.LEFT_BRACKET);
         stringBuffer.append(String.join(",", persistence.getColumnList()));
         stringBuffer.append(") values ( ");
         stringBuffer.append(persistence.getCondition());
