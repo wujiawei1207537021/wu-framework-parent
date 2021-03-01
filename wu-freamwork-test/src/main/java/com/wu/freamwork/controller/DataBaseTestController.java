@@ -1,7 +1,6 @@
 package com.wu.freamwork.controller;
 
 
-import com.baomidou.dynamic.datasource.DynamicRoutingDataSource;
 import com.sun.media.sound.JavaSoundAudioClip;
 import com.wu.framework.easy.stereotype.dynamic.toolkit.DynamicEasyUpsertDSContextHolder;
 import com.wu.framework.easy.stereotype.upsert.component.IUpsert;
@@ -10,7 +9,6 @@ import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
 import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.stereotype.upsert.enums.NormalUsedString;
-import com.wu.framework.easy.stereotype.upsert.handler.IUpsertHandler;
 import com.wu.framework.easy.stereotype.upsert.process.MySQLDataProcess;
 import com.wu.framework.easy.stereotype.upsert.util.FileUtil;
 import com.wu.framework.easy.stereotype.web.EasyController;
@@ -19,13 +17,10 @@ import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOper
 import com.wu.framework.inner.lazy.database.test.pojo.DataBaseUser;
 import org.springframework.boot.CommandLineRunner;
 
-import java.applet.Applet;
-import java.applet.AudioClip;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.lang.annotation.Annotation;
-import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +71,7 @@ public class DataBaseTestController implements CommandLineRunner {
         System.out.println(page);
         // 数据迁移
 //        dataMigration(null);
-        dataMigration("test","upsert");
+        dataMigration("test", "upsert");
     }
 
     /**
@@ -253,7 +248,8 @@ public class DataBaseTestController implements CommandLineRunner {
                 file.newLine();
                 EasyHashMap tableInfo = tableDateList.get(0);
                 tableInfo.setUniqueLabel(tableName);
-                String s = mySQLDataProcess.dataPack(tableDateList, tableInfo.toEasyTableAnnotation(false));
+                final MySQLDataProcess.MySQLProcessResult mySQLProcessResult = mySQLDataProcess.dataPack(tableDateList, tableInfo.toEasyTableAnnotation(false));
+                String s = mySQLProcessResult.getSql();
                 s = s.replaceAll("'true'", "1").
                         replaceAll("'false'", "0").
                         replaceAll("'null'", "null").
@@ -304,7 +300,8 @@ public class DataBaseTestController implements CommandLineRunner {
                         file.write("-- " + tableName);
                         file.newLine();
                         tableInfo.setUniqueLabel(tableName);
-                        String s = mySQLDataProcess.dataPack(record, tableInfo.toEasyTableAnnotation(false));
+                        final MySQLDataProcess.MySQLProcessResult mySQLProcessResult = mySQLDataProcess.dataPack(record, tableInfo.toEasyTableAnnotation(false));
+                        String s = mySQLProcessResult.getSql();
                         s = s.replaceAll("'true'", "1").
                                 replaceAll("'false'", "0").
                                 replaceAll("'null'", NormalUsedString.NULL);
@@ -323,7 +320,8 @@ public class DataBaseTestController implements CommandLineRunner {
                     tableInfo = tableDateList.get(0);
                     tableInfo.setUniqueLabel(tableName);
                     System.out.println(tableInfo.generateClass());
-                    String s = mySQLDataProcess.dataPack(tableDateList, tableInfo.toEasyTableAnnotation(false));
+                    MySQLDataProcess.MySQLProcessResult mySQLProcessResult = mySQLDataProcess.dataPack(tableDateList, tableInfo.toEasyTableAnnotation(false));
+                    String s = mySQLProcessResult.getSql();
                     s = s.replaceAll("'true'", "1").
                             replaceAll("'false'", "0").
                             replaceAll("'null'", NormalUsedString.NULL);
@@ -379,8 +377,8 @@ public class DataBaseTestController implements CommandLineRunner {
         };
         String finalSource = source;
         allTables.forEach(easyHashMap -> {
-            threadPoolExecutor.execute(()->{
-                singleTableDataProcess(finalSource,easyHashMap,easyUpsertDS);
+            threadPoolExecutor.execute(() -> {
+                singleTableDataProcess(finalSource, easyHashMap, easyUpsertDS);
             });
         });
 
@@ -389,13 +387,14 @@ public class DataBaseTestController implements CommandLineRunner {
 
     /**
      * description 单表数据处理
+     *
      * @param
      * @return
      * @exception/throws
      * @author 吴佳伟
      * @date 2021/2/23 下午6:48
      */
-    public void singleTableDataProcess(String source,EasyHashMap table,EasyUpsertDS easyUpsertDS){
+    public void singleTableDataProcess(String source, EasyHashMap table, EasyUpsertDS easyUpsertDS) {
         String countSQL = "select count(1) from %s ";
         String tableName = table.get("tableName").toString();
         Integer count = layerOperation.executeSQLForBean(String.format(countSQL, tableName), Integer.class);
@@ -418,7 +417,7 @@ public class DataBaseTestController implements CommandLineRunner {
             } else {
                 List<EasyHashMap> tableDateList = layerOperation.executeSQL(String.format(selectSQL, tableName), EasyHashMap.class);
                 tableInfo = tableDateList.get(0);
-                tableInfo.setUniqueLabel(tableName.replace(source,easyUpsertDS.name()));
+                tableInfo.setUniqueLabel(tableName.replace(source, easyUpsertDS.name()));
                 DynamicEasyUpsertDSContextHolder.push(easyUpsertDS);
                 iUpsert.upsert(tableDateList);
                 DynamicEasyUpsertDSContextHolder.clear();
@@ -426,7 +425,7 @@ public class DataBaseTestController implements CommandLineRunner {
         }
     }
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
 
         JavaSoundAudioClip javaSoundAudioClip = new JavaSoundAudioClip(new FileInputStream(new File("/Users/wujiawei/Desktop/aa.mp3")));
 //        AudioClip audioClip = Applet.newAudioClip(new URL("/Users/wujiawei/Music/QQ音/任贤齐,张柏芝-星语心愿.mp3"));

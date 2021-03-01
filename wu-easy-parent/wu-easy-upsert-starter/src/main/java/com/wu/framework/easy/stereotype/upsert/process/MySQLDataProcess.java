@@ -6,10 +6,17 @@ import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasyTableAnnotation;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
 import com.wu.framework.easy.stereotype.upsert.enums.JavaBasicType;
+import com.wu.framework.easy.stereotype.upsert.enums.NormalUsedString;
+import lombok.Data;
+import lombok.SneakyThrows;
+import lombok.experimental.Accessors;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.ReflectionUtils;
 
 import javax.sql.DataSource;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -69,7 +76,9 @@ public class MySQLDataProcess {
      * @author Jia wei Wu
      * @date 2020/10/22 下午2:23
      */
-    public String dataPack(List sourceData, EasyTableAnnotation easyTableAnnotation) throws Exception {
+    public MySQLProcessResult dataPack(List sourceData, EasyTableAnnotation easyTableAnnotation) throws Exception {
+        MySQLProcessResult mySQLProcessResult = new MySQLProcessResult();
+        List<InputStream> binaryList = new ArrayList<>();
         String insert = "insert into %s (%s) VALUES %s  ON DUPLICATE KEY UPDATE \n %s ";
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         StringBuilder stringBuilder = new StringBuilder("insert into ");
@@ -90,7 +99,16 @@ public class MySQLDataProcess {
         // 添加 数据
         if (easyTableAnnotation.getClassName().equals(EasyHashMap.class.getName())) {
             data = ((List<EasyHashMap>) sourceData).stream().
-                    map(easyHashMap -> "(" + convertedFieldList.stream().map(convertedField -> "'" + easyHashMap.getOrDefault(convertedField.getFieldName(), JavaBasicType.DEFAULT_VALUE_HASHMAP.get(convertedField.getClazz())) + "'").collect(Collectors.joining(",")) + ")").collect(Collectors.joining(","));
+                    map(easyHashMap -> NormalUsedString.LEFT_BRACKET + convertedFieldList.stream().map(convertedField -> {
+                        final Object value = easyHashMap.getOrDefault(convertedField.getFieldName(), null);
+                        //判断是否为binary数据
+                        final InputStream binary = isBinary(value);
+                        if (!ObjectUtils.isEmpty(binary)) {
+                            binaryList.add(binary);
+                            return NormalUsedString.QUESTION_MARK;
+                        }
+                        return "'" + (value == null ? JavaBasicType.DEFAULT_VALUE_HASHMAP.get(convertedField.getClazz()) : value).toString().replaceAll("'", "’") + "'";
+                    }).collect(Collectors.joining(",")) + NormalUsedString.RIGHT_BRACKET).collect(Collectors.joining(","));
         } else {
             final List<Field> fieldList = convertedFieldList.stream().filter(ConvertedField::isExist).
                     filter(convertedField -> !UpsertJsonMessage.ignoredFields.contains(convertedField.getFieldName())).
@@ -99,27 +117,41 @@ public class MySQLDataProcess {
                     collect(Collectors.toList());
             List<String> tempList = new ArrayList<>();
             for (Object source : sourceData) {
-                String temp = "(" +
+                String temp = NormalUsedString.LEFT_BRACKET +
                         fieldList.stream().map(field -> {
                             Object fieldVal = "";
                             try {
                                 fieldVal = field.get(source);
+                                //判断是否为binary数据
+                                final InputStream binary = isBinary(fieldVal);
+                                if (!ObjectUtils.isEmpty(binary)) {
+                                    binaryList.add(binary);
+                                    return NormalUsedString.QUESTION_MARK;
+                                }
                             } catch (IllegalAccessException e) {
                                 e.printStackTrace();
                             }
                             if (null != fieldVal) {
                                 fieldVal = annotationConvertConversion(field, fieldVal, easyTableAnnotation.getIEnumList());
-                                return "'"+fieldVal.toString().replaceAll("'", "\"")+"'";
+                                return "'" + fieldVal.toString().replaceAll("'", "\"") + "'";
                             } else {
 //                                fieldVal = JavaBasicType.DEFAULT_VALUE_HASHMAP.get(field.getType());
-                              return null;
+                                return null;
                             }
-                        }).collect(Collectors.joining(",")) + ")";
+                        }).collect(Collectors.joining(NormalUsedString.COMMA)) + NormalUsedString.RIGHT_BRACKET;
                 tempList.add(temp);
             }
-            data = String.join(",", tempList);
+            data = String.join(NormalUsedString.COMMA, tempList);
         }
-        return String.format(insert, easyTableAnnotation.getTableName(), column, data, updateColumn);
+        String sql = String.format(insert, easyTableAnnotation.getTableName(), column, data, updateColumn);
+        if (ObjectUtils.isEmpty(binaryList)) {
+            mySQLProcessResult.setHasBinary(false);
+        } else {
+            mySQLProcessResult.setHasBinary(true);
+        }
+        mySQLProcessResult.setSql(sql);
+        mySQLProcessResult.setBinaryList(binaryList);
+        return mySQLProcessResult;
     }
 
 
@@ -192,4 +224,30 @@ public class MySQLDataProcess {
 
     }
 
+    /**
+     * @param
+     * @return
+     * @describe 字段是否为二进制数据
+     * @author Jia wei Wu
+     * @date 2021/3/1 7:07 下午
+     **/
+    @SneakyThrows
+    public InputStream isBinary(Object fieldValue) {
+        if (File.class.equals(fieldValue.getClass())) {
+            return new FileInputStream((File) fieldValue);
+        } else if (InputStream.class.isAssignableFrom(fieldValue.getClass())) {
+            return (InputStream) fieldValue;
+        }
+        return null;
+    }
+
+    @Accessors(chain = true)
+    @Data
+    public class MySQLProcessResult implements DataProcess.ProcessResult {
+        private String sql;
+        private List<InputStream> binaryList;
+
+        private boolean hasBinary = false;
+
+    }
 }

@@ -78,9 +78,9 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, Initializi
             iEnumList.putAll(EasyAnnotationConverter.collectionConvert(clazz));
             EasyTableAnnotation easyTableAnnotation = mySQLDataProcess.dataAnalyze(clazz, EasyHashMap.class.isAssignableFrom(clazz) ? (EasyHashMap) list.get(0) : null);
             easyTableAnnotation.setIEnumList(iEnumList);
-            String upsertSQL = mySQLDataProcess.dataPack(list, easyTableAnnotation);
+            final MySQLDataProcess.MySQLProcessResult mySQLProcessResult = mySQLDataProcess.dataPack(list, easyTableAnnotation);
             if (upsertConfig.isPrintSql()) {
-                System.err.println(String.format("Execute SQL : {%s}", upsertSQL));
+                System.err.println(String.format("Execute SQL : {%s}", mySQLProcessResult.getSql()));
             }
             PreparedStatement upsertStatement = null;
             Connection connection = null;
@@ -92,7 +92,13 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, Initializi
                     mySQLDataProcess.perfectTable(easyTableAnnotation, dataSource);
                 }
                 //获取PreparedStatement对象
-                upsertStatement = connection.prepareStatement(upsertSQL);
+                upsertStatement = connection.prepareStatement(mySQLProcessResult.getSql());
+                if(mySQLProcessResult.isHasBinary())
+                {
+                    for (int i = 0; i < mySQLProcessResult.getBinaryList().size(); i++) {
+                        upsertStatement.setBinaryStream(i+1,mySQLProcessResult.getBinaryList().get(i));
+                    }
+                }
                 //执行SQL语句，获取结果集
                 rs = upsertStatement.execute();
             } catch (Exception e) {
