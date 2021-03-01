@@ -7,6 +7,8 @@ import lombok.Getter;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Indexed;
 
+import java.io.File;
+import java.io.InputStream;
 import java.lang.annotation.*;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -125,7 +127,8 @@ public @interface EasySmartField {
         LOCAL_DATE_TIME(Arrays.asList(LocalDateTime.class, Timestamp.class), " datetime "),
         LOCAL_DATE(Arrays.asList(LocalDate.class, Date.class), " date "),
         DOUBLE(Arrays.asList(Double.class, double.class), " double "),
-        FLOAT(Arrays.asList(Float.class, float.class), " float ");
+        FLOAT(Arrays.asList(Float.class, float.class), " float "),
+        BINARY(Arrays.asList(File.class, InputStream.class), " Blob ");
         private List<Class> clazz;
         private String type;
 

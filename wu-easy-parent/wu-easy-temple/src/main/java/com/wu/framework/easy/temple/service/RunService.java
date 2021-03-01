@@ -11,4 +11,6 @@ public interface RunService {
     List<UserLog> run1();
 
     void run2(Integer size);
+
+    List binary(Integer size);
 }

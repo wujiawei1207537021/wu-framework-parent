@@ -2,6 +2,7 @@ package com.wu.framework.easy.temple.service.impl;
 
 import com.wu.framework.easy.stereotype.upsert.dynamic.QuickEasyUpsert;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
+import com.wu.framework.easy.temple.domain.UpsertBinary;
 import com.wu.framework.easy.temple.domain.UserLog;
 import com.wu.framework.easy.temple.service.RunService;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,15 @@ public class RunServiceImpl implements RunService {
     @Override
     public void run2(Integer size) {
         run(size);
+    }
+
+    @Override
+    public List binary(Integer size) {
+        List<UpsertBinary> upsertBinaryList = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            upsertBinaryList.add(new UpsertBinary());
+        }
+        return upsertBinaryList;
     }
 
     public static void main(String[] args) {

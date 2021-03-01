@@ -174,4 +174,12 @@ public class UpsertController {
     public List redis(@RequestParam(required = false, defaultValue = "1000") Integer size) {
         return runService.run(size);
     }
+
+    @QuickEasyUpsert(type = EasyUpsertType.MySQL)
+    @ApiOperation(tags = "快速插入数据", value = "binary 数据插入")
+    @GetMapping("/binary")
+    public List binary(@RequestParam(required = false, defaultValue = "1000") Integer size) {
+        return runService.binary(size);
+    }
+
 }
