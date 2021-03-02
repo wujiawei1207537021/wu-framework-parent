@@ -91,7 +91,11 @@ public class ElasticsearchEasyUpsert implements IEasyUpsert, InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        send();
+        try {
+            send();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void send() {

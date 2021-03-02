@@ -17,7 +17,7 @@ import java.util.*;
  * @describe : 使用此对象会自动创建数据库表
  * @date : 2020/12/31 6:42 下午
  */
-public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V> {
+public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>,IBeanUpsert {
 
     /**
      * 唯一性标示
@@ -129,5 +129,16 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V> {
                 append(NormalUsedString.SEMICOLON).append(NormalUsedString.NEWLINE));
         clazzStringBuffer.append(NormalUsedString.RIGHT_BRACE);
         return clazzStringBuffer;
+    }
+
+    /**
+     * @return
+     * @describe 对象处理之前
+     * @author Jia wei Wu
+     * @date 2021/3/2 6:24 下午
+     **/
+    @Override
+    public void beforeObjectProcess() throws Exception {
+
     }
 }

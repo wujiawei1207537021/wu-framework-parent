@@ -8,6 +8,7 @@ import com.wu.framework.easy.stereotype.upsert.converter.ConverterClass2KafkaSch
 import com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter;
 import com.wu.framework.easy.stereotype.upsert.converter.JsonFileConverter;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
+import com.wu.framework.easy.stereotype.upsert.entity.IBeanUpsert;
 import com.wu.framework.easy.stereotype.upsert.entity.kafka.KafkaJsonMessage;
 import com.wu.framework.easy.stereotype.upsert.entity.kafka.TargetJsonSchema;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasyTableAnnotation;
@@ -69,6 +70,9 @@ public class KafkaEasyUpsert implements IEasyUpsert {
             }
             iEnumList.putAll(EasyAnnotationConverter.collectionConvert(clazz));
             for (Object value : list) {
+                if(IBeanUpsert.class.isAssignableFrom(clazz)){
+                    ((IBeanUpsert)value).beforeObjectProcess();
+                }
                 kafkaJsonMessage.setPayload(JsonFileConverter.parseBean2map(value, iEnumList));
                 easyUpsertExtractKafkaProducer.sendAsync(easyTableAnnotation.getKafkaCode(), easyTableAnnotation.getKafkaTopicName(), kafkaJsonMessage);
             }

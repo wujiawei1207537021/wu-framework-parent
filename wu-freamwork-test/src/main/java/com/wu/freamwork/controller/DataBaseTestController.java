@@ -71,7 +71,9 @@ public class DataBaseTestController implements CommandLineRunner {
         System.out.println(page);
         // 数据迁移
 //        dataMigration(null);
-        dataMigration("test", "upsert");
+//        dataMigration("test", "upsert");
+        final List<EasyHashMap> upsertBinary = layerOperation.executeSQL("SELECT * FROM upsert_binary limit 1", EasyHashMap.class);
+        System.out.println(upsertBinary);
     }
 
     /**

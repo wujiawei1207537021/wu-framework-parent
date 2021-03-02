@@ -93,10 +93,9 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, Initializi
                 }
                 //获取PreparedStatement对象
                 upsertStatement = connection.prepareStatement(mySQLProcessResult.getSql());
-                if(mySQLProcessResult.isHasBinary())
-                {
+                if (mySQLProcessResult.isHasBinary()) {
                     for (int i = 0; i < mySQLProcessResult.getBinaryList().size(); i++) {
-                        upsertStatement.setBinaryStream(i+1,mySQLProcessResult.getBinaryList().get(i));
+                        upsertStatement.setBinaryStream(i + 1, mySQLProcessResult.getBinaryList().get(i));
                     }
                 }
                 //执行SQL语句，获取结果集

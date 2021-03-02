@@ -2,6 +2,7 @@ package com.wu.framework.easy.stereotype.upsert.process;
 
 import com.wu.framework.easy.stereotype.upsert.entity.ConvertedField;
 import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
+import com.wu.framework.easy.stereotype.upsert.entity.IBeanUpsert;
 import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasyTableAnnotation;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
@@ -100,6 +101,11 @@ public class MySQLDataProcess {
         if (easyTableAnnotation.getClassName().equals(EasyHashMap.class.getName())) {
             data = ((List<EasyHashMap>) sourceData).stream().
                     map(easyHashMap -> NormalUsedString.LEFT_BRACKET + convertedFieldList.stream().map(convertedField -> {
+                        try {
+                            easyHashMap.beforeObjectProcess();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                         final Object value = easyHashMap.getOrDefault(convertedField.getFieldName(), null);
                         //判断是否为binary数据
                         final InputStream binary = isBinary(value);
@@ -117,6 +123,9 @@ public class MySQLDataProcess {
                     collect(Collectors.toList());
             List<String> tempList = new ArrayList<>();
             for (Object source : sourceData) {
+                if(IBeanUpsert.class.isAssignableFrom(easyTableAnnotation.getClazz())){
+                    ((IBeanUpsert)source).beforeObjectProcess();
+                }
                 String temp = NormalUsedString.LEFT_BRACKET +
                         fieldList.stream().map(field -> {
                             Object fieldVal = "";

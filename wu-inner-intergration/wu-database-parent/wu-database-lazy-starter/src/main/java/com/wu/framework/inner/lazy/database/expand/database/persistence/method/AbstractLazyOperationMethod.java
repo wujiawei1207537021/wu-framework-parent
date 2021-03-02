@@ -110,10 +110,11 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
                         //根据得到列名，获取每列的值
 //                        Object columnValue = resultSet.getObject(columnName);
                         Field field = domainClass.getDeclaredField(fieldName);
+                        Class<?> fieldType = field.getType();
                         field.setAccessible(true);
-                        resultSet.getObject(i, field.getType());
+                        resultSet.getObject(i, fieldType);
 //                        columnValue = convertToTheCorrespondingType(columnValue, field.getType());
-                        Object columnValue = resultSet.getObject(i, field.getType());
+                        Object columnValue = resultSet.getObject(i, fieldType);
                         field.set(obj, columnValue);
                     }
                     //把赋好值的对象加入到集合中
