@@ -6,12 +6,9 @@ import javazoom.jl.player.Player;
 import lombok.SneakyThrows;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 
 /**
  * @author :  Jia Wei Wu
@@ -30,9 +27,10 @@ public class Music implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        EasyHashMap easyHashMap = lazyOperation.executeSQLForBean("SELECT * FROM upsert_binary limit 1", EasyHashMap.class);
+//        EasyHashMap easyHashMap = lazyOperation.executeSQLForBean("SELECT * FROM upsert_binary limit 1", EasyHashMap.class);
+        EasyHashMap easyHashMap = lazyOperation.executeSQLForBean("select voice from word where voice is NOT null AND word='上' limit 1 ", EasyHashMap.class);
 
-        byte[] file = easyHashMap.getBytes("file");
+        byte[] file = easyHashMap.getBytes("voice");
         Thread thread = new Thread() {
             private Player player;
 
@@ -45,6 +43,6 @@ public class Music implements CommandLineRunner {
             }
         };
         thread.start();
-
+        System.out.println("讲完了");
     }
 }
