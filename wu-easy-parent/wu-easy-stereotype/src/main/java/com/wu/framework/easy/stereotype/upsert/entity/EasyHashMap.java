@@ -8,6 +8,7 @@ import com.wu.framework.easy.stereotype.upsert.enums.NormalUsedString;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -17,7 +18,7 @@ import java.util.*;
  * @describe : 使用此对象会自动创建数据库表
  * @date : 2020/12/31 6:42 下午
  */
-public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>,IBeanUpsert {
+public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBeanUpsert {
 
     /**
      * 唯一性标示
@@ -111,10 +112,10 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>,IBeanU
      **/
     public StringBuffer generateClass() {
         StringBuffer clazzStringBuffer = new StringBuffer(LocalStorageClassAnnotation.DOMAIN_CLASS_TEMP);
-        EasyHashMap<Class,String> classStringEasyHashMap=new EasyHashMap<>();
+        EasyHashMap<Class, String> classStringEasyHashMap = new EasyHashMap<>();
         forEach((k, v) -> {
-            Class vClass= v==null? String.class :v.getClass();
-            classStringEasyHashMap.put(vClass,vClass.getSimpleName());
+            Class vClass = v == null ? String.class : v.getClass();
+            classStringEasyHashMap.put(vClass, vClass.getSimpleName());
         });
         for (Class aClass : classStringEasyHashMap.keySet()) {
             clazzStringBuffer.append("import").append(NormalUsedString.SPACE).append(aClass.getName()).append(NormalUsedString.SEMICOLON).append(NormalUsedString.NEWLINE);
@@ -123,10 +124,10 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>,IBeanU
         clazzStringBuffer.append(String.format("public class %s {", uniqueLabel)).append(NormalUsedString.NEWLINE);
         forEach((k, v) -> clazzStringBuffer.append(NormalUsedString.PRIVATE).append(NormalUsedString.SPACE).
                 // 字段类型
-                append(v == null ? NormalUsedString.STRING : v.getClass().getSimpleName()).append(NormalUsedString.SPACE).
+                        append(v == null ? NormalUsedString.STRING : v.getClass().getSimpleName()).append(NormalUsedString.SPACE).
                 // 字段名称
-                append(CamelAndUnderLineConverter.lineToHump(k.toString())).
-                append(NormalUsedString.SEMICOLON).append(NormalUsedString.NEWLINE));
+                        append(CamelAndUnderLineConverter.lineToHump(k.toString())).
+                        append(NormalUsedString.SEMICOLON).append(NormalUsedString.NEWLINE));
         clazzStringBuffer.append(NormalUsedString.RIGHT_BRACE);
         return clazzStringBuffer;
     }
@@ -138,7 +139,27 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>,IBeanU
      * @date 2021/3/2 6:24 下午
      **/
     @Override
-    public void beforeObjectProcess() throws Exception {
+    public Object beforeObjectProcess() throws Exception {
+        return null;
+    }
 
+    public byte[] getBytes(String key) {
+        Object value = get(key);
+
+        if (value == null) {
+            return null;
+        }
+
+        return castToBytes(value);
+    }
+
+    public static byte[] castToBytes(Object value) {
+        if (value instanceof byte[]) {
+            return (byte[]) value;
+        }
+        if (value instanceof String) {
+            return ((String) value).getBytes(StandardCharsets.UTF_8);
+        }
+        throw new RuntimeException("can not cast to byte[], value : " + value);
     }
 }
