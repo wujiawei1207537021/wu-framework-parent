@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
  * @date : 2021/3/3 9:25 下午
  */
 public abstract class EasySmartFillFieldConverterAbstract extends EasySmartConverterAbstract implements IEasySmartConverter {
+
     /**
      * @param source
      * @param target
@@ -30,7 +31,6 @@ public abstract class EasySmartFillFieldConverterAbstract extends EasySmartConve
      * @author Jia wei Wu
      * @date 2021/3/3 9:23 下午
      **/
-    @Override
     public void smartFillField(Object source, Object target) {
         EasyTableAnnotation targetEasyTableAnnotation = LocalStorageClassAnnotation.getEasyTableAnnotation(target.getClass(), true);
         AtomicBoolean smartFillField = new AtomicBoolean(targetEasyTableAnnotation.isSmartFillField());
@@ -78,6 +78,19 @@ public abstract class EasySmartFillFieldConverterAbstract extends EasySmartConve
      **/
     public abstract void targetClassWriteAttributeFieldList(List<CreateField> createFieldList, Class targetClass);
 
+    /**
+     * @param source 数据源
+     * @param target 目标数据
+     * @return
+     * @describe 转换
+     * @author Jia wei Wu
+     * @date 2021/3/3 11:23 下午
+     **/
+    @Override
+    public Object converter(Object source, Object target) {
+        smartFillField(source, target);
+        return target;
+    }
 
     @Accessors(chain = true)
     @Data
