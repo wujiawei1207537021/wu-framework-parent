@@ -27,8 +27,8 @@ public class Music implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        EasyHashMap easyHashMap = lazyOperation.executeSQLForBean("SELECT * FROM upsert_binary limit 1", EasyHashMap.class);
-        EasyHashMap easyHashMap = lazyOperation.executeSQLForBean("select voice from word where voice is NOT null AND word='上' limit 1 ", EasyHashMap.class);
+        EasyHashMap easyHashMap = lazyOperation.executeSQLForBean("SELECT * FROM upsert_binary limit 1", EasyHashMap.class);
+//        EasyHashMap easyHashMap = lazyOperation.executeSQLForBean("select voice from word where voice is NOT null AND word='百' limit 1 ", EasyHashMap.class);
 
         byte[] file = easyHashMap.getBytes("voice");
         Thread thread = new Thread() {
@@ -40,6 +40,7 @@ public class Music implements CommandLineRunner {
                 BufferedInputStream buffer = new BufferedInputStream(new ByteArrayInputStream(file));
                 player = new Player(buffer);
                 player.play();
+                System.out.println("讲了");
             }
         };
         thread.start();

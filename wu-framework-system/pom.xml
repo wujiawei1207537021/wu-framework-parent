@@ -5,7 +5,7 @@
     <parent>
         <groupId>top.wu2020</groupId>
         <artifactId>wu-framework-parent</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.2</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -42,7 +42,7 @@
         <!--        <dependency>-->
         <!--            <groupId>com.alibaba</groupId>-->
         <!--            <artifactId>dingtalk</artifactId>-->
-        <!--            <version>1.0.1</version>-->
+        <!--            <version>1.0.2</version>-->
         <!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/net.guerlab.sdk/sdk-dingtalk-core -->

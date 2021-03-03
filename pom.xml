@@ -8,7 +8,7 @@
 
     <groupId>top.wu2020</groupId>
     <artifactId>wu-framework-parent</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <packaging>pom</packaging>
     <description>系统框架</description>
     <name>wu-framework-parent</name>
@@ -52,14 +52,14 @@
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <github.global.server>github</github.global.server>
 
-        <wu-db-starter.version>1.0.1</wu-db-starter.version>
-        <wu-redis-lazy-starter.version>1.0.1</wu-redis-lazy-starter.version>
-        <wu-log-starter.version>1.0.1</wu-log-starter.version>
-        <wu-swagger-starter.version>1.0.1</wu-swagger-starter.version>
-        <wu-file-starter.version>1.0.1</wu-file-starter.version>
-        <wu-framework-parent.version>1.0.1</wu-framework-parent.version>
-        <wu-easy-upsert-starter.version>1.0.1</wu-easy-upsert-starter.version>
-        <wu-database-lazy-starter.version>1.0.1</wu-database-lazy-starter.version>
+        <wu-db-starter.version>1.0.2</wu-db-starter.version>
+        <wu-redis-lazy-starter.version>1.0.2</wu-redis-lazy-starter.version>
+        <wu-log-starter.version>1.0.2</wu-log-starter.version>
+        <wu-swagger-starter.version>1.0.2</wu-swagger-starter.version>
+        <wu-file-starter.version>1.0.2</wu-file-starter.version>
+        <wu-framework-parent.version>1.0.2</wu-framework-parent.version>
+        <wu-easy-upsert-starter.version>1.0.2</wu-easy-upsert-starter.version>
+        <wu-database-lazy-starter.version>1.0.2</wu-database-lazy-starter.version>
 
         <spring-boot-starter.version>2.4.2</spring-boot-starter.version>
     </properties>
@@ -102,11 +102,11 @@
             </dependency>
 
             <!--数据库 即将弃用 考虑重构架构 -->
-            <dependency>
-                <groupId>top.wu2020</groupId>
-                <artifactId>wu-db-starter</artifactId>
-                <version>${wu-db-starter.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>top.wu2020</groupId>-->
+<!--                <artifactId>wu-db-starter</artifactId>-->
+<!--                <version>${wu-db-starter.version}</version>-->
+<!--            </dependency>-->
             <!--     懒人数据库       -->
             <dependency>
                 <groupId>top.wu2020</groupId>
