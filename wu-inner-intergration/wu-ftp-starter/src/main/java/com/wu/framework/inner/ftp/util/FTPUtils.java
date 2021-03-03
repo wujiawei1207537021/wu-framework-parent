@@ -293,7 +293,7 @@ public class FTPUtils {
      *
      * @param ftpDirPath 文件路径
      * @param ftpClient  ftp的连接
-     * @return fileName
+     * @return fieldName
      */
     public static String getNewFile(FTPClient ftpClient, String ftpDirPath) throws Exception {
         if (ftpDirPath.startsWith("/") && ftpDirPath.endsWith("/")) {

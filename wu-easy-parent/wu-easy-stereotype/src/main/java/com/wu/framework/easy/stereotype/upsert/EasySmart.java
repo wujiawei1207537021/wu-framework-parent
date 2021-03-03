@@ -105,5 +105,9 @@ public @interface EasySmart {
      */
     String redisKey() default "";
 
-
+    /**
+     * 智能填充bean属性
+     * 针对数据源 如mysql查询结果、http请求结果中包含的数据字段不再当前对象中
+     */
+    boolean smartFillField() default false;
 }

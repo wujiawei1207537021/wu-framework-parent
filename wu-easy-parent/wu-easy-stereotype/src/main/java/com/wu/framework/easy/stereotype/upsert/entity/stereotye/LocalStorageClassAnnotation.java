@@ -27,6 +27,14 @@ public class LocalStorageClassAnnotation {
     public static Map<Class, EasyTableAnnotation> CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP = new HashMap<>();
 
 
+    /**
+     * @param clazz                      类
+     * @param isForceDuplicateNameSwitch 是强制重复名称切换
+     * @return
+     * @describe
+     * @author Jia wei Wu
+     * @date 2021/3/3 9:34 下午
+     **/
     public static EasyTableAnnotation getEasyTableAnnotation(Class clazz, boolean isForceDuplicateNameSwitch) {
         if (!CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.containsKey(clazz)) {
             String kafkaTopicName = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
@@ -63,24 +71,26 @@ public class LocalStorageClassAnnotation {
             easyTableAnnotation.setKafkaSchemaName(kafkaSchemaName);
             easyTableAnnotation.setKafkaTopicName(kafkaTopicName);
             easyTableAnnotation.setKafkaCode(kafkaCode);
-            easyTableAnnotation.setConvertedFieldList(SQLConverter.fieldNamesOnAnnotation(clazz,null));
+            easyTableAnnotation.setConvertedFieldList(SQLConverter.fieldNamesOnAnnotation(clazz, null));
+            easyTableAnnotation.setSmartFillField(easySmart.smartFillField());
             log.info("Initialize {} annotation parameters  className:[{}],tableName:[{}],comment:[{}],kafkaTopicName:[{}],kafkaSchemaName:[{}],kafkaCode:[{}]", clazz,
                     className, tableName, comment, kafkaTopicName, kafkaSchemaName, kafkaCode);
             CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.put(clazz, easyTableAnnotation);
         }
         return CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.get(clazz);
     }
-    public final static String DOMAIN_CLASS_TEMP=
+
+    public final static String DOMAIN_CLASS_TEMP =
             "package com.wu.framework.inner.lazy.database.test.pojo;\n" +
-            "\n" +
-            "import lombok.AllArgsConstructor;\n" +
-            "import lombok.Data;\n" +
-            "import lombok.NoArgsConstructor;\n" +
-            "import lombok.experimental.Accessors;\n" +
-            "import java.io.Serializable;\n" +
-            "@Accessors(chain = true)\n" +
-            "@Data\n" +
-            "@AllArgsConstructor\n" +
-            "@NoArgsConstructor"
-            + "\n" ;
+                    "\n" +
+                    "import lombok.AllArgsConstructor;\n" +
+                    "import lombok.Data;\n" +
+                    "import lombok.NoArgsConstructor;\n" +
+                    "import lombok.experimental.Accessors;\n" +
+                    "import java.io.Serializable;\n" +
+                    "@Accessors(chain = true)\n" +
+                    "@Data\n" +
+                    "@AllArgsConstructor\n" +
+                    "@NoArgsConstructor"
+                    + "\n";
 }

@@ -35,8 +35,8 @@ public class WifiFileProcessor implements Processor {
         log.info("开始解析wifi下载的文件。。。");
 //        GenericFileMessage<RandomAccessFile> inFileMessage = (GenericFileMessage<RandomAccessFile>) exchange.getIn();
 ////        gf.getFile().
-//        String fileName = inFileMessage.getGenericFile().getFileName();
-//        File zipFile = new File(localDir + File.separator + fileName);
+//        String fieldName = inFileMessage.getGenericFile().getFileName();
+//        File zipFile = new File(localDir + File.separator + fieldName);
 ////        Message message = exchange.getIn();
 ////        GenericFile<?> gf = (GenericFile<?>) message.getBody();
 ////        File zipFile = (File) gf.getFile();//两种File对象获取方式，这一种有可能会报异常，类型转换异常
