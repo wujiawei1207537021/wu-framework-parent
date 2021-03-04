@@ -24,17 +24,28 @@ import java.util.stream.Collectors;
 public abstract class EasySmartFillFieldConverterAbstract extends EasySmartConverterAbstract implements IEasySmartConverter {
 
     /**
-     * @param source
-     * @param target
+     * @param source 数据源
+     * @param target 目标数据 或者目标类存放地址已经存在的class 同级
      * @return
      * @describe 智能填充数据
      * @author Jia wei Wu
      * @date 2021/3/3 9:23 下午
      **/
     public void smartFillField(Object source, Object target) {
-        EasyTableAnnotation targetEasyTableAnnotation = LocalStorageClassAnnotation.getEasyTableAnnotation(target.getClass(), true);
-        AtomicBoolean smartFillField = new AtomicBoolean(targetEasyTableAnnotation.isSmartFillField());
-        Field[] declaredFields = target.getClass().getDeclaredFields();
+        Class targetClass;
+        AtomicBoolean smartFillField;
+        Field[] declaredFields;
+        if (target.getClass().equals(Class.class)) {
+            targetClass = (Class) target;
+            smartFillField = new AtomicBoolean(true);
+            declaredFields = new Field[]{};
+        } else {
+            targetClass = target.getClass();
+            EasyTableAnnotation targetEasyTableAnnotation = LocalStorageClassAnnotation.getEasyTableAnnotation(targetClass, true);
+            smartFillField = new AtomicBoolean(targetEasyTableAnnotation.isSmartFillField());
+            declaredFields = target.getClass().getDeclaredFields();
+        }
+
 
         if (smartFillField.get()) {
             smartFillField.set(false);
@@ -61,12 +72,13 @@ public abstract class EasySmartFillFieldConverterAbstract extends EasySmartConve
                 }
             });
             if (smartFillField.get()) {
-                targetClassWriteAttributeFieldList(createFieldList, target.getClass());
+                targetClassWriteAttributeFieldList(createFieldList, targetClass);
             }
         } else {
 
         }
     }
+
 
     /**
      * @param createFieldList 创建的字段
@@ -76,7 +88,7 @@ public abstract class EasySmartFillFieldConverterAbstract extends EasySmartConve
      * @author Jia wei Wu
      * @date 2021/3/3 10:04 下午
      **/
-    public abstract void targetClassWriteAttributeFieldList(List<CreateField> createFieldList, Class targetClass);
+    protected abstract void targetClassWriteAttributeFieldList(List<CreateField> createFieldList, Class targetClass);
 
     /**
      * @param source 数据源

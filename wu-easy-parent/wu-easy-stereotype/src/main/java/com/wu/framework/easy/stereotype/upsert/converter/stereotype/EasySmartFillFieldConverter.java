@@ -4,6 +4,7 @@ import com.wu.framework.easy.stereotype.upsert.enums.NormalUsedString;
 import com.wu.framework.easy.stereotype.upsert.util.FileUtil;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -27,20 +28,28 @@ public class EasySmartFillFieldConverter extends EasySmartFillFieldConverterAbst
      **/
     @Override
     public void targetClassWriteAttributeFieldList(List<CreateField> createFieldList, Class targetClass) {
+
         URL resource = targetClass.getResource("/");
-        List<String> importClassList = createFieldList.stream().map(createField -> String.format("import %s; ", createField.getFieldType().getName())).collect(Collectors.toList());
-        List<String> attributeFileList = createFieldList.stream().map(createField -> String.format("private %s %s;", createField.getFieldType().getName(), createField.getFieldName())).collect(Collectors.toList());
+        List<String> importClassList = createFieldList.stream().map(createField -> String.format("import %s; ", createField.getFieldType().getName())).distinct().collect(Collectors.toList());
+        List<String> attributeFileList = createFieldList.stream().map(createField -> String.format("private %s %s;", createField.getFieldType().getSimpleName(), createField.getFieldName())).collect(Collectors.toList());
         // 写入class文件
-        String resourceFile = resource.getFile();
+        String resourceFile = resource.getFile()+targetClass.getSimpleName();
+        // 工作空间存储
+        {
+             String target = resourceFile.split("target")[0]+"src/main/java/";
+            final String name = targetClass.getPackage().getName();
+            resourceFile = target+name.replace(NormalUsedString.DOT, File.separator)+File.separator+targetClass.getSimpleName();
+        }
         try {
-            BufferedWriter bufferedWriter = FileUtil.createFile(null,resourceFile);
-            bufferedWriter.write(String.format("package %s;",targetClass.getPackage().getName()));
+            BufferedWriter bufferedWriter = FileUtil.createFile(null,"",NormalUsedString.DOT_JAVA, resourceFile);
+            bufferedWriter.write(String.format("package %s;", targetClass.getPackage().getName()));
             bufferedWriter.newLine();
             for (String importClass : importClassList) {
                 bufferedWriter.newLine();
                 bufferedWriter.write(importClass);
             }
-            bufferedWriter.write(String.format("public static class %s {",targetClass.getName()));
+            bufferedWriter.newLine();
+            bufferedWriter.write(String.format("public  class %s {", targetClass.getSimpleName()));
             bufferedWriter.newLine();
             for (String attributeFile : attributeFileList) {
                 bufferedWriter.newLine();
