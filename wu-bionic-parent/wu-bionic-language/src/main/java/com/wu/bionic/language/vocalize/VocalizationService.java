@@ -1,6 +1,6 @@
 package com.wu.bionic.language.vocalize;
 
-import com.sun.istack.NotNull;
+
 import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import javazoom.jl.player.Player;
@@ -38,7 +38,7 @@ public class VocalizationService implements Vocalization {
      * @date 2021/3/3 下午3:23
      */
     @Override
-    public byte[] textToSpeech(@NotNull String text) {
+    public byte[] textToSpeech(String text) {
         List<String> wordList = new ArrayList<>();
         for (char c : text.toCharArray()) {
             wordList.add("'" + String.valueOf(c) + "'");
@@ -47,7 +47,7 @@ public class VocalizationService implements Vocalization {
         Map<Object, EasyHashMap> word = easyHashMaps.stream().collect(Collectors.toMap(easyHashMap -> easyHashMap.get("word"), easyHashMap -> easyHashMap));
         byte[] bytes = new byte[0];
         for (String s : wordList) {
-            EasyHashMap easyHashMap = word.get(s.replace("'",""));
+            EasyHashMap easyHashMap = word.get(s.replace("'", ""));
             if (ObjectUtils.isEmpty(easyHashMap)) continue;
             bytes = addBytes(bytes, easyHashMap.getBytes("voice"));
         }
