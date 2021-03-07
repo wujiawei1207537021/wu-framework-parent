@@ -27,7 +27,7 @@ public class FileUtil {
         File parent = file.getParentFile();
         System.out.println("文件所在目录:" + file.getAbsolutePath());
         if (!parent.exists()) {
-            parent.mkdir();
+            parent.mkdirs();
         }
         if (!file.exists()) file.createNewFile();
         return new BufferedWriter(new FileWriter(file));

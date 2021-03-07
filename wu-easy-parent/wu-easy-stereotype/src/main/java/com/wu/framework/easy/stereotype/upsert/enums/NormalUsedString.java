@@ -79,6 +79,9 @@ public interface NormalUsedString {
     String PUBLIC           = "public";
     String PRIVATE          = "private";
     String STRING           = "String";
+    //title_number
+    String RIGHT_TITLE_NUMBER ="«";
+    String LEFT_TITLE_NUMBER ="»";
     // ---------------------------------------------------------------- array
 
     String[] EMPTY_ARRAY = new String[0];

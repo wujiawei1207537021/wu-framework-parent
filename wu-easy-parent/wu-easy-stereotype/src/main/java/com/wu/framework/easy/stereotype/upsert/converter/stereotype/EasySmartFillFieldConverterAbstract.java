@@ -3,10 +3,12 @@ package com.wu.framework.easy.stereotype.upsert.converter.stereotype;
 import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasyTableAnnotation;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
+import com.wu.framework.easy.stereotype.upsert.enums.NormalUsedString;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.util.ObjectUtils;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,19 +52,19 @@ public abstract class EasySmartFillFieldConverterAbstract extends EasySmartConve
         if (smartFillField.get()) {
             smartFillField.set(false);
             Class<?> sourceClass = source.getClass();
-            Set<CreateField> fieldSet = Arrays.stream(declaredFields).map(field -> new CreateField().setFieldName(field.getName()).setFieldType(field.getType())).collect(Collectors.toSet());
+            Set<CreateField> fieldSet = Arrays.stream(declaredFields).map(field -> new CreateField().setFieldName(field.getName()).setFieldTypeName(field.getType().getSimpleName())).collect(Collectors.toSet());
 
             Set<CreateField> sourceFieldSet;// 数据源属性name
             if (EasyHashMap.class.isAssignableFrom(sourceClass)) {
                 sourceFieldSet = ((EasyHashMap<String, Object>) source).entrySet().stream().map(stringObjectEntry -> {
                     Class fileType = ObjectUtils.isEmpty(stringObjectEntry.getValue()) ? Object.class : stringObjectEntry.getValue().getClass();
-                    return new CreateField().setFieldName(stringObjectEntry.getKey()).setFieldType(fileType);
+                    return new CreateField().setFieldName(stringObjectEntry.getKey()).setFieldTypeName(fileType.getSimpleName());
                 }).collect(Collectors.toSet());
                 if (ObjectUtils.isEmpty(sourceFieldSet)) return;
             } else {
                 Field[] sourceClassDeclaredFields = sourceClass.getDeclaredFields();
                 if (ObjectUtils.isEmpty(sourceClassDeclaredFields)) return;
-                sourceFieldSet = Arrays.stream(sourceClassDeclaredFields).map(field -> new CreateField().setFieldName(field.getName()).setFieldType(field.getType())).collect(Collectors.toSet());
+                sourceFieldSet = Arrays.stream(sourceClassDeclaredFields).map(field -> new CreateField().setFieldName(field.getName()).setFieldTypeName(field.getType().getSimpleName())).collect(Collectors.toSet());
             }
             List<CreateField> createFieldList = new ArrayList<>(fieldSet);
             sourceFieldSet.forEach(createField -> {
@@ -72,7 +74,9 @@ public abstract class EasySmartFillFieldConverterAbstract extends EasySmartConve
                 }
             });
             if (smartFillField.get()) {
-                targetClassWriteAttributeFieldList(createFieldList, targetClass);
+                CreateInfo createInfo = new CreateInfo().setCreateFieldList(createFieldList);
+                createInfo.setClassName(targetClass.getSimpleName());
+                targetClassWriteAttributeFieldList(createInfo);
             }
         } else {
 
@@ -81,14 +85,13 @@ public abstract class EasySmartFillFieldConverterAbstract extends EasySmartConve
 
 
     /**
-     * @param createFieldList 创建的字段
-     * @param targetClass     目标类
+     * @param createInfo 创建信息
      * @return
      * @describe 目标类写入属性字段
      * @author Jia wei Wu
      * @date 2021/3/3 10:04 下午
      **/
-    protected abstract void targetClassWriteAttributeFieldList(List<CreateField> createFieldList, Class targetClass);
+    protected abstract String targetClassWriteAttributeFieldList(CreateInfo createInfo);
 
     /**
      * @param source 数据源
@@ -104,10 +107,33 @@ public abstract class EasySmartFillFieldConverterAbstract extends EasySmartConve
         return target;
     }
 
+    /**
+     * @author Jia wei Wu
+     * @describe 创建字段信息
+     * @date 2021/3/5 6:42 下午
+     **/
     @Accessors(chain = true)
     @Data
     public static class CreateField {
-        private Class fieldType;
+
+        private String fieldTypeName;
         private String fieldName;
+    }
+
+    @Accessors(chain = true)
+    @Data
+    public static class CreateInfo {
+
+        private List<CreateField> createFieldList = new ArrayList<>();
+        private Package aPackage = EasySmartFillFieldConverterAbstract.class.getPackage();
+        private Boolean override = false;
+        private String className;
+        private List<Annotation> classAnnotationList = new ArrayList<>();
+        private String fileSuffix = NormalUsedString.DOT_CLASS;
+
+        private List<CreateInfo> innerClassList = new ArrayList<>();// 内部class
+
+
+
     }
 }

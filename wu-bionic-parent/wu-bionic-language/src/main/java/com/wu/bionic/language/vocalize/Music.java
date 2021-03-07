@@ -16,7 +16,7 @@ import java.io.ByteArrayInputStream;
  * @describe : 音乐
  * @date : 2021/3/2 7:45 下午
  */
-@Component
+//@Component
 public class Music implements CommandLineRunner {
 
     private final LazyOperation lazyOperation;

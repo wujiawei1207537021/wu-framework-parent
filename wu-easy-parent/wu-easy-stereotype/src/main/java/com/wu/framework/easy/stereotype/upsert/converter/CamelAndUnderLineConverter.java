@@ -78,6 +78,20 @@ public class CamelAndUnderLineConverter {
         return sb.toString();
     }
 
+    /**
+     * @param
+     * @return
+     * @describe 首字母大写
+     * @author Jia wei Wu
+     * @date 2021/3/6 5:02 下午
+     **/
+    public static String capitalizeFirstLetter(String name) {
+        char[] cs = name.toCharArray();
+        cs[0] -= 32;
+        return String.valueOf(cs);
+    }
+
+
 //    public static void main(String[] args) {
 //        String lineToHump = lineToHump("f_parent_no_leader");
 //        System.out.println(lineToHump);// fParentNoLeader

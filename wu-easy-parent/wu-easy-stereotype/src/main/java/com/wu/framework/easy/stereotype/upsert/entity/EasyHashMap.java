@@ -2,15 +2,20 @@ package com.wu.framework.easy.stereotype.upsert.entity;
 
 import com.wu.framework.easy.stereotype.upsert.EasySmartField;
 import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConverter;
+import com.wu.framework.easy.stereotype.upsert.converter.stereotype.EasySmartFillFieldConverter;
+import com.wu.framework.easy.stereotype.upsert.converter.stereotype.EasySmartFillFieldConverterAbstract;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasyTableAnnotation;
-import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
 import com.wu.framework.easy.stereotype.upsert.enums.NormalUsedString;
+import org.springframework.util.ObjectUtils;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * @author : Jiawei Wu
@@ -110,26 +115,20 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBean
      * @author Jia wei Wu
      * @date 2021/1/31 8:12 下午
      **/
-    public StringBuffer generateClass() {
-        StringBuffer clazzStringBuffer = new StringBuffer(LocalStorageClassAnnotation.DOMAIN_CLASS_TEMP);
-        EasyHashMap<Class, String> classStringEasyHashMap = new EasyHashMap<>();
-        forEach((k, v) -> {
-            Class vClass = v == null ? String.class : v.getClass();
-            classStringEasyHashMap.put(vClass, vClass.getSimpleName());
-        });
-        for (Class aClass : classStringEasyHashMap.keySet()) {
-            clazzStringBuffer.append("import").append(NormalUsedString.SPACE).append(aClass.getName()).append(NormalUsedString.SEMICOLON).append(NormalUsedString.NEWLINE);
-        }
-        clazzStringBuffer.append(NormalUsedString.NEWLINE);
-        clazzStringBuffer.append(String.format("public class %s {", uniqueLabel)).append(NormalUsedString.NEWLINE);
-        forEach((k, v) -> clazzStringBuffer.append(NormalUsedString.PRIVATE).append(NormalUsedString.SPACE).
-                // 字段类型
-                        append(v == null ? NormalUsedString.STRING : v.getClass().getSimpleName()).append(NormalUsedString.SPACE).
-                // 字段名称
-                        append(CamelAndUnderLineConverter.lineToHump(k.toString())).
-                        append(NormalUsedString.SEMICOLON).append(NormalUsedString.NEWLINE));
-        clazzStringBuffer.append(NormalUsedString.RIGHT_BRACE);
-        return clazzStringBuffer;
+    public String generateClass(boolean createClass) {
+        EasySmartFillFieldConverter easySmartFillFieldConverter = new EasySmartFillFieldConverter();
+        EasySmartFillFieldConverterAbstract.CreateInfo createInfo = mapConverterJava((Map<Object, Object>) this);
+        createInfo.setFileSuffix(NormalUsedString.DOT_CLASS);
+        createInfo.setClassName(uniqueLabel);
+        return createClass?easySmartFillFieldConverter.targetClassWriteAttributeFieldList(createInfo):easySmartFillFieldConverter.createInfo2String(createInfo);
+    }
+
+    public String generateJava(boolean createJava) {
+        EasySmartFillFieldConverter easySmartFillFieldConverter = new EasySmartFillFieldConverter();
+        EasySmartFillFieldConverterAbstract.CreateInfo createInfo = mapConverterJava((Map<Object, Object>) this);
+        createInfo.setFileSuffix(NormalUsedString.DOT_JAVA);
+        createInfo.setClassName(uniqueLabel);
+        return createJava?easySmartFillFieldConverter.targetClassWriteAttributeFieldList(createInfo):easySmartFillFieldConverter.createInfo2String(createInfo);
     }
 
     /**
@@ -162,4 +161,102 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBean
         }
         throw new RuntimeException("can not cast to byte[], value : " + value);
     }
+
+    /**
+     * @param
+     * @return
+     * @describe 将Map 转换成 Java
+     * @author Jia wei Wu
+     * @date 2021/3/5 7:48 下午
+     **/
+    public static EasySmartFillFieldConverterAbstract.CreateInfo mapConverterJava(Map<Object, Object> map) {
+        EasySmartFillFieldConverterAbstract.CreateInfo createInfo = new EasySmartFillFieldConverterAbstract.CreateInfo();
+        map.forEach((k, v) -> {
+            // v 为属性
+            EasySmartFillFieldConverterAbstract.CreateField createField = new EasySmartFillFieldConverterAbstract.CreateField();
+            if (k instanceof String) {
+                String fieldName = (String) k;
+                // 校验k是否为Java编码规则
+                JavaVerification javaVerification = verificationKey(fieldName);
+                if (!javaVerification.isJava()) {
+                    fieldName = javaVerification.getNewName();
+                }
+                createField.setFieldName(fieldName);
+
+                if (fieldName.contains(NormalUsedString.RIGHT_TITLE_NUMBER) || fieldName.contains(NormalUsedString.LEFT_TITLE_NUMBER)) {
+                    fieldName = fieldName.replace(NormalUsedString.RIGHT_TITLE_NUMBER, NormalUsedString.UNDERSCORE);
+                    fieldName = fieldName.replace(NormalUsedString.LEFT_TITLE_NUMBER, NormalUsedString.UNDERSCORE);
+                }
+                if (fieldName.contains(NormalUsedString.RIGHT_TITLE_NUMBER)) {
+                    System.out.println(fieldName);
+                }
+                String className = CamelAndUnderLineConverter.lineToHump(NormalUsedString.UNDERSCORE + fieldName);
+                if (v instanceof Map) {
+                    EasySmartFillFieldConverterAbstract.CreateInfo innerClass = mapConverterJava((Map<Object, Object>) v);
+                    innerClass.setClassName(className);
+                    createInfo.getInnerClassList().add(innerClass);
+                    createField.setFieldTypeName(innerClass.getClassName());
+                } else if (v instanceof List) {
+                    if (ObjectUtils.isEmpty(v)) {
+                        createField.setFieldTypeName(List.class.getSimpleName());
+                    } else {
+                        Object o = ((List<?>) v).get(0);
+                        if (o instanceof Map) {
+                            EasySmartFillFieldConverterAbstract.CreateInfo innerClass = mapConverterJava((Map<Object, Object>) o);
+                            innerClass.setClassName(className);
+                            createInfo.getInnerClassList().add(innerClass);
+                            createField.setFieldTypeName(innerClass.getClassName());
+                        } else {
+                            createField.setFieldTypeName(v.getClass().getSimpleName());
+                        }
+                    }
+                } else {
+                    createField.setFieldTypeName(v.getClass().getSimpleName());
+                }
+            } else {
+
+                // k 对象 或者不是Java 规则的ClassName
+            }
+            createInfo.getCreateFieldList().add(createField);
+        });
+        // 数据去重
+
+        createInfo.setClassName("Temp" + LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd")));
+        return createInfo;
+    }
+
+    public static JavaVerification verificationKey(String key) {
+        JavaVerification javaVerification = new JavaVerification();
+        javaVerification.setOldName(key);
+        boolean isJava = true;
+        // 非法参数
+        List<String> illegalList = Arrays.asList(
+                NormalUsedString.DOT,
+                NormalUsedString.COMMA,
+                NormalUsedString.ASTERISK,
+                NormalUsedString.COLON,
+                NormalUsedString.SLASH,
+                NormalUsedString.DASH);
+        for (String illegal : illegalList) {
+            if (key.contains(illegal)) {
+                isJava = false;
+                key = key.replace(illegal, "");
+                javaVerification.setNewName(key);
+            }
+        }
+        if (isNumeric(key)) {
+            javaVerification.setNewName("temp" + key);
+            isJava = false;
+        }
+        javaVerification.setJava(isJava);
+        return javaVerification;
+    }
+
+
+    public static boolean isNumeric(String str) {
+        Pattern pattern = Pattern.compile("[0-9]*");
+        return pattern.matcher(str).matches();
+    }
+
+
 }

@@ -321,7 +321,6 @@ public class DataBaseTestController implements CommandLineRunner {
                     file.newLine();
                     tableInfo = tableDateList.get(0);
                     tableInfo.setUniqueLabel(tableName);
-                    System.out.println(tableInfo.generateClass());
                     MySQLDataProcess.MySQLProcessResult mySQLProcessResult = mySQLDataProcess.dataPack(tableDateList, tableInfo.toEasyTableAnnotation(false));
                     String s = mySQLProcessResult.getSql();
                     s = s.replaceAll("'true'", "1").

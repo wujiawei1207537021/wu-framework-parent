@@ -1,6 +1,7 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
 import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConverter;
+import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
 import com.wu.framework.easy.stereotype.upsert.enums.JavaBasicType;
 import com.wu.framework.inner.lazy.database.converter.PreparedStatementSQLConverter;
 import com.wu.framework.inner.lazy.database.domain.ConvertedField;
@@ -45,15 +46,16 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
         }
     }
 
-    public <E> List<E> resultSetConverter(ResultSet resultSet, String resultType)  {
+    public <E> List<E> resultSetConverter(ResultSet resultSet, String resultType) {
         Class domainClass = null;
         try {
             domainClass = Class.forName(resultType);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return resultSetConverter(resultSet,domainClass);
+        return resultSetConverter(resultSet, domainClass);
     }
+
     public <E> List<E> resultSetConverter(ResultSet resultSet, Class<E> domainClass) {
         try {
             //封装结果集
@@ -61,10 +63,15 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
 
             // Map 数值
             if (Map.class.isAssignableFrom(domainClass)) {
+
                 while (resultSet.next()) {
                     Map hashMap = (Map) domainClass.newInstance();
                     //取出结果集的元信息：ResultSetMetaData
                     ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+                    if (EasyHashMap.class.isAssignableFrom(domainClass)) {
+                        String tableName = resultSetMetaData.getTableName(1);
+                        ((EasyHashMap) hashMap).setUniqueLabel(CamelAndUnderLineConverter.capitalizeFirstLetter(tableName));
+                    }
                     //取出总列数
                     int columnCount = resultSetMetaData.getColumnCount();
                     //遍历总列数
@@ -76,11 +83,12 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
                         //根据得到列名，获取每列的值
                         Object columnValue = resultSet.getObject(i);
 //                        if(null==columnValue)columnValue=JavaBasicType.DEFAULT_CLASS_NAME_VALUE_HASHMAP.get(columnClassName);
-                        hashMap.put(columnName, columnValue);
+                        hashMap.put(CamelAndUnderLineConverter.lineToHump(columnName), columnValue);
                     }
                     //把赋好值的对象加入到集合中
                     list.add(hashMap);
                 }
+
             } else if (isWrapClass(domainClass)) {
                 //基本数据类型
                 while (resultSet.next()) {
