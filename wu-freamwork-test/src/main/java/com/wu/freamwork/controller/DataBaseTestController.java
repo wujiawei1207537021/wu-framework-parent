@@ -69,8 +69,9 @@ public class DataBaseTestController implements CommandLineRunner {
 //        Page<DataBaseUser> dataBaseUserPage = new Page<DataBaseUser>(1, 1000);
 //        Page<DataBaseUser> page = layerOperation.page(dataBaseUserPage, DataBaseUser.class, null);
 //        System.out.println(page);
+        mysqlServerMigration();
         // 数据迁移
-        dataMigration(null);
+//        dataMigration(null);
 //        dataMigration("test", "upsert");
 //        final List<EasyHashMap> upsertBinary = layerOperation.executeSQL("SELECT * FROM upsert_binary limit 1", EasyHashMap.class);
 //        System.out.println(upsertBinary);
@@ -270,9 +271,25 @@ public class DataBaseTestController implements CommandLineRunner {
     }
 
     /**
+     * description Mysql 服务器迁移
+     *
+     * @param
+     * @return
+     * @exception/throws
+     * @author 吴佳伟
+     * @date 2021/3/8 下午5:37
+     */
+    public void mysqlServerMigration() throws Exception {
+        List<EasyHashMap> easyHashMaps = layerOperation.executeSQL("show databases;", EasyHashMap.class);
+        for (EasyHashMap easyHashMap : easyHashMaps) {
+            dataMigration(easyHashMap.get("Database").toString());
+        }
+    }
+
+    /**
      * @param nameDatabase 数据库名 默认当前连接数据
      *                     System.getProperty("user.dir") 数据文件地址
-     * @return   保存数据到本地数据
+     * @return 保存数据到本地数据
      * @author Jiawei Wu
      * @date 2021/1/31 6:40 下午
      **/

@@ -5,9 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.math.BigDecimal;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -54,9 +56,11 @@ public enum JavaBasicType {
     LOCAL_DATE_TIME(LocalDateTime.class, LocalDateTime.now()),
 
     TIMESTAMP(Timestamp.class,Timestamp.valueOf(LocalDateTime.now())),
+    TIME(Time.class,Time.valueOf(LocalTime.now())),
 
     DATE(Date.class, new Date()),
     SQL_DATE(java.sql.Date.class, java.sql.Date.valueOf(LocalDate.now())),
+
 
     ;
 
