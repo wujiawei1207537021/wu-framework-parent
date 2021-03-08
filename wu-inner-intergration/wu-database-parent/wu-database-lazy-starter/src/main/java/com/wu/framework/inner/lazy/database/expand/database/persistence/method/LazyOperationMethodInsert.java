@@ -1,6 +1,7 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
-import com.wu.framework.inner.lazy.database.converter.PreparedStatementSQLConverter;
+import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
+import com.wu.framework.easy.stereotype.upsert.process.MySQLDataProcess;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.RepositoryOnDifferentMethods;
 import org.springframework.util.ObjectUtils;
@@ -19,17 +20,19 @@ import java.util.Arrays;
 @RepositoryOnDifferentMethods(RepositoryOnDifferentMethods.LayerOperationMethodEnum.INSERT)
 public class LazyOperationMethodInsert extends AbstractLazyOperationMethod {
 
-    @Override
-    public PersistenceRepository getPersistenceRepository(Method method, Object[] args) throws IllegalArgumentException {
-        String queryString;
+    private final MySQLDataProcess mySQLDataProcess = new MySQLDataProcess();
 
+    @Override
+    public PersistenceRepository getPersistenceRepository(Method method, Object[] args) throws Exception {
         // 第一个参数 list
         if (!ObjectUtils.isEmpty(args)) {
             Object o = args[0];
             Class clazz = o.getClass();
-            queryString = PreparedStatementSQLConverter.insertPreparedStatementSQL(Arrays.asList(o), clazz);
+            MySQLDataProcess.MySQLProcessResult mySQLProcessResult = mySQLDataProcess.dataPack(Arrays.asList(o), LocalStorageClassAnnotation.getEasyTableAnnotation(clazz, true));
+
             PersistenceRepository persistenceRepository = new PersistenceRepository();
-            persistenceRepository.setQueryString(queryString);
+            persistenceRepository.setQueryString(mySQLProcessResult.getSql());
+            persistenceRepository.setBinaryList(mySQLProcessResult.getBinaryList());
             persistenceRepository.setResultClass(clazz);
             return persistenceRepository;
         } else {
@@ -49,6 +52,9 @@ public class LazyOperationMethodInsert extends AbstractLazyOperationMethod {
      */
     @Override
     public Object execute(PreparedStatement preparedStatement, PersistenceRepository persistenceRepository) throws SQLException {
+        for (int i = 0; i < persistenceRepository.getBinaryList().size() ; i++) {
+            preparedStatement.setBinaryStream(i+1, persistenceRepository.getBinaryList().get(i ));
+        }
         return super.execute(preparedStatement, persistenceRepository);
     }
 }

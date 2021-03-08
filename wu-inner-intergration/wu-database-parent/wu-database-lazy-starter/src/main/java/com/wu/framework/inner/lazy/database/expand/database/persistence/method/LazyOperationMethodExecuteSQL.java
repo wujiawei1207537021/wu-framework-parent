@@ -19,7 +19,7 @@ import java.util.List;
 public class LazyOperationMethodExecuteSQL extends AbstractLazyOperationMethod {
 
     @Override
-    public PersistenceRepository getPersistenceRepository(Method method, Object[] args) throws IllegalArgumentException {
+    public PersistenceRepository getPersistenceRepository(Method method, Object[] args) throws Exception {
         // 第一个参数 SQL
         String sql = (String) args[0];
         Class clazz = (Class) args[1];

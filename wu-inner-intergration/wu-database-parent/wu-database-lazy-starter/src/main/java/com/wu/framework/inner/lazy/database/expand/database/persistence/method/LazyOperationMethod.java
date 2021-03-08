@@ -16,7 +16,7 @@ import java.sql.SQLException;
 public interface LazyOperationMethod {
 
     @NonNull
-    PersistenceRepository getPersistenceRepository(Method method, Object[] args) throws IllegalArgumentException;
+    PersistenceRepository getPersistenceRepository(Method method, Object[] args) throws Exception;
 
     /**
      * description 执行SQL 语句

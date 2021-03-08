@@ -32,7 +32,7 @@ public class LazyOperationMethodPage extends AbstractLazyOperationMethod {
     private Page page;
 
     @Override
-    public PersistenceRepository getPersistenceRepository(Method method, Object[] args) throws IllegalArgumentException {
+    public PersistenceRepository getPersistenceRepository(Method method, Object[] args) throws Exception {
         String queryString = "";
         if (ObjectUtils.isEmpty(args)) {
             throw new IllegalArgumentException(String.format("fail invoke this method in method【%s】", method.getName()));

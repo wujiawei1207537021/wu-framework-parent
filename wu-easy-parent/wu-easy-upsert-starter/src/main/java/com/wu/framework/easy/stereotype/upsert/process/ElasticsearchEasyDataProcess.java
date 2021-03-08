@@ -155,7 +155,7 @@ public class ElasticsearchEasyDataProcess implements DataProcess {
      * @date 2020/10/22 下午2:58
      */
     @Data
-    public class ElasticsearchPreProcessResult implements DataProcess.ProcessResult {
+    public class ElasticsearchPreProcessResult implements ProcessResult {
 
         /**
          * Elasticsearch 索引

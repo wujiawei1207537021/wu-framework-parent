@@ -20,7 +20,7 @@ import java.util.Collection;
 public class LazyOperationMethodIUpdateAllById extends AbstractLazyOperationMethod {
 
     @Override
-    public PersistenceRepository getPersistenceRepository(Method method, Object[] args) throws IllegalArgumentException {
+    public PersistenceRepository getPersistenceRepository(Method method, Object[] args) throws Exception {
         String queryString = "";
         Object object = args[0];
         Class clazz;

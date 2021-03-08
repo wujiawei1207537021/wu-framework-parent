@@ -20,7 +20,7 @@ import java.util.Collection;
 public class LazyOperationMethodIDeleteByIdList extends AbstractLazyOperationMethod {
 
     @Override
-    public PersistenceRepository getPersistenceRepository(Method method, Object[] args) throws IllegalArgumentException {
+    public PersistenceRepository getPersistenceRepository(Method method, Object[] args) throws Exception {
         String queryString = "";
         if (ObjectUtils.isEmpty(args)) {
             throw new IllegalArgumentException("fail invoke this method in method" + method.getName());

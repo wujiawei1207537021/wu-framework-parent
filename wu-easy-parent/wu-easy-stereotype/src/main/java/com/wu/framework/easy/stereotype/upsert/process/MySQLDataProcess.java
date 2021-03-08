@@ -11,8 +11,10 @@ import com.wu.framework.easy.stereotype.upsert.enums.NormalUsedString;
 import lombok.Data;
 import lombok.SneakyThrows;
 import lombok.experimental.Accessors;
+import org.springframework.core.io.InputStreamSource;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.ReflectionUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.sql.DataSource;
 import java.io.File;
@@ -250,6 +252,8 @@ public class MySQLDataProcess {
             return new FileInputStream((File) fieldValue);
         } else if (InputStream.class.isAssignableFrom(fieldValue.getClass())) {
             return (InputStream) fieldValue;
+        }else if (InputStreamSource.class.isAssignableFrom(fieldValue.getClass())){
+            return  ((InputStreamSource) fieldValue).getInputStream();
         }
         return null;
     }

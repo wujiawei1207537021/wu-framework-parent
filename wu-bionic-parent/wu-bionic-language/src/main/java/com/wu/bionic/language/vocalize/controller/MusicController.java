@@ -1,12 +1,17 @@
-package com.wu.bionic.language.vocalize;
+package com.wu.bionic.language.vocalize.controller;
 
+import com.wu.bionic.language.vocalize.uo.MusicUo;
+import com.wu.framework.easy.stereotype.upsert.dynamic.QuickEasyUpsert;
 import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
+import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
+import com.wu.framework.easy.stereotype.web.EasyController;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
+import io.swagger.annotations.ApiOperation;
 import javazoom.jl.player.Player;
 import lombok.SneakyThrows;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
@@ -17,22 +22,19 @@ import java.io.ByteArrayInputStream;
  * @describe : 音乐
  * @date : 2021/3/2 7:45 下午
  */
-//@Component
-public class Music implements CommandLineRunner {
+@EasyController
+public class MusicController {
 
     private final LazyOperation lazyOperation;
 
-    public Music(LazyOperation lazyOperation) {
+    public MusicController(LazyOperation lazyOperation) {
         this.lazyOperation = lazyOperation;
     }
 
-    @Override
+
     public void run(String... args) throws Exception {
         EasyHashMap easyHashMap = lazyOperation.executeSQLForBean("SELECT * FROM upsert_binary limit 1", EasyHashMap.class);
 //        EasyHashMap easyHashMap = lazyOperation.executeSQLForBean("select voice from word where voice is NOT null  limit 1 ", EasyHashMap.class);
-
-//        byte[] file = easyHashMap.getBytes("voice");
-
         byte[] file = easyHashMap.getBytes("file");
         Thread thread = new Thread() {
             private Player player;
@@ -46,5 +48,12 @@ public class Music implements CommandLineRunner {
             }
         };
         thread.start();
+    }
+
+    @QuickEasyUpsert(type = EasyUpsertType.MySQL)
+    @ApiOperation(tags = "音乐", value = "添加音乐")
+    @PostMapping("/music")
+    public void save(@RequestPart MultipartFile multipartFile) {
+        lazyOperation.insert(new MusicUo().setMusicName(multipartFile.getName()).setMultipartFile(multipartFile));
     }
 }

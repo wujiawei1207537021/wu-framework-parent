@@ -179,63 +179,6 @@ public class PreparedStatementSQLConverter {
     }
 
     /**
-     * 插入数据可执行的sql
-     *
-     * @return
-     * @params
-     * @author Jia wei Wu
-     * @date 2020/7/4 下午4:27
-     **/
-    public static <T> String insertPreparedStatementSQL(Collection collection, Class<T> clazz) {
-        // insert into
-        StringBuilder stringBuilder = new StringBuilder("insert into ");
-        // 添加表名
-        String tableName = tableName(clazz);
-        stringBuilder.append(tableName);
-        stringBuilder.append("(");
-        List<ConvertedField> convertedFieldList = fieldNamesOnAnnotation(clazz);
-        boolean comma = false;
-        for (ConvertedField convertedField : convertedFieldList) {
-            if (comma) {
-                stringBuilder.append(",");
-            }
-            stringBuilder.append(convertedField.getConvertedFieldName());
-            comma = true;
-        }
-        stringBuilder.append(")  VALUES " + "\n");
-        // 添加 数据
-        boolean fieldValFlage;
-        int collectionIndex = 0;
-        for (Object o : collection) {
-            collectionIndex++;
-            stringBuilder.append("(");
-            fieldValFlage = false;
-            for (ConvertedField convertedField : convertedFieldList) {
-                try {
-                    Field field = o.getClass().getDeclaredField(convertedField.getFieldName());
-                    if (!field.isAccessible()) {
-                        field.setAccessible(true);
-                    }
-                    if (fieldValFlage) {
-                        stringBuilder.append(",");
-                    }
-                    stringBuilder.append("\"" + field.get(o) + "\"");
-                    fieldValFlage = true;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
-            stringBuilder.append(")");
-            if (collectionIndex != collection.size()) {
-                stringBuilder.append(",\n");
-            }
-            stringBuilder.append("\n");
-        }
-        return stringBuilder.toString();
-    }
-
-    /**
      * 更新的sql
      *
      * @return
@@ -371,18 +314,18 @@ public class PreparedStatementSQLConverter {
         return stringBuffer.toString();
     }
 
-    public static void main(String[] args) {
-        var dataBaseUser = new DataBaseUser(0, "1", "2020-07-04", "3", "4", 5);
-        String ss = insertPreparedStatementSQL(Arrays.asList(dataBaseUser), DataBaseUser.class);
-        System.out.println(ss);
-        for (Field declaredField : DataBaseUser.class.getDeclaredFields()) {
-            Annotation annotation = AnnotationUtils.getAnnotation(declaredField, EasySmartField.class);
-            Annotation[] declaredAnnotationsByType = declaredField.getDeclaredAnnotationsByType(Annotation.class);
-            if (annotation != null) {
-                System.out.println("shide");
-            }
-        }
-    }
+//    public static void main(String[] args) {
+//        var dataBaseUser = new DataBaseUser(0, "1", "2020-07-04", "3", "4", 5);
+//        String ss = insertPreparedStatementSQL(Arrays.asList(dataBaseUser), DataBaseUser.class);
+//        System.out.println(ss);
+//        for (Field declaredField : DataBaseUser.class.getDeclaredFields()) {
+//            Annotation annotation = AnnotationUtils.getAnnotation(declaredField, EasySmartField.class);
+//            Annotation[] declaredAnnotationsByType = declaredField.getDeclaredAnnotationsByType(Annotation.class);
+//            if (annotation != null) {
+//                System.out.println("shide");
+//            }
+//        }
+//    }
 
     public static String activeInsertPreparedStatementSQL(Object object) {
         Persistence persistence = PersistenceConverter.activeInsertPrepared(object);
