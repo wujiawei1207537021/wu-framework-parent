@@ -6,6 +6,7 @@ import javazoom.jl.player.Player;
 import lombok.SneakyThrows;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
@@ -30,7 +31,9 @@ public class Music implements CommandLineRunner {
         EasyHashMap easyHashMap = lazyOperation.executeSQLForBean("SELECT * FROM upsert_binary limit 1", EasyHashMap.class);
 //        EasyHashMap easyHashMap = lazyOperation.executeSQLForBean("select voice from word where voice is NOT null  limit 1 ", EasyHashMap.class);
 
-        byte[] file = easyHashMap.getBytes("voice");
+//        byte[] file = easyHashMap.getBytes("voice");
+
+        byte[] file = easyHashMap.getBytes("file");
         Thread thread = new Thread() {
             private Player player;
 
