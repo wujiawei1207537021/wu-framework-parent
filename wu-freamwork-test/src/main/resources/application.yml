@@ -4,11 +4,11 @@ https:
     platform-name: 测试https接口
     username: gps_zdzk
 server:
-  port: 40018
+  port: 2018
 
 spring:
   profiles:
-    active: dev
+    active: zz
   wu:
     shiro:
       verification: session

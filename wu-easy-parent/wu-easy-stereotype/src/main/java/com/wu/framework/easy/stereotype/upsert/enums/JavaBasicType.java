@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -25,6 +26,8 @@ public enum JavaBasicType {
 
     Byte(Byte.class, 0),
     Byte_M(byte.class, 0),
+    Byte_S(Byte[].class, 0),
+    Byte_M_S(byte[].class, 0),
 
     INTEGER(Integer.class, 0),
     INT(int.class, 0),
@@ -49,6 +52,8 @@ public enum JavaBasicType {
 
     LOCAL_DATE(LocalDate.class, LocalDate.now()),
     LOCAL_DATE_TIME(LocalDateTime.class, LocalDateTime.now()),
+
+    TIMESTAMP(Timestamp.class,Timestamp.valueOf(LocalDateTime.now())),
 
     DATE(Date.class, new Date()),
     SQL_DATE(java.sql.Date.class, java.sql.Date.valueOf(LocalDate.now())),

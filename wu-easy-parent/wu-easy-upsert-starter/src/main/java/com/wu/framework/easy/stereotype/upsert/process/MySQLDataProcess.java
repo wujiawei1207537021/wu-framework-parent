@@ -113,6 +113,9 @@ public class MySQLDataProcess {
                             binaryList.add(binary);
                             return NormalUsedString.QUESTION_MARK;
                         }
+                        if(value==null&&!JavaBasicType.DEFAULT_VALUE_HASHMAP.containsKey(convertedField.getClazz())){
+                            throw  new RuntimeException("current  data is null and we could not find the default value of type"+convertedField.getClazz());
+                        }
                         return "'" + (value == null ? JavaBasicType.DEFAULT_VALUE_HASHMAP.get(convertedField.getClazz()) : value).toString().replaceAll("'", "’") + "'";
                     }).collect(Collectors.joining(",")) + NormalUsedString.RIGHT_BRACKET).collect(Collectors.joining(","));
         } else {
@@ -123,8 +126,8 @@ public class MySQLDataProcess {
                     collect(Collectors.toList());
             List<String> tempList = new ArrayList<>();
             for (Object source : sourceData) {
-                if(IBeanUpsert.class.isAssignableFrom(easyTableAnnotation.getClazz())){
-                    ((IBeanUpsert)source).beforeObjectProcess();
+                if (IBeanUpsert.class.isAssignableFrom(easyTableAnnotation.getClazz())) {
+                    ((IBeanUpsert) source).beforeObjectProcess();
                 }
                 String temp = NormalUsedString.LEFT_BRACKET +
                         fieldList.stream().map(field -> {
@@ -242,6 +245,7 @@ public class MySQLDataProcess {
      **/
     @SneakyThrows
     public InputStream isBinary(Object fieldValue) {
+        if (ObjectUtils.isEmpty(fieldValue)) return null;
         if (File.class.equals(fieldValue.getClass())) {
             return new FileInputStream((File) fieldValue);
         } else if (InputStream.class.isAssignableFrom(fieldValue.getClass())) {

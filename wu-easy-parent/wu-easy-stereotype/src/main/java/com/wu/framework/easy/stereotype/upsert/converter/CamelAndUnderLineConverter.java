@@ -16,7 +16,7 @@ public class CamelAndUnderLineConverter {
      * 下划线转驼峰
      */
     public static String lineToHump(String str) {
-        str = str.toLowerCase();
+//        str = str.toLowerCase();
         Matcher matcher = linePattern.matcher(str);
         StringBuffer sb = new StringBuffer();
         while (matcher.find()) {
@@ -87,13 +87,16 @@ public class CamelAndUnderLineConverter {
      **/
     public static String capitalizeFirstLetter(String name) {
         char[] cs = name.toCharArray();
+        if(cs.length==0){
+            return String.valueOf(cs);
+        }
         cs[0] -= 32;
         return String.valueOf(cs);
     }
 
 
 //    public static void main(String[] args) {
-//        String lineToHump = lineToHump("f_parent_no_leader");
+//        String lineToHump = lineToHump("table_Name");
 //        System.out.println(lineToHump);// fParentNoLeader
 //        System.out.println(humpToLine(lineToHump));// f_parent_no_leader
 //        System.out.println(humpToLine2("ParentNoLeader"));// f_parent_no_leader

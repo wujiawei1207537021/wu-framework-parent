@@ -66,14 +66,14 @@ public class DataBaseTestController implements CommandLineRunner {
 //        System.out.println(ss);
 //        layerOperation.activeUpsert(new DataBaseUser().setAge(20));
 //        hc();
-        Page<DataBaseUser> dataBaseUserPage = new Page<DataBaseUser>(1, 1000);
-        Page<DataBaseUser> page = layerOperation.page(dataBaseUserPage, DataBaseUser.class, null);
-        System.out.println(page);
+//        Page<DataBaseUser> dataBaseUserPage = new Page<DataBaseUser>(1, 1000);
+//        Page<DataBaseUser> page = layerOperation.page(dataBaseUserPage, DataBaseUser.class, null);
+//        System.out.println(page);
         // 数据迁移
-//        dataMigration(null);
+        dataMigration(null);
 //        dataMigration("test", "upsert");
-        final List<EasyHashMap> upsertBinary = layerOperation.executeSQL("SELECT * FROM upsert_binary limit 1", EasyHashMap.class);
-        System.out.println(upsertBinary);
+//        final List<EasyHashMap> upsertBinary = layerOperation.executeSQL("SELECT * FROM upsert_binary limit 1", EasyHashMap.class);
+//        System.out.println(upsertBinary);
     }
 
     /**
@@ -272,7 +272,7 @@ public class DataBaseTestController implements CommandLineRunner {
     /**
      * @param nameDatabase 数据库名 默认当前连接数据
      *                     System.getProperty("user.dir") 数据文件地址
-     * @return
+     * @return   保存数据到本地数据
      * @author Jiawei Wu
      * @date 2021/1/31 6:40 下午
      **/
