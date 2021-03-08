@@ -56,4 +56,5 @@ public class MusicController {
     public void save(@RequestPart MultipartFile multipartFile) {
         lazyOperation.insert(new MusicUo().setMusicName(multipartFile.getName()).setMultipartFile(multipartFile));
     }
+
 }

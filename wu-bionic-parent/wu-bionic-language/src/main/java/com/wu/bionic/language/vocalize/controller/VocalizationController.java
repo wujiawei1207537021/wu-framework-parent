@@ -2,12 +2,16 @@ package com.wu.bionic.language.vocalize.controller;
 
 import com.wu.bionic.language.vocalize.Vocalization;
 import com.wu.framework.easy.stereotype.upsert.converter.stereotype.Word;
-import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
 import com.wu.framework.easy.stereotype.web.EasyController;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 
 /**
@@ -32,15 +36,28 @@ public class VocalizationController {
     }
 
 
-    @ApiOperation(tags = "文本转换成语音",value = "文本转换成语音-获取语音数据")
+    @ApiOperation(tags = "文本转换成语音", value = "文本转换成语音-获取语音基础数据")
     @GetMapping("/word/voice")
     public List<Word> voiceData() {
-       return vocalization.voiceData();
+        return vocalization.voiceData();
     }
 
     @ApiOperation(tags = "文本转换成语音", value = "文本转换成语音-发声文件")
     @PostMapping("/word/voice/byte")
-    public void textToByte(String text) {
-        vocalization.textToByte(text);
+    public void textToByte(String text, HttpServletResponse httpServletResponse) {
+        byte[] textToByte = vocalization.textToByte(text);
+        httpServletResponse.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        httpServletResponse.setHeader("Content-Disposition", String.format("attachment; filename=\"%s.%s\"; filename*=utf-8''%s.%s", text, "mp3", text, "mp3"));
+        httpServletResponse.setHeader("Pragma", "no-cache");
+        httpServletResponse.setHeader("Expires", "0");
+        httpServletResponse.setHeader("Content-Type", MediaType.MULTIPART_FORM_DATA_VALUE);
+        try {
+            OutputStream body = httpServletResponse.getOutputStream();
+            body.write(textToByte);
+            body.flush();
+            body.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
