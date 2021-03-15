@@ -54,7 +54,7 @@ public class VocalizationService implements Vocalization {
             EasyHashMap easyHashMap = word.get(s.replace("'", ""));
             if (ObjectUtils.isEmpty(easyHashMap)) continue;
              byte[] easyHashMapBytes = easyHashMap.getBytes("voice");
-             easyHashMapBytes=subByte(easyHashMapBytes,100,easyHashMapBytes.length-100);
+//             easyHashMapBytes=subByte(easyHashMapBytes,100,easyHashMapBytes.length-100);
             bytes = addBytes(bytes, easyHashMapBytes);
         }
         return bytes;

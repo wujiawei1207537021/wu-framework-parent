@@ -3,7 +3,7 @@ package com.wu.framework.inner.lazy.database.expand.database.persistence;
 import java.util.List;
 
 /**
- * description Repository<T, ID> 持久层接口
+ * description Repository<T, ID> 持久层接口  控制层自动生成相应的接口
  *
  * @author Jia wei Wu
  * @date 2020/10/10 下午12:29

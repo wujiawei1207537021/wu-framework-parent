@@ -1,0 +1,5 @@
+#hbase配置，端口默认2181，
+hbase:
+  conf:
+  confMaps:
+    'hbase.zookeeper.quorum' : 'hadoop-master:2181,hadoop-slave:2181'

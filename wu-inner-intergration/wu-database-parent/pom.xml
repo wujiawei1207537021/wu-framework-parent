@@ -20,6 +20,7 @@
         <module>wu-dynamic-database-starter</module>
         <module>wu-database-generator-starter</module>
         <module>wu-database-core</module>
+        <module>wu-hbase-starter</module>
     </modules>
 
 
