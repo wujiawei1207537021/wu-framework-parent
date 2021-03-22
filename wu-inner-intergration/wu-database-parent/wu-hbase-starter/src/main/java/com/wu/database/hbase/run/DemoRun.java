@@ -24,6 +24,7 @@ public class DemoRun {
 
     @PostConstruct
     public void run() throws Exception {
+        createTable();
         Map<String, Object> map = new HashMap<String, Object>();
         try {
             String str = hBaseUtils.scanAllRecord("student");//扫描表
@@ -32,5 +33,10 @@ public class DemoRun {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public void  createTable() throws IOException {
+        hBaseUtils.createTable("first_table", new String[]{"key1","key2"});
     }
 }
