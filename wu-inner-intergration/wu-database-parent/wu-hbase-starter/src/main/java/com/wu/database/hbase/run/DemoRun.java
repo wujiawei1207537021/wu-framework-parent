@@ -1,13 +1,13 @@
 package com.wu.database.hbase.run;
 
-import com.wu.database.hbase.HBaseUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.hadoop.hbase.HTableDescriptor;
+import org.apache.hadoop.hbase.TableName;
+import org.apache.hadoop.hbase.client.Admin;
+import org.apache.hadoop.hbase.client.Connection;
+import org.apache.hadoop.hbase.client.Table;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.PostConstruct;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author : 吴佳伟
@@ -17,26 +17,25 @@ import java.util.Map;
  */
 @Controller
 public class DemoRun {
+    private final Admin admin;
+    private final Connection connection;
 
-    @Autowired
-    private HBaseUtils hBaseUtils;
-
+    public DemoRun(Admin admin, Connection connection) {
+        this.admin = admin;
+        this.connection = connection;
+    }
 
     @PostConstruct
     public void run() throws Exception {
-        createTable();
-        Map<String, Object> map = new HashMap<String, Object>();
-        try {
-            String str = hBaseUtils.scanAllRecord("student");//扫描表
-            System.out.println("获取到hbase的内容：" + str);
-            map.put("hbaseContent", str);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        HTableDescriptor[] hTableDescriptors = admin.listTables();
+//        HTableDescriptor desc = new HTableDescriptor("easy1");
+//        desc.addFamily(new HColumnDescriptor("cf1"));
+//        admin.createTable(desc);
+        Table easy = connection.getTable(TableName.valueOf("easy12"));
+//         admin.deleteTable(TableName.valueOf("easy"));
+
+        System.out.println(hTableDescriptors);
     }
 
 
-    public void  createTable() throws IOException {
-        hBaseUtils.createTable("first_table", new String[]{"key1","key2"});
-    }
 }

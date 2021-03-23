@@ -1,29 +1,49 @@
 package com.wu.database.hbase.config;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.apache.hadoop.hbase.HBaseConfiguration;
+import org.apache.hadoop.hbase.client.Admin;
+import org.apache.hadoop.hbase.client.Connection;
+import org.apache.hadoop.hbase.client.ConnectionFactory;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
- 
+
+import java.io.IOException;
 import java.util.Map;
- 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
- * Hbase配置类
- * @author sixmonth
- * @Date 2019年5月13日
- *
+ * @author : 吴佳伟
+ * @version 1.0
+ * @describe :
+ * @date : 2021/3/23 8:37 下午
  */
 @Configuration
-@ConfigurationProperties(prefix = HbaseConfig.CONF_PREFIX)
 public class HbaseConfig {
- 
-	public static final String CONF_PREFIX = "hbase.conf";
- 
-	private Map<String,String> confMaps;
- 
-	public Map<String, String> getconfMaps() {
-		return confMaps;
-	}
 
-	public void setconfMaps(Map<String, String> confMaps) {
-		this.confMaps = confMaps;
-	}
+    private final HbaseConfigProperties hbaseConfigProperties;
+
+    public HbaseConfig(HbaseConfigProperties hbaseConfigProperties) {
+        this.hbaseConfigProperties = hbaseConfigProperties;
+    }
+
+    private static ExecutorService pool = Executors.newScheduledThreadPool(20);    //设置hbase连接池
+
+
+    @Bean
+    public Connection hbaseClientConnection() throws IOException {
+        org.apache.hadoop.conf.Configuration conf = HBaseConfiguration.create();
+        Map<String, String> confMap = hbaseConfigProperties.getConfMaps();
+        for (Map.Entry<String, String> confEntry : confMap.entrySet()) {
+            conf.set(confEntry.getKey(), confEntry.getValue());
+        }
+        System.out.println("init hbaseClientConnection success");
+        return ConnectionFactory.createConnection(conf, pool);
+    }
+
+    @Bean
+    public Admin hbaseClientAdmin(Connection connection) throws IOException {
+        return connection.getAdmin();
+    }
+
 }

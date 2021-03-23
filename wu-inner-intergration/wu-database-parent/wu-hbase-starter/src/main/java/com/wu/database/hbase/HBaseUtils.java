@@ -2,7 +2,7 @@ package com.wu.database.hbase;
 
 
 
-import com.wu.database.hbase.config.HbaseConfig;
+import com.wu.database.hbase.config.HbaseConfigProperties;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.*;
@@ -31,14 +31,14 @@ import java.util.concurrent.Executors;
 * @Date 2019年5月13日
 *
 */
-@DependsOn("springContextHolder")//控制依赖顺序，保证springContextHolder类在之前已经加载
-@Component
+//@DependsOn("springContextHolder")//控制依赖顺序，保证springContextHolder类在之前已经加载
+//@Component
 public class HBaseUtils {
  
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
  
 	//手动获取hbaseConfig配置类对象
-	private static HbaseConfig hbaseConfig = SpringContextHolder.getBean("hbaseConfig");
+	private static HbaseConfigProperties hbaseConfigProperties = SpringContextHolder.getBean("hbaseConfigProperties");
  
 	private static Configuration conf = HBaseConfiguration.create();
 	private static ExecutorService pool = Executors.newScheduledThreadPool(20);	//设置hbase连接池
@@ -50,7 +50,7 @@ public class HBaseUtils {
 		if(connection == null){
 			try {
 				//将hbase配置类中定义的配置加载到连接池中每个连接里
-				Map<String, String> confMap = hbaseConfig.getconfMaps();
+				Map<String, String> confMap = hbaseConfigProperties.getConfMaps();
 				for (Map.Entry<String,String> confEntry : confMap.entrySet()) {
 					conf.set(confEntry.getKey(), confEntry.getValue());
 				}
@@ -61,7 +61,11 @@ public class HBaseUtils {
 			}
 		}
 	}
- 
+
+	public static Admin getAdmin() {
+		return admin;
+	}
+
 	//简单单例方法，如果autowired自动注入就不需要此方法
 	public static synchronized HBaseUtils getInstance(){
 		if(instance == null){
