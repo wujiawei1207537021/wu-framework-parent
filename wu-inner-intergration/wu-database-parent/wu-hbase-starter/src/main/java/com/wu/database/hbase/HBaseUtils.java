@@ -2,7 +2,8 @@ package com.wu.database.hbase;
 
 
 
-import com.wu.database.hbase.config.HbaseConfigProperties;
+
+import com.wu.database.hbase.com.wu.framework.inner.lazy.hbase.expland.database.config.HBaseConfigProperties;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.*;
@@ -12,8 +13,6 @@ import org.apache.hadoop.hbase.filter.*;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.DependsOn;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
  
@@ -38,7 +37,7 @@ public class HBaseUtils {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
  
 	//手动获取hbaseConfig配置类对象
-	private static HbaseConfigProperties hbaseConfigProperties = SpringContextHolder.getBean("hbaseConfigProperties");
+	private static HBaseConfigProperties hbaseConfigProperties = SpringContextHolder.getBean("hbaseConfigProperties");
  
 	private static Configuration conf = HBaseConfiguration.create();
 	private static ExecutorService pool = Executors.newScheduledThreadPool(20);	//设置hbase连接池

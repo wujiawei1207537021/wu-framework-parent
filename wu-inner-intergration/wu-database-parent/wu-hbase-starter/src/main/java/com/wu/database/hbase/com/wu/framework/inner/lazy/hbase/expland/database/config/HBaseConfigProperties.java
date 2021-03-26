@@ -1,4 +1,4 @@
-package com.wu.database.hbase.config;
+package com.wu.database.hbase.com.wu.framework.inner.lazy.hbase.expland.database.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -12,8 +12,8 @@ import java.util.Map;
  *
  */
 @Configuration
-@ConfigurationProperties(prefix = HbaseConfigProperties.CONF_PREFIX)
-public class HbaseConfigProperties {
+@ConfigurationProperties(prefix = HBaseConfigProperties.CONF_PREFIX)
+public class HBaseConfigProperties {
  
 	public static final String CONF_PREFIX = "hbase.conf";
  

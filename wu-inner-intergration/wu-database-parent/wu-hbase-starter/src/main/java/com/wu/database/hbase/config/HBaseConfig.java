@@ -1,5 +1,7 @@
 package com.wu.database.hbase.config;
 
+
+import com.wu.database.hbase.com.wu.framework.inner.lazy.hbase.expland.database.config.HBaseConfigProperties;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.client.Admin;
 import org.apache.hadoop.hbase.client.Connection;
@@ -19,21 +21,22 @@ import java.util.concurrent.Executors;
  * @date : 2021/3/23 8:37 下午
  */
 @Configuration
-public class HbaseConfig {
+public class HBaseConfig {
 
-    private final HbaseConfigProperties hbaseConfigProperties;
+    private final HBaseConfigProperties hBaseConfigProperties;
 
-    public HbaseConfig(HbaseConfigProperties hbaseConfigProperties) {
-        this.hbaseConfigProperties = hbaseConfigProperties;
-    }
 
     private static ExecutorService pool = Executors.newScheduledThreadPool(20);    //设置hbase连接池
+
+    public HBaseConfig(HBaseConfigProperties hBaseConfigProperties) {
+        this.hBaseConfigProperties = hBaseConfigProperties;
+    }
 
 
     @Bean
     public Connection hbaseClientConnection() throws IOException {
         org.apache.hadoop.conf.Configuration conf = HBaseConfiguration.create();
-        Map<String, String> confMap = hbaseConfigProperties.getConfMaps();
+        Map<String, String> confMap = hBaseConfigProperties.getConfMaps();
         for (Map.Entry<String, String> confEntry : confMap.entrySet()) {
             conf.set(confEntry.getKey(), confEntry.getValue());
         }
