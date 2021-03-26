@@ -4,6 +4,7 @@ import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.P
 import com.wu.framework.inner.lazy.database.expand.database.persistence.method.LazyOperationMethod;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.RepositoryOnDifferentMethods;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.core.annotation.AnnotationUtils;
 
 import javax.sql.DataSource;
@@ -21,6 +22,7 @@ import java.util.Map;
  * @describe : 自定义接口实现方法执行代理类
  * @date : 2020/6/25 下午11:19
  */
+@ConditionalOnBean(value = DataSource.class)
 public class LazyOperationProxy implements InvocationHandler, InitializingBean {
 
     private final DataSource dataSource;

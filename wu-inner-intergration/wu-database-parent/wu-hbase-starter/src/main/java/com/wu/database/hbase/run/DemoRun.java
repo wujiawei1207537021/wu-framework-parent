@@ -32,7 +32,9 @@ public class DemoRun {
 //        desc.addFamily(new HColumnDescriptor("cf1"));
 //        admin.createTable(desc);
         Table easy = connection.getTable(TableName.valueOf("easy12"));
-//         admin.deleteTable(TableName.valueOf("easy"));
+//        System.out.println(admin.tableExists(TableName.valueOf("easy")));
+//        admin.disableTable(TableName.valueOf("easy1"));
+//        admin.deleteTable(TableName.valueOf("easy1"));
 
         System.out.println(hTableDescriptors);
     }

@@ -21,7 +21,7 @@ import java.util.Map;
  * @describe : 执行sql 的代理类
  * @date : 2020/6/25 下午11:19
  */
-
+@Deprecated
 public class RepositoryProxy implements InvocationHandler, InitializingBean {
 
 

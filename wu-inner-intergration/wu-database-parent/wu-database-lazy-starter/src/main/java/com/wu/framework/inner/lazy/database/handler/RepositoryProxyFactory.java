@@ -11,7 +11,7 @@ import java.lang.reflect.Proxy;
  * @describe :
  * @date : 2020/6/27 下午7:20
  */
-
+@Deprecated
 public class RepositoryProxyFactory implements FactoryBean {
 
     private final Class interfaceType;

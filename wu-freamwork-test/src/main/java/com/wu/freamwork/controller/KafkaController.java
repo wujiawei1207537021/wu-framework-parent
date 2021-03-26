@@ -44,10 +44,10 @@ public class KafkaController {
 
 
     //    @KafkaListener( groupId = "wujiawei", concurrency = "100", topicPartitions = {@TopicPartition(partitionOffsets = @PartitionOffset(partition = "0",initialOffset = "0"),topic = "connect_source_jt809_dnygps")})
-//    @KafkaListener(groupId = "wujiawei", concurrency = "100", topics = {"connect_source_jt809_dnygps"})
+    @KafkaListener(groupId = "wujiawei", concurrency = "100", topics = {"kafka_topic"})
     public void processMessage(ConsumerRecord<String, String> record) throws IOException {
 //        确认消费
-
+        System.out.println(record.value());
         JSONObject jsonObject = JSONObject.parseObject(record.value(), JSONObject.class);
         String vehicleNo = jsonObject.getString("vehicleNo");
         String key = vehicleNo + " 时间：" + jsonObject.getString("time");

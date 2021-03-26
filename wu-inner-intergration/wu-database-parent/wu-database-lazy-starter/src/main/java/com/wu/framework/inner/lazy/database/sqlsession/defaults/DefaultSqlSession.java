@@ -14,6 +14,7 @@ import java.sql.SQLException;
  * @describe :
  * @date : 2020/6/25 下午11:09
  */
+@Deprecated
 public class DefaultSqlSession implements SqlSession {
 
     private final Connection connection;
