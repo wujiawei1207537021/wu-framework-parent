@@ -11,7 +11,6 @@ import java.util.Map;
  * @Date 2019年5月13日
  *
  */
-@Configuration
 @ConfigurationProperties(prefix = HBaseConfigProperties.CONF_PREFIX)
 public class HBaseConfigProperties {
  

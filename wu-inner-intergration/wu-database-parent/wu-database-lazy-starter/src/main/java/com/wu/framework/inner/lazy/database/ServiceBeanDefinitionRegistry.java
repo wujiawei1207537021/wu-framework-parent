@@ -32,6 +32,7 @@ import java.util.*;
  * @describe :
  * @date : 2020/6/27 下午7:19
  */
+@Deprecated
 public class ServiceBeanDefinitionRegistry implements BeanDefinitionRegistryPostProcessor, ResourceLoaderAware, ApplicationContextAware {
 
     private static final String DEFAULT_RESOURCE_PATTERN = "**/*.class";
