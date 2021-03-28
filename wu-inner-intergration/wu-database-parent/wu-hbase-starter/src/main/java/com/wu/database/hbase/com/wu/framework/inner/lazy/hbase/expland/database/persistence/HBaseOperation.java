@@ -19,7 +19,7 @@ public interface HBaseOperation extends Operation {
      * @author Jia wei Wu
      * @date 2021/3/27 9:21 下午
      **/
-    Object insert();
+    <T> T insert(T t);
 
 
 }

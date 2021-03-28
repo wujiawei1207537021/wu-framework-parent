@@ -2,6 +2,7 @@ package com.wu.framework.inner.lazy.database.expand.database.persistence.stereot
 
 import com.wu.framework.inner.lazy.database.domain.Page;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.proxy.LazyOperationProxy;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.core.annotation.AliasFor;
@@ -29,6 +30,15 @@ public @interface RepositoryOnDifferentMethods {
 
     @AliasFor(attribute = "value")
     LayerOperationMethodEnum name() default LayerOperationMethodEnum.MISS;
+
+    /**
+    * @describe 代理类
+    * @param
+    * @return
+    * @author Jia wei Wu
+    * @date 2021/3/28 10:16 下午
+    **/
+    Class proxyClass() default LazyOperationProxy.class;
 
 
     /**

@@ -1,7 +1,8 @@
 package com.wu.database.hbase.run;
 
+import com.wu.database.hbase.bo.HBaseUserBo;
 import com.wu.database.hbase.com.wu.framework.inner.lazy.hbase.expland.database.persistence.HBaseOperation;
-import com.wu.database.hbase.com.wu.framework.inner.lazy.hbase.expland.database.proxy.HBaseOperationProxy;
+import com.wu.database.hbase.com.wu.framework.inner.lazy.hbase.expland.database.persistence.proxy.HBaseOperationProxy;
 import com.wu.framework.easy.stereotype.web.EasyController;
 import org.apache.hadoop.hbase.HColumnDescriptor;
 import org.apache.hadoop.hbase.HTableDescriptor;
@@ -9,7 +10,8 @@ import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.Admin;
 import org.apache.hadoop.hbase.client.Connection;
 import org.apache.hadoop.hbase.client.Table;
-import org.springframework.boot.CommandLineRunner;
+
+import javax.annotation.PostConstruct;
 
 /**
  * @author : 吴佳伟
@@ -18,7 +20,7 @@ import org.springframework.boot.CommandLineRunner;
  * @date : 2021/3/15 8:25 下午
  */
 @EasyController
-public class DemoRun implements CommandLineRunner {
+public class DemoRun  {
     private final Admin admin;
     private final Connection connection;
     private final HBaseOperationProxy hBaseOperationProxy;
@@ -31,9 +33,9 @@ public class DemoRun implements CommandLineRunner {
         this.hBaseOperation = hBaseOperation;
     }
 
-
+    @PostConstruct
     public void run() throws Exception {
-        hBaseOperation.insert();
+        hBaseOperation.insert(new HBaseUserBo());
         HTableDescriptor[] hTableDescriptors = admin.listTables();
 //        HTableDescriptor desc = new HTableDescriptor("easy1");
 //        desc.addFamily(new HColumnDescriptor("cf1"));
@@ -53,14 +55,4 @@ public class DemoRun implements CommandLineRunner {
     }
 
 
-    /**
-     * Callback used to run the bean.
-     *
-     * @param args incoming main method arguments
-     * @throws Exception on error
-     */
-    @Override
-    public void run(String... args) throws Exception {
-        run();
-    }
 }

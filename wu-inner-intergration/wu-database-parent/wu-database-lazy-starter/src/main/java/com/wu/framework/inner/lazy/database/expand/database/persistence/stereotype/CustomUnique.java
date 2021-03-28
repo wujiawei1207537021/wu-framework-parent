@@ -12,6 +12,7 @@ import java.lang.annotation.*;
  * @describe: 唯一索引
  * @date : 2020/7/4 下午8:25
  */
+@Deprecated
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

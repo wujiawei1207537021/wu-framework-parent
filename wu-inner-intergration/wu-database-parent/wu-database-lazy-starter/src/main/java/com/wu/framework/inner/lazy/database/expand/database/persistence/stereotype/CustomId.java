@@ -6,6 +6,8 @@ import org.springframework.stereotype.Indexed;
 
 import java.lang.annotation.*;
 
+
+@Deprecated
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

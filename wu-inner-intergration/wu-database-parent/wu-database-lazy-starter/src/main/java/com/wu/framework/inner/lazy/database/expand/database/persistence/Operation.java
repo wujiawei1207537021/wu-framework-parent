@@ -16,4 +16,7 @@ public interface Operation {
      * @date 2020/12/29 下午1:44
      */
     <T> T executeSQLForBean(String sql, Class<T> t);
+
+
+    void miss();
 }
