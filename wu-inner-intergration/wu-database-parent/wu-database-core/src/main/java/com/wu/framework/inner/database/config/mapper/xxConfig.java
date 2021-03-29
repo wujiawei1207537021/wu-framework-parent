@@ -89,8 +89,8 @@
 //                if (ObjectUtils.isEmpty(scanEntity.basePackage())) {
 //                    scanEntityPath.addAll(Arrays.asList(scanEntity.basePackage()));
 //                }
-//                if (ObjectUtils.isEmpty(scanEntity.value())) {
-//                    scanEntityPath.add(scanEntity.value());
+//                if (ObjectUtils.isEmpty(scanEntity.methodName())) {
+//                    scanEntityPath.add(scanEntity.methodName());
 //                }
 //            }
 //            Set<Class> classSet = CustomDataSourceUtil.scanClass(scanEntityPath, EasySmart.class);

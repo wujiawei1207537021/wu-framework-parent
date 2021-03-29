@@ -2,7 +2,9 @@ package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
 import com.wu.framework.easy.stereotype.upsert.process.MySQLDataProcess;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.constant.LayerOperationMethodCounts;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
+
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.RepositoryOnDifferentMethods;
 import org.springframework.util.ObjectUtils;
 
@@ -18,7 +20,7 @@ import java.util.Collections;
  * @describe: 批量插入 自定义数据库持久层操作方法插入列表
  * @date : 2020/7/4 下午7:22
  */
-@RepositoryOnDifferentMethods(RepositoryOnDifferentMethods.LayerOperationMethodEnum.INSERT_LIST)
+@RepositoryOnDifferentMethods(methodName = LayerOperationMethodCounts.INSERT_LIST)
 public class LazyOperationMethodInsertList extends AbstractLazyOperationMethod {
 
     private final MySQLDataProcess mySQLDataProcess = new MySQLDataProcess();

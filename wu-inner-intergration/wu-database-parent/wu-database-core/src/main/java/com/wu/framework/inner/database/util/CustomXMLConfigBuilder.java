@@ -193,7 +193,7 @@ public class CustomXMLConfigBuilder {
 //                Mapper mapper = new Mapper();
 //                //取出注解的value属性值
 //                Select selectAnno = method.getAnnotation(Select.class);
-//                String queryString = selectAnno.value();
+//                String queryString = selectAnno.methodName();
 //                mapper.setQueryString(queryString);
 //                //获取当前方法的返回值，还要求必须带有泛型信息
 //                Type type = method.getGenericReturnType();//List<User>

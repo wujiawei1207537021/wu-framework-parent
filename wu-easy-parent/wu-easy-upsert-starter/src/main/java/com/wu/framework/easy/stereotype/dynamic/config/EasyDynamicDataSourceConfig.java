@@ -5,11 +5,14 @@ import com.wu.framework.easy.stereotype.dynamic.AbstractDynamicEasyUpsert;
 import com.wu.framework.easy.stereotype.dynamic.aop.EasyUpsertDSAnnotationAdvisor;
 import com.wu.framework.easy.stereotype.dynamic.aop.QuickEasyUpsertAnnotationAdvisor;
 import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
+import com.wu.framework.easy.stereotype.upsert.component.IUpsert;
 import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
+import com.wu.framework.easy.stereotype.upsert.handler.IUpsertHandler;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
 
+import java.lang.reflect.Proxy;
 import java.util.List;
 
 /**
@@ -57,6 +60,18 @@ public class EasyDynamicDataSourceConfig {
         QuickEasyUpsertAnnotationAdvisor advisor = new QuickEasyUpsertAnnotationAdvisor(interceptor);
         advisor.setOrder(Ordered.HIGHEST_PRECEDENCE);
         return advisor;
+    }
+
+    /**
+    * @describe 注册IUpsert的代理类
+    * @param
+    * @return
+    * @author Jia wei Wu
+    * @date 2021/3/29 6:58 下午
+    **/
+    @Bean
+    public IUpsert iUpsert(IUpsertHandler iUpsertHandler){
+        return (IUpsert) Proxy.newProxyInstance(IUpsert.class.getClassLoader(), new Class[]{IUpsert.class}, iUpsertHandler);
     }
 
 }

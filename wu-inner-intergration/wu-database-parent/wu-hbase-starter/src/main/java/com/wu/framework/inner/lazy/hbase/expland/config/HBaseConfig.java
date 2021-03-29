@@ -1,8 +1,6 @@
-package com.wu.database.hbase.com.wu.framework.inner.lazy.hbase.expland.database.config;
+package com.wu.framework.inner.lazy.hbase.expland.config;
 
 
-import com.wu.database.hbase.com.wu.framework.inner.lazy.hbase.expland.database.persistence.HBaseOperation;
-import com.wu.database.hbase.com.wu.framework.inner.lazy.hbase.expland.database.persistence.proxy.HBaseOperationProxy;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.client.Admin;
 import org.apache.hadoop.hbase.client.Connection;
@@ -10,7 +8,6 @@ import org.apache.hadoop.hbase.client.ConnectionFactory;
 import org.springframework.context.annotation.Bean;
 
 import java.io.IOException;
-import java.lang.reflect.Proxy;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -24,14 +21,12 @@ import java.util.concurrent.Executors;
 public class HBaseConfig {
 
     private final HBaseConfigProperties hBaseConfigProperties;
-    private final HBaseOperationProxy hBaseOperationProxy;
 
 
     private static ExecutorService pool = Executors.newScheduledThreadPool(20);    //设置hbase连接池
 
-    public HBaseConfig(HBaseConfigProperties hBaseConfigProperties, HBaseOperationProxy hBaseOperationProxy) {
+    public HBaseConfig(HBaseConfigProperties hBaseConfigProperties) {
         this.hBaseConfigProperties = hBaseConfigProperties;
-        this.hBaseOperationProxy = hBaseOperationProxy;
     }
 
 
@@ -51,16 +46,5 @@ public class HBaseConfig {
         return connection.getAdmin();
     }
 
-    /**
-    * @describe hBase 数据操作接口
-    * @param
-    * @return
-    * @author Jia wei Wu
-    * @date 2021/3/28 9:32 下午
-    **/
-    @Bean
-    public HBaseOperation hBaseOperation(){
-        return (HBaseOperation) Proxy.newProxyInstance(HBaseOperation.class.getClassLoader(), new Class[]{HBaseOperation.class}, hBaseOperationProxy);
-    }
 
 }

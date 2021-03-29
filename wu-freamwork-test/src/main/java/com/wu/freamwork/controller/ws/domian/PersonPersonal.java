@@ -12,7 +12,7 @@ public class PersonPersonal {
 
     @EasySmartField(value = "data_id", type = "VARCHAR2(200)", comment = " guid ")
     private String ID;
-    @EasySmartField(value = "name", type = "VARCHAR2(255)", comment = " 姓名 ")
+    @EasySmartField(value = "methodName", type = "VARCHAR2(255)", comment = " 姓名 ")
     private String XINGMING;
     @EasySmartField(value = "gender", type = "VARCHAR2(10)", comment = " 性别 ")
     private String XINGBIE;

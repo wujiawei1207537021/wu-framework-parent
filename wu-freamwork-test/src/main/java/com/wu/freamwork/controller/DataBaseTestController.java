@@ -95,7 +95,7 @@ public class DataBaseTestController implements CommandLineRunner {
             dataBaseUser.setBirthday(LocalDateTime.now().toString());
 //            dataBaseUser.setId(12);
             dataBaseUser.setSex("woman");
-            dataBaseUser.setUsername("name" + i);
+            dataBaseUser.setUsername("methodName" + i);
             dataBaseUserList.add(dataBaseUser);
         }
         layerOperation.upsertList(dataBaseUserList);
@@ -120,7 +120,7 @@ public class DataBaseTestController implements CommandLineRunner {
             dataBaseUser.setBirthday(LocalDateTime.now().toString());
 //            dataBaseUser.setId(12);
             dataBaseUser.setSex("woman");
-            dataBaseUser.setUsername("name" + i);
+            dataBaseUser.setUsername("methodName" + i);
             dataBaseUserList.add(dataBaseUser);
         }
         layerOperation.insertList(dataBaseUserList);
@@ -145,7 +145,7 @@ public class DataBaseTestController implements CommandLineRunner {
             dataBaseUser.setBirthday(LocalDateTime.now().toString());
 //            dataBaseUser.setId(12);
             dataBaseUser.setSex("woman");
-            dataBaseUser.setUsername("name" + i);
+            dataBaseUser.setUsername("methodName" + i);
             dataBaseUserList.add(dataBaseUser);
             layerOperation.updateById(dataBaseUser);
         }
@@ -170,7 +170,7 @@ public class DataBaseTestController implements CommandLineRunner {
         dataBaseUser.setBirthday(LocalDateTime.now().toString());
 //            dataBaseUser.setId(12);
         dataBaseUser.setSex("woman");
-        dataBaseUser.setUsername("name");
+        dataBaseUser.setUsername("methodName");
         layerOperation.deleteById(dataBaseUser);
         long e = System.currentTimeMillis();
         System.out.println("共计用时：" + (e - s) + "ms");
@@ -191,7 +191,7 @@ public class DataBaseTestController implements CommandLineRunner {
 //        dataBaseUser.setBirthday(LocalDateTime.now().toString());
 //            dataBaseUser.setId(12);
         dataBaseUser.setSex("woman");
-        dataBaseUser.setUsername("name");
+        dataBaseUser.setUsername("methodName");
         DataBaseUser dataBaseUser1 = layerOperation.selectOne(dataBaseUser);
         System.out.println(dataBaseUser1);
 

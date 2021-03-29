@@ -37,7 +37,7 @@ public @interface EasySmart {
 
     /**
      * 数据下钻
-     * the field use Annotation with {@link SmartMark}
+     * the field use Annotation with {@link com.wu.framework.easy.stereotype.upsert.SmartMark}
      */
     boolean dataDrillDown() default false;
 
@@ -104,6 +104,18 @@ public @interface EasySmart {
      * redis key
      */
     String redisKey() default "";
+
+    /**
+     * Hbase 行名称
+     * @return
+     */
+    String hBaseRow() default "";
+
+    /**
+     * 列族
+     * @return
+     */
+    String columnFamily() default "";
 
     /**
      * 智能填充bean属性

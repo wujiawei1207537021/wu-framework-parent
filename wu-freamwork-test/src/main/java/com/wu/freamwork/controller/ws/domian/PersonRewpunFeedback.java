@@ -16,7 +16,7 @@ public class PersonRewpunFeedback {
     private String SHENFENZHENGJIANLXDM;
     @EasySmartField(value = "id_card_number", type = "VARCHAR2(18)", comment = " 身份证件号码 ")
     private String SHENFENZHENGJIANHM;
-    @EasySmartField(value = "name", type = "VARCHAR2(50)", comment = " 姓名 ")
+    @EasySmartField(value = "methodName", type = "VARCHAR2(50)", comment = " 姓名 ")
     private String XINGMING;
     @EasySmartField(value = "trustworthy_dishonest_behavior", type = "VARCHAR2(200)", comment = " 守信/失信行为 ")
     private String SHOUXINSHIXXW;

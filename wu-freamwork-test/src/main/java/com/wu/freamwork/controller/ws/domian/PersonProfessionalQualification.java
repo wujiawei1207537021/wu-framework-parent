@@ -16,7 +16,7 @@ public class PersonProfessionalQualification {
     private String SHENFENZHENGJIANLBDM;
     @EasySmartField(value = "id_card_number", type = "VARCHAR2(18)", comment = " 身份证件号码 ")
     private String SHENFENZHENGJIANHM;
-    @EasySmartField(value = "name", type = "VARCHAR2(50)", comment = " 姓名 ")
+    @EasySmartField(value = "methodName", type = "VARCHAR2(50)", comment = " 姓名 ")
     private String XINGMING;
     @EasySmartField(value = "practice_qualification_name", type = "VARCHAR2(255)", comment = " 执业资格名称 ")
     private String ZHIYEZIGEMC;

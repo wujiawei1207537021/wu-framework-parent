@@ -45,7 +45,7 @@ public class SimpleEasyDataSource extends DefaultListableBeanFactory implements 
      * @return a connection to the data source
      * @throws SQLException        if a database access error occurs
      * @throws SQLTimeoutException when the driver has determined that the
-     *                             timeout value specified by the {@code setLoginTimeout} method
+     *                             timeout methodName specified by the {@code setLoginTimeout} method
      *                             has been exceeded and has at least tried to cancel the
      *                             current database connection attempt
      */
@@ -69,7 +69,7 @@ public class SimpleEasyDataSource extends DefaultListableBeanFactory implements 
      * @return a connection to the data source
      * @throws SQLException        if a database access error occurs
      * @throws SQLTimeoutException when the driver has determined that the
-     *                             timeout value specified by the {@code setLoginTimeout} method
+     *                             timeout methodName specified by the {@code setLoginTimeout} method
      *                             has been exceeded and has at least tried to cancel the
      *                             current database connection attempt
      * @since 1.4
@@ -182,7 +182,7 @@ public class SimpleEasyDataSource extends DefaultListableBeanFactory implements 
 
     /**
      * Gets the maximum time in seconds that this data source can wait
-     * while attempting to connect to a database.  A value of zero
+     * while attempting to connect to a database.  A methodName of zero
      * means that the timeout is the default system timeout
      * if there is one; otherwise, it means that there is no timeout.
      * When a <code>DataSource</code> object is created, the login timeout is
@@ -200,7 +200,7 @@ public class SimpleEasyDataSource extends DefaultListableBeanFactory implements 
 
     /**
      * <p>Sets the maximum time in seconds that this data source will wait
-     * while attempting to connect to a database.  A value of zero
+     * while attempting to connect to a database.  A methodName of zero
      * specifies that the timeout is the default system timeout
      * if there is one; otherwise, it specifies that there is no timeout.
      * When a <code>DataSource</code> object is created, the login timeout is

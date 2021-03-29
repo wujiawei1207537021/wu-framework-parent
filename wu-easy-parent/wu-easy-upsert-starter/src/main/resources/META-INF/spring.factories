@@ -1,6 +1,5 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.wu.framework.easy.stereotype.upsert.handler.IUpsertProxyBeanDefinitionRegistry,\
 com.wu.framework.easy.stereotype.upsert.handler.IUpsertHandler,\
 com.wu.framework.easy.stereotype.upsert.config.UpsertConfig,\
 com.wu.framework.easy.stereotype.upsert.component.EasyUpsertExtractKafkaProducer,\

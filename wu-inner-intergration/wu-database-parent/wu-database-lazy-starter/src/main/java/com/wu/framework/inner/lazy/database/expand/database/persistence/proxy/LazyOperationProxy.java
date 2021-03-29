@@ -58,7 +58,7 @@ public class LazyOperationProxy implements InvocationHandler, InitializingBean {
     public void afterPropertiesSet() throws Exception {
         lazyOperationMethods.stream().forEach(lazyOperationMethod -> {
             RepositoryOnDifferentMethods repositoryOnDifferentMethods = AnnotationUtils.getAnnotation(lazyOperationMethod.getClass(), RepositoryOnDifferentMethods.class);
-            LAZY_OPERATION_METHOD_MAP.put(repositoryOnDifferentMethods.value().getMethodName(), lazyOperationMethod);
+            LAZY_OPERATION_METHOD_MAP.put(repositoryOnDifferentMethods.methodName(), lazyOperationMethod);
         });
     }
 }

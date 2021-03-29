@@ -9,6 +9,7 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProce
 import org.springframework.beans.factory.support.GenericBeanDefinition;
 
 
+@Deprecated
 public class IUpsertProxyBeanDefinitionRegistry implements BeanDefinitionRegistryPostProcessor {
 
     @Override

@@ -1,9 +1,6 @@
 package com.wu.database.hbase;
 
-
-
-
-import com.wu.database.hbase.com.wu.framework.inner.lazy.hbase.expland.database.config.HBaseConfigProperties;
+import com.wu.framework.inner.lazy.hbase.expland.config.HBaseConfigProperties;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.*;

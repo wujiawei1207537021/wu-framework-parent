@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
  * @describe : 数据库连接配置
  * @date : 2020/6/25 下午10:57
  */
-//@Order(value = Ordered.HIGHEST_PRECEDENCE)
+//@Order(methodName = Ordered.HIGHEST_PRECEDENCE)
 @Data
 @Configurable(value = "simpleCustomDatabaseConfiguration", autowire = Autowire.BY_NAME)
 @ConfigurationProperties(prefix = "spring.wu.database")

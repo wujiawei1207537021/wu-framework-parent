@@ -180,7 +180,7 @@ public class DefaultJwtAccessTokenConverter implements JwtAccessTokenConverter {
             DecodedJWT jwt = JWT.decode(accessToken);
             System.out.println(jwt.getClaim(name).asString());
             return JSONObject.parseObject(jwt.getClaim(name).asString(), clzz);
-            //            return jwt.getClaim(name).as(clzz);
+            //            return jwt.getClaim(methodName).as(clzz);
         } catch (JWTDecodeException e) {
             throw new TokenAuthorizationException("解析令牌失败");
         }

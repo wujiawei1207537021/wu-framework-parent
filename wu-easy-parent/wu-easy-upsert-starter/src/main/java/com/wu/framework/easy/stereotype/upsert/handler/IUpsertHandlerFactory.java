@@ -10,6 +10,7 @@ import java.lang.reflect.Proxy;
  * @author Jia wei Wu
  * @date 2020/7/14 下午8:08
  */
+@Deprecated
 public class IUpsertHandlerFactory<T> implements FactoryBean<T> {
 
 

@@ -1,8 +1,7 @@
-package com.wu.database.hbase.com.wu.framework.inner.lazy.hbase.expland.database.config;
+package com.wu.framework.inner.lazy.hbase.expland.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
- 
+
 import java.util.Map;
  
 /**

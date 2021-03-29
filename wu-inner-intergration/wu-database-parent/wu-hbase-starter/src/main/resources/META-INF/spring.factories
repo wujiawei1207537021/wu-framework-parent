@@ -1,7 +1,9 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.wu.database.hbase.com.wu.framework.inner.lazy.hbase.expland.database.persistence.proxy.HBaseOperationProxy,\
-com.wu.database.hbase.com.wu.framework.inner.lazy.hbase.expland.database.config.HBaseConfig,\
-com.wu.database.hbase.com.wu.framework.inner.lazy.hbase.expland.database.config.HBaseConfigProperties
+com.wu.framework.inner.lazy.hbase.expland.persistence.proxy.HBaseOperationProxy,\
+com.wu.framework.inner.lazy.hbase.expland.config.HBaseConfig,\
+com.wu.framework.inner.lazy.hbase.expland.config.HBaseOperationConfig,\
+com.wu.framework.inner.lazy.hbase.expland.config.HBaseConfigProperties,\
+com.wu.framework.inner.lazy.hbase.expland.persistence.method.HBaseOperationMethodConfig
 
 

@@ -62,7 +62,7 @@
                 $.ajax({
                     type: 'POST',
                     url: '/token/access_token',
-                    data : JSON.stringify({ username, password }), //  { name, passwd } es6 的一个语法
+                    data : JSON.stringify({ username, password }), //  { methodName, passwd } es6 的一个语法
                     contentType: "application/json",
                     success: function (result) {
                         if(result.code==0){

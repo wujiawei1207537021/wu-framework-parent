@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class UniversalSearchQO {
-    //TODO  name 属性添加
+    //TODO  methodName 属性添加
 
 
     private Integer id;

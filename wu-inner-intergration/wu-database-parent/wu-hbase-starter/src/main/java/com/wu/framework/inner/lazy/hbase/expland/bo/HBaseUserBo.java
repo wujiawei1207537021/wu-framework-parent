@@ -1,6 +1,8 @@
-package com.wu.database.hbase.bo;
+package com.wu.framework.inner.lazy.hbase.expland.bo;
 
 import com.wu.framework.easy.stereotype.upsert.EasySmart;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * @author : 吴佳伟
@@ -8,7 +10,9 @@ import com.wu.framework.easy.stereotype.upsert.EasySmart;
  * @describe :
  * @date : 2021/3/27 9:41 下午
  */
-@EasySmart(tableName = "")
+@Accessors(chain = true)
+@Data
+@EasySmart(tableName = "hbase_user",hBaseRow = "hbaseRow",columnFamily = "columnFamily")
 public class HBaseUserBo {
 
     private String userName;

@@ -1,7 +1,9 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
 import com.wu.framework.inner.lazy.database.converter.PreparedStatementSQLConverter;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.constant.LayerOperationMethodCounts;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
+
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.RepositoryOnDifferentMethods;
 import org.springframework.util.ObjectUtils;
 
@@ -16,7 +18,7 @@ import java.util.Collection;
  * @describe: 根据ID更新  自定义数据库持久层操作方法I按ID列表删除
  * @date : 2020/7/4 下午7:22
  */
-@RepositoryOnDifferentMethods(RepositoryOnDifferentMethods.LayerOperationMethodEnum.DELETE_BY_ID_LIST)
+@RepositoryOnDifferentMethods(methodName = LayerOperationMethodCounts.DELETE_BY_ID_LIST)
 public class LazyOperationMethodIDeleteByIdList extends AbstractLazyOperationMethod {
 
     @Override

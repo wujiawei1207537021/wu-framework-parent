@@ -20,7 +20,7 @@ public class DataBaseUser implements Serializable {
     @CustomId(value = "id")
     private Integer id;
 
-    //    @EasySmartField(value = "username",comment = "username")
+    //    @EasySmartField(methodName = "username",comment = "username")
     @CustomId(value = "username")
     private String username;
 

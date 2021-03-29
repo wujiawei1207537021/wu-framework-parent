@@ -48,7 +48,7 @@ public class ShiroContextUtil implements ApplicationContextAware {
  *             if (ObjectUtils.isEmpty(a)) {
  *                 throw new CustomException("not found code by QRService :" + code);
  *             }
- *             if (code.equals(qrService.value().name())) {
+ *             if (code.equals(qrService.methodName().methodName())) {
  *                 return t;
  *             }
  *

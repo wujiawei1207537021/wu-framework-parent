@@ -16,7 +16,7 @@ public class PersonCommendation {
     private String SHENFENZHENGJIANLBDM;
     @EasySmartField(value = "id_card_number", type = "VARCHAR2(18)", comment = " 身份证件号码 ")
     private String SHENFENZHENGJIANHM;
-    @EasySmartField(value = "name", type = "VARCHAR2(50)", comment = " 姓名 ")
+    @EasySmartField(value = "methodName", type = "VARCHAR2(50)", comment = " 姓名 ")
     private String XINGMING;
     @EasySmartField(value = "commendation_title", type = "VARCHAR2(255)", comment = " 表彰标题 ")
     private String BIAOZHANGBIAOTI;

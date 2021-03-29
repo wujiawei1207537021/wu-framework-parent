@@ -55,7 +55,7 @@ public class RepositoryProxy implements InvocationHandler, InitializingBean {
 //            customRepository = getCustomRepositoryMap().get(key);
 //        } else {
 //            customRepository = new CustomRepository();
-//            customRepository.setQueryString(select.value());
+//            customRepository.setQueryString(select.methodName());
 //            customRepository.setExecuteType(CustomRepositoryXmlScan.ExecuteType.SELECT);
 //            Type genericReturnType = method.getGenericReturnType();
 //            if (null != genericReturnType) {

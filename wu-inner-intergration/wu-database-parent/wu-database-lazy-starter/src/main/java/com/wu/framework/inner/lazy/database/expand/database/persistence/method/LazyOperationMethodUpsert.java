@@ -1,7 +1,9 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
 import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.constant.LayerOperationMethodCounts;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
+
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.RepositoryOnDifferentMethods;
 import org.springframework.util.ObjectUtils;
 
@@ -14,7 +16,7 @@ import java.util.Collection;
  * @describe : 自定义数据库持久层操作方法向上插入
  * @date : 2020/7/3 下午10:28
  */
-@RepositoryOnDifferentMethods(RepositoryOnDifferentMethods.LayerOperationMethodEnum.UPSERT_LIST)
+@RepositoryOnDifferentMethods(methodName = LayerOperationMethodCounts.UPSERT_LIST)
 public class LazyOperationMethodUpsert extends AbstractLazyOperationMethod {
 
     @Override

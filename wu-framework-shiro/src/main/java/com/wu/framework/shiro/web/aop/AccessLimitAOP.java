@@ -19,7 +19,7 @@ public class AccessLimitAOP {
 //    }
 //
 //
-//    @Before(value = "accessLimitPoint(accessLimit)", argNames = "com.wu.bionic.point,accessLimit")
+//    @Before(methodName = "accessLimitPoint(accessLimit)", argNames = "com.wu.bionic.point,accessLimit")
 //    public void permissionCheck(JoinPoint com.wu.bionic.point, AccessLimit accessLimit) {
 ////        System.out.println("@Before：模拟权限检查...");
 ////        System.out.println("@Before：目标方法为：" +
@@ -45,7 +45,7 @@ public class AccessLimitAOP {
 //    }
 //
 //
-//    @After(value = "accessLimitPoint(accessLimit)", argNames = "com.wu.bionic.point,accessLimit")
+//    @After(methodName = "accessLimitPoint(accessLimit)", argNames = "com.wu.bionic.point,accessLimit")
 //    public void releaseResource(JoinPoint com.wu.bionic.point, AccessLimit accessLimit) {
 ////        System.out.println("@After：模拟释放资源...");
 ////        System.out.println("@After：目标方法为：" +
