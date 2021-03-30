@@ -4,6 +4,8 @@ import com.wu.framework.easy.stereotype.upsert.EasySmart;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.time.LocalDate;
+
 /**
  * @author : 吴佳伟
  * @version 1.0
@@ -12,10 +14,11 @@ import lombok.experimental.Accessors;
  */
 @Accessors(chain = true)
 @Data
-@EasySmart(tableName = "hbase_user",hBaseRow = "hbaseRow1",columnFamily = "columnFamily")
+@EasySmart(tableName = "hbase_user",hBaseRow = "hbaseRow",columnFamily = "columnFamily")
 public class HBaseUserBo {
 
     private String userName;
     private String age;
     private String sex;
+    private LocalDate birthday=LocalDate.now();
 }
