@@ -12,7 +12,7 @@ import lombok.experimental.Accessors;
  */
 @Accessors(chain = true)
 @Data
-@EasySmart(tableName = "hbase_user",hBaseRow = "hbaseRow",columnFamily = "columnFamily")
+@EasySmart(tableName = "hbase_user",hBaseRow = "hbaseRow1",columnFamily = "columnFamily")
 public class HBaseUserBo {
 
     private String userName;
