@@ -11,5 +11,8 @@ public class HBaseOperationMethodCounts {
 
     public static final String MISS = "miss";
 
-    public static final String INSERT="insert";
+    public static final String INSERT = "insert";// 数据插入
+
+    public static final String UPSERT = "upsert"; // 数据更新
+
 }

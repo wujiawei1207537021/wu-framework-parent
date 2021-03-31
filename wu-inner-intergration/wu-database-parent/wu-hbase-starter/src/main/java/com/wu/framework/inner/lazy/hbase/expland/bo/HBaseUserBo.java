@@ -1,6 +1,7 @@
 package com.wu.framework.inner.lazy.hbase.expland.bo;
 
 import com.wu.framework.easy.stereotype.upsert.EasySmart;
+import com.wu.framework.easy.stereotype.upsert.EasyUnique;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -14,9 +15,11 @@ import java.time.LocalDate;
  */
 @Accessors(chain = true)
 @Data
-@EasySmart(tableName = "hbase_user",hBaseRow = "hbaseRow",columnFamily = "columnFamily")
+@EasySmart(tableName = "hbase_user",hBaseRow = "hbaseRow",columnFamily = "A3")
 public class HBaseUserBo {
 
+    @EasyUnique
+    private int id;
     private String userName;
     private String age;
     private String sex;

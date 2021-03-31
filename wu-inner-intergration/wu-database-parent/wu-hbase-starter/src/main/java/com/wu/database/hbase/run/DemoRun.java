@@ -37,18 +37,18 @@ public class DemoRun {
     @PostConstruct
     public void run() throws Exception {
         boolean user = admin.tableExists(TableName.valueOf("hbase_user"));
-        hBaseOperation.insert(new HBaseUserBo().setUserName("hbase").setAge("12").setSex("男"));
+        hBaseOperation.upsert(new HBaseUserBo().setUserName("hbase").setAge("12").setSex("男").setId(1000));
         HTableDescriptor[] hTableDescriptors = admin.listTables();
 //        HTableDescriptor desc = new HTableDescriptor("easy1");
 //        desc.addFamily(new HColumnDescriptor("cf1"));
 //        admin.createTable(desc);
         Table easy = connection.getTable(TableName.valueOf("easy12"));
 //        System.out.println(admin.tableExists(TableName.valueOf("easy")));
-//        admin.disableTable(TableName.valueOf("easy1"));
-//        admin.deleteTable(TableName.valueOf("easy1"));
+//        admin.disableTable(TableName.valueOf("hbase_user"));
+//        admin.deleteTable(TableName.valueOf("hbase_user"));
         HTableDescriptor hTableDescriptor = new HTableDescriptor(TableName.valueOf("hbase_user"));
 
-        hTableDescriptor.addFamily(new HColumnDescriptor("columnFamily"));
+//        hTableDescriptor.addFamily(new HColumnDescriptor("columnFamily"));
 //        hTableDescriptor.addFamily(new HColumnDescriptor("A2"));
 //        hTableDescriptor.addFamily(new HColumnDescriptor("A3"));
 //        admin.createTable(hTableDescriptor);

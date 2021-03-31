@@ -1,6 +1,7 @@
 package com.wu.framework.inner.lazy.hbase.expland.persistence.method;
 
 import com.wu.framework.easy.stereotype.upsert.EasySmart;
+import com.wu.framework.easy.stereotype.upsert.EasySmartField;
 import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
 import com.wu.framework.easy.stereotype.upsert.entity.ConvertedField;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
@@ -17,6 +18,7 @@ import org.springframework.util.ReflectionUtils;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * @author : 吴佳伟
@@ -24,8 +26,8 @@ import java.util.UUID;
  * @describe :
  * @date : 2021/3/29 7:19 下午
  */
-@RepositoryOnDifferentMethods(methodName = HBaseOperationMethodCounts.INSERT)
-public class HBaseOperationInsertMethod extends HBaseOperationMethodAbstract {
+@RepositoryOnDifferentMethods(methodName = HBaseOperationMethodCounts.UPSERT)
+public class HBaseOperationUpsertMethod extends HBaseOperationMethodAbstract {
 
 
     @Override
@@ -36,7 +38,27 @@ public class HBaseOperationInsertMethod extends HBaseOperationMethodAbstract {
 
         List<ConvertedField> convertedFields = SQLConverter.fieldNamesOnAnnotation(entity.getClass(), null);
 
-        Put put = new Put(Bytes.toBytes(UUID.randomUUID().toString()));
+        String hBaseRow = UUID.randomUUID().toString();
+        List<ConvertedField> uniqueConvertedFieldList = convertedFields.stream().
+                filter(convertedField -> convertedField.getFieldIndexType().equals(EasySmartField.TableFileIndexType.UNIQUE)).collect(Collectors.toList());
+
+        if (!ObjectUtils.isEmpty(uniqueConvertedFieldList)) {
+            hBaseRow = uniqueConvertedFieldList.stream().map(convertedField -> {
+                Field field = ReflectionUtils.findField(entity.getClass(), convertedField.getFieldName());
+                field.setAccessible(true);
+                Object o = "";
+                try {
+                    o = field.get(entity);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                return o.toString();
+            }).collect(Collectors.joining("-"));
+        }else {
+            System.err.println(String.format("the uniqueness field cannot be found, and the current result cannot be updated in class %s ",entity.getClass()));
+        }
+
+        Put put = new Put(Bytes.toBytes(hBaseRow));
         for (ConvertedField convertedField : convertedFields) {
             Field field = ReflectionUtils.findField(entity.getClass(), convertedField.getFieldName());
             field.setAccessible(true);

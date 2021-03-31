@@ -13,13 +13,23 @@ public interface HBaseOperation extends Operation {
 
 
     /**
-     * @param
-     * @return
+     * @param <T>
+     * @return t
      * @describe 新增数据
      * @author Jia wei Wu
      * @date 2021/3/27 9:21 下午
      **/
     <T> T insert(T t);
+
+
+    /**
+     * @param <T>
+     * @return t
+     * @describe 更新或者插入数据
+     * @author Jia wei Wu
+     * @date 2021/3/27 9:21 下午
+     **/
+    <T> T upsert(T t);
 
 
 }

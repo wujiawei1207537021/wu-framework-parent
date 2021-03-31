@@ -25,7 +25,7 @@ public class ConvertedField {
     /**
      * 数据库字段索引类型
      */
-    private EasySmartField.TableFileIndexType fieldIndexType;
+    private EasySmartField.TableFileIndexType fieldIndexType= EasySmartField.TableFileIndexType.FILE_TYPE;
     /**
      * 字段类型
      */
