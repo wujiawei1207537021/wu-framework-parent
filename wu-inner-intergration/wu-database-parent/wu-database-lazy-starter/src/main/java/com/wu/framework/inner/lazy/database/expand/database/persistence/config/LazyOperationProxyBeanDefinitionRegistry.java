@@ -13,7 +13,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 
 import javax.sql.DataSource;
 
-@ConditionalOnBean(value = DataSource.class)
+@Deprecated
 public class LazyOperationProxyBeanDefinitionRegistry implements BeanDefinitionRegistryPostProcessor {
 
     @Override

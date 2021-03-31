@@ -12,7 +12,7 @@ import java.lang.reflect.Proxy;
  * @date : 2020/6/27 下午7:20
  */
 
-
+@Deprecated
 public class LazyOperationFactory<T> implements FactoryBean<T> {
 
     private final Class<T> interfaceType;
