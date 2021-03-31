@@ -1,7 +1,6 @@
 package com.wu.framework.shiro.web;
 
 import com.wu.framework.shiro.config.pro.ShiroProperties;
-import com.wu.framework.shiro.web.interceptors.AccessPermissionInterceptor;
 import com.wu.framework.shiro.web.interceptors.RemoveAccessTokenInterceptor;
 import com.wu.framework.shiro.web.interceptors.ShiroHandlerInterceptorAbstract;
 import com.wu.framework.shiro.web.methodresolver.AccessTokenUserMethodArgumentResolver;

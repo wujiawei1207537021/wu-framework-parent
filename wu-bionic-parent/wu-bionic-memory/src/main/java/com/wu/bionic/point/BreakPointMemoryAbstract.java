@@ -11,7 +11,7 @@ import java.util.Collection;
  * @author 吴佳伟
  * @date 2021/2/11 下午12:28
  */
-public abstract class BreakPointMemoryAbstract implements   BreakPointMemory{
+public abstract class BreakPointMemoryAbstract implements BreakPointMemory {
 
     /**
      * description 记忆探索

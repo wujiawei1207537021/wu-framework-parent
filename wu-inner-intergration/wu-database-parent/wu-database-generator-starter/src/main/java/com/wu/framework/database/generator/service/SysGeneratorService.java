@@ -7,7 +7,6 @@ import com.wu.framework.database.generator.entity.TableEntity;
 import com.wu.framework.database.generator.utils.GenUtils;
 import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConverter;
 import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
-
 import com.wu.framework.easy.stereotype.upsert.entity.ConvertedField;
 import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
 import com.wu.framework.inner.lazy.database.domain.Page;
@@ -45,7 +44,7 @@ public class SysGeneratorService {
         } else {
             tableName = " and table_name like '%" + tableName + "%'";
         }
-        List<LinkedHashMap> list = lazyOperation.executeSQL(String.format(sql+" limit %s, %s", tableName, current - 1, size), LinkedHashMap.class);
+        List<LinkedHashMap> list = lazyOperation.executeSQL(String.format(sql + " limit %s, %s", tableName, current - 1, size), LinkedHashMap.class);
 //        Integer total= lazyOperation.executeSQLForBean(String.format("select count(1) from ("+sql+") T",tableName), Integer.class);
 //        page.setTotal(total);
         page.setRecord(list);
@@ -54,12 +53,12 @@ public class SysGeneratorService {
 
     public TableEntity queryTable(String tableName) {
         String SQL = "select table_name tableName, engine as engine, table_comment comments, create_time createTime from information_schema.tables where table_schema = (select database()) and table_name =%s";
-        return lazyOperation.executeSQLForBean(String.format(SQL, "'"+tableName+"'"), TableEntity.class);
+        return lazyOperation.executeSQLForBean(String.format(SQL, "'" + tableName + "'"), TableEntity.class);
     }
 
     public List<ColumnEntity> queryColumns(String tableName) {
         String SQL = "select column_name columnName, data_type dataType, column_comment columnComment, column_key columnKey, extra from information_schema.columns where table_name =%s and table_schema = (select database()) order by ordinal_position";
-        return lazyOperation.executeSQL(String.format(SQL, "'"+tableName+"'"), ColumnEntity.class);
+        return lazyOperation.executeSQL(String.format(SQL, "'" + tableName + "'"), ColumnEntity.class);
     }
 
     public byte[] generatorCode(String[] tableNames, String moduleName, String packageName, String author) {
@@ -97,6 +96,7 @@ public class SysGeneratorService {
 
     /**
      * description 表字段对应查询条件
+     *
      * @param
      * @return
      * @exception/throws
@@ -112,6 +112,6 @@ public class SysGeneratorService {
             convertedField.setType(columnEntity.getDataType());
             return convertedField;
         }).collect(Collectors.toList());
-       return SQLConverter.createSelectSQL(convertedFieldList,tableName);
+        return SQLConverter.createSelectSQL(convertedFieldList, tableName);
     }
 }

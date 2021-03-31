@@ -16,7 +16,7 @@ import java.lang.annotation.*;
  * @author Jia wei Wu
  * @date 2020/10/5 下午7:08
  */
-@Target({ElementType.METHOD,ElementType.TYPE})
+@Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited

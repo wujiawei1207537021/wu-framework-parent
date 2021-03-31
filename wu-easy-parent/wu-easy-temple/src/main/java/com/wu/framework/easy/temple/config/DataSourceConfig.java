@@ -3,7 +3,6 @@ package com.wu.framework.easy.temple.config;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
@@ -17,7 +16,7 @@ import javax.sql.DataSource;
 public class DataSourceConfig {
 
     @Bean(name = "autoDataSource1")
-    public DataSource dataSource1(){
+    public DataSource dataSource1() {
         return DataSourceBuilder.create().url("jdbc:mysql://k8s.wu2020.top:13306/upsert?rewriteBatchedStatements=true")
                 .type(MysqlDataSource.class)
                 .username("root")

@@ -14,6 +14,17 @@ import java.io.IOException;
 public class TT {
     sun.audio.AudioStream as;
 
+    public static void main(String[] args) {
+        TT m = new TT();
+        try {
+            m.music();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        m.Start();
+    }
+
     public void music() throws IOException {
         try {
             java.io.InputStream in = new java.io.FileInputStream("/Users/wujiawei/Desktop/aa.mp3");
@@ -33,17 +44,6 @@ public class TT {
 
     public void Continue() {
         AudioPlayer.player.start(as);
-    }
-
-    public static void main(String[] args) {
-        TT m = new TT();
-        try {
-            m.music();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        m.Start();
     }
 
 }

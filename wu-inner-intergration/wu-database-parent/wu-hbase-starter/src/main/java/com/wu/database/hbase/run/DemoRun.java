@@ -5,7 +5,6 @@ import com.wu.framework.inner.lazy.hbase.expland.bo.HBaseUserBo;
 import com.wu.framework.inner.lazy.hbase.expland.persistence.HBaseOperation;
 import com.wu.framework.inner.lazy.hbase.expland.persistence.proxy.HBaseOperationProxy;
 import org.apache.hadoop.hbase.Cell;
-import org.apache.hadoop.hbase.HColumnDescriptor;
 import org.apache.hadoop.hbase.HTableDescriptor;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.*;
@@ -61,8 +60,7 @@ public class DemoRun {
         TableName name = TableName.valueOf(tableName);
         Table table = connection.getTable(name);
         Scan scan = new Scan();
-        ResultScanner scanner = table.getScanner(scan);
-        try {
+        try (ResultScanner scanner = table.getScanner(scan)) {
             for (Result result : scanner) {
                 for (Cell cell : result.rawCells()) {
                     StringBuffer stringBuffer = new StringBuffer()
@@ -73,10 +71,6 @@ public class DemoRun {
                     String str = stringBuffer.toString();
                     record += str;
                 }
-            }
-        } finally {
-            if (scanner != null) {
-                scanner.close();
             }
         }
 

@@ -26,27 +26,27 @@
             return {
                 visible: false,
                 dataForm: {
-                    #foreach($column in $columns)
-                        #if($column.columnName == $pk.columnName)
-                                ${column.attrname}:
-                                    0,
-                        #else
-                                ${column.attrname}: ''#if($velocityCount != $columns.size()),#end
+            #foreach($column in $columns)
+                #if($column.columnName == $pk.columnName)
+                    ${column.attrname}:
+                    0,
+                #else
+                    ${column.attrname}: ''#if($velocityCount != $columns.size()),#end
 
-                        #end
-                    #end
-                },
-                dataRule: {
-                    #foreach($column in $columns)
-                        #if($column.columnName != $pk.columnName)
-                                ${column.attrname}: [
-                                {required: true, message: '${column.comments}不能为空', trigger: 'blur'}
-                            ]#if($velocityCount != $columns.size()),#end
+                #end
+            #end
+        },
+            dataRule: {
+                #foreach($column in $columns)
+                    #if($column.columnName != $pk.columnName)
+                        ${column.attrname}: [
+                        {required: true, message: '${column.comments}不能为空', trigger: 'blur'}
+                    ]#if($velocityCount != $columns.size()),#end
 
-                        #end
                     #end
-                }
+                #end
             }
+        }
         },
         methods: {
             init(id) {
@@ -54,7 +54,8 @@
                 this.visible = true
                 this.$nextTick(() => {
                     this.$refs['dataForm'].resetFields()
-                    if (this.dataForm.${pk.attrname}) {
+                    if(this.dataForm.${pk.attrname})
+                    {
                         this.$http({
                             url: #[[this.$http.adornUrl]]
                         #(`/${moduleName}/${pathName}/info/#[[$]]#{this.dataForm.${pk.attrname}}`),
@@ -94,71 +95,71 @@
             // 表单提交
             dataFormSubmit() {
                 #[[this.$refs['dataForm'].validate((valid) => {]]
+            #
+            if(valid)
+            {
+            this.$http({
+            url: #[[this.$http.adornUrl]]
+            #(`/${moduleName}/${pathName}/${!this.dataForm.${pk.attrname} ? 'save' : 'update'}`),
+            method
+            :
+            'post',
+            #[[data
+            :
+            this.$http.adornData({
+                ]]
                 #
-                if(valid)
+                #foreach($column in $columns)
+                #if($column.columnName == $pk.columnName)
+                    '${column.attrname}'
+                :
+                this.dataForm.$
                 {
-                this.$http({
-                url: #[[this.$http.adornUrl]]
-                #(`/${moduleName}/${pathName}/${!this.dataForm.${pk.attrname} ? 'save' : 'update'}`),
-                method
+                column.attrname
+                }
+                ||
+                undefined,
+                #else
+                    '${column.attrname}'
                 :
-                'post',
-                #[[data
-                :
-                this.$http.adornData({
-                    ]]
-                    #
-                    #foreach($column in $columns)
-                    #if($column.columnName == $pk.columnName)
-                        '${column.attrname}'
-                    :
-                    this.dataForm.$
-                    {
-                    column.attrname
-                    }
-                    ||
-                    undefined,
-                    #else
-                        '${column.attrname}'
-                    :
-                    this.dataForm.$
-                    {
-                    column.attrname
-                    }
-                    #if($velocityCount != $columns.size()), #end
+                this.dataForm.$
+                {
+                column.attrname
+                }
+                #if($velocityCount != $columns.size()), #end
 
-                    #end
-                    #end
-                    })
-                }).
-                then(({data}) => {
-                if (data && data.code === 0) {
-                #[[this.$message({]]
-                #
-                message
-                :
-                '操作成功',
-                type
-                :
-                'success',
-                duration
-                :
-                1500,
-                onClose
-                :
-                () => {
-                this.visible = false
-                #[[this.$emit('refreshDataList')]]
-                #
-                }
+                #end
+                #end
                 })
-                } else {
-                #[[this.$message.error(data.msg)]]
-                #
-                }
-                })
-                }
-                })
+            }).
+            then(({data}) => {
+            if (data && data.code === 0) {
+            #[[this.$message({]]
+            #
+            message
+            :
+            '操作成功',
+            type
+            :
+            'success',
+            duration
+            :
+            1500,
+            onClose
+            :
+            () => {
+            this.visible = false
+            #[[this.$emit('refreshDataList')]]
+            #
+            }
+            })
+            } else {
+            #[[this.$message.error(data.msg)]]
+            #
+            }
+            })
+            }
+            })
             }
         }
     }

@@ -9,7 +9,7 @@ import java.util.List;
  * @date 2020/10/10 下午12:29
  */
 public interface CrudRepository<T, ID> extends Repository<T, ID> {
-    
+
     <T> void save(T t);
 
     /**

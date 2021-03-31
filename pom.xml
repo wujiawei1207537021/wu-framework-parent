@@ -102,11 +102,11 @@
             </dependency>
 
             <!--数据库 即将弃用 考虑重构架构 -->
-<!--            <dependency>-->
-<!--                <groupId>top.wu2020</groupId>-->
-<!--                <artifactId>wu-db-starter</artifactId>-->
-<!--                <version>${wu-db-starter.version}</version>-->
-<!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>top.wu2020</groupId>-->
+            <!--                <artifactId>wu-db-starter</artifactId>-->
+            <!--                <version>${wu-db-starter.version}</version>-->
+            <!--            </dependency>-->
             <!--     懒人数据库       -->
             <dependency>
                 <groupId>top.wu2020</groupId>

@@ -38,6 +38,12 @@ public class ElasticsearchSQLTemplate {
     private final String esUrl;
 
 
+    private ElasticsearchSQLTemplate(RestTemplate defaultRestTemplate, String esUrl, Long defaultScrollIntervalTime) {
+        this.defaultRestTemplate = defaultRestTemplate;
+        this.esUrl = esUrl;
+        this.defaultScrollIntervalTime = defaultScrollIntervalTime;
+    }
+
     public static ElasticsearchSQLTemplate build(String esUrl) {
         return new ElasticsearchSQLTemplate(new RestTemplateBuilder().build(), esUrl, 10000L);
     }
@@ -48,12 +54,6 @@ public class ElasticsearchSQLTemplate {
 
     public static ElasticsearchSQLTemplate build(RestTemplate restTemplate, String esUrl, Long defaultScrollIntervalTime) {
         return new ElasticsearchSQLTemplate(restTemplate, esUrl, defaultScrollIntervalTime);
-    }
-
-    private ElasticsearchSQLTemplate(RestTemplate defaultRestTemplate, String esUrl, Long defaultScrollIntervalTime) {
-        this.defaultRestTemplate = defaultRestTemplate;
-        this.esUrl = esUrl;
-        this.defaultScrollIntervalTime = defaultScrollIntervalTime;
     }
 
     public <T> List<T> search(String sql, Class<T> clazz, Object... objects) {
@@ -88,8 +88,8 @@ public class ElasticsearchSQLTemplate {
 
     private <T> List<T> scroll(String sql, Class<T> clazz, Long scrollIntervalTime, Object... objects) throws InterruptedException {
         // 睡眠
-        if(scrollIntervalTime>0)
-        Thread.sleep(scrollIntervalTime);
+        if (scrollIntervalTime > 0)
+            Thread.sleep(scrollIntervalTime);
         ESResult esResult = searchForESResult(sql, defaultSize, objects);
         List<T> scrollList = new ArrayList<>();
         int scrollTime = 1;

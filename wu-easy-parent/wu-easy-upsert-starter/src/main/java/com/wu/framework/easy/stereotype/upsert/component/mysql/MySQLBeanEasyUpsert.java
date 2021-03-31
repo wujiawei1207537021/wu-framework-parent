@@ -11,7 +11,6 @@ import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.stereotype.upsert.ienum.UserConvertService;
 import com.wu.framework.easy.stereotype.upsert.process.MySQLDataProcess;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.util.ObjectUtils;
@@ -62,7 +61,7 @@ public class MySQLBeanEasyUpsert extends MySQLEasyUpsertAbstract implements IEas
      */
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        Map<String, DataSource>  dataSourceMap = event.getApplicationContext().getBeansOfType(DataSource.class);
+        Map<String, DataSource> dataSourceMap = event.getApplicationContext().getBeansOfType(DataSource.class);
         this.primary = dataSourceMap.keySet().iterator().next();
         dataSourceMap.forEach((k, v) -> {
             try {

@@ -2,7 +2,6 @@ package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
 import com.wu.framework.inner.lazy.database.expand.database.persistence.constant.LayerOperationMethodCounts;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
-
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.RepositoryOnDifferentMethods;
 
 import java.lang.reflect.Method;

@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
 import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
 import com.wu.framework.easy.stereotype.upsert.util.FileUtil;
-import com.wu.framework.easy.stereotype.web.EasyController;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 
@@ -27,21 +26,19 @@ public class KafkaController {
 
 
     private final UpsertConfig upsertConfig;
+    // 车牌+时间
+    Map<String, List<String>> TIME_VEH = new EasyHashMap<>();
+
 
     public KafkaController(UpsertConfig upsertConfig) {
         this.upsertConfig = upsertConfig;
     }
 
 
-    // 车牌+时间
-    Map<String, List<String>> TIME_VEH = new EasyHashMap<>();
-
-
 //    @KafkaListener(groupId = "test2",topicPartitions = {@TopicPartition(topic = "hzl.test.aaa",partitionOffsets = @PartitionOffset(partition = "0",initialOffset = "-1"))})
 //    public void cousumerB(String msg) {
 //
 //    }
-
 
     //    @KafkaListener( groupId = "wujiawei", concurrency = "100", topicPartitions = {@TopicPartition(partitionOffsets = @PartitionOffset(partition = "0",initialOffset = "0"),topic = "connect_source_jt809_dnygps")})
     @KafkaListener(groupId = "wujiawei", concurrency = "100", topics = {"kafka_topic"})

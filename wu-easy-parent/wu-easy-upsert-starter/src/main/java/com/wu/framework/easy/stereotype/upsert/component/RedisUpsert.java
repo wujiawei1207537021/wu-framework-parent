@@ -9,11 +9,9 @@ import com.wu.framework.inner.redis.component.LazyRedisTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.annotation.AnnotatedElementUtils;
-import org.springframework.data.redis.core.DefaultTypedTuple;
 import org.springframework.util.ObjectUtils;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**

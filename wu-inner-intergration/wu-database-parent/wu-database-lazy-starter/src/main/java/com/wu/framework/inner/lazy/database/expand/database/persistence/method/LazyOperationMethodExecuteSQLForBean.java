@@ -2,7 +2,6 @@ package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
 import com.wu.framework.inner.lazy.database.expand.database.persistence.constant.LayerOperationMethodCounts;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
-
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.RepositoryOnDifferentMethods;
 import org.springframework.util.ObjectUtils;
 
@@ -43,7 +42,7 @@ public class LazyOperationMethodExecuteSQLForBean extends AbstractLazyOperationM
     @Override
     public Object execute(PreparedStatement preparedStatement, PersistenceRepository persistenceRepository) throws SQLException {
         try {
-            ResultSet resultSet=preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
             List result = resultSetConverter(resultSet, persistenceRepository.getResultType());
             if (result.size() > 1) {
                 throw new IllegalArgumentException(" expected one but found " + result.size());

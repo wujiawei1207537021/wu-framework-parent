@@ -18,7 +18,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @ Version       :  1.0
  */
 
-@Target({TYPE,METHOD})
+@Target({TYPE, METHOD})
 @Retention(RUNTIME)
 public @interface LazyRedis {
     /**

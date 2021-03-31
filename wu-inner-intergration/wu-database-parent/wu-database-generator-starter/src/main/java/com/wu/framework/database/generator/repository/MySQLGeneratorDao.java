@@ -5,7 +5,6 @@ import com.wu.framework.database.generator.entity.TableEntity;
 import com.wu.framework.inner.lazy.database.domain.Page;
 import com.wu.framework.inner.lazy.database.stereotype.Param;
 
-
 import java.util.List;
 import java.util.Map;
 

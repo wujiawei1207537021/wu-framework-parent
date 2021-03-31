@@ -33,6 +33,26 @@ import static com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationCo
 public class SQLConverter {
 
     public static final String AUTHOR = "wujiawei";
+    /**
+     * 打印建表语句
+     *
+     * @param clazz 数据传输类
+     */
+//    SQL 描述
+    public static final String SQL_DESC =
+            "-- ——————————————————————————\n" +
+                    "-- create table %s  %s  \n" +  // 表名  表描述
+                    "-- add by  %s  %s  \n" +   // 作者  日期
+                    "-- ——————————————————————————" + "\n";
+    //    删表
+    public static final String SQL_DROP = "DROP TABLE IF EXISTS `%s`;\n";
+    //    默认字段
+    public static final String SQL_DEFAULT_FIELD =
+            "`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',\n" +
+                    "`is_deleted` tinyint(1) DEFAULT '0' COMMENT '是否删除',\n" +
+                    "`create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',\n" +
+                    "`update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',\n" +
+                    "PRIMARY KEY (`id`) USING BTREE\n";
 
     /**
      * 打印插入更新的mybatis语句
@@ -93,31 +113,8 @@ public class SQLConverter {
         System.out.println("插入语句：\n" + stringBuilder);
     }
 
-    /**
-     * 打印建表语句
-     *
-     * @param clazz 数据传输类
-     */
-//    SQL 描述
-    public static final String SQL_DESC =
-            "-- ——————————————————————————\n" +
-                    "-- create table %s  %s  \n" +  // 表名  表描述
-                    "-- add by  %s  %s  \n" +   // 作者  日期
-                    "-- ——————————————————————————" + "\n";
-    //    删表
-    public static final String SQL_DROP = "DROP TABLE IF EXISTS `%s`;\n";
-
-    //    默认字段
-    public static final String SQL_DEFAULT_FIELD =
-            "`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',\n" +
-                    "`is_deleted` tinyint(1) DEFAULT '0' COMMENT '是否删除',\n" +
-                    "`create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',\n" +
-                    "`update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',\n" +
-                    "PRIMARY KEY (`id`) USING BTREE\n";
-
-
     public static String createTableSQL(Class clazz) {
-        EasyTableAnnotation easyTableAnnotation = LocalStorageClassAnnotation.getEasyTableAnnotation(clazz,true);
+        EasyTableAnnotation easyTableAnnotation = LocalStorageClassAnnotation.getEasyTableAnnotation(clazz, true);
 
 //        EasySmart tableNameAnnotation = AnnotationUtils.getAnnotation(clazz, EasySmart.class);
 //        List<String> fieldNames = new ArrayList<>();

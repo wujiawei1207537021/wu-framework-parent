@@ -51,6 +51,13 @@ public class DataBaseTestController implements CommandLineRunner {
         this.iUpsert = iUpsert;
     }
 
+    public static void main(String[] args) throws Exception {
+
+        JavaSoundAudioClip javaSoundAudioClip = new JavaSoundAudioClip(new FileInputStream(new File("/Users/wujiawei/Desktop/aa.mp3")));
+//        AudioClip audioClip = Applet.newAudioClip(new URL("/Users/wujiawei/Music/QQ音/任贤齐,张柏芝-星语心愿.mp3"));
+//        audioClip.play();
+        javaSoundAudioClip.play();
+    }
 
     //    @CDS("localhost")
     @Override
@@ -154,7 +161,6 @@ public class DataBaseTestController implements CommandLineRunner {
         System.out.println("共计用时：" + (e - s) + "ms");
     }
 
-
     /**
      * 删除
      *
@@ -201,7 +207,6 @@ public class DataBaseTestController implements CommandLineRunner {
         long e = System.currentTimeMillis();
         System.out.println("共计用时：" + (e - s) + "ms");
     }
-
 
     /**
      * description hc系统升级数据同步
@@ -354,7 +359,6 @@ public class DataBaseTestController implements CommandLineRunner {
         file.close();
     }
 
-
     /**
      * @param source 源数据库
      * @param target 目标
@@ -441,14 +445,6 @@ public class DataBaseTestController implements CommandLineRunner {
                 DynamicEasyUpsertDSContextHolder.clear();
             }
         }
-    }
-
-    public static void main(String[] args) throws Exception {
-
-        JavaSoundAudioClip javaSoundAudioClip = new JavaSoundAudioClip(new FileInputStream(new File("/Users/wujiawei/Desktop/aa.mp3")));
-//        AudioClip audioClip = Applet.newAudioClip(new URL("/Users/wujiawei/Music/QQ音/任贤齐,张柏芝-星语心愿.mp3"));
-//        audioClip.play();
-        javaSoundAudioClip.play();
     }
 
 }

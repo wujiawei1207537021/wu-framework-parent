@@ -20,10 +20,8 @@ import java.util.concurrent.Executors;
  */
 public class HBaseConfig {
 
-    private final HBaseConfigProperties hBaseConfigProperties;
-
-
     private static ExecutorService pool = Executors.newScheduledThreadPool(20);    //设置hbase连接池
+    private final HBaseConfigProperties hBaseConfigProperties;
 
     public HBaseConfig(HBaseConfigProperties hBaseConfigProperties) {
         this.hBaseConfigProperties = hBaseConfigProperties;

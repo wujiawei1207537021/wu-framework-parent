@@ -35,6 +35,31 @@ public class RepositoryProxy implements InvocationHandler, InitializingBean {
         this.connection = dataSource.getConnection();
     }
 
+    /**
+     * 获取接口参数中分页对象
+     *
+     * @param method
+     * @param args
+     * @return
+     */
+    public static Page pageObject(Method method, Object[] args) {
+        Parameter[] parameters = method.getParameters();
+        for (int i = 0; i < parameters.length; i++) {
+            if (parameters[i].getType().isAssignableFrom(Page.class)) {
+                return (Page) args[i];
+            }
+        }
+        return null;
+    }
+
+//    public Map<String, CustomRepository> getCustomRepositoryMap() {
+//        if (customRepositoryMap == null) {
+//            // 静态获取
+//            this.customRepositoryMap = xxConfig.customRepositoryMap;
+//        }
+//        return customRepositoryMap;
+//    }
+
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 //        CustomRepository customRepository;
@@ -106,38 +131,12 @@ public class RepositoryProxy implements InvocationHandler, InitializingBean {
         return null;
     }
 
-//    public Map<String, CustomRepository> getCustomRepositoryMap() {
-//        if (customRepositoryMap == null) {
-//            // 静态获取
-//            this.customRepositoryMap = xxConfig.customRepositoryMap;
-//        }
-//        return customRepositoryMap;
-//    }
-
     @Override
     public void afterPropertiesSet() throws Exception {
         log.info("init bean of RepositoryProxy");
         if (ObjectUtils.isEmpty(customRepositoryMap)) {
             return;
         }
-    }
-
-
-    /**
-     * 获取接口参数中分页对象
-     *
-     * @param method
-     * @param args
-     * @return
-     */
-    public static Page pageObject(Method method, Object[] args) {
-        Parameter[] parameters = method.getParameters();
-        for (int i = 0; i < parameters.length; i++) {
-            if (parameters[i].getType().isAssignableFrom(Page.class)) {
-                return (Page) args[i];
-            }
-        }
-        return null;
     }
 
 

@@ -11,7 +11,6 @@ import org.yaml.snakeyaml.constructor.DuplicateKeyException;
 
 import javax.transaction.TransactionRequiredException;
 import javax.validation.ConstraintViolationException;
-import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 
 /**
@@ -33,7 +32,6 @@ public class GlobalDataAccessExceptionHandler {
 //        exception.printStackTrace();
 //        return ResultFactory.of(DefaultResultCode.SQL_EXCEPTION, exception.getMessage());
 //    }
-
     @ExceptionHandler({SQLIntegrityConstraintViolationException.class, ConstraintViolationException.class})
     public Result sQLIntegrityConstraintViolationException(Exception exception) {
         exception.printStackTrace();

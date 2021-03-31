@@ -23,11 +23,12 @@ public interface UserDetailsService {
 
     /**
      * 创建用户
-    * @param
-    * @return
-    * @author Jiawei Wu
-    * @date 2021/1/6 8:37 下午
-    **/
+     *
+     * @param
+     * @return
+     * @author Jiawei Wu
+     * @date 2021/1/6 8:37 下午
+     **/
     void createUser(LoginUserBO loginUserBO);
 
 

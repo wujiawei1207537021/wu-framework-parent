@@ -207,14 +207,14 @@ public class NormalExcelExportService implements ExcelExcelService {
                 fieldList = Arrays.stream(ts.getClass().getDeclaredFields()).peek(field -> field.setAccessible(true)).collect(Collectors.toList());
             }
             // 获取数据实体类型
-            iterator=collection.iterator();
+            iterator = collection.iterator();
             Object next = iterator.next();
             Class<?> dataEntityType = next.getClass();
             // 产生表格标题行
             HSSFRow row = sheet.createRow(TITLE_COLUMN);
-            if(Map.class.isAssignableFrom(dataEntityType)){
+            if (Map.class.isAssignableFrom(dataEntityType)) {
                 Set<String> keySet = ((Map<String, String>) next).keySet();
-                int i=0;
+                int i = 0;
                 for (String key : keySet) {
                     HSSFCell hssfCell = row.createCell(i);
                     hssfCell.setCellStyle(style);
@@ -222,9 +222,9 @@ public class NormalExcelExportService implements ExcelExcelService {
                     ExcelExcelService.setRowColumnContent(hssfCell, text);
                     i++;
                 }
-            }else {
+            } else {
                 if (easyExcel.titleFixedHead()) {
-                    sheet.createFreezePane(fieldList.size(), TITLE_COLUMN+1);
+                    sheet.createFreezePane(fieldList.size(), TITLE_COLUMN + 1);
                 }
                 for (int i = 0; i < fieldList.size(); i++) {
                     HSSFCell hssfCell = row.createCell(i);

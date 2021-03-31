@@ -70,8 +70,8 @@ public class KafkaEasyUpsert implements IEasyUpsert {
             }
             iEnumList.putAll(EasyAnnotationConverter.collectionConvert(clazz));
             for (Object value : list) {
-                if(IBeanUpsert.class.isAssignableFrom(clazz)){
-                    ((IBeanUpsert)value).beforeObjectProcess();
+                if (IBeanUpsert.class.isAssignableFrom(clazz)) {
+                    ((IBeanUpsert) value).beforeObjectProcess();
                 }
                 kafkaJsonMessage.setPayload(JsonFileConverter.parseBean2map(value, iEnumList));
                 easyUpsertExtractKafkaProducer.sendAsync(easyTableAnnotation.getKafkaCode(), easyTableAnnotation.getKafkaTopicName(), kafkaJsonMessage);

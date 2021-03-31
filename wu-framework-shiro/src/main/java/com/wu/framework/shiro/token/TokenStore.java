@@ -24,7 +24,7 @@ public interface TokenStore {
     /**
      * 解析令牌
      *
-     * @param token  token
+     * @param token token
      * @param clazz 返回实体类型
      * @param <T>
      * @return
@@ -38,8 +38,8 @@ public interface TokenStore {
     /**
      * 获取令牌
      *
-     * @param userDetails  用户信息
-     * @param scope 范围(web app phone )
+     * @param userDetails 用户信息
+     * @param scope       范围(web app phone )
      * @return
      */
     AccessTokenRO getAccessToken(UserDetails userDetails, String scope);

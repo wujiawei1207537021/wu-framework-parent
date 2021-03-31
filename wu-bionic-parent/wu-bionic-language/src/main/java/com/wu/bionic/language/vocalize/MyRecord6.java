@@ -55,13 +55,6 @@ public class MyRecord6 extends JFrame implements MouseListener {
     Insets inset;
     GridBagConstraints c;
 
-    public static void main(String[] args) {
-
-        //创造一个实例
-        MyRecord6 mr = new MyRecord6();
-
-    }
-
     //构造函数
     public MyRecord6() {
         //组件初始化
@@ -120,6 +113,13 @@ public class MyRecord6 extends JFrame implements MouseListener {
 //        this.setIconImage(img);
         //设置窗口在最前端显示
         this.setAlwaysOnTop(true);
+    }
+
+    public static void main(String[] args) {
+
+        //创造一个实例
+        MyRecord6 mr = new MyRecord6();
+
     }
 
     public void mouseClicked(MouseEvent e) {

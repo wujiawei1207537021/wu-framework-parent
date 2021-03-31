@@ -25,10 +25,10 @@ import java.util.Map;
 @ConditionalOnBean(value = DataSource.class)
 public class LazyOperationProxy implements InvocationHandler, InitializingBean {
 
-    private final DataSource dataSource;
-    private final List<LazyOperationMethod> lazyOperationMethods;
     // method LazyOperationMethod
     private final static Map<String, LazyOperationMethod> LAZY_OPERATION_METHOD_MAP = new HashMap<>();
+    private final DataSource dataSource;
+    private final List<LazyOperationMethod> lazyOperationMethods;
 
     public LazyOperationProxy(DataSource dataSource, List<LazyOperationMethod> lazyOperationMethods) {
         this.dataSource = dataSource;

@@ -23,7 +23,7 @@ public class PersistenceRepository {
     private String queryString;//sql
     private String resultType;//实体类的全限定类名
     private Class resultClass;//实体类
-    
+
     private String executionType;//执行类型
 
     /**
@@ -41,7 +41,7 @@ public class PersistenceRepository {
 
     @NonNull
     public String getQueryString() {
-        System.err.printf("执行SQL: %S%n",queryString);
+        System.err.printf("执行SQL: %S%n", queryString);
         return queryString;
     }
 }

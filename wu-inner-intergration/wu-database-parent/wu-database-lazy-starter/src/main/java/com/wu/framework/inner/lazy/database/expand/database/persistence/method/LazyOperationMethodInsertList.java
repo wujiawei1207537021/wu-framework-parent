@@ -4,7 +4,6 @@ import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClas
 import com.wu.framework.easy.stereotype.upsert.process.MySQLDataProcess;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.constant.LayerOperationMethodCounts;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
-
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.RepositoryOnDifferentMethods;
 import org.springframework.util.ObjectUtils;
 
@@ -55,8 +54,8 @@ public class LazyOperationMethodInsertList extends AbstractLazyOperationMethod {
      */
     @Override
     public Object execute(PreparedStatement preparedStatement, PersistenceRepository persistenceRepository) throws SQLException {
-        for (int i = 0; i < persistenceRepository.getBinaryList().size() ; i++) {
-            preparedStatement.setBinaryStream(i+1, persistenceRepository.getBinaryList().get(i ));
+        for (int i = 0; i < persistenceRepository.getBinaryList().size(); i++) {
+            preparedStatement.setBinaryStream(i + 1, persistenceRepository.getBinaryList().get(i));
         }
         return super.execute(preparedStatement, persistenceRepository);
     }

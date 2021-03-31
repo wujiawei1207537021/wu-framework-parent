@@ -9,7 +9,7 @@ import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClas
  * @author Jia wei Wu
  * @date 2020/10/22 下午2:25
  */
-public class RedisDataProcess   {
+public class RedisDataProcess {
 
 
     /**

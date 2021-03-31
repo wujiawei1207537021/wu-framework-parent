@@ -141,7 +141,7 @@ public class ExcelRunTest {
     @ApiOperation(tags = "导出注解测试", value = "使用原生注解有效(自定义一导出文件名称)")
     @GetMapping("/run6/{size}")
     public List<UseExcel> run6(@PathVariable Integer size, @RequestParam String fileName) {
-        EasyExcelUtil.modifyCurrentMethodEasyExcelFileName(this.getClass(),fileName);
-       return run(size);
+        EasyExcelUtil.modifyCurrentMethodEasyExcelFileName(this.getClass(), fileName);
+        return run(size);
     }
 }

@@ -134,6 +134,5 @@ public abstract class EasySmartFillFieldConverterAbstract extends EasySmartConve
         private List<CreateInfo> innerClassList = new ArrayList<>();// 内部class
 
 
-
     }
 }

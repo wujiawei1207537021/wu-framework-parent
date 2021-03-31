@@ -4,7 +4,6 @@ import com.wu.bionic.language.vocalize.Vocalization;
 import com.wu.framework.easy.stereotype.upsert.converter.stereotype.Word;
 import com.wu.framework.easy.stereotype.web.EasyController;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

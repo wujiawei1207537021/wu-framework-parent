@@ -112,7 +112,7 @@ public class JdbcTokenStore implements TokenStore {
     public <T> T readAccessToken(String token, Class<T> clazz) {
         //TODO  令牌过期问题
         AccessToken accessToken = lazyOperation.
-                executeSQLForBean(String.format(  "select token_id, authentication from access_token where token_id = '%s'", extractTokenKey(token)), AccessToken.class);
+                executeSQLForBean(String.format("select token_id, authentication from access_token where token_id = '%s'", extractTokenKey(token)), AccessToken.class);
 //            Authentication authentication = this.lazyOperation.queryForObject(
 //                    this.selectAccessTokenAuthenticationSql,
 //                    new SafeAuthenticationRowMapper(),
@@ -201,7 +201,7 @@ public class JdbcTokenStore implements TokenStore {
 //        System.out.println(authentication.tosin());
 //        System.out.println(userDetails.tosin());
 //        System.out.println(extractTokenKey(authentication.tosin()));
-        AccessToken accessToken=new AccessToken();
+        AccessToken accessToken = new AccessToken();
 
         try {
             accessTokenRO = this.lazyOperation.executeSQLForBean(String.format(
@@ -229,7 +229,7 @@ public class JdbcTokenStore implements TokenStore {
                     .setUserName(userDetails.getUsername())
                     .setClientId(null)
                     .setAuthentication(serializeAuthentication(authentication))
-                    .setRefreshToken( extractTokenKey(accessTokenRO.getRefreshToken()));
+                    .setRefreshToken(extractTokenKey(accessTokenRO.getRefreshToken()));
             lazyOperation.activeUpsert(accessToken);
             accessTokenRO.setExpiresIn(shiroProperties.getExpireTime());
         }

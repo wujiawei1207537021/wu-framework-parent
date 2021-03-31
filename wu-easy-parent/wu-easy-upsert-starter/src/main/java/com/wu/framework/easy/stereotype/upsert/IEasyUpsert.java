@@ -35,7 +35,7 @@ public interface IEasyUpsert extends InitializingBean {
             } else {
                 List<List> listList = EasyAnnotationConverter.extractData(null, object);
                 for (List list : listList) {
-                    upsert((List<T>)list);
+                    upsert((List<T>) list);
                 }
 
             }

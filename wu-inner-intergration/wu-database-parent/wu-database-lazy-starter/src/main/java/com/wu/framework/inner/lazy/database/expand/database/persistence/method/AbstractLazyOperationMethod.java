@@ -28,6 +28,23 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
 
 
     /**
+     * 是否基本数据类型
+     *
+     * @param
+     * @return
+     * @author Jiawei Wu
+     * @date 2021/1/3 12:54 下午
+     **/
+    public static boolean isWrapClass(Class clazz) {
+        try {
+            if (String.class.isAssignableFrom(clazz)) return true;
+            return ((Class) clazz.getField("TYPE").get(null)).isPrimitive();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
      * description 执行SQL 语句
      *
      * @return
@@ -144,24 +161,6 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
      */
     protected <T> T convertToTheCorrespondingObject(Object obj, Class<T> clazz) {
         return null;
-    }
-
-
-    /**
-     * 是否基本数据类型
-     *
-     * @param
-     * @return
-     * @author Jiawei Wu
-     * @date 2021/1/3 12:54 下午
-     **/
-    public static boolean isWrapClass(Class clazz) {
-        try {
-            if (String.class.isAssignableFrom(clazz)) return true;
-            return ((Class) clazz.getField("TYPE").get(null)).isPrimitive();
-        } catch (Exception e) {
-            return false;
-        }
     }
 
     /**

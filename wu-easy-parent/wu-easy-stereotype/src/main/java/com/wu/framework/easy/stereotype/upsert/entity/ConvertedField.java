@@ -14,10 +14,13 @@ import lombok.experimental.Accessors;
 @Data
 public class ConvertedField {
     /**
+     * 字段是否存在
+     */
+    boolean exist = true;
+    /**
      * 字段名
      */
     private String fieldName;
-
     /**
      * 数据库对应字段
      */
@@ -25,7 +28,7 @@ public class ConvertedField {
     /**
      * 数据库字段索引类型
      */
-    private EasySmartField.TableFileIndexType fieldIndexType= EasySmartField.TableFileIndexType.FILE_TYPE;
+    private EasySmartField.TableFileIndexType fieldIndexType = EasySmartField.TableFileIndexType.FILE_TYPE;
     /**
      * 字段类型
      */
@@ -40,20 +43,14 @@ public class ConvertedField {
     private String comment;
 
     /**
-     * 字段是否存在
-     */
-    boolean exist= true;
-
-
-    /**
-    * @params 创建SQL column
+     * @return
+     * @params 创建SQL column
      * "`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',\n" +
-    * @return
-    * @author Jiawei Wu
-    * @date 2020/12/31 9:19 下午
-    **/
-    public String createColumn(){
-        return convertedFieldName+" "+type+" COMMENT '"+comment+"', \n";
+     * @author Jiawei Wu
+     * @date 2020/12/31 9:19 下午
+     **/
+    public String createColumn() {
+        return convertedFieldName + " " + type + " COMMENT '" + comment + "', \n";
     }
 }
 

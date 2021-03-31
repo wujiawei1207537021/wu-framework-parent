@@ -22,6 +22,20 @@ import java.util.List;
 @Service
 public class RunServiceImpl implements RunService {
 
+    public static void main(String[] args) {
+        List<UserLog> userLogList = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            UserLog userLog = new UserLog();
+            userLog.setCurrentTime(LocalDateTime.now());
+            userLog.setContent("创建时间:" + userLog.getCurrentTime());
+            userLog.setUserId(i);
+            userLogList.add(userLog);
+        }
+        userLogList.forEach(userLog -> userLog.setUserId(1));
+        System.out.println(userLogList);
+
+    }
+
     @Override
     public List<UserLog> run(Integer size) {
         List<UserLog> userLogList = new ArrayList<>();
@@ -53,19 +67,5 @@ public class RunServiceImpl implements RunService {
             upsertBinaryList.add(new UpsertBinary());
         }
         return upsertBinaryList;
-    }
-
-    public static void main(String[] args) {
-        List<UserLog> userLogList = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            UserLog userLog = new UserLog();
-            userLog.setCurrentTime(LocalDateTime.now());
-            userLog.setContent("创建时间:" + userLog.getCurrentTime());
-            userLog.setUserId(i);
-            userLogList.add(userLog);
-        }
-        userLogList.forEach(userLog -> userLog.setUserId(1));
-        System.out.println(userLogList);
-
     }
 }

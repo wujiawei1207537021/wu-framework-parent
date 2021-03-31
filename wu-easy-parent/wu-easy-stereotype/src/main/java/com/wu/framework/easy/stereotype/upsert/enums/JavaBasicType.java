@@ -55,8 +55,8 @@ public enum JavaBasicType {
     LOCAL_DATE(LocalDate.class, LocalDate.now()),
     LOCAL_DATE_TIME(LocalDateTime.class, LocalDateTime.now()),
 
-    TIMESTAMP(Timestamp.class,Timestamp.valueOf(LocalDateTime.now())),
-    TIME(Time.class,Time.valueOf(LocalTime.now())),
+    TIMESTAMP(Timestamp.class, Timestamp.valueOf(LocalDateTime.now())),
+    TIME(Time.class, Time.valueOf(LocalTime.now())),
 
     DATE(Date.class, new Date()),
     SQL_DATE(java.sql.Date.class, java.sql.Date.valueOf(LocalDate.now())),
@@ -64,8 +64,8 @@ public enum JavaBasicType {
 
     ;
 
-    public static EasyHashMap<Class,Object> DEFAULT_VALUE_HASHMAP = new EasyHashMap<Class, Object>();
-    public static EasyHashMap<String,Object> DEFAULT_CLASS_NAME_VALUE_HASHMAP = new EasyHashMap<String, Object>();
+    public static EasyHashMap<Class, Object> DEFAULT_VALUE_HASHMAP = new EasyHashMap<Class, Object>();
+    public static EasyHashMap<String, Object> DEFAULT_CLASS_NAME_VALUE_HASHMAP = new EasyHashMap<String, Object>();
 
     static {
         Arrays.stream(values()).forEach(javaBasicType -> DEFAULT_VALUE_HASHMAP.put(javaBasicType.clazz, javaBasicType.defaultValue));
@@ -78,13 +78,14 @@ public enum JavaBasicType {
 
     /**
      * 转换为基本数据类型对象
-    * @param
-    * @return
-    * @author Jiawei Wu
-    * @date 2021/1/3 1:03 下午
-    **/
-    public static Object convertBasicTypeBean(Class clazz, Object obj){
-        if(null==obj)return JavaBasicType.DEFAULT_VALUE_HASHMAP.get(clazz);
+     *
+     * @param
+     * @return
+     * @author Jiawei Wu
+     * @date 2021/1/3 1:03 下午
+     **/
+    public static Object convertBasicTypeBean(Class clazz, Object obj) {
+        if (null == obj) return JavaBasicType.DEFAULT_VALUE_HASHMAP.get(clazz);
         if (clazz.equals(Integer.class) || clazz.equals(int.class)) {
             return Integer.valueOf(obj.toString());
         } else if (clazz.equals(String.class)) {

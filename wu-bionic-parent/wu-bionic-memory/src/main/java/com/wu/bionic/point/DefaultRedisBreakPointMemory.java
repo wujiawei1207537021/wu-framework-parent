@@ -16,10 +16,9 @@ import java.util.Set;
  */
 @Component
 public class DefaultRedisBreakPointMemory extends BreakPointMemoryAbstract {
+    private final RedisTemplate<String, DefaultBreakPointSo> redisTemplate;
     // 大类区分服务
     private String KEY = "BREAK_POINT_MEMORY:";
-
-    private final RedisTemplate<String, DefaultBreakPointSo> redisTemplate;
 
     public DefaultRedisBreakPointMemory(RedisTemplate<String, DefaultBreakPointSo> redisTemplate, ApplicationConfig applicationConfig) {
         this.redisTemplate = redisTemplate;
@@ -30,7 +29,6 @@ public class DefaultRedisBreakPointMemory extends BreakPointMemoryAbstract {
      * description 断点记忆存储
      *
      * @param defaultBreakPointSo
-     *
      * @author 吴佳伟
      * @date 2021/2/2 下午6:55
      */

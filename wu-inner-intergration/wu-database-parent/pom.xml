@@ -15,7 +15,7 @@
     <description>数据库</description>
     <modules>
         <!--wudb-->
-<!--        <module>wu-db-starter</module>-->
+        <!--        <module>wu-db-starter</module>-->
         <module>wu-database-lazy-starter</module>
         <module>wu-dynamic-database-starter</module>
         <module>wu-database-generator-starter</module>

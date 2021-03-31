@@ -93,7 +93,8 @@ tbody > tr > th {
     width: 550px;
     padding-top: 20px;
 }
-#generator_info{
+
+#generator_info {
     width: auto;
     height: 200px;
     background: #0d6aad;

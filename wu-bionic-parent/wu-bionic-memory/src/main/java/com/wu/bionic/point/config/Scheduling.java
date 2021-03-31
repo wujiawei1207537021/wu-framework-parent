@@ -21,9 +21,8 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class Scheduling {
 
-    private final BreakPointMemory breakPointMemory;
     public static ApplicationContext applicationContext;
-
+    private final BreakPointMemory breakPointMemory;
     // 唤醒状态
     protected boolean wakeStatus = false;
 
@@ -51,7 +50,7 @@ public class Scheduling {
     @PostConstruct
     public void wake() {
         if (!wakeStatus) {
-            wakeStatus=true;
+            wakeStatus = true;
             Collection<DefaultBreakPointSo> acquisition = breakPointMemory.acquisition();
             // 中断数据重新启动 (多线程方式)
             acquisition.forEach((defaultBreakPointSo) -> {
@@ -78,7 +77,7 @@ public class Scheduling {
                     System.err.println(String.format("重试方法【%s】失败", defaultBreakPointSo.getName()));
                 });
             });
-            wakeStatus=false;
+            wakeStatus = false;
         }
 
 

@@ -7,8 +7,6 @@ import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConver
 import com.wu.framework.easy.stereotype.upsert.enums.NormalUsedString;
 import com.wu.framework.inner.lazy.database.domain.ConvertedField;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.Persistence;
-import com.wu.framework.inner.lazy.database.test.pojo.DataBaseUser;
-import lombok.var;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ObjectUtils;
@@ -16,7 +14,6 @@ import org.springframework.util.ObjectUtils;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;

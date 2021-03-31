@@ -43,7 +43,7 @@ public class ShiroProperties {
     /**
      * 校验方式
      */
-    private Verification verification=Verification.TOKEN;
+    private Verification verification = Verification.TOKEN;
 
     /**
      * 返回实体格式
@@ -58,7 +58,7 @@ public class ShiroProperties {
     /**
      * 忽略的路径
      */
-    private List<String> unCheckApiPath = Arrays.asList("/token/**", "/error/**", "/swagger-ui.html/**", "/favicon.ico", "/swagger-resources/**", "/webjars/**","/v3/api-docs");
+    private List<String> unCheckApiPath = Arrays.asList("/token/**", "/error/**", "/swagger-ui.html/**", "/favicon.ico", "/swagger-resources/**", "/webjars/**", "/v3/api-docs");
 
     public void setUnCheckApiPath(List<String> unCheckApiPath) {
         unCheckApiPath.addAll(this.unCheckApiPath);
@@ -69,7 +69,8 @@ public class ShiroProperties {
         JDBC_TOKEN_STORE,
         JWT_TOKEN_STORE;
     }
-    enum Verification{
+
+    enum Verification {
         TOKEN,
         SESSION;
     }

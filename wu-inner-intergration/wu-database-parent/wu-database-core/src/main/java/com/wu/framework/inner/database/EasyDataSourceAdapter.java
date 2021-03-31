@@ -23,10 +23,6 @@ public interface EasyDataSourceAdapter {
      */
     String MASTER_DATA_SOURCE = "master";
 
-
-    DataSource getEasyDataSource();
-
-
     /**
      * 创建数据连接对象
      *
@@ -36,5 +32,7 @@ public interface EasyDataSourceAdapter {
     static DataSource createDataSource(ICustomDatabaseConfiguration iCustomDatabaseConfiguration) {
         return new SimpleEasyDataSource(iCustomDatabaseConfiguration);
     }
+
+    DataSource getEasyDataSource();
 
 }

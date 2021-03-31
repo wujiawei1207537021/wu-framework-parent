@@ -60,7 +60,7 @@ public class EasySmartFillFieldConverter extends EasySmartFillFieldConverterAbst
             bufferedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             return classContext;
         }
     }
@@ -84,7 +84,7 @@ public class EasySmartFillFieldConverter extends EasySmartFillFieldConverterAbst
         for (CreateInfo innerClass : createInfo.getInnerClassList()) {
             classContext += innerClass2String(innerClass);
         }
-        classContext += NormalUsedString.NEWLINE+NormalUsedString.RIGHT_BRACE;
+        classContext += NormalUsedString.NEWLINE + NormalUsedString.RIGHT_BRACE;
         return classContext;
     }
 

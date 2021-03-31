@@ -35,8 +35,8 @@ $(function () {
             $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
         },
         onCellSelect: function (cellContent) {
-           var c = $.get('sys/generator/table/conditions?tableName=' + cellContent,
-                function (data){
+            var c = $.get('sys/generator/table/conditions?tableName=' + cellContent,
+                function (data) {
                     // $('div:#generator_info').html(data);
                     // var data = '这是一个测试例子';
                     // document.getElementById('generator_info').innerHTML = data;

@@ -2,4 +2,4 @@
 hbase:
   conf:
   confMaps:
-    'hbase.zookeeper.quorum' : 'hadoop-master:2181,hadoop-slave:2181'
+    'hbase.zookeeper.quorum': 'hadoop-master:2181,hadoop-slave:2181'

@@ -30,10 +30,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * @date 2020/10/22 下午2:26
  */
 public class ElasticsearchEasyDataProcess implements DataProcess {
-    private final static String INDEX_FORMAT = "{\"index\":{\"_index\":\"%s\",\"_type\":\"%s\"}}";
-    protected static final Map<Class, String> CLAZZ_INDEX = new ConcurrentHashMap<>();
     public static final String ES_UPSERT_FILE_SUFFIX = ".upes";
-
+    protected static final Map<Class, String> CLAZZ_INDEX = new ConcurrentHashMap<>();
+    private final static String INDEX_FORMAT = "{\"index\":{\"_index\":\"%s\",\"_type\":\"%s\"}}";
     private final UpsertConfig upsertConfig;
 
     public ElasticsearchEasyDataProcess(UpsertConfig upsertConfig) {

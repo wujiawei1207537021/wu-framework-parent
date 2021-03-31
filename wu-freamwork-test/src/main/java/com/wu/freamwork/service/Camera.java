@@ -13,7 +13,7 @@ import javax.swing.*;
  */
 public class Camera {
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
 
         OpenCVFrameGrabber grabber = new OpenCVFrameGrabber(0);
         grabber.start();   //开始获取摄像头数据

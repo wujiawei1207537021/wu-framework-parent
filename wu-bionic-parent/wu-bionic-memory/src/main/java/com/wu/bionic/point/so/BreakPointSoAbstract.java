@@ -1,7 +1,6 @@
 package com.wu.bionic.point.so;
 
 
-
 import com.wu.bionic.point.config.Scheduling;
 
 import java.lang.reflect.Method;

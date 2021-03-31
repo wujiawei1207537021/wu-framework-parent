@@ -87,7 +87,7 @@ public class CamelAndUnderLineConverter {
      **/
     public static String capitalizeFirstLetter(String name) {
         char[] cs = name.toCharArray();
-        if(cs.length==0){
+        if (cs.length == 0) {
             return String.valueOf(cs);
         }
         cs[0] -= 32;

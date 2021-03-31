@@ -2,7 +2,6 @@ package com.wu.framework.inner.database.util;
 
 
 import com.wu.framework.inner.database.domain.CustomRepository;
-
 import com.wu.framework.inner.lazy.database.io.CustomResources;
 import com.wu.framework.inner.lazy.database.stereotype.CustomRepositoryXmlScan;
 import org.dom4j.Document;

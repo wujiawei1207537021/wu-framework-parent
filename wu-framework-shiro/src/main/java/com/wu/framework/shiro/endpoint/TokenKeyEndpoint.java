@@ -45,12 +45,13 @@ public class TokenKeyEndpoint {
     }
 
     /**
-     *  创建用户
-    * @param
-    * @return
-    * @author Jiawei Wu
-    * @date 2021/1/6 8:33 下午
-    **/
+     * 创建用户
+     *
+     * @param
+     * @return
+     * @author Jiawei Wu
+     * @date 2021/1/6 8:33 下午
+     **/
     @PostMapping("/create_user")
     public Result<AccessTokenRO> createUser(@RequestBody LoginUserBO loginUserBO) {
         return ILoginService.createUser(loginUserBO);

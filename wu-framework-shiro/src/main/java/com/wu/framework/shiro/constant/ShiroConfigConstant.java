@@ -10,5 +10,5 @@ package com.wu.framework.shiro.constant;
 public class ShiroConfigConstant {
 
     // 前缀
-    public static final String SHIRO_PREFIX="spring.wu.shiro";
+    public static final String SHIRO_PREFIX = "spring.wu.shiro";
 }

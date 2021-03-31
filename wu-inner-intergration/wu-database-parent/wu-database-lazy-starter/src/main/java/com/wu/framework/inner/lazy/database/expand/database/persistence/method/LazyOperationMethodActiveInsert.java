@@ -5,7 +5,6 @@ import com.wu.framework.inner.lazy.database.converter.PersistenceConverter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.constant.LayerOperationMethodCounts;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.Persistence;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
-
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.RepositoryOnDifferentMethods;
 import org.springframework.util.ObjectUtils;
 
@@ -39,7 +38,7 @@ public class LazyOperationMethodActiveInsert extends AbstractLazyOperationMethod
         stringBuffer.append(persistence.getCondition());
         stringBuffer.append(" ) ON DUPLICATE KEY UPDATE ");
         stringBuffer.append(persistence.getColumnList().stream().map(s -> s + " =VALUES (" + s + ")").collect(Collectors.joining(",")));
-        String sql =stringBuffer.toString();
+        String sql = stringBuffer.toString();
         PersistenceRepository persistenceRepository = new PersistenceRepository();
         persistenceRepository.setQueryString(sql);
         persistenceRepository.setBinaryList(persistence.getBinaryList());

@@ -3,7 +3,6 @@ package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.constant.LayerOperationMethodCounts;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
-
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.RepositoryOnDifferentMethods;
 import org.springframework.util.ObjectUtils;
 

@@ -23,7 +23,7 @@ public class FileUtil {
      **/
     @SneakyThrows
     public static BufferedWriter createFile(String path, String fileName) {
-        File file = new File(ObjectUtils.isEmpty(path)?fileName:path + File.separator + fileName);
+        File file = new File(ObjectUtils.isEmpty(path) ? fileName : path + File.separator + fileName);
         File parent = file.getParentFile();
         System.out.println("文件所在目录:" + file.getAbsolutePath());
         if (!parent.exists()) {
@@ -38,12 +38,12 @@ public class FileUtil {
     }
 
     /**
-    * @describe 获取文件内容
-    * @param
-    * @return
-    * @author Jia wei Wu
-    * @date 2021/3/3 10:46 下午
-    **/
+     * @param
+     * @return
+     * @describe 获取文件内容
+     * @author Jia wei Wu
+     * @date 2021/3/3 10:46 下午
+     **/
     public static String readFileContent(String fileName) {
         File file = new File(fileName);
         BufferedReader reader = null;
@@ -71,17 +71,17 @@ public class FileUtil {
     }
 
     /**
-    * @describe 文件添加数据
-    * @param
-    * @return
-    * @author Jia wei Wu
-    * @date 2021/3/3 10:46 下午
-    **/
+     * @param
+     * @return
+     * @describe 文件添加数据
+     * @author Jia wei Wu
+     * @date 2021/3/3 10:46 下午
+     **/
     public static BufferedWriter addFileContent(String fileName) throws IOException {
-         String fileContent = readFileContent(fileName);
-         BufferedWriter bufferedWriter = createFile(null, fileName);
-         bufferedWriter.write(fileContent);
-         return bufferedWriter;
+        String fileContent = readFileContent(fileName);
+        BufferedWriter bufferedWriter = createFile(null, fileName);
+        bufferedWriter.write(fileContent);
+        return bufferedWriter;
 
     }
 

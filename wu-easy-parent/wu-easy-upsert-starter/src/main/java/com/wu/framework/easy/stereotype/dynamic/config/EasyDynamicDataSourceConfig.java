@@ -63,14 +63,14 @@ public class EasyDynamicDataSourceConfig {
     }
 
     /**
-    * @describe 注册IUpsert的代理类
-    * @param
-    * @return
-    * @author Jia wei Wu
-    * @date 2021/3/29 6:58 下午
-    **/
+     * @param
+     * @return
+     * @describe 注册IUpsert的代理类
+     * @author Jia wei Wu
+     * @date 2021/3/29 6:58 下午
+     **/
     @Bean
-    public IUpsert iUpsert(IUpsertHandler iUpsertHandler){
+    public IUpsert iUpsert(IUpsertHandler iUpsertHandler) {
         return (IUpsert) Proxy.newProxyInstance(IUpsert.class.getClassLoader(), new Class[]{IUpsert.class}, iUpsertHandler);
     }
 

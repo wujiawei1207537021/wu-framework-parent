@@ -30,6 +30,13 @@ public class VocalizationService implements Vocalization {
         this.lazyOperation = lazyOperation;
     }
 
+    public static byte[] addBytes(byte[] data1, byte[] data2) {
+        byte[] data3 = new byte[data1.length + data2.length];
+        System.arraycopy(data1, 0, data3, 0, data1.length);
+        System.arraycopy(data2, 0, data3, data1.length, data2.length);
+        return data3;
+    }
+
     /**
      * description 文本转换成语音
      *
@@ -53,7 +60,7 @@ public class VocalizationService implements Vocalization {
         for (String s : wordList) {
             EasyHashMap easyHashMap = word.get(s.replace("'", ""));
             if (ObjectUtils.isEmpty(easyHashMap)) continue;
-             byte[] easyHashMapBytes = easyHashMap.getBytes("voice");
+            byte[] easyHashMapBytes = easyHashMap.getBytes("voice");
 //             easyHashMapBytes=subByte(easyHashMapBytes,100,easyHashMapBytes.length-100);
             bytes = addBytes(bytes, easyHashMapBytes);
         }
@@ -83,21 +90,15 @@ public class VocalizationService implements Vocalization {
         return easyHashMaps;
     }
 
-    public static byte[] addBytes(byte[] data1, byte[] data2) {
-        byte[] data3 = new byte[data1.length + data2.length];
-        System.arraycopy(data1, 0, data3, 0, data1.length);
-        System.arraycopy(data2, 0, data3, data1.length, data2.length);
-        return data3;
-    }
-
     /**
      * 截取byte数组   不改变原数组
-     * @param b 原数组
-     * @param off 偏差值（索引）
+     *
+     * @param b      原数组
+     * @param off    偏差值（索引）
      * @param length 长度
      * @return 截取后的数组
      */
-    public byte[] subByte(byte[] b,int off,int length){
+    public byte[] subByte(byte[] b, int off, int length) {
         byte[] b1 = new byte[length];
         System.arraycopy(b, off, b1, 0, length);
         return b1;

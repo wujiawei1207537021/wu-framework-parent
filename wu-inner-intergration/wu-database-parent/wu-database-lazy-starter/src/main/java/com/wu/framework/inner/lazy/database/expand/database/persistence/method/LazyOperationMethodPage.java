@@ -5,7 +5,6 @@ import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClas
 import com.wu.framework.inner.lazy.database.domain.Page;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.constant.LayerOperationMethodCounts;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
-
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.RepositoryOnDifferentMethods;
 import org.springframework.util.ObjectUtils;
 
@@ -44,13 +43,13 @@ public class LazyOperationMethodPage extends AbstractLazyOperationMethod {
         String sqlFormat = (String) args[2];
         Object[] params = (Object[]) args[3];
 
-        if (null==sqlFormat) {
+        if (null == sqlFormat) {
             final EasyTableAnnotation easyTableAnnotation = LocalStorageClassAnnotation.getEasyTableAnnotation(clazz, true);
-            sqlFormat=String.format("select * from %s ",easyTableAnnotation.getTableName());
+            sqlFormat = String.format("select * from %s ", easyTableAnnotation.getTableName());
         }
         String listSql = loadSqlParameters(sqlFormat, params);
         countSql = loadSqlParameters(COUNT_SQL, listSql);
-        limitSql = loadSqlParameters(LIMIT_SQL, listSql, (page.getCurrent()-1)*page.getSize(), page.getSize());
+        limitSql = loadSqlParameters(LIMIT_SQL, listSql, (page.getCurrent() - 1) * page.getSize(), page.getSize());
 
         queryString = countSql + DELIMITER + limitSql;
         PersistenceRepository persistenceRepository = new PersistenceRepository();
@@ -96,8 +95,8 @@ public class LazyOperationMethodPage extends AbstractLazyOperationMethod {
         PreparedStatement countPreparedStatement = connection.prepareStatement(countSql);
         ResultSet resultSet = countPreparedStatement.executeQuery();
         final List<Long> objects = resultSetConverter(resultSet, Long.class);
-        long total=objects.get(0);
-        long pages = (total+page.getSize()+1)/page.getSize();
+        long total = objects.get(0);
+        long pages = (total + page.getSize() + 1) / page.getSize();
         page.setTotal(total);
         page.setPages(pages);
     }

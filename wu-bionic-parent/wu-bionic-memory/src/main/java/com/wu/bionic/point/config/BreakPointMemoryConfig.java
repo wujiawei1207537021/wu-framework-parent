@@ -23,6 +23,7 @@ public class BreakPointMemoryConfig implements InitializingBean {
 
     /**
      * description 添加切面
+     *
      * @param
      * @return
      * @exception/throws
@@ -33,7 +34,6 @@ public class BreakPointMemoryConfig implements InitializingBean {
     public BreakPointMemoryAbstractPointcutAdvisor breakPointMemoryAbstractPointcutAdvisor(BreakPointMemory breakPointMemory) {
         return new BreakPointMemoryAbstractPointcutAdvisor(new BreakPointMemoryAbstractPointcutAdvisor.BreakPointAnnotationInterceptor(breakPointMemory));
     }
-
 
 
     @Override

@@ -8,6 +8,7 @@ import java.util.Collection;
 
 /**
  * description 记忆获取、存储、删除
+ *
  * @author 吴佳伟
  * @date 2021/2/4 上午10:20
  */
@@ -15,6 +16,7 @@ public interface BreakPointMemory {
 
     /**
      * description 断点记忆存储
+     *
      * @param
      * @return
      * @exception/throws
@@ -22,8 +24,10 @@ public interface BreakPointMemory {
      * @date 2021/2/2 下午6:55
      */
     void storage(DefaultBreakPointSo defaultBreakPointSo);
+
     /**
      * description 记忆清除
+     *
      * @param
      * @return
      * @exception/throws
@@ -34,6 +38,7 @@ public interface BreakPointMemory {
 
     /**
      * description 记忆获取
+     *
      * @param
      * @return
      * @exception/throws
@@ -44,6 +49,7 @@ public interface BreakPointMemory {
 
     /**
      * description 记忆探索
+     *
      * @param explorationSo 探索对象
      * @return
      * @exception/throws

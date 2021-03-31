@@ -22,14 +22,24 @@ import java.util.Map;
 @Data
 public class LocalStorageClassAnnotation {
 
+    public final static String DOMAIN_CLASS_TEMP =
+            "package com.wu.framework.inner.lazy.database.test.pojo;\n" +
+                    "\n" +
+                    "import lombok.AllArgsConstructor;\n" +
+                    "import lombok.Data;\n" +
+                    "import lombok.NoArgsConstructor;\n" +
+                    "import lombok.experimental.Accessors;\n" +
+                    "import java.io.Serializable;\n" +
+                    "@Accessors(chain = true)\n" +
+                    "@Data\n" +
+                    "@AllArgsConstructor\n" +
+                    "@NoArgsConstructor"
+                    + "\n";
     private static final String PREFIX = "easy_upsert_";
     private static final Logger log = LoggerFactory.getLogger(LocalStorageClassAnnotation.class);
-
     @Deprecated
     public static Map<Class, EasyTableAnnotation> CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP = new HashMap<>();
-
     public static Map<Class, EasySmart> CLASS_EASY_SMART_MAP = new HashMap<>();
-
 
     /**
      * @param clazz                      类
@@ -84,20 +94,6 @@ public class LocalStorageClassAnnotation {
         }
         return CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.get(clazz);
     }
-
-    public final static String DOMAIN_CLASS_TEMP =
-            "package com.wu.framework.inner.lazy.database.test.pojo;\n" +
-                    "\n" +
-                    "import lombok.AllArgsConstructor;\n" +
-                    "import lombok.Data;\n" +
-                    "import lombok.NoArgsConstructor;\n" +
-                    "import lombok.experimental.Accessors;\n" +
-                    "import java.io.Serializable;\n" +
-                    "@Accessors(chain = true)\n" +
-                    "@Data\n" +
-                    "@AllArgsConstructor\n" +
-                    "@NoArgsConstructor"
-                    + "\n";
 
     /**
      * @param

@@ -2,7 +2,6 @@ package com.wu.framework.easy.stereotype.upsert.handler;
 
 
 import com.wu.framework.easy.stereotype.dynamic.AbstractDynamicEasyUpsert;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ObjectUtils;
 
 import java.lang.reflect.InvocationHandler;
@@ -28,7 +27,7 @@ public class IUpsertHandler implements InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
         Object arg;
-        if (ObjectUtils.isEmpty(args)||null==(arg=args[0])) {
+        if (ObjectUtils.isEmpty(args) || null == (arg = args[0])) {
             return false;
         }
         if (arg instanceof Object[]) {

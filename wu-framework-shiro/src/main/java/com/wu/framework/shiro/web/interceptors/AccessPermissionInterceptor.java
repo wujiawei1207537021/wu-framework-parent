@@ -9,7 +9,6 @@ import com.wu.framework.shiro.model.UserDetails;
 import com.wu.framework.shiro.util.ShiroSessionContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,7 +24,7 @@ import javax.servlet.http.HttpSession;
  */
 
 @Slf4j
-@ConditionalOnProperty(prefix = ShiroConfigConstant.SHIRO_PREFIX,name = "verification",havingValue = "TOKEN",matchIfMissing = true)
+@ConditionalOnProperty(prefix = ShiroConfigConstant.SHIRO_PREFIX, name = "verification", havingValue = "TOKEN", matchIfMissing = true)
 public class AccessPermissionInterceptor extends ShiroHandlerInterceptorAbstract {
 
 

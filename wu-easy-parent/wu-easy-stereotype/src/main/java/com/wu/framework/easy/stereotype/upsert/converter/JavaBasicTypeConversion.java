@@ -6,8 +6,6 @@ import org.springframework.util.ObjectUtils;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import static org.springframework.boot.ansi.AnsiStyle.UNDERLINE;
-
 /**
  * @author : Jia wei Wu
  * @version 1.0
@@ -15,7 +13,6 @@ import static org.springframework.boot.ansi.AnsiStyle.UNDERLINE;
  * @date : 2020/11/30 下午21:47
  */
 public class JavaBasicTypeConversion {
-
 
 
     public static Object toString(Object o) {

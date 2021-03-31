@@ -54,8 +54,8 @@ public class HBaseOperationUpsertMethod extends HBaseOperationMethodAbstract {
                 }
                 return o.toString();
             }).collect(Collectors.joining("-"));
-        }else {
-            System.err.println(String.format("the uniqueness field cannot be found, and the current result cannot be updated in class %s ",entity.getClass()));
+        } else {
+            System.err.println(String.format("the uniqueness field cannot be found, and the current result cannot be updated in class %s ", entity.getClass()));
         }
 
         Put put = new Put(Bytes.toBytes(hBaseRow));

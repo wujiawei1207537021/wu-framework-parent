@@ -129,9 +129,6 @@ public @interface EasySmartField {
         DOUBLE(Arrays.asList(Double.class, double.class), " double "),
         FLOAT(Arrays.asList(Float.class, float.class), " float "),
         BINARY(Arrays.asList(File.class, InputStream.class), " Blob ");
-        private List<Class> clazz;
-        private String type;
-
         private static Map<Class, String> TYPE_MAP = new HashMap<>();
 
         static {
@@ -141,6 +138,9 @@ public @interface EasySmartField {
                 TYPE_MAP.putAll(classStringMap);
             }
         }
+
+        private List<Class> clazz;
+        private String type;
 
         public static String getTypeByClass(Class clazz) {
             for (FileType fileType : values()) {
@@ -168,12 +168,11 @@ public @interface EasySmartField {
         TIMESTAMP(Timestamp.class, "Timestamp"),
         TIME(Time.class, "time");
 
-        private Class clazz;
-        private String alias;
-
         private static final Map<Class, String> JAVA_SCHEMA_TYPE =
                 Arrays.stream(values()).
                         collect(Collectors.toMap(JavaSchemaDataType::getClazz, JavaSchemaDataType::getAlias));
+        private Class clazz;
+        private String alias;
 
         public static String getAlias(Class clazz) {
             return JAVA_SCHEMA_TYPE.getOrDefault(clazz, STRING.alias);

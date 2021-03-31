@@ -1,6 +1,6 @@
 spring:
   datasource:
-      username: supconit
-      password: supconit
-      url: jdbc:postgresql://172.17.1.45:5432/temp
-      driver-class-name: org.postgresql.Driver
+    username: supconit
+    password: supconit
+    url: jdbc:postgresql://172.17.1.45:5432/temp
+    driver-class-name: org.postgresql.Driver

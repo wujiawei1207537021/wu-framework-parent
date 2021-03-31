@@ -25,10 +25,10 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 public class LazyRedisTemplate extends StringRedisTemplate implements LazyRedis {
 
-    protected Map<Integer, RedisConnectionFactory> redisConnectionFactoryMap = new ConcurrentHashMap<>(20);
     private final Integer MASTER;
-    private Integer dyDatabase;
     private final RedisProperties redisProperties;
+    protected Map<Integer, RedisConnectionFactory> redisConnectionFactoryMap = new ConcurrentHashMap<>(20);
+    private Integer dyDatabase;
 
     public LazyRedisTemplate(LettuceConnectionFactory lettuceConnectionFactory, RedisProperties redisProperties) {
         MASTER = lettuceConnectionFactory.getDatabase();

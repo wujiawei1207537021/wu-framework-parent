@@ -28,7 +28,7 @@ public abstract class ShiroHandlerInterceptorAbstract implements HandlerIntercep
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         final String ipAddr = IpUtil.getIpAddr();
-        System.out.printf("访问者地址:%s%n",ipAddr);
+        System.out.printf("访问者地址:%s%n", ipAddr);
         final String requestURI = request.getRequestURI();
         // 验证权限
         if (shiroProperties.getUnCheckApiPath().stream().anyMatch(unCheck -> matcher.match(unCheck, requestURI)) || this.hasPermission(request, handler)) {

@@ -15,7 +15,7 @@ public class EasyUpsertLog {
     /**
      * 日志类型
      */
-    private String  type;
+    private String type;
     /**
      * 日志内容
      */
@@ -23,6 +23,6 @@ public class EasyUpsertLog {
     /**
      * 作者
      */
-    private String author= SQLConverter.AUTHOR;
+    private String author = SQLConverter.AUTHOR;
 
 }

@@ -3,14 +3,12 @@ package com.wu.bionic.language;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
-
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalInt;
-import java.util.stream.Stream;
 
 /**
  * @author : Jia Wei Wu
@@ -21,20 +19,19 @@ import java.util.stream.Stream;
 public class zz {
 
 
-
-        public static void main(String[] args) {
+    public static void main(String[] args) {
 //            PlayTest playTest = new PlayTest("/Users/wujiawei/Desktop/aa.mp3");
 //            playTest.start();
 //            System.out.println("dd");
 //        playTest.stop();
 
-            List<Integer> all=new ArrayList<>();
-            for (int i = 0; i < 10 ; i++) {
-                all.add(i);
-            }
-            OptionalInt max = all.stream().parallel().mapToInt(Integer::intValue).max();
-            System.out.println(max.getAsInt());
+        List<Integer> all = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            all.add(i);
         }
+        OptionalInt max = all.stream().parallel().mapToInt(Integer::intValue).max();
+        System.out.println(max.getAsInt());
+    }
 
 
     static class PlayTest extends Thread {

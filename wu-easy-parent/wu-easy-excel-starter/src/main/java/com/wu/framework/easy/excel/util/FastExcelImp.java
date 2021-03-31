@@ -2,8 +2,6 @@ package com.wu.framework.easy.excel.util;
 
 import com.wu.framework.easy.excel.stereotype.EasyExcelFiled;
 import org.apache.poi.ss.format.CellFormat;
-import org.apache.poi.ss.format.CellFormatResult;
-import org.apache.poi.ss.format.CellFormatType;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.util.LocaleUtil;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -15,8 +13,6 @@ import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.*;
-
-import static org.apache.poi.ss.usermodel.CellType.*;
 
 public class FastExcelImp {
 
@@ -93,21 +89,21 @@ public class FastExcelImp {
         int lastRowNum = sheet.getLastRowNum();
         Set<String> keys = cellNames.keySet();
         try {
-            CellFormat cellFormat = CellFormat.getInstance(LocaleUtil.getUserLocale(),"General");
+            CellFormat cellFormat = CellFormat.getInstance(LocaleUtil.getUserLocale(), "General");
             for (int rowIndex = (++firstRowNum); rowIndex <= lastRowNum; rowIndex++) {
                 Row r = sheet.getRow(rowIndex);
 
                 if (Map.class.isAssignableFrom(clazz)) {
-                        Map map= (Map) clazz.newInstance();
+                    Map map = (Map) clazz.newInstance();
                     cellNames.entrySet().stream().forEach(stringIntegerEntry -> {
-                         Cell cell = r.getCell(stringIntegerEntry.getValue());
-                         Object v="";
+                        Cell cell = r.getCell(stringIntegerEntry.getValue());
+                        Object v = "";
                         if (cell != null) {
-                            v=cellFormat.apply(cell).text;
+                            v = cellFormat.apply(cell).text;
                         }
-                        map.put(stringIntegerEntry.getKey(),v);
+                        map.put(stringIntegerEntry.getKey(), v);
                     });
-                       rst.add((T) map);
+                    rst.add((T) map);
                 } else {
                     T inst = clazz.newInstance();
                     for (String key : keys) {
@@ -227,7 +223,6 @@ public class FastExcelImp {
 //        }
 //        return clazz;
 //    }
-
 
 
 }
