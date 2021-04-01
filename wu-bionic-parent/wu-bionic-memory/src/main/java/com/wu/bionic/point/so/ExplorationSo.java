@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * description 记忆探索
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2021/2/11 下午12:26
  */
 @Data

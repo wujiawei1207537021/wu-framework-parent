@@ -8,7 +8,7 @@ import java.util.Collection;
 /**
  * description
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2021/2/11 下午12:28
  */
 public abstract class BreakPointMemoryAbstract implements BreakPointMemory {
@@ -19,7 +19,7 @@ public abstract class BreakPointMemoryAbstract implements BreakPointMemory {
      * @param explorationSo 探索对象
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/2/11 下午12:22
      */
     @Override

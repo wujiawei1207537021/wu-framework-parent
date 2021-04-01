@@ -11,7 +11,7 @@ import java.util.Set;
 /**
  * description 默认redis 记忆处理
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2021/2/2 下午8:09
  */
 @Component
@@ -29,7 +29,7 @@ public class DefaultRedisBreakPointMemory extends BreakPointMemoryAbstract {
      * description 断点记忆存储
      *
      * @param defaultBreakPointSo
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/2/2 下午6:55
      */
     @Override
@@ -44,7 +44,7 @@ public class DefaultRedisBreakPointMemory extends BreakPointMemoryAbstract {
      *
      * @param defaultBreakPointSo@return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/2/2 下午6:56
      */
     @Override
@@ -58,7 +58,7 @@ public class DefaultRedisBreakPointMemory extends BreakPointMemoryAbstract {
      *
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/2/2 下午6:57
      */
     @Override

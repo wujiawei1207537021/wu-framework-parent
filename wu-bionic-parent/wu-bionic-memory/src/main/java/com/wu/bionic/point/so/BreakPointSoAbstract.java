@@ -13,7 +13,7 @@ public abstract class BreakPointSoAbstract {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/2/3 上午11:08
      */
     public abstract Method getMethod() throws NoSuchMethodException;
@@ -24,7 +24,7 @@ public abstract class BreakPointSoAbstract {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/2/3 上午11:09
      */
     public abstract Object[] getParams();
@@ -36,7 +36,7 @@ public abstract class BreakPointSoAbstract {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/2/3 下午3:36
      */
     public Object invoke() throws Exception {

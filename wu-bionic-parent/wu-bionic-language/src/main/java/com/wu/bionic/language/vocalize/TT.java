@@ -1,7 +1,7 @@
 package com.wu.bionic.language.vocalize;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * @describe :
  * @date : 2021/3/2 8:35 下午

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import java.lang.reflect.Proxy;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * @describe :
  * @date : 2021/3/29 10:11 下午

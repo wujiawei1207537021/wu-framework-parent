@@ -13,7 +13,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * @describe : 注入hbase 连接需要的bean
  * @date : 2021/3/23 8:37 下午
@@ -29,7 +29,7 @@ public class HBaseConfig {
 
 
     @Bean
-    public Connection hbaseClientConnection() throws IOException {
+    public Connection hBaseClientConnection() throws IOException {
         org.apache.hadoop.conf.Configuration conf = HBaseConfiguration.create();
         Map<String, String> confMap = hBaseConfigProperties.getConfMaps();
         for (Map.Entry<String, String> confEntry : confMap.entrySet()) {

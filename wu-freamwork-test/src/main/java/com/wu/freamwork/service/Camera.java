@@ -8,7 +8,7 @@ import javax.swing.*;
 /**
  * description 摄像头
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2021/2/7 下午6:20
  */
 public class Camera {
