@@ -54,7 +54,6 @@
             <artifactId>wu-database-layer-stereotype</artifactId>
         </dependency>
 
-
     </dependencies>
 
 </project>
