@@ -1,5 +1,6 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence;
 
+import com.wu.framework.inner.database.operation.Operation;
 import com.wu.framework.inner.lazy.database.domain.Page;
 import org.springframework.lang.NonNull;
 

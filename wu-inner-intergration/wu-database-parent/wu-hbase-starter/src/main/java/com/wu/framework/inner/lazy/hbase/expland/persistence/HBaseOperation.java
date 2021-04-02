@@ -1,7 +1,7 @@
 package com.wu.framework.inner.lazy.hbase.expland.persistence;
 
 
-import com.wu.framework.inner.lazy.database.expand.database.persistence.Operation;
+import com.wu.framework.inner.database.operation.Operation;
 
 /**
  * description HBaseOperation

@@ -1,6 +1,7 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype;
 
 import com.wu.framework.easy.stereotype.upsert.EasySmartField;
+import com.wu.framework.inner.layer.stereotype.LayerField;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Indexed;
 
@@ -17,7 +18,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Indexed
-@EasySmartField(indexType = EasySmartField.TableFileIndexType.UNIQUE)
+@EasySmartField(indexType = LayerField.LayerFieldType.UNIQUE)
 public @interface CustomUnique {
 
     @AliasFor(annotation = EasySmartField.class, attribute = "value")

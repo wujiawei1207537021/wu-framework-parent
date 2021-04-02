@@ -40,7 +40,7 @@ public class HBaseOperationUpsertMethod extends HBaseOperationMethodAbstract {
 
         String hBaseRow = UUID.randomUUID().toString();
         List<ConvertedField> uniqueConvertedFieldList = convertedFields.stream().
-                filter(convertedField -> convertedField.getFieldIndexType().equals(EasySmartField.TableFileIndexType.UNIQUE)).collect(Collectors.toList());
+                filter(convertedField -> convertedField.getFieldIndexType().equals(LayerField.LayerFieldType.UNIQUE)).collect(Collectors.toList());
 
         if (!ObjectUtils.isEmpty(uniqueConvertedFieldList)) {
             hBaseRow = uniqueConvertedFieldList.stream().map(convertedField -> {

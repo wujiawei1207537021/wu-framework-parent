@@ -5,6 +5,7 @@ import com.wu.framework.easy.stereotype.upsert.EasySmart;
 import com.wu.framework.easy.stereotype.upsert.EasySmartField;
 import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConverter;
 import com.wu.framework.easy.stereotype.upsert.enums.NormalUsedString;
+import com.wu.framework.inner.layer.stereotype.LayerField;
 import com.wu.framework.inner.lazy.database.domain.ConvertedField;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.Persistence;
 import org.springframework.core.annotation.AnnotatedElementUtils;
@@ -42,7 +43,7 @@ public class PreparedStatementSQLConverter {
         stringBuilder.append(tableName).append("(");
         // 添加字段
         List<ConvertedField> convertedFieldList = fieldNamesOnAnnotation(clazz);
-//        convertedFieldList=convertedFieldList.stream().filter(convertedField->!convertedField.getFieldIndexType().equals(EasySmartField.TableFileIndexType.AUTOMATIC)).collect(Collectors.toList());
+//        convertedFieldList=convertedFieldList.stream().filter(convertedField->!convertedField.getFieldIndexType().equals(LayerField.LayerFieldType.AUTOMATIC)).collect(Collectors.toList());
         for (ConvertedField convertedField : convertedFieldList) {
             if (convertedFieldList.indexOf(convertedField) != 0) {
                 stringBuilder.append(", ");
@@ -139,7 +140,7 @@ public class PreparedStatementSQLConverter {
      * @author Jia wei Wu
      * @date 2020/7/8 下午2:04
      */
-    public static <T> List<ConvertedField> fieldNamesOnAnnotation(Class<T> clazz, EasySmartField.TableFileIndexType tableFileIndexType) {
+    public static <T> List<ConvertedField> fieldNamesOnAnnotation(Class<T> clazz, LayerField.LayerFieldType tableFileIndexType) {
         List<ConvertedField> convertedFieldList = new ArrayList<>();
         for (Field declaredField : clazz.getDeclaredFields()) {
             if (!declaredField.isAccessible()) {
@@ -200,7 +201,7 @@ public class PreparedStatementSQLConverter {
                     field.setAccessible(true);
                 }
                 Object fieldVal = field.get(o);
-                if (convertedField.getFieldIndexType().equals(EasySmartField.TableFileIndexType.FILE_TYPE)) {
+                if (convertedField.getFieldIndexType().equals(LayerField.LayerFieldType.FILE_TYPE)) {
                     if (punctuationFlag) {
                         stringBuffer.append(",");
                     }
@@ -244,7 +245,7 @@ public class PreparedStatementSQLConverter {
         // where
         stringBuffer.append(" where ");
         boolean punctuationFlag = false;
-        List<ConvertedField> convertedFieldList = fieldNamesOnAnnotation(clazz, EasySmartField.TableFileIndexType.ID);
+        List<ConvertedField> convertedFieldList = fieldNamesOnAnnotation(clazz, LayerField.LayerFieldType.ID);
 
         for (ConvertedField convertedField : convertedFieldList) {
             try {
