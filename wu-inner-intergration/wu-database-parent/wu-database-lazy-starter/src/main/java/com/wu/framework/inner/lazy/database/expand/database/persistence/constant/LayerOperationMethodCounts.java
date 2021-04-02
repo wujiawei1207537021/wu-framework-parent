@@ -5,7 +5,7 @@ import com.wu.framework.inner.lazy.database.domain.Page;
 import java.util.List;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * @describe : 常量
  * @date : 2021/3/29 7:34 下午

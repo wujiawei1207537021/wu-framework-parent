@@ -9,7 +9,7 @@ import java.lang.annotation.*;
 /**
  * description  断点注解
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2021/2/4 上午10:15
  */
 @Target({ElementType.TYPE, ElementType.METHOD})

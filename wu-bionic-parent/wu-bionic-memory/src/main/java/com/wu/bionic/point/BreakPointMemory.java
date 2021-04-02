@@ -9,7 +9,7 @@ import java.util.Collection;
 /**
  * description 记忆获取、存储、删除
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2021/2/4 上午10:20
  */
 public interface BreakPointMemory {
@@ -20,7 +20,7 @@ public interface BreakPointMemory {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/2/2 下午6:55
      */
     void storage(DefaultBreakPointSo defaultBreakPointSo);
@@ -31,7 +31,7 @@ public interface BreakPointMemory {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/2/2 下午6:56
      */
     void clear(DefaultBreakPointSo defaultBreakPointSo);
@@ -42,7 +42,7 @@ public interface BreakPointMemory {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/2/2 下午6:57
      */
     Collection<DefaultBreakPointSo> acquisition();
@@ -53,7 +53,7 @@ public interface BreakPointMemory {
      * @param explorationSo 探索对象
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/2/11 下午12:22
      */
     Collection<DefaultBreakPointSo> exploration(ExplorationSo explorationSo);

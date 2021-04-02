@@ -26,6 +26,11 @@
             <artifactId>wu-easy-stereotype</artifactId>
             <version>1.0.2</version>
         </dependency>
+        
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-database-layer-stereotype</artifactId>
+        </dependency>
 
 
     </dependencies>

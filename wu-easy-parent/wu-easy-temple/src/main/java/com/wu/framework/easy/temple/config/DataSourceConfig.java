@@ -9,7 +9,7 @@ import javax.sql.DataSource;
 /**
  * description  手动配置数据源
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2021/2/9 下午5:29
  */
 //@Configuration

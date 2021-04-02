@@ -281,7 +281,7 @@ public class DataBaseTestController implements CommandLineRunner {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/3/8 下午5:37
      */
     public void mysqlServerMigration() throws Exception {
@@ -363,7 +363,7 @@ public class DataBaseTestController implements CommandLineRunner {
      * @param source 源数据库
      * @param target 目标
      * @description 多线程奔跑 🏃
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/2/22 下午8:07
      */
     public void dataMigration(String source, String target) throws Exception {
@@ -413,7 +413,7 @@ public class DataBaseTestController implements CommandLineRunner {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/2/23 下午6:48
      */
     public void singleTableDataProcess(String source, EasyHashMap table, EasyUpsertDS easyUpsertDS) {

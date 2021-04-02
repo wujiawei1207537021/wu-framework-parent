@@ -12,7 +12,7 @@ import java.lang.reflect.Method;
 /**
  * description 断点续传
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2021/2/2 下午4:17
  */
 @Accessors(chain = true)
@@ -55,7 +55,7 @@ public final class DefaultBreakPointSo extends BreakPointSoAbstract implements S
      *
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/2/3 上午11:08
      */
     @Override

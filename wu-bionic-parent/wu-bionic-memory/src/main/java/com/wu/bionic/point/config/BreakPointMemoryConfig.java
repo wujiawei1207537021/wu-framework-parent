@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * description
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2021/2/2 下午7:27
  */
 @Configuration
@@ -27,7 +27,7 @@ public class BreakPointMemoryConfig implements InitializingBean {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/2/11 下午12:06
      */
     @Bean

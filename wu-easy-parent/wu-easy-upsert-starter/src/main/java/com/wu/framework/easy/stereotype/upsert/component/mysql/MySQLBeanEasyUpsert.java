@@ -78,7 +78,7 @@ public class MySQLBeanEasyUpsert extends MySQLEasyUpsertAbstract implements IEas
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/2/11 上午10:37
      */
 

@@ -17,7 +17,7 @@ import java.lang.reflect.Method;
 /**
  * description 断点记忆切面
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2021/2/2 下午4:30
  */
 public class BreakPointMemoryAbstractPointcutAdvisor extends AbstractPointcutAdvisor implements BeanFactoryAware {

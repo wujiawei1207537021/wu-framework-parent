@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * description 调度
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2021/2/3 下午4:26
  */
 @Component
@@ -42,7 +42,7 @@ public class Scheduling {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/2/3 下午4:16
      */
     //每一个小时执行一次

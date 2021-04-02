@@ -2,6 +2,11 @@ package com.wu.framework.inner.lazy.database.expand.database.persistence;
 
 import java.util.List;
 
+
+/**
+ * 删除原因 接口调整到上游
+ */
+@Deprecated
 public interface Operation {
 
     <T> List<T> executeSQL(String sql, Class<T> t);
