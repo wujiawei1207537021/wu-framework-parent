@@ -36,7 +36,7 @@ public class DemoRun {
     @PostConstruct
     public void run() throws Exception {
         boolean user = admin.tableExists(TableName.valueOf("hbase_user"));
-        hBaseOperation.upsert(new HBaseUserBo().setUserName("hbase").setAge("12").setSex("男").setId(1000));
+        hBaseOperation.upsert(new HBaseUserBo().setUserName("hbase_user").setAge("12").setSex("男").setId(1000));
         HTableDescriptor[] hTableDescriptors = admin.listTables();
 //        HTableDescriptor desc = new HTableDescriptor("easy1");
 //        desc.addFamily(new HColumnDescriptor("cf1"));
