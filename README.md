@@ -15,3 +15,14 @@
  mvn clean install deploy -P oss -X
 
 export GPG_TTY=$(tty)
+
+
+
+### 1.0.3
+     功能: 
+        1.添加layer 层的概念
+        2.自模块保持版本一直
+        3.重构upsert 策略
+        4.适配HBase 数据库操作
+        5.添加记忆芯片功能(仿生)
+   
