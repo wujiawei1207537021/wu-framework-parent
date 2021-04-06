@@ -7,6 +7,6 @@ import org.springframework.lang.NonNull;
 public interface IUpsert {
 
 
-    <T> Boolean upsert(@NonNull Object... objects);
+    <T> Object upsert(@NonNull Object... objects);
 
 }
