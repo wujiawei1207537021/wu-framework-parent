@@ -8,6 +8,7 @@ import com.wu.framework.inner.layer.stereotype.LayerField;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.RepositoryOnDifferentMethods;
 import com.wu.framework.inner.lazy.hbase.expland.constant.HBaseOperationMethodCounts;
 import org.apache.hadoop.hbase.TableName;
+import org.apache.hadoop.hbase.client.Admin;
 import org.apache.hadoop.hbase.client.Connection;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Table;
@@ -29,13 +30,18 @@ import java.util.stream.Collectors;
 @RepositoryOnDifferentMethods(methodName = HBaseOperationMethodCounts.UPSERT)
 public class HBaseOperationUpsertMethod extends HBaseOperationMethodAbstract {
 
+    private final Admin admin;
+
+    public HBaseOperationUpsertMethod(Admin admin) {
+        this.admin = admin;
+    }
 
     @Override
     public Object execute(Connection connection, Object[] args) throws Exception {
         Object entity = args[0];
         EasySmart easySmart = LocalStorageClassAnnotation.easySmart(entity.getClass(), true);
         Table table = connection.getTable(TableName.valueOf(easySmart.tableName()));
-
+        perfectTable(admin, entity.getClass());
         List<ConvertedField> convertedFields = SQLConverter.fieldNamesOnAnnotation(entity.getClass(), null);
 
         String hBaseRow = UUID.randomUUID().toString();

@@ -36,7 +36,7 @@ public class LocalStorageClassAnnotation {
     private static final String PREFIX = "easy_upsert_";
     //    private static final Logger log = LoggerFactory.getLogger(LocalStorageClassAnnotation.class);
     @Deprecated
-    public static Map<Class, EasyTableAnnotation> CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP = new HashMap<>();
+    public static Map<Class, EasySmartAnnotation> CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP = new HashMap<>();
     public static Map<Class, EasySmart> CLASS_EASY_SMART_MAP = new HashMap<>();
 
     /**
@@ -48,7 +48,7 @@ public class LocalStorageClassAnnotation {
      * @date 2021/3/3 9:34 下午
      **/
     @Deprecated
-    public static EasyTableAnnotation getEasyTableAnnotation(Class clazz, boolean isForceDuplicateNameSwitch) {
+    public static EasySmartAnnotation getEasyTableAnnotation(Class clazz, boolean isForceDuplicateNameSwitch) {
         if (!CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.containsKey(clazz)) {
             String kafkaTopicName = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
             EasySmart easySmart = AnnotationUtils.getAnnotation(clazz, EasySmart.class);
@@ -76,19 +76,19 @@ public class LocalStorageClassAnnotation {
                 kafkaSchemaName = CamelAndUnderLineConverter.humpToLine2(clazz.getName().replace(".", "_"));
             }
 
-            EasyTableAnnotation easyTableAnnotation = new EasyTableAnnotation();
-            easyTableAnnotation.setComment(comment);
-            easyTableAnnotation.setClassName(className);
-            easyTableAnnotation.setClazz(clazz);
-            easyTableAnnotation.setTableName(tableName);
-            easyTableAnnotation.setKafkaSchemaName(kafkaSchemaName);
-            easyTableAnnotation.setKafkaTopicName(kafkaTopicName);
-            easyTableAnnotation.setKafkaCode(kafkaCode);
-            easyTableAnnotation.setConvertedFieldList(SQLConverter.fieldNamesOnAnnotation(clazz, null));
-            easyTableAnnotation.setSmartFillField(easySmart.smartFillField());
+            EasySmartAnnotation easySmartAnnotation = new EasySmartAnnotation();
+            easySmartAnnotation.setComment(comment);
+            easySmartAnnotation.setClassName(className);
+            easySmartAnnotation.setClazz(clazz);
+            easySmartAnnotation.setTableName(tableName);
+            easySmartAnnotation.setKafkaSchemaName(kafkaSchemaName);
+            easySmartAnnotation.setKafkaTopicName(kafkaTopicName);
+            easySmartAnnotation.setKafkaCode(kafkaCode);
+            easySmartAnnotation.setConvertedFieldList(SQLConverter.fieldNamesOnAnnotation(clazz, null));
+            easySmartAnnotation.setSmartFillField(easySmart.smartFillField());
 //            log.info("Initialize {} annotation parameters  className:[{}],tableName:[{}],comment:[{}],kafkaTopicName:[{}],kafkaSchemaName:[{}],kafkaCode:[{}]", clazz,
 //                    className, tableName, comment, kafkaTopicName, kafkaSchemaName, kafkaCode);
-            CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.put(clazz, easyTableAnnotation);
+            CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.put(clazz, easySmartAnnotation);
         }
         return CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.get(clazz);
     }
@@ -128,16 +128,16 @@ public class LocalStorageClassAnnotation {
                 kafkaSchemaName = CamelAndUnderLineConverter.humpToLine2(clazz.getName().replace(".", "_"));
             }
 
-            EasyTableAnnotation easyTableAnnotation = new EasyTableAnnotation();
-            easyTableAnnotation.setComment(comment);
-            easyTableAnnotation.setClassName(className);
-            easyTableAnnotation.setClazz(clazz);
-            easyTableAnnotation.setTableName(tableName);
-            easyTableAnnotation.setKafkaSchemaName(kafkaSchemaName);
-            easyTableAnnotation.setKafkaTopicName(kafkaTopicName);
-            easyTableAnnotation.setKafkaCode(kafkaCode);
-            easyTableAnnotation.setConvertedFieldList(SQLConverter.fieldNamesOnAnnotation(clazz, null));
-            easyTableAnnotation.setSmartFillField(easySmart.smartFillField());
+            EasySmartAnnotation easySmartAnnotation = new EasySmartAnnotation();
+            easySmartAnnotation.setComment(comment);
+            easySmartAnnotation.setClassName(className);
+            easySmartAnnotation.setClazz(clazz);
+            easySmartAnnotation.setTableName(tableName);
+            easySmartAnnotation.setKafkaSchemaName(kafkaSchemaName);
+            easySmartAnnotation.setKafkaTopicName(kafkaTopicName);
+            easySmartAnnotation.setKafkaCode(kafkaCode);
+            easySmartAnnotation.setConvertedFieldList(SQLConverter.fieldNamesOnAnnotation(clazz, null));
+            easySmartAnnotation.setSmartFillField(easySmart.smartFillField());
 //            log.info("Initialize {} annotation parameters  className:[{}],tableName:[{}],comment:[{}],kafkaTopicName:[{}],kafkaSchemaName:[{}],kafkaCode:[{}]", clazz,
 //                    className, tableName, comment, kafkaTopicName, kafkaSchemaName, kafkaCode);
 

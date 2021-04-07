@@ -9,17 +9,17 @@ package com.wu.framework.inner.layer.stereotype;
 public interface LayerDefault extends Layer {
 
     @Override
-    default void before() {
-
+    default Object before(Object o) {
+        return o;
     }
 
     @Override
-    default void run() {
-
+    default Object run(Object o) {
+        return o;
     }
 
     @Override
-    default void after() {
-
+    default Object after(Object o) {
+        return o;
     }
 }

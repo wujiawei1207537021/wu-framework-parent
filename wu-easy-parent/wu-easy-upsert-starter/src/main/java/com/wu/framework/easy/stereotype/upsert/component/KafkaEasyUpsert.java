@@ -11,7 +11,7 @@ import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.stereotype.upsert.entity.IBeanUpsert;
 import com.wu.framework.easy.stereotype.upsert.entity.kafka.KafkaJsonMessage;
 import com.wu.framework.easy.stereotype.upsert.entity.kafka.TargetJsonSchema;
-import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasyTableAnnotation;
+import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasySmartAnnotation;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.stereotype.upsert.ienum.UserConvertService;
@@ -51,9 +51,9 @@ public class KafkaEasyUpsert implements IEasyUpsert {
             Thread.currentThread().setName(threadName);
             Class clazz = list.get(0).getClass();
             // 模块名称+业务+表名
-            EasyTableAnnotation easyTableAnnotation =
+            EasySmartAnnotation easySmartAnnotation =
                     LocalStorageClassAnnotation.getEasyTableAnnotation(clazz, upsertConfig.isForceDuplicateNameSwitch());
-            String schemaName = easyTableAnnotation.getKafkaSchemaName();
+            String schemaName = easySmartAnnotation.getKafkaSchemaName();
 
             TargetJsonSchema targetJsonSchema = KafkaJsonMessage.targetSchemaMap.get(schemaName);
             if (targetJsonSchema == null) {
@@ -74,7 +74,7 @@ public class KafkaEasyUpsert implements IEasyUpsert {
                     ((IBeanUpsert) value).beforeObjectProcess();
                 }
                 kafkaJsonMessage.setPayload(JsonFileConverter.parseBean2map(value, iEnumList));
-                easyUpsertExtractKafkaProducer.sendAsync(easyTableAnnotation.getKafkaCode(), easyTableAnnotation.getKafkaTopicName(), kafkaJsonMessage);
+                easyUpsertExtractKafkaProducer.sendAsync(easySmartAnnotation.getKafkaCode(), easySmartAnnotation.getKafkaTopicName(), kafkaJsonMessage);
             }
             return true;
         });

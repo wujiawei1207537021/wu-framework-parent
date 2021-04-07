@@ -6,11 +6,11 @@ package com.wu.framework.inner.layer.stereotype;
  * @author Jia wei Wu
  * @date 2021/4/1 下午3:32
  */
-public interface Layer {
+public interface Layer<O> {
 
-    void before();
+    <O> O before(O o);
 
-    void run();
+    <O> O run(O o);
 
-    void after();
+    <O> O after(O o);
 }

@@ -15,7 +15,7 @@ import java.time.LocalDate;
  */
 @Accessors(chain = true)
 @Data
-@EasySmart(tableName = "hbase_user", hBaseRow = "hbaseRow", columnFamily = "A3")
+@EasySmart(tableName = "hbase_user_bo", hBaseRow = "hbaseRow", columnFamily = "A1",perfectTable = true)
 public class HBaseUserBo {
 
     @EasyUnique

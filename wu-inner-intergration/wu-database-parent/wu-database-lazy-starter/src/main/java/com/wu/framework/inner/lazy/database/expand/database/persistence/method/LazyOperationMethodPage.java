@@ -1,6 +1,6 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
-import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasyTableAnnotation;
+import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasySmartAnnotation;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
 import com.wu.framework.inner.lazy.database.domain.Page;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.constant.LayerOperationMethodCounts;
@@ -44,8 +44,8 @@ public class LazyOperationMethodPage extends AbstractLazyOperationMethod {
         Object[] params = (Object[]) args[3];
 
         if (null == sqlFormat) {
-            final EasyTableAnnotation easyTableAnnotation = LocalStorageClassAnnotation.getEasyTableAnnotation(clazz, true);
-            sqlFormat = String.format("select * from %s ", easyTableAnnotation.getTableName());
+            final EasySmartAnnotation easySmartAnnotation = LocalStorageClassAnnotation.getEasyTableAnnotation(clazz, true);
+            sqlFormat = String.format("select * from %s ", easySmartAnnotation.getTableName());
         }
         String listSql = loadSqlParameters(sqlFormat, params);
         countSql = loadSqlParameters(COUNT_SQL, listSql);

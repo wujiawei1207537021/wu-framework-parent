@@ -4,7 +4,7 @@ import com.wu.framework.easy.stereotype.upsert.EasySmart;
 import com.wu.framework.easy.stereotype.upsert.EasySmartField;
 import com.wu.framework.easy.stereotype.upsert.entity.ConvertedField;
 import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
-import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasyTableAnnotation;
+import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasySmartAnnotation;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
 import com.wu.framework.inner.layer.stereotype.LayerField;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -115,7 +115,7 @@ public class SQLConverter {
     }
 
     public static String createTableSQL(Class clazz) {
-        EasyTableAnnotation easyTableAnnotation = LocalStorageClassAnnotation.getEasyTableAnnotation(clazz, true);
+        EasySmartAnnotation easySmartAnnotation = LocalStorageClassAnnotation.getEasyTableAnnotation(clazz, true);
 
 //        EasySmart tableNameAnnotation = AnnotationUtils.getAnnotation(clazz, EasySmart.class);
 //        List<String> fieldNames = new ArrayList<>();
@@ -178,7 +178,7 @@ public class SQLConverter {
 //                "-- ——————————————————————————\n");
 //        System.out.println(createTableSQLBuffer);
 //        return createTableSQLBuffer.toString();
-        return easyTableAnnotation.creatTableSQL();
+        return easySmartAnnotation.creatTableSQL();
     }
 
 

@@ -6,7 +6,7 @@ import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
 import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
 import com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter;
 import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
-import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasyTableAnnotation;
+import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasySmartAnnotation;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
 import com.wu.framework.easy.stereotype.upsert.ienum.UserConvertService;
 import com.wu.framework.easy.stereotype.upsert.process.MySQLDataProcess;
@@ -76,9 +76,9 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, Initializi
                 iEnumList = userConvertService.userConvert(clazz);
             }
             iEnumList.putAll(EasyAnnotationConverter.collectionConvert(clazz));
-            EasyTableAnnotation easyTableAnnotation = mySQLDataProcess.dataAnalyze(clazz, EasyHashMap.class.isAssignableFrom(clazz) ? (EasyHashMap) list.get(0) : null);
-            easyTableAnnotation.setIEnumList(iEnumList);
-            final MySQLDataProcess.MySQLProcessResult mySQLProcessResult = mySQLDataProcess.dataPack(list, easyTableAnnotation);
+            EasySmartAnnotation easySmartAnnotation = mySQLDataProcess.dataAnalyze(clazz, EasyHashMap.class.isAssignableFrom(clazz) ? (EasyHashMap) list.get(0) : null);
+            easySmartAnnotation.setIEnumList(iEnumList);
+            final MySQLDataProcess.MySQLProcessResult mySQLProcessResult = mySQLDataProcess.dataPack(list, easySmartAnnotation);
             if (upsertConfig.isPrintSql()) {
                 System.err.println(String.format("Execute SQL : {%s}", mySQLProcessResult.getSql()));
             }
@@ -89,7 +89,7 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, Initializi
                 connection = dataSource.getConnection();
                 //初始化表
                 if ((null != easySmart && easySmart.perfectTable()) | EasyHashMap.class.isAssignableFrom(clazz)) {
-                    mySQLDataProcess.perfectTable(easyTableAnnotation, dataSource);
+                    mySQLDataProcess.perfectTable(easySmartAnnotation, dataSource);
                 }
                 //获取PreparedStatement对象
                 upsertStatement = connection.prepareStatement(mySQLProcessResult.getSql());

@@ -4,7 +4,7 @@ import com.wu.framework.easy.stereotype.upsert.entity.ConvertedField;
 import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
 import com.wu.framework.easy.stereotype.upsert.entity.IBeanUpsert;
 import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
-import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasyTableAnnotation;
+import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasySmartAnnotation;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
 import com.wu.framework.easy.stereotype.upsert.enums.JavaBasicType;
 import com.wu.framework.easy.stereotype.upsert.enums.NormalUsedString;
@@ -49,7 +49,7 @@ public class MySQLDataProcess {
      * @author Jia wei Wu
      * @date 2020/10/22 下午2:20
      */
-    public EasyTableAnnotation classAnalyze(Class clazz) {
+    public EasySmartAnnotation classAnalyze(Class clazz) {
         return LocalStorageClassAnnotation.getEasyTableAnnotation(clazz, true);
     }
 
@@ -59,14 +59,14 @@ public class MySQLDataProcess {
      * @author Jiawei Wu
      * @date 2020/12/31 10:56 下午
      **/
-    public EasyTableAnnotation dataAnalyze(Class clazz, EasyHashMap easyHashMap) {
-        EasyTableAnnotation easyTableAnnotation;
+    public EasySmartAnnotation dataAnalyze(Class clazz, EasyHashMap easyHashMap) {
+        EasySmartAnnotation easySmartAnnotation;
         if (EasyHashMap.class.isAssignableFrom(clazz)) {
-            easyTableAnnotation = easyHashMap.toEasyTableAnnotation();
+            easySmartAnnotation = easyHashMap.toEasyTableAnnotation();
         } else {
-            easyTableAnnotation = classAnalyze(clazz);
+            easySmartAnnotation = classAnalyze(clazz);
         }
-        return easyTableAnnotation;
+        return easySmartAnnotation;
     }
 
     /**
@@ -78,16 +78,16 @@ public class MySQLDataProcess {
      * @author Jia wei Wu
      * @date 2020/10/22 下午2:23
      */
-    public MySQLProcessResult dataPack(List sourceData, EasyTableAnnotation easyTableAnnotation) throws Exception {
+    public MySQLProcessResult dataPack(List sourceData, EasySmartAnnotation easySmartAnnotation) throws Exception {
         MySQLProcessResult mySQLProcessResult = new MySQLProcessResult();
         List<InputStream> binaryList = new ArrayList<>();
         String insert = "insert into %s (%s) VALUES %s  ON DUPLICATE KEY UPDATE \n %s ";
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         StringBuilder stringBuilder = new StringBuilder("insert into ");
         // 添加表名
-        stringBuilder.append(easyTableAnnotation.getTableName());
+        stringBuilder.append(easySmartAnnotation.getTableName());
         // 添加字段
-        List<ConvertedField> convertedFieldList = easyTableAnnotation.getConvertedFieldList();
+        List<ConvertedField> convertedFieldList = easySmartAnnotation.getConvertedFieldList();
         String column = convertedFieldList.stream().filter(ConvertedField::isExist).
                 filter(convertedField -> !UpsertJsonMessage.ignoredFields.contains(convertedField.getFieldName())).
                 map(ConvertedField::getConvertedFieldName).
@@ -99,7 +99,7 @@ public class MySQLDataProcess {
 
         String data;
         // 添加 数据
-        if (easyTableAnnotation.getClassName().equals(EasyHashMap.class.getName())) {
+        if (easySmartAnnotation.getClassName().equals(EasyHashMap.class.getName())) {
             data = ((List<EasyHashMap>) sourceData).stream().
                     map(easyHashMap -> NormalUsedString.LEFT_BRACKET + convertedFieldList.stream().map(convertedField -> {
                         try {
@@ -122,12 +122,12 @@ public class MySQLDataProcess {
         } else {
             final List<Field> fieldList = convertedFieldList.stream().filter(ConvertedField::isExist).
                     filter(convertedField -> !UpsertJsonMessage.ignoredFields.contains(convertedField.getFieldName())).
-                    map(convertedField -> ReflectionUtils.findField(easyTableAnnotation.getClazz(), convertedField.getFieldName())).
+                    map(convertedField -> ReflectionUtils.findField(easySmartAnnotation.getClazz(), convertedField.getFieldName())).
                     peek(field -> field.setAccessible(true)).
                     collect(Collectors.toList());
             List<String> tempList = new ArrayList<>();
             for (Object source : sourceData) {
-                if (IBeanUpsert.class.isAssignableFrom(easyTableAnnotation.getClazz())) {
+                if (IBeanUpsert.class.isAssignableFrom(easySmartAnnotation.getClazz())) {
                     ((IBeanUpsert) source).beforeObjectProcess();
                 }
                 String temp = NormalUsedString.LEFT_BRACKET +
@@ -145,7 +145,7 @@ public class MySQLDataProcess {
                                 e.printStackTrace();
                             }
                             if (null != fieldVal) {
-                                fieldVal = annotationConvertConversion(field, fieldVal, easyTableAnnotation.getIEnumList());
+                                fieldVal = annotationConvertConversion(field, fieldVal, easySmartAnnotation.getIEnumList());
                                 return "'" + fieldVal.toString().replaceAll("'", "\"") + "'";
                             } else {
 //                                fieldVal = JavaBasicType.DEFAULT_VALUE_HASHMAP.get(field.getType());
@@ -156,7 +156,7 @@ public class MySQLDataProcess {
             }
             data = String.join(NormalUsedString.COMMA, tempList);
         }
-        String sql = String.format(insert, easyTableAnnotation.getTableName(), column, data, updateColumn);
+        String sql = String.format(insert, easySmartAnnotation.getTableName(), column, data, updateColumn);
         if (ObjectUtils.isEmpty(binaryList)) {
             mySQLProcessResult.setHasBinary(false);
         } else {
@@ -174,8 +174,8 @@ public class MySQLDataProcess {
      * @author Jiawei Wu
      * @date 2020/12/31 8:18 下午
      **/
-    public int perfectTable(EasyTableAnnotation easyTableAnnotation, DataSource dataSource) throws Exception {
-        String tableName = easyTableAnnotation.getTableName();
+    public int perfectTable(EasySmartAnnotation easySmartAnnotation, DataSource dataSource) throws Exception {
+        String tableName = easySmartAnnotation.getTableName();
         Connection connection = null;
         int updateColumn = 0;
         try {
@@ -185,7 +185,7 @@ public class MySQLDataProcess {
             //
             String perfectTableSQL;
             if (!resultSet.next()) {
-                String createTableSQL = easyTableAnnotation.creatTableSQL();
+                String createTableSQL = easySmartAnnotation.creatTableSQL();
                 Statement statement = connection.createStatement();
                 for (String s : createTableSQL.split(";")) {
                     statement.addBatch(s);
@@ -209,7 +209,7 @@ public class MySQLDataProcess {
                     currentColumnNameList.add(convertedField);
 //                            System.out.println(columnName + " " + columnType + " " + datasize + " " + digits + " " + nullable);
                 }
-                String alterTableSQL = easyTableAnnotation.alterTableSQL(currentColumnNameList);
+                String alterTableSQL = easySmartAnnotation.alterTableSQL(currentColumnNameList);
                 if (!ObjectUtils.isEmpty(alterTableSQL)) {
                     Statement statement = connection.createStatement();
                     updateColumn = statement.executeUpdate(alterTableSQL);
@@ -218,12 +218,12 @@ public class MySQLDataProcess {
 
             }
             //
-//            if (!EasyUpsertLog.class.isAssignableFrom(easyTableAnnotation.getClazz())) {
+//            if (!EasyUpsertLog.class.isAssignableFrom(easySmartAnnotation.getClazz())) {
 //                // 记录日志
 //                EasyUpsertLog easyUpsertLog = new EasyUpsertLog();
 //                easyUpsertLog.setContext(perfectTableSQL);
 //                easyUpsertLog.setType(EasyUpsertType.MySQL.name());
-//                EasyTableAnnotation logEasyTableAnnotation = LocalStorageClassAnnotation.getEasyTableAnnotation(EasyUpsertLog.class, true);
+//                EasySmartAnnotation logEasyTableAnnotation = LocalStorageClassAnnotation.getEasyTableAnnotation(EasyUpsertLog.class, true);
 //                Statement logStatement = connection.createStatement();
 //                logStatement.execute(dataPack(Collections.singletonList(easyUpsertLog), logEasyTableAnnotation));
 //            }

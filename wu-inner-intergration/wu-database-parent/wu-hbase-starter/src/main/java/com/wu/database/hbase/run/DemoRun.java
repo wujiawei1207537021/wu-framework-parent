@@ -12,6 +12,7 @@ import org.apache.hadoop.hbase.util.Bytes;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author : Jia wei Wu
@@ -54,7 +55,12 @@ public class DemoRun {
 //        hTableDescriptor.addFamily(new HColumnDescriptor("A3"));
 //        admin.createTable(hTableDescriptor);
 
-        System.out.println(scanAllRecord("hbase_user"));
+
+        final List<TableDescriptor> tableDescriptors = admin.listTableDescriptors();
+        for (TableDescriptor tableDescriptor : tableDescriptors) {
+            System.out.println(String.format("表%s数据",tableDescriptor.getTableName().getNameAsString()));
+            System.out.println(scanAllRecord(tableDescriptor.getTableName().getNameAsString()));
+        }
     }
 
     public String scanAllRecord(String tableName) throws IOException {

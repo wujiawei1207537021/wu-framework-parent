@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 import static com.wu.framework.easy.stereotype.upsert.converter.SQLConverter.*;
 
 /**
- * description 表注解属性
+ * description 表注解属性 实体
  * 弃用原因 使用注解匿名实现类
  *
  * @author Jia wei Wu
@@ -24,7 +24,7 @@ import static com.wu.framework.easy.stereotype.upsert.converter.SQLConverter.*;
  */
 //@Deprecated
 @Data
-public class EasyTableAnnotation implements EasySmart {
+public class EasySmartAnnotation implements EasySmart {
 
     /**
      * 类名

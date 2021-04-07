@@ -1,6 +1,6 @@
 package com.wu.framework.easy.stereotype.upsert.process;
 
-import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasyTableAnnotation;
+import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasySmartAnnotation;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
 
 /**
@@ -21,7 +21,7 @@ public class RedisDataProcess {
      * @author Jia wei Wu
      * @date 2020/10/22 下午2:20
      */
-    public EasyTableAnnotation classAnalyze(Class clazz) {
+    public EasySmartAnnotation classAnalyze(Class clazz) {
         return LocalStorageClassAnnotation.getEasyTableAnnotation(clazz, true);
     }
 
