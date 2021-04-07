@@ -14,7 +14,7 @@ import java.lang.annotation.*;
  * @exception/throws
  * @date 2021/4/1 下午2:05
  */
-@Target({ElementType.METHOD,ElementType.TYPE})
+@Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Indexed

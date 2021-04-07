@@ -14,5 +14,4 @@ public interface ProxyMethodFunction {
     Object defaultMethod(Method method);
 
 
-
 }

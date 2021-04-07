@@ -1,7 +1,6 @@
 package com.wu.framework.inner.lazy.hbase.expland.persistence.method;
 
 import com.wu.framework.easy.stereotype.upsert.EasySmart;
-import com.wu.framework.easy.stereotype.upsert.EasySmartField;
 import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
 import com.wu.framework.easy.stereotype.upsert.entity.ConvertedField;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;

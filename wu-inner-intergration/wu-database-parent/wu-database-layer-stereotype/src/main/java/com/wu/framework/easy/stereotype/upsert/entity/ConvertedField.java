@@ -1,6 +1,5 @@
 package com.wu.framework.easy.stereotype.upsert.entity;
 
-import com.wu.framework.easy.stereotype.upsert.EasySmartField;
 import com.wu.framework.inner.layer.stereotype.LayerField;
 import lombok.Data;
 import lombok.experimental.Accessors;

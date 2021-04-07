@@ -21,18 +21,20 @@ public interface DefaultProxyMethod extends InvocationHandler {
                 return method.toString();
             case "hashCode":
                 return method.hashCode();
-            default: return invoke(proxy, defaultMethod -> defaultMethod, args);
+            default:
+                return invoke(proxy, defaultMethod -> defaultMethod, args);
         }
     }
 
 
-    default Object defaultMethod(Method defaultMethod){
+    default Object defaultMethod(Method defaultMethod) {
         switch (defaultMethod.getName()) {
             case "toString":
                 return defaultMethod.toString();
             case "hashCode":
                 return defaultMethod.hashCode();
-            default: return defaultMethod;
+            default:
+                return defaultMethod;
         }
     }
 

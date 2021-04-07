@@ -34,7 +34,7 @@ public class LocalStorageClassAnnotation {
                     "@NoArgsConstructor"
                     + "\n";
     private static final String PREFIX = "easy_upsert_";
-//    private static final Logger log = LoggerFactory.getLogger(LocalStorageClassAnnotation.class);
+    //    private static final Logger log = LoggerFactory.getLogger(LocalStorageClassAnnotation.class);
     @Deprecated
     public static Map<Class, EasyTableAnnotation> CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP = new HashMap<>();
     public static Map<Class, EasySmart> CLASS_EASY_SMART_MAP = new HashMap<>();

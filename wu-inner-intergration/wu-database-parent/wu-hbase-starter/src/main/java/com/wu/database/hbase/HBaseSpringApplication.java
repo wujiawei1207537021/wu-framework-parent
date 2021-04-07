@@ -10,8 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @date : 2021/3/15 7:32 下午
  */
 @SpringBootApplication
-public class HbaseSpringApplication {
+public class HBaseSpringApplication {
     public static void main(String[] args) {
-        SpringApplication.run(HbaseSpringApplication.class, args);
+        SpringApplication.run(HBaseSpringApplication.class, args);
     }
 }

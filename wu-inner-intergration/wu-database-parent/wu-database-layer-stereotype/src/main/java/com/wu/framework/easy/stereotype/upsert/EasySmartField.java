@@ -110,7 +110,7 @@ public @interface EasySmartField {
     /**
      * 字段索引类型(数据库)
      */
-    LayerField.LayerFieldType indexType() default  LayerField.LayerFieldType.FILE_TYPE;
+    LayerField.LayerFieldType indexType() default LayerField.LayerFieldType.FILE_TYPE;
 
     /**
      * {@link LayerField.LayerFieldType}

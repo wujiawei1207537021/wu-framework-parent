@@ -9,9 +9,6 @@ import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-
-import javax.sql.DataSource;
 
 @Deprecated
 public class LazyOperationProxyBeanDefinitionRegistry implements BeanDefinitionRegistryPostProcessor {

@@ -7,13 +7,14 @@ import java.lang.annotation.*;
 
 /**
  * description 层字段注解
+ *
  * @param
+ * @author Jia wei Wu
  * @return
  * @exception/throws
- * @author Jia wei Wu
  * @date 2021/4/1 下午2:05
  */
-@Target({ElementType.FIELD,ElementType.TYPE})
+@Target({ElementType.FIELD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Indexed

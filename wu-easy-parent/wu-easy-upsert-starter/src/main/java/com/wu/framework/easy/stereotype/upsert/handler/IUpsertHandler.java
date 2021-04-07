@@ -6,9 +6,6 @@ import com.wu.framework.inner.layer.stereotype.DefaultProxyMethod;
 import com.wu.framework.inner.layer.stereotype.ProxyMethodFunction;
 import org.springframework.util.ObjectUtils;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-
 /**
  * description database 配置优先
  *

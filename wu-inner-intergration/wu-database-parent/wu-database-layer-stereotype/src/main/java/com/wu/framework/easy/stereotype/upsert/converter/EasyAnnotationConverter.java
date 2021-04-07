@@ -7,7 +7,6 @@ import com.wu.framework.easy.stereotype.upsert.EasyUnique;
 import com.wu.framework.easy.stereotype.upsert.SmartMark;
 import com.wu.framework.easy.stereotype.upsert.ienum.DefaultIEnum;
 import com.wu.framework.easy.stereotype.upsert.ienum.IEnum;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ObjectUtils;
