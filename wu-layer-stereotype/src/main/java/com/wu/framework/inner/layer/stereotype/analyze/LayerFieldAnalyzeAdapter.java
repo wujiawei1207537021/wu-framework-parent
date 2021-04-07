@@ -3,6 +3,8 @@ package com.wu.framework.inner.layer.stereotype.analyze;
 import com.wu.framework.inner.layer.stereotype.Layer;
 import com.wu.framework.inner.layer.stereotype.LayerDefault;
 
+import java.lang.annotation.Annotation;
+
 /**
  * description layer 解析适配器
  *
@@ -12,8 +14,8 @@ import com.wu.framework.inner.layer.stereotype.LayerDefault;
 public class LayerFieldAnalyzeAdapter extends LayerAnalyzeAdapter implements LayerDefault, Layer {
 
 
-    public void analyze(Class clazz){
-
+    public Annotation analyze(Class clazz) {
+        return null;
     }
 
 }
