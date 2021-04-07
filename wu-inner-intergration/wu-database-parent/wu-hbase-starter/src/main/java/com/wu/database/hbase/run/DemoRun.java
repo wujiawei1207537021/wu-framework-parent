@@ -39,7 +39,9 @@ public class DemoRun {
     public void run() throws Exception {
 
         boolean user = admin.tableExists(TableName.valueOf("hbase_user"));
-        hBaseOperation.insert(new HBaseUserBo().setUserName("hbase_user").setAge("12").setSex("男").setId(1000));
+        for (int i = 0; i < 1000; i++) {
+            hBaseOperation.insert(new HBaseUserBo().setUserName("hbase_user").setAge("12").setSex("男").setId(1000));
+        }
         HTableDescriptor[] hTableDescriptors = admin.listTables();
 //        HTableDescriptor desc = new HTableDescriptor("easy1");
 //        desc.addFamily(new HColumnDescriptor("cf1"));
@@ -58,7 +60,7 @@ public class DemoRun {
 
         final List<TableDescriptor> tableDescriptors = admin.listTableDescriptors();
         for (TableDescriptor tableDescriptor : tableDescriptors) {
-            System.out.println(String.format("表%s数据",tableDescriptor.getTableName().getNameAsString()));
+            System.out.println(String.format("表%s数据", tableDescriptor.getTableName().getNameAsString()));
             System.out.println(scanAllRecord(tableDescriptor.getTableName().getNameAsString()));
         }
     }
