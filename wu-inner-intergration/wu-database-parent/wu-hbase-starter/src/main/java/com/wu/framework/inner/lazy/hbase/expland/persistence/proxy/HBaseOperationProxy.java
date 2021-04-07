@@ -1,6 +1,8 @@
 package com.wu.framework.inner.lazy.hbase.expland.persistence.proxy;
 
+import com.wu.framework.inner.layer.stereotype.proxy.LayerProxy;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.RepositoryOnDifferentMethods;
+import com.wu.framework.inner.lazy.hbase.expland.persistence.HBaseOperation;
 import com.wu.framework.inner.lazy.hbase.expland.persistence.method.HBaseOperationMethod;
 import org.apache.hadoop.hbase.client.Connection;
 import org.springframework.beans.factory.InitializingBean;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
  * @date : 2021/3/27 10:57 下午
  */
 @ConditionalOnBean(Connection.class)
+@LayerProxy(proxyInterface = HBaseOperation.class)
 public class HBaseOperationProxy implements InvocationHandler, InitializingBean {
 
     private final List<HBaseOperationMethod> hBaseOperationMethodList;

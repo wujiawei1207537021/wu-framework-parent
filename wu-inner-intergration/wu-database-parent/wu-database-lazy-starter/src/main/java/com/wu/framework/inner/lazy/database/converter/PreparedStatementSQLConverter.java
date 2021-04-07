@@ -6,7 +6,7 @@ import com.wu.framework.easy.stereotype.upsert.EasySmartField;
 import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConverter;
 import com.wu.framework.easy.stereotype.upsert.enums.NormalUsedString;
 import com.wu.framework.inner.layer.stereotype.LayerField;
-import com.wu.framework.inner.lazy.database.domain.ConvertedField;
+import com.wu.framework.inner.lazy.database.domain.LayerAnalyzeField;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.Persistence;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -42,13 +42,13 @@ public class PreparedStatementSQLConverter {
         String tableName = tableName(clazz);
         stringBuilder.append(tableName).append("(");
         // 添加字段
-        List<ConvertedField> convertedFieldList = fieldNamesOnAnnotation(clazz);
-//        convertedFieldList=convertedFieldList.stream().filter(convertedField->!convertedField.getFieldIndexType().equals(LayerField.LayerFieldType.AUTOMATIC)).collect(Collectors.toList());
-        for (ConvertedField convertedField : convertedFieldList) {
-            if (convertedFieldList.indexOf(convertedField) != 0) {
+        List<LayerAnalyzeField> layerAnalyzeFieldList = fieldNamesOnAnnotation(clazz);
+//        layerAnalyzeFieldList=layerAnalyzeFieldList.stream().filter(convertedField->!convertedField.getFieldIndexType().equals(LayerField.LayerFieldType.AUTOMATIC)).collect(Collectors.toList());
+        for (LayerAnalyzeField layerAnalyzeField : layerAnalyzeFieldList) {
+            if (layerAnalyzeFieldList.indexOf(layerAnalyzeField) != 0) {
                 stringBuilder.append(", ");
             }
-            stringBuilder.append(convertedField.getConvertedFieldName());
+            stringBuilder.append(layerAnalyzeField.getConvertedFieldName());
         }
         stringBuilder.append(") \n");
         stringBuilder.append(" VALUES \n");
@@ -58,13 +58,13 @@ public class PreparedStatementSQLConverter {
                 stringBuilder.append(", \n");
             }
             stringBuilder.append("(");
-            for (ConvertedField convertedField : convertedFieldList) {
+            for (LayerAnalyzeField layerAnalyzeField : layerAnalyzeFieldList) {
                 try {
-                    Field field = o.getClass().getDeclaredField(convertedField.getFieldName());
+                    Field field = o.getClass().getDeclaredField(layerAnalyzeField.getFieldName());
                     if (!field.isAccessible()) {
                         field.setAccessible(true);
                     }
-                    if (convertedFieldList.indexOf(convertedField) != 0) {
+                    if (layerAnalyzeFieldList.indexOf(layerAnalyzeField) != 0) {
                         stringBuilder.append(",");
                     }
                     stringBuilder.append(" '").append(field.get(o)).append("'");
@@ -78,11 +78,11 @@ public class PreparedStatementSQLConverter {
         // 更新
         stringBuilder.append(" \n ON DUPLICATE KEY UPDATE \n");
         punctuationFlag = false;
-        for (ConvertedField convertedField : convertedFieldList) {
+        for (LayerAnalyzeField layerAnalyzeField : layerAnalyzeFieldList) {
             if (punctuationFlag) {
                 stringBuilder.append(",\n");
             }
-            stringBuilder.append(convertedField.getConvertedFieldName()).append("=VALUES (").append(convertedField.getConvertedFieldName()).append(")");
+            stringBuilder.append(layerAnalyzeField.getConvertedFieldName()).append("=VALUES (").append(layerAnalyzeField.getConvertedFieldName()).append(")");
             punctuationFlag = true;
         }
         System.out.println("执行的sql : " + stringBuilder.toString());
@@ -140,8 +140,8 @@ public class PreparedStatementSQLConverter {
      * @author Jia wei Wu
      * @date 2020/7/8 下午2:04
      */
-    public static <T> List<ConvertedField> fieldNamesOnAnnotation(Class<T> clazz, LayerField.LayerFieldType tableFileIndexType) {
-        List<ConvertedField> convertedFieldList = new ArrayList<>();
+    public static <T> List<LayerAnalyzeField> fieldNamesOnAnnotation(Class<T> clazz, LayerField.LayerFieldType tableFileIndexType) {
+        List<LayerAnalyzeField> layerAnalyzeFieldList = new ArrayList<>();
         for (Field declaredField : clazz.getDeclaredFields()) {
             if (!declaredField.isAccessible()) {
                 declaredField.setAccessible(true);
@@ -160,19 +160,19 @@ public class PreparedStatementSQLConverter {
                     convertedFieldName = EasySmartField.value();
                 }
             }
-            ConvertedField convertedField = new ConvertedField();
-            convertedField.setConvertedFieldName(convertedFieldName);
-            convertedField.setFieldName(declaredField.getName());
-            convertedField.setClazz(declaredField.getType());
+            LayerAnalyzeField layerAnalyzeField = new LayerAnalyzeField();
+            layerAnalyzeField.setConvertedFieldName(convertedFieldName);
+            layerAnalyzeField.setFieldName(declaredField.getName());
+            layerAnalyzeField.setClazz(declaredField.getType());
             if (!ObjectUtils.isEmpty(EasySmartField)) {
-                convertedField.setFieldIndexType(EasySmartField.indexType());
+                layerAnalyzeField.setFieldIndexType(EasySmartField.indexType());
             }
-            convertedFieldList.add(convertedField);
+            layerAnalyzeFieldList.add(layerAnalyzeField);
         }
-        return convertedFieldList;
+        return layerAnalyzeFieldList;
     }
 
-    public static <T> List<ConvertedField> fieldNamesOnAnnotation(Class<T> clazz) {
+    public static <T> List<LayerAnalyzeField> fieldNamesOnAnnotation(Class<T> clazz) {
         return fieldNamesOnAnnotation(clazz, null);
     }
 
@@ -189,23 +189,23 @@ public class PreparedStatementSQLConverter {
         StringBuffer stringBuffer = new StringBuffer("update ");
         // table
         stringBuffer.append(tableName(o.getClass())).append(" set ");
-        List<ConvertedField> convertedFieldList = fieldNamesOnAnnotation(o.getClass());
+        List<LayerAnalyzeField> layerAnalyzeFieldList = fieldNamesOnAnnotation(o.getClass());
         boolean punctuationFlag = false;
         boolean andFlag = false;
         StringBuffer stringBufferWhere = new StringBuffer(" where ");
-        for (ConvertedField convertedField : convertedFieldList) {
+        for (LayerAnalyzeField layerAnalyzeField : layerAnalyzeFieldList) {
             try {
 
-                Field field = o.getClass().getDeclaredField(convertedField.getFieldName());
+                Field field = o.getClass().getDeclaredField(layerAnalyzeField.getFieldName());
                 if (!field.isAccessible()) {
                     field.setAccessible(true);
                 }
                 Object fieldVal = field.get(o);
-                if (convertedField.getFieldIndexType().equals(LayerField.LayerFieldType.FILE_TYPE)) {
+                if (layerAnalyzeField.getFieldIndexType().equals(LayerField.LayerFieldType.FILE_TYPE)) {
                     if (punctuationFlag) {
                         stringBuffer.append(",");
                     }
-                    stringBuffer.append(convertedField.getConvertedFieldName()).append(" = '").append(fieldVal).append("'");
+                    stringBuffer.append(layerAnalyzeField.getConvertedFieldName()).append(" = '").append(fieldVal).append("'");
                     punctuationFlag = true;
                 } else {
                     if (ObjectUtils.isEmpty(fieldVal)) {
@@ -214,7 +214,7 @@ public class PreparedStatementSQLConverter {
                     if (andFlag) {
                         stringBufferWhere.append(" and ");
                     }
-                    stringBufferWhere.append(convertedField.getConvertedFieldName()).append(" = '").append(fieldVal).append("'");
+                    stringBufferWhere.append(layerAnalyzeField.getConvertedFieldName()).append(" = '").append(fieldVal).append("'");
                     andFlag = true;
                 }
 
@@ -245,11 +245,11 @@ public class PreparedStatementSQLConverter {
         // where
         stringBuffer.append(" where ");
         boolean punctuationFlag = false;
-        List<ConvertedField> convertedFieldList = fieldNamesOnAnnotation(clazz, LayerField.LayerFieldType.ID);
+        List<LayerAnalyzeField> layerAnalyzeFieldList = fieldNamesOnAnnotation(clazz, LayerField.LayerFieldType.ID);
 
-        for (ConvertedField convertedField : convertedFieldList) {
+        for (LayerAnalyzeField layerAnalyzeField : layerAnalyzeFieldList) {
             try {
-                Field field = o.getClass().getDeclaredField(convertedField.getFieldName());
+                Field field = o.getClass().getDeclaredField(layerAnalyzeField.getFieldName());
                 if (!field.isAccessible()) {
                     field.setAccessible(true);
                 }
@@ -261,7 +261,7 @@ public class PreparedStatementSQLConverter {
                 if (punctuationFlag) {
                     stringBuffer.append(" and ");
                 }
-                stringBuffer.append(convertedField.getConvertedFieldName()).append(" = '").append(fieldVal).append("'");
+                stringBuffer.append(layerAnalyzeField.getConvertedFieldName()).append(" = '").append(fieldVal).append("'");
                 punctuationFlag = true;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -288,10 +288,10 @@ public class PreparedStatementSQLConverter {
         // where
         stringBuffer.append(" where ");
         boolean punctuationFlag = false;
-        List<ConvertedField> convertedFieldList = fieldNamesOnAnnotation(clazz);
-        for (ConvertedField convertedField : convertedFieldList) {
+        List<LayerAnalyzeField> layerAnalyzeFieldList = fieldNamesOnAnnotation(clazz);
+        for (LayerAnalyzeField layerAnalyzeField : layerAnalyzeFieldList) {
             try {
-                Field field = o.getClass().getDeclaredField(convertedField.getFieldName());
+                Field field = o.getClass().getDeclaredField(layerAnalyzeField.getFieldName());
                 if (!field.isAccessible()) {
                     field.setAccessible(true);
                 }
@@ -303,7 +303,7 @@ public class PreparedStatementSQLConverter {
                 if (punctuationFlag) {
                     stringBuffer.append(" and ");
                 }
-                stringBuffer.append(convertedField.getConvertedFieldName()).append(" = '").append(fieldVal).append("'");
+                stringBuffer.append(layerAnalyzeField.getConvertedFieldName()).append(" = '").append(fieldVal).append("'");
                 punctuationFlag = true;
             } catch (Exception e) {
                 e.printStackTrace();

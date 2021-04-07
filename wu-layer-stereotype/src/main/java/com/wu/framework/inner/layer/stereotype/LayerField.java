@@ -20,6 +20,8 @@ import java.lang.annotation.*;
 @Indexed
 public @interface LayerField {
 
+    boolean exist() default true;
+
 
     enum LayerFieldType {
         FILE_TYPE,

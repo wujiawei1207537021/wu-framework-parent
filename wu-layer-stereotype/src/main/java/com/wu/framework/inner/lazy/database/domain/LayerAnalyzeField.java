@@ -10,7 +10,9 @@ import lombok.Data;
  * @date : 2020/7/4 下午10:17
  */
 @Data
-public class ConvertedField {
+public class LayerAnalyzeField {
+
+
     private String fieldName;
 
     @Deprecated

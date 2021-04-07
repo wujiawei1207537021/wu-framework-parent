@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * @describe : 修复hashCode 、 toString 方法空值问题
  * @date : 2021/4/6 7:29 下午

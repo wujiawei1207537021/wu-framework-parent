@@ -15,6 +15,7 @@ import java.lang.reflect.Proxy;
 public class HBaseOperationConfig {
     private final HBaseOperationProxy hBaseOperationProxy;
 
+
     public HBaseOperationConfig(HBaseOperationProxy hBaseOperationProxy) {
         this.hBaseOperationProxy = hBaseOperationProxy;
     }

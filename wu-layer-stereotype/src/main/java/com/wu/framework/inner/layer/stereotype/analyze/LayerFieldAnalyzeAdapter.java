@@ -9,5 +9,11 @@ import com.wu.framework.inner.layer.stereotype.LayerDefault;
  * @author Jia wei Wu
  * @date 2021/4/1 下午3:32
  */
-public class LayerFieldAnalyzeAdapter implements LayerDefault, Layer {
+public class LayerFieldAnalyzeAdapter extends LayerAnalyzeAdapter implements LayerDefault, Layer {
+
+
+    public void analyze(Class clazz){
+
+    }
+
 }

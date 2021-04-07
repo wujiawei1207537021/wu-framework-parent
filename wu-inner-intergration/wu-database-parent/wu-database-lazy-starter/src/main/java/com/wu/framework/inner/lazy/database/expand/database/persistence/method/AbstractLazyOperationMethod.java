@@ -4,7 +4,7 @@ import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConver
 import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
 import com.wu.framework.easy.stereotype.upsert.enums.JavaBasicType;
 import com.wu.framework.inner.lazy.database.converter.PreparedStatementSQLConverter;
-import com.wu.framework.inner.lazy.database.domain.ConvertedField;
+import com.wu.framework.inner.lazy.database.domain.LayerAnalyzeField;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 import org.springframework.util.ObjectUtils;
 
@@ -113,8 +113,8 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
                     list.add(convertBasicTypeBean);
                 }
             } else {
-                List<ConvertedField> convertedFieldList = PreparedStatementSQLConverter.fieldNamesOnAnnotation(domainClass);
-                Map<String, String> convertedFieldMap = convertedFieldList.stream().collect(Collectors.toMap(ConvertedField::getFieldName, ConvertedField::getFieldName));
+                List<LayerAnalyzeField> layerAnalyzeFieldList = PreparedStatementSQLConverter.fieldNamesOnAnnotation(domainClass);
+                Map<String, String> convertedFieldMap = layerAnalyzeFieldList.stream().collect(Collectors.toMap(LayerAnalyzeField::getFieldName, LayerAnalyzeField::getFieldName));
                 while (resultSet.next()) {
                     //实例化要封装的实体类对象
                     E obj = (E) domainClass.newInstance();

@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * description
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2021/4/1 下午3:49
  */
 public interface Operation {
