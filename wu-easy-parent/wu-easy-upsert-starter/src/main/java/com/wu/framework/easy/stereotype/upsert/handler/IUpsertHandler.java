@@ -3,7 +3,7 @@ package com.wu.framework.easy.stereotype.upsert.handler;
 
 import com.wu.framework.easy.stereotype.dynamic.AbstractDynamicEasyUpsert;
 import com.wu.framework.inner.layer.stereotype.DefaultProxyMethod;
-import com.wu.framework.inner.layer.stereotype.ProxyMethodFunction;
+import com.wu.framework.inner.layer.stereotype.proxy.ProxyMethodFunction;
 import org.springframework.util.ObjectUtils;
 
 /**

@@ -11,7 +11,6 @@ import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.stereotype.upsert.enums.NormalUsedString;
 import com.wu.framework.easy.stereotype.upsert.process.MySQLDataProcess;
 import com.wu.framework.easy.stereotype.upsert.util.FileUtil;
-import com.wu.framework.easy.stereotype.web.EasyController;
 import com.wu.framework.inner.lazy.database.domain.Page;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import com.wu.framework.inner.lazy.database.test.pojo.DataBaseUser;
@@ -36,16 +35,16 @@ import java.util.concurrent.TimeUnit;
  * @describe : 数据库测试
  * @date : 2020/6/27 下午7:15
  */
-@EasyController
+//@EasyController
 public class DataBaseTestController implements CommandLineRunner {
 
-    private final LazyOperation layerOperation;
+    private final LazyOperation lazyOperation;
     private final UpsertConfig upsertConfig;
     private final MySQLDataProcess mySQLDataProcess;
     private final IUpsert iUpsert;
 
-    public DataBaseTestController(LazyOperation layerOperation, UpsertConfig upsertConfig, MySQLDataProcess mySQLDataProcess, IUpsert iUpsert) {
-        this.layerOperation = layerOperation;
+    public DataBaseTestController(LazyOperation lazyOperation, UpsertConfig upsertConfig, MySQLDataProcess mySQLDataProcess, IUpsert iUpsert) {
+        this.lazyOperation = lazyOperation;
         this.upsertConfig = upsertConfig;
         this.mySQLDataProcess = mySQLDataProcess;
         this.iUpsert = iUpsert;
@@ -69,18 +68,18 @@ public class DataBaseTestController implements CommandLineRunner {
 //        select();
 //        System.out.println(iUserDao.findAll());
 //        SQLConverter.createSelectSQL(OmTpsmPubOthEqpOpemngVehicleRegistration.class);
-//        List<String> ss = layerOperation.executeSQL("select id from user", String.class);
+//        List<String> ss = lazyOperation.executeSQL("select id from user", String.class);
 //        System.out.println(ss);
-//        layerOperation.activeUpsert(new DataBaseUser().setAge(20));
+//        lazyOperation.activeUpsert(new DataBaseUser().setAge(20));
 //        hc();
 //        Page<DataBaseUser> dataBaseUserPage = new Page<DataBaseUser>(1, 1000);
-//        Page<DataBaseUser> page = layerOperation.page(dataBaseUserPage, DataBaseUser.class, null);
+//        Page<DataBaseUser> page = lazyOperation.page(dataBaseUserPage, DataBaseUser.class, null);
 //        System.out.println(page);
         mysqlServerMigration();
         // 数据迁移
 //        dataMigration(null);
 //        dataMigration("test", "upsert");
-//        final List<EasyHashMap> upsertBinary = layerOperation.executeSQL("SELECT * FROM upsert_binary limit 1", EasyHashMap.class);
+//        final List<EasyHashMap> upsertBinary = lazyOperation.executeSQL("SELECT * FROM upsert_binary limit 1", EasyHashMap.class);
 //        System.out.println(upsertBinary);
     }
 
@@ -105,7 +104,7 @@ public class DataBaseTestController implements CommandLineRunner {
             dataBaseUser.setUsername("methodName" + i);
             dataBaseUserList.add(dataBaseUser);
         }
-        layerOperation.upsertList(dataBaseUserList);
+        lazyOperation.upsertList(dataBaseUserList);
         long e = System.currentTimeMillis();
         System.out.println("共计用时：" + (e - s) + "ms");
     }
@@ -130,7 +129,7 @@ public class DataBaseTestController implements CommandLineRunner {
             dataBaseUser.setUsername("methodName" + i);
             dataBaseUserList.add(dataBaseUser);
         }
-        layerOperation.insertList(dataBaseUserList);
+        lazyOperation.insertList(dataBaseUserList);
         long e = System.currentTimeMillis();
         System.out.println("共计用时：" + (e - s) + "ms");
     }
@@ -154,9 +153,9 @@ public class DataBaseTestController implements CommandLineRunner {
             dataBaseUser.setSex("woman");
             dataBaseUser.setUsername("methodName" + i);
             dataBaseUserList.add(dataBaseUser);
-            layerOperation.updateById(dataBaseUser);
+            lazyOperation.updateById(dataBaseUser);
         }
-        layerOperation.updateAllByIdList(dataBaseUserList);
+        lazyOperation.updateAllByIdList(dataBaseUserList);
         long e = System.currentTimeMillis();
         System.out.println("共计用时：" + (e - s) + "ms");
     }
@@ -177,7 +176,7 @@ public class DataBaseTestController implements CommandLineRunner {
 //            dataBaseUser.setId(12);
         dataBaseUser.setSex("woman");
         dataBaseUser.setUsername("methodName");
-        layerOperation.deleteById(dataBaseUser);
+        lazyOperation.deleteById(dataBaseUser);
         long e = System.currentTimeMillis();
         System.out.println("共计用时：" + (e - s) + "ms");
     }
@@ -198,11 +197,11 @@ public class DataBaseTestController implements CommandLineRunner {
 //            dataBaseUser.setId(12);
         dataBaseUser.setSex("woman");
         dataBaseUser.setUsername("methodName");
-        DataBaseUser dataBaseUser1 = layerOperation.selectOne(dataBaseUser);
+        DataBaseUser dataBaseUser1 = lazyOperation.selectOne(dataBaseUser);
         System.out.println(dataBaseUser1);
 
         dataBaseUser.setUsername(null);
-        List<DataBaseUser> dataBaseUserList = layerOperation.selectAll(dataBaseUser);
+        List<DataBaseUser> dataBaseUserList = lazyOperation.selectAll(dataBaseUser);
         System.out.println(dataBaseUserList);
         long e = System.currentTimeMillis();
         System.out.println("共计用时：" + (e - s) + "ms");
@@ -220,16 +219,16 @@ public class DataBaseTestController implements CommandLineRunner {
     public void hc() throws Exception {
         // 获取数据库中所有的表
         String sql = "select table_name tableName, engine, table_comment tableComment, create_time createTime from information_schema.tables where table_schema = (select database()) ";
-        List<EasyHashMap> allTables = layerOperation.executeSQL(sql, EasyHashMap.class);
+        List<EasyHashMap> allTables = lazyOperation.executeSQL(sql, EasyHashMap.class);
 
         BufferedWriter file = FileUtil.createFile(upsertConfig.getCacheFileAddress(), "hc6.3.3升级sql脚本.sql");
         for (EasyHashMap table : allTables) {
             String countSQL = "select count(1) from %s ";
             String tableName = table.get("TABLE_NAME").toString();
-            Integer count = layerOperation.executeSQLForBean(String.format(countSQL, tableName.toString()), Integer.class);
+            Integer count = lazyOperation.executeSQLForBean(String.format(countSQL, tableName.toString()), Integer.class);
             if (count != 0) {
                 String selectSQL = "select * from %s ";
-                List<EasyHashMap> tableDateList = layerOperation.executeSQL(String.format(selectSQL, tableName), EasyHashMap.class);
+                List<EasyHashMap> tableDateList = lazyOperation.executeSQL(String.format(selectSQL, tableName), EasyHashMap.class);
 
 
                 // ho_dictionary_data
@@ -285,7 +284,7 @@ public class DataBaseTestController implements CommandLineRunner {
      * @date 2021/3/8 下午5:37
      */
     public void mysqlServerMigration() throws Exception {
-        List<EasyHashMap> easyHashMaps = layerOperation.executeSQL("show databases;", EasyHashMap.class);
+        List<EasyHashMap> easyHashMaps = lazyOperation.executeSQL("show databases;", EasyHashMap.class);
         for (EasyHashMap easyHashMap : easyHashMaps) {
             dataMigration(easyHashMap.get("Database").toString());
         }
@@ -301,16 +300,16 @@ public class DataBaseTestController implements CommandLineRunner {
     public void dataMigration(String nameDatabase) throws Exception {
         // 当前数据库
         if (nameDatabase == null) {
-            nameDatabase = layerOperation.executeSQLForBean("select database()", String.class);
+            nameDatabase = lazyOperation.executeSQLForBean("select database()", String.class);
         }
         // 获取数据库中所有的表
         String sqlSelectTable = "select concat('%s.',table_name) tableName, engine, table_comment tableComment, create_time createTime from information_schema.tables where table_schema = '%s' ";
-        List<EasyHashMap> allTables = layerOperation.executeSQL(String.format(sqlSelectTable, nameDatabase, nameDatabase), EasyHashMap.class);
+        List<EasyHashMap> allTables = lazyOperation.executeSQL(String.format(sqlSelectTable, nameDatabase, nameDatabase), EasyHashMap.class);
         BufferedWriter file = FileUtil.createFile(upsertConfig.getCacheFileAddress(), String.format("数据库%s数据.sql", nameDatabase));
         for (EasyHashMap table : allTables) {
             String countSQL = "select count(1) from %s ";
             String tableName = table.get("tableName").toString();
-            Integer count = layerOperation.executeSQLForBean(String.format(countSQL, tableName), Integer.class);
+            Integer count = lazyOperation.executeSQLForBean(String.format(countSQL, tableName), Integer.class);
             if (count != 0) {
                 EasyHashMap tableInfo;
                 String selectSQL = "select * from %s ";
@@ -318,7 +317,7 @@ public class DataBaseTestController implements CommandLineRunner {
 
                     Page page = new Page<>(1, 1000);
                     do {
-                        layerOperation.page(page, EasyHashMap.class, selectSQL, tableName);
+                        lazyOperation.page(page, EasyHashMap.class, selectSQL, tableName);
                         final List<EasyHashMap> record = (List<EasyHashMap>) page.getRecord();
                         tableInfo = record.get(0);
                         file.write("-- " + tableName);
@@ -338,7 +337,7 @@ public class DataBaseTestController implements CommandLineRunner {
 
 
                 } else {
-                    List<EasyHashMap> tableDateList = layerOperation.executeSQL(String.format(selectSQL, tableName), EasyHashMap.class);
+                    List<EasyHashMap> tableDateList = lazyOperation.executeSQL(String.format(selectSQL, tableName), EasyHashMap.class);
                     file.write("-- " + tableName);
                     file.newLine();
                     tableInfo = tableDateList.get(0);
@@ -371,11 +370,11 @@ public class DataBaseTestController implements CommandLineRunner {
                 new ArrayBlockingQueue<Runnable>(20));
         // 当前数据库
         if (source == null) {
-            source = layerOperation.executeSQLForBean("select database()", String.class);
+            source = lazyOperation.executeSQLForBean("select database()", String.class);
         }
         // 获取数据库中所有的表
         String sqlSelectTable = "select concat('%s.',table_name) tableName, engine, table_comment tableComment, create_time createTime from information_schema.tables where table_schema = '%s' ";
-        List<EasyHashMap> allTables = layerOperation.executeSQL(String.format(sqlSelectTable, source, source), EasyHashMap.class);
+        List<EasyHashMap> allTables = lazyOperation.executeSQL(String.format(sqlSelectTable, source, source), EasyHashMap.class);
         EasyUpsertDS easyUpsertDS = new EasyUpsertDS() {
             @Override
             public Class<? extends Annotation> annotationType() {
@@ -419,14 +418,14 @@ public class DataBaseTestController implements CommandLineRunner {
     public void singleTableDataProcess(String source, EasyHashMap table, EasyUpsertDS easyUpsertDS) {
         String countSQL = "select count(1) from %s ";
         String tableName = table.get("tableName").toString();
-        Integer count = layerOperation.executeSQLForBean(String.format(countSQL, tableName), Integer.class);
+        Integer count = lazyOperation.executeSQLForBean(String.format(countSQL, tableName), Integer.class);
         if (count != 0) {
             EasyHashMap tableInfo;
             String selectSQL = "select * from %s ";
             if (count > 1000) {
                 Page page = new Page<>(1, 1000);
                 do {
-                    layerOperation.page(page, EasyHashMap.class, selectSQL, tableName);
+                    lazyOperation.page(page, EasyHashMap.class, selectSQL, tableName);
                     final List<EasyHashMap> record = (List<EasyHashMap>) page.getRecord();
                     tableInfo = record.get(0);
                     tableInfo.setUniqueLabel(tableName);
@@ -437,7 +436,7 @@ public class DataBaseTestController implements CommandLineRunner {
                     page.setCurrent(page.getCurrent() + 1);
                 } while (page.getRecord() != null && page.getRecord().size() == page.getSize());
             } else {
-                List<EasyHashMap> tableDateList = layerOperation.executeSQL(String.format(selectSQL, tableName), EasyHashMap.class);
+                List<EasyHashMap> tableDateList = lazyOperation.executeSQL(String.format(selectSQL, tableName), EasyHashMap.class);
                 tableInfo = tableDateList.get(0);
                 tableInfo.setUniqueLabel(tableName.replace(source, easyUpsertDS.name()));
                 DynamicEasyUpsertDSContextHolder.push(easyUpsertDS);

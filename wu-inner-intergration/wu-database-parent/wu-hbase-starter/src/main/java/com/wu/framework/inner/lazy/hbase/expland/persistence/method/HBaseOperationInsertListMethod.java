@@ -41,16 +41,17 @@ public class HBaseOperationInsertListMethod extends HBaseOperationMethodAbstract
     @Override
     public Object execute(Connection connection, Object... args) throws Exception {
         Object entity = args[0];
-        
+
         Class entityClass;
-        if(entity instanceof List){
-            entityClass=((List) entity).get(0).getClass();
+        Table table;
+        if (entity instanceof List) {
+            entityClass = ((List) entity).get(0).getClass();
             // 处理数据
             EasySmart easySmart = LocalStorageClassAnnotation.easySmart(entityClass, true);
-            Table table = connection.getTable(TableName.valueOf(easySmart.tableName()));
+            table = connection.getTable(TableName.valueOf(easySmart.tableName()));
 
             List<ConvertedField> convertedFields = SQLConverter.fieldNamesOnAnnotation(entityClass, null);
-            List<Put> putList=new ArrayList<>();
+            List<Put> putList = new ArrayList<>();
             for (Object o : ((List) entity)) {
                 Put put = new Put(Bytes.toBytes(UUID.randomUUID().toString()));
                 for (ConvertedField convertedField : convertedFields) {
@@ -65,11 +66,11 @@ public class HBaseOperationInsertListMethod extends HBaseOperationMethodAbstract
             }
             table.put(putList);
 
-        }else {
-            entityClass=entity.getClass();
+        } else {
+            entityClass = entity.getClass();
             // 处理数据
             EasySmart easySmart = LocalStorageClassAnnotation.easySmart(entityClass, true);
-            Table table = connection.getTable(TableName.valueOf(easySmart.tableName()));
+            table = connection.getTable(TableName.valueOf(easySmart.tableName()));
 
             List<ConvertedField> convertedFields = SQLConverter.fieldNamesOnAnnotation(entityClass, null);
             Put put = new Put(Bytes.toBytes(UUID.randomUUID().toString()));
@@ -82,7 +83,7 @@ public class HBaseOperationInsertListMethod extends HBaseOperationMethodAbstract
             }
             table.put(put);
         }
-
+        table.close();
         return null;
     }
 

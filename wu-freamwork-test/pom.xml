@@ -89,7 +89,7 @@
         <dependency>
             <groupId>top.wu2020</groupId>
             <artifactId>wu-framework-shiro</artifactId>
-            <version>1.0.8</version>
+            <version>1.0.3</version>
         </dependency>
 
         <dependency>
@@ -114,6 +114,12 @@
             <groupId>org.bytedeco</groupId>
             <artifactId>javacv-platform</artifactId>
             <version>1.5.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-hbase-starter</artifactId>
+            <version>1.0.3</version>
         </dependency>
 
 

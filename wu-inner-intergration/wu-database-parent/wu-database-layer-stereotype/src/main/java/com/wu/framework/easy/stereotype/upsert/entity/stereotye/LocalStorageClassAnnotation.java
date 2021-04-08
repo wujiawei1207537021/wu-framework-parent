@@ -109,7 +109,8 @@ public class LocalStorageClassAnnotation {
             String tableName = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
             String comment = "";
             String kafkaSchemaName = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
-
+            boolean perfectTable=false;
+            boolean smartFillField = false;
             if (null != easySmart) {
                 if (!ObjectUtils.isEmpty(easySmart.kafkaTopicName())) {
                     kafkaTopicName = easySmart.kafkaTopicName();
@@ -123,6 +124,8 @@ public class LocalStorageClassAnnotation {
                 if (!ObjectUtils.isEmpty(easySmart.kafkaSchemaName())) {
                     kafkaSchemaName = easySmart.kafkaSchemaName();
                 }
+                smartFillField = easySmart.smartFillField();
+                perfectTable=easySmart.perfectTable();
             }
             if (isForceDuplicateNameSwitch) {
                 kafkaSchemaName = CamelAndUnderLineConverter.humpToLine2(clazz.getName().replace(".", "_"));
@@ -137,7 +140,7 @@ public class LocalStorageClassAnnotation {
             easySmartAnnotation.setKafkaTopicName(kafkaTopicName);
             easySmartAnnotation.setKafkaCode(kafkaCode);
             easySmartAnnotation.setConvertedFieldList(SQLConverter.fieldNamesOnAnnotation(clazz, null));
-            easySmartAnnotation.setSmartFillField(easySmart.smartFillField());
+            easySmartAnnotation.setSmartFillField(smartFillField);
 //            log.info("Initialize {} annotation parameters  className:[{}],tableName:[{}],comment:[{}],kafkaTopicName:[{}],kafkaSchemaName:[{}],kafkaCode:[{}]", clazz,
 //                    className, tableName, comment, kafkaTopicName, kafkaSchemaName, kafkaCode);
 
@@ -145,6 +148,9 @@ public class LocalStorageClassAnnotation {
             String finalKafkaSchemaName = kafkaSchemaName;
             String finalKafkaTopicName = kafkaTopicName;
             String finalKafkaCode = kafkaCode;
+
+            boolean finalSmartFillField = smartFillField;
+            boolean finalPerfectTable = perfectTable;
             CLASS_EASY_SMART_MAP.put(clazz, new EasySmart() {
 
                 /**
@@ -179,7 +185,7 @@ public class LocalStorageClassAnnotation {
                  */
                 @Override
                 public boolean perfectTable() {
-                    return null == easySmart ? false : easySmart.perfectTable();
+                    return finalPerfectTable;
                 }
 
                 /**
@@ -301,7 +307,7 @@ public class LocalStorageClassAnnotation {
                  */
                 @Override
                 public boolean smartFillField() {
-                    return null == easySmart ? false : easySmart.smartFillField();
+                    return finalSmartFillField;
                 }
             });
         }

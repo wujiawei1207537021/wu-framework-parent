@@ -1,5 +1,7 @@
 package com.wu.framework.inner.layer.stereotype;
 
+import com.wu.framework.inner.layer.stereotype.proxy.ProxyMethodFunction;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 

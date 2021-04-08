@@ -1,7 +1,5 @@
 package com.wu.framework.inner.layer.stereotype;
 
-import java.lang.reflect.Method;
-
 /**
  * @author : Jia wei Wu
  * @version 1.0
@@ -9,9 +7,9 @@ import java.lang.reflect.Method;
  * @date : 2021/4/6 7:51 下午
  */
 @FunctionalInterface
-public interface ProxyMethodFunction {
+public interface MethodParamFunction<P, R> {
 
-    Object defaultMethod(Method method);
+    R defaultMethod(P method);
 
 
 }

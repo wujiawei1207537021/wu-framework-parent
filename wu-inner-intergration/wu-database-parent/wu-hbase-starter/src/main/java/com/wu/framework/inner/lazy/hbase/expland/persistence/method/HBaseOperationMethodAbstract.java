@@ -1,6 +1,7 @@
 package com.wu.framework.inner.lazy.hbase.expland.persistence.method;
 
 import com.wu.framework.easy.stereotype.upsert.EasySmart;
+import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
 import com.wu.framework.inner.lazy.hbase.expland.analyze.HBaseClassAnalyze;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.*;
@@ -62,19 +63,21 @@ public abstract class HBaseOperationMethodAbstract implements HBaseOperationMeth
         } else {
             clazz = source.getClass();
         }
-        EasySmart analyze = hBaseClassAnalyze.analyze(clazz);
-        if (analyze.perfectTable()) {
-            final TableName tableName = TableName.valueOf(analyze.tableName());
+        EasySmart easySmart = LocalStorageClassAnnotation.easySmart(clazz, true);
+        if (easySmart.perfectTable()) {
+            final TableName tableName = TableName.valueOf(easySmart.tableName());
             TableDescriptorBuilder tableDescriptorBuilder = TableDescriptorBuilder.newBuilder(tableName).
-                    setColumnFamily(new ColumnFamilyDescriptorBuilder.ModifyableColumnFamilyDescriptor(Bytes.toBytes(analyze.columnFamily())));
+                    setColumnFamily(new ColumnFamilyDescriptorBuilder.ModifyableColumnFamilyDescriptor(Bytes.toBytes(easySmart.columnFamily())));
             TableDescriptor build = tableDescriptorBuilder.build();
             if (admin.tableExists(tableName)) {
                 admin.modifyTable(build);
             } else {
                 admin.createTable(build);
             }
+            return true;
+        }else {
+            return false;
         }
-        return false;
     }
 
 
