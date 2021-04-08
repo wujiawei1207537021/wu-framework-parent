@@ -9,7 +9,7 @@ package com.wu.framework.inner.layer.stereotype;
 public interface LayerDefault extends Layer {
 
     @Override
-    default Object before(Object o) {
+    default Object before(Object o) throws Exception {
         return o;
     }
 
@@ -19,7 +19,7 @@ public interface LayerDefault extends Layer {
     }
 
     @Override
-    default Object after(Object o) {
+    default Object after(Object o) throws Exception {
         return o;
     }
 }

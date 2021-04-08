@@ -1,10 +1,15 @@
 package com.wu.framework.inner.lazy.hbase.expland.config;
 
-import com.wu.framework.inner.lazy.hbase.expland.persistence.HBaseOperation;
-import com.wu.framework.inner.lazy.hbase.expland.persistence.proxy.HBaseOperationProxy;
+import org.apache.hadoop.hbase.HBaseConfiguration;
+import org.apache.hadoop.hbase.client.Admin;
+import org.apache.hadoop.hbase.client.Connection;
+import org.apache.hadoop.hbase.client.ConnectionFactory;
 import org.springframework.context.annotation.Bean;
 
-import java.lang.reflect.Proxy;
+import java.io.IOException;
+import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * @author : Jia wei Wu
@@ -13,22 +18,28 @@ import java.lang.reflect.Proxy;
  * @date : 2021/3/29 10:11 下午
  */
 public class HBaseOperationConfig {
-    private final HBaseOperationProxy hBaseOperationProxy;
 
+    private static ExecutorService pool = Executors.newScheduledThreadPool(20);    //设置hbase连接池
+    private final HBaseConfigProperties hBaseConfigProperties;
 
-    public HBaseOperationConfig(HBaseOperationProxy hBaseOperationProxy) {
-        this.hBaseOperationProxy = hBaseOperationProxy;
+    public HBaseOperationConfig(HBaseConfigProperties hBaseConfigProperties) {
+        this.hBaseConfigProperties = hBaseConfigProperties;
     }
 
-    /**
-     * @param
-     * @return
-     * @describe hBase 数据操作接口
-     * @author Jia wei Wu
-     * @date 2021/3/28 9:32 下午
-     **/
+
     @Bean
-    public HBaseOperation hBaseOperation() {
-        return (HBaseOperation) Proxy.newProxyInstance(HBaseOperation.class.getClassLoader(), new Class[]{HBaseOperation.class}, hBaseOperationProxy);
+    public Connection hBaseClientConnection() throws IOException {
+        org.apache.hadoop.conf.Configuration conf = HBaseConfiguration.create();
+        Map<String, String> confMap = hBaseConfigProperties.getConfMaps();
+        for (Map.Entry<String, String> confEntry : confMap.entrySet()) {
+            conf.set(confEntry.getKey(), confEntry.getValue());
+        }
+        System.out.println("init hbaseClientConnection success");
+        return ConnectionFactory.createConnection(conf, pool);
+    }
+
+    @Bean
+    public Admin hBaseClientAdmin(Connection connection) throws IOException {
+        return connection.getAdmin();
     }
 }

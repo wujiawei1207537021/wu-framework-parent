@@ -41,13 +41,15 @@ public class DemoRun {
 
 //        boolean user = admin.tableExists(TableName.valueOf("hbase_user"));
         List<HBaseUserBo> hBaseUserBoList = new ArrayList<>();
-        long a=System.currentTimeMillis();
+        long a = System.currentTimeMillis();
         for (int i = 0; i < 100000; i++) {
             hBaseUserBoList.add(new HBaseUserBo().setUserName("hbase_user").setAge("12").setSex("男").setId(i));
         }
+        long b = System.currentTimeMillis();
+        System.out.println("创建数据使用时间" + (b - a));
         hBaseOperation.insertList(hBaseUserBoList);
-        long b=System.currentTimeMillis();
-        System.out.println("跑的真快"+(b-a));
+        b = System.currentTimeMillis();
+        System.out.println("跑的真快" + (b - a));
 //        HTableDescriptor[] hTableDescriptors = admin.listTables();
 //        HTableDescriptor desc = new HTableDescriptor("easy1");
 //        desc.addFamily(new HColumnDescriptor("cf1"));

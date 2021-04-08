@@ -3,13 +3,11 @@ package com.wu.framework.inner.lazy.hbase.expland.persistence.method;
 import com.wu.framework.easy.stereotype.upsert.EasySmart;
 import com.wu.framework.inner.lazy.hbase.expland.analyze.HBaseClassAnalyze;
 import org.apache.hadoop.hbase.TableName;
-import org.apache.hadoop.hbase.client.Admin;
-import org.apache.hadoop.hbase.client.ColumnFamilyDescriptorBuilder;
-import org.apache.hadoop.hbase.client.TableDescriptor;
-import org.apache.hadoop.hbase.client.TableDescriptorBuilder;
+import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
 
 import java.io.IOException;
+import java.util.Collection;
 
 /**
  * @author : Jia wei Wu
@@ -19,9 +17,34 @@ import java.io.IOException;
  */
 public abstract class HBaseOperationMethodAbstract implements HBaseOperationMethod {
 
+    private final Admin admin;
+    private final Connection connection;
+
 
     public final HBaseClassAnalyze hBaseClassAnalyze = new HBaseClassAnalyze();
 
+    protected HBaseOperationMethodAbstract(Admin admin, Connection connection) {
+        this.admin = admin;
+        this.connection = connection;
+    }
+
+
+    @Override
+    public Object before(HBaseExecuteParams o) throws Exception {
+        return o;
+    }
+
+    @Override
+    public Object run(HBaseExecuteParams hBaseExecuteParam) throws Exception {
+        // 执行前处理操作
+        perfectTable(connection.getAdmin(), hBaseExecuteParam.getObjects()[0]);
+        return execute(hBaseExecuteParam.getConnection(), hBaseExecuteParam.getObjects());
+    }
+
+    @Override
+    public Object after(HBaseExecuteParams o) throws Exception {
+        return o;
+    }
 
     /**
      * @param
@@ -30,7 +53,15 @@ public abstract class HBaseOperationMethodAbstract implements HBaseOperationMeth
      * @author Jia wei Wu
      * @date 2021/4/7 6:55 下午
      **/
-    boolean perfectTable(Admin admin, Class clazz) throws IOException {
+    boolean perfectTable(Admin admin, Object source) throws IOException {
+        Class clazz;
+        if (source instanceof Collection) {
+            clazz = ((Collection) source).iterator().next().getClass();
+        } else if (source instanceof Class) {
+            clazz = (Class) source;
+        } else {
+            clazz = source.getClass();
+        }
         EasySmart analyze = hBaseClassAnalyze.analyze(clazz);
         if (analyze.perfectTable()) {
             final TableName tableName = TableName.valueOf(analyze.tableName());
@@ -45,5 +76,6 @@ public abstract class HBaseOperationMethodAbstract implements HBaseOperationMeth
         }
         return false;
     }
+
 
 }

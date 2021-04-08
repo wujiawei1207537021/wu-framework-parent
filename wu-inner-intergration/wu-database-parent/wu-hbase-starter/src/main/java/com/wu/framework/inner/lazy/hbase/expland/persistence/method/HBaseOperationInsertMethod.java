@@ -26,19 +26,22 @@ import java.util.UUID;
  * @date : 2021/3/29 7:19 下午
  */
 @RepositoryOnDifferentMethods(methodName = HBaseOperationMethodCounts.INSERT)
-public class HBaseOperationInsertMethod extends HBaseOperationMethodAbstract {
+public class HBaseOperationInsertMethod extends HBaseOperationMethodAbstract  {
 
     private final Admin admin;
+    private final Connection connection;
 
-    public HBaseOperationInsertMethod(Admin admin) {
+    public HBaseOperationInsertMethod(Admin admin, Connection connection) {
+        super(admin, connection);
         this.admin = admin;
+        this.connection = connection;
     }
 
+
     @Override
-    public Object execute(Connection connection, Object[] args) throws Exception {
+    public Object execute(Connection connection, Object... args) throws Exception {
         Object entity = args[0];
         EasySmart easySmart = LocalStorageClassAnnotation.easySmart(entity.getClass(), true);
-        perfectTable(admin,entity.getClass());
         Table table = connection.getTable(TableName.valueOf(easySmart.tableName()));
 
         List<ConvertedField> convertedFields = SQLConverter.fieldNamesOnAnnotation(entity.getClass(), null);
@@ -53,6 +56,5 @@ public class HBaseOperationInsertMethod extends HBaseOperationMethodAbstract {
         table.put(put);
         return null;
     }
-
 
 }

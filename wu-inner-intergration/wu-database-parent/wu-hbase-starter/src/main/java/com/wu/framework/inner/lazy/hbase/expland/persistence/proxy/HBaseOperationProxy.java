@@ -40,7 +40,8 @@ public class HBaseOperationProxy implements InvocationHandler, InitializingBean 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         if (HBASE_OPERATION_METHOD_MAP.containsKey(method.getName())) {
-            return HBASE_OPERATION_METHOD_MAP.get(method.getName()).execute(connection, args);
+
+            return HBASE_OPERATION_METHOD_MAP.get(method.getName()).run(HBaseOperationMethod.HBaseExecuteParams.build().setConnection(connection).setObjects(args));
         } else {
             throw new RuntimeException(String.format("Can't find a way %s", method.getName()));
         }

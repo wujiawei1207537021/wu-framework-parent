@@ -13,5 +13,5 @@ import java.lang.annotation.Annotation;
  */
 public abstract class LayerAnalyzeAdapter<A extends Annotation> implements LayerDefault, Layer {
 
-    public abstract <A> A analyze(Class clazz);
+    public  abstract <A> A analyze(Class clazz);
 }

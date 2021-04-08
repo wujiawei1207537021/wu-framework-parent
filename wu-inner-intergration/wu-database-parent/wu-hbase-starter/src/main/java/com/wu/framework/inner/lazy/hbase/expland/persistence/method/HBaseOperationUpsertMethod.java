@@ -31,17 +31,19 @@ import java.util.stream.Collectors;
 public class HBaseOperationUpsertMethod extends HBaseOperationMethodAbstract {
 
     private final Admin admin;
+    private final Connection connection;
 
-    public HBaseOperationUpsertMethod(Admin admin) {
+    public HBaseOperationUpsertMethod(Admin admin, Connection connection) {
+        super(admin, connection);
         this.admin = admin;
+        this.connection = connection;
     }
 
     @Override
-    public Object execute(Connection connection, Object[] args) throws Exception {
+    public Object execute(Connection connection, Object... args) throws Exception {
         Object entity = args[0];
         EasySmart easySmart = LocalStorageClassAnnotation.easySmart(entity.getClass(), true);
         Table table = connection.getTable(TableName.valueOf(easySmart.tableName()));
-        perfectTable(admin, entity.getClass());
         List<ConvertedField> convertedFields = SQLConverter.fieldNamesOnAnnotation(entity.getClass(), null);
 
         String hBaseRow = UUID.randomUUID().toString();

@@ -30,13 +30,16 @@ import java.util.UUID;
 public class HBaseOperationInsertListMethod extends HBaseOperationMethodAbstract {
 
     private final Admin admin;
+    private final Connection connection;
 
-    public HBaseOperationInsertListMethod(Admin admin) {
+    public HBaseOperationInsertListMethod(Admin admin, Connection connection) {
+        super(admin, connection);
         this.admin = admin;
+        this.connection = connection;
     }
 
     @Override
-    public Object execute(Connection connection, Object[] args) throws Exception {
+    public Object execute(Connection connection, Object... args) throws Exception {
         Object entity = args[0];
         
         Class entityClass;
@@ -44,7 +47,6 @@ public class HBaseOperationInsertListMethod extends HBaseOperationMethodAbstract
             entityClass=((List) entity).get(0).getClass();
             // 处理数据
             EasySmart easySmart = LocalStorageClassAnnotation.easySmart(entityClass, true);
-            perfectTable(admin,entityClass);
             Table table = connection.getTable(TableName.valueOf(easySmart.tableName()));
 
             List<ConvertedField> convertedFields = SQLConverter.fieldNamesOnAnnotation(entityClass, null);
@@ -67,7 +69,6 @@ public class HBaseOperationInsertListMethod extends HBaseOperationMethodAbstract
             entityClass=entity.getClass();
             // 处理数据
             EasySmart easySmart = LocalStorageClassAnnotation.easySmart(entityClass, true);
-            perfectTable(admin,entityClass);
             Table table = connection.getTable(TableName.valueOf(easySmart.tableName()));
 
             List<ConvertedField> convertedFields = SQLConverter.fieldNamesOnAnnotation(entityClass, null);
