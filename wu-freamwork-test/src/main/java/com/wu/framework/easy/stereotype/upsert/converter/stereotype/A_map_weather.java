@@ -6,16 +6,15 @@ import lombok.Data;
 
 import java.math.BigInteger;
 import java.sql.Timestamp;
-import java.util.Date;
 
 @EasySmart(tableName = "upsert", columnFamily = "a_map_weather", perfectTable = true)
 @Data
 public class A_map_weather {
-    private Date date;
+    private String date;
     private String city;
     private String adcode;
     private String windpower;
-    private Timestamp updateTime;
+    private String updateTime;
     private String reporttime;
     private String winddirection;
     private String province;
