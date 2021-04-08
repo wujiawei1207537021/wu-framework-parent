@@ -314,15 +314,6 @@ public class EasySmartAnnotation implements EasySmart {
         return redisKey;
     }
 
-    /**
-     * Hbase 行名称
-     *
-     * @return
-     */
-    @Override
-    public String hBaseRow() {
-        return hBaseRow;
-    }
 
     /**
      * 列族

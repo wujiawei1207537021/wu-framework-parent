@@ -108,15 +108,6 @@ public @interface EasySmart {
     String redisKey() default "";
 
     /**
-     * Hbase 行名称
-     * 弃用原因 实体不绑定行
-     *
-     * @return
-     */
-    @Deprecated
-    String hBaseRow() default "";
-
-    /**
      * 列族
      *
      * @return

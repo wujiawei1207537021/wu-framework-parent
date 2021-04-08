@@ -5,13 +5,13 @@ import com.wu.framework.inner.lazy.hbase.expland.bo.HBaseUserBo;
 import com.wu.framework.inner.lazy.hbase.expland.persistence.HBaseOperation;
 import com.wu.framework.inner.lazy.hbase.expland.persistence.proxy.HBaseOperationProxy;
 import org.apache.hadoop.hbase.Cell;
-import org.apache.hadoop.hbase.HTableDescriptor;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,22 +35,28 @@ public class DemoRun {
         this.hBaseOperation = hBaseOperation;
     }
 
+
     @PostConstruct
     public void run() throws Exception {
 
-        boolean user = admin.tableExists(TableName.valueOf("hbase_user"));
-        for (int i = 0; i < 1000; i++) {
-            hBaseOperation.insert(new HBaseUserBo().setUserName("hbase_user").setAge("12").setSex("男").setId(1000));
+//        boolean user = admin.tableExists(TableName.valueOf("hbase_user"));
+        List<HBaseUserBo> hBaseUserBoList = new ArrayList<>();
+        long a=System.currentTimeMillis();
+        for (int i = 0; i < 100000; i++) {
+            hBaseUserBoList.add(new HBaseUserBo().setUserName("hbase_user").setAge("12").setSex("男").setId(i));
         }
-        HTableDescriptor[] hTableDescriptors = admin.listTables();
+        hBaseOperation.insertList(hBaseUserBoList);
+        long b=System.currentTimeMillis();
+        System.out.println("跑的真快"+(b-a));
+//        HTableDescriptor[] hTableDescriptors = admin.listTables();
 //        HTableDescriptor desc = new HTableDescriptor("easy1");
 //        desc.addFamily(new HColumnDescriptor("cf1"));
 //        admin.createTable(desc);
-        Table easy = connection.getTable(TableName.valueOf("easy12"));
+//        Table easy = connection.getTable(TableName.valueOf("easy12"));
 //        System.out.println(admin.tableExists(TableName.valueOf("easy")));
 //        admin.disableTable(TableName.valueOf("hbase_user"));
 //        admin.deleteTable(TableName.valueOf("hbase_user"));
-        HTableDescriptor hTableDescriptor = new HTableDescriptor(TableName.valueOf("hbase_user"));
+//        HTableDescriptor hTableDescriptor = new HTableDescriptor(TableName.valueOf("hbase_user"));
 
 //        hTableDescriptor.addFamily(new HColumnDescriptor("columnFamily"));
 //        hTableDescriptor.addFamily(new HColumnDescriptor("A2"));
@@ -58,11 +64,11 @@ public class DemoRun {
 //        admin.createTable(hTableDescriptor);
 
 
-        final List<TableDescriptor> tableDescriptors = admin.listTableDescriptors();
-        for (TableDescriptor tableDescriptor : tableDescriptors) {
-            System.out.println(String.format("表%s数据", tableDescriptor.getTableName().getNameAsString()));
-            System.out.println(scanAllRecord(tableDescriptor.getTableName().getNameAsString()));
-        }
+//        final List<TableDescriptor> tableDescriptors = admin.listTableDescriptors();
+//        for (TableDescriptor tableDescriptor : tableDescriptors) {
+//            System.out.println(String.format("表%s数据", tableDescriptor.getTableName().getNameAsString()));
+//            System.out.println(scanAllRecord(tableDescriptor.getTableName().getNameAsString()));
+//        }
     }
 
     public String scanAllRecord(String tableName) throws IOException {

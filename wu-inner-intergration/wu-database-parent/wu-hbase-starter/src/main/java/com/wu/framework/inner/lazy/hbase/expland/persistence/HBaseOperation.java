@@ -3,6 +3,8 @@ package com.wu.framework.inner.lazy.hbase.expland.persistence;
 
 import com.wu.framework.inner.database.operation.Operation;
 
+import java.util.List;
+
 /**
  * description HBaseOperation
  * HBase 操作使用
@@ -21,6 +23,18 @@ public interface HBaseOperation extends Operation {
      * @date 2021/3/27 9:21 下午
      **/
     <T> T insert(T t);
+
+    /**
+     * description  插入数据集合
+     *
+     * @param t
+     * @param <T>
+     * @return
+     * @exception/throws
+     * @author Jia wei Wu
+     * @date 2021/4/8 上午9:37
+     */
+    <T> T insertList(List<T> t);
 
 
     /**

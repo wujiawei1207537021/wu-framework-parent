@@ -286,16 +286,6 @@ public class LocalStorageClassAnnotation {
                 }
 
                 /**
-                 * Hbase 行名称
-                 *
-                 * @return
-                 */
-                @Override
-                public String hBaseRow() {
-                    return null == easySmart ? "" : easySmart.hBaseRow();
-                }
-
-                /**
                  * 列族
                  *
                  * @return
