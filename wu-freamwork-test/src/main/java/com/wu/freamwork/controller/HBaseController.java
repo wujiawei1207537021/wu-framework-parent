@@ -39,7 +39,7 @@ public class HBaseController implements CommandLineRunner {
 
         Page<A_map_weather> page = new Page<A_map_weather>(1, 1000);
         do {
-            lazyOperation.page(page, EasyHashMap.class, "SELECT * from a_map_weather");
+            lazyOperation.page(page, A_map_weather.class, "SELECT * from a_map_weather");
             List<A_map_weather> record = (List<A_map_weather>) page.getRecord();
 
             System.out.println("当前查询页数:" + page.getCurrent());
