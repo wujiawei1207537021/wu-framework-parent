@@ -1,9 +1,9 @@
 package com.wu.framework.inner.lazy.hbase.expland.persistence.proxy;
 
 import com.wu.framework.inner.layer.stereotype.proxy.LayerProxy;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.RepositoryOnDifferentMethods;
+import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
 import com.wu.framework.inner.lazy.hbase.expland.persistence.HBaseOperation;
-import com.wu.framework.inner.lazy.hbase.expland.persistence.method.HBaseOperationMethod;
+import com.wu.framework.inner.lazy.hbase.expland.persistence.method.HBaseOperationMethodAdapter;
 import org.apache.hadoop.hbase.client.Connection;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -25,12 +25,12 @@ import java.util.stream.Collectors;
 @LayerProxy(proxyInterface = HBaseOperation.class)
 public class HBaseOperationProxy implements InvocationHandler, InitializingBean {
 
-    private final List<HBaseOperationMethod> hBaseOperationMethodList;
+    private final List<HBaseOperationMethodAdapter> hBaseOperationMethodList;
     private final Connection connection;
 
-    private Map<String, HBaseOperationMethod> HBASE_OPERATION_METHOD_MAP;
+    private Map<String, HBaseOperationMethodAdapter> HBASE_OPERATION_METHOD_MAP;
 
-    public HBaseOperationProxy(List<HBaseOperationMethod> hBaseOperationMethodList, Connection connection) {
+    public HBaseOperationProxy(List<HBaseOperationMethodAdapter> hBaseOperationMethodList, Connection connection) {
         this.hBaseOperationMethodList = hBaseOperationMethodList;
         this.connection = connection;
     }
@@ -41,7 +41,7 @@ public class HBaseOperationProxy implements InvocationHandler, InitializingBean 
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         if (HBASE_OPERATION_METHOD_MAP.containsKey(method.getName())) {
 
-            return HBASE_OPERATION_METHOD_MAP.get(method.getName()).run(HBaseOperationMethod.HBaseExecuteParams.build().setConnection(connection).setObjects(args));
+            return HBASE_OPERATION_METHOD_MAP.get(method.getName()).run(HBaseOperationMethodAdapter.HBaseExecuteParams.build().setConnection(connection).setObjects(args));
         } else {
             throw new RuntimeException(String.format("Can't find a way %s", method.getName()));
         }
@@ -51,7 +51,7 @@ public class HBaseOperationProxy implements InvocationHandler, InitializingBean 
     @Override
     public void afterPropertiesSet() throws Exception {
         HBASE_OPERATION_METHOD_MAP = hBaseOperationMethodList.stream().collect(Collectors.toMap(hBaseOperationMethod -> {
-            RepositoryOnDifferentMethods mergedAnnotation = AnnotatedElementUtils.getMergedAnnotation(hBaseOperationMethod.getClass(), RepositoryOnDifferentMethods.class);
+            ProxyStrategicApproach mergedAnnotation = AnnotatedElementUtils.getMergedAnnotation(hBaseOperationMethod.getClass(), ProxyStrategicApproach.class);
             return mergedAnnotation.methodName();
         }, m -> m));
 

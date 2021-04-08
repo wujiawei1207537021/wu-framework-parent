@@ -1,7 +1,7 @@
 package com.wu.framework.inner.lazy.hbase.expland.bo;
 
-import com.wu.framework.easy.stereotype.upsert.EasySmart;
-import com.wu.framework.easy.stereotype.upsert.EasyUnique;
+import com.wu.framework.inner.lazy.hbase.expland.persistence.stereotype.HBaseTable;
+import com.wu.framework.inner.lazy.hbase.expland.persistence.stereotype.HBaseTableUnique;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -15,10 +15,10 @@ import java.time.LocalDate;
  */
 @Accessors(chain = true)
 @Data
-@EasySmart(tableName = "hbase_user_bo", columnFamily = "A1", perfectTable = true)
+@HBaseTable(tableName = "hbase_user_bo1", columnFamily = "A1", perfectTable = true,nameSpace = "hbase11")
 public class HBaseUserBo {
 
-    @EasyUnique
+    @HBaseTableUnique
     private int id;
     private String userName;
     private String age;

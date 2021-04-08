@@ -1,11 +1,10 @@
 package com.wu.framework.inner.lazy.hbase.expland.persistence.method;
 
-import com.wu.framework.easy.stereotype.upsert.EasySmart;
-import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
-import com.wu.framework.easy.stereotype.upsert.entity.ConvertedField;
-import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.RepositoryOnDifferentMethods;
+
+import com.wu.framework.inner.layer.stereotype.analyze.AnalyzeField;
+import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
 import com.wu.framework.inner.lazy.hbase.expland.constant.HBaseOperationMethodCounts;
+import com.wu.framework.inner.lazy.hbase.expland.persistence.stereotype.HBaseTable;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.Admin;
 import org.apache.hadoop.hbase.client.Connection;
@@ -25,13 +24,13 @@ import java.util.UUID;
  * @describe :
  * @date : 2021/3/29 7:19 下午
  */
-@RepositoryOnDifferentMethods(methodName = HBaseOperationMethodCounts.INSERT)
-public class HBaseOperationInsertMethod extends HBaseOperationMethodAbstract  {
+@ProxyStrategicApproach(methodName = HBaseOperationMethodCounts.INSERT)
+public class HBaseOperationInsertMethodAdapter extends HBaseOperationMethodAbstractAdapter {
 
     private final Admin admin;
     private final Connection connection;
 
-    public HBaseOperationInsertMethod(Admin admin, Connection connection) {
+    public HBaseOperationInsertMethodAdapter(Admin admin, Connection connection) {
         super(admin, connection);
         this.admin = admin;
         this.connection = connection;
@@ -41,16 +40,16 @@ public class HBaseOperationInsertMethod extends HBaseOperationMethodAbstract  {
     @Override
     public Object execute(Connection connection, Object... args) throws Exception {
         Object entity = args[0];
-        EasySmart easySmart = LocalStorageClassAnnotation.easySmart(entity.getClass(), true);
+        HBaseTable easySmart = analyzeClass(entity.getClass());
         Table table = connection.getTable(TableName.valueOf(easySmart.tableName()));
 
-        List<ConvertedField> convertedFields = SQLConverter.fieldNamesOnAnnotation(entity.getClass(), null);
+        List<AnalyzeField> analyzeFieldList = analyzeField(entity.getClass());
         Put put = new Put(Bytes.toBytes(UUID.randomUUID().toString()));
-        for (ConvertedField convertedField : convertedFields) {
-            Field field = ReflectionUtils.findField(entity.getClass(), convertedField.getFieldName());
+        for (AnalyzeField analyzeField : analyzeFieldList) {
+            Field field = ReflectionUtils.findField(entity.getClass(), analyzeField.getFieldName());
             field.setAccessible(true);
             Object fieldValue = field.get(entity);
-            put.addColumn(Bytes.toBytes(easySmart.columnFamily()), Bytes.toBytes(convertedField.getConvertedFieldName()),
+            put.addColumn(Bytes.toBytes(easySmart.columnFamily()), Bytes.toBytes(analyzeField.getConvertedFieldName()),
                     Bytes.toBytes(ObjectUtils.isEmpty(fieldValue) ? "" : fieldValue.toString()));
         }
         table.put(put);

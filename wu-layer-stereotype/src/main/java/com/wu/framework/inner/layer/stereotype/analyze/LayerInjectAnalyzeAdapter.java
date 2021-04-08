@@ -11,7 +11,7 @@ import java.lang.annotation.Annotation;
  * @author Jia wei Wu
  * @date 2021/4/1 下午3:32
  */
-public class LayerInjectAnalyzeAdapter extends LayerAnalyzeAdapter implements LayerDefault, Layer {
+public class LayerInjectAnalyzeAdapter implements LayerDefault, Layer, LayerAnalyzeAdapter {
 
     public Annotation analyze(Class clazz){
         return null;

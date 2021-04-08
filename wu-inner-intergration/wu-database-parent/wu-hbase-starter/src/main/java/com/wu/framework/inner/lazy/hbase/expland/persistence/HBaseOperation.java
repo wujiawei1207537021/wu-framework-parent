@@ -1,7 +1,6 @@
 package com.wu.framework.inner.lazy.hbase.expland.persistence;
 
 
-import com.wu.framework.inner.database.operation.Operation;
 
 import java.util.List;
 
@@ -12,7 +11,7 @@ import java.util.List;
  * @author Jia wei Wu
  * @date 2021/3/26 下午5:10
  */
-public interface HBaseOperation extends Operation {
+public interface HBaseOperation  {
 
 
     /**

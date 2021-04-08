@@ -46,11 +46,9 @@
             <artifactId>hbase-server</artifactId>
             <version>${hbase-server.version}</version>
         </dependency>
-
-
         <dependency>
             <groupId>top.wu2020</groupId>
-            <artifactId>wu-database-layer-stereotype</artifactId>
+            <artifactId>wu-layer-stereotype</artifactId>
         </dependency>
 
     </dependencies>

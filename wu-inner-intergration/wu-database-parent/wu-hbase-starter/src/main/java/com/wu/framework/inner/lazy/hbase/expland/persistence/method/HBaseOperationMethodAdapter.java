@@ -1,12 +1,13 @@
 package com.wu.framework.inner.lazy.hbase.expland.persistence.method;
 
 
-import com.wu.framework.inner.layer.stereotype.Layer;
+import com.wu.framework.inner.lazy.hbase.expland.analyze.HBaseLayerFieldAnalyzeAdapterAdapter;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.apache.hadoop.hbase.client.Connection;
 
-public interface HBaseOperationMethod extends Layer<HBaseOperationMethod.HBaseExecuteParams> {
+public interface HBaseOperationMethodAdapter<P> extends
+        HBaseLayerFieldAnalyzeAdapterAdapter<P> {
 
 
     Object execute(Connection connection, Object... args) throws Exception;

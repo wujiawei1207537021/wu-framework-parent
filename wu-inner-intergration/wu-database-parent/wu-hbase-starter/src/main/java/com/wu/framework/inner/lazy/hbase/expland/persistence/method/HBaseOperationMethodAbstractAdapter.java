@@ -1,8 +1,7 @@
 package com.wu.framework.inner.lazy.hbase.expland.persistence.method;
 
-import com.wu.framework.easy.stereotype.upsert.EasySmart;
-import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
-import com.wu.framework.inner.lazy.hbase.expland.analyze.HBaseClassAnalyze;
+import com.wu.framework.inner.lazy.hbase.expland.persistence.stereotype.HBaseTable;
+import org.apache.hadoop.hbase.NamespaceDescriptor;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
@@ -16,15 +15,13 @@ import java.util.Collection;
  * @describe :
  * @date : 2021/3/28 10:12 下午
  */
-public abstract class HBaseOperationMethodAbstract implements HBaseOperationMethod {
+public abstract class HBaseOperationMethodAbstractAdapter implements HBaseOperationMethodAdapter<HBaseOperationMethodAdapter.HBaseExecuteParams> {
 
     private final Admin admin;
     private final Connection connection;
 
 
-    public final HBaseClassAnalyze hBaseClassAnalyze = new HBaseClassAnalyze();
-
-    protected HBaseOperationMethodAbstract(Admin admin, Connection connection) {
+    protected HBaseOperationMethodAbstractAdapter(Admin admin, Connection connection) {
         this.admin = admin;
         this.connection = connection;
     }
@@ -63,11 +60,20 @@ public abstract class HBaseOperationMethodAbstract implements HBaseOperationMeth
         } else {
             clazz = source.getClass();
         }
-        EasySmart easySmart = LocalStorageClassAnnotation.easySmart(clazz, true);
-        if (easySmart.perfectTable()) {
-            final TableName tableName = TableName.valueOf(easySmart.tableName());
+        HBaseTable hBaseTable = analyzeClass(clazz);
+        if (hBaseTable.perfectTable()) {
+
+            NamespaceDescriptor namespaceDescriptor = NamespaceDescriptor.create(hBaseTable.nameSpace()).build();
+
+            try {
+                admin.createNamespace(namespaceDescriptor);
+            } catch (Exception e) {
+                System.out.println(namespaceDescriptor.getName() + "命名空间已存在!");
+            }
+
+            TableName tableName = TableName.valueOf(hBaseTable.nameSpace(), hBaseTable.tableName());
             TableDescriptorBuilder tableDescriptorBuilder = TableDescriptorBuilder.newBuilder(tableName).
-                    setColumnFamily(new ColumnFamilyDescriptorBuilder.ModifyableColumnFamilyDescriptor(Bytes.toBytes(easySmart.columnFamily())));
+                    setColumnFamily(new ColumnFamilyDescriptorBuilder.ModifyableColumnFamilyDescriptor(Bytes.toBytes(hBaseTable.columnFamily())));
             TableDescriptor build = tableDescriptorBuilder.build();
             if (admin.tableExists(tableName)) {
                 admin.modifyTable(build);
@@ -75,7 +81,7 @@ public abstract class HBaseOperationMethodAbstract implements HBaseOperationMeth
                 admin.createTable(build);
             }
             return true;
-        }else {
+        } else {
             return false;
         }
     }
