@@ -61,6 +61,13 @@
             <artifactId>wu-redis-lazy-starter</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-hbase-starter</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+
+
 
     </dependencies>
 </project>

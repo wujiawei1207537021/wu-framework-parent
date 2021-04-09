@@ -12,5 +12,6 @@ public enum EasyUpsertType {
     MySQL,
     KAFKA,
     ES,
-    REDIS;
+    REDIS,
+    HBASE;
 }

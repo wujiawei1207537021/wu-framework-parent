@@ -12,6 +12,11 @@ spring:
   wu:
     shiro:
       verification: session
+  hbase:
+    zookeeperQuorum: '127.0.0.1:2181'
+  redis:
+    host: k8s.wu2020.top
+
 wu:
   database:
     mapper:
@@ -20,13 +25,6 @@ wu:
 #debug: true
 mybatis:
   mapperLocations: classpath:mapper/**/*.xml
-
-
-#hbase配置，端口默认2181，
-hbase:
-  conf:
-    confMaps:
-      'hbase.zookeeper.quorum': 'k8s.wu2020.top:2181'
 
 
 

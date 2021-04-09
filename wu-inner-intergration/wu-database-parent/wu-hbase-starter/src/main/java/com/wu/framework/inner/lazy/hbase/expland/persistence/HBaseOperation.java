@@ -45,5 +45,15 @@ public interface HBaseOperation  {
      **/
     <T> T upsert(T t);
 
+    /**
+     * description 批量更新或者插入数据
+     * @param
+     * @return
+     * @exception/throws
+     * @author 吴佳伟
+     * @date 2021/4/9 下午1:05
+     */
+    <T> T upsertList(List<T> t);
+
 
 }

@@ -1,5 +1,7 @@
 package com.wu.framework.inner.lazy.hbase.expland.constant;
 
+import java.util.List;
+
 /**
  * @author : Jia wei Wu
  * @version 1.0
@@ -17,10 +19,17 @@ public class HBaseOperationMethodCounts {
     public static final String INSERT = "insert";// 数据插入
 
     /**
-     * {@link com.wu.framework.inner.lazy.hbase.expland.persistence.HBaseOperation#insert(Object)}
+     * {@link com.wu.framework.inner.lazy.hbase.expland.persistence.HBaseOperation#insertList(List)}
      */
-    public static final String INSERT_LIST="insertList";// 数据批量插入
+    public static final String INSERT_LIST="insertList";// 批量数据批量插入
 
+    /**
+     * {@link com.wu.framework.inner.lazy.hbase.expland.persistence.HBaseOperation#upsert(Object)}
+     */
     public static final String UPSERT = "upsert"; // 数据更新
+    /**
+     * {@link com.wu.framework.inner.lazy.hbase.expland.persistence.HBaseOperation#upsertList(List)}
+     */
+    public static final String UPSERT_LIST = "upsertList"; //批量 数据更新
 
 }

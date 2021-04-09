@@ -1,13 +1,21 @@
 package com.wu.framework.inner.lazy.hbase.expland.persistence.method;
 
+import com.wu.framework.inner.layer.stereotype.LayerField;
+import com.wu.framework.inner.layer.stereotype.analyze.AnalyzeField;
 import com.wu.framework.inner.lazy.hbase.expland.persistence.stereotype.HBaseTable;
 import org.apache.hadoop.hbase.NamespaceDescriptor;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
+import org.springframework.util.ObjectUtils;
+import org.springframework.util.ReflectionUtils;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * @author : Jia wei Wu
@@ -86,5 +94,37 @@ public abstract class HBaseOperationMethodAbstractAdapter implements HBaseOperat
         }
     }
 
+
+    /**
+     * description 获取 hBaseRow
+     *
+     * @param
+     * @return
+     * @exception/throws
+     * @author 吴佳伟
+     * @date 2021/4/9 下午1:25
+     */
+    public String hBaseRow(List<AnalyzeField> analyzeFieldList, Object source) {
+        String hBaseRow = UUID.randomUUID().toString();
+        List<AnalyzeField> uniqueConvertedFieldList = analyzeFieldList.stream().
+                filter(convertedField -> LayerField.LayerFieldType.UNIQUE.equals(convertedField.getFieldIndexType())).
+                collect(Collectors.toList());
+        if (!ObjectUtils.isEmpty(uniqueConvertedFieldList)) {
+            hBaseRow = uniqueConvertedFieldList.stream().map(convertedField -> {
+                Field field = ReflectionUtils.findField(source.getClass(), convertedField.getFieldName());
+                field.setAccessible(true);
+                Object o = "";
+                try {
+                    o = field.get(source);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                return o.toString();
+            }).collect(Collectors.joining("-"));
+        } else {
+            System.err.println(String.format("the uniqueness field cannot be found, and the current result cannot be updated in class %s ", source.getClass()));
+        }
+        return hBaseRow;
+    }
 
 }

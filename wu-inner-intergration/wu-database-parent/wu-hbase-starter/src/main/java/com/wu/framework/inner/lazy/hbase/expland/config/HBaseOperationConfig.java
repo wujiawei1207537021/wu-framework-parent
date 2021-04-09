@@ -1,12 +1,15 @@
 package com.wu.framework.inner.lazy.hbase.expland.config;
 
+import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.client.Admin;
 import org.apache.hadoop.hbase.client.Connection;
 import org.apache.hadoop.hbase.client.ConnectionFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.util.ObjectUtils;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -29,8 +32,14 @@ public class HBaseOperationConfig {
 
     @Bean
     public Connection hBaseClientConnection() throws IOException {
-        org.apache.hadoop.conf.Configuration conf = HBaseConfiguration.create();
-        Map<String, String> confMap = hBaseConfigProperties.getConfMaps();
+        Configuration conf = HBaseConfiguration.create();
+
+        Map<String, String> confMap = new HashMap<>();
+        if(ObjectUtils.isEmpty(hBaseConfigProperties.getZookeeperQuorum())){
+            throw new IllegalArgumentException("could not found zookeeper address of empty");
+        }
+        // 配置zookeeper 集群地址
+        confMap.put("hbase.zookeeper.quorum",hBaseConfigProperties.getZookeeperQuorum());
         for (Map.Entry<String, String> confEntry : confMap.entrySet()) {
             conf.set(confEntry.getKey(), confEntry.getValue());
         }
