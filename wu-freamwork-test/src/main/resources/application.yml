@@ -17,6 +17,7 @@ spring:
   redis:
     host: k8s.wu2020.top
 
+
 wu:
   database:
     mapper:
@@ -26,5 +27,10 @@ wu:
 mybatis:
   mapperLocations: classpath:mapper/**/*.xml
 
+
+easy:
+  upsert:
+    config:
+      batch-limit: 10000
 
 

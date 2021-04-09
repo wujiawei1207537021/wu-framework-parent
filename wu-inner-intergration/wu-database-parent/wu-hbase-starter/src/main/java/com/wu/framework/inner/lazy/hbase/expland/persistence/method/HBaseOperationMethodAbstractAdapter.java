@@ -131,7 +131,7 @@ public abstract class HBaseOperationMethodAbstractAdapter
                 return o.toString();
             }).collect(Collectors.joining("-"));
         } else {
-            System.err.println(String.format("the uniqueness field cannot be found, and the current result cannot be updated in class %s ", source.getClass()));
+//            System.err.println(String.format("the uniqueness field cannot be found, and the current result cannot be updated in class %s ", source.getClass()));
         }
         return hBaseRow;
     }

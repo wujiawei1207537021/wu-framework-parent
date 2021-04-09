@@ -83,7 +83,7 @@ public class HBaseOperationInsertListMethodAdapter extends HBaseOperationMethodA
             table.put(put);
         }
         table.close();
-        return null;
+        return true;
     }
 
 
