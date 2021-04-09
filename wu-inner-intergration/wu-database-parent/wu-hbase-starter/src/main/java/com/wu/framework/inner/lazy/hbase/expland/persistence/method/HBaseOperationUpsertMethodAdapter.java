@@ -42,7 +42,7 @@ public class HBaseOperationUpsertMethodAdapter extends HBaseOperationMethodAbstr
     public Object execute(Connection connection, Object... args) throws Exception {
         Object entity = args[0];
         HBaseTable hBaseTable = analyzeClass(entity.getClass());
-        Table table = connection.getTable(TableName.valueOf(hBaseTable.tableName()));
+        Table table = connection.getTable(TableName.valueOf(hBaseTable.nameSpace(), hBaseTable.tableName()));
         List<AnalyzeField> analyzeFieldList = analyzeField(entity.getClass());
 
         String hBaseRow = UUID.randomUUID().toString();
@@ -74,6 +74,6 @@ public class HBaseOperationUpsertMethodAdapter extends HBaseOperationMethodAbstr
                     Bytes.toBytes(ObjectUtils.isEmpty(fieldValue) ? "" : fieldValue.toString()));
         }
         table.put(put);
-        return null;
+        return true;
     }
 }

@@ -40,8 +40,8 @@ public class HBaseOperationInsertMethodAdapter extends HBaseOperationMethodAbstr
     @Override
     public Object execute(Connection connection, Object... args) throws Exception {
         Object entity = args[0];
-        HBaseTable easySmart = analyzeClass(entity.getClass());
-        Table table = connection.getTable(TableName.valueOf(easySmart.tableName()));
+        HBaseTable hBaseTable = analyzeClass(entity.getClass());
+        Table table = connection.getTable(TableName.valueOf(hBaseTable.nameSpace(), hBaseTable.tableName()));
 
         List<AnalyzeField> analyzeFieldList = analyzeField(entity.getClass());
         Put put = new Put(Bytes.toBytes(UUID.randomUUID().toString()));
@@ -49,7 +49,7 @@ public class HBaseOperationInsertMethodAdapter extends HBaseOperationMethodAbstr
             Field field = ReflectionUtils.findField(entity.getClass(), analyzeField.getFieldName());
             field.setAccessible(true);
             Object fieldValue = field.get(entity);
-            put.addColumn(Bytes.toBytes(easySmart.columnFamily()), Bytes.toBytes(analyzeField.getConvertedFieldName()),
+            put.addColumn(Bytes.toBytes(hBaseTable.columnFamily()), Bytes.toBytes(analyzeField.getConvertedFieldName()),
                     Bytes.toBytes(ObjectUtils.isEmpty(fieldValue) ? "" : fieldValue.toString()));
         }
         table.put(put);

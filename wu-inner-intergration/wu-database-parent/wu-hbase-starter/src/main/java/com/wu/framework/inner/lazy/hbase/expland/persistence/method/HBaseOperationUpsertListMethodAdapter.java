@@ -47,7 +47,7 @@ public class HBaseOperationUpsertListMethodAdapter extends HBaseOperationMethodA
             entityClass = ((List) entity).get(0).getClass();
             // 处理数据
             HBaseTable hBaseTable = analyzeClass(entityClass);
-            table = connection.getTable(TableName.valueOf(hBaseTable.tableName()));
+            table = connection.getTable(TableName.valueOf(hBaseTable.nameSpace(),hBaseTable.tableName()));
 
             List<AnalyzeField> analyzeFieldList = analyzeField(entityClass);
 
@@ -70,7 +70,7 @@ public class HBaseOperationUpsertListMethodAdapter extends HBaseOperationMethodA
             entityClass = entity.getClass();
             // 处理数据
             HBaseTable hBaseTable = analyzeClass(entityClass);
-            table = connection.getTable(TableName.valueOf(hBaseTable.tableName()));
+            table = connection.getTable(TableName.valueOf(hBaseTable.nameSpace(),hBaseTable.tableName()));
 
             List<AnalyzeField> analyzeFieldList = analyzeField(entityClass);
 
