@@ -12,9 +12,7 @@ import org.springframework.util.ReflectionUtils;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -23,10 +21,16 @@ import java.util.stream.Collectors;
  * @describe :
  * @date : 2021/3/28 10:12 下午
  */
-public abstract class HBaseOperationMethodAbstractAdapter implements HBaseOperationMethodAdapter<HBaseOperationMethodAdapter.HBaseExecuteParams> {
+public abstract class HBaseOperationMethodAbstractAdapter
+        implements HBaseOperationMethodAdapter<HBaseOperationMethodAdapter.HBaseExecuteParams> {
 
     private final Admin admin;
     private final Connection connection;
+
+    /**
+     * 是否存在唯一字段注解
+     */
+    private Map<Class, List<AnalyzeField>> UNIQUE_FIELD = new HashMap<>();
 
 
     protected HBaseOperationMethodAbstractAdapter(Admin admin, Connection connection) {
@@ -106,9 +110,14 @@ public abstract class HBaseOperationMethodAbstractAdapter implements HBaseOperat
      */
     public String hBaseRow(List<AnalyzeField> analyzeFieldList, Object source) {
         String hBaseRow = UUID.randomUUID().toString();
-        List<AnalyzeField> uniqueConvertedFieldList = analyzeFieldList.stream().
-                filter(convertedField -> LayerField.LayerFieldType.UNIQUE.equals(convertedField.getFieldIndexType())).
-                collect(Collectors.toList());
+        List<AnalyzeField> uniqueConvertedFieldList;
+        if (UNIQUE_FIELD.containsKey(source.getClass())) {
+            uniqueConvertedFieldList = UNIQUE_FIELD.get(source.getClass());
+        } else {
+            uniqueConvertedFieldList = analyzeFieldList.stream().
+                    filter(convertedField -> LayerField.LayerFieldType.UNIQUE.equals(convertedField.getFieldIndexType())).
+                    collect(Collectors.toList());
+        }
         if (!ObjectUtils.isEmpty(uniqueConvertedFieldList)) {
             hBaseRow = uniqueConvertedFieldList.stream().map(convertedField -> {
                 Field field = ReflectionUtils.findField(source.getClass(), convertedField.getFieldName());

@@ -1,7 +1,6 @@
 package com.wu.framework.inner.lazy.hbase.expland.persistence.method;
 
 
-import com.wu.framework.inner.layer.stereotype.LayerField;
 import com.wu.framework.inner.layer.stereotype.analyze.AnalyzeField;
 import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
 import com.wu.framework.inner.lazy.hbase.expland.constant.HBaseOperationMethodCounts;
@@ -18,8 +17,6 @@ import org.springframework.util.ReflectionUtils;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 /**
  * @author : Jia wei Wu
@@ -54,11 +51,9 @@ public class HBaseOperationUpsertListMethodAdapter extends HBaseOperationMethodA
 
             List<AnalyzeField> analyzeFieldList = analyzeField(entityClass);
 
-
-
             List<Put> putList = new ArrayList<>();
             for (Object o : ((List) entity)) {
-                Put put = new Put(Bytes.toBytes(hBaseRow(analyzeFieldList,o)));
+                Put put = new Put(Bytes.toBytes(hBaseRow(analyzeFieldList, o)));
                 for (AnalyzeField analyzeField : analyzeFieldList) {
                     Field field = ReflectionUtils.findField(entityClass, analyzeField.getFieldName());
                     assert field != null;
@@ -79,7 +74,7 @@ public class HBaseOperationUpsertListMethodAdapter extends HBaseOperationMethodA
 
             List<AnalyzeField> analyzeFieldList = analyzeField(entityClass);
 
-            Put put = new Put(Bytes.toBytes(hBaseRow(analyzeFieldList,entity)));
+            Put put = new Put(Bytes.toBytes(hBaseRow(analyzeFieldList, entity)));
             for (AnalyzeField analyzeField : analyzeFieldList) {
                 Field field = ReflectionUtils.findField(entityClass, analyzeField.getFieldName());
                 field.setAccessible(true);
