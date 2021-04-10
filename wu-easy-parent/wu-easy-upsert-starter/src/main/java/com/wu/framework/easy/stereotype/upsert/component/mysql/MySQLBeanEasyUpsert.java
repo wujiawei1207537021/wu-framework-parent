@@ -9,7 +9,7 @@ import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.inner.layer.data.UserConvertService;
-import com.wu.framework.easy.stereotype.upsert.process.MySQLDataProcess;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.MySQLDataProcessAnalyze;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -35,8 +35,8 @@ public class MySQLBeanEasyUpsert extends MySQLEasyUpsertAbstract implements IEas
     private String primary;
     private Map<String, DataSource> dataSourceMap = new LinkedHashMap<>();
 
-    public MySQLBeanEasyUpsert(UserConvertService userConvertService, UpsertConfig upsertConfig, MySQLDataProcess mySQLDataProcess) {
-        super(userConvertService, upsertConfig, mySQLDataProcess);
+    public MySQLBeanEasyUpsert(UserConvertService userConvertService, UpsertConfig upsertConfig) {
+        super(userConvertService, upsertConfig);
     }
 
     @Override

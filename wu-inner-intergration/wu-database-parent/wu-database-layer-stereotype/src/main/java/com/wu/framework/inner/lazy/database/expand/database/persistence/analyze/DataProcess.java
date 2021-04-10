@@ -1,11 +1,14 @@
-package com.wu.framework.easy.stereotype.upsert.process;
+package com.wu.framework.inner.lazy.database.expand.database.persistence.analyze;
 
 /**
  * description 预处理、数据处理、转换
  *
+ * {@link com.wu.framework.inner.layer.stereotype.Layer}
+ *
  * @author Jia wei Wu
  * @date 2020/10/22 下午2:10
  */
+@Deprecated
 public interface DataProcess {
 
     /**

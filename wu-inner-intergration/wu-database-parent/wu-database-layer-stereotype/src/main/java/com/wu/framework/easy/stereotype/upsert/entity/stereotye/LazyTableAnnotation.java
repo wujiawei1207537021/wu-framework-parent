@@ -1,9 +1,9 @@
 package com.wu.framework.easy.stereotype.upsert.entity.stereotye;
 
-import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTable;
 import com.wu.framework.easy.stereotype.upsert.entity.ConvertedField;
 import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
 import com.wu.framework.inner.layer.stereotype.LayerField;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTable;
 import lombok.Data;
 import org.springframework.util.ObjectUtils;
 
@@ -13,7 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.wu.framework.easy.stereotype.upsert.converter.SQLConverter.*;
+import static com.wu.framework.easy.stereotype.upsert.converter.SQLAnalyze.*;
+
 
 /**
  * description 表注解属性 实体

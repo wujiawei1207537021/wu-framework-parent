@@ -9,6 +9,6 @@ import com.wu.framework.inner.layer.stereotype.LayerDefault;
  * @author Jia wei Wu
  * @date 2021/4/1 下午3:25
  */
-public abstract class LayerConverterAdapter implements LayerDefault, Layer {
+public interface LayerConverterAdapter extends LayerDefault, Layer {
 
 }

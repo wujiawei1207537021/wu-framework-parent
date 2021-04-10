@@ -1,4 +1,6 @@
-package com.wu.framework.easy.stereotype.upsert.process;
+package com.wu.framework.inner.lazy.database.expand.database.persistence.analyze;
+
+import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.DataProcess;
 
 /**
  * description Kafka 数据预处理

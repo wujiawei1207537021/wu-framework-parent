@@ -7,7 +7,7 @@ import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.inner.layer.data.UserConvertService;
-import com.wu.framework.easy.stereotype.upsert.process.MySQLDataProcess;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.MySQLDataProcessAnalyze;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -29,12 +29,10 @@ public class MySQLSimpleEasyUpsert extends MySQLEasyUpsertAbstract implements IE
 
 
     private final DataSource dataSource;
-    private final MySQLDataProcess mySQLDataProcess;
 
-    public MySQLSimpleEasyUpsert(DataSource dataSource, UserConvertService userConvertService, UpsertConfig upsertConfig, MySQLDataProcess mySQLDataProcess) {
-        super(userConvertService, upsertConfig, mySQLDataProcess);
+    public MySQLSimpleEasyUpsert(DataSource dataSource, UserConvertService userConvertService, UpsertConfig upsertConfig) {
+        super(userConvertService, upsertConfig);
         this.dataSource = dataSource;
-        this.mySQLDataProcess = mySQLDataProcess;
     }
 
     @Override

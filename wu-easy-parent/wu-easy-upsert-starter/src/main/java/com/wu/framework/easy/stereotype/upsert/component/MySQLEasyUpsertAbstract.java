@@ -9,7 +9,7 @@ import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LazyTableAnnotation;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
 import com.wu.framework.inner.layer.data.UserConvertService;
-import com.wu.framework.easy.stereotype.upsert.process.MySQLDataProcess;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.MySQLDataProcessAnalyze;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.annotation.AnnotatedElementUtils;
@@ -31,17 +31,15 @@ import java.util.concurrent.Future;
  * @date 2020/9/11 上午10:22
  */
 @Slf4j
-public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, InitializingBean {
+public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert,MySQLDataProcessAnalyze, InitializingBean {
 
 
     private final UserConvertService userConvertService;
     private final UpsertConfig upsertConfig;
-    private final MySQLDataProcess mySQLDataProcess;
 
-    public MySQLEasyUpsertAbstract(UserConvertService userConvertService, UpsertConfig upsertConfig, MySQLDataProcess mySQLDataProcess) {
+    public MySQLEasyUpsertAbstract(UserConvertService userConvertService, UpsertConfig upsertConfig) {
         this.userConvertService = userConvertService;
         this.upsertConfig = upsertConfig;
-        this.mySQLDataProcess = mySQLDataProcess;
     }
 
     protected abstract DataSource determineDataSource();
@@ -76,9 +74,9 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, Initializi
                 iEnumList = userConvertService.userConvert(clazz);
             }
             iEnumList.putAll(EasyAnnotationConverter.collectionConvert(clazz));
-            LazyTableAnnotation lazyTableAnnotation = mySQLDataProcess.dataAnalyze(clazz, EasyHashMap.class.isAssignableFrom(clazz) ? (EasyHashMap) list.get(0) : null);
+            LazyTableAnnotation lazyTableAnnotation = dataAnalyze(clazz, EasyHashMap.class.isAssignableFrom(clazz) ? (EasyHashMap) list.get(0) : null);
             lazyTableAnnotation.setIEnumList(iEnumList);
-            final MySQLDataProcess.MySQLProcessResult mySQLProcessResult = mySQLDataProcess.dataPack(list, lazyTableAnnotation);
+            final MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = dataPack(list, lazyTableAnnotation);
             if (upsertConfig.isPrintSql()) {
                 System.err.println(String.format("Execute SQL : {%s}", mySQLProcessResult.getSql()));
             }
@@ -89,7 +87,7 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, Initializi
                 connection = dataSource.getConnection();
                 //初始化表
                 if ((null != easySmart && easySmart.perfectTable()) | EasyHashMap.class.isAssignableFrom(clazz)) {
-                    mySQLDataProcess.perfectTable(lazyTableAnnotation, dataSource);
+                    perfectTable(lazyTableAnnotation, dataSource);
                 }
                 //获取PreparedStatement对象
                 upsertStatement = connection.prepareStatement(mySQLProcessResult.getSql());
@@ -123,7 +121,7 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, Initializi
     @Override
     public void afterPropertiesSet() throws Exception {
         if (upsertConfig.isRecordLog()) {
-            mySQLDataProcess.perfectTable(
+            perfectTable(
                     LocalStorageClassAnnotation.getEasyTableAnnotation(EasyUpsertLog.class, true), determineDataSource());
         }
     }

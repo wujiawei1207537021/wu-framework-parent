@@ -5,10 +5,10 @@ import com.wu.framework.database.generator.entity.ColumnEntity;
 import com.wu.framework.database.generator.entity.EncapsulatedTableInfo;
 import com.wu.framework.database.generator.entity.TableEntity;
 import com.wu.framework.database.generator.utils.GenUtils;
-import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
-import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
+import com.wu.framework.easy.stereotype.upsert.converter.SQLAnalyze;
 import com.wu.framework.easy.stereotype.upsert.entity.ConvertedField;
 import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
+import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.lazy.database.domain.Page;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import org.apache.commons.io.IOUtils;
@@ -112,6 +112,6 @@ public class SysGeneratorService {
             convertedField.setType(columnEntity.getDataType());
             return convertedField;
         }).collect(Collectors.toList());
-        return SQLConverter.createSelectSQL(convertedFieldList, tableName);
+        return SQLAnalyze.createSelectSQL(convertedFieldList, tableName);
     }
 }

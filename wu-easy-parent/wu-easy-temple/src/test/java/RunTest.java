@@ -1,4 +1,4 @@
-import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
+import com.wu.framework.easy.stereotype.upsert.converter.SQLAnalyze;
 import domain.PassengerTerminal;
 
 import java.text.MessageFormat;
@@ -13,7 +13,7 @@ public class RunTest {
     public static void main(String[] args) {
 //        SQLConverter.createTableSQL(PassengerTerminal.class);
 //
-        SQLConverter.upsertSQL(PassengerTerminal.class);
+        SQLAnalyze.upsertSQL(PassengerTerminal.class);
 //        SQLConverter.createSelectSQL(PassengerTerminal.class);
         String str1 = "大秦 {0} {1} {2}";
         System.out.println(MessageFormat.format(str1, "将军", "梦回", "秦朝"));

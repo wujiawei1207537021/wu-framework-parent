@@ -1,7 +1,8 @@
-package com.wu.framework.easy.stereotype.upsert.process;
+package com.wu.framework.inner.lazy.database.expand.database.persistence.analyze;
 
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LazyTableAnnotation;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.DataProcess;
 
 /**
  * description Redis 数据预处理

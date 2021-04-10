@@ -9,7 +9,7 @@ import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
 import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.inner.layer.data.NormalUsedString;
-import com.wu.framework.easy.stereotype.upsert.process.MySQLDataProcess;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.MySQLDataProcessAnalyze;
 import com.wu.framework.easy.stereotype.upsert.util.FileUtil;
 import com.wu.framework.inner.lazy.database.domain.Page;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
@@ -36,17 +36,16 @@ import java.util.concurrent.TimeUnit;
  * @date : 2020/6/27 下午7:15
  */
 //@EasyController
-public class DataBaseTestController implements CommandLineRunner {
+public class DataBaseTestController implements MySQLDataProcessAnalyze, CommandLineRunner {
 
     private final LazyOperation lazyOperation;
     private final UpsertConfig upsertConfig;
-    private final MySQLDataProcess mySQLDataProcess;
+
     private final IUpsert iUpsert;
 
-    public DataBaseTestController(LazyOperation lazyOperation, UpsertConfig upsertConfig, MySQLDataProcess mySQLDataProcess, IUpsert iUpsert) {
+    public DataBaseTestController(LazyOperation lazyOperation, UpsertConfig upsertConfig, IUpsert iUpsert) {
         this.lazyOperation = lazyOperation;
         this.upsertConfig = upsertConfig;
-        this.mySQLDataProcess = mySQLDataProcess;
         this.iUpsert = iUpsert;
     }
 
@@ -255,7 +254,7 @@ public class DataBaseTestController implements CommandLineRunner {
                 file.newLine();
                 EasyHashMap tableInfo = tableDateList.get(0);
                 tableInfo.setUniqueLabel(tableName);
-                final MySQLDataProcess.MySQLProcessResult mySQLProcessResult = mySQLDataProcess.dataPack(tableDateList, tableInfo.toEasyTableAnnotation(false));
+                final MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = dataPack(tableDateList, tableInfo.toEasyTableAnnotation(false));
                 String s = mySQLProcessResult.getSql();
                 s = s.replaceAll("'true'", "1").
                         replaceAll("'false'", "0").
@@ -323,7 +322,7 @@ public class DataBaseTestController implements CommandLineRunner {
                         file.write("-- " + tableName);
                         file.newLine();
                         tableInfo.setUniqueLabel(tableName);
-                        final MySQLDataProcess.MySQLProcessResult mySQLProcessResult = mySQLDataProcess.dataPack(record, tableInfo.toEasyTableAnnotation(false));
+                        final MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = dataPack(record, tableInfo.toEasyTableAnnotation(false));
                         String s = mySQLProcessResult.getSql();
                         s = s.replaceAll("'true'", "1").
                                 replaceAll("'false'", "0").
@@ -342,7 +341,7 @@ public class DataBaseTestController implements CommandLineRunner {
                     file.newLine();
                     tableInfo = tableDateList.get(0);
                     tableInfo.setUniqueLabel(tableName);
-                    MySQLDataProcess.MySQLProcessResult mySQLProcessResult = mySQLDataProcess.dataPack(tableDateList, tableInfo.toEasyTableAnnotation(false));
+                    MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = dataPack(tableDateList, tableInfo.toEasyTableAnnotation(false));
                     String s = mySQLProcessResult.getSql();
                     s = s.replaceAll("'true'", "1").
                             replaceAll("'false'", "0").

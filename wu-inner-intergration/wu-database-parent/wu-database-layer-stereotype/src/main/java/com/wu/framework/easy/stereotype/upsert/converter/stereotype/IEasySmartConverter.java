@@ -1,8 +1,10 @@
 package com.wu.framework.easy.stereotype.upsert.converter.stereotype;
 
+import com.wu.framework.inner.layer.stereotype.Layer;
+import com.wu.framework.inner.layer.stereotype.LayerDefault;
 import org.springframework.lang.NonNull;
 
-public interface IEasySmartConverter {
+public interface IEasySmartConverter extends Layer, LayerDefault {
 
 
     /**

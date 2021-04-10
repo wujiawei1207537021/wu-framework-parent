@@ -1,10 +1,11 @@
 package com.wu.framework.easy.stereotype.upsert.component;
 
 import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
+import com.wu.framework.easy.stereotype.upsert.analyze.ElasticsearchEasyDataProcessAnalyze;
 import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
-import com.wu.framework.easy.stereotype.upsert.process.ElasticsearchEasyDataProcess;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -27,7 +28,7 @@ import java.util.List;
 @Slf4j
 @EasyUpsertStrategy(value = EasyUpsertType.ES)
 @ConditionalOnProperty(prefix = "spring.elasticsearch.rest", value = "uris")
-public class ElasticsearchEasyUpsert implements IEasyUpsert, InitializingBean {
+public class ElasticsearchEasyUpsert implements IEasyUpsert, ElasticsearchEasyDataProcessAnalyze, InitializingBean {
 
     protected final WebClient webClient = WebClient.builder().exchangeStrategies(ExchangeStrategies.builder()
             .codecs(configurer -> configurer
@@ -36,12 +37,11 @@ public class ElasticsearchEasyUpsert implements IEasyUpsert, InitializingBean {
             .build())
             .build();
     private final ElasticsearchRestClientProperties elasticsearchRestClientProperties;
-    private final ElasticsearchEasyDataProcess elasticsearchEasyDataProcess;
+
     private final UpsertConfig upsertConfig;
 
-    ElasticsearchEasyUpsert(ElasticsearchRestClientProperties elasticsearchRestClientProperties, ElasticsearchEasyDataProcess elasticsearchEasyDataProcess, UpsertConfig upsertConfig) {
+    ElasticsearchEasyUpsert(ElasticsearchRestClientProperties elasticsearchRestClientProperties, UpsertConfig upsertConfig) {
         this.elasticsearchRestClientProperties = elasticsearchRestClientProperties;
-        this.elasticsearchEasyDataProcess = elasticsearchEasyDataProcess;
         this.upsertConfig = upsertConfig;
     }
 
@@ -106,7 +106,7 @@ public class ElasticsearchEasyUpsert implements IEasyUpsert, InitializingBean {
         List<List<T>> splitList = splitList(list, upsertConfig.getBatchLimit());
         for (List<T> ts : splitList) {
             log.info("处理步写入文件 【{}】 步 ,总文件 【{}】", stepCount, total);
-            elasticsearchEasyDataProcess.writeFileToLocal(ts);
+            writeFileToLocal(ts,upsertConfig.getCacheFileAddress());
             stepCount++;
         }
         log.info("分步写入本地文件完成✅");
@@ -131,7 +131,7 @@ public class ElasticsearchEasyUpsert implements IEasyUpsert, InitializingBean {
             File cacheFile = new File(upsertConfig.getCacheFileAddress());
             final File[] listFiles = cacheFile.listFiles((dir, name) -> {
                 String fileName = name.toLowerCase();
-                return fileName.endsWith(ElasticsearchEasyDataProcess.ES_UPSERT_FILE_SUFFIX);
+                return fileName.endsWith(ElasticsearchEasyDataProcessAnalyze.ES_UPSERT_FILE_SUFFIX);
             });
             int steps = 1;
             // 发送数据

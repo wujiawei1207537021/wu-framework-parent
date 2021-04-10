@@ -11,7 +11,4 @@ com.wu.framework.easy.stereotype.upsert.component.mysql.MySQLBeanEasyUpsert,\
 com.wu.framework.easy.stereotype.upsert.component.ElasticsearchEasyUpsert,\
 com.wu.framework.easy.stereotype.upsert.component.RedisUpsert,\
 com.wu.framework.easy.stereotype.upsert.component.HBaseUpsert,\
-com.wu.framework.easy.stereotype.dynamic.DynamicEasyUpsert,\
-com.wu.framework.easy.stereotype.upsert.process.ElasticsearchEasyDataProcess,\
-com.wu.framework.easy.stereotype.upsert.process.KafkaDataProcess,\
-com.wu.framework.easy.stereotype.upsert.process.MySQLDataProcess
+com.wu.framework.easy.stereotype.dynamic.DynamicEasyUpsert

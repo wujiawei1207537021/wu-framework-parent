@@ -1,6 +1,6 @@
 package com.wu.framework.easy.stereotype.log;
 
-import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
+import com.wu.framework.easy.stereotype.upsert.converter.SQLAnalyze;
 import lombok.Data;
 
 /**
@@ -23,6 +23,6 @@ public class EasyUpsertLog {
     /**
      * 作者
      */
-    private String author = SQLConverter.AUTHOR;
+    private String author = SQLAnalyze.AUTHOR;
 
 }

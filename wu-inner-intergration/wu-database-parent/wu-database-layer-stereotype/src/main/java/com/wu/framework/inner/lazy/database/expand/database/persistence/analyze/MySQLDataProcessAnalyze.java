@@ -1,4 +1,4 @@
-package com.wu.framework.easy.stereotype.upsert.process;
+package com.wu.framework.inner.lazy.database.expand.database.persistence.analyze;
 
 import com.wu.framework.easy.stereotype.upsert.entity.ConvertedField;
 import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
@@ -8,6 +8,7 @@ import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClas
 import com.wu.framework.easy.stereotype.upsert.enums.JavaBasicType;
 import com.wu.framework.inner.layer.data.IBeanUpsert;
 import com.wu.framework.inner.layer.data.NormalUsedString;
+import com.wu.framework.inner.layer.stereotype.LayerDefault;
 import lombok.Data;
 import lombok.SneakyThrows;
 import lombok.experimental.Accessors;
@@ -32,12 +33,12 @@ import java.util.stream.Collectors;
 import static com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter.annotationConvertConversion;
 
 /**
- * description MySQL 数据预处理
+ * description MySQL 数据预处理解析
  *
  * @author Jia wei Wu
  * @date 2020/10/22 下午2:25
  */
-public class MySQLDataProcess {
+public interface MySQLDataProcessAnalyze extends LayerDefault {
 
 
     /**
@@ -49,7 +50,7 @@ public class MySQLDataProcess {
      * @author Jia wei Wu
      * @date 2020/10/22 下午2:20
      */
-    public LazyTableAnnotation classAnalyze(Class clazz) {
+    public default LazyTableAnnotation classAnalyze(Class clazz) {
         return LocalStorageClassAnnotation.getEasyTableAnnotation(clazz, true);
     }
 
@@ -59,7 +60,7 @@ public class MySQLDataProcess {
      * @author Jiawei Wu
      * @date 2020/12/31 10:56 下午
      **/
-    public LazyTableAnnotation dataAnalyze(Class clazz, EasyHashMap easyHashMap) {
+    public default LazyTableAnnotation dataAnalyze(Class clazz, EasyHashMap easyHashMap) {
         LazyTableAnnotation lazyTableAnnotation;
         if (EasyHashMap.class.isAssignableFrom(clazz)) {
             lazyTableAnnotation = easyHashMap.toEasyTableAnnotation();
@@ -78,7 +79,7 @@ public class MySQLDataProcess {
      * @author Jia wei Wu
      * @date 2020/10/22 下午2:23
      */
-    public MySQLProcessResult dataPack(List sourceData, LazyTableAnnotation lazyTableAnnotation) throws Exception {
+    public default MySQLProcessResult dataPack(List sourceData, LazyTableAnnotation lazyTableAnnotation) throws Exception {
         MySQLProcessResult mySQLProcessResult = new MySQLProcessResult();
         List<InputStream> binaryList = new ArrayList<>();
         String insert = "insert into %s (%s) VALUES %s  ON DUPLICATE KEY UPDATE \n %s ";
@@ -174,7 +175,7 @@ public class MySQLDataProcess {
      * @author Jiawei Wu
      * @date 2020/12/31 8:18 下午
      **/
-    public int perfectTable(LazyTableAnnotation lazyTableAnnotation, DataSource dataSource) throws Exception {
+    public default int perfectTable(LazyTableAnnotation lazyTableAnnotation, DataSource dataSource) throws Exception {
         String tableName = lazyTableAnnotation.getTableName();
         Connection connection = null;
         int updateColumn = 0;
@@ -245,7 +246,7 @@ public class MySQLDataProcess {
      * @date 2021/3/1 7:07 下午
      **/
     @SneakyThrows
-    public InputStream isBinary(Object fieldValue) {
+    public default InputStream isBinary(Object fieldValue) {
         if (ObjectUtils.isEmpty(fieldValue)) return null;
         if (File.class.equals(fieldValue.getClass())) {
             return new FileInputStream((File) fieldValue);

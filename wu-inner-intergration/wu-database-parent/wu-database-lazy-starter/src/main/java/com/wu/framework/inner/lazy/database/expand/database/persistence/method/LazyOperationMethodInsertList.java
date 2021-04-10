@@ -1,7 +1,7 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
-import com.wu.framework.easy.stereotype.upsert.process.MySQLDataProcess;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.MySQLDataProcessAnalyze;
 import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.constant.LayerOperationMethodCounts;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
@@ -20,9 +20,8 @@ import java.util.Collections;
  * @date : 2020/7/4 下午7:22
  */
 @ProxyStrategicApproach(methodName = LayerOperationMethodCounts.INSERT_LIST)
-public class LazyOperationMethodInsertList extends AbstractLazyOperationMethod {
+public class LazyOperationMethodInsertList extends AbstractLazyOperationMethod implements MySQLDataProcessAnalyze{
 
-    private final MySQLDataProcess mySQLDataProcess = new MySQLDataProcess();
 
     @Override
     public PersistenceRepository getPersistenceRepository(Method method, Object[] args) throws Exception {
@@ -31,7 +30,7 @@ public class LazyOperationMethodInsertList extends AbstractLazyOperationMethod {
         if (args[0] instanceof Collection && !ObjectUtils.isEmpty(args)) {
             Collection collection = (Collection) args[0];
             Class clazz = collection.iterator().next().getClass();
-            MySQLDataProcess.MySQLProcessResult mySQLProcessResult = mySQLDataProcess.dataPack(Collections.singletonList(collection), LocalStorageClassAnnotation.getEasyTableAnnotation(clazz, true));
+            MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = dataPack(Collections.singletonList(collection), LocalStorageClassAnnotation.getEasyTableAnnotation(clazz, true));
             PersistenceRepository persistenceRepository = new PersistenceRepository();
             persistenceRepository.setQueryString(mySQLProcessResult.getSql());
             persistenceRepository.setBinaryList(mySQLProcessResult.getBinaryList());

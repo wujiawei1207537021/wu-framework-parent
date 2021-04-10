@@ -3,7 +3,6 @@ package com.wu.framework.easy.stereotype.upsert.entity.stereotye;
 import com.wu.framework.easy.stereotype.upsert.converter.SQLAnalyze;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTable;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
-import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.SmartMark;
 import lombok.Data;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -141,7 +140,7 @@ public class LocalStorageClassAnnotation {
             LazyTableAnnotation.setKafkaSchemaName(kafkaSchemaName);
             LazyTableAnnotation.setKafkaTopicName(kafkaTopicName);
             LazyTableAnnotation.setKafkaCode(kafkaCode);
-            LazyTableAnnotation.setConvertedFieldList(SQLConverter.fieldNamesOnAnnotation(clazz, null));
+            LazyTableAnnotation.setConvertedFieldList(SQLAnalyze.fieldNamesOnAnnotation(clazz, null));
             LazyTableAnnotation.setSmartFillField(smartFillField);
 //            log.info("Initialize {} annotation parameters  className:[{}],tableName:[{}],comment:[{}],kafkaTopicName:[{}],kafkaSchemaName:[{}],kafkaCode:[{}]", clazz,
 //                    className, tableName, comment, kafkaTopicName, kafkaSchemaName, kafkaCode);
