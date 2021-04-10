@@ -1,8 +1,8 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
+import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.constant.LayerOperationMethodCounts;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.RepositoryOnDifferentMethods;
 
 import java.lang.reflect.Method;
 import java.sql.PreparedStatement;
@@ -16,7 +16,7 @@ import java.util.List;
  * @describe :  自定义数据库持久层操作方法执行SQL
  * @date : 2020/7/3 下午10:28
  */
-@RepositoryOnDifferentMethods(methodName = LayerOperationMethodCounts.EXECUTE_SQL)
+@ProxyStrategicApproach(methodName = LayerOperationMethodCounts.EXECUTE_SQL)
 public class LazyOperationMethodExecuteSQL extends AbstractLazyOperationMethod {
 
     @Override

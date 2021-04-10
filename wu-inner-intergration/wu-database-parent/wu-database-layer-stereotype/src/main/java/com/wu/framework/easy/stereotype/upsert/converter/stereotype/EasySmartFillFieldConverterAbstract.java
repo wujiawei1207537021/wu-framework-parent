@@ -1,7 +1,7 @@
 package com.wu.framework.easy.stereotype.upsert.converter.stereotype;
 
 import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
-import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasySmartAnnotation;
+import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LazyTableAnnotation;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
 import com.wu.framework.easy.stereotype.upsert.enums.NormalUsedString;
 import lombok.Data;
@@ -43,8 +43,8 @@ public abstract class EasySmartFillFieldConverterAbstract extends EasySmartConve
             declaredFields = new Field[]{};
         } else {
             targetClass = target.getClass();
-            EasySmartAnnotation targetEasySmartAnnotation = LocalStorageClassAnnotation.getEasyTableAnnotation(targetClass, true);
-            smartFillField = new AtomicBoolean(targetEasySmartAnnotation.isSmartFillField());
+            LazyTableAnnotation targetLazyTableAnnotation = LocalStorageClassAnnotation.getEasyTableAnnotation(targetClass, true);
+            smartFillField = new AtomicBoolean(targetLazyTableAnnotation.isSmartFillField());
             declaredFields = target.getClass().getDeclaredFields();
         }
 

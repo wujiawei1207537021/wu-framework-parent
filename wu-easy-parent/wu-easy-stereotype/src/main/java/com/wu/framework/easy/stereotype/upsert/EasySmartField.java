@@ -30,6 +30,7 @@ import java.util.stream.Collectors;
 @Documented
 @Indexed
 @LayerField
+@LazyTableField
 public @interface EasySmartField {
 
     /**

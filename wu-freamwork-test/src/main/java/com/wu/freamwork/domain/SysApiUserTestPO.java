@@ -1,6 +1,7 @@
 package com.wu.freamwork.domain;
 
-import com.wu.inner.sys.adapter.stereotype.ConvertField;
+
+import com.wu.framework.inner.layer.data.ConvertField;
 import lombok.Data;
 
 /**

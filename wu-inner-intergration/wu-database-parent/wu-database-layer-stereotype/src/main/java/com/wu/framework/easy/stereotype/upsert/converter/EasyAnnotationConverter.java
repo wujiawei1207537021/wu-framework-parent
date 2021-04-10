@@ -1,9 +1,10 @@
 package com.wu.framework.easy.stereotype.upsert.converter;
 
 
-import com.wu.framework.easy.stereotype.upsert.EasySmart;
-import com.wu.framework.easy.stereotype.upsert.EasySmartField;
-import com.wu.framework.easy.stereotype.upsert.EasyUnique;
+
+import com.wu.framework.easy.stereotype.upsert.LazyTable;
+import com.wu.framework.easy.stereotype.upsert.LazyTableField;
+import com.wu.framework.easy.stereotype.upsert.LazyTableFieldUnique;
 import com.wu.framework.easy.stereotype.upsert.SmartMark;
 import com.wu.framework.inner.layer.data.DefaultIEnum;
 import com.wu.framework.inner.layer.data.IEnum;
@@ -17,7 +18,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * description 解析 EasySmart 中的参数
+ * description 解析 LazyTable 中的参数
  *
  * @author Jia wei Wu
  * @date 2020/7/16 下午2:12
@@ -32,36 +33,36 @@ public class EasyAnnotationConverter {
 //    private final static Logger log = LoggerFactory.getLogger(EasyAnnotationConverter.class);
 
     /**
-     * 获取  EasySmart 上的 kafkaTopicName
+     * 获取  LazyTable 上的 kafkaTopicName
      *
      * @param clazz
      * @return
      */
     public static String getCustomTableValue(Class clazz) {
-        EasySmart easySmart = AnnotationUtils.getAnnotation(clazz, EasySmart.class);
-        if (null != easySmart && !ObjectUtils.isEmpty(easySmart.value())) {
-            return easySmart.value();
+        LazyTable LazyTable = AnnotationUtils.getAnnotation(clazz, LazyTable.class);
+        if (null != LazyTable && !ObjectUtils.isEmpty(LazyTable.value())) {
+            return LazyTable.value();
         }
         return CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
     }
 
 
     /**
-     * 获取  EasySmart 上的 kafkaTopicName
+     * 获取  LazyTable 上的 kafkaTopicName
      *
      * @param clazz
      * @return
      */
     public static String getKafkaTopicName(Class clazz) {
-        EasySmart easySmart = AnnotationUtils.getAnnotation(clazz, EasySmart.class);
-        if (null != easySmart && !ObjectUtils.isEmpty(easySmart.kafkaTopicName())) {
-            return easySmart.kafkaTopicName();
+        LazyTable LazyTable = AnnotationUtils.getAnnotation(clazz, LazyTable.class);
+        if (null != LazyTable && !ObjectUtils.isEmpty(LazyTable.kafkaTopicName())) {
+            return LazyTable.kafkaTopicName();
         }
         return CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
     }
 
     /**
-     * 获取  EasySmart 上的 kafkaSchemaName
+     * 获取  LazyTable 上的 kafkaSchemaName
      *
      * @param clazz
      * @return
@@ -78,9 +79,9 @@ public class EasyAnnotationConverter {
      * @date 2020/11/21 下午10:48
      **/
     public static String getKafkaSchemaName(Class clazz, boolean deduplicationSwitch) {
-        EasySmart easySmart = AnnotationUtils.getAnnotation(clazz, EasySmart.class);
-        if (null != easySmart && !ObjectUtils.isEmpty(easySmart.kafkaSchemaName())) {
-            return easySmart.kafkaSchemaName();
+        LazyTable LazyTable = AnnotationUtils.getAnnotation(clazz, LazyTable.class);
+        if (null != LazyTable && !ObjectUtils.isEmpty(LazyTable.kafkaSchemaName())) {
+            return LazyTable.kafkaSchemaName();
         }
         if (deduplicationSwitch) {
             return CamelAndUnderLineConverter.humpToLine2(clazz.getName().replace(".", "_"));
@@ -89,7 +90,7 @@ public class EasyAnnotationConverter {
     }
 
     /**
-     * 获取 EasyUnique 中的value
+     * 获取 LazyTableFieldUnique 中的value
      *
      * @param clazz
      * @return
@@ -98,11 +99,11 @@ public class EasyAnnotationConverter {
         List<String> uniqueList = new ArrayList<>();
         for (Field declaredField : clazz.getDeclaredFields()) {
             declaredField.setAccessible(true);
-            EasyUnique easyUnique = AnnotationUtils.getAnnotation(declaredField, EasyUnique.class);
-            if (null != easyUnique) {
+            LazyTableFieldUnique LazyTableFieldUnique = AnnotationUtils.getAnnotation(declaredField, LazyTableFieldUnique.class);
+            if (null != LazyTableFieldUnique) {
                 String pk = declaredField.getName();
-                if (!ObjectUtils.isEmpty(easyUnique.value())) {
-                    pk = easyUnique.value();
+                if (!ObjectUtils.isEmpty(LazyTableFieldUnique.value())) {
+                    pk = LazyTableFieldUnique.value();
                 }
                 uniqueList.add(pk);
             }
@@ -120,10 +121,10 @@ public class EasyAnnotationConverter {
      * @date 2020/8/4 下午4:39
      */
     public static Object annotationConvertConversion(Field field, Object fieldVal, Map<String, Map<String, String>> iEnumList) {
-        EasySmartField easySmartField = AnnotatedElementUtils.getMergedAnnotation(field, EasySmartField.class);
+        LazyTableField LazyTableField = AnnotatedElementUtils.getMergedAnnotation(field, LazyTableField.class);
         // 确认枚举转换
-        if (null != easySmartField && !DefaultIEnum.class.equals(easySmartField.iEnum()) && easySmartField.iEnum().isEnum()) {
-            Class<? extends IEnum> e = easySmartField.iEnum();
+        if (null != LazyTableField && !DefaultIEnum.class.equals(LazyTableField.iEnum()) && LazyTableField.iEnum().isEnum()) {
+            Class<? extends IEnum> e = LazyTableField.iEnum();
             if (!ObjectUtils.isEmpty(fieldVal)) {
                 if (fieldVal instanceof String) {
                     fieldVal = ((String) fieldVal).trim();
@@ -131,7 +132,7 @@ public class EasyAnnotationConverter {
                 // 字典转换中获取需要分割的字符
 
                 String[] delimiters = e.getEnumConstants()[0].getConvertContentSeparator();
-//                      easySmartField.convertContentSeparator();
+//                      LazyTableField.convertContentSeparator();
                 // 分割后的内容
                 List<String> splitContent = new ArrayList<>();
                 if (!ObjectUtils.isEmpty(delimiters)) {
@@ -142,8 +143,8 @@ public class EasyAnnotationConverter {
                 // 转换后的字典
                 List<String> res = new ArrayList<>();
                 // 字典api转换
-                if (!ObjectUtils.isEmpty(easySmartField.convert())) {
-                    Map<String, String> ConvertMap = iEnumList.get(easySmartField.convert());
+                if (!ObjectUtils.isEmpty(LazyTableField.convert())) {
+                    Map<String, String> ConvertMap = iEnumList.get(LazyTableField.convert());
                     if (!ObjectUtils.isEmpty(ConvertMap)) {
                         for (String val : splitContent) {
                             if (ConvertMap.containsKey(val)) {
@@ -184,9 +185,9 @@ public class EasyAnnotationConverter {
     public static Map<String, Map<String, String>> collectionConvert(Class clazz) {
         Map<String, Map<String, String>> enumMap = new HashMap<>();
         for (Field declaredField : clazz.getDeclaredFields()) {
-            EasySmartField easySmartField = AnnotatedElementUtils.getMergedAnnotation(declaredField, EasySmartField.class);
-            if (null != easySmartField && !DefaultIEnum.class.equals(easySmartField.iEnum()) && easySmartField.iEnum().isEnum()) {
-                Class<? extends IEnum> e = easySmartField.iEnum();
+            LazyTableField LazyTableField = AnnotatedElementUtils.getMergedAnnotation(declaredField, LazyTableField.class);
+            if (null != LazyTableField && !DefaultIEnum.class.equals(LazyTableField.iEnum()) && LazyTableField.iEnum().isEnum()) {
+                Class<? extends IEnum> e = LazyTableField.iEnum();
                 Map<String, String> fieldMap = Arrays.stream(e.getEnumConstants()).collect(Collectors.toMap(IEnum::getItem, IEnum::getCode));
                 enumMap.put(declaredField.getName(), fieldMap);
             }
@@ -201,25 +202,25 @@ public class EasyAnnotationConverter {
      * @return
      */
     public static String getTableName(Class clazz) {
-        EasySmart easySmart = AnnotationUtils.getAnnotation(clazz, EasySmart.class);
-        if (null != easySmart && !ObjectUtils.isEmpty(easySmart.tableName())) {
-            return easySmart.tableName();
+        LazyTable LazyTable = AnnotationUtils.getAnnotation(clazz, LazyTable.class);
+        if (null != LazyTable && !ObjectUtils.isEmpty(LazyTable.tableName())) {
+            return LazyTable.tableName();
         }
         return CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
     }
 
     /**
-     * 获取 EasySmart comment
+     * 获取 LazyTable comment
      *
      * @param clazz
      * @return
      */
     public static String getComment(Class clazz) {
-        EasySmart easySmart = AnnotationUtils.getAnnotation(clazz, EasySmart.class);
-        if (null == easySmart) {
+        LazyTable LazyTable = AnnotationUtils.getAnnotation(clazz, LazyTable.class);
+        if (null == LazyTable) {
             return "";
         }
-        return easySmart.comment();
+        return LazyTable.comment();
     }
 
     /**
@@ -229,9 +230,9 @@ public class EasyAnnotationConverter {
      * @return
      */
     public static String getKafkaCode(Class clazz) {
-        EasySmart easySmart = AnnotationUtils.getAnnotation(clazz, EasySmart.class);
-        if (null != easySmart && !ObjectUtils.isEmpty(easySmart.kafkaCode())) {
-            return easySmart.kafkaCode();
+        LazyTable LazyTable = AnnotationUtils.getAnnotation(clazz, LazyTable.class);
+        if (null != LazyTable && !ObjectUtils.isEmpty(LazyTable.kafkaCode())) {
+            return LazyTable.kafkaCode();
         }
         return CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
     }
@@ -250,8 +251,8 @@ public class EasyAnnotationConverter {
         for (Object object : objects) {
             Class<?> aClass = object.getClass();
             // 类上没有注解 不下钻
-            final EasySmart easySmart = AnnotationUtils.getAnnotation(aClass, EasySmart.class);
-            if (null == easySmart || !easySmart.dataDrillDown()) {
+            final LazyTable LazyTable = AnnotationUtils.getAnnotation(aClass, LazyTable.class);
+            if (null == LazyTable || !LazyTable.dataDrillDown()) {
                 extractList.add(Collections.singletonList(object));
                 continue;
             }

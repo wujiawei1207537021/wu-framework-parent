@@ -17,7 +17,7 @@ import java.lang.annotation.*;
 @Documented
 @Indexed
 @LayerClass
-public @interface EasySmart {
+public @interface LazyTable {
 
     /**
      * 表名
@@ -39,7 +39,7 @@ public @interface EasySmart {
 
     /**
      * 数据下钻
-     * the field use Annotation with {@link com.wu.framework.easy.stereotype.upsert.SmartMark}
+     * the field use Annotation with {@link SmartMark}
      */
     boolean dataDrillDown() default false;
 

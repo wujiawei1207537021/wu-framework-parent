@@ -1,6 +1,7 @@
 package com.wu.freamwork.service.impl;
 
-import com.wu.inner.sys.api.ConvertApi;
+
+import com.wu.framework.inner.layer.data.ConvertApi;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashMap;

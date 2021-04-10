@@ -1,14 +1,14 @@
 package com.wu.framework.easy.stereotype.upsert.converter;
 
-
 import com.wu.framework.easy.stereotype.upsert.LazyTable;
 import com.wu.framework.easy.stereotype.upsert.LazyTableField;
 import com.wu.framework.easy.stereotype.upsert.entity.ConvertedField;
 import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LazyTableAnnotation;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
-import com.wu.framework.inner.layer.stereotype.LayerField;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
+import com.wu.framework.inner.layer.stereotype.LayerField;
+import com.wu.framework.inner.layer.stereotype.analyze.LayerAnalyzeAdapter;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
@@ -27,30 +27,23 @@ import java.util.stream.Collectors;
 
 import static com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter.annotationConvertConversion;
 
-/**
- * 自定义 生成新增更新或插入 支持字段映射 sql
- *
- * @author Jia wei Wu
- * @date 2020/6/23 10:15 上午
- */
-public class SQLConverter {
-
-    public static final String AUTHOR = "wujiawei";
+public interface SQLAnalyze extends LayerAnalyzeAdapter {
+    String AUTHOR = "wujiawei";
     /**
      * 打印建表语句
      *
      * @param clazz 数据传输类
      */
 //    SQL 描述
-    public static final String SQL_DESC =
+    String SQL_DESC =
             "-- ——————————————————————————\n" +
                     "-- create table %s  %s  \n" +  // 表名  表描述
                     "-- add by  %s  %s  \n" +   // 作者  日期
                     "-- ——————————————————————————" + "\n";
     //    删表
-    public static final String SQL_DROP = "DROP TABLE IF EXISTS `%s`;\n";
+    String SQL_DROP = "DROP TABLE IF EXISTS `%s`;\n";
     //    默认字段
-    public static final String SQL_DEFAULT_FIELD =
+    String SQL_DEFAULT_FIELD =
             "`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',\n" +
                     "`is_deleted` tinyint(1) DEFAULT '0' COMMENT '是否删除',\n" +
                     "`create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',\n" +
@@ -62,7 +55,7 @@ public class SQLConverter {
      *
      * @param clazz 数据传输类
      */
-    public static void upsertSQL(Class clazz) {
+    static void upsertSQL(Class clazz) {
         StringBuilder stringBuilder = new StringBuilder("insert into ");
         List<String> fieldNames = new ArrayList<>();
         List<Integer> ignoredIndex = new ArrayList<>();
@@ -543,7 +536,7 @@ public class SQLConverter {
      * @author Jia wei Wu
      * @date 2020/9/17 下午1:29
      */
-    public static <T> List<ConvertedField> fieldNamesOnAnnotation(Class<T> clazz, LayerField.LayerFieldType tableFileIndexType) {
+    static <T> List<ConvertedField> fieldNamesOnAnnotation(Class<T> clazz, LayerField.LayerFieldType tableFileIndexType) {
         List<ConvertedField> convertedFieldList = new ArrayList<>();
         for (Field declaredField : clazz.getDeclaredFields()) {
             if (!declaredField.isAccessible()) {
@@ -604,4 +597,5 @@ public class SQLConverter {
         String MODIFY_FIELD = " MODIFY %s %s %s "; // 字段名 字段类型 字段备注
         return String.join("", String.format(ALTER_TABLE, EasyAnnotationConverter.getTableName(tableClass)), ADD_SQL, "");
     }
+
 }

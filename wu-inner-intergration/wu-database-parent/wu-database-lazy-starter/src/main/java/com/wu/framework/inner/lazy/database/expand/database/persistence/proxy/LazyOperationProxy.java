@@ -1,8 +1,8 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.proxy;
 
+import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.method.LazyOperationMethod;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.RepositoryOnDifferentMethods;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -59,8 +59,8 @@ public class LazyOperationProxy implements InvocationHandler, InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         lazyOperationMethods.stream().forEach(lazyOperationMethod -> {
-            RepositoryOnDifferentMethods repositoryOnDifferentMethods = AnnotationUtils.getAnnotation(lazyOperationMethod.getClass(), RepositoryOnDifferentMethods.class);
-            LAZY_OPERATION_METHOD_MAP.put(repositoryOnDifferentMethods.methodName(), lazyOperationMethod);
+            ProxyStrategicApproach proxyStrategicApproach = AnnotationUtils.getAnnotation(lazyOperationMethod.getClass(), ProxyStrategicApproach.class);
+            LAZY_OPERATION_METHOD_MAP.put(proxyStrategicApproach.methodName(), lazyOperationMethod);
         });
     }
 }

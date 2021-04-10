@@ -1,11 +1,11 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
 import com.wu.framework.easy.stereotype.upsert.enums.NormalUsedString;
+import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
 import com.wu.framework.inner.lazy.database.converter.PersistenceConverter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.constant.LayerOperationMethodCounts;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.Persistence;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.RepositoryOnDifferentMethods;
 import org.springframework.util.ObjectUtils;
 
 import java.lang.reflect.Method;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * @describe : 灵活更新 去除null的字段
  * @date : 2020/7/3 下午10:28
  */
-@RepositoryOnDifferentMethods(methodName = LayerOperationMethodCounts.ACTIVE_UPSERT)
+@ProxyStrategicApproach(methodName = LayerOperationMethodCounts.ACTIVE_UPSERT)
 public class LazyOperationMethodActiveInsert extends AbstractLazyOperationMethod {
 
     @Override

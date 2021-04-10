@@ -1,9 +1,9 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
+import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
 import com.wu.framework.inner.lazy.database.converter.PreparedStatementSQLConverter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.constant.LayerOperationMethodCounts;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.RepositoryOnDifferentMethods;
 import org.springframework.util.ObjectUtils;
 
 import java.lang.reflect.Method;
@@ -18,7 +18,7 @@ import java.util.List;
  * @describe: 根据ID更新  自定义数据库持久层操作方法我选择一种
  * @date : 2020/7/4 下午7:22
  */
-@RepositoryOnDifferentMethods(methodName = LayerOperationMethodCounts.SELECT_ONE)
+@ProxyStrategicApproach(methodName = LayerOperationMethodCounts.SELECT_ONE)
 public class LazyOperationMethodISelectOne extends AbstractLazyOperationMethod {
 
     @Override

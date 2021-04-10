@@ -1,8 +1,8 @@
 package com.wu.freamwork.service.impl;
 
+import com.wu.framework.inner.layer.data.NormalConvertMapper;
 import com.wu.freamwork.domain.SysApiUserTestPO;
 import com.wu.freamwork.service.SysApiTestService;
-import com.wu.inner.sys.adapter.stereotype.NormalConvertMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

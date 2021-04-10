@@ -1,10 +1,10 @@
 package com.wu.framework.easy.stereotype.upsert.entity;
 
-import com.wu.framework.easy.stereotype.upsert.EasySmartField;
+import com.wu.framework.easy.stereotype.upsert.LazyTableField;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.easy.stereotype.upsert.converter.stereotype.EasySmartFillFieldConverter;
 import com.wu.framework.easy.stereotype.upsert.converter.stereotype.EasySmartFillFieldConverterAbstract;
-import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasySmartAnnotation;
+import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LazyTableAnnotation;
 import com.wu.framework.easy.stereotype.upsert.enums.NormalUsedString;
 import com.wu.framework.inner.layer.stereotype.LayerField;
 import org.springframework.util.ObjectUtils;
@@ -147,11 +147,11 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBean
 
     /**
      * @return
-     * @params 转换成 EasySmartAnnotation
+     * @params 转换成 LazyTableAnnotation
      * @author Jiawei Wu
      * @date 2020/12/31 6:52 下午
      **/
-    public EasySmartAnnotation toEasyTableAnnotation() {
+    public LazyTableAnnotation toEasyTableAnnotation() {
         return toEasyTableAnnotation(false);
     }
 
@@ -164,15 +164,15 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBean
      * @author Jiawei Wu
      * @date 2021/1/20 下午5:28
      */
-    public EasySmartAnnotation toEasyTableAnnotation(boolean isCapitalized) {
-        EasySmartAnnotation easySmartAnnotation = new EasySmartAnnotation();
-        easySmartAnnotation.setClassName(this.getClass().getName());
-        easySmartAnnotation.setClazz(this.getClass());
-        easySmartAnnotation.setTableName(CamelAndUnderLineConverter.humpToLine2(uniqueLabel));
-        easySmartAnnotation.setComment(String.format("创建时间%s", LocalDateTime.now()));
-        easySmartAnnotation.setKafkaCode(uniqueLabel);
-        easySmartAnnotation.setKafkaTopicName(uniqueLabel);
-        easySmartAnnotation.setKafkaSchemaName(UUID.randomUUID() + uniqueLabel);
+    public LazyTableAnnotation toEasyTableAnnotation(boolean isCapitalized) {
+        LazyTableAnnotation lazyTableAnnotation = new LazyTableAnnotation();
+        lazyTableAnnotation.setClassName(this.getClass().getName());
+        lazyTableAnnotation.setClazz(this.getClass());
+        lazyTableAnnotation.setTableName(CamelAndUnderLineConverter.humpToLine2(uniqueLabel));
+        lazyTableAnnotation.setComment(String.format("创建时间%s", LocalDateTime.now()));
+        lazyTableAnnotation.setKafkaCode(uniqueLabel);
+        lazyTableAnnotation.setKafkaTopicName(uniqueLabel);
+        lazyTableAnnotation.setKafkaSchemaName(UUID.randomUUID() + uniqueLabel);
         List<ConvertedField> convertedFieldList = new ArrayList<>();
         forEach((key, value) -> {
             String fieldName;
@@ -184,15 +184,15 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBean
             ConvertedField convertedField = new ConvertedField();
             convertedField.setFieldName(fieldName);
             Class fieldClazz = null == value ? String.class : value.getClass();
-            convertedField.setType(EasySmartField.FileType.getTypeByClass(fieldClazz));
+            convertedField.setType(LazyTableField.FileType.getTypeByClass(fieldClazz));
             convertedField.setComment(String.format("字段创建时间%s", LocalDateTime.now()));
             convertedField.setClazz(fieldClazz);
             convertedField.setConvertedFieldName(CamelAndUnderLineConverter.humpToLine2(fieldName));
             convertedField.setFieldIndexType(LayerField.LayerFieldType.FILE_TYPE);
             convertedFieldList.add(convertedField);
         });
-        easySmartAnnotation.setConvertedFieldList(convertedFieldList);
-        return easySmartAnnotation;
+        lazyTableAnnotation.setConvertedFieldList(convertedFieldList);
+        return lazyTableAnnotation;
     }
 
     /**
