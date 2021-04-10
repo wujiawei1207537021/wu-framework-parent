@@ -1,4 +1,4 @@
-package com.wu.framework.easy.stereotype.web;
+package com.wu.framework.inner.layer.web;
 
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,6 +1,6 @@
 package com.wu.freamwork.controller;
 
-import com.wu.framework.easy.stereotype.web.EasyController;
+import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.freamwork.domain.SysApiUserTestPO;
 import com.wu.freamwork.service.SysApiTestService;
 import org.springframework.web.bind.annotation.GetMapping;

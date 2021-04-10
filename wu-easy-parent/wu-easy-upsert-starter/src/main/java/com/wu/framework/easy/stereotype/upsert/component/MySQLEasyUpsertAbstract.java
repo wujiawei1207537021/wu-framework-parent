@@ -8,7 +8,7 @@ import com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter
 import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasySmartAnnotation;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
-import com.wu.framework.easy.stereotype.upsert.ienum.UserConvertService;
+import com.wu.framework.inner.layer.data.UserConvertService;
 import com.wu.framework.easy.stereotype.upsert.process.MySQLDataProcess;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;

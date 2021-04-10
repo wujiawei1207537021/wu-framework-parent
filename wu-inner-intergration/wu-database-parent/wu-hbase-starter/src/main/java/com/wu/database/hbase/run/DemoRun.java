@@ -1,6 +1,6 @@
 package com.wu.database.hbase.run;
 
-import com.wu.framework.easy.stereotype.web.EasyController;
+import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.inner.lazy.hbase.expland.bo.HBaseUserBo;
 import com.wu.framework.inner.lazy.hbase.expland.persistence.HBaseOperation;
 import com.wu.framework.inner.lazy.hbase.expland.persistence.proxy.HBaseOperationProxy;
@@ -42,7 +42,7 @@ public class DemoRun {
 //        boolean user = admin.tableExists(TableName.valueOf("hbase_user"));
         List<HBaseUserBo> hBaseUserBoList = new ArrayList<>();
         long a = System.currentTimeMillis();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 100000; i++) {
             hBaseUserBoList.add(new HBaseUserBo().setUserName("hbase_user").setAge("12").setSex("男").setId(i));
         }
         long b = System.currentTimeMillis();

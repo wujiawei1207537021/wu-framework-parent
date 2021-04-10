@@ -2,7 +2,7 @@ package com.wu.bionic.language.vocalize.controller;
 
 import com.wu.bionic.language.vocalize.Vocalization;
 import com.wu.framework.easy.stereotype.upsert.converter.stereotype.Word;
-import com.wu.framework.easy.stereotype.web.EasyController;
+import com.wu.framework.inner.layer.web.EasyController;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,7 +1,7 @@
 package com.wu.framework.shiro.endpoint;
 
 
-import com.wu.framework.easy.stereotype.web.EasyController;
+import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.response.Result;
 import com.wu.framework.shiro.annotation.AccessLimit;
 import com.wu.framework.shiro.domain.AccessTokenRO;

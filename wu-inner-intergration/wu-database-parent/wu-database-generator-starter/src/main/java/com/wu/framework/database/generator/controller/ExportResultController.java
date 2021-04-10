@@ -1,7 +1,7 @@
 package com.wu.framework.database.generator.controller;
 
 import com.wu.framework.easy.excel.stereotype.EasyExcel;
-import com.wu.framework.easy.stereotype.web.EasyController;
+import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

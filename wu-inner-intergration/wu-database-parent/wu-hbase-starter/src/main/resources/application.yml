@@ -2,7 +2,7 @@
 
 spring:
   hbase:
-    zookeeper-quorum: '127.0.0.1:2181'
+    zookeeper-quorum: 'k8s.wu2020.top:2181'
 
 
 server:

@@ -1,7 +1,7 @@
 //package com.wu.framework.easy.temple.controller;
 //
 //import com.alibaba.nacos.api.config.annotation.NacosValue;
-//import com.wu.framework.easy.stereotype.web.EasyController;
+//import com.wu.framework.inner.layer.web.EasyController;
 //import org.springframework.web.bind.annotation.GetMapping;
 //
 ///**

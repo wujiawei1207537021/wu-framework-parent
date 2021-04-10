@@ -1,7 +1,7 @@
 package com.wu.framework.easy.stereotype.upsert.entity.stereotye;
 
 import com.wu.framework.easy.stereotype.upsert.EasySmart;
-import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConverter;
+import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
 import lombok.Data;
 import org.springframework.core.annotation.AnnotationUtils;

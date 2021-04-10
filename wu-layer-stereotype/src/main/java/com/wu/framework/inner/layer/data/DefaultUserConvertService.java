@@ -1,4 +1,4 @@
-package com.wu.framework.easy.stereotype.upsert.ienum;
+package com.wu.framework.inner.layer.data;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

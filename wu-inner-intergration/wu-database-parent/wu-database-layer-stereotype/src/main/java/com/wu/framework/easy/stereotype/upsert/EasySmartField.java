@@ -1,7 +1,7 @@
 package com.wu.framework.easy.stereotype.upsert;
 
-import com.wu.framework.easy.stereotype.upsert.ienum.DefaultIEnum;
-import com.wu.framework.easy.stereotype.upsert.ienum.IEnum;
+import com.wu.framework.inner.layer.data.DefaultIEnum;
+import com.wu.framework.inner.layer.data.IEnum;
 import com.wu.framework.inner.layer.stereotype.LayerField;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

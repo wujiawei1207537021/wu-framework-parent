@@ -4,7 +4,7 @@ package com.wu.framework.easy.temple.run;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.wu.framework.easy.excel.stereotype.EasyExcel;
 import com.wu.framework.easy.excel.util.EasyExcelUtil;
-import com.wu.framework.easy.stereotype.web.EasyController;
+import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.easy.temple.EasyExcelTemp;
 import com.wu.framework.easy.temple.domain.ComplexUseExcel;
 import com.wu.framework.easy.temple.domain.SmartExcel;

@@ -1,4 +1,4 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.wu.inner.sys.adapter.DefaultConvertAdapterService,\
-com.wu.inner.sys.adapter.apo.NormalConvertMapperAspectPointAspectAOP
+com.wu.inner.com.wu.framework.inner.layer.data.DefaultConvertAdapterService,\
+com.wu.inner.com.wu.framework.inner.layer.data.apo.NormalConvertMapperAspectPointAspectAOP

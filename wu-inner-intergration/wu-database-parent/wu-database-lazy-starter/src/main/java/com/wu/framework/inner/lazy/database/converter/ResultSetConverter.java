@@ -2,7 +2,7 @@ package com.wu.framework.inner.lazy.database.converter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConverter;
+import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import lombok.Data;
 
 import java.sql.ResultSet;

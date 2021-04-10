@@ -1,6 +1,6 @@
 package com.wu.framework.easy.temple.run;
 
-import com.wu.framework.easy.stereotype.web.EasyController;
+import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.inner.redis.annotation.LazyRedis;
 import com.wu.framework.inner.redis.component.LazyRedisTemplate;
 import io.swagger.annotations.Api;

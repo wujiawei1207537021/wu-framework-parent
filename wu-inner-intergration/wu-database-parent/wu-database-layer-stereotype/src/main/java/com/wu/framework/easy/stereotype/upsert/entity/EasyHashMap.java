@@ -1,7 +1,7 @@
 package com.wu.framework.easy.stereotype.upsert.entity;
 
 import com.wu.framework.easy.stereotype.upsert.EasySmartField;
-import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConverter;
+import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.easy.stereotype.upsert.converter.stereotype.EasySmartFillFieldConverter;
 import com.wu.framework.easy.stereotype.upsert.converter.stereotype.EasySmartFillFieldConverterAbstract;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.EasySmartAnnotation;

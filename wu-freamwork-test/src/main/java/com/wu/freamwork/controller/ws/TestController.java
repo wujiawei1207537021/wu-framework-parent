@@ -1,6 +1,6 @@
 package com.wu.freamwork.controller.ws;
 
-import com.wu.framework.easy.stereotype.web.EasyController;
+import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.freamwork.controller.ws.enums.ConstructionMarketEnums;
 import com.wu.freamwork.domain.ResultPo;
 import org.springframework.util.ObjectUtils;

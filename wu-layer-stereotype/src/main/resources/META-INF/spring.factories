@@ -1,5 +1,7 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.wu.framework.easy.stereotype.apo.MonitorCurrentMethodAdvisor,\
-com.wu.framework.easy.stereotype.apo.MonitorCurrentMethodAdvisor$MonitorCurrentMethodInterceptor,\
-com.wu.framework.inner.layer.stereotype.proxy.LayerProxyConfig
+com.wu.framework.inner.layer.web.apo.MonitorCurrentMethodAdvisor,\
+com.wu.framework.inner.layer.web.apo.MonitorCurrentMethodAdvisor$MonitorCurrentMethodInterceptor,\
+com.wu.framework.inner.layer.stereotype.proxy.LayerProxyConfig,\
+com.wu.framework.inner.layer.data.apo.NormalConvertMapperAspectPointAspectAOP,\
+com.wu.framework.inner.layer.data.DefaultConvertAdapterService

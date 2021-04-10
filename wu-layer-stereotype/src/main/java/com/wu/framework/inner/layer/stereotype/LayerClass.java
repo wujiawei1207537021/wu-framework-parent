@@ -1,7 +1,6 @@
 package com.wu.framework.inner.layer.stereotype;
 
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Indexed;
 
 import java.lang.annotation.*;

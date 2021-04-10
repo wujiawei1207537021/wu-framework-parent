@@ -3,7 +3,7 @@ package com.wu.framework.easy.temple.run;
 
 import com.wu.framework.easy.excel.stereotype.EasyExcel;
 import com.wu.framework.easy.stereotype.upsert.EasySmartField;
-import com.wu.framework.easy.stereotype.web.EasyController;
+import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.easy.temple.domain.UserLog;
 import com.wu.framework.easy.temple.service.RunService;
 import org.springframework.web.bind.annotation.GetMapping;

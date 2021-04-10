@@ -1,6 +1,6 @@
 package com.wu.framework.inner.lazy.hbase.expland.analyze;
 
-import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConverter;
+import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.layer.stereotype.analyze.AnalyzeField;
 import com.wu.framework.inner.lazy.hbase.expland.persistence.stereotype.HBaseTableUnique;
 import org.springframework.core.annotation.AnnotationUtils;

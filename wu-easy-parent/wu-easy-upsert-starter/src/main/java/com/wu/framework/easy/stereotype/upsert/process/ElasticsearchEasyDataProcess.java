@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.wu.framework.easy.stereotype.upsert.EasySmart;
 import com.wu.framework.easy.stereotype.upsert.EasySmartField;
 import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
-import com.wu.framework.easy.stereotype.upsert.converter.CamelAndUnderLineConverter;
+import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.easy.stereotype.upsert.converter.JavaBasicTypeConversion;
 import com.wu.framework.easy.stereotype.upsert.util.FileUtil;
 import lombok.Data;

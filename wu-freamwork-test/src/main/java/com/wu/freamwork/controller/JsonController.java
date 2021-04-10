@@ -1,7 +1,7 @@
 package com.wu.freamwork.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.wu.framework.easy.stereotype.web.EasyController;
+import com.wu.framework.inner.layer.web.EasyController;
 import lombok.Data;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

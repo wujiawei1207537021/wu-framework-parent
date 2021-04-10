@@ -1,7 +1,7 @@
 package com.wu.freamwork.controller;
 
 
-import com.wu.framework.easy.stereotype.web.EasyController;
+import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.inner.template.https.HttpsRestTemplate;
 import io.swagger.annotations.Api;
 

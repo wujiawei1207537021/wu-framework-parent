@@ -1,4 +1,4 @@
-package com.wu.framework.inner.lazy.database.domain;
+package com.wu.framework.inner.layer.stereotype.domain;
 
 import com.wu.framework.inner.layer.stereotype.LayerField;
 import lombok.Data;

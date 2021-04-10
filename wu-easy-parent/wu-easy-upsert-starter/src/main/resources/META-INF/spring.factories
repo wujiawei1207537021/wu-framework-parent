@@ -4,7 +4,7 @@ com.wu.framework.easy.stereotype.upsert.handler.IUpsertHandler,\
 com.wu.framework.easy.stereotype.upsert.config.UpsertConfig,\
 com.wu.framework.easy.stereotype.upsert.component.EasyUpsertExtractKafkaProducer,\
 com.wu.framework.easy.stereotype.dynamic.config.EasyDynamicDataSourceConfig,\
-com.wu.framework.easy.stereotype.upsert.ienum.DefaultUserConvertService,\
+com.wu.framework.inner.layer.data.DefaultUserConvertService,\
 com.wu.framework.easy.stereotype.upsert.component.KafkaEasyUpsert,\
 com.wu.framework.easy.stereotype.upsert.component.mysql.MySQLSimpleEasyUpsert,\
 com.wu.framework.easy.stereotype.upsert.component.mysql.MySQLBeanEasyUpsert,\

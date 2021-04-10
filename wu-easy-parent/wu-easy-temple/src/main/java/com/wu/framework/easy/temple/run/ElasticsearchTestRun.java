@@ -1,6 +1,6 @@
 package com.wu.framework.easy.temple.run;
 
-import com.wu.framework.easy.stereotype.web.EasyController;
+import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.easy.temple.domain.DynGpsVehRun;
 import com.wu.framework.easy.temple.domain.ElasticsearchUser;
 import com.wu.framework.easy.temple.repository.ElasticsearchGPSRepository;

@@ -2,7 +2,7 @@ package com.wu.freamwork.controller;
 
 import com.wu.framework.easy.excel.stereotype.EasyExcel;
 import com.wu.framework.easy.excel.util.FastExcelImp;
-import com.wu.framework.easy.stereotype.web.EasyController;
+import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import com.wu.freamwork.domain.Veh;
 import lombok.extern.slf4j.Slf4j;
