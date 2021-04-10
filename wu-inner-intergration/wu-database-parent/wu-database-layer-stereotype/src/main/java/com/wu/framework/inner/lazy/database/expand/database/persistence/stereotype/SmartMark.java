@@ -1,4 +1,4 @@
-package com.wu.framework.easy.stereotype.upsert;
+package com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype;
 
 import java.lang.annotation.*;
 

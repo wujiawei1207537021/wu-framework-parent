@@ -8,7 +8,7 @@ import com.wu.framework.easy.stereotype.upsert.converter.ConverterClass2KafkaSch
 import com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter;
 import com.wu.framework.easy.stereotype.upsert.converter.JsonFileConverter;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
-import com.wu.framework.easy.stereotype.upsert.entity.IBeanUpsert;
+import com.wu.framework.inner.layer.data.IBeanUpsert;
 import com.wu.framework.easy.stereotype.upsert.entity.kafka.KafkaJsonMessage;
 import com.wu.framework.easy.stereotype.upsert.entity.kafka.TargetJsonSchema;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LazyTableAnnotation;

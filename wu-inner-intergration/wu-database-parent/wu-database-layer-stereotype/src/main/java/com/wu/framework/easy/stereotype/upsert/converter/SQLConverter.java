@@ -1,8 +1,8 @@
 package com.wu.framework.easy.stereotype.upsert.converter;
 
 
-import com.wu.framework.easy.stereotype.upsert.LazyTable;
-import com.wu.framework.easy.stereotype.upsert.LazyTableField;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTable;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTableField;
 import com.wu.framework.easy.stereotype.upsert.entity.ConvertedField;
 import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LazyTableAnnotation;
@@ -29,10 +29,12 @@ import static com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationCo
 
 /**
  * 自定义 生成新增更新或插入 支持字段映射 sql
+ * {@link SQLAnalyze}
  *
  * @author Jia wei Wu
  * @date 2020/6/23 10:15 上午
  */
+@Deprecated
 public class SQLConverter {
 
     public static final String AUTHOR = "wujiawei";

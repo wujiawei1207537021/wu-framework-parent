@@ -1,7 +1,7 @@
 package com.wu.framework.easy.temple.domain.bo;
 
 import com.wu.framework.easy.stereotype.upsert.EasySmart;
-import com.wu.framework.easy.stereotype.upsert.SmartMark;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.SmartMark;
 import com.wu.framework.easy.temple.domain.UseExcel;
 import com.wu.framework.easy.temple.domain.UserLog;
 import lombok.Data;

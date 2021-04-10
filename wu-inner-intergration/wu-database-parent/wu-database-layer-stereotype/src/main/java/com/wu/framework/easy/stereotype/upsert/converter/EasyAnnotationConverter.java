@@ -2,10 +2,10 @@ package com.wu.framework.easy.stereotype.upsert.converter;
 
 
 
-import com.wu.framework.easy.stereotype.upsert.LazyTable;
-import com.wu.framework.easy.stereotype.upsert.LazyTableField;
-import com.wu.framework.easy.stereotype.upsert.LazyTableFieldUnique;
-import com.wu.framework.easy.stereotype.upsert.SmartMark;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTable;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTableField;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTableFieldUnique;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.SmartMark;
 import com.wu.framework.inner.layer.data.DefaultIEnum;
 import com.wu.framework.inner.layer.data.IEnum;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;

@@ -8,7 +8,7 @@ import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
 import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
-import com.wu.framework.easy.stereotype.upsert.enums.NormalUsedString;
+import com.wu.framework.inner.layer.data.NormalUsedString;
 import com.wu.framework.easy.stereotype.upsert.process.MySQLDataProcess;
 import com.wu.framework.easy.stereotype.upsert.util.FileUtil;
 import com.wu.framework.inner.lazy.database.domain.Page;

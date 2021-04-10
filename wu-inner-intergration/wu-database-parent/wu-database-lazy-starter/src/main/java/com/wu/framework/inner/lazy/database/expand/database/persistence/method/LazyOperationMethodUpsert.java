@@ -1,5 +1,6 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
+import com.wu.framework.easy.stereotype.upsert.converter.SQLAnalyze;
 import com.wu.framework.easy.stereotype.upsert.converter.SQLConverter;
 import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.constant.LayerOperationMethodCounts;
@@ -16,7 +17,7 @@ import java.util.Collection;
  * @date : 2020/7/3 下午10:28
  */
 @ProxyStrategicApproach(methodName = LayerOperationMethodCounts.UPSERT_LIST)
-public class LazyOperationMethodUpsert extends AbstractLazyOperationMethod {
+public class LazyOperationMethodUpsert extends AbstractLazyOperationMethod implements SQLAnalyze {
 
     @Override
     public PersistenceRepository getPersistenceRepository(Method method, Object[] args) throws Exception {
@@ -24,7 +25,7 @@ public class LazyOperationMethodUpsert extends AbstractLazyOperationMethod {
         if (args[0] instanceof Collection && !ObjectUtils.isEmpty(args)) {
             Collection collection = (Collection) args[0];
             Class clazz = collection.iterator().next().getClass();
-            String queryString = SQLConverter.upsertPreparedStatementSQL(collection, clazz);
+            String queryString = upsertPreparedStatementSQL(collection, clazz);
             PersistenceRepository persistenceRepository = new PersistenceRepository();
             persistenceRepository.setQueryString(queryString);
             persistenceRepository.setResultClass(clazz);

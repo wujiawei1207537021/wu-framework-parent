@@ -3,6 +3,7 @@ package com.wu.framework.easy.stereotype.upsert;
 import com.wu.framework.inner.layer.data.DefaultIEnum;
 import com.wu.framework.inner.layer.data.IEnum;
 import com.wu.framework.inner.layer.stereotype.LayerField;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTableField;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.core.annotation.AliasFor;

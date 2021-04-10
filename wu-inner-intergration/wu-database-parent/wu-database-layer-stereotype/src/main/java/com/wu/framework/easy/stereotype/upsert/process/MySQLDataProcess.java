@@ -2,12 +2,12 @@ package com.wu.framework.easy.stereotype.upsert.process;
 
 import com.wu.framework.easy.stereotype.upsert.entity.ConvertedField;
 import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
-import com.wu.framework.easy.stereotype.upsert.entity.IBeanUpsert;
 import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LazyTableAnnotation;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
 import com.wu.framework.easy.stereotype.upsert.enums.JavaBasicType;
-import com.wu.framework.easy.stereotype.upsert.enums.NormalUsedString;
+import com.wu.framework.inner.layer.data.IBeanUpsert;
+import com.wu.framework.inner.layer.data.NormalUsedString;
 import lombok.Data;
 import lombok.SneakyThrows;
 import lombok.experimental.Accessors;

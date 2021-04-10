@@ -1,7 +1,7 @@
 package com.wu.framework.easy.stereotype.upsert.converter;
 
-import com.wu.framework.easy.stereotype.upsert.LazyTable;
-import com.wu.framework.easy.stereotype.upsert.LazyTableField;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTable;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTableField;
 import com.wu.framework.easy.stereotype.upsert.entity.ConvertedField;
 import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
 import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LazyTableAnnotation;
@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
 import static com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter.annotationConvertConversion;
 
 public interface SQLAnalyze extends LayerAnalyzeAdapter {
+
     String AUTHOR = "wujiawei";
     /**
      * 打印建表语句
@@ -109,73 +110,16 @@ public interface SQLAnalyze extends LayerAnalyzeAdapter {
         System.out.println("插入语句：\n" + stringBuilder);
     }
 
-    public static String createTableSQL(Class clazz) {
-        LazyTableAnnotation LazyTableAnnotation = LocalStorageClassAnnotation.getEasyTableAnnotation(clazz, true);
-
-//        LazyTable tableNameAnnotation = AnnotationUtils.getAnnotation(clazz, LazyTable.class);
-//        List<String> fieldNames = new ArrayList<>();
-//        List<Integer> ignoredIndex = new ArrayList<>();
-//        String tableComment = "";
-//        String tableName = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
-//        // 添加表名
-//        if (!ObjectUtils.isEmpty(tableNameAnnotation)) {
-//            if (!ObjectUtils.isEmpty(tableNameAnnotation.tableName())) {
-//                tableName = tableNameAnnotation.tableName();
-//            }
-//            tableComment = tableNameAnnotation.comment();
-//        }
-//        StringBuilder createTableSQLBuffer = new StringBuilder(
-//                String.format(SQL_DESC, tableName, tableComment, AUTHOR, LocalDate.now()));
-//        createTableSQLBuffer.append(String.format(SQL_DROP, tableName));
-//        createTableSQLBuffer.append("CREATE TABLE `").append(tableName).append("` ( \n");
-//        // 是否为一索引
-//        List<String> uniqueList = new ArrayList<>();
-//        // 添加字段
-//        Field[] fields = clazz.getDeclaredFields();
-//        for (int i = 0; i < fields.length; i++) {
-//            Field declaredField = fields[i];
-//            LazyTableField tableField = AnnotatedElementUtils.findMergedAnnotation(declaredField, LazyTableField.class);
-//            String fieldName = "`" + CamelAndUnderLineConverter.humpToLine2(declaredField.getName()) + "`";
-//            String type = LazyTableField.FileType.getTypeByClass(declaredField.getType());
-//            String comment = CamelAndUnderLineConverter.humpToLine2(declaredField.getName());
-//            if (!ObjectUtils.isEmpty(tableField)) {
-//                if (!tableField.exist()) {
-//                    ignoredIndex.add(i);
-//                    continue;
-//                }
-//                comment = tableField.comment();
-//                if (!ObjectUtils.isEmpty(tableField.value())) {
-//                    fieldName = tableField.value();
-//                }
-//                if (!ObjectUtils.isEmpty(tableField.type())) {
-//                    type = tableField.type();
-//                }
-//                // 记录索引字段
-//                if (tableField.indexType().equals(LayerField.LayerFieldType.UNIQUE)) {
-//                    uniqueList.add(fieldName);
-//                }
-//            }
-//            fieldNames.add(fieldName);
-//            createTableSQLBuffer.append(fieldName).append(type).append(" COMMENT '").append(comment).append("', \n");
-//        }
-//        createTableSQLBuffer.append(SQL_DEFAULT_FIELD);
-////        UNIQUE KEY `plate_num_color` (`plate_num`,`plate_color`),
-//        if (!ObjectUtils.isEmpty(uniqueList)) {
-//            createTableSQLBuffer.append(" , UNIQUE KEY `");
-//            createTableSQLBuffer.append(String.join("_", uniqueList));
-//            createTableSQLBuffer.append("` (`");
-//            createTableSQLBuffer.append(String.join("`,`", uniqueList));
-//            createTableSQLBuffer.append("`)");
-//        }
-//        createTableSQLBuffer.append(") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='");
-//        createTableSQLBuffer.append(tableComment).append("';\n");
-//        createTableSQLBuffer.append("-- ------end \n" +
-//                "-- ——————————————————————————\n");
-//        System.out.println(createTableSQLBuffer);
-//        return createTableSQLBuffer.toString();
-        return LazyTableAnnotation.creatTableSQL();
+    static String createTableSQL(Class clazz) {
+        LazyTableAnnotation lazyTableAnnotation = LocalStorageClassAnnotation.getEasyTableAnnotation(clazz, true);
+        return lazyTableAnnotation.creatTableSQL();
     }
 
+    @Override
+    default String analyze(Class clazz) {
+        LazyTableAnnotation lazyTableAnnotation = LocalStorageClassAnnotation.getEasyTableAnnotation(clazz, true);
+        return lazyTableAnnotation.creatTableSQL();
+    }
 
     /**
      * 获取 表名称
@@ -202,7 +146,7 @@ public interface SQLAnalyze extends LayerAnalyzeAdapter {
      * @param <T>
      * @return
      */
-    public static <T> String upsertPreparedStatementSQL(Collection collection, Class<T> clazz) {
+    default <T> String upsertPreparedStatementSQL(Collection collection, Class<T> clazz) {
         return upsertPreparedStatementSQL(collection, clazz, null);
     }
 
@@ -215,7 +159,7 @@ public interface SQLAnalyze extends LayerAnalyzeAdapter {
      * @author Jia wei Wu
      * @date 2020/9/17 下午1:21
      */
-    public static <T> String upsertPreparedStatementSQL(Collection collection, Class<T> clazz, Map iEnumList) {
+    static <T> String upsertPreparedStatementSQL(Collection collection, Class<T> clazz, Map iEnumList) {
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         StringBuilder stringBuilder = new StringBuilder("insert into ");
         List<String> fieldNames = new ArrayList<>();
@@ -311,7 +255,7 @@ public interface SQLAnalyze extends LayerAnalyzeAdapter {
      * @author Jia wei Wu
      * @date 2020/9/17 下午2:31
      */
-    public static String getDate(Object o, SimpleDateFormat sf) {
+    static String getDate(Object o, SimpleDateFormat sf) {
         if (Date.class.equals(o.getClass())) {
             return sf.format((Date) o);
         }
@@ -321,7 +265,7 @@ public interface SQLAnalyze extends LayerAnalyzeAdapter {
         return null;
     }
 
-    public static void SQL(Class clazz) {
+    static void SQL(Class clazz) {
         upsertSQL(clazz);
         createTableSQL(clazz);
     }
@@ -335,12 +279,12 @@ public interface SQLAnalyze extends LayerAnalyzeAdapter {
      * @author Jia wei Wu
      * @date 2020/7/13 下午6:40
      */
-    public static List<Class> scanClass(String classPath) {
+    static List<Class> scanClass(String classPath) {
         return scanClass(classPath, null);
     }
 
 
-    public static List<Class> scanClass(String classPath, Class<? extends Annotation> annotation) {
+    static List<Class> scanClass(String classPath, Class<? extends Annotation> annotation) {
         List<Class> classList = new ArrayList<>();
         if (ObjectUtils.isEmpty(classPath)) {
             return classList;
@@ -373,7 +317,7 @@ public interface SQLAnalyze extends LayerAnalyzeAdapter {
         return classList;
     }
 
-    public static void clearConsole() {
+    static void clearConsole() {
         try {
             String os = System.getProperty("os.tableName");
 
@@ -576,7 +520,7 @@ public interface SQLAnalyze extends LayerAnalyzeAdapter {
      * @author Jia wei Wu
      * @date 2020/12/12 9:12 下午
      **/
-    public static String alterTableSQL(List<String> columnNameList, Class tableClass) {
+    static String alterTableSQL(List<String> columnNameList, Class tableClass) {
         // 添加列
         //        ALTER TABLE tableName
         //      ADD columnName VARCHAR(255) 'comment'

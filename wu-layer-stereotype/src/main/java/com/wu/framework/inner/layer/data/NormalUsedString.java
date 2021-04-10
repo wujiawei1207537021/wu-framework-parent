@@ -1,4 +1,4 @@
-package com.wu.framework.easy.stereotype.upsert.enums;
+package com.wu.framework.inner.layer.data;
 
 /**
  * description 常用字符

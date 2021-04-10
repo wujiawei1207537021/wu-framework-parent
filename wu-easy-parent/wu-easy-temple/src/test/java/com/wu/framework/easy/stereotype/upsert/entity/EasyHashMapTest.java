@@ -2,7 +2,7 @@ package com.wu.framework.easy.stereotype.upsert.entity;
 
 import com.wu.framework.easy.stereotype.upsert.converter.stereotype.EasySmartFillFieldConverter;
 import com.wu.framework.easy.stereotype.upsert.converter.stereotype.EasySmartFillFieldConverterAbstract;
-import com.wu.framework.easy.stereotype.upsert.enums.NormalUsedString;
+import com.wu.framework.inner.layer.data.NormalUsedString;
 import org.springframework.web.client.RestTemplate;
 
 public class EasyHashMapTest {

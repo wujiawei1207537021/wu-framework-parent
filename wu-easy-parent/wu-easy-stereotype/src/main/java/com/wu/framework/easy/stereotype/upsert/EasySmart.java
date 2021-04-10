@@ -1,6 +1,8 @@
 package com.wu.framework.easy.stereotype.upsert;
 
 import com.wu.framework.inner.layer.stereotype.LayerClass;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTable;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.SmartMark;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Indexed;
 

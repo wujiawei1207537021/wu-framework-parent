@@ -1,6 +1,6 @@
 package com.wu.framework.easy.stereotype.upsert.converter.stereotype;
 
-import com.wu.framework.easy.stereotype.upsert.enums.NormalUsedString;
+import com.wu.framework.inner.layer.data.NormalUsedString;
 import com.wu.framework.easy.stereotype.upsert.util.FileUtil;
 
 import java.io.BufferedWriter;

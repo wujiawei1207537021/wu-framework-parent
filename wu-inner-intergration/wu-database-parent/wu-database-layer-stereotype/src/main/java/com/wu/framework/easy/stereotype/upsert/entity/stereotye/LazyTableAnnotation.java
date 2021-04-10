@@ -1,7 +1,6 @@
 package com.wu.framework.easy.stereotype.upsert.entity.stereotye;
 
-import com.wu.framework.easy.stereotype.upsert.LazyTable;
-import com.wu.framework.easy.stereotype.upsert.LazyTableField;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTable;
 import com.wu.framework.easy.stereotype.upsert.entity.ConvertedField;
 import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
 import com.wu.framework.inner.layer.stereotype.LayerField;

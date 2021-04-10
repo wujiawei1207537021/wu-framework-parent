@@ -1,4 +1,4 @@
-package com.wu.framework.easy.stereotype.upsert.entity;
+package com.wu.framework.inner.layer.data;
 
 /**
  * @author : Jia wei Wu
