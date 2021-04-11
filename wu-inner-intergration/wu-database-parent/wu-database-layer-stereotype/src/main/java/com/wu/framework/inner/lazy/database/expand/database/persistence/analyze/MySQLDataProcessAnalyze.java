@@ -185,9 +185,17 @@ public interface MySQLDataProcessAnalyze extends LayerDefault,SQLAnalyze{
         try {
             connection = dataSource.getConnection();
             DatabaseMetaData metaData = connection.getMetaData();
-            ResultSet resultSet = metaData.getTables(null, null, tableName, new String[]{"TABLE"});
+
+            String catalog = dataSource.getConnection().getCatalog();
+
+            ResultSet resultSet = metaData.getTables(lazyTableAnnotation.schema(), null, tableName, new String[]{"TABLE"});
             //
             String perfectTableSQL;
+//            while(resultSet.next()){
+//                String tableName1 = resultSet.getString("TABLE_NAME");
+//                System.out.println("tablename:"+tableName1);
+//            }
+
             if (!resultSet.next()) {
                 String createTableSQL = lazyTableAnnotation.creatTableSQL();
                 Statement statement = connection.createStatement();
@@ -200,12 +208,12 @@ public interface MySQLDataProcessAnalyze extends LayerDefault,SQLAnalyze{
                 perfectTableSQL = createTableSQL;
             } else {
                 String string = resultSet.getString(1);
-                ResultSet columns = metaData.getColumns(null, "%", tableName, "%");
+                ResultSet columns = metaData.getColumns(lazyTableAnnotation.schema(), "%", tableName, "%");
                 List<ConvertedField> currentColumnNameList = new ArrayList<>();
                 while (columns.next()) {
                     String columnName = columns.getString("COLUMN_NAME");
                     String columnType = columns.getString("TYPE_NAME");
-                    int datasize = columns.getInt("COLUMN_SIZE");
+                    int dataSize = columns.getInt("COLUMN_SIZE");
                     int digits = columns.getInt("DECIMAL_DIGITS");
                     int nullable = columns.getInt("NULLABLE");
                     ConvertedField convertedField = new ConvertedField();

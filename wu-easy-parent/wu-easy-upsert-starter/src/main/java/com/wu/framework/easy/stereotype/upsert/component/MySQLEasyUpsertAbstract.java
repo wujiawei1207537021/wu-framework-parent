@@ -12,6 +12,7 @@ import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.annotation.AnnotatedElementUtils;
+import org.springframework.util.ObjectUtils;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -75,9 +76,10 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, MySQLDataP
             iEnumList.putAll(EasyAnnotationConverter.collectionConvert(clazz));
             LazyTableAnnotation lazyTableAnnotation = dataAnalyze(clazz, EasyHashMap.class.isAssignableFrom(clazz) ? (EasyHashMap) list.get(0) : null);
             lazyTableAnnotation.setIEnumList(iEnumList);
+            lazyTableAnnotation.setSchema(ObjectUtils.isEmpty(lazyTableAnnotation.schema())?dataSource.getConnection().getCatalog():lazyTableAnnotation.schema());
             final MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = dataPack(list, lazyTableAnnotation);
             if (upsertConfig.isPrintSql()) {
-                System.err.println(String.format("Execute SQL : {%s}", mySQLProcessResult.getSql()));
+                System.err.println(String.format("Execute SQL : %s", mySQLProcessResult.getSql()));
             }
             PreparedStatement upsertStatement = null;
             Connection connection = null;

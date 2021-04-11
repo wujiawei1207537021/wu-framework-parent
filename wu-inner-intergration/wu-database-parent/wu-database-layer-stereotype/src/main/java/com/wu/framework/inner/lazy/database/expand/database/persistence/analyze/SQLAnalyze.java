@@ -525,22 +525,25 @@ public interface SQLAnalyze extends LayerAnalyzeAdapter {
     default  LazyTableAnnotation classLazyTableAnalyze(Class clazz ) {
         if (!CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.containsKey(clazz)) {
 
-            LazyTable easySmart = AnnotationUtils.getAnnotation(clazz, LazyTable.class);
+            LazyTable lazyTable = AnnotatedElementUtils.findMergedAnnotation(clazz, LazyTable.class);
             String className = clazz.getName();
             String tableName = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
             String comment = "";
-            if (null != easySmart) {
-                if (!ObjectUtils.isEmpty(easySmart.tableName())) {
-                    tableName = easySmart.tableName();
-                }
-            }
             LazyTableAnnotation lazyTableAnnotation = new LazyTableAnnotation();
+
+            if (null != lazyTable) {
+                if (!ObjectUtils.isEmpty(lazyTable.tableName())) {
+                    tableName = lazyTable.tableName();
+                }
+                lazyTableAnnotation.setSchema(lazyTable.schema());
+            }
+
             lazyTableAnnotation.setComment(comment);
             lazyTableAnnotation.setClassName(className);
             lazyTableAnnotation.setClazz(clazz);
             lazyTableAnnotation.setTableName(tableName);
             lazyTableAnnotation.setConvertedFieldList(SQLAnalyze.fieldNamesOnAnnotation(clazz, null));
-            lazyTableAnnotation.setSmartFillField(easySmart.smartFillField());
+            lazyTableAnnotation.setSmartFillField(lazyTable.smartFillField());
             log.info("Initialize {} annotation parameters  className:[{}],tableName:[{}],comment:[{}]", clazz,
                     className, tableName, comment);
             CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.put(clazz, lazyTableAnnotation);
