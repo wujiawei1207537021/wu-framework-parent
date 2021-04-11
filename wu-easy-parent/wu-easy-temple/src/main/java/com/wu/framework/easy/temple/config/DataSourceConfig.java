@@ -3,6 +3,7 @@ package com.wu.framework.easy.temple.config;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 

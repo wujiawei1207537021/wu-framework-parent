@@ -22,16 +22,13 @@ import java.util.List;
  */
 @EasyController
 public class DemoRun {
-    private final Admin admin;
+
     private final Connection connection;
-    private final HBaseOperationProxy hBaseOperationProxy;
     private final HBaseOperation hBaseOperation;
 
 
-    public DemoRun(Admin admin, Connection connection, HBaseOperationProxy hBaseOperationProxy, HBaseOperation hBaseOperation) {
-        this.admin = admin;
+    public DemoRun(Connection connection, HBaseOperation hBaseOperation) {
         this.connection = connection;
-        this.hBaseOperationProxy = hBaseOperationProxy;
         this.hBaseOperation = hBaseOperation;
     }
 

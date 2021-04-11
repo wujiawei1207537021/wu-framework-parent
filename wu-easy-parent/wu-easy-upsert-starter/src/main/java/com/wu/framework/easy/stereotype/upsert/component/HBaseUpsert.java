@@ -18,7 +18,7 @@ import java.util.concurrent.Callable;
  * @date : 2020/12/20 8:27 下午
  */
 @Slf4j
-@ConditionalOnProperty(prefix = "spring.hbase", value = "zookeeperQuorum")
+@ConditionalOnProperty(prefix = "spring.hbase", value = "zookeeper-quorum")
 //@ConditionalOnBean(HBaseOperationProxy.class)
 @EasyUpsertStrategy(value = EasyUpsertType.HBASE)
 public class HBaseUpsert implements IEasyUpsert {

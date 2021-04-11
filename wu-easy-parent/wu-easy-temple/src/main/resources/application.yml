@@ -20,16 +20,19 @@ spring:
       address: 127.0.0.1
   application:
     name: temple
+  easy:
+    upsert:
+      config:
+        print-sql: true
+        batch-limit: 10000
+        record-log: true
+  hbase:
+    zookeeper-quorum: 'k8s.wu2020.top:2181'
 
 
 
 debug: false
-easy:
-  upsert:
-    config:
-      print-sql: false
-      batch-limit: 10000
-      record-log: true
+
 nacos:
   config:
     server-addr: www.wu2020.top:8848

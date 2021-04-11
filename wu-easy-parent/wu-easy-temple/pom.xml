@@ -14,6 +14,12 @@
     <description>easy使用模版</description>
 
     <dependencies>
+
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-redis-lazy-starter</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -80,10 +86,7 @@
         <!--            <version>0.2.7</version>-->
         <!--        </dependency>-->
 
-        <dependency>
-            <groupId>top.wu2020</groupId>
-            <artifactId>wu-redis-lazy-starter</artifactId>
-        </dependency>
+
 
     </dependencies>
     <!--    <build>-->

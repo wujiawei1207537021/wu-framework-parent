@@ -47,7 +47,7 @@ public class HBaseOperationInsertListMethodAdapter extends HBaseOperationMethodA
             entityClass = ((List) entity).get(0).getClass();
             // 处理数据
             HBaseTable hBaseTable = analyzeClass(entityClass);
-            table = connection.getTable(TableName.valueOf(hBaseTable.nameSpace(),hBaseTable.tableName()));
+            table = connection.getTable(TableName.valueOf(hBaseTable.nameSpace(), hBaseTable.tableName()));
 
             List<AnalyzeField> analyzeFieldList = analyzeField(entityClass);
             List<Put> putList = new ArrayList<>();
