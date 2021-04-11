@@ -186,7 +186,6 @@ public interface MySQLDataProcessAnalyze extends LayerDefault,SQLAnalyze{
             connection = dataSource.getConnection();
             DatabaseMetaData metaData = connection.getMetaData();
             ResultSet resultSet = metaData.getTables(null, null, tableName, new String[]{"TABLE"});
-            final Statement statement1 = resultSet.getStatement();
             //
             String perfectTableSQL;
             if (!resultSet.next()) {
