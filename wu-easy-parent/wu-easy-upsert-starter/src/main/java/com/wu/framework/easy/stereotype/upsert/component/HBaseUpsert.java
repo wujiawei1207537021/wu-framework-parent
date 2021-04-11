@@ -39,7 +39,7 @@ public class HBaseUpsert implements IEasyUpsert {
         int stepCount = 1;
         for (List<T> ts : splitList(list, upsertConfig.getBatchLimit())) {
             log.info("处理步骤第 【{}】 步 ,总步数 【{}】", stepCount, total);
-            easyUpsertExecutor.submit((Callable) () -> hBaseOperation.upsertList(list)).get();
+            easyUpsertExecutor.submit((Callable) () -> hBaseOperation.upsertList(ts)).get();
             stepCount++;
         }
         log.info("分步操作完成✅");

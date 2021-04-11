@@ -2,7 +2,7 @@ package com.wu.framework.easy.stereotype.upsert;
 
 import com.wu.framework.inner.layer.stereotype.LayerClass;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTable;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.SmartMark;
+import com.wu.framework.inner.layer.data.SmartMark;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Indexed;
 
@@ -27,10 +27,10 @@ public @interface EasySmart {
      *
      * @return
      */
-    @AliasFor(attribute = "tableName")
+    @AliasFor(attribute = "tableName",annotation = LazyTable.class)
     String value() default "";
 
-    @AliasFor(attribute = "value")
+    @AliasFor(attribute = "value",annotation = LazyTable.class)
     String tableName() default "";
 
     /**
@@ -38,12 +38,14 @@ public @interface EasySmart {
      *
      * @return
      */
+    @AliasFor(attribute = "perfectTable",annotation = LazyTable.class)
     boolean perfectTable() default false;
 
     /**
      * 数据下钻
      * the field use Annotation with {@link SmartMark}
      */
+
     boolean dataDrillDown() default false;
 
     /**

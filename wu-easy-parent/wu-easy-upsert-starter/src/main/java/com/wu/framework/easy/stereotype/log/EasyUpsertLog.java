@@ -1,6 +1,6 @@
 package com.wu.framework.easy.stereotype.log;
 
-import com.wu.framework.easy.stereotype.upsert.converter.SQLAnalyze;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.SQLAnalyze;
 import lombok.Data;
 
 /**

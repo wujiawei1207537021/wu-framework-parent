@@ -1,10 +1,11 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
-import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
-import com.wu.framework.easy.stereotype.upsert.enums.JavaBasicType;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
+import com.wu.framework.inner.layer.data.JavaBasicType;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.layer.stereotype.domain.LayerAnalyzeField;
 import com.wu.framework.inner.lazy.database.converter.PreparedStatementSQLConverter;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.MySQLDataProcessAnalyze;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 import org.springframework.util.ObjectUtils;
 
@@ -24,7 +25,7 @@ import java.util.stream.Collectors;
  * @author Jia wei Wu
  * @date 2020/7/28 上午8:56
  */
-public abstract class AbstractLazyOperationMethod implements LazyOperationMethod {
+public abstract class AbstractLazyOperationMethod implements LazyOperationMethod, MySQLDataProcessAnalyze {
 
 
     /**

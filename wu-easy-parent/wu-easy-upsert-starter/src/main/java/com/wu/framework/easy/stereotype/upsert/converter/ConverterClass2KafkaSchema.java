@@ -1,12 +1,14 @@
 package com.wu.framework.easy.stereotype.upsert.converter;
 
 
+import com.wu.framework.easy.stereotype.upsert.EasySmart;
 import com.wu.framework.easy.stereotype.upsert.EasySmartField;
-import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.UpsertJsonMessage;
 import com.wu.framework.easy.stereotype.upsert.entity.kafka.TargetJsonSchema;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import org.apache.kafka.common.protocol.types.Type;
 import org.springframework.core.annotation.AnnotatedElementUtils;
+import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ObjectUtils;
 
 import java.lang.reflect.Field;
@@ -32,7 +34,7 @@ public class ConverterClass2KafkaSchema {
      */
     public static TargetJsonSchema converterClass2TargetJsonSchema(Class clazz, boolean forcedDuplicateNameSwitch) {
         TargetJsonSchema targetJsonSchema = new TargetJsonSchema();
-        targetJsonSchema.setName(EasyAnnotationConverter.getKafkaSchemaName(clazz, forcedDuplicateNameSwitch));
+        targetJsonSchema.setName(getKafkaSchemaName(clazz, forcedDuplicateNameSwitch));
         List<TargetJsonSchema.Field> fieldList = new ArrayList<>();
         targetJsonSchema.setFields(fieldList);
         for (Field field : clazz.getDeclaredFields()) {
@@ -71,6 +73,30 @@ public class ConverterClass2KafkaSchema {
         return targetJsonSchema;
     }
 
+    /**
+     * @param clazz               类
+     * @param deduplicationSwitch 是否强制去重
+     * @return
+     * @author Jia wei Wu
+     * @date 2020/11/21 下午10:48
+     **/
+    public static String getKafkaSchemaName(Class clazz, boolean deduplicationSwitch) {
+        EasySmart easySmart = AnnotationUtils.getAnnotation(clazz, EasySmart.class);
+        if (null != easySmart && !ObjectUtils.isEmpty(easySmart.kafkaSchemaName())) {
+            return easySmart.kafkaSchemaName();
+        }
+        if (deduplicationSwitch) {
+            return CamelAndUnderLineConverter.humpToLine2(clazz.getName().replace(".", "_"));
+        }
+        return CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
+    }
+    /**
+    * @describe  数据库字段转换架构类型
+    * @param
+    * @return
+    * @author Jia wei Wu
+    * @date 2021/4/11 10:34 上午
+    **/
     private static String databaseFieldConversionSchemaType(String type) {
         String typeLowerCase = type.trim().toLowerCase();
         if (typeLowerCase.startsWith("varchar")) {

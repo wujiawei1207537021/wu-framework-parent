@@ -2,18 +2,18 @@ package com.wu.framework.easy.stereotype.upsert.component;
 
 
 import com.google.common.collect.Maps;
+import com.wu.framework.easy.stereotype.upsert.EasySmart;
 import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
 import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
 import com.wu.framework.easy.stereotype.upsert.converter.ConverterClass2KafkaSchema;
-import com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.EasyAnnotationConverter;
 import com.wu.framework.easy.stereotype.upsert.converter.JsonFileConverter;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
-import com.wu.framework.inner.layer.data.IBeanUpsert;
 import com.wu.framework.easy.stereotype.upsert.entity.kafka.KafkaJsonMessage;
 import com.wu.framework.easy.stereotype.upsert.entity.kafka.TargetJsonSchema;
-import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LazyTableAnnotation;
-import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
+import com.wu.framework.easy.stereotype.upsert.entity.sink.LocalStorageClassAnnotation;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
+import com.wu.framework.inner.layer.data.IBeanUpsert;
 import com.wu.framework.inner.layer.data.UserConvertService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -51,9 +51,9 @@ public class KafkaEasyUpsert implements IEasyUpsert {
             Thread.currentThread().setName(threadName);
             Class clazz = list.get(0).getClass();
             // 模块名称+业务+表名
-            LazyTableAnnotation lazyTableAnnotation =
+            EasySmart lazyTableAnnotation =
                     LocalStorageClassAnnotation.getEasyTableAnnotation(clazz, upsertConfig.isForceDuplicateNameSwitch());
-            String schemaName = lazyTableAnnotation.getKafkaSchemaName();
+            String schemaName = lazyTableAnnotation.kafkaSchemaName();
 
             TargetJsonSchema targetJsonSchema = KafkaJsonMessage.targetSchemaMap.get(schemaName);
             if (targetJsonSchema == null) {
@@ -74,7 +74,8 @@ public class KafkaEasyUpsert implements IEasyUpsert {
                     ((IBeanUpsert) value).beforeObjectProcess();
                 }
                 kafkaJsonMessage.setPayload(JsonFileConverter.parseBean2map(value, iEnumList));
-                easyUpsertExtractKafkaProducer.sendAsync(lazyTableAnnotation.getKafkaCode(), lazyTableAnnotation.getKafkaTopicName(), kafkaJsonMessage);
+                easyUpsertExtractKafkaProducer.sendAsync(lazyTableAnnotation.kafkaCode(),
+                        lazyTableAnnotation.kafkaTopicName(), kafkaJsonMessage);
             }
             return true;
         });

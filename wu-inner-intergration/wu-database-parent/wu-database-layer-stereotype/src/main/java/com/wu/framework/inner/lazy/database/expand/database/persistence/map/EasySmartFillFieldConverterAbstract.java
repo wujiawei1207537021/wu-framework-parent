@@ -1,8 +1,7 @@
-package com.wu.framework.easy.stereotype.upsert.converter.stereotype;
+package com.wu.framework.inner.lazy.database.expand.database.persistence.map;
 
-import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
-import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LazyTableAnnotation;
-import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.SQLAnalyze;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.LazyTableAnnotation;
 import com.wu.framework.inner.layer.data.NormalUsedString;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -23,7 +22,7 @@ import java.util.stream.Collectors;
  * @describe: 智能填充数据 处理
  * @date : 2021/3/3 9:25 下午
  */
-public abstract class EasySmartFillFieldConverterAbstract extends EasySmartConverterAbstract implements IEasySmartConverter {
+public abstract class EasySmartFillFieldConverterAbstract extends EasySmartConverterAbstract implements IEasySmartConverter, SQLAnalyze {
 
     /**
      * @param source 数据源
@@ -43,7 +42,7 @@ public abstract class EasySmartFillFieldConverterAbstract extends EasySmartConve
             declaredFields = new Field[]{};
         } else {
             targetClass = target.getClass();
-            LazyTableAnnotation targetLazyTableAnnotation = LocalStorageClassAnnotation.getEasyTableAnnotation(targetClass, true);
+            LazyTableAnnotation targetLazyTableAnnotation = classLazyTableAnalyze(targetClass);
             smartFillField = new AtomicBoolean(targetLazyTableAnnotation.isSmartFillField());
             declaredFields = target.getClass().getDeclaredFields();
         }

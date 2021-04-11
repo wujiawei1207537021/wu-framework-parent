@@ -1,4 +1,4 @@
-package com.wu.framework.easy.stereotype.upsert.entity;
+package com.wu.framework.inner.lazy.database.expand.database.persistence.domain;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

@@ -4,10 +4,9 @@ import com.wu.framework.easy.stereotype.log.EasyUpsertLog;
 import com.wu.framework.easy.stereotype.upsert.EasySmart;
 import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
 import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
-import com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter;
-import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
-import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LazyTableAnnotation;
-import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.EasyAnnotationConverter;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.LazyTableAnnotation;
 import com.wu.framework.inner.layer.data.UserConvertService;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.MySQLDataProcessAnalyze;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +30,7 @@ import java.util.concurrent.Future;
  * @date 2020/9/11 上午10:22
  */
 @Slf4j
-public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert,MySQLDataProcessAnalyze, InitializingBean {
+public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, MySQLDataProcessAnalyze, InitializingBean {
 
 
     private final UserConvertService userConvertService;
@@ -121,8 +120,7 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert,MySQLDataPr
     @Override
     public void afterPropertiesSet() throws Exception {
         if (upsertConfig.isRecordLog()) {
-            perfectTable(
-                    LocalStorageClassAnnotation.getEasyTableAnnotation(EasyUpsertLog.class, true), determineDataSource());
+            perfectTable(classLazyTableAnalyze(EasyUpsertLog.class), determineDataSource());
         }
     }
 }

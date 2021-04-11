@@ -2,7 +2,7 @@ package com.wu.freamwork;
 
 
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
-import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import lombok.Data;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;

@@ -1,11 +1,10 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.analyze;
 
-import com.wu.framework.easy.stereotype.upsert.entity.ConvertedField;
-import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
-import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
-import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LazyTableAnnotation;
-import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
-import com.wu.framework.easy.stereotype.upsert.enums.JavaBasicType;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.ConvertedField;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.UpsertJsonMessage;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.LazyTableAnnotation;
+import com.wu.framework.inner.layer.data.JavaBasicType;
 import com.wu.framework.inner.layer.data.IBeanUpsert;
 import com.wu.framework.inner.layer.data.NormalUsedString;
 import com.wu.framework.inner.layer.stereotype.LayerDefault;
@@ -30,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter.annotationConvertConversion;
+import static com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.EasyAnnotationConverter.annotationConvertConversion;
 
 /**
  * description MySQL 数据预处理解析
@@ -38,7 +37,8 @@ import static com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationCo
  * @author Jia wei Wu
  * @date 2020/10/22 下午2:25
  */
-public interface MySQLDataProcessAnalyze extends LayerDefault {
+public interface MySQLDataProcessAnalyze extends LayerDefault,SQLAnalyze{
+
 
 
     /**
@@ -50,9 +50,12 @@ public interface MySQLDataProcessAnalyze extends LayerDefault {
      * @author Jia wei Wu
      * @date 2020/10/22 下午2:20
      */
-    public default LazyTableAnnotation classAnalyze(Class clazz) {
-        return LocalStorageClassAnnotation.getEasyTableAnnotation(clazz, true);
+    default LazyTableAnnotation classAnalyze(Class clazz) {
+        return classLazyTableAnalyze(clazz );
     }
+
+
+
 
     /**
      * @return
@@ -60,7 +63,7 @@ public interface MySQLDataProcessAnalyze extends LayerDefault {
      * @author Jiawei Wu
      * @date 2020/12/31 10:56 下午
      **/
-    public default LazyTableAnnotation dataAnalyze(Class clazz, EasyHashMap easyHashMap) {
+    default LazyTableAnnotation dataAnalyze(Class clazz, EasyHashMap easyHashMap) {
         LazyTableAnnotation lazyTableAnnotation;
         if (EasyHashMap.class.isAssignableFrom(clazz)) {
             lazyTableAnnotation = easyHashMap.toEasyTableAnnotation();
@@ -79,7 +82,7 @@ public interface MySQLDataProcessAnalyze extends LayerDefault {
      * @author Jia wei Wu
      * @date 2020/10/22 下午2:23
      */
-    public default MySQLProcessResult dataPack(List sourceData, LazyTableAnnotation lazyTableAnnotation) throws Exception {
+    default MySQLProcessResult dataPack(List sourceData, LazyTableAnnotation lazyTableAnnotation) throws Exception {
         MySQLProcessResult mySQLProcessResult = new MySQLProcessResult();
         List<InputStream> binaryList = new ArrayList<>();
         String insert = "insert into %s (%s) VALUES %s  ON DUPLICATE KEY UPDATE \n %s ";
@@ -175,7 +178,7 @@ public interface MySQLDataProcessAnalyze extends LayerDefault {
      * @author Jiawei Wu
      * @date 2020/12/31 8:18 下午
      **/
-    public default int perfectTable(LazyTableAnnotation lazyTableAnnotation, DataSource dataSource) throws Exception {
+    default int perfectTable(LazyTableAnnotation lazyTableAnnotation, DataSource dataSource) throws Exception {
         String tableName = lazyTableAnnotation.getTableName();
         Connection connection = null;
         int updateColumn = 0;
@@ -246,7 +249,7 @@ public interface MySQLDataProcessAnalyze extends LayerDefault {
      * @date 2021/3/1 7:07 下午
      **/
     @SneakyThrows
-    public default InputStream isBinary(Object fieldValue) {
+    default InputStream isBinary(Object fieldValue) {
         if (ObjectUtils.isEmpty(fieldValue)) return null;
         if (File.class.equals(fieldValue.getClass())) {
             return new FileInputStream((File) fieldValue);
@@ -260,7 +263,7 @@ public interface MySQLDataProcessAnalyze extends LayerDefault {
 
     @Accessors(chain = true)
     @Data
-    public class MySQLProcessResult implements DataProcess.ProcessResult {
+    class MySQLProcessResult implements DataProcess.ProcessResult {
         private String sql;
         private List<InputStream> binaryList;
 

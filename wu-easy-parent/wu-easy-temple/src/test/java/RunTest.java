@@ -1,4 +1,4 @@
-import com.wu.framework.easy.stereotype.upsert.converter.SQLAnalyze;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.SQLAnalyze;
 import domain.PassengerTerminal;
 
 import java.text.MessageFormat;

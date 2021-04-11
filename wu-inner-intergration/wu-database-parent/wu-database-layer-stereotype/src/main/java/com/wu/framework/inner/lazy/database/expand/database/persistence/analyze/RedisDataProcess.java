@@ -1,8 +1,6 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.analyze;
 
-import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LazyTableAnnotation;
-import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.DataProcess;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.LazyTableAnnotation;
 
 /**
  * description Redis 数据预处理
@@ -23,7 +21,7 @@ public class RedisDataProcess {
      * @date 2020/10/22 下午2:20
      */
     public LazyTableAnnotation classAnalyze(Class clazz) {
-        return LocalStorageClassAnnotation.getEasyTableAnnotation(clazz, true);
+        return null;
     }
 
     /**

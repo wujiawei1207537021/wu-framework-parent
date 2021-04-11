@@ -2,6 +2,10 @@ package com.wu.framework.easy.stereotype.upsert.converter;
 
 
 import com.alibaba.fastjson.JSON;
+import com.wu.framework.easy.stereotype.upsert.EasySmart;
+import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.EasyAnnotationConverter;
+import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ObjectUtils;
 
 import java.util.HashMap;
@@ -45,7 +49,7 @@ public class ConverterClass2SinkConfig {
         String name = EasyAnnotationConverter.getCustomTableValue(clazz);
 
         // topic
-        String topic = EasyAnnotationConverter.getKafkaTopicName(clazz);
+        String topic = getKafkaTopicName(clazz);
         Map sink = new HashMap();
         if (!ObjectUtils.isEmpty(namePrefix)) {
             sink.put("name", namePrefix + name + "_todb");
@@ -101,7 +105,7 @@ public class ConverterClass2SinkConfig {
         // 数据库名称
         String name = EasyAnnotationConverter.getCustomTableValue(clazz);
         // topic
-        String topic = EasyAnnotationConverter.getKafkaTopicName(clazz);
+        String topic = getKafkaTopicName(clazz);
         Map sink = new HashMap();
         sink.put("name", name + "_toes");
         Map sinkConfig = new HashMap();
@@ -114,6 +118,14 @@ public class ConverterClass2SinkConfig {
         sinkConfig.put("key.ignore", "true");
         System.out.println(JSON.toJSONString(sink));
         return sink;
+    }
+
+    public static String  getKafkaTopicName(Class clazz){
+        EasySmart easySmart = AnnotationUtils.getAnnotation(clazz, EasySmart.class);
+        if (null != easySmart && !ObjectUtils.isEmpty(easySmart.kafkaTopicName())) {
+            return easySmart.kafkaTopicName();
+        }
+        return CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
     }
 
 }

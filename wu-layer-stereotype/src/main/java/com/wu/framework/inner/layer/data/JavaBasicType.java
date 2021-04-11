@@ -1,6 +1,5 @@
-package com.wu.framework.easy.stereotype.upsert.enums;
+package com.wu.framework.inner.layer.data;
 
-import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -12,6 +11,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author : Jiawei Wu
@@ -64,8 +65,8 @@ public enum JavaBasicType {
 
     ;
 
-    public static EasyHashMap<Class, Object> DEFAULT_VALUE_HASHMAP = new EasyHashMap<Class, Object>();
-    public static EasyHashMap<String, Object> DEFAULT_CLASS_NAME_VALUE_HASHMAP = new EasyHashMap<String, Object>();
+    public static Map<Class, Object> DEFAULT_VALUE_HASHMAP = new HashMap<Class, Object>();
+    public static Map<String, Object> DEFAULT_CLASS_NAME_VALUE_HASHMAP = new HashMap<String, Object>();
 
     static {
         Arrays.stream(values()).forEach(javaBasicType -> DEFAULT_VALUE_HASHMAP.put(javaBasicType.clazz, javaBasicType.defaultValue));

@@ -1,5 +1,6 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype;
 
+import com.wu.framework.inner.layer.data.LayerData;
 import com.wu.framework.inner.layer.stereotype.LayerClass;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Indexed;
@@ -7,7 +8,7 @@ import org.springframework.stereotype.Indexed;
 import java.lang.annotation.*;
 
 /**
- * description EasySmart 灵性
+ * description LazyTable 灵性
  *
  * @author Jia wei Wu
  * @date 2020/12/14 下午12:05
@@ -17,6 +18,7 @@ import java.lang.annotation.*;
 @Documented
 @Indexed
 @LayerClass
+@LayerData
 public @interface LazyTable {
 
     /**
@@ -39,8 +41,9 @@ public @interface LazyTable {
 
     /**
      * 数据下钻
-     * the field use Annotation with {@link SmartMark}
+     * the field use Annotation with {@link LayerData#dataDrillDown()}
      */
+    @AliasFor(attribute = "dataDrillDown",annotation = LayerData.class)
     boolean dataDrillDown() default false;
 
     /**
@@ -49,27 +52,27 @@ public @interface LazyTable {
      * @return String
      */
     String comment() default "";
-
-    /**
-     * kafka  schema 名称
-     *
-     * @return String
-     */
-    String kafkaSchemaName() default "";
-
-    /**
-     * kafka 主题 为空使用类名
-     *
-     * @return String
-     */
-    String kafkaTopicName() default "";
-
-    /**
-     * kafka code编码
-     *
-     * @return String
-     */
-    String kafkaCode() default "";
+//
+//    /**
+//     * kafka  schema 名称
+//     *
+//     * @return String
+//     */
+//    String kafkaSchemaName() default "";
+//
+//    /**
+//     * kafka 主题 为空使用类名
+//     *
+//     * @return String
+//     */
+//    String kafkaTopicName() default "";
+//
+//    /**
+//     * kafka code编码
+//     *
+//     * @return String
+//     */
+//    String kafkaCode() default "";
 
     /**
      * 数据库名 schema
@@ -78,41 +81,41 @@ public @interface LazyTable {
      */
     String schema() default "";
 
-    /**
-     * Elasticsearch 索引前缀
-     *
-     * @return String
-     */
-    String indexPrefix() default "";
-
-    /**
-     * Elasticsearch 索引时间格式
-     *
-     * @return String
-     */
-    String indexFormat() default "";
-
-    /**
-     * Elasticsearch 索引后缀
-     */
-    String indexSuffix() default "";
-
-    /**
-     * Elasticsearch 索引类型
-     */
-    String indexType() default "";
-
-    /**
-     * redis key
-     */
-    String redisKey() default "";
-
-    /**
-     * 列族
-     *
-     * @return
-     */
-    String columnFamily() default "";
+//    /**
+//     * Elasticsearch 索引前缀
+//     *
+//     * @return String
+//     */
+//    String indexPrefix() default "";
+//
+//    /**
+//     * Elasticsearch 索引时间格式
+//     *
+//     * @return String
+//     */
+//    String indexFormat() default "";
+//
+//    /**
+//     * Elasticsearch 索引后缀
+//     */
+//    String indexSuffix() default "";
+//
+//    /**
+//     * Elasticsearch 索引类型
+//     */
+//    String indexType() default "";
+//
+//    /**
+//     * redis key
+//     */
+//    String redisKey() default "";
+//
+//    /**
+//     * 列族
+//     *
+//     * @return
+//     */
+//    String columnFamily() default "";
 
     /**
      * 智能填充bean属性

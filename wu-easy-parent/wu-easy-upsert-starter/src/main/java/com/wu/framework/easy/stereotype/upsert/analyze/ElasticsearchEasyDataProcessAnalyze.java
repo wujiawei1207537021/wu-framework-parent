@@ -3,8 +3,7 @@ package com.wu.framework.easy.stereotype.upsert.analyze;
 import com.alibaba.fastjson.JSONObject;
 import com.wu.framework.easy.stereotype.upsert.EasySmart;
 import com.wu.framework.easy.stereotype.upsert.EasySmartField;
-import com.wu.framework.easy.stereotype.upsert.converter.JavaBasicTypeConversion;
-import com.wu.framework.easy.stereotype.upsert.util.FileUtil;
+import com.wu.framework.inner.layer.util.FileUtil;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.layer.stereotype.LayerDefault;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.DataProcess;
@@ -87,7 +86,7 @@ public interface ElasticsearchEasyDataProcessAnalyze extends LayerDefault {
             String fieldName = CamelAndUnderLineConverter.humpToLine2(field.getName());
             Object fieldValue = new Object();
             try {
-                fieldValue = JavaBasicTypeConversion.toString(field.get(sourceData));
+                fieldValue = field.get(sourceData).toString();
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }

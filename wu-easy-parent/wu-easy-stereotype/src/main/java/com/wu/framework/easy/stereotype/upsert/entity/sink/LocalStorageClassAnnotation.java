@@ -1,9 +1,9 @@
-package com.wu.framework.easy.stereotype.upsert.entity.stereotye;
+package com.wu.framework.easy.stereotype.upsert.entity.sink;
 
-import com.wu.framework.easy.stereotype.upsert.converter.SQLAnalyze;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTable;
+import com.wu.framework.easy.stereotype.upsert.EasySmart;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.LazyTableAnnotation;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.SmartMark;
+import com.wu.framework.inner.layer.data.SmartMark;
 import lombok.Data;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ObjectUtils;
@@ -38,7 +38,7 @@ public class LocalStorageClassAnnotation {
     //    private static final Logger log = LoggerFactory.getLogger(LocalStorageClassAnnotation.class);
     @Deprecated
     public static Map<Class, LazyTableAnnotation> CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP = new HashMap<>();
-    public static Map<Class, LazyTable> CLASS_EASY_SMART_MAP = new HashMap<>();
+    public static Map<Class, EasySmart> CLASS_EASY_SMART_MAP = new HashMap<>();
 
     /**
      * @param clazz                      类
@@ -49,49 +49,8 @@ public class LocalStorageClassAnnotation {
      * @date 2021/3/3 9:34 下午
      **/
     @Deprecated
-    public static LazyTableAnnotation getEasyTableAnnotation(Class clazz, boolean isForceDuplicateNameSwitch) {
-        if (!CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.containsKey(clazz)) {
-            String kafkaTopicName = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
-            LazyTable LazyTable = AnnotationUtils.getAnnotation(clazz, LazyTable.class);
-            String kafkaCode = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
-            String className = clazz.getName();
-            String tableName = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
-            String comment = "";
-            String kafkaSchemaName = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
-
-            if (null != LazyTable) {
-                if (!ObjectUtils.isEmpty(LazyTable.kafkaTopicName())) {
-                    kafkaTopicName = LazyTable.kafkaTopicName();
-                }
-                if (!ObjectUtils.isEmpty(LazyTable.kafkaCode())) {
-                    kafkaCode = LazyTable.kafkaCode();
-                }
-                if (!ObjectUtils.isEmpty(LazyTable.tableName())) {
-                    tableName = LazyTable.tableName();
-                }
-                if (!ObjectUtils.isEmpty(LazyTable.kafkaSchemaName())) {
-                    kafkaSchemaName = LazyTable.kafkaSchemaName();
-                }
-            }
-            if (isForceDuplicateNameSwitch) {
-                kafkaSchemaName = CamelAndUnderLineConverter.humpToLine2(clazz.getName().replace(".", "_"));
-            }
-
-            LazyTableAnnotation LazyTableAnnotation = new LazyTableAnnotation();
-            LazyTableAnnotation.setComment(comment);
-            LazyTableAnnotation.setClassName(className);
-            LazyTableAnnotation.setClazz(clazz);
-            LazyTableAnnotation.setTableName(tableName);
-            LazyTableAnnotation.setKafkaSchemaName(kafkaSchemaName);
-            LazyTableAnnotation.setKafkaTopicName(kafkaTopicName);
-            LazyTableAnnotation.setKafkaCode(kafkaCode);
-            LazyTableAnnotation.setConvertedFieldList(SQLAnalyze.fieldNamesOnAnnotation(clazz, null));
-            LazyTableAnnotation.setSmartFillField(LazyTable.smartFillField());
-//            log.info("Initialize {} annotation parameters  className:[{}],tableName:[{}],comment:[{}],kafkaTopicName:[{}],kafkaSchemaName:[{}],kafkaCode:[{}]", clazz,
-//                    className, tableName, comment, kafkaTopicName, kafkaSchemaName, kafkaCode);
-            CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.put(clazz, LazyTableAnnotation);
-        }
-        return CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.get(clazz);
+    public static EasySmart getEasyTableAnnotation(Class clazz, boolean isForceDuplicateNameSwitch) {
+       return easySmart(clazz,isForceDuplicateNameSwitch);
     }
 
     /**
@@ -101,10 +60,10 @@ public class LocalStorageClassAnnotation {
      * @author Jia wei Wu
      * @date 2021/3/29 8:43 下午
      **/
-    public static LazyTable LazyTable(Class clazz, boolean isForceDuplicateNameSwitch) {
+    public static EasySmart easySmart(Class clazz, boolean isForceDuplicateNameSwitch) {
         if (!CLASS_EASY_SMART_MAP.containsKey(clazz)) {
             String kafkaTopicName = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
-            LazyTable LazyTable = AnnotationUtils.getAnnotation(clazz, LazyTable.class);
+            EasySmart easySmart = AnnotationUtils.getAnnotation(clazz, EasySmart.class);
             String kafkaCode = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
             String className = clazz.getName();
             String tableName = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
@@ -112,38 +71,25 @@ public class LocalStorageClassAnnotation {
             String kafkaSchemaName = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
             boolean perfectTable=false;
             boolean smartFillField = false;
-            if (null != LazyTable) {
-                if (!ObjectUtils.isEmpty(LazyTable.kafkaTopicName())) {
-                    kafkaTopicName = LazyTable.kafkaTopicName();
+            if (null != easySmart) {
+                if (!ObjectUtils.isEmpty(easySmart.kafkaTopicName())) {
+                    kafkaTopicName = easySmart.kafkaTopicName();
                 }
-                if (!ObjectUtils.isEmpty(LazyTable.kafkaCode())) {
-                    kafkaCode = LazyTable.kafkaCode();
+                if (!ObjectUtils.isEmpty(easySmart.kafkaCode())) {
+                    kafkaCode = easySmart.kafkaCode();
                 }
-                if (!ObjectUtils.isEmpty(LazyTable.tableName())) {
-                    tableName = LazyTable.tableName();
+                if (!ObjectUtils.isEmpty(easySmart.tableName())) {
+                    tableName = easySmart.tableName();
                 }
-                if (!ObjectUtils.isEmpty(LazyTable.kafkaSchemaName())) {
-                    kafkaSchemaName = LazyTable.kafkaSchemaName();
+                if (!ObjectUtils.isEmpty(easySmart.kafkaSchemaName())) {
+                    kafkaSchemaName = easySmart.kafkaSchemaName();
                 }
-                smartFillField = LazyTable.smartFillField();
-                perfectTable=LazyTable.perfectTable();
+                smartFillField = easySmart.smartFillField();
+                perfectTable=easySmart.perfectTable();
             }
             if (isForceDuplicateNameSwitch) {
                 kafkaSchemaName = CamelAndUnderLineConverter.humpToLine2(clazz.getName().replace(".", "_"));
             }
-
-            LazyTableAnnotation LazyTableAnnotation = new LazyTableAnnotation();
-            LazyTableAnnotation.setComment(comment);
-            LazyTableAnnotation.setClassName(className);
-            LazyTableAnnotation.setClazz(clazz);
-            LazyTableAnnotation.setTableName(tableName);
-            LazyTableAnnotation.setKafkaSchemaName(kafkaSchemaName);
-            LazyTableAnnotation.setKafkaTopicName(kafkaTopicName);
-            LazyTableAnnotation.setKafkaCode(kafkaCode);
-            LazyTableAnnotation.setConvertedFieldList(SQLAnalyze.fieldNamesOnAnnotation(clazz, null));
-            LazyTableAnnotation.setSmartFillField(smartFillField);
-//            log.info("Initialize {} annotation parameters  className:[{}],tableName:[{}],comment:[{}],kafkaTopicName:[{}],kafkaSchemaName:[{}],kafkaCode:[{}]", clazz,
-//                    className, tableName, comment, kafkaTopicName, kafkaSchemaName, kafkaCode);
 
             String finalTableName = tableName;
             String finalKafkaSchemaName = kafkaSchemaName;
@@ -152,7 +98,7 @@ public class LocalStorageClassAnnotation {
 
             boolean finalSmartFillField = smartFillField;
             boolean finalPerfectTable = perfectTable;
-            CLASS_EASY_SMART_MAP.put(clazz, new LazyTable() {
+            CLASS_EASY_SMART_MAP.put(clazz, new EasySmart() {
 
                 /**
                  * Returns the annotation type of this annotation.
@@ -161,7 +107,7 @@ public class LocalStorageClassAnnotation {
                  */
                 @Override
                 public Class<? extends Annotation> annotationType() {
-                    return LazyTable.class;
+                    return EasySmart.class;
                 }
 
                 /**
@@ -195,7 +141,7 @@ public class LocalStorageClassAnnotation {
                  */
                 @Override
                 public boolean dataDrillDown() {
-                    return null == LazyTable ? false : LazyTable.dataDrillDown();
+                    return null == easySmart ? false : easySmart.dataDrillDown();
                 }
 
                 /**
@@ -245,7 +191,7 @@ public class LocalStorageClassAnnotation {
                  */
                 @Override
                 public String schema() {
-                    return null == LazyTable ? "" : LazyTable.schema();
+                    return null == easySmart ? "" : easySmart.schema();
                 }
 
                 /**
@@ -255,7 +201,7 @@ public class LocalStorageClassAnnotation {
                  */
                 @Override
                 public String indexPrefix() {
-                    return null == LazyTable ? "" : LazyTable.indexPrefix();
+                    return null == easySmart ? "" : easySmart.indexPrefix();
                 }
 
                 /**
@@ -265,7 +211,7 @@ public class LocalStorageClassAnnotation {
                  */
                 @Override
                 public String indexFormat() {
-                    return null == LazyTable ? "" : LazyTable.indexFormat();
+                    return null == easySmart ? "" : easySmart.indexFormat();
                 }
 
                 /**
@@ -273,7 +219,7 @@ public class LocalStorageClassAnnotation {
                  */
                 @Override
                 public String indexSuffix() {
-                    return null == LazyTable ? "" : LazyTable.indexSuffix();
+                    return null == easySmart ? "" : easySmart.indexSuffix();
                 }
 
                 /**
@@ -281,7 +227,7 @@ public class LocalStorageClassAnnotation {
                  */
                 @Override
                 public String indexType() {
-                    return null == LazyTable ? "" : LazyTable.indexType();
+                    return null == easySmart ? "" : easySmart.indexType();
                 }
 
                 /**
@@ -289,7 +235,7 @@ public class LocalStorageClassAnnotation {
                  */
                 @Override
                 public String redisKey() {
-                    return null == LazyTable ? finalTableName : LazyTable.redisKey();
+                    return null == easySmart ? finalTableName : easySmart.redisKey();
                 }
 
                 /**
@@ -299,7 +245,7 @@ public class LocalStorageClassAnnotation {
                  */
                 @Override
                 public String columnFamily() {
-                    return null == LazyTable ? "" : LazyTable.columnFamily();
+                    return null == easySmart ? "" : easySmart.columnFamily();
                 }
 
                 /**

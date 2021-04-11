@@ -1,10 +1,10 @@
-package com.wu.framework.easy.stereotype.upsert;
+package com.wu.framework.inner.layer.data;
 
 import java.lang.annotation.*;
 
 /**
  * description SmartMark 智能标记
- * {@link EasySmart}
+ * {@link }
  *
  * @author Jia wei Wu
  * @date 2020/12/14 下午12:07

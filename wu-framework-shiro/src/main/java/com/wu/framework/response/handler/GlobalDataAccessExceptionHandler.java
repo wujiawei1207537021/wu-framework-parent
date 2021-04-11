@@ -4,10 +4,10 @@ package com.wu.framework.response.handler;
 import com.wu.framework.response.Result;
 import com.wu.framework.response.ResultFactory;
 import com.wu.framework.response.enmus.DefaultResultCode;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.yaml.snakeyaml.constructor.DuplicateKeyException;
 
 import javax.transaction.TransactionRequiredException;
 import javax.validation.ConstraintViolationException;

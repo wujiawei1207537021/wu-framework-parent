@@ -1,10 +1,10 @@
 package com.wu.framework.inner.lazy.database.converter;
 
-import com.wu.framework.easy.stereotype.upsert.EasySmartField;
-import com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.EasyAnnotationConverter;
 import com.wu.framework.inner.layer.data.NormalUsedString;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.Persistence;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTableField;
 import lombok.SneakyThrows;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.util.ObjectUtils;
@@ -47,7 +47,7 @@ public class PersistenceConverter {
             if (o == null) {
                 continue;
             }
-            EasySmartField tableField = AnnotatedElementUtils.findMergedAnnotation(declaredField, EasySmartField.class);
+            LazyTableField tableField = AnnotatedElementUtils.findMergedAnnotation(declaredField, LazyTableField.class);
             if (tableField != null && !tableField.exist()) {
                 continue;
             }

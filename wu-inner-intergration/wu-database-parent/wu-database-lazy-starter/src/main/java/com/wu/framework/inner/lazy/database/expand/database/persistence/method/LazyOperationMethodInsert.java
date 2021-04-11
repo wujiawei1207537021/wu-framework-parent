@@ -1,8 +1,7 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
-import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.MySQLDataProcessAnalyze;
 import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.MySQLDataProcessAnalyze;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.constant.LayerOperationMethodCounts;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 import org.springframework.util.ObjectUtils;
@@ -19,8 +18,7 @@ import java.util.Arrays;
  * @date : 2020/7/3 下午10:28
  */
 @ProxyStrategicApproach(methodName = LayerOperationMethodCounts.INSERT)
-public class LazyOperationMethodInsert extends AbstractLazyOperationMethod  implements MySQLDataProcessAnalyze{
-
+public class LazyOperationMethodInsert extends AbstractLazyOperationMethod implements MySQLDataProcessAnalyze {
 
 
     @Override
@@ -29,7 +27,7 @@ public class LazyOperationMethodInsert extends AbstractLazyOperationMethod  impl
         if (!ObjectUtils.isEmpty(args)) {
             Object o = args[0];
             Class clazz = o.getClass();
-            MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = dataPack(Arrays.asList(o), LocalStorageClassAnnotation.getEasyTableAnnotation(clazz, true));
+            MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = dataPack(Arrays.asList(o), classLazyTableAnalyze(clazz));
 
             PersistenceRepository persistenceRepository = new PersistenceRepository();
             persistenceRepository.setQueryString(mySQLProcessResult.getSql());

@@ -2,7 +2,7 @@ package com.wu.bionic.language.vocalize;
 
 
 import com.wu.framework.easy.stereotype.upsert.converter.stereotype.Word;
-import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import javazoom.jl.player.Player;
 import lombok.SneakyThrows;

@@ -1,8 +1,9 @@
 package com.wu.framework.inner.lazy.database.test.pojo;
 
-import com.wu.framework.easy.stereotype.upsert.EasySmart;
-import com.wu.framework.easy.stereotype.upsert.EasySmartField;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.CustomId;
+
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTable;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTableField;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTableFieldUnique;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,28 +13,28 @@ import java.io.Serializable;
 
 @Accessors(chain = true)
 @Data
-@EasySmart(value = "user", comment = "用户信息表")
+@LazyTable(value = "user", comment = "用户信息表")
 @AllArgsConstructor
 @NoArgsConstructor
 public class DataBaseUser implements Serializable {
     //
-    @CustomId(value = "id")
+    @LazyTableFieldUnique(value = "id")
     private Integer id;
 
     //    @EasySmartField(methodName = "username",comment = "username")
-    @CustomId(value = "username")
+    @LazyTableFieldUnique(value = "username")
     private String username;
 
-    @EasySmartField(value = "birthday")
+    @LazyTableField(value = "birthday")
     private String birthday;
 
-    @EasySmartField("sex")
+    @LazyTableField("sex")
     private String sex;
 
 
-    @EasySmartField(value = "address", exist = false)
+    @LazyTableField(value = "address", exist = false)
     private String address;
 
-    @CustomId(value = "age")
+    @LazyTableFieldUnique(value = "age")
     private Integer age;
 }

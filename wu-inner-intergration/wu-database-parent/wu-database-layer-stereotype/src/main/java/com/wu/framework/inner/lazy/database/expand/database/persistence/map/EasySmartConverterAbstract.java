@@ -1,4 +1,4 @@
-package com.wu.framework.easy.stereotype.upsert.converter.stereotype;
+package com.wu.framework.inner.lazy.database.expand.database.persistence.map;
 
 /**
  * @author : Jia Wei Wu

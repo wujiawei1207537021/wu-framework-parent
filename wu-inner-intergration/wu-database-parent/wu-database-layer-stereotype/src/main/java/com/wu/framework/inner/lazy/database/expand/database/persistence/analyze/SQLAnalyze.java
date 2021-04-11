@@ -1,14 +1,15 @@
-package com.wu.framework.easy.stereotype.upsert.converter;
+package com.wu.framework.inner.lazy.database.expand.database.persistence.analyze;
 
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTable;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTableField;
-import com.wu.framework.easy.stereotype.upsert.entity.ConvertedField;
-import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
-import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LazyTableAnnotation;
-import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.ConvertedField;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.UpsertJsonMessage;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.LazyTableAnnotation;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.layer.stereotype.LayerField;
 import com.wu.framework.inner.layer.stereotype.analyze.LayerAnalyzeAdapter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
@@ -23,11 +24,15 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+
 import java.util.stream.Collectors;
 
-import static com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter.annotationConvertConversion;
+import static com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.EasyAnnotationConverter.annotationConvertConversion;
 
 public interface SQLAnalyze extends LayerAnalyzeAdapter {
+
+    Logger log= LoggerFactory.getLogger(SQLAnalyze.class);
 
     String AUTHOR = "wujiawei";
     /**
@@ -110,14 +115,11 @@ public interface SQLAnalyze extends LayerAnalyzeAdapter {
         System.out.println("插入语句：\n" + stringBuilder);
     }
 
-    static String createTableSQL(Class clazz) {
-        LazyTableAnnotation lazyTableAnnotation = LocalStorageClassAnnotation.getEasyTableAnnotation(clazz, true);
-        return lazyTableAnnotation.creatTableSQL();
-    }
+
 
     @Override
     default String analyze(Class clazz) {
-        LazyTableAnnotation lazyTableAnnotation = LocalStorageClassAnnotation.getEasyTableAnnotation(clazz, true);
+        LazyTableAnnotation lazyTableAnnotation = classLazyTableAnalyze(clazz);
         return lazyTableAnnotation.creatTableSQL();
     }
 
@@ -129,7 +131,7 @@ public interface SQLAnalyze extends LayerAnalyzeAdapter {
      * @author Jia wei Wu
      * @date 2020/7/3 下午9:48
      **/
-    public static <T> String tableName(Class<T> clazz) {
+    static <T> String tableName(Class<T> clazz) {
         LazyTable tableNameAnnotation = AnnotationUtils.getAnnotation(clazz, LazyTable.class);
         if (!ObjectUtils.isEmpty(tableNameAnnotation) && !ObjectUtils.isEmpty(tableNameAnnotation.tableName())) {
             return tableNameAnnotation.tableName();
@@ -265,10 +267,6 @@ public interface SQLAnalyze extends LayerAnalyzeAdapter {
         return null;
     }
 
-    static void SQL(Class clazz) {
-        upsertSQL(clazz);
-        createTableSQL(clazz);
-    }
 
     /**
      * description 扫描包下面所有class
@@ -512,34 +510,42 @@ public interface SQLAnalyze extends LayerAnalyzeAdapter {
         return convertedFieldList;
     }
 
+
+
+    Map<Class,LazyTableAnnotation> CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP=new ConcurrentHashMap<>();
+
+
     /**
-     * @param columnNameList 数据库字段
-     * @param tableClass     表类型
-     * @return
-     * @describe 更改表
-     * @author Jia wei Wu
-     * @date 2020/12/12 9:12 下午
-     **/
-    static String alterTableSQL(List<String> columnNameList, Class tableClass) {
-        // 添加列
-        //        ALTER TABLE tableName
-        //      ADD columnName VARCHAR(255) 'comment'
-        String ALTER_TABLE = "ALTER TABLE %s ";
-        String ADD_FIELD = " ADD %s %s %s "; // 字段名 字段类型 字段备注
-        List<ConvertedField> convertedFieldList = fieldNamesOnAnnotation(tableClass, null);
-        String ADD_SQL = convertedFieldList.stream().
-                filter(convertedField -> !columnNameList.contains(convertedField.getConvertedFieldName().replaceAll("`", ""))).
-                map(convertedField ->
-                        String.format(ADD_FIELD,
-                                convertedField.getConvertedFieldName(),
-                                convertedField.getType(),
-                                convertedField.getComment())).
-                collect(Collectors.joining(","));
-        if (ObjectUtils.isEmpty(ADD_SQL)) return null;
-        // 更改列
-        //        modify columnName varchar2(255)
-        String MODIFY_FIELD = " MODIFY %s %s %s "; // 字段名 字段类型 字段备注
-        return String.join("", String.format(ALTER_TABLE, EasyAnnotationConverter.getTableName(tableClass)), ADD_SQL, "");
+    * @describe 通过class 解析出 LazyTableAnnotation 对象
+    * @param
+    * @return
+    * @author Jia wei Wu
+    * @date 2021/4/11 10:47 上午
+    **/
+    default  LazyTableAnnotation classLazyTableAnalyze(Class clazz ) {
+        if (!CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.containsKey(clazz)) {
+
+            LazyTable easySmart = AnnotationUtils.getAnnotation(clazz, LazyTable.class);
+            String className = clazz.getName();
+            String tableName = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
+            String comment = "";
+            if (null != easySmart) {
+                if (!ObjectUtils.isEmpty(easySmart.tableName())) {
+                    tableName = easySmart.tableName();
+                }
+            }
+            LazyTableAnnotation lazyTableAnnotation = new LazyTableAnnotation();
+            lazyTableAnnotation.setComment(comment);
+            lazyTableAnnotation.setClassName(className);
+            lazyTableAnnotation.setClazz(clazz);
+            lazyTableAnnotation.setTableName(tableName);
+            lazyTableAnnotation.setConvertedFieldList(SQLAnalyze.fieldNamesOnAnnotation(clazz, null));
+            lazyTableAnnotation.setSmartFillField(easySmart.smartFillField());
+            log.info("Initialize {} annotation parameters  className:[{}],tableName:[{}],comment:[{}]", clazz,
+                    className, tableName, comment);
+            CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.put(clazz, lazyTableAnnotation);
+        }
+        return CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.get(clazz);
     }
 
 }

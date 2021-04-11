@@ -1,6 +1,6 @@
 package com.wu.framework.shiro.model;
 
-import com.wu.framework.easy.stereotype.upsert.EasySmart;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTable;
 import lombok.Data;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
  * @author wjw
  */
 @Data
-@EasySmart(tableName = "sys_user")
+@LazyTable(tableName = "sys_user")
 public class User extends AbstractUserDetails {
 
 

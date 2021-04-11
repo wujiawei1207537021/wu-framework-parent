@@ -1,10 +1,10 @@
-package com.wu.framework.easy.stereotype.upsert.entity;
+package com.wu.framework.inner.lazy.database.expand.database.persistence.map;
 
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.ConvertedField;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.JavaVerification;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.LazyTableAnnotation;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTableField;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
-import com.wu.framework.easy.stereotype.upsert.converter.stereotype.EasySmartFillFieldConverter;
-import com.wu.framework.easy.stereotype.upsert.converter.stereotype.EasySmartFillFieldConverterAbstract;
-import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LazyTableAnnotation;
 import com.wu.framework.inner.layer.data.IBeanUpsert;
 import com.wu.framework.inner.layer.data.NormalUsedString;
 import com.wu.framework.inner.layer.stereotype.LayerField;
@@ -171,9 +171,9 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBean
         lazyTableAnnotation.setClazz(this.getClass());
         lazyTableAnnotation.setTableName(CamelAndUnderLineConverter.humpToLine2(uniqueLabel));
         lazyTableAnnotation.setComment(String.format("创建时间%s", LocalDateTime.now()));
-        lazyTableAnnotation.setKafkaCode(uniqueLabel);
-        lazyTableAnnotation.setKafkaTopicName(uniqueLabel);
-        lazyTableAnnotation.setKafkaSchemaName(UUID.randomUUID() + uniqueLabel);
+//        lazyTableAnnotation.setKafkaCode(uniqueLabel);
+//        lazyTableAnnotation.setKafkaTopicName(uniqueLabel);
+//        lazyTableAnnotation.setKafkaSchemaName(UUID.randomUUID() + uniqueLabel);
         List<ConvertedField> convertedFieldList = new ArrayList<>();
         forEach((key, value) -> {
             String fieldName;

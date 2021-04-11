@@ -1,7 +1,6 @@
-package com.wu.framework.easy.stereotype.upsert.entity.stereotye;
+package com.wu.framework.inner.lazy.database.expand.database.persistence.domain;
 
-import com.wu.framework.easy.stereotype.upsert.entity.ConvertedField;
-import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.UpsertJsonMessage;
 import com.wu.framework.inner.layer.stereotype.LayerField;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTable;
 import lombok.Data;
@@ -13,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.wu.framework.easy.stereotype.upsert.converter.SQLAnalyze.*;
+import static com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.SQLAnalyze.*;
 
 
 /**
@@ -23,7 +22,6 @@ import static com.wu.framework.easy.stereotype.upsert.converter.SQLAnalyze.*;
  * @author Jia wei Wu
  * @date 2020/9/3 上午9:52
  */
-//@Deprecated
 @Data
 public class LazyTableAnnotation implements LazyTable {
 
@@ -46,23 +44,7 @@ public class LazyTableAnnotation implements LazyTable {
      */
     private String comment;
 
-    /**
-     * kafka  schema 名称
-     *
-     * @return
-     */
-    private String kafkaSchemaName;
 
-    /**
-     * kafka 主题 为空使用类名
-     *
-     * @return
-     */
-    private String kafkaTopicName;
-    /**
-     * kafka code 编码
-     */
-    private String kafkaCode;
 
     /**
      * 字段
@@ -87,37 +69,10 @@ public class LazyTableAnnotation implements LazyTable {
      */
     private boolean dataDrillDown;
     /**
-     * Hbase 行名称
-     */
-    private String hBaseRow;
-    /**
-     * redis key
-     */
-    private String redisKey;
-    /**
-     * Elasticsearch 索引类型
-     */
-    private String indexType;
-    /**
-     * Elasticsearch 索引后缀
-     */
-    private String indexSuffix;
-    /**
-     * Elasticsearch 索引时间格式
-     */
-    private String indexFormat;
-    /**
-     * Elasticsearch 索引前缀
-     */
-    private String indexPrefix;
-    /**
      * 数据库名 schema
      */
     private String schema;
-    /**
-     * 列族
-     */
-    private String columnFamily;
+
 
 
     /**
@@ -231,35 +186,6 @@ public class LazyTableAnnotation implements LazyTable {
         return comment;
     }
 
-    /**
-     * kafka  schema 名称
-     *
-     * @return String
-     */
-    @Override
-    public String kafkaSchemaName() {
-        return kafkaSchemaName;
-    }
-
-    /**
-     * kafka 主题 为空使用类名
-     *
-     * @return String
-     */
-    @Override
-    public String kafkaTopicName() {
-        return kafkaTopicName;
-    }
-
-    /**
-     * kafka code编码
-     *
-     * @return String
-     */
-    @Override
-    public String kafkaCode() {
-        return kafkaCode;
-    }
 
     /**
      * 数据库名 schema
@@ -271,60 +197,6 @@ public class LazyTableAnnotation implements LazyTable {
         return schema;
     }
 
-    /**
-     * Elasticsearch 索引前缀
-     *
-     * @return String
-     */
-    @Override
-    public String indexPrefix() {
-        return indexPrefix;
-    }
-
-    /**
-     * Elasticsearch 索引时间格式
-     *
-     * @return String
-     */
-    @Override
-    public String indexFormat() {
-        return indexFormat;
-    }
-
-    /**
-     * Elasticsearch 索引后缀
-     */
-    @Override
-    public String indexSuffix() {
-        return indexSuffix;
-    }
-
-    /**
-     * Elasticsearch 索引类型
-     */
-    @Override
-    public String indexType() {
-        return indexType;
-    }
-
-    /**
-     * redis key
-     */
-    @Override
-    public String redisKey() {
-        return redisKey;
-    }
-
-
-    /**
-     * 列族
-     *
-     * @return
-     */
-    @Override
-    public String columnFamily() {
-        return columnFamily;
-    }
 
     /**
      * 智能填充bean属性

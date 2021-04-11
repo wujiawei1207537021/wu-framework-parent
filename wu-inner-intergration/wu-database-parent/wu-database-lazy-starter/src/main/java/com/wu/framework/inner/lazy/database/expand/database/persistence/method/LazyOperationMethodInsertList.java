@@ -1,6 +1,5 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
-import com.wu.framework.easy.stereotype.upsert.entity.stereotye.LocalStorageClassAnnotation;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.MySQLDataProcessAnalyze;
 import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.constant.LayerOperationMethodCounts;
@@ -30,7 +29,7 @@ public class LazyOperationMethodInsertList extends AbstractLazyOperationMethod i
         if (args[0] instanceof Collection && !ObjectUtils.isEmpty(args)) {
             Collection collection = (Collection) args[0];
             Class clazz = collection.iterator().next().getClass();
-            MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = dataPack(Collections.singletonList(collection), LocalStorageClassAnnotation.getEasyTableAnnotation(clazz, true));
+            MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = dataPack(Collections.singletonList(collection), classLazyTableAnalyze(clazz));
             PersistenceRepository persistenceRepository = new PersistenceRepository();
             persistenceRepository.setQueryString(mySQLProcessResult.getSql());
             persistenceRepository.setBinaryList(mySQLProcessResult.getBinaryList());

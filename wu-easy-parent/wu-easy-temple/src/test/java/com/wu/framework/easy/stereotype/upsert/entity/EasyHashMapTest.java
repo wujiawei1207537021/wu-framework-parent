@@ -1,8 +1,9 @@
 package com.wu.framework.easy.stereotype.upsert.entity;
 
-import com.wu.framework.easy.stereotype.upsert.converter.stereotype.EasySmartFillFieldConverter;
-import com.wu.framework.easy.stereotype.upsert.converter.stereotype.EasySmartFillFieldConverterAbstract;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasySmartFillFieldConverter;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasySmartFillFieldConverterAbstract;
 import com.wu.framework.inner.layer.data.NormalUsedString;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import org.springframework.web.client.RestTemplate;
 
 public class EasyHashMapTest {

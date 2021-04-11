@@ -1,18 +1,17 @@
 package com.wu.framework.easy.temple.controller;
 
 import com.wu.framework.easy.stereotype.upsert.component.IUpsert;
-import com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
 import com.wu.framework.easy.stereotype.upsert.dynamic.QuickEasyUpsert;
-import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
-import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.easy.temple.domain.DynGpsVehRun;
 import com.wu.framework.easy.temple.domain.UseExcel;
 import com.wu.framework.easy.temple.domain.UserLog;
 import com.wu.framework.easy.temple.domain.bo.ExtractBo;
 import com.wu.framework.easy.temple.domain.bo.MoreExtractBo;
 import com.wu.framework.easy.temple.service.RunService;
+import com.wu.framework.inner.layer.web.EasyController;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -132,7 +131,7 @@ public class UpsertController {
         extractBo.setUserLog(userLog);
         extractBo.setUseExcel(useExcel);
 
-        EasyAnnotationConverter.extractData(null, extractBo);
+//        extractData(null, extractBo);
         return extractBo;
     }
 

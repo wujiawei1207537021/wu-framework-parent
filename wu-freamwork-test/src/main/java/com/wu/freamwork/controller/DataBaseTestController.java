@@ -6,11 +6,11 @@ import com.wu.framework.easy.stereotype.dynamic.toolkit.DynamicEasyUpsertDSConte
 import com.wu.framework.easy.stereotype.upsert.component.IUpsert;
 import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
-import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.inner.layer.data.NormalUsedString;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.MySQLDataProcessAnalyze;
-import com.wu.framework.easy.stereotype.upsert.util.FileUtil;
+import com.wu.framework.inner.layer.util.FileUtil;
 import com.wu.framework.inner.lazy.database.domain.Page;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import com.wu.framework.inner.lazy.database.test.pojo.DataBaseUser;

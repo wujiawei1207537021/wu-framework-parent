@@ -1,4 +1,4 @@
-package com.wu.framework.easy.stereotype.upsert.util;
+package com.wu.framework.inner.layer.util;
 
 import lombok.SneakyThrows;
 import org.springframework.util.ObjectUtils;

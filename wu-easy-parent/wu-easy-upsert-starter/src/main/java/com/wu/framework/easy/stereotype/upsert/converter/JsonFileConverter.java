@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wu.framework.easy.stereotype.upsert.EasySmartField;
-import com.wu.framework.easy.stereotype.upsert.entity.UpsertJsonMessage;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.UpsertJsonMessage;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.util.ObjectUtils;
@@ -13,7 +13,7 @@ import org.springframework.util.ObjectUtils;
 import java.lang.reflect.Field;
 import java.util.*;
 
-import static com.wu.framework.easy.stereotype.upsert.converter.EasyAnnotationConverter.annotationConvertConversion;
+import static com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.EasyAnnotationConverter.annotationConvertConversion;
 
 /**
  * @Description 转换含有KafkaSchemaFile 注解的类参数

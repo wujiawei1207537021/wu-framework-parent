@@ -1,13 +1,13 @@
 package com.wu.framework.inner.lazy.database.converter;
 
 
-import com.wu.framework.easy.stereotype.upsert.EasySmart;
-import com.wu.framework.easy.stereotype.upsert.EasySmartField;
 import com.wu.framework.inner.layer.data.NormalUsedString;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.layer.stereotype.LayerField;
 import com.wu.framework.inner.layer.stereotype.domain.LayerAnalyzeField;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.Persistence;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTable;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTableField;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ObjectUtils;
@@ -98,7 +98,7 @@ public class PreparedStatementSQLConverter {
      * @date 2020/7/3 下午9:48
      **/
     public static <T> String tableName(Class<T> clazz) {
-        EasySmart tableNameAnnotation = AnnotationUtils.getAnnotation(clazz, EasySmart.class);
+        LazyTable tableNameAnnotation = AnnotationUtils.getAnnotation(clazz, LazyTable.class);
         if (!ObjectUtils.isEmpty(tableNameAnnotation) && !ObjectUtils.isEmpty(tableNameAnnotation.tableName())) {
             if (!ObjectUtils.isEmpty(tableNameAnnotation.schema())) {
                 return tableNameAnnotation.schema() + "." + tableNameAnnotation.tableName();
@@ -116,14 +116,14 @@ public class PreparedStatementSQLConverter {
             if (!declaredField.isAccessible()) {
                 declaredField.setAccessible(true);
             }
-            EasySmartField EasySmartField = AnnotationUtils.getAnnotation(declaredField, EasySmartField.class);
+            LazyTableField tableField = AnnotationUtils.getAnnotation(declaredField, LazyTableField.class);
             String fieldName = CamelAndUnderLineConverter.humpToLine2(declaredField.getName());
-            if (!ObjectUtils.isEmpty(EasySmartField)) {
-                if (!EasySmartField.exist()) {
+            if (!ObjectUtils.isEmpty(tableField)) {
+                if (!tableField.exist()) {
                     continue;
                 }
-                if (!ObjectUtils.isEmpty(EasySmartField.value())) {
-                    fieldName = EasySmartField.value();
+                if (!ObjectUtils.isEmpty(tableField.value())) {
+                    fieldName = tableField.value();
                 }
             }
             fieldNames.add(fieldName);
@@ -146,26 +146,26 @@ public class PreparedStatementSQLConverter {
             if (!declaredField.isAccessible()) {
                 declaredField.setAccessible(true);
             }
-            EasySmartField EasySmartField = AnnotatedElementUtils.findMergedAnnotation(declaredField, EasySmartField.class);
+            LazyTableField tableField = AnnotatedElementUtils.findMergedAnnotation(declaredField, LazyTableField.class);
             String convertedFieldName = CamelAndUnderLineConverter.humpToLine2(declaredField.getName());
-            if (!ObjectUtils.isEmpty(EasySmartField)) {
-                if (!EasySmartField.exist()) {
+            if (!ObjectUtils.isEmpty(tableField)) {
+                if (!tableField.exist()) {
                     continue;
                 }
                 // 判断是否是我想要的类型
-                if (!ObjectUtils.isEmpty(tableFileIndexType) && !tableFileIndexType.equals(EasySmartField.indexType())) {
+                if (!ObjectUtils.isEmpty(tableFileIndexType) && !tableFileIndexType.equals(tableField.indexType())) {
                     continue;
                 }
-                if (!ObjectUtils.isEmpty(EasySmartField.value())) {
-                    convertedFieldName = EasySmartField.value();
+                if (!ObjectUtils.isEmpty(tableField.value())) {
+                    convertedFieldName = tableField.value();
                 }
             }
             LayerAnalyzeField layerAnalyzeField = new LayerAnalyzeField();
             layerAnalyzeField.setConvertedFieldName(convertedFieldName);
             layerAnalyzeField.setFieldName(declaredField.getName());
             layerAnalyzeField.setClazz(declaredField.getType());
-            if (!ObjectUtils.isEmpty(EasySmartField)) {
-                layerAnalyzeField.setFieldIndexType(EasySmartField.indexType());
+            if (!ObjectUtils.isEmpty(tableField)) {
+                layerAnalyzeField.setFieldIndexType(tableField.indexType());
             }
             layerAnalyzeFieldList.add(layerAnalyzeField);
         }

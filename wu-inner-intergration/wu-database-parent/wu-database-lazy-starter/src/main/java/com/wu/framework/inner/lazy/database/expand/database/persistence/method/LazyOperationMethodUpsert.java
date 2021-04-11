@@ -1,6 +1,6 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
-import com.wu.framework.easy.stereotype.upsert.converter.SQLAnalyze;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.SQLAnalyze;
 import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.constant.LayerOperationMethodCounts;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;

@@ -1,4 +1,4 @@
-package com.wu.framework.easy.stereotype.upsert.entity;
+package com.wu.framework.inner.lazy.database.expand.database.persistence.conf;
 
 import java.util.Arrays;
 import java.util.List;

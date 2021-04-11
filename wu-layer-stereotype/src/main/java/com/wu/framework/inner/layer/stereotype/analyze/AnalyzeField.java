@@ -27,6 +27,14 @@ public class AnalyzeField {
      * 数据库对应字段
      */
     private String convertedFieldName;
+    /**
+     * 诠释
+     */
+    private String  comment;
+    /**
+     * 字段class
+     */
+    private Class clazz;
 
     /**
      * 字段索引类型(数据库)

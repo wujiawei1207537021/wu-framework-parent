@@ -1,7 +1,7 @@
 package com.wu.freamwork.controller;
 
-import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
-import com.wu.framework.easy.stereotype.upsert.util.FileUtil;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
+import com.wu.framework.inner.layer.util.FileUtil;
 import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.freamwork.ElasticsearchSQLTemplate;
 import org.springframework.boot.web.client.RestTemplateBuilder;

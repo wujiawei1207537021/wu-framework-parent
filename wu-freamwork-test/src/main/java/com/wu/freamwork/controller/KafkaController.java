@@ -2,8 +2,8 @@ package com.wu.freamwork.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
-import com.wu.framework.easy.stereotype.upsert.entity.EasyHashMap;
-import com.wu.framework.easy.stereotype.upsert.util.FileUtil;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
+import com.wu.framework.inner.layer.util.FileUtil;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 
