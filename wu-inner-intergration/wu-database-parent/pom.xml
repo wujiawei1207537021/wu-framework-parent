@@ -22,6 +22,7 @@
         <module>wu-database-core</module>
         <module>wu-hbase-starter</module>
         <module>wu-database-layer-stereotype</module>
+        <module>wu-elasticsearch-starter</module>
     </modules>
 
 
