@@ -3,11 +3,11 @@ server:
 
 spring:
   profiles:
-    active: mb-dy
+    active: h2
 
-  elasticsearch:
-    rest:
-      uris: "http://k8s.wu2020.top:9200"
+#  elasticsearch:
+#    rest:
+#      uris: "http://k8s.wu2020.top:9200"
   jpa:
     show-sql: true
   activemq:

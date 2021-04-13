@@ -22,6 +22,7 @@ import java.util.List;
 @Service
 public class RunServiceImpl implements RunService {
 
+
     public static void main(String[] args) {
         List<UserLog> userLogList = new ArrayList<>();
         for (int i = 0; i < 100; i++) {

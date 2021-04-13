@@ -2,7 +2,7 @@ package com.wu.framework.easy.temple.domain;
 
 import com.wu.framework.easy.stereotype.upsert.EasySmartField;
 import lombok.Data;
-import org.springframework.data.elasticsearch.annotations.Document;
+//import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.time.LocalDateTime;
 
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * @author
  */
 @Data
-@Document(indexName = "sys_veh_dyn_gps_es_2020.12_m")
+//@Document(indexName = "sys_veh_dyn_gps_es_2020.12_m")
 public class DynGpsVehRun {
 
     private String id;

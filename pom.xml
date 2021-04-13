@@ -62,7 +62,7 @@
         <wu-database-lazy-starter.version>${project.version}</wu-database-lazy-starter.version>
         <wu-layer-stereotype.version>${project.version}</wu-layer-stereotype.version>
 
-        <spring-boot-starter.version>2.4.2</spring-boot-starter.version>
+        <spring-boot-starter.version>2.4.4</spring-boot-starter.version>
     </properties>
 
     <modules>

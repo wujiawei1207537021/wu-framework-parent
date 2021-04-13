@@ -14,7 +14,7 @@ spring:
         upsert:
           username: root
           password: wujiawei
-          url: jdbc:mysql://k8s.wu2020.top:13306/temp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+          url: jdbc:mysql://www.wu2020.top:3306/temp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
           driver-class-name: com.mysql.cj.jdbc.Driver
 
 
