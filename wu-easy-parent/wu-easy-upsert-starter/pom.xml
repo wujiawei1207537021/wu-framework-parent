@@ -32,10 +32,6 @@
         </dependency>
 
         <dependency>
-            <groupId>top.wu2020</groupId>
-            <artifactId>wu-easy-stereotype</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>27.0.1-jre</version>
@@ -51,11 +47,12 @@
             <artifactId>spring-webflux</artifactId>
         </dependency>
 
-        <!--webclient-->
+
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webflux</artifactId>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-easy-stereotype</artifactId>
         </dependency>
+
         <dependency>
             <groupId>top.wu2020</groupId>
             <artifactId>wu-redis-lazy-starter</artifactId>
@@ -64,9 +61,12 @@
         <dependency>
             <groupId>top.wu2020</groupId>
             <artifactId>wu-hbase-starter</artifactId>
-            <version>1.0.3</version>
         </dependency>
 
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-elasticsearch-starter</artifactId>
+        </dependency>
 
 
     </dependencies>

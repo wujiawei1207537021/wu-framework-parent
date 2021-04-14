@@ -61,6 +61,8 @@
         <wu-easy-upsert-starter.version>${project.version}</wu-easy-upsert-starter.version>
         <wu-database-lazy-starter.version>${project.version}</wu-database-lazy-starter.version>
         <wu-layer-stereotype.version>${project.version}</wu-layer-stereotype.version>
+        <wu-hbase-starter.version>${project.version}</wu-hbase-starter.version>
+        <wu-elasticsearch-starter.version>${project.version}</wu-elasticsearch-starter.version>
 
         <spring-boot-starter.version>2.4.4</spring-boot-starter.version>
     </properties>
@@ -165,12 +167,27 @@
                 <artifactId>wu-database-generator-starter</artifactId>
                 <version>${wu-framework-parent.version}</version>
             </dependency>
+            <!--层方面注解-->
 
             <dependency>
                 <groupId>top.wu2020</groupId>
                 <artifactId>wu-layer-stereotype</artifactId>
                 <version>${wu-layer-stereotype.version}</version>
             </dependency>
+
+            <!--       HBase starter包     -->
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-hbase-starter</artifactId>
+                <version>${wu-hbase-starter.version}</version>
+            </dependency>
+            <!--ES7后支持的sql查询-->
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-elasticsearch-starter</artifactId>
+                <version>${wu-elasticsearch-starter.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
