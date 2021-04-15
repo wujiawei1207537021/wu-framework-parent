@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
+import java.sql.SQLException;
 
 /**
  * description  手动配置数据源
@@ -13,15 +14,15 @@ import javax.sql.DataSource;
  * @author Jia wei Wu
  * @date 2021/2/9 下午5:29
  */
-//@Configuration
+@Configuration
 public class DataSourceConfig {
 
     @Bean(name = "autoDataSource1")
     public DataSource dataSource1() {
-        return DataSourceBuilder.create().url("jdbc:mysql://k8s.wu2020.top:13306/upsert?rewriteBatchedStatements=true")
-                .type(MysqlDataSource.class)
-                .username("root")
-                .password("wujiawei")
-                .build();
+        MysqlDataSource build = DataSourceBuilder.create().type(MysqlDataSource.class).build();
+        build.setUrl("jdbc:mysql://127.0.0.1:3306/temp?rewriteBatchedStatements=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai");
+        build.setUser("root");
+        build.setPassword("wujiawei");
+        return build;
     }
 }

@@ -241,6 +241,7 @@ public interface MySQLDataProcessAnalyze extends LayerDefault,SQLAnalyze{
 //            }
             return updateColumn;
         } catch (Exception exception) {
+            exception.printStackTrace();
             throw exception;
         } finally {
             assert connection != null;

@@ -9,7 +9,8 @@ import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.inner.layer.data.UserConvertService;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.MySQLDataProcessAnalyze;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -27,6 +28,7 @@ import java.util.Map;
  * @author Jia wei Wu
  * @date 2020/9/11 上午10:22
  */
+@Slf4j
 @ConditionalOnBean(value = DataSource.class)
 @EasyUpsertStrategy(value = EasyUpsertType.MySQL)
 public class MySQLBeanEasyUpsert extends MySQLEasyUpsertAbstract implements IEasyUpsert, ApplicationListener<ContextRefreshedEvent> {
@@ -50,7 +52,8 @@ public class MySQLBeanEasyUpsert extends MySQLEasyUpsertAbstract implements IEas
 
     @Override
     public void afterPropertiesSet() throws Exception {
-
+//        super.afterPropertiesSet();  run after onApplicationEvent when DataSource is already init
+        log.info("mysql uses beans to inject ");
 
     }
 
@@ -59,17 +62,19 @@ public class MySQLBeanEasyUpsert extends MySQLEasyUpsertAbstract implements IEas
      *
      * @param event the event to respond to
      */
+    @SneakyThrows
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         Map<String, DataSource> dataSourceMap = event.getApplicationContext().getBeansOfType(DataSource.class);
         this.primary = dataSourceMap.keySet().iterator().next();
         dataSourceMap.forEach((k, v) -> {
             try {
-                mybatisDataSource(v);
+                mybatisDataSource(k,v);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
+        super.afterPropertiesSet();
     }
 
     /**
@@ -82,7 +87,7 @@ public class MySQLBeanEasyUpsert extends MySQLEasyUpsertAbstract implements IEas
      * @date 2021/2/11 上午10:37
      */
 
-    public void mybatisDataSource(DataSource dataSource) throws Exception {
+    public void mybatisDataSource(String key,DataSource dataSource) throws Exception {
         if (dataSource.getClass().getName().equals("com.baomidou.dynamic.datasource.DynamicRoutingDataSource")) {
             Field primaryDeclaredField = dataSource.getClass().getDeclaredField("primary");
             primaryDeclaredField.setAccessible(true);
@@ -91,7 +96,9 @@ public class MySQLBeanEasyUpsert extends MySQLEasyUpsertAbstract implements IEas
             dataSourceMapDeclaredField.setAccessible(true);
             Map<String, DataSource> mybatisDataSourceMap = (Map<String, DataSource>) dataSourceMapDeclaredField.get(dataSource);
             dataSourceMap.putAll(mybatisDataSourceMap);
+        }else {
+            dataSourceMap.put(key, dataSource);
         }
-
     }
+
 }
