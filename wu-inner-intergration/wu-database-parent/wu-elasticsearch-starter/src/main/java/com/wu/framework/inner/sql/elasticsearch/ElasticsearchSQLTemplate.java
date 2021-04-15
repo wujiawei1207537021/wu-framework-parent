@@ -1,9 +1,9 @@
-package com.wu.freamwork;
-
+package com.wu.framework.inner.sql.elasticsearch;
 
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import lombok.Data;
+import org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchRestClientProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -35,25 +35,31 @@ public class ElasticsearchSQLTemplate {
 
     private final RestTemplate defaultRestTemplate;
     // ES地址
-    private final String esUrl;
+    private final List<String> esUris;
 
 
-    private ElasticsearchSQLTemplate(RestTemplate defaultRestTemplate, String esUrl, Long defaultScrollIntervalTime) {
+    private ElasticsearchSQLTemplate(RestTemplate defaultRestTemplate, List<String> esUris, Long defaultScrollIntervalTime) {
         this.defaultRestTemplate = defaultRestTemplate;
-        this.esUrl = esUrl;
+        this.esUris = esUris;
         this.defaultScrollIntervalTime = defaultScrollIntervalTime;
     }
 
-    public static ElasticsearchSQLTemplate build(String esUrl) {
-        return new ElasticsearchSQLTemplate(new RestTemplateBuilder().build(), esUrl, 10000L);
+
+    public static ElasticsearchSQLTemplate build(RestTemplate restTemplate, List<String> esUris, Long defaultScrollIntervalTime) {
+        return new ElasticsearchSQLTemplate(restTemplate, esUris, defaultScrollIntervalTime);
     }
 
-    public static ElasticsearchSQLTemplate build(RestTemplate restTemplate, String esUrl) {
-        return new ElasticsearchSQLTemplate(restTemplate, esUrl, 10000L);
+    public static ElasticsearchSQLTemplate build(List<String> esUris) {
+        return ElasticsearchSQLTemplate.build(new RestTemplateBuilder().build(), esUris, 10000L);
     }
 
-    public static ElasticsearchSQLTemplate build(RestTemplate restTemplate, String esUrl, Long defaultScrollIntervalTime) {
-        return new ElasticsearchSQLTemplate(restTemplate, esUrl, defaultScrollIntervalTime);
+    public static ElasticsearchSQLTemplate build(RestTemplate restTemplate, List<String> esUris) {
+        return ElasticsearchSQLTemplate.build(restTemplate, esUris, 10000L);
+    }
+
+
+    public static ElasticsearchSQLTemplate build(ElasticsearchRestClientProperties elasticsearchRestClientProperties) {
+        return ElasticsearchSQLTemplate.build(elasticsearchRestClientProperties.getUris());
     }
 
     public <T> List<T> search(String sql, Class<T> clazz, Object... objects) {
@@ -72,7 +78,7 @@ public class ElasticsearchSQLTemplate {
         request.put("fetch_size", size);
         HttpEntity httpEntity = new HttpEntity(request, null);
         System.err.printf("执行的查询语句:%s \n", query);
-        ResponseEntity<ESResult> exchange = defaultRestTemplate.exchange(esUrl + suffix, HttpMethod.POST, httpEntity, ESResult.class);
+        ResponseEntity<ESResult> exchange = defaultRestTemplate.exchange(getURL(), HttpMethod.POST, httpEntity, ESResult.class);
         return exchange.getBody();
     }
 
@@ -110,9 +116,22 @@ public class ElasticsearchSQLTemplate {
         Map<String, String> request = new HashMap<>(1);
         request.put("cursor", cursor);
         HttpEntity httpEntity = new HttpEntity(request, null);
-        return defaultRestTemplate.exchange(esUrl + suffix, HttpMethod.POST, httpEntity, ESResult.class).getBody();
+        return defaultRestTemplate.exchange(getURL(), HttpMethod.POST, httpEntity, ESResult.class).getBody();
     }
 
+
+    /**
+    * @describe 获取集群中任意一个 es节点数据
+    * @param
+    * @return
+    * @author Jia wei Wu
+    * @date 2021/4/15 9:13 下午
+    **/
+    public String getURL() {
+        Random random = new Random();
+        int n = random.nextInt(esUris.size());
+        return esUris.get(n) + suffix;
+    }
 
     /**
      * description 将数据简单转换为对象 当前只支持String 类型数据转换

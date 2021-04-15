@@ -3,10 +3,12 @@ package com.wu.freamwork.controller;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import com.wu.framework.inner.layer.util.FileUtil;
 import com.wu.framework.inner.layer.web.EasyController;
-import com.wu.freamwork.ElasticsearchSQLTemplate;
+
+import com.wu.framework.inner.sql.elasticsearch.ElasticsearchSQLTemplate;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 
 import java.io.BufferedWriter;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -21,7 +23,7 @@ public class ElasticsearchController {
 
     //    @PostConstruct
     public void comeOn() throws Exception {
-        ElasticsearchSQLTemplate elasticsearchSQLTemplate = ElasticsearchSQLTemplate.build(new RestTemplateBuilder().build(), "http://81.69.3.45:30820", -1L);
+        ElasticsearchSQLTemplate elasticsearchSQLTemplate = ElasticsearchSQLTemplate.build(new RestTemplateBuilder().build(), Collections.singletonList("http://81.69.3.45:30820"), -1L);
         String sql = "select * from  \"sys_veh_dyn_gps_es_2021.01.31_d\" ";
         List<EasyHashMap> scroll = elasticsearchSQLTemplate.scroll(sql, EasyHashMap.class);
 
