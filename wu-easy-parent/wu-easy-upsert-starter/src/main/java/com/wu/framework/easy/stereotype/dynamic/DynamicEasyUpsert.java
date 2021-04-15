@@ -15,6 +15,7 @@ import org.springframework.util.ObjectUtils;
 
 import java.lang.annotation.Annotation;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +31,7 @@ public class DynamicEasyUpsert extends AbstractDynamicEasyUpsert implements Init
 
     private EasyUpsertType primary;
     private EasyUpsertDS primaryEasyUpsertDS;
-    private Map<EasyUpsertType, IEasyUpsert> iEasyUpsertMap = new HashMap<>();
+    private Map<EasyUpsertType, IEasyUpsert> iEasyUpsertMap = new LinkedHashMap<>();
 
 
     private List<IEasyUpsert> iEasyUpsertList;
