@@ -1,5 +1,6 @@
 package com.wu.bionic.language.vocalize.uo;
 
+
 import com.wu.framework.easy.stereotype.upsert.EasySmart;
 import lombok.Data;
 import lombok.experimental.Accessors;

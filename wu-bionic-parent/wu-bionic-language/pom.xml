@@ -19,10 +19,7 @@
     </properties>
     <dependencies>
 
-        <dependency>
-            <groupId>top.wu2020</groupId>
-            <artifactId>wu-database-lazy-starter</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -40,6 +37,17 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
             <version>3.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-database-lazy-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-easy-stereotype</artifactId>
+            <version>1.0.3</version>
         </dependency>
 
     </dependencies>

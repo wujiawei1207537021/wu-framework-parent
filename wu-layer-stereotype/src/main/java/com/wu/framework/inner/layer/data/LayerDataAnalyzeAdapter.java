@@ -13,7 +13,7 @@ public interface LayerDataAnalyzeAdapter {
      * @param extractList 中间存储数据对象 可以为空
      * @param objects     需要提取的对象
      * @return
-     * @describe 提取数据
+     * @describe 复杂数据提取
      * @author Jia wei Wu
      * @date 2021/4/11 11:40 上午
      **/
