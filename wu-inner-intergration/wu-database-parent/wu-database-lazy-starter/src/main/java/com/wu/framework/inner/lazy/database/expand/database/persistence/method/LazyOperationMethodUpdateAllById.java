@@ -3,10 +3,8 @@ package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 import com.wu.framework.inner.lazy.database.converter.PreparedStatementSQLConverter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ObjectUtils;
 
 import javax.sql.DataSource;
-import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -22,12 +20,11 @@ import java.util.Collection;
 public class LazyOperationMethodUpdateAllById extends AbstractLazyOperationMethod {
 
     @Override
-    public PersistenceRepository analyzePersistenceRepository(Method method, Object[] args) throws IllegalArgumentException {
+    public PersistenceRepository analyzePersistenceRepository(Object... params) throws IllegalArgumentException {
         String queryString = "";
-        Object object = args[0];
+        Object object = params[0];
         Class clazz;
         // 第一个参数 list
-        if (object instanceof Collection && !ObjectUtils.isEmpty(args)) {
             Collection collection = (Collection) object;
             clazz = collection.iterator().next().getClass();
             for (Object o : collection) {
@@ -37,9 +34,6 @@ public class LazyOperationMethodUpdateAllById extends AbstractLazyOperationMetho
             persistenceRepository.setQueryString(queryString);
             persistenceRepository.setResultClass(clazz);
             return persistenceRepository;
-        } else {
-            throw new IllegalArgumentException("fail invoke this method in method" + method.getName());
-        }
     }
 
     /**
@@ -55,13 +49,14 @@ public class LazyOperationMethodUpdateAllById extends AbstractLazyOperationMetho
     @Override
     public Object execute(DataSource dataSource, Object... params) throws SQLException {
         Connection connection = dataSource.getConnection();
-        PersistenceRepository persistenceRepository = analyzePersistenceRepository(null, params);
+        PersistenceRepository persistenceRepository = analyzePersistenceRepository(params);
         PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());
         try {
             return preparedStatement.executeBatch();
         } catch (SQLException sqlException) {
             throw sqlException;
         } finally {
+            connection.close();
             preparedStatement.close();
         }
     }

@@ -4,7 +4,6 @@ import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.P
 import org.springframework.lang.NonNull;
 
 import javax.sql.DataSource;
-import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -18,28 +17,29 @@ import java.sql.SQLException;
 public interface LazyOperationMethod {
 
     /**
-    * @describe 获取持久性存储库
-    * @param
-    * @return
-    * @author Jia wei Wu
-    * @date 2021/4/17 3:38 下午
-    **/
+     * @param
+     * @param params
+     * @return
+     * @describe 获取持久性存储库
+     * @author Jia wei Wu
+     * @date 2021/4/17 3:38 下午
+     **/
     @NonNull
-    PersistenceRepository analyzePersistenceRepository(Method method, Object[] args) throws Exception;
+    PersistenceRepository analyzePersistenceRepository(Object... params) throws Exception;
 
     /**
      * description 执行SQL 语句
      *
+     * @param dataSource
+     * @param params
      * @return
      * @params
      * @author Jia wei Wu
      * @date 2020/11/22 上午11:02
-     *
-     * @param dataSource
-     * @param params*/
+     */
     default Object execute(DataSource dataSource, Object... params) throws Exception {
         Connection connection = dataSource.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(analyzePersistenceRepository(null,params).getQueryString());
+        PreparedStatement preparedStatement = connection.prepareStatement(analyzePersistenceRepository(params).getQueryString());
         try {
             return preparedStatement.execute();
         } catch (SQLException sqlException) {

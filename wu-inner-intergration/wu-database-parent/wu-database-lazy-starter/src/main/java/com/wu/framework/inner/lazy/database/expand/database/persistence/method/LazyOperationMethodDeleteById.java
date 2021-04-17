@@ -3,10 +3,8 @@ package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 import com.wu.framework.inner.lazy.database.converter.PreparedStatementSQLConverter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ObjectUtils;
 
 import javax.sql.DataSource;
-import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -21,12 +19,9 @@ import java.sql.SQLException;
 public class LazyOperationMethodDeleteById extends AbstractLazyOperationMethod {
 
     @Override
-    public PersistenceRepository analyzePersistenceRepository(Method method, Object[] args) throws IllegalArgumentException {
+    public PersistenceRepository analyzePersistenceRepository(Object... params) throws IllegalArgumentException {
         String queryString = "";
-        if (ObjectUtils.isEmpty(args)) {
-            throw new IllegalArgumentException("fail invoke this method in method" + method.getName());
-        }
-        Object object = args[0];
+        Object object = params[0];
         Class clazz = object.getClass();
         queryString = PreparedStatementSQLConverter.deletePreparedStatementSQL(object);
         PersistenceRepository persistenceRepository = new PersistenceRepository();
@@ -48,12 +43,13 @@ public class LazyOperationMethodDeleteById extends AbstractLazyOperationMethod {
     @Override
     public Object execute(DataSource dataSource, Object... params) throws SQLException {
         Connection connection = dataSource.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(analyzePersistenceRepository(null,params).getQueryString());
+        PreparedStatement preparedStatement = connection.prepareStatement(analyzePersistenceRepository(params).getQueryString());
         try {
             return preparedStatement.executeUpdate();
         } catch (SQLException sqlException) {
             throw sqlException;
         } finally {
+            connection.close();
             preparedStatement.close();
         }
     }

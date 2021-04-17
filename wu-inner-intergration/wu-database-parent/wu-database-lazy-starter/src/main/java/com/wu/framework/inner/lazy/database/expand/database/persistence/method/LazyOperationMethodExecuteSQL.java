@@ -4,7 +4,6 @@ import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.P
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,10 +20,10 @@ import java.util.List;
 public class LazyOperationMethodExecuteSQL extends AbstractLazyOperationMethod {
 
     @Override
-    public PersistenceRepository analyzePersistenceRepository(Method method, Object[] args) throws IllegalArgumentException {
+    public PersistenceRepository analyzePersistenceRepository(Object... params) throws IllegalArgumentException {
         // 第一个参数 SQL
-        String sql = (String) args[0];
-        Class clazz = (Class) args[1];
+        String sql = (String) params[0];
+        Class clazz = (Class) params[1];
         PersistenceRepository persistenceRepository = new PersistenceRepository();
         persistenceRepository.setQueryString(sql);
         persistenceRepository.setResultClass(clazz);
@@ -44,7 +43,7 @@ public class LazyOperationMethodExecuteSQL extends AbstractLazyOperationMethod {
     @Override
     public Object execute(DataSource dataSource, Object... params) throws SQLException {
         Connection connection = dataSource.getConnection();
-        PersistenceRepository persistenceRepository = analyzePersistenceRepository(null, params);
+        PersistenceRepository persistenceRepository = analyzePersistenceRepository(params);
         PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());
         try {
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -53,6 +52,7 @@ public class LazyOperationMethodExecuteSQL extends AbstractLazyOperationMethod {
         } catch (SQLException sqlException) {
             throw sqlException;
         } finally {
+            connection.close();
             preparedStatement.close();
         }
     }

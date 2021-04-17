@@ -3,10 +3,8 @@ package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 import com.wu.framework.inner.lazy.database.converter.PreparedStatementSQLConverter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ObjectUtils;
 
 import javax.sql.DataSource;
-import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,12 +22,9 @@ import java.util.List;
 public class LazyOperationMethodSelectList extends AbstractLazyOperationMethod {
 
     @Override
-    public PersistenceRepository analyzePersistenceRepository(Method method, Object[] args) throws IllegalArgumentException {
+    public PersistenceRepository analyzePersistenceRepository(Object... params) throws IllegalArgumentException {
         String queryString = "";
-        if (ObjectUtils.isEmpty(args)) {
-            throw new IllegalArgumentException("fail invoke this method in method" + method.getName());
-        }
-        Object object = args[0];
+        Object object = params[0];
         Class clazz = object.getClass();
         queryString = PreparedStatementSQLConverter.selectPreparedStatementSQL(object);
         PersistenceRepository persistenceRepository = new PersistenceRepository();
@@ -51,7 +46,7 @@ public class LazyOperationMethodSelectList extends AbstractLazyOperationMethod {
     @Override
     public Object execute(DataSource dataSource, Object... params) throws SQLException {
         Connection connection = dataSource.getConnection();
-        PersistenceRepository persistenceRepository = analyzePersistenceRepository(null, params);
+        PersistenceRepository persistenceRepository = analyzePersistenceRepository(params);
         PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());
         try {
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -60,6 +55,7 @@ public class LazyOperationMethodSelectList extends AbstractLazyOperationMethod {
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         } finally {
+            connection.close();
             preparedStatement.close();
         }
         return Arrays.asList();

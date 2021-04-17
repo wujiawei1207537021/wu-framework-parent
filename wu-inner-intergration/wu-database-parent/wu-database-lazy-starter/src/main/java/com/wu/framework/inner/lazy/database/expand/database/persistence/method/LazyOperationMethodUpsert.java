@@ -3,9 +3,7 @@ package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.SQLAnalyze;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ObjectUtils;
 
-import java.lang.reflect.Method;
 import java.util.Collection;
 
 /**
@@ -18,18 +16,14 @@ import java.util.Collection;
 public class LazyOperationMethodUpsert extends AbstractLazyOperationMethod implements SQLAnalyze {
 
     @Override
-    public PersistenceRepository analyzePersistenceRepository(Method method, Object[] args) throws IllegalArgumentException {
+    public PersistenceRepository analyzePersistenceRepository(Object... params) throws IllegalArgumentException {
         // 第一个参数 list
-        if (args[0] instanceof Collection && !ObjectUtils.isEmpty(args)) {
-            Collection collection = (Collection) args[0];
-            Class clazz = collection.iterator().next().getClass();
-            String queryString = upsertPreparedStatementSQL(collection, clazz);
-            PersistenceRepository persistenceRepository = new PersistenceRepository();
-            persistenceRepository.setQueryString(queryString);
-            persistenceRepository.setResultClass(clazz);
-            return persistenceRepository;
-        } else {
-            throw new IllegalArgumentException("fail invoke this method in method" + method.getName());
-        }
+        Collection collection = (Collection) params[0];
+        Class clazz = collection.iterator().next().getClass();
+        String queryString = upsertPreparedStatementSQL(collection, clazz);
+        PersistenceRepository persistenceRepository = new PersistenceRepository();
+        persistenceRepository.setQueryString(queryString);
+        persistenceRepository.setResultClass(clazz);
+        return persistenceRepository;
     }
 }

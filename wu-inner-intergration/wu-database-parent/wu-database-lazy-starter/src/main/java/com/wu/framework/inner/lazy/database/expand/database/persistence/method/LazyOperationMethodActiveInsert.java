@@ -5,11 +5,8 @@ import com.wu.framework.inner.lazy.database.converter.PersistenceConverter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.Persistence;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ObjectUtils;
 
 import javax.sql.DataSource;
-import java.lang.reflect.Method;
-import java.sql.SQLException;
 import java.util.stream.Collectors;
 
 /**
@@ -22,11 +19,8 @@ import java.util.stream.Collectors;
 public class LazyOperationMethodActiveInsert extends AbstractLazyOperationMethod {
 
     @Override
-    public PersistenceRepository analyzePersistenceRepository(Method method, Object[] args) throws IllegalArgumentException {
-        if (ObjectUtils.isEmpty(args)) {
-            throw new IllegalArgumentException("fail invoke this method in method" + method.getName());
-        }
-        Object object = args[0];
+    public PersistenceRepository analyzePersistenceRepository(Object... params) throws IllegalArgumentException {
+        Object object = params[0];
 
         // TODO EASYHASHMAP
         Persistence persistence = PersistenceConverter.activeInsertPrepared(object);

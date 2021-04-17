@@ -56,13 +56,14 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
     @Override
     public Object execute(DataSource dataSource, Object... params) throws Exception {
         Connection connection = dataSource.getConnection();
-        PersistenceRepository persistenceRepository = analyzePersistenceRepository(null, params);
+        PersistenceRepository persistenceRepository = analyzePersistenceRepository(params);
         PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());
         try {
             return preparedStatement.execute();
         } catch (SQLException sqlException) {
             throw sqlException;
         } finally {
+            connection.close();
             preparedStatement.close();
         }
     }

@@ -3,13 +3,10 @@ package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.MySQLDataProcessAnalyze;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ObjectUtils;
 
 import javax.sql.DataSource;
-import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -24,29 +21,23 @@ public class LazyOperationMethodInsert extends AbstractLazyOperationMethod imple
 
 
     @Override
-    public PersistenceRepository analyzePersistenceRepository(Method method, Object[] args) throws Exception {
-        if (ObjectUtils.isEmpty(args)) {
+    public PersistenceRepository analyzePersistenceRepository(Object... params) throws Exception {
             MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult;
 
             PersistenceRepository persistenceRepository = new PersistenceRepository();
             // 第一个参数 list
-            if (args[0] instanceof Collection) {
-                Collection collection = (Collection) args[0];
+            if (params[0] instanceof Collection) {
+                Collection collection = (Collection) params[0];
                 Class clazz = collection.iterator().next().getClass();
                 mySQLProcessResult = dataPack(Collections.singletonList(collection), classLazyTableAnalyze(clazz));
                 persistenceRepository.setResultClass(clazz);
             } else {
-                mySQLProcessResult = dataPack(Collections.singletonList(args[0]), classLazyTableAnalyze(args[0].getClass()));
-                persistenceRepository.setResultClass(args[0].getClass());
+                mySQLProcessResult = dataPack(Collections.singletonList(params[0]), classLazyTableAnalyze(params[0].getClass()));
+                persistenceRepository.setResultClass(params[0].getClass());
             }
             persistenceRepository.setQueryString(mySQLProcessResult.getSql());
             persistenceRepository.setBinaryList(mySQLProcessResult.getBinaryList());
-
             return persistenceRepository;
-        } else {
-            throw new IllegalArgumentException("fail invoke this method in method" + method.getName());
-        }
-
     }
 
     /**
@@ -61,7 +52,7 @@ public class LazyOperationMethodInsert extends AbstractLazyOperationMethod imple
      */
     @Override
     public Object execute(DataSource dataSource, Object... params) throws Exception {
-        PersistenceRepository persistenceRepository = analyzePersistenceRepository(null, params);
+        PersistenceRepository persistenceRepository = analyzePersistenceRepository(params);
         Connection connection = dataSource.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());
         for (int i = 0; i < persistenceRepository.getBinaryList().size(); i++) {
@@ -70,6 +61,7 @@ public class LazyOperationMethodInsert extends AbstractLazyOperationMethod imple
         try {
             return preparedStatement.execute();
         } finally {
+            connection.close();
             preparedStatement.close();
         }
 

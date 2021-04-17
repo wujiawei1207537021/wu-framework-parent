@@ -4,10 +4,8 @@ import com.wu.framework.inner.lazy.database.domain.Page;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.LazyTableAnnotation;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ObjectUtils;
 
 import javax.sql.DataSource;
-import java.lang.reflect.Method;
 import java.sql.*;
 import java.util.List;
 
@@ -29,11 +27,8 @@ public class LazyOperationMethodPage extends AbstractLazyOperationMethod {
     private Page page;
 
     @Override
-    public PersistenceRepository analyzePersistenceRepository(Method method, Object[] args) throws IllegalArgumentException {
+    public PersistenceRepository analyzePersistenceRepository(Object... args) throws IllegalArgumentException {
         String queryString = "";
-        if (ObjectUtils.isEmpty(args)) {
-            throw new IllegalArgumentException(String.format("fail invoke this method in method【%s】", method.getName()));
-        }
         page = (Page) args[0];
         Class clazz = (Class) args[1];
         String sqlFormat = (String) args[2];
@@ -66,13 +61,13 @@ public class LazyOperationMethodPage extends AbstractLazyOperationMethod {
      */
     @Override
     public Object execute(DataSource dataSource, Object... params) throws SQLException {
-         Statement statement = null;
+        Statement statement = null;
+        PersistenceRepository persistenceRepository = analyzePersistenceRepository(params);
+        Connection connection = dataSource.getConnection();
         try {
-            Connection connection = dataSource.getConnection();
             count(connection);
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(limitSql);
-            final PersistenceRepository persistenceRepository = analyzePersistenceRepository(null, params);
             List result = resultSetConverter(resultSet, persistenceRepository.getResultType());
             page.setRecord(result);
             return page;
@@ -80,6 +75,7 @@ public class LazyOperationMethodPage extends AbstractLazyOperationMethod {
             exception.printStackTrace();
         } finally {
             assert statement != null;
+            connection.close();
             statement.close();
         }
         return page;
@@ -101,6 +97,7 @@ public class LazyOperationMethodPage extends AbstractLazyOperationMethod {
         long pages = (total + page.getSize() + 1) / page.getSize();
         page.setTotal(total);
         page.setPages(pages);
+        countPreparedStatement.close();
     }
 
 }
