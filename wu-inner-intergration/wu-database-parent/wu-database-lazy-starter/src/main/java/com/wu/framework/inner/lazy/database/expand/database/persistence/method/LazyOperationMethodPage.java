@@ -1,18 +1,14 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
-import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.LazyTableAnnotation;
-import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
 import com.wu.framework.inner.lazy.database.domain.Page;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.constant.LayerOperationMethodCounts;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.LazyTableAnnotation;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
+import javax.sql.DataSource;
 import java.lang.reflect.Method;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 /**
@@ -33,7 +29,7 @@ public class LazyOperationMethodPage extends AbstractLazyOperationMethod {
     private Page page;
 
     @Override
-    public PersistenceRepository analyzePersistenceRepository(Method method, Object[] args) throws Exception {
+    public PersistenceRepository analyzePersistenceRepository(Method method, Object[] args) throws IllegalArgumentException {
         String queryString = "";
         if (ObjectUtils.isEmpty(args)) {
             throw new IllegalArgumentException(String.format("fail invoke this method in method【%s】", method.getName()));
@@ -61,24 +57,30 @@ public class LazyOperationMethodPage extends AbstractLazyOperationMethod {
     /**
      * description 执行SQL 语句
      *
+     * @param dataSource
+     * @param params
      * @return
      * @params
      * @author Jia wei Wu
      * @date 2020/11/22 上午11:02
-     **/
+     */
     @Override
-    public Object execute(PreparedStatement preparedStatement, PersistenceRepository persistenceRepository) throws SQLException {
+    public Object execute(DataSource dataSource, Object... params) throws SQLException {
+         Statement statement = null;
         try {
-            Connection connection = preparedStatement.getConnection();
+            Connection connection = dataSource.getConnection();
             count(connection);
-            ResultSet resultSet = preparedStatement.executeQuery(limitSql);
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(limitSql);
+            final PersistenceRepository persistenceRepository = analyzePersistenceRepository(null, params);
             List result = resultSetConverter(resultSet, persistenceRepository.getResultType());
             page.setRecord(result);
             return page;
         } catch (SQLException exception) {
             exception.printStackTrace();
         } finally {
-            preparedStatement.close();
+            assert statement != null;
+            statement.close();
         }
         return page;
     }

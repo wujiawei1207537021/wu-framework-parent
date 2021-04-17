@@ -1,19 +1,17 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import com.wu.framework.inner.layer.data.JavaBasicType;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.layer.stereotype.domain.LayerAnalyzeField;
 import com.wu.framework.inner.lazy.database.converter.PreparedStatementSQLConverter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.MySQLDataProcessAnalyze;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 import org.springframework.util.ObjectUtils;
 
+import javax.sql.DataSource;
 import java.lang.reflect.Field;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -52,9 +50,14 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
      * @params
      * @author Jia wei Wu
      * @date 2020/11/22 上午11:02
-     **/
+     *
+     * @param dataSource
+     * @param params*/
     @Override
-    public Object execute(PreparedStatement preparedStatement, PersistenceRepository persistenceRepository) throws SQLException {
+    public Object execute(DataSource dataSource, Object... params) throws Exception {
+        Connection connection = dataSource.getConnection();
+        PersistenceRepository persistenceRepository = analyzePersistenceRepository(null, params);
+        PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());
         try {
             return preparedStatement.execute();
         } catch (SQLException sqlException) {

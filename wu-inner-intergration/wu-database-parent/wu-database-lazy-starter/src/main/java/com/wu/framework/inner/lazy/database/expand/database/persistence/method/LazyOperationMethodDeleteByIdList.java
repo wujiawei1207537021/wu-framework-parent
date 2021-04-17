@@ -1,13 +1,13 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
-import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
 import com.wu.framework.inner.lazy.database.converter.PreparedStatementSQLConverter;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.constant.LayerOperationMethodCounts;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
+import javax.sql.DataSource;
 import java.lang.reflect.Method;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Collection;
@@ -22,7 +22,7 @@ import java.util.Collection;
 public class LazyOperationMethodDeleteByIdList extends AbstractLazyOperationMethod {
 
     @Override
-    public PersistenceRepository analyzePersistenceRepository(Method method, Object[] args) throws Exception {
+    public PersistenceRepository analyzePersistenceRepository(Method method, Object[] args) throws IllegalArgumentException {
         String queryString = "";
         if (ObjectUtils.isEmpty(args)) {
             throw new IllegalArgumentException("fail invoke this method in method" + method.getName());
@@ -48,9 +48,13 @@ public class LazyOperationMethodDeleteByIdList extends AbstractLazyOperationMeth
      * @params
      * @author Jia wei Wu
      * @date 2020/11/22 上午11:02
-     **/
+     *
+     * @param dataSource
+     * @param params*/
     @Override
-    public Object execute(PreparedStatement preparedStatement, PersistenceRepository persistenceRepository) throws SQLException {
+    public Object execute(DataSource dataSource, Object... params) throws SQLException {
+        Connection connection = dataSource.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(analyzePersistenceRepository(null,params).getQueryString());
         try {
             return preparedStatement.executeBatch();
         } catch (SQLException sqlException) {

@@ -5,7 +5,9 @@ import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.P
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
+import javax.sql.DataSource;
 import java.lang.reflect.Method;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Collection;
@@ -50,18 +52,26 @@ public class LazyOperationMethodInsert extends AbstractLazyOperationMethod imple
     /**
      * description 执行SQL 语句
      *
-     * @param preparedStatement
-     * @param persistenceRepository
+     * @param dataSource
+     * @param params
      * @return
      * @params
      * @author Jia wei Wu
      * @date 2020/11/22 上午11:02
      */
     @Override
-    public Object execute(PreparedStatement preparedStatement, PersistenceRepository persistenceRepository) throws SQLException {
+    public Object execute(DataSource dataSource, Object... params) throws Exception {
+        PersistenceRepository persistenceRepository = analyzePersistenceRepository(null, params);
+        Connection connection = dataSource.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());
         for (int i = 0; i < persistenceRepository.getBinaryList().size(); i++) {
             preparedStatement.setBinaryStream(i + 1, persistenceRepository.getBinaryList().get(i));
         }
-        return super.execute(preparedStatement, persistenceRepository);
+        try {
+            return preparedStatement.execute();
+        } finally {
+            preparedStatement.close();
+        }
+
     }
 }

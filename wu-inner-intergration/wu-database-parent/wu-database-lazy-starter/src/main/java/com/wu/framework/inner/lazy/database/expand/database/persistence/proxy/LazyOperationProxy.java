@@ -41,15 +41,10 @@ public class LazyOperationProxy implements InvocationHandler, InitializingBean {
         ProxyStrategicApproach mergedAnnotation = AnnotatedElementUtils.findMergedAnnotation(method, ProxyStrategicApproach.class);
         if (null != mergedAnnotation) {
             LazyOperationMethod lazyOperationMethod = LAZY_OPERATION_METHOD_MAP.get(mergedAnnotation.proxyClass());
-            PersistenceRepository persistenceRepository = lazyOperationMethod.analyzePersistenceRepository(method, args);
-            Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());
             try {
-                return lazyOperationMethod.execute(preparedStatement, persistenceRepository);
+                return lazyOperationMethod.execute(dataSource, args);
             } catch (Exception exception) {
                 throw exception;
-            } finally {
-                connection.close();
             }
         } else {
             return method.invoke(proxy, args);

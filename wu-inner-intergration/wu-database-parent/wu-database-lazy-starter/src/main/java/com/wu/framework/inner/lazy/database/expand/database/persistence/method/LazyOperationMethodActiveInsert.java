@@ -1,16 +1,14 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
 import com.wu.framework.inner.layer.data.NormalUsedString;
-import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
 import com.wu.framework.inner.lazy.database.converter.PersistenceConverter;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.constant.LayerOperationMethodCounts;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.Persistence;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
+import javax.sql.DataSource;
 import java.lang.reflect.Method;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.stream.Collectors;
 
@@ -24,7 +22,7 @@ import java.util.stream.Collectors;
 public class LazyOperationMethodActiveInsert extends AbstractLazyOperationMethod {
 
     @Override
-    public PersistenceRepository analyzePersistenceRepository(Method method, Object[] args) throws Exception {
+    public PersistenceRepository analyzePersistenceRepository(Method method, Object[] args) throws IllegalArgumentException {
         if (ObjectUtils.isEmpty(args)) {
             throw new IllegalArgumentException("fail invoke this method in method" + method.getName());
         }
@@ -50,15 +48,15 @@ public class LazyOperationMethodActiveInsert extends AbstractLazyOperationMethod
     /**
      * description 执行SQL 语句
      *
-     * @param preparedStatement
-     * @param persistenceRepository
+     * @param dataSource
+     * @param params
      * @return
      * @params
      * @author Jia wei Wu
      * @date 2020/11/22 上午11:02
      */
     @Override
-    public Object execute(PreparedStatement preparedStatement, PersistenceRepository persistenceRepository) throws SQLException {
-        return super.execute(preparedStatement, persistenceRepository);
+    public Object execute(DataSource dataSource, Object... params) throws Exception {
+        return super.execute(dataSource, params);
     }
 }

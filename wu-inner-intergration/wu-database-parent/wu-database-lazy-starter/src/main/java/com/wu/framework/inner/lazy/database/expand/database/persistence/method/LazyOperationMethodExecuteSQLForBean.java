@@ -1,12 +1,12 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
-import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.constant.LayerOperationMethodCounts;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
+import javax.sql.DataSource;
 import java.lang.reflect.Method;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,7 +22,7 @@ import java.util.List;
 public class LazyOperationMethodExecuteSQLForBean extends AbstractLazyOperationMethod {
 
     @Override
-    public PersistenceRepository analyzePersistenceRepository(Method method, Object[] args) throws Exception {
+    public PersistenceRepository analyzePersistenceRepository(Method method, Object[] args) throws IllegalArgumentException {
         // 第一个参数 SQL
         String sql = (String) args[0];
         Class clazz = (Class) args[1];
@@ -35,13 +35,18 @@ public class LazyOperationMethodExecuteSQLForBean extends AbstractLazyOperationM
     /**
      * description 执行SQL 语句
      *
+     * @param dataSource
+     * @param params
      * @return
      * @params
      * @author Jia wei Wu
      * @date 2020/11/22 上午11:02
-     **/
+     */
     @Override
-    public Object execute(PreparedStatement preparedStatement, PersistenceRepository persistenceRepository) throws SQLException {
+    public Object execute(DataSource dataSource, Object... params) throws SQLException {
+        Connection connection = dataSource.getConnection();
+        PersistenceRepository persistenceRepository = analyzePersistenceRepository(null, params);
+        PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());
         try {
             ResultSet resultSet = preparedStatement.executeQuery();
             List result = resultSetConverter(resultSet, persistenceRepository.getResultType());
