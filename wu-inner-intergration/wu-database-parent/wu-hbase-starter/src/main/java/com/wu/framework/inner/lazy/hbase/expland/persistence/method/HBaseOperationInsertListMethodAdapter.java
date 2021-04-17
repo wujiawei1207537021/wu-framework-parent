@@ -11,6 +11,7 @@ import org.apache.hadoop.hbase.client.Connection;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.hbase.util.Bytes;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.ReflectionUtils;
 
@@ -25,7 +26,7 @@ import java.util.UUID;
  * @describe :
  * @date : 2021/3/29 7:19 下午
  */
-@ProxyStrategicApproach(methodName = HBaseOperationMethodCounts.INSERT_LIST)
+@Component
 public class HBaseOperationInsertListMethodAdapter extends HBaseOperationMethodAbstractAdapter {
 
     private final Admin admin;

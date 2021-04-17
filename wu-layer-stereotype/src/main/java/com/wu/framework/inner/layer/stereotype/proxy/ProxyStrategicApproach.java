@@ -9,10 +9,10 @@ import java.lang.annotation.*;
 import java.lang.reflect.InvocationHandler;
 
 /**
- * @describe: 策略方法
  * @author : Jia wei Wu
- * @date : 2021/4/8 6:55 下午
  * @version : 1.0
+ * @describe: 策略方法
+ * @date : 2021/4/8 6:55 下午
  */
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
@@ -23,6 +23,7 @@ import java.lang.reflect.InvocationHandler;
 @Component
 public @interface ProxyStrategicApproach {
 
+    @Deprecated
     String methodName() default "miss";
 
 
@@ -33,5 +34,5 @@ public @interface ProxyStrategicApproach {
      * @author Jia wei Wu
      * @date 2021/3/28 10:16 下午
      **/
-    Class<? extends InvocationHandler> proxyClass() default InvocationHandler.class;
+    Class<?> proxyClass() default InvocationHandler.class;
 }

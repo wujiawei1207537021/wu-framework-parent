@@ -4,6 +4,7 @@ import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.MySQLDataProcessAnalyze;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.constant.LayerOperationMethodCounts;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import java.lang.reflect.Method;
@@ -17,7 +18,7 @@ import java.util.Arrays;
  * @describe :  自定义数据库持久层操作方法插入
  * @date : 2020/7/3 下午10:28
  */
-@ProxyStrategicApproach(methodName = LayerOperationMethodCounts.INSERT)
+@Component
 public class LazyOperationMethodInsert extends AbstractLazyOperationMethod implements MySQLDataProcessAnalyze {
 
 

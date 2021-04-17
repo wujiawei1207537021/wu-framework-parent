@@ -1,6 +1,8 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence;
 
+import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
 import com.wu.framework.inner.lazy.database.domain.Page;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.method.*;
 import org.springframework.lang.NonNull;
 
 import java.util.List;
@@ -19,6 +21,7 @@ public interface LazyOperation  {
      * @param list
      * @param <T>
      */
+    @ProxyStrategicApproach(proxyClass = LazyOperationMethodUpsert.class)
     <T> void upsertList(List<T> list);
 
     /**
@@ -27,6 +30,7 @@ public interface LazyOperation  {
      * @param list
      * @param <T>
      */
+    @ProxyStrategicApproach(proxyClass = LazyOperationMethodInsertList.class)
     <T> void insertList(List<T> list);
 
     /**
@@ -35,11 +39,13 @@ public interface LazyOperation  {
      * @param t
      * @param <T>
      */
+    @ProxyStrategicApproach(proxyClass = LazyOperationMethodInsert.class)
     <T> void insert(T t);
 
     /**
      * 更新或者插入单个 去除空值
      */
+    @ProxyStrategicApproach(proxyClass = LazyOperationMethodActiveInsert.class)
     <T> void activeUpsert(T t);
 
     /**
@@ -48,6 +54,7 @@ public interface LazyOperation  {
      * @param t
      * @param <T>
      */
+    @ProxyStrategicApproach(proxyClass = LazyOperationMethodUpdateById.class)
     <T> void updateById(T t);
 
     /**
@@ -56,6 +63,7 @@ public interface LazyOperation  {
      * @param list
      * @param <T>
      */
+    @ProxyStrategicApproach(proxyClass = LazyOperationMethodUpdateAllById.class)
     <T> void updateAllByIdList(List<T> list);
 
 
@@ -65,6 +73,7 @@ public interface LazyOperation  {
      * @param list
      * @param <T>
      */
+    @ProxyStrategicApproach(proxyClass = LazyOperationMethodDeleteByIdList.class)
     <T> void deleteByIdList(List<T> list);
 
     /**
@@ -73,6 +82,7 @@ public interface LazyOperation  {
      * @param t
      * @param <T>
      */
+    @ProxyStrategicApproach(proxyClass = LazyOperationMethodDeleteById.class)
     <T> void deleteById(T t);
 
     /**
@@ -90,6 +100,7 @@ public interface LazyOperation  {
      * @param t
      * @param <T>
      */
+    @ProxyStrategicApproach(proxyClass = LazyOperationMethodSelectOne.class)
     <T> T selectOne(T t);
 
     /**
@@ -98,6 +109,7 @@ public interface LazyOperation  {
      * @param t
      * @param <T>
      */
+    @ProxyStrategicApproach(proxyClass = LazyOperationMethodSelectList.class)
     <T> List<T> selectAll(T t);
 
     /**
@@ -106,6 +118,7 @@ public interface LazyOperation  {
      * @param <T>
      * @return
      */
+    @ProxyStrategicApproach(proxyClass = LazyOperationMethodPage.class)
     <T> Page<T> page(@NonNull Page page, @NonNull Class<T> returnType, String sql, Object... params);
 
     /**
@@ -116,6 +129,7 @@ public interface LazyOperation  {
      * @param <T>
      * @return
      */
+    @ProxyStrategicApproach(proxyClass = LazyOperationMethodExecuteSQL.class)
     <T> List<T> executeSQL(String sql, Class<T> t);
 
     /**
@@ -127,6 +141,7 @@ public interface LazyOperation  {
      * @author Jiawei Wu
      * @date 2020/12/29 下午1:44
      */
+    @ProxyStrategicApproach(proxyClass = LazyOperationMethodExecuteSQLForBean.class)
     <T> T executeSQLForBean(String sql, Class<T> t);
 
     void miss();

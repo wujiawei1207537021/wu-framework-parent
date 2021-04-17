@@ -4,6 +4,7 @@ import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
 import com.wu.framework.inner.lazy.database.converter.PreparedStatementSQLConverter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.constant.LayerOperationMethodCounts;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import java.lang.reflect.Method;
@@ -17,8 +18,8 @@ import java.util.Collection;
  * @describe: 根据ID更新 自定义数据库持久层操作方法I按ID更新全部
  * @date : 2020/7/4 下午7:22
  */
-@ProxyStrategicApproach(methodName = LayerOperationMethodCounts.UPDATE_ALL_BY_ID_LIST)
-public class LazyOperationMethodIUpdateAllById extends AbstractLazyOperationMethod {
+@Component
+public class LazyOperationMethodUpdateAllById extends AbstractLazyOperationMethod {
 
     @Override
     public PersistenceRepository getPersistenceRepository(Method method, Object[] args) throws Exception {

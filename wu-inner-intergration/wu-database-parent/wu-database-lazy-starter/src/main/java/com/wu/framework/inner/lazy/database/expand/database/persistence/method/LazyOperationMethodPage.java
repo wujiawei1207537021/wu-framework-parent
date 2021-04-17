@@ -5,6 +5,7 @@ import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
 import com.wu.framework.inner.lazy.database.domain.Page;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.constant.LayerOperationMethodCounts;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import java.lang.reflect.Method;
@@ -20,7 +21,7 @@ import java.util.List;
  * @describe: 根据ID更新  自定义数据库持久层操作方法我选择列表
  * @date : 2020/7/4 下午7:22
  */
-@ProxyStrategicApproach(methodName = LayerOperationMethodCounts.PAGE)
+@Component
 public class LazyOperationMethodPage extends AbstractLazyOperationMethod {
 
     public static final String COUNT_SQL = "select count(1)  from (%s) as derived_table ";

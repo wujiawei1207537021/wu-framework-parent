@@ -6,6 +6,7 @@ import com.wu.framework.easy.stereotype.dynamic.toolkit.DynamicEasyUpsertDSConte
 import com.wu.framework.easy.stereotype.upsert.component.IUpsert;
 import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
+import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.inner.layer.data.NormalUsedString;
@@ -35,7 +36,7 @@ import java.util.concurrent.TimeUnit;
  * @describe : 数据库测试
  * @date : 2020/6/27 下午7:15
  */
-//@EasyController
+@EasyController
 public class DataBaseTestController implements MySQLDataProcessAnalyze, CommandLineRunner {
 
     private final LazyOperation lazyOperation;

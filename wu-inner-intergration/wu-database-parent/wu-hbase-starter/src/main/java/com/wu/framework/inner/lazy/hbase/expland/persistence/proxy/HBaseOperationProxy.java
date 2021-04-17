@@ -8,6 +8,7 @@ import org.apache.hadoop.hbase.client.Connection;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.core.annotation.AnnotatedElementUtils;
+import org.springframework.util.ObjectUtils;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -28,7 +29,7 @@ public class HBaseOperationProxy implements InvocationHandler, InitializingBean 
     private final List<HBaseOperationMethodAdapter> hBaseOperationMethodList;
     private final Connection connection;
 
-    private Map<String, HBaseOperationMethodAdapter> HBASE_OPERATION_METHOD_MAP;
+    private Map<Class<? extends HBaseOperationMethodAdapter>, HBaseOperationMethodAdapter> HBASE_OPERATION_METHOD_MAP;
 
     public HBaseOperationProxy(List<HBaseOperationMethodAdapter> hBaseOperationMethodList, Connection connection) {
         this.hBaseOperationMethodList = hBaseOperationMethodList;
@@ -39,21 +40,19 @@ public class HBaseOperationProxy implements InvocationHandler, InitializingBean 
     // TODO 名称相同的方法不区分类型无法做到重载
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        if (HBASE_OPERATION_METHOD_MAP.containsKey(method.getName())) {
+        final ProxyStrategicApproach mergedAnnotation = AnnotatedElementUtils.findMergedAnnotation(method, ProxyStrategicApproach.class);
+        if (!ObjectUtils.isEmpty(mergedAnnotation)) {
 
-            return HBASE_OPERATION_METHOD_MAP.get(method.getName()).run(HBaseOperationMethodAdapter.HBaseExecuteParams.build().setConnection(connection).setObjects(args));
+            return HBASE_OPERATION_METHOD_MAP.get(mergedAnnotation.proxyClass()).run(HBaseOperationMethodAdapter.HBaseExecuteParams.build().setConnection(connection).setObjects(args));
         } else {
-            throw new RuntimeException(String.format("Can't find a way %s", method.getName()));
+            return method.invoke(proxy,args);
         }
     }
 
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        HBASE_OPERATION_METHOD_MAP = hBaseOperationMethodList.stream().collect(Collectors.toMap(hBaseOperationMethod -> {
-            ProxyStrategicApproach mergedAnnotation = AnnotatedElementUtils.getMergedAnnotation(hBaseOperationMethod.getClass(), ProxyStrategicApproach.class);
-            return mergedAnnotation.methodName();
-        }, m -> m));
+        HBASE_OPERATION_METHOD_MAP = hBaseOperationMethodList.stream().collect(Collectors.toMap(HBaseOperationMethodAdapter::getClass, m -> m));
 
     }
 }

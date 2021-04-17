@@ -6,6 +6,7 @@ import com.wu.framework.inner.lazy.database.converter.PersistenceConverter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.constant.LayerOperationMethodCounts;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.Persistence;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import java.lang.reflect.Method;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
  * @describe : 灵活更新 去除null的字段
  * @date : 2020/7/3 下午10:28
  */
-@ProxyStrategicApproach(methodName = LayerOperationMethodCounts.ACTIVE_UPSERT)
+@Component
 public class LazyOperationMethodActiveInsert extends AbstractLazyOperationMethod {
 
     @Override
@@ -29,6 +30,7 @@ public class LazyOperationMethodActiveInsert extends AbstractLazyOperationMethod
         }
         Object object = args[0];
 
+        // TODO EASYHASHMAP
         Persistence persistence = PersistenceConverter.activeInsertPrepared(object);
         StringBuffer stringBuffer = new StringBuffer(persistence.getExecutionEnum().getExecution());
         stringBuffer.append(persistence.getTableName());

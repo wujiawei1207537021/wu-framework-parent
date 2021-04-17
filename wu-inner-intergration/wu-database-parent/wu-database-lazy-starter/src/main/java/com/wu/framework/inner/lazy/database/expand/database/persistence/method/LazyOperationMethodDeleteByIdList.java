@@ -4,22 +4,22 @@ import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
 import com.wu.framework.inner.lazy.database.converter.PreparedStatementSQLConverter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.constant.LayerOperationMethodCounts;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import java.lang.reflect.Method;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.Collection;
 
 /**
  * @author : Jia wei Wu
  * @version : 1.0
- * @describe: 根据ID更新  自定义数据库持久层操作方法我选择一种
+ * @describe: 根据ID更新  自定义数据库持久层操作方法I按ID列表删除
  * @date : 2020/7/4 下午7:22
  */
-@ProxyStrategicApproach(methodName = LayerOperationMethodCounts.SELECT_ONE)
-public class LazyOperationMethodISelectOne extends AbstractLazyOperationMethod {
+@Component
+public class LazyOperationMethodDeleteByIdList extends AbstractLazyOperationMethod {
 
     @Override
     public PersistenceRepository getPersistenceRepository(Method method, Object[] args) throws Exception {
@@ -28,27 +28,31 @@ public class LazyOperationMethodISelectOne extends AbstractLazyOperationMethod {
             throw new IllegalArgumentException("fail invoke this method in method" + method.getName());
         }
         Object object = args[0];
-        Class clazz = object.getClass();
-        queryString = PreparedStatementSQLConverter.selectPreparedStatementSQL(object);
-//        System.out.println(queryString);
+        Class clazz;
+        // 第一个参数 list
+        Collection collection = (Collection) object;
+        clazz = collection.iterator().next().getClass();
+        for (Object o : collection) {
+            queryString += PreparedStatementSQLConverter.deletePreparedStatementSQL(o) + " ; \n ";
+        }
         PersistenceRepository persistenceRepository = new PersistenceRepository();
         persistenceRepository.setQueryString(queryString);
         persistenceRepository.setResultClass(clazz);
         return persistenceRepository;
     }
 
+    /**
+     * description 执行SQL 语句
+     *
+     * @return
+     * @params
+     * @author Jia wei Wu
+     * @date 2020/11/22 上午11:02
+     **/
     @Override
     public Object execute(PreparedStatement preparedStatement, PersistenceRepository persistenceRepository) throws SQLException {
         try {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            List result = resultSetConverter(resultSet, persistenceRepository.getResultType());
-            if (result.size() > 1) {
-                throw new IllegalArgumentException(" expected one but found " + result.size());
-            }
-            if (ObjectUtils.isEmpty(result)) {
-                return null;
-            }
-            return result.get(0);
+            return preparedStatement.executeBatch();
         } catch (SQLException sqlException) {
             throw sqlException;
         } finally {

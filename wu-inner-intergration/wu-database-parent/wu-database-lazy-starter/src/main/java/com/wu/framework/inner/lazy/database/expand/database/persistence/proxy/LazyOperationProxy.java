@@ -5,7 +5,7 @@ import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.P
 import com.wu.framework.inner.lazy.database.expand.database.persistence.method.LazyOperationMethod;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.core.annotation.AnnotatedElementUtils;
 
 import javax.sql.DataSource;
 import java.lang.reflect.InvocationHandler;
@@ -26,7 +26,7 @@ import java.util.Map;
 public class LazyOperationProxy implements InvocationHandler, InitializingBean {
 
     // method LazyOperationMethod
-    private final static Map<String, LazyOperationMethod> LAZY_OPERATION_METHOD_MAP = new HashMap<>();
+    private final static Map<Class<? extends LazyOperationMethod>, LazyOperationMethod> LAZY_OPERATION_METHOD_MAP = new HashMap<>();
     private final DataSource dataSource;
     private final List<LazyOperationMethod> lazyOperationMethods;
 
@@ -38,29 +38,29 @@ public class LazyOperationProxy implements InvocationHandler, InitializingBean {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        String methodName = method.getName();
-        if (methodName.equals("hashCode")) return "LazyOperation hashCode".hashCode();
-        if (methodName.equals("toString")) return "LazyOperationProxy proxy for LazyOperation";
-        LazyOperationMethod lazyOperationMethod = LAZY_OPERATION_METHOD_MAP.get(methodName);
-        if (null == lazyOperationMethod) throw new RuntimeException(String.format("无法处理方法【%s】", methodName));
-        PersistenceRepository persistenceRepository = lazyOperationMethod.getPersistenceRepository(method, args);
-        Connection connection = dataSource.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());
-        try {
-            return lazyOperationMethod.execute(preparedStatement, persistenceRepository);
-        } catch (Exception exception) {
-            throw exception;
-        } finally {
-            connection.close();
+
+        ProxyStrategicApproach mergedAnnotation = AnnotatedElementUtils.findMergedAnnotation(method, ProxyStrategicApproach.class);
+        if (null != mergedAnnotation) {
+            LazyOperationMethod lazyOperationMethod = LAZY_OPERATION_METHOD_MAP.get(mergedAnnotation.proxyClass());
+            PersistenceRepository persistenceRepository = lazyOperationMethod.getPersistenceRepository(method, args);
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());
+            try {
+                return lazyOperationMethod.execute(preparedStatement, persistenceRepository);
+            } catch (Exception exception) {
+                throw exception;
+            } finally {
+                connection.close();
+            }
+        } else {
+            return method.invoke(proxy,args);
         }
+
 
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        lazyOperationMethods.stream().forEach(lazyOperationMethod -> {
-            ProxyStrategicApproach proxyStrategicApproach = AnnotationUtils.getAnnotation(lazyOperationMethod.getClass(), ProxyStrategicApproach.class);
-            LAZY_OPERATION_METHOD_MAP.put(proxyStrategicApproach.methodName(), lazyOperationMethod);
-        });
+        lazyOperationMethods.stream().forEach(lazyOperationMethod -> LAZY_OPERATION_METHOD_MAP.put(lazyOperationMethod.getClass(), lazyOperationMethod));
     }
 }

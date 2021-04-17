@@ -4,33 +4,31 @@ import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
 import com.wu.framework.inner.lazy.database.converter.PreparedStatementSQLConverter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.constant.LayerOperationMethodCounts;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import java.lang.reflect.Method;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * @author : Jia wei Wu
  * @version : 1.0
- * @describe: 根据ID更新  自定义数据库持久层操作方法我选择列表
+ * @describe: 根据ID更新 自定义数据库持久层操作方法I通过ID更新
  * @date : 2020/7/4 下午7:22
  */
-@ProxyStrategicApproach(methodName = LayerOperationMethodCounts.SELECT_ALL)
-public class LazyOperationMethodISelectList extends AbstractLazyOperationMethod {
+@Component
+public class LazyOperationMethodUpdateById extends AbstractLazyOperationMethod {
 
     @Override
     public PersistenceRepository getPersistenceRepository(Method method, Object[] args) throws Exception {
-        String queryString = "";
+        String queryString;
         if (ObjectUtils.isEmpty(args)) {
             throw new IllegalArgumentException("fail invoke this method in method" + method.getName());
         }
         Object object = args[0];
         Class clazz = object.getClass();
-        queryString = PreparedStatementSQLConverter.selectPreparedStatementSQL(object);
+        queryString = PreparedStatementSQLConverter.updatePreparedStatementSQL(object);
         PersistenceRepository persistenceRepository = new PersistenceRepository();
         persistenceRepository.setQueryString(queryString);
         persistenceRepository.setResultClass(clazz);
@@ -48,14 +46,11 @@ public class LazyOperationMethodISelectList extends AbstractLazyOperationMethod 
     @Override
     public Object execute(PreparedStatement preparedStatement, PersistenceRepository persistenceRepository) throws SQLException {
         try {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            List result = resultSetConverter(resultSet, persistenceRepository.getResultType());
-            return result;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            return preparedStatement.executeUpdate();
+        } catch (SQLException sqlException) {
+            throw sqlException;
         } finally {
             preparedStatement.close();
         }
-        return Arrays.asList();
     }
 }

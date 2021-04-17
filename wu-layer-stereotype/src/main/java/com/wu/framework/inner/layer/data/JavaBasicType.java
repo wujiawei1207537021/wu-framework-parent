@@ -34,6 +34,7 @@ public enum JavaBasicType {
 
     INTEGER(Integer.class, 0),
     INT(int.class, 0),
+    BigInteger(java.math.BigInteger.class, 0),
 
     LONG(Long.class, 0L),
     LONG_M(long.class, 0L),
