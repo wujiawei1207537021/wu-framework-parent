@@ -2,8 +2,8 @@ package com.wu.bionic.language.vocalize;
 
 
 import com.wu.framework.easy.stereotype.upsert.converter.stereotype.Word;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import javazoom.jl.player.Player;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;

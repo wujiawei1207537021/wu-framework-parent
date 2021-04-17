@@ -1,6 +1,5 @@
 package com.wu.framework.easy.stereotype.upsert.analyze;
 
-import com.wu.framework.inner.layer.stereotype.LayerDefault;
 import com.wu.framework.inner.layer.stereotype.analyze.LayerAnalyzeAdapter;
 
 /**

@@ -4,11 +4,11 @@ import com.wu.framework.easy.stereotype.log.EasyUpsertLog;
 import com.wu.framework.easy.stereotype.upsert.EasySmart;
 import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
 import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.EasyAnnotationConverter;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.LazyTableAnnotation;
 import com.wu.framework.inner.layer.data.UserConvertService;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.EasyAnnotationConverter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.MySQLDataProcessAnalyze;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.LazyTableAnnotation;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.annotation.AnnotatedElementUtils;
@@ -76,7 +76,7 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, MySQLDataP
             iEnumList.putAll(EasyAnnotationConverter.collectionConvert(clazz));
             LazyTableAnnotation lazyTableAnnotation = dataAnalyze(clazz, EasyHashMap.class.isAssignableFrom(clazz) ? (EasyHashMap) list.get(0) : null);
             lazyTableAnnotation.setIEnumList(iEnumList);
-            lazyTableAnnotation.setSchema(ObjectUtils.isEmpty(lazyTableAnnotation.schema())?dataSource.getConnection().getCatalog():lazyTableAnnotation.schema());
+            lazyTableAnnotation.setSchema(ObjectUtils.isEmpty(lazyTableAnnotation.schema()) ? dataSource.getConnection().getCatalog() : lazyTableAnnotation.schema());
             final MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = dataPack(list, lazyTableAnnotation);
             if (upsertConfig.isPrintSql()) {
                 System.err.println(String.format("Execute SQL : %s", mySQLProcessResult.getSql()));

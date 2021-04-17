@@ -20,7 +20,7 @@ import java.util.Collection;
 public class LazyOperationMethodUpsert extends AbstractLazyOperationMethod implements SQLAnalyze {
 
     @Override
-    public PersistenceRepository getPersistenceRepository(Method method, Object[] args) throws Exception {
+    public PersistenceRepository analyzePersistenceRepository(Method method, Object[] args) throws Exception {
         // 第一个参数 list
         if (args[0] instanceof Collection && !ObjectUtils.isEmpty(args)) {
             Collection collection = (Collection) args[0];

@@ -5,7 +5,6 @@ import com.wu.framework.easy.stereotype.upsert.analyze.ElasticsearchEasyDataProc
 import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -106,7 +105,7 @@ public class ElasticsearchEasyUpsert implements IEasyUpsert, ElasticsearchEasyDa
         List<List<T>> splitList = splitList(list, upsertConfig.getBatchLimit());
         for (List<T> ts : splitList) {
             log.info("处理步写入文件 【{}】 步 ,总文件 【{}】", stepCount, total);
-            writeFileToLocal(ts,upsertConfig.getCacheFileAddress());
+            writeFileToLocal(ts, upsertConfig.getCacheFileAddress());
             stepCount++;
         }
         log.info("分步写入本地文件完成✅");

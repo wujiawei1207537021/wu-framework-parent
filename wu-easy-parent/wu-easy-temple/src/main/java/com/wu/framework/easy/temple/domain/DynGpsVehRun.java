@@ -2,7 +2,6 @@ package com.wu.framework.easy.temple.domain;
 
 import com.wu.framework.easy.stereotype.upsert.EasySmartField;
 import lombok.Data;
-//import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.time.LocalDateTime;
 

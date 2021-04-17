@@ -4,7 +4,6 @@ import com.wu.framework.easy.stereotype.upsert.component.IUpsert;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
 import com.wu.framework.easy.stereotype.upsert.dynamic.QuickEasyUpsert;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
-import com.wu.framework.easy.temple.domain.DynGpsVehRun;
 import com.wu.framework.easy.temple.domain.UseExcel;
 import com.wu.framework.easy.temple.domain.UserLog;
 import com.wu.framework.easy.temple.domain.bo.ExtractBo;
@@ -40,9 +39,10 @@ public class UpsertMySQLController {
 
     /**
      * description IUpsert操作数据入DB
-     * @param 
-     * @return 
-     * @exception/throws 
+     *
+     * @param
+     * @return
+     * @exception/throws
      * @author 吴佳伟
      * @date 2021/4/15 上午9:50
      */
@@ -69,7 +69,7 @@ public class UpsertMySQLController {
     public void upsertSize(@RequestParam(required = false, defaultValue = "100") Integer size) {
         runService.run(size);
     }
-    
+
 
     @QuickEasyUpsert(type = EasyUpsertType.MySQL)
     @ApiOperation(tags = "MySQL快速插入数据", value = "复杂数据DB")
@@ -123,7 +123,7 @@ public class UpsertMySQLController {
         }
         return easyHashMapList;
     }
-    
+
 
     @QuickEasyUpsert(type = EasyUpsertType.MySQL)
     @ApiOperation(tags = "MySQL快速插入数据", value = "binary 数据插入")

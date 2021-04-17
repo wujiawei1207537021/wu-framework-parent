@@ -25,7 +25,6 @@ import java.util.Map;
 @ConditionalOnBean(value = DataSource.class)
 public class LazyOperationProxy implements InvocationHandler, InitializingBean {
 
-    // method LazyOperationMethod
     private final static Map<Class<? extends LazyOperationMethod>, LazyOperationMethod> LAZY_OPERATION_METHOD_MAP = new HashMap<>();
     private final DataSource dataSource;
     private final List<LazyOperationMethod> lazyOperationMethods;
@@ -42,7 +41,7 @@ public class LazyOperationProxy implements InvocationHandler, InitializingBean {
         ProxyStrategicApproach mergedAnnotation = AnnotatedElementUtils.findMergedAnnotation(method, ProxyStrategicApproach.class);
         if (null != mergedAnnotation) {
             LazyOperationMethod lazyOperationMethod = LAZY_OPERATION_METHOD_MAP.get(mergedAnnotation.proxyClass());
-            PersistenceRepository persistenceRepository = lazyOperationMethod.getPersistenceRepository(method, args);
+            PersistenceRepository persistenceRepository = lazyOperationMethod.analyzePersistenceRepository(method, args);
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());
             try {
@@ -53,7 +52,7 @@ public class LazyOperationProxy implements InvocationHandler, InitializingBean {
                 connection.close();
             }
         } else {
-            return method.invoke(proxy,args);
+            return method.invoke(proxy, args);
         }
 
 

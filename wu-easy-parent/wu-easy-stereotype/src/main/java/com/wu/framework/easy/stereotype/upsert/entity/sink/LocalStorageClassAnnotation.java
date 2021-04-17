@@ -1,9 +1,9 @@
 package com.wu.framework.easy.stereotype.upsert.entity.sink;
 
 import com.wu.framework.easy.stereotype.upsert.EasySmart;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.LazyTableAnnotation;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.layer.data.SmartMark;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.LazyTableAnnotation;
 import lombok.Data;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ObjectUtils;
@@ -50,7 +50,7 @@ public class LocalStorageClassAnnotation {
      **/
     @Deprecated
     public static EasySmart getEasyTableAnnotation(Class clazz, boolean isForceDuplicateNameSwitch) {
-       return easySmart(clazz,isForceDuplicateNameSwitch);
+        return easySmart(clazz, isForceDuplicateNameSwitch);
     }
 
     /**
@@ -69,7 +69,7 @@ public class LocalStorageClassAnnotation {
             String tableName = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
             String comment = "";
             String kafkaSchemaName = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
-            boolean perfectTable=false;
+            boolean perfectTable = false;
             boolean smartFillField = false;
             if (null != easySmart) {
                 if (!ObjectUtils.isEmpty(easySmart.kafkaTopicName())) {
@@ -85,7 +85,7 @@ public class LocalStorageClassAnnotation {
                     kafkaSchemaName = easySmart.kafkaSchemaName();
                 }
                 smartFillField = easySmart.smartFillField();
-                perfectTable=easySmart.perfectTable();
+                perfectTable = easySmart.perfectTable();
             }
             if (isForceDuplicateNameSwitch) {
                 kafkaSchemaName = CamelAndUnderLineConverter.humpToLine2(clazz.getName().replace(".", "_"));

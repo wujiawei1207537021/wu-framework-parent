@@ -3,9 +3,9 @@ package com.wu.framework.easy.stereotype.upsert.converter;
 
 import com.wu.framework.easy.stereotype.upsert.EasySmart;
 import com.wu.framework.easy.stereotype.upsert.EasySmartField;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.UpsertJsonMessage;
 import com.wu.framework.easy.stereotype.upsert.entity.kafka.TargetJsonSchema;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.UpsertJsonMessage;
 import org.apache.kafka.common.protocol.types.Type;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -90,13 +90,14 @@ public class ConverterClass2KafkaSchema {
         }
         return CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
     }
+
     /**
-    * @describe  数据库字段转换架构类型
-    * @param
-    * @return
-    * @author Jia wei Wu
-    * @date 2021/4/11 10:34 上午
-    **/
+     * @param
+     * @return
+     * @describe 数据库字段转换架构类型
+     * @author Jia wei Wu
+     * @date 2021/4/11 10:34 上午
+     **/
     private static String databaseFieldConversionSchemaType(String type) {
         String typeLowerCase = type.trim().toLowerCase();
         if (typeLowerCase.startsWith("varchar")) {

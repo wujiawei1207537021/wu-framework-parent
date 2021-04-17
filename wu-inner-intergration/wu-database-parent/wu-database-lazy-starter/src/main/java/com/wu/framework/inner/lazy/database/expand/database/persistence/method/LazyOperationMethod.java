@@ -15,8 +15,15 @@ import java.sql.SQLException;
  */
 public interface LazyOperationMethod {
 
+    /**
+    * @describe 获取持久性存储库
+    * @param
+    * @return
+    * @author Jia wei Wu
+    * @date 2021/4/17 3:38 下午
+    **/
     @NonNull
-    PersistenceRepository getPersistenceRepository(Method method, Object[] args) throws Exception;
+    PersistenceRepository analyzePersistenceRepository(Method method, Object[] args) throws Exception;
 
     /**
      * description 执行SQL 语句

@@ -45,7 +45,7 @@ public class ScanXmlPathUtil {
             }
         }
         long end = System.currentTimeMillis();
-        System.out.println("getPersistenceRepository 耗时:" + (end - start));
+        System.out.println("analyzePersistenceRepository 耗时:" + (end - start));
         return customRepositoryMap;
     }
 

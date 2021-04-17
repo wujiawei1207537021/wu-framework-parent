@@ -1,4 +1,5 @@
 ### 快速对接模块
+
     默认使用数据库链接(配置数据源)
     支持kafka 入库操作（没有配置数据源 配置Kafka数据源）
     
@@ -14,9 +15,11 @@
     9.新增数据库自动建表
     10.新增复杂数据快速插入
     11.支持手动注入mysql数据源
-### MYSQL  数据源 com.zaxxer.hikari.HikariDataSource &com.baomidou.dynamic.datasource.DynamicRoutingDataSource
-    
+
+### MYSQL 数据源 com.zaxxer.hikari.HikariDataSource &com.baomidou.dynamic.datasource.DynamicRoutingDataSource
+
 ### log
+
     com.supconit.its.eslog.util.DataAccessLogHelper,\
     com.supconit.its.eslog.producer.ElasticLogProducer,\
     com.supconit.its.eslog.config.LogKafkaConfig,\

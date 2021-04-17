@@ -22,7 +22,7 @@ import java.util.Collection;
 public class LazyOperationMethodUpdateAllById extends AbstractLazyOperationMethod {
 
     @Override
-    public PersistenceRepository getPersistenceRepository(Method method, Object[] args) throws Exception {
+    public PersistenceRepository analyzePersistenceRepository(Method method, Object[] args) throws Exception {
         String queryString = "";
         Object object = args[0];
         Class clazz;

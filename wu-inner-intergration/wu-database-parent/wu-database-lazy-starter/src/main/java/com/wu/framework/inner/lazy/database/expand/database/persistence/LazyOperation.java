@@ -23,18 +23,8 @@ public interface LazyOperation  {
      */
     @ProxyStrategicApproach(proxyClass = LazyOperationMethodUpsert.class)
     <T> void upsertList(List<T> list);
-
     /**
-     * 插入list
-     *
-     * @param list
-     * @param <T>
-     */
-    @ProxyStrategicApproach(proxyClass = LazyOperationMethodInsertList.class)
-    <T> void insertList(List<T> list);
-
-    /**
-     * 插入 单个
+     * 插入 单个/list
      *
      * @param t
      * @param <T>

@@ -2,10 +2,10 @@ package com.wu.bionic.language.vocalize.controller;
 
 import com.wu.bionic.language.vocalize.uo.MusicUo;
 import com.wu.framework.easy.stereotype.upsert.dynamic.QuickEasyUpsert;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import io.swagger.annotations.ApiOperation;
 import javazoom.jl.player.Player;
 import lombok.SneakyThrows;

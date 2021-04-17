@@ -69,7 +69,7 @@ public class MySQLBeanEasyUpsert extends MySQLEasyUpsertAbstract implements IEas
         this.primary = dataSourceMap.keySet().iterator().next();
         dataSourceMap.forEach((k, v) -> {
             try {
-                mybatisDataSource(k,v);
+                mybatisDataSource(k, v);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -87,7 +87,7 @@ public class MySQLBeanEasyUpsert extends MySQLEasyUpsertAbstract implements IEas
      * @date 2021/2/11 上午10:37
      */
 
-    public void mybatisDataSource(String key,DataSource dataSource) throws Exception {
+    public void mybatisDataSource(String key, DataSource dataSource) throws Exception {
         if (dataSource.getClass().getName().equals("com.baomidou.dynamic.datasource.DynamicRoutingDataSource")) {
             Field primaryDeclaredField = dataSource.getClass().getDeclaredField("primary");
             primaryDeclaredField.setAccessible(true);
@@ -96,7 +96,7 @@ public class MySQLBeanEasyUpsert extends MySQLEasyUpsertAbstract implements IEas
             dataSourceMapDeclaredField.setAccessible(true);
             Map<String, DataSource> mybatisDataSourceMap = (Map<String, DataSource>) dataSourceMapDeclaredField.get(dataSource);
             dataSourceMap.putAll(mybatisDataSourceMap);
-        }else {
+        } else {
             dataSourceMap.put(key, dataSource);
         }
     }

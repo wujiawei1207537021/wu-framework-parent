@@ -24,7 +24,7 @@ import java.util.List;
 public class LazyOperationMethodSelectList extends AbstractLazyOperationMethod {
 
     @Override
-    public PersistenceRepository getPersistenceRepository(Method method, Object[] args) throws Exception {
+    public PersistenceRepository analyzePersistenceRepository(Method method, Object[] args) throws Exception {
         String queryString = "";
         if (ObjectUtils.isEmpty(args)) {
             throw new IllegalArgumentException("fail invoke this method in method" + method.getName());

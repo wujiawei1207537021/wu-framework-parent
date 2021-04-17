@@ -2,10 +2,10 @@ package com.wu.framework.easy.stereotype.upsert.config;
 
 
 import com.google.common.collect.Maps;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.UpsertJsonMessage;
 import com.wu.framework.easy.stereotype.upsert.entity.kafka.KafkaJsonMessage;
 import com.wu.framework.easy.stereotype.upsert.entity.kafka.TargetJsonSchema;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.UpsertJsonMessage;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
@@ -24,10 +24,10 @@ import java.util.List;
 @Slf4j
 @Data
 @Configuration
-@ConfigurationProperties(prefix =UpsertConfig.UPSERT_PREFIX )
+@ConfigurationProperties(prefix = UpsertConfig.UPSERT_PREFIX)
 public class UpsertConfig implements InitializingBean {
 
-    public static final String  UPSERT_PREFIX="spring.easy.upsert.config";
+    public static final String UPSERT_PREFIX = "spring.easy.upsert.config";
 
 
     /**

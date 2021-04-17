@@ -1,6 +1,5 @@
 # wu-framework-parent
 
-
     安装
         brew  install gpg
     创建
@@ -12,13 +11,12 @@
         
         gpg --keyserver hkp://209.244.105.201 --send-keys D63ABA42B8ABC9DFCED412B7BB95A422DD6915C1
 
- mvn clean install deploy -P oss -X
+mvn clean install deploy -P oss -X
 
 export GPG_TTY=$(tty)
 
-
-
 ### 1.0.3
+
      功能: 
         1.添加layer 层的概念
         2.自模块保持版本一直

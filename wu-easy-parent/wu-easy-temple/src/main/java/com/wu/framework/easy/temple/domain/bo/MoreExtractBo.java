@@ -1,10 +1,10 @@
 package com.wu.framework.easy.temple.domain.bo;
 
 import com.wu.framework.easy.stereotype.upsert.EasySmart;
-import com.wu.framework.inner.layer.data.SmartMark;
 import com.wu.framework.easy.temple.domain.SmartExcel;
 import com.wu.framework.easy.temple.domain.UseExcel;
 import com.wu.framework.easy.temple.domain.UserLog;
+import com.wu.framework.inner.layer.data.SmartMark;
 import lombok.Data;
 
 import java.util.List;

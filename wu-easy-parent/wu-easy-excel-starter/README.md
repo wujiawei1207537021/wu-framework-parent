@@ -1,12 +1,14 @@
 ### 快速导出excel模块
+
     依赖引入
      <dependency>
         <groupId>com.wu</groupId>
         <artifactId>wu-easy-excel-starter</artifactId>
         <version>1.0.1-SNAPSHOT</version>
      </dependency>
-     
+
 ### 基本用法
+
      @Data
      public class UseExcel {
      
@@ -37,7 +39,9 @@
             }
             return useExcelList;
         }
+
 ### 自定义字段注解用法
+
     @Data
     public class UseExcel {
     
@@ -67,11 +71,14 @@
         }
         return useExcelList;
     }         
-  - 说明 filedColumnAnnotation 从 JSONField注解的name属性中获取表头并导出数据 
-  - multipleSheet 导出的数据分多个sheet(工作簿) 
-  - limit每个sheet 有10条数据 
-  - sheetShowContext每个sheet的名称使用EasyExcel.SheetShowContext.TEXT 中文
+
+- 说明 filedColumnAnnotation 从 JSONField注解的name属性中获取表头并导出数据
+- multipleSheet 导出的数据分多个sheet(工作簿)
+- limit每个sheet 有10条数据
+- sheetShowContext每个sheet的名称使用EasyExcel.SheetShowContext.TEXT 中文
+
 ### 自定义字段注解+自定控制器注解用法
+
     @Data
     public class UseExcel {
     
@@ -87,8 +94,11 @@
         @JSONField(name = "类型")
         private String type;
     }
-   - 自定意义EasyExcel注解
-   ###
+
+- 自定意义EasyExcel注解
+
+###
+
     @Target({ElementType.TYPE,ElementType.METHOD})
     @Retention(RetentionPolicy.RUNTIME)
     @Documented
@@ -103,8 +113,11 @@
         @AliasFor(annotation = EasyExcel.class,attribute = "fileName")
         String fileName();
     }
-  - 使用方法
-  ##
+
+- 使用方法
+
+##
+
     @EasyExcelTemp(fileName = "自定义注解导出")
     @GetMapping("/run4/{size}")
     public List<UseExcel> run4(@PathVariable Integer size) {

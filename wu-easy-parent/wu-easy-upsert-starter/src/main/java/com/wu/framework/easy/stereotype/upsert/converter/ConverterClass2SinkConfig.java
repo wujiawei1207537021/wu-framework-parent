@@ -120,7 +120,7 @@ public class ConverterClass2SinkConfig {
         return sink;
     }
 
-    public static String  getKafkaTopicName(Class clazz){
+    public static String getKafkaTopicName(Class clazz) {
         EasySmart easySmart = AnnotationUtils.getAnnotation(clazz, EasySmart.class);
         if (null != easySmart && !ObjectUtils.isEmpty(easySmart.kafkaTopicName())) {
             return easySmart.kafkaTopicName();

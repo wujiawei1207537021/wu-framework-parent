@@ -129,7 +129,7 @@ public class DataBaseTestController implements MySQLDataProcessAnalyze, CommandL
             dataBaseUser.setUsername("methodName" + i);
             dataBaseUserList.add(dataBaseUser);
         }
-        lazyOperation.insertList(dataBaseUserList);
+        lazyOperation.insert(dataBaseUserList);
         long e = System.currentTimeMillis();
         System.out.println("共计用时：" + (e - s) + "ms");
     }
