@@ -191,7 +191,7 @@ public class LazyOperationController implements CommandLineRunner {
     **/
     public void page(){
          Page<DataBaseUser> page = lazyOperation.page(new Page(), DataBaseUser.class, null);
-//         lazyOperation.miss();
+         lazyOperation.miss();
         System.out.println(page);
     }
 }

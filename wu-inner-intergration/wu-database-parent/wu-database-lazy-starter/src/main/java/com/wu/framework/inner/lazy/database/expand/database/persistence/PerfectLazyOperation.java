@@ -71,25 +71,25 @@ public interface PerfectLazyOperation extends LazyBaseOperation, MySQLDataProces
                 if (count > 1000) {
 
                     Page page = new Page<>(1, 1000);
-//                    scroll(page, EasyHashMap.class, selectSQL, scrollList -> {
-//                        System.out.println(scrollList);
-//                        List<EasyHashMap> record = (List<EasyHashMap>) scrollList.getRecord();
-//                        tableInfo.set(record.get(0));
-//                        file.write("-- " + tableName);
-//                        file.newLine();
-//                        tableInfo.get().setUniqueLabel(tableName);
-//                        final MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = upsertDataPack(record, tableInfo.get().toEasyTableAnnotation(false));
-//                        String s = mySQLProcessResult.getSql();
-//                        s = s.replaceAll("'true'", "1").
-//                                replaceAll("'false'", "0").
-//                                replaceAll("'null'", NormalUsedString.NULL);
-//                        file.write(s);
-//                        file.write(NormalUsedString.SEMICOLON);
-//                        file.newLine();
-//                        System.out.println("当前查询页数:" + page.getCurrent());
-//                        page.setCurrent(page.getCurrent() + 1);
-//                        return scrollList;
-//                    }, tableName);
+                    scroll(page, EasyHashMap.class, selectSQL, scrollList -> {
+                        System.out.println(scrollList);
+                        List<EasyHashMap> record = (List<EasyHashMap>) scrollList.getRecord();
+                        tableInfo.set(record.get(0));
+                        file.write("-- " + tableName);
+                        file.newLine();
+                        tableInfo.get().setUniqueLabel(tableName);
+                        final MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = upsertDataPack(record, tableInfo.get().toEasyTableAnnotation(false));
+                        String s = mySQLProcessResult.getSql();
+                        s = s.replaceAll("'true'", "1").
+                                replaceAll("'false'", "0").
+                                replaceAll("'null'", NormalUsedString.NULL);
+                        file.write(s);
+                        file.write(NormalUsedString.SEMICOLON);
+                        file.newLine();
+                        System.out.println("当前查询页数:" + page.getCurrent());
+                        page.setCurrent(page.getCurrent() + 1);
+                        return scrollList;
+                    }, tableName);
 
 
                 } else {

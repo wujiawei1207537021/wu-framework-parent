@@ -1,7 +1,6 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.proxy;
 
 import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.method.LazyOperationMethod;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -10,8 +9,6 @@ import org.springframework.core.annotation.AnnotatedElementUtils;
 import javax.sql.DataSource;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
