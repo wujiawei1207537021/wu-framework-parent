@@ -19,7 +19,13 @@ import java.util.concurrent.atomic.AtomicReference;
  * @author Jia wei Wu
  * @date 2021/2/22 下午7:56
  */
-public interface PerfectLazyOperation extends LazyBaseOperation, MySQLDataProcessAnalyze {
+public class PerfectLazyOperation implements MySQLDataProcessAnalyze {
+
+    private final LazyBaseOperation lazyBaseOperation;
+
+    public PerfectLazyOperation(LazyBaseOperation lazyBaseOperation) {
+        this.lazyBaseOperation = lazyBaseOperation;
+    }
 
     /**
      * description 滚动查询
@@ -30,14 +36,14 @@ public interface PerfectLazyOperation extends LazyBaseOperation, MySQLDataProces
      * @author 吴佳伟
      * @date 2021/4/8 下午4:33
      */
-    default <T> void scroll(@NonNull Page page, @NonNull Class<T> returnType, String sql,
-                            MethodParamFunction<Page<T>> methodParamFunction,
-                            Object... params) throws Exception {
+   public  <T> void scroll( Page page, @NonNull Class<T> returnType, String sql,
+                    MethodParamFunction<Page<T>> methodParamFunction,
+                    Object... params) throws Exception {
         if (ObjectUtils.isEmpty(page)) {
             page = new Page<>(1, 1000);
         }
         do {
-            Page<T> pageResult = page(page, returnType, sql, params);
+            Page<T> pageResult = lazyBaseOperation.page(page, returnType, sql, params);
             methodParamFunction.defaultMethod(pageResult);
             System.out.println("当前查询页数:" + page.getCurrent());
             page.setCurrent(page.getCurrent() + 1);
@@ -52,19 +58,19 @@ public interface PerfectLazyOperation extends LazyBaseOperation, MySQLDataProces
      * @author Jiawei Wu
      * @date 2021/1/31 6:40 下午
      **/
-    default void dataMigration(String nameDatabase) throws Exception {
+    public void dataMigration(String nameDatabase) throws Exception {
         // 当前数据库
         if (nameDatabase == null) {
-            nameDatabase = executeSQLForBean("select database()", String.class);
+            nameDatabase = lazyBaseOperation.executeSQLForBean("select database()", String.class);
         }
         // 获取数据库中所有的表
         String sqlSelectTable = "select concat('%s.',table_name) tableName, engine, table_comment tableComment, create_time createTime from information_schema.tables where table_schema = '%s' ";
-        List<EasyHashMap> allTables = executeSQL(String.format(sqlSelectTable, nameDatabase, nameDatabase), EasyHashMap.class);
+        List<EasyHashMap> allTables = lazyBaseOperation.executeSQL(String.format(sqlSelectTable, nameDatabase, nameDatabase), EasyHashMap.class);
         BufferedWriter file = FileUtil.createFile(System.getProperty("user.dir"), String.format("数据库%s数据.sql", nameDatabase));
         for (EasyHashMap table : allTables) {
             String countSQL = "select count(1) from %s ";
             String tableName = table.get("tableName").toString();
-            Integer count = executeSQLForBean(String.format(countSQL, tableName), Integer.class);
+            Integer count = lazyBaseOperation.executeSQLForBean(String.format(countSQL, tableName), Integer.class);
             if (count != 0) {
                 AtomicReference<EasyHashMap> tableInfo = new AtomicReference<>();
                 String selectSQL = "select * from %s ";
@@ -93,7 +99,7 @@ public interface PerfectLazyOperation extends LazyBaseOperation, MySQLDataProces
 
 
                 } else {
-                    List<EasyHashMap> tableDateList = executeSQL(String.format(selectSQL, tableName), EasyHashMap.class);
+                    List<EasyHashMap> tableDateList = lazyBaseOperation.executeSQL(String.format(selectSQL, tableName), EasyHashMap.class);
                     file.write("-- " + tableName);
                     file.newLine();
                     tableInfo.set(tableDateList.get(0));
@@ -123,8 +129,8 @@ public interface PerfectLazyOperation extends LazyBaseOperation, MySQLDataProces
      * @author Jia wei Wu
      * @date 2021/3/8 下午5:37
      */
-    default void mysqlServerMigration() throws Exception {
-        List<EasyHashMap> easyHashMaps = executeSQL("show databases;", EasyHashMap.class);
+    public void mysqlServerMigration() throws Exception {
+        List<EasyHashMap> easyHashMaps = lazyBaseOperation.executeSQL("show databases;", EasyHashMap.class);
         for (EasyHashMap easyHashMap : easyHashMaps) {
             dataMigration(easyHashMap.get("Database").toString());
         }

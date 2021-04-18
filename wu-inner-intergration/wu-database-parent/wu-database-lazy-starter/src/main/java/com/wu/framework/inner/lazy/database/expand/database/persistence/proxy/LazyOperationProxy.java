@@ -31,10 +31,8 @@ public class LazyOperationProxy implements InvocationHandler, InitializingBean {
         this.lazyOperationMethods = lazyOperationMethods;
     }
 
-
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-
         ProxyStrategicApproach mergedAnnotation = AnnotatedElementUtils.findMergedAnnotation(method, ProxyStrategicApproach.class);
         if (null != mergedAnnotation) {
             LazyOperationMethod lazyOperationMethod = LAZY_OPERATION_METHOD_MAP.get(mergedAnnotation.proxyClass());
@@ -44,12 +42,13 @@ public class LazyOperationProxy implements InvocationHandler, InitializingBean {
                 throw exception;
             }
         } else {
-            return method.invoke(proxy, args);
+            return method.invoke(this, args);
         }
     }
 
+
     @Override
     public void afterPropertiesSet() throws Exception {
-        lazyOperationMethods.stream().forEach(lazyOperationMethod -> LAZY_OPERATION_METHOD_MAP.put(lazyOperationMethod.getClass(), lazyOperationMethod));
+        lazyOperationMethods.forEach(lazyOperationMethod -> LAZY_OPERATION_METHOD_MAP.put(lazyOperationMethod.getClass(), lazyOperationMethod));
     }
 }

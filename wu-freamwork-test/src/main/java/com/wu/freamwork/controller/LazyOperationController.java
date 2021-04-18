@@ -3,7 +3,7 @@ package com.wu.freamwork.controller;
 import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.inner.lazy.database.domain.Page;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.converter.SQLConverter;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.PerfectLazyOperation;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import com.wu.framework.inner.lazy.database.test.pojo.DataBaseUser;
 import org.springframework.boot.CommandLineRunner;
@@ -11,7 +11,6 @@ import org.springframework.boot.CommandLineRunner;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -24,9 +23,11 @@ import java.util.List;
 public class LazyOperationController implements CommandLineRunner {
 
     private final LazyOperation lazyOperation;
+    public final PerfectLazyOperation perfectLazyOperation;
 
-    public LazyOperationController(LazyOperation lazyOperation) {
+    public LazyOperationController(LazyOperation lazyOperation, PerfectLazyOperation perfectLazyOperation) {
         this.lazyOperation = lazyOperation;
+        this.perfectLazyOperation = perfectLazyOperation;
     }
 
     /**
@@ -43,19 +44,20 @@ public class LazyOperationController implements CommandLineRunner {
         easyHashMap.put("name", "map");
         easyHashMap.put("date", LocalDate.now().toString());
         final String s = easyHashMap.toEasyTableAnnotation(false).creatTableSQL();
-        lazyOperation.upsert(easyHashMap, Arrays.asList(easyHashMap));
+//        lazyOperation.upsert(easyHashMap, Arrays.asList(easyHashMap));
 
+//        test();
+
+    }
+
+    public void test() throws Exception {
         upsert();
         insert();
         update();
         delete();
         select();
         page();
-    }
-
-    public static void main(String[] args) {
-
-        SQLConverter.createSelectSQL(DataBaseUser.class);
+        scroll();
     }
 
     /**
@@ -70,7 +72,7 @@ public class LazyOperationController implements CommandLineRunner {
     public void upsert() {
         long s = System.currentTimeMillis();
         List<DataBaseUser> dataBaseUserList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1000; i++) {
             DataBaseUser dataBaseUser = new DataBaseUser();
             dataBaseUser.setAddress("address");
             dataBaseUser.setBirthday(LocalDateTime.now().toString());
@@ -95,7 +97,7 @@ public class LazyOperationController implements CommandLineRunner {
     public void insert() {
         long s = System.currentTimeMillis();
         List<DataBaseUser> dataBaseUserList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10000; i++) {
             DataBaseUser dataBaseUser = new DataBaseUser();
             dataBaseUser.setAddress("address");
             dataBaseUser.setBirthday(LocalDateTime.now().toString());
@@ -183,15 +185,28 @@ public class LazyOperationController implements CommandLineRunner {
     }
 
     /**
-    * @describe 分页查询
-    * @param
-    * @return
-    * @author Jia wei Wu
-    * @date 2021/4/18 12:50 下午
-    **/
-    public void page(){
-         Page<DataBaseUser> page = lazyOperation.page(new Page(), DataBaseUser.class, null);
-         lazyOperation.miss();
+     * @param
+     * @return
+     * @describe 分页查询
+     * @author Jia wei Wu
+     * @date 2021/4/18 12:50 下午
+     **/
+    public void page() {
+        Page<DataBaseUser> page = lazyOperation.page(new Page(), DataBaseUser.class, null);
         System.out.println(page);
+    }
+
+    /**
+     * @param
+     * @return
+     * @describe 滚动查询
+     * @author Jia wei Wu
+     * @date 2021/4/18 7:31 下午
+     **/
+    public void scroll() throws Exception {
+        perfectLazyOperation.scroll(null, DataBaseUser.class, null, m -> {
+            System.out.println(m);
+            return m;
+        });
     }
 }

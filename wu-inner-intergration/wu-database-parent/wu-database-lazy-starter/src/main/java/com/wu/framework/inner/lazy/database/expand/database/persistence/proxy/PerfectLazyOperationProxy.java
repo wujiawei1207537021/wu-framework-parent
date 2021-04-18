@@ -43,7 +43,7 @@ public class PerfectLazyOperationProxy implements InvocationHandler, Initializin
                 throw exception;
             }
         } else {
-            return method.invoke(proxy, args);
+            return method.invoke(this, args);
         }
     }
 

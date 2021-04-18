@@ -5,6 +5,8 @@ import com.wu.framework.easy.stereotype.upsert.dynamic.QuickEasyUpsert;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.PerfectLazyOperation;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import com.wu.framework.inner.lazy.hbase.expland.bo.HBaseUserBo;
 import com.wu.framework.inner.lazy.hbase.expland.persistence.HBaseOperation;
 import io.swagger.annotations.Api;
@@ -30,11 +32,13 @@ public class HBaseController implements CommandLineRunner {
 
     private final LazyOperation lazyOperation;
     private final IUpsert iUpsert;
+    private final PerfectLazyOperation perfectLazyOperation;
 
-    public HBaseController(HBaseOperation hBaseOperation, LazyOperation lazyOperation, IUpsert iUpsert) {
+    public HBaseController(HBaseOperation hBaseOperation, LazyOperation lazyOperation, IUpsert iUpsert, PerfectLazyOperation perfectLazyOperation) {
         this.hBaseOperation = hBaseOperation;
         this.lazyOperation = lazyOperation;
         this.iUpsert = iUpsert;
+        this.perfectLazyOperation = perfectLazyOperation;
     }
 
     /**
@@ -46,23 +50,21 @@ public class HBaseController implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-//        Page<A_map_weather> page = new Page<A_map_weather>(1, 1000);
-//        do {
-//            lazyOperation.page(page, A_map_weather.class, "SELECT * from a_map_weather");
-//            List<A_map_weather> record = (List<A_map_weather>) page.getRecord();
-//
-//            System.out.println("当前查询页数:" + page.getCurrent());
-//            hBaseOperation.insertList(record);
-//            page.setCurrent(page.getCurrent() + 1);
-//        } while (page.getRecord() != null && page.getRecord().size() == page.getSize());
-
+        mysql2HBase();
 
     }
 
+    public void mysql2HBase() throws Exception {
+        perfectLazyOperation.scroll(null, EasyHashMap.class, "select * from a_map_weather", easyHashMapPage -> {
+            hBaseOperation.insert(easyHashMapPage.getRecord());
+            return easyHashMapPage;
+        });
+    }
+
     @QuickEasyUpsert(type = EasyUpsertType.HBASE)
-    @ApiOperation(tags = "HBase测试操作",value = "保存数据到HBase")
+    @ApiOperation(tags = "HBase测试操作", value = "保存数据到HBase")
     @GetMapping("/save/HBase")
-    public List<HBaseUserBo>  saveHBase(@RequestParam(defaultValue = "100") Integer size){
+    public List<HBaseUserBo> saveHBase(@RequestParam(defaultValue = "100") Integer size) {
         List<HBaseUserBo> hBaseUserBoList = new ArrayList<>();
         long a = System.currentTimeMillis();
         for (int i = 0; i < size; i++) {
