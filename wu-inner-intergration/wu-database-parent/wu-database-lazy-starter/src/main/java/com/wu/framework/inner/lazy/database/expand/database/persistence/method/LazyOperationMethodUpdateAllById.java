@@ -25,30 +25,31 @@ public class LazyOperationMethodUpdateAllById extends AbstractLazyOperationMetho
         Object object = param;
         Class clazz;
         // 第一个参数 list
-            Collection collection = (Collection) object;
-            clazz = collection.iterator().next().getClass();
-            for (Object o : collection) {
-                queryString += updatePreparedStatementSQL(o) + " ; \n ";
-            }
-            PersistenceRepository persistenceRepository = new PersistenceRepository();
-            persistenceRepository.setQueryString(queryString);
-            persistenceRepository.setResultClass(clazz);
-            return persistenceRepository;
+        Collection collection = (Collection) object;
+        clazz = collection.iterator().next().getClass();
+        for (Object o : collection) {
+            queryString += updatePreparedStatementSQL(o) + " ; \n ";
+        }
+        PersistenceRepository persistenceRepository = new PersistenceRepository();
+        persistenceRepository.setQueryString(queryString);
+        persistenceRepository.setResultClass(clazz);
+        return persistenceRepository;
     }
 
     /**
      * description 执行SQL 语句
      *
+     * @param dataSource
+     * @param params
      * @return
      * @params
      * @author Jia wei Wu
      * @date 2020/11/22 上午11:02
-     *@param dataSource
-     * @param params  */
+     */
     @Override
     public Object execute(DataSource dataSource, Object[] params) throws SQLException {
         Connection connection = dataSource.getConnection();
-        PersistenceRepository persistenceRepository = analyzePersistenceRepository(params);
+        PersistenceRepository persistenceRepository = analyzePersistenceRepository(params[0]);
         PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());
         try {
             return preparedStatement.executeBatch();

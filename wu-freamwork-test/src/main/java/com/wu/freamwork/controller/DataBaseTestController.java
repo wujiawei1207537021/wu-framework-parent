@@ -13,13 +13,10 @@ import com.wu.framework.inner.lazy.database.domain.Page;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.MySQLDataProcessAnalyze;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
-import com.wu.framework.inner.lazy.database.test.pojo.DataBaseUser;
 import org.springframework.boot.CommandLineRunner;
 
 import java.io.BufferedWriter;
 import java.lang.annotation.Annotation;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -135,7 +132,7 @@ public class DataBaseTestController implements MySQLDataProcessAnalyze, CommandL
                 file.newLine();
                 EasyHashMap tableInfo = tableDateList.get(0);
                 tableInfo.setUniqueLabel(tableName);
-                final MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = dataPack(tableDateList, tableInfo.toEasyTableAnnotation(false));
+                final MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = upsertDataPack(tableDateList, tableInfo.toEasyTableAnnotation(false));
                 String s = mySQLProcessResult.getSql();
                 s = s.replaceAll("'true'", "1").
                         replaceAll("'false'", "0").

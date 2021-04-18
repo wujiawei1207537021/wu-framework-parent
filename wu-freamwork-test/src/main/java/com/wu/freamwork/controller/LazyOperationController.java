@@ -1,8 +1,8 @@
 package com.wu.freamwork.controller;
 
 import com.wu.framework.inner.layer.web.EasyController;
+import com.wu.framework.inner.lazy.database.domain.Page;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.SQLAnalyze;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.converter.SQLConverter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import com.wu.framework.inner.lazy.database.test.pojo.DataBaseUser;
@@ -12,7 +12,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -39,9 +38,9 @@ public class LazyOperationController implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        EasyHashMap<String,String> easyHashMap=new EasyHashMap<>("temp_easy_hash");
-        easyHashMap.put("type","easy");
-        easyHashMap.put("name","map");
+        EasyHashMap<String, String> easyHashMap = new EasyHashMap<>("temp_easy_hash");
+        easyHashMap.put("type", "easy");
+        easyHashMap.put("name", "map");
         easyHashMap.put("date", LocalDate.now().toString());
         final String s = easyHashMap.toEasyTableAnnotation(false).creatTableSQL();
         lazyOperation.upsert(easyHashMap, Arrays.asList(easyHashMap));
@@ -51,6 +50,7 @@ public class LazyOperationController implements CommandLineRunner {
         update();
         delete();
         select();
+        page();
     }
 
     public static void main(String[] args) {
@@ -148,7 +148,7 @@ public class LazyOperationController implements CommandLineRunner {
         DataBaseUser dataBaseUser = new DataBaseUser();
         dataBaseUser.setAddress("address");
         dataBaseUser.setBirthday(LocalDateTime.now().toString());
-//            dataBaseUser.setId(12);
+        dataBaseUser.setId(12);
         dataBaseUser.setSex("woman");
         dataBaseUser.setUsername("methodName");
         lazyOperation.deleteById(dataBaseUser);
@@ -180,5 +180,18 @@ public class LazyOperationController implements CommandLineRunner {
         System.out.println(dataBaseUserList);
         long e = System.currentTimeMillis();
         System.out.println("共计用时：" + (e - s) + "ms");
+    }
+
+    /**
+    * @describe 分页查询
+    * @param
+    * @return
+    * @author Jia wei Wu
+    * @date 2021/4/18 12:50 下午
+    **/
+    public void page(){
+         Page<DataBaseUser> page = lazyOperation.page(new Page(), DataBaseUser.class, null);
+//         lazyOperation.miss();
+        System.out.println(page);
     }
 }

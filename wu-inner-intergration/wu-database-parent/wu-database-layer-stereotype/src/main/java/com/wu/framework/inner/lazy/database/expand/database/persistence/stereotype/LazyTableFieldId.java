@@ -17,8 +17,8 @@ import java.lang.annotation.*;
 @Documented
 @Indexed
 @LayerField
-@LazyTableField(indexType = LayerField.LayerFieldType.UNIQUE)
-public @interface LazyTableFieldUnique {
+@LazyTableField(indexType = LayerField.LayerFieldType.ID)
+public @interface LazyTableFieldId {
 
     @AliasFor(annotation = LazyTableField.class)
     String value() default "";

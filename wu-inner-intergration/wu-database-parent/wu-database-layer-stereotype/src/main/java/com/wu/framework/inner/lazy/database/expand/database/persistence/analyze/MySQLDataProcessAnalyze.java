@@ -74,7 +74,9 @@ public interface MySQLDataProcessAnalyze extends LayerDefault,SQLAnalyze{
     }
 
     /**
-     * description 数据包装
+     * description upsert数据包装
+     * INSERT INTO TEMP_EASY_HASH (DATE,NAME,TYPE) VALUES ('2021-04-18','MAP','EASY')  ON DUPLICATE KEY UPDATE
+     *  DATE=VALUES (DATE),NAME=VALUES (NAME),TYPE=VALUES (TYPE)
      *
      * @param sourceData 源数据
      * @return ProcessResult
@@ -82,7 +84,7 @@ public interface MySQLDataProcessAnalyze extends LayerDefault,SQLAnalyze{
      * @author Jia wei Wu
      * @date 2020/10/22 下午2:23
      */
-    default MySQLProcessResult dataPack(List sourceData, LazyTableAnnotation lazyTableAnnotation) throws Exception {
+    default MySQLProcessResult upsertDataPack(List sourceData, LazyTableAnnotation lazyTableAnnotation) throws Exception {
         MySQLProcessResult mySQLProcessResult = new MySQLProcessResult();
         List<InputStream> binaryList = new ArrayList<>();
         String insert = "insert into %s (%s) VALUES %s  ON DUPLICATE KEY UPDATE \n %s ";
@@ -239,7 +241,7 @@ public interface MySQLDataProcessAnalyze extends LayerDefault,SQLAnalyze{
 //                easyUpsertLog.setType(EasyUpsertType.MySQL.name());
 //                LazyTableAnnotation logEasyTableAnnotation = LocalStorageClassAnnotation.getEasyTableAnnotation(EasyUpsertLog.class, true);
 //                Statement logStatement = connection.createStatement();
-//                logStatement.execute(dataPack(Collections.singletonList(easyUpsertLog), logEasyTableAnnotation));
+//                logStatement.execute(upsertDataPack(Collections.singletonList(easyUpsertLog), logEasyTableAnnotation));
 //            }
             return updateColumn;
         } catch (Exception exception) {

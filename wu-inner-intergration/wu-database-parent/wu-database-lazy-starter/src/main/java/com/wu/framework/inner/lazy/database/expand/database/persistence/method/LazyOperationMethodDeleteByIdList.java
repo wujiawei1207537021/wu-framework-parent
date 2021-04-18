@@ -15,7 +15,6 @@ import java.util.Collection;
  * @describe: 根据ID更新  自定义数据库持久层操作方法I按ID列表删除
  * @date : 2020/7/4 下午7:22
  */
-@Deprecated
 @Component
 public class LazyOperationMethodDeleteByIdList extends AbstractLazyOperationMethod {
 
@@ -48,7 +47,7 @@ public class LazyOperationMethodDeleteByIdList extends AbstractLazyOperationMeth
     @Override
     public Object execute(DataSource dataSource, Object[] params) throws SQLException {
         Connection connection = dataSource.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(analyzePersistenceRepository(params).getQueryString());
+        PreparedStatement preparedStatement = connection.prepareStatement(analyzePersistenceRepository(params[0]).getQueryString());
         try {
             return preparedStatement.executeBatch();
         } catch (SQLException sqlException) {

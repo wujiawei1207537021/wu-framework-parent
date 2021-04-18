@@ -3,6 +3,7 @@ package com.wu.framework.inner.lazy.database.test.pojo;
 
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTable;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTableField;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTableFieldId;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTableFieldUnique;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +19,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class DataBaseUser implements Serializable {
     //
-    @LazyTableFieldUnique(value = "id")
+    @LazyTableFieldId(value = "id")
     private Integer id;
 
     //    @EasySmartField(methodName = "username",comment = "username")

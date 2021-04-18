@@ -2,6 +2,7 @@ package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
 import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.MySQLDataProcessAnalyze;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
@@ -9,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * @author : Jia wei Wu
@@ -16,29 +18,29 @@ import java.util.Collections;
  * @describe :  自定义数据库持久层操作方法插入
  * @date : 2020/7/3 下午10:28
  */
-@Deprecated
 @Component
 public class LazyOperationMethodInsert extends AbstractLazyOperationMethod implements MySQLDataProcessAnalyze {
 
 
-    @Override
-    public PersistenceRepository analyzePersistenceRepository(Object param) throws Exception {
-            MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult;
 
-            PersistenceRepository persistenceRepository = new PersistenceRepository();
-            // 第一个参数 list
-            if (param instanceof Collection) {
-                Collection collection = (Collection) param;
-                Class clazz = collection.iterator().next().getClass();
-                mySQLProcessResult = dataPack(Collections.singletonList(collection), classLazyTableAnalyze(clazz));
-                persistenceRepository.setResultClass(clazz);
-            } else {
-                mySQLProcessResult = dataPack(Collections.singletonList(param), classLazyTableAnalyze(param.getClass()));
-                persistenceRepository.setResultClass(param.getClass());
-            }
-            persistenceRepository.setQueryString(mySQLProcessResult.getSql());
-            persistenceRepository.setBinaryList(mySQLProcessResult.getBinaryList());
-            return persistenceRepository;
+    @Override
+    public PersistenceRepository analyzePersistenceRepository(Object params) throws Exception {
+        MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult;
+
+        PersistenceRepository persistenceRepository = new PersistenceRepository();
+        // 第一个参数 list
+        if (params instanceof Collection) {
+            List collection = (List) params;
+            Class clazz = collection.iterator().next().getClass();
+            mySQLProcessResult = upsertDataPack(collection, dataAnalyze(clazz, EasyHashMap.class.isAssignableFrom(clazz) ? (EasyHashMap) collection.get(0) : null));
+            persistenceRepository.setResultClass(clazz);
+        } else {
+            mySQLProcessResult = upsertDataPack(Collections.singletonList(params), dataAnalyze(params.getClass(), EasyHashMap.class.isAssignableFrom(params.getClass()) ? (EasyHashMap) params : null));
+            persistenceRepository.setResultClass(params.getClass());
+        }
+        persistenceRepository.setQueryString(mySQLProcessResult.getSql());
+        persistenceRepository.setBinaryList(mySQLProcessResult.getBinaryList());
+        return persistenceRepository;
     }
 
     /**
@@ -53,7 +55,21 @@ public class LazyOperationMethodInsert extends AbstractLazyOperationMethod imple
      */
     @Override
     public Object execute(DataSource dataSource, Object[] params) throws Exception {
-        PersistenceRepository persistenceRepository = analyzePersistenceRepository(params);
+        Object param = params[0];
+        if (param instanceof Object[]) {
+            Object[] upsertList = (Object[]) param;
+            for (Object upsert : upsertList) {
+                accurateExecution(dataSource, upsert);
+            }
+        } else {
+            accurateExecution(dataSource, param);
+        }
+        return params.length;
+    }
+
+    @Override
+    public Object accurateExecution(DataSource dataSource, Object param) throws Exception {
+        PersistenceRepository persistenceRepository = analyzePersistenceRepository(param);
         Connection connection = dataSource.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());
         for (int i = 0; i < persistenceRepository.getBinaryList().size(); i++) {

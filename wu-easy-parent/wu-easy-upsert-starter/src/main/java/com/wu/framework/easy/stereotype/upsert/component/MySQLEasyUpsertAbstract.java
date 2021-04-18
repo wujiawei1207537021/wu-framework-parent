@@ -77,7 +77,7 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, MySQLDataP
             LazyTableAnnotation lazyTableAnnotation = dataAnalyze(clazz, EasyHashMap.class.isAssignableFrom(clazz) ? (EasyHashMap) list.get(0) : null);
             lazyTableAnnotation.setIEnumList(iEnumList);
             lazyTableAnnotation.setSchema(ObjectUtils.isEmpty(lazyTableAnnotation.schema()) ? dataSource.getConnection().getCatalog() : lazyTableAnnotation.schema());
-            final MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = dataPack(list, lazyTableAnnotation);
+            final MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = upsertDataPack(list, lazyTableAnnotation);
             if (upsertConfig.isPrintSql()) {
                 System.err.println(String.format("Execute SQL : %s", mySQLProcessResult.getSql()));
             }

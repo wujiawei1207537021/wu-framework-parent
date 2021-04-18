@@ -78,7 +78,7 @@ public interface PerfectLazyOperation extends LazyBaseOperation, MySQLDataProces
 //                        file.write("-- " + tableName);
 //                        file.newLine();
 //                        tableInfo.get().setUniqueLabel(tableName);
-//                        final MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = dataPack(record, tableInfo.get().toEasyTableAnnotation(false));
+//                        final MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = upsertDataPack(record, tableInfo.get().toEasyTableAnnotation(false));
 //                        String s = mySQLProcessResult.getSql();
 //                        s = s.replaceAll("'true'", "1").
 //                                replaceAll("'false'", "0").
@@ -98,7 +98,7 @@ public interface PerfectLazyOperation extends LazyBaseOperation, MySQLDataProces
                     file.newLine();
                     tableInfo.set(tableDateList.get(0));
                     tableInfo.get().setUniqueLabel(tableName);
-                    MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = dataPack(tableDateList, tableInfo.get().toEasyTableAnnotation(false));
+                    MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = upsertDataPack(tableDateList, tableInfo.get().toEasyTableAnnotation(false));
                     String s = mySQLProcessResult.getSql();
                     s = s.replaceAll("'true'", "1").
                             replaceAll("'false'", "0").

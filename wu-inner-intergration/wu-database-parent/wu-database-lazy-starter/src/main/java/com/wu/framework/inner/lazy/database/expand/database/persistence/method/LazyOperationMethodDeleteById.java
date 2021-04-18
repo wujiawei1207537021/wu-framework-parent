@@ -4,9 +4,7 @@ import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.P
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author : Jia wei Wu
@@ -40,20 +38,24 @@ public class LazyOperationMethodDeleteById extends AbstractLazyOperationMethod {
      * @date 2020/11/22 上午11:02
      */
     @Override
-    public Object execute(DataSource dataSource, Object[] params) throws SQLException {
-        int affectRow = 0;
-        for (Object param : params) {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(analyzePersistenceRepository(param).getQueryString());
-            try {
-                affectRow += preparedStatement.executeUpdate();
-            } catch (SQLException sqlException) {
-                throw sqlException;
-            } finally {
-                connection.close();
-                preparedStatement.close();
+    public Object execute(DataSource dataSource, Object[] params) throws Exception {
+
+        AtomicInteger affectRow = new AtomicInteger();
+        Object param = params[0];
+        if (param instanceof Object[]) {
+            Object[] upsertList = (Object[]) param;
+            for (Object upsert : upsertList) {
+                executionFunction(dataSource, preparedStatement -> {
+                    affectRow.addAndGet(preparedStatement.executeUpdate());
+                    return preparedStatement;
+                }, upsert);
             }
+        } else {
+            executionFunction(dataSource, preparedStatement -> {
+                affectRow.addAndGet(preparedStatement.executeUpdate());
+                return preparedStatement;
+            }, param);
         }
-        return affectRow;
+        return affectRow.get();
     }
 }

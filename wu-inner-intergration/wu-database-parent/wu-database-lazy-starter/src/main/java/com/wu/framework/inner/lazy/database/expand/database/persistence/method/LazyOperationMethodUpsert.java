@@ -31,10 +31,10 @@ public class LazyOperationMethodUpsert extends AbstractLazyOperationMethod imple
         if (params instanceof Collection) {
             List collection = (List) params;
             Class clazz = collection.iterator().next().getClass();
-            mySQLProcessResult = dataPack(collection, dataAnalyze(clazz, EasyHashMap.class.isAssignableFrom(clazz) ? (EasyHashMap) collection.get(0) : null));
+            mySQLProcessResult = upsertDataPack(collection, dataAnalyze(clazz, EasyHashMap.class.isAssignableFrom(clazz) ? (EasyHashMap) collection.get(0) : null));
             persistenceRepository.setResultClass(clazz);
         } else {
-            mySQLProcessResult = dataPack(Collections.singletonList(params), dataAnalyze(params.getClass(), EasyHashMap.class.isAssignableFrom(params.getClass()) ? (EasyHashMap) params : null));
+            mySQLProcessResult = upsertDataPack(Collections.singletonList(params), dataAnalyze(params.getClass(), EasyHashMap.class.isAssignableFrom(params.getClass()) ? (EasyHashMap) params : null));
             persistenceRepository.setResultClass(params.getClass());
         }
         persistenceRepository.setQueryString(mySQLProcessResult.getSql());

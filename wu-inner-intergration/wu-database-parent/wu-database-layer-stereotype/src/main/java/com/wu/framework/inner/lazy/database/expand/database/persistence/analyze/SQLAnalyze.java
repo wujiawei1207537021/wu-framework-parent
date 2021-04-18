@@ -3,11 +3,9 @@ package com.wu.framework.inner.lazy.database.expand.database.persistence.analyze
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.layer.stereotype.LayerField;
 import com.wu.framework.inner.layer.stereotype.analyze.LayerAnalyzeAdapter;
-import com.wu.framework.inner.layer.stereotype.domain.LayerAnalyzeField;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.UpsertJsonMessage;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.ConvertedField;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.LazyTableAnnotation;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTable;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTableField;
 import org.slf4j.Logger;
@@ -139,7 +137,7 @@ public interface SQLAnalyze extends LayerAnalyzeAdapter {
      * @date 2020/7/3 下午9:48
      **/
     static <T> String tableName(Class<T> clazz) {
-        LazyTable tableNameAnnotation = AnnotationUtils.getAnnotation(clazz, LazyTable.class);
+        LazyTable tableNameAnnotation = AnnotatedElementUtils.findMergedAnnotation(clazz, LazyTable.class);
         if (!ObjectUtils.isEmpty(tableNameAnnotation) && !ObjectUtils.isEmpty(tableNameAnnotation.tableName())) {
             return tableNameAnnotation.tableName();
         } else {
@@ -604,7 +602,7 @@ public interface SQLAnalyze extends LayerAnalyzeAdapter {
         }
         // where
         stringBuffer.append(stringBufferWhere);
-        System.out.println(stringBuffer.toString());
+        System.err.println(stringBuffer.toString());
         return stringBuffer.toString();
 
     }
@@ -625,23 +623,23 @@ public interface SQLAnalyze extends LayerAnalyzeAdapter {
         // where
         stringBuffer.append(" where ");
         boolean punctuationFlag = false;
-        List<LayerAnalyzeField> layerAnalyzeFieldList = fieldNamesOnAnnotation(clazz, LayerField.LayerFieldType.ID);
+        List<ConvertedField> convertedFieldList = fieldNamesOnAnnotation(clazz, LayerField.LayerFieldType.ID);
 
-        for (LayerAnalyzeField layerAnalyzeField : layerAnalyzeFieldList) {
+        for (ConvertedField convertedField : convertedFieldList) {
             try {
-                Field field = o.getClass().getDeclaredField(layerAnalyzeField.getFieldName());
+                Field field = o.getClass().getDeclaredField(convertedField.getFieldName());
                 if (!field.isAccessible()) {
                     field.setAccessible(true);
                 }
                 Object fieldVal = field.get(o);
                 if (ObjectUtils.isEmpty(fieldVal)) {
-                    continue;
+                    throw new IllegalArgumentException("根据id主键字段删除 不能为空");
                 }
                 // add data
                 if (punctuationFlag) {
                     stringBuffer.append(" and ");
                 }
-                stringBuffer.append(layerAnalyzeField.getConvertedFieldName()).append(" = '").append(fieldVal).append("'");
+                stringBuffer.append(convertedField.getConvertedFieldName()).append(" = '").append(fieldVal).append("'");
                 punctuationFlag = true;
             } catch (Exception e) {
                 e.printStackTrace();
