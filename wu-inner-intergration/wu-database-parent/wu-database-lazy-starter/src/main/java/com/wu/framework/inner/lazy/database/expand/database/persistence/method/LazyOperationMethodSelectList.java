@@ -22,9 +22,9 @@ import java.util.List;
 public class LazyOperationMethodSelectList extends AbstractLazyOperationMethod {
 
     @Override
-    public PersistenceRepository analyzePersistenceRepository(Object... params) throws IllegalArgumentException {
+    public PersistenceRepository analyzePersistenceRepository(Object param) throws IllegalArgumentException {
         String queryString = "";
-        Object object = params[0];
+        Object object = param;
         Class clazz = object.getClass();
         queryString = PreparedStatementSQLConverter.selectPreparedStatementSQL(object);
         PersistenceRepository persistenceRepository = new PersistenceRepository();
@@ -44,7 +44,7 @@ public class LazyOperationMethodSelectList extends AbstractLazyOperationMethod {
      * @date 2020/11/22 上午11:02
      */
     @Override
-    public Object execute(DataSource dataSource, Object... params) throws SQLException {
+    public Object execute(DataSource dataSource, Object[] params) throws SQLException {
         Connection connection = dataSource.getConnection();
         PersistenceRepository persistenceRepository = analyzePersistenceRepository(params);
         PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());

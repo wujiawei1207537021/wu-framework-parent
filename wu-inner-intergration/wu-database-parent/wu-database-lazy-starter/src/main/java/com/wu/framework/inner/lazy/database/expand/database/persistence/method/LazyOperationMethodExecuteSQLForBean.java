@@ -21,10 +21,11 @@ import java.util.List;
 public class LazyOperationMethodExecuteSQLForBean extends AbstractLazyOperationMethod {
 
     @Override
-    public PersistenceRepository analyzePersistenceRepository(Object... params) throws IllegalArgumentException {
+    public PersistenceRepository analyzePersistenceRepository(Object param) throws IllegalArgumentException {
         // 第一个参数 SQL
-        String sql = (String) params[0];
-        Class clazz = (Class) params[1];
+        Object[] p= (Object[]) param;
+        String sql = (String) p[0];
+        Class clazz = (Class) p[1];
         PersistenceRepository persistenceRepository = new PersistenceRepository();
         persistenceRepository.setQueryString(sql);
         persistenceRepository.setResultClass(clazz);
@@ -42,7 +43,7 @@ public class LazyOperationMethodExecuteSQLForBean extends AbstractLazyOperationM
      * @date 2020/11/22 上午11:02
      */
     @Override
-    public Object execute(DataSource dataSource, Object... params) throws SQLException {
+    public Object execute(DataSource dataSource, Object[] params) throws SQLException {
         Connection connection = dataSource.getConnection();
         PersistenceRepository persistenceRepository = analyzePersistenceRepository(params);
         PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());

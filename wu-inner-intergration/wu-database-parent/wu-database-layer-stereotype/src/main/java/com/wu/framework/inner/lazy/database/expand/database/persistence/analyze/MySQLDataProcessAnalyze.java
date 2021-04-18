@@ -186,7 +186,7 @@ public interface MySQLDataProcessAnalyze extends LayerDefault,SQLAnalyze{
             connection = dataSource.getConnection();
             DatabaseMetaData metaData = connection.getMetaData();
 
-            String catalog = dataSource.getConnection().getCatalog();
+//            String catalog = dataSource.getConnection().getCatalog();
 
             ResultSet resultSet = metaData.getTables(lazyTableAnnotation.schema(), null, tableName, new String[]{"TABLE"});
             //
@@ -204,6 +204,7 @@ public interface MySQLDataProcessAnalyze extends LayerDefault,SQLAnalyze{
                 }
                 //执行建表语句
                 int[] executeBatch = statement.executeBatch();
+                statement.close();
                 updateColumn = executeBatch.length;
                 perfectTableSQL = createTableSQL;
             } else {
@@ -225,6 +226,7 @@ public interface MySQLDataProcessAnalyze extends LayerDefault,SQLAnalyze{
                 if (!ObjectUtils.isEmpty(alterTableSQL)) {
                     Statement statement = connection.createStatement();
                     updateColumn = statement.executeUpdate(alterTableSQL);
+                    statement.close();
                 }
                 perfectTableSQL = alterTableSQL;
 

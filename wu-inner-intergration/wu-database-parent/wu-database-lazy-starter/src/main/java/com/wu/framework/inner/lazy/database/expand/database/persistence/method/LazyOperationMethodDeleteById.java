@@ -1,6 +1,5 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
-import com.wu.framework.inner.lazy.database.converter.PreparedStatementSQLConverter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 import org.springframework.stereotype.Component;
 
@@ -19,11 +18,11 @@ import java.sql.SQLException;
 public class LazyOperationMethodDeleteById extends AbstractLazyOperationMethod {
 
     @Override
-    public PersistenceRepository analyzePersistenceRepository(Object... params) throws IllegalArgumentException {
+    public PersistenceRepository analyzePersistenceRepository(Object param) throws IllegalArgumentException {
         String queryString = "";
-        Object object = params[0];
+        Object object = param;
         Class clazz = object.getClass();
-        queryString = PreparedStatementSQLConverter.deletePreparedStatementSQL(object);
+        queryString = deletePreparedStatementSQL(object);
         PersistenceRepository persistenceRepository = new PersistenceRepository();
         persistenceRepository.setQueryString(queryString);
         persistenceRepository.setResultClass(clazz);
@@ -33,24 +32,28 @@ public class LazyOperationMethodDeleteById extends AbstractLazyOperationMethod {
     /**
      * description 执行SQL 语句
      *
+     * @param dataSource
+     * @param params
      * @return
      * @params
      * @author Jia wei Wu
      * @date 2020/11/22 上午11:02
-     *
-     * @param dataSource
-     * @param params*/
+     */
     @Override
-    public Object execute(DataSource dataSource, Object... params) throws SQLException {
-        Connection connection = dataSource.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(analyzePersistenceRepository(params).getQueryString());
-        try {
-            return preparedStatement.executeUpdate();
-        } catch (SQLException sqlException) {
-            throw sqlException;
-        } finally {
-            connection.close();
-            preparedStatement.close();
+    public Object execute(DataSource dataSource, Object[] params) throws SQLException {
+        int affectRow = 0;
+        for (Object param : params) {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(analyzePersistenceRepository(param).getQueryString());
+            try {
+                affectRow += preparedStatement.executeUpdate();
+            } catch (SQLException sqlException) {
+                throw sqlException;
+            } finally {
+                connection.close();
+                preparedStatement.close();
+            }
         }
+        return affectRow;
     }
 }

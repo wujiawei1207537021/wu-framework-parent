@@ -31,6 +31,7 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBean
      * 唯一性标示
      */
     private String uniqueLabel = UUID.randomUUID().toString();
+    private List<Object> uniqueFieldList=new ArrayList<>();
 
 
     public EasyHashMap() {
@@ -189,7 +190,12 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBean
             convertedField.setComment(String.format("字段创建时间%s", LocalDateTime.now()));
             convertedField.setClazz(fieldClazz);
             convertedField.setConvertedFieldName(CamelAndUnderLineConverter.humpToLine2(fieldName));
-            convertedField.setFieldIndexType(LayerField.LayerFieldType.FILE_TYPE);
+            if(uniqueFieldList.contains(key)){
+                convertedField.setFieldIndexType(LayerField.LayerFieldType.UNIQUE);
+            }else {
+                convertedField.setFieldIndexType(LayerField.LayerFieldType.FILE_TYPE);
+            }
+
             convertedFieldList.add(convertedField);
         });
         lazyTableAnnotation.setConvertedFieldList(convertedFieldList);
@@ -205,6 +211,11 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBean
     public Type[] getClassParadigm() {
         ParameterizedType parameterizedType = (ParameterizedType) getClass().getGenericSuperclass();
         return parameterizedType.getActualTypeArguments();
+    }
+
+    public V putUnique(K key, V value) {
+        uniqueFieldList.add(key);
+        return super.put(key, value);
     }
 
     public String getUniqueLabel() {

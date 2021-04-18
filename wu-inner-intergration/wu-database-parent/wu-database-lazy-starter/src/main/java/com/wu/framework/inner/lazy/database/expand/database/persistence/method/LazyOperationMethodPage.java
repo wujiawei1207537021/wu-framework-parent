@@ -27,12 +27,13 @@ public class LazyOperationMethodPage extends AbstractLazyOperationMethod {
     private Page page;
 
     @Override
-    public PersistenceRepository analyzePersistenceRepository(Object... args) throws IllegalArgumentException {
+    public PersistenceRepository analyzePersistenceRepository(Object param) throws IllegalArgumentException {
         String queryString = "";
-        page = (Page) args[0];
-        Class clazz = (Class) args[1];
-        String sqlFormat = (String) args[2];
-        Object[] params = (Object[]) args[3];
+        Object[] p= (Object[]) param;
+        page = (Page) p[0];
+        Class clazz = (Class) p[1];
+        String sqlFormat = (String) p[2];
+        Object[] params = (Object[]) p[3];
 
         if (null == sqlFormat) {
             LazyTableAnnotation lazyTableAnnotation = classLazyTableAnalyze(clazz);
@@ -60,7 +61,7 @@ public class LazyOperationMethodPage extends AbstractLazyOperationMethod {
      * @date 2020/11/22 上午11:02
      */
     @Override
-    public Object execute(DataSource dataSource, Object... params) throws SQLException {
+    public Object execute(DataSource dataSource, Object[] params) throws SQLException {
         Statement statement = null;
         PersistenceRepository persistenceRepository = analyzePersistenceRepository(params);
         Connection connection = dataSource.getConnection();

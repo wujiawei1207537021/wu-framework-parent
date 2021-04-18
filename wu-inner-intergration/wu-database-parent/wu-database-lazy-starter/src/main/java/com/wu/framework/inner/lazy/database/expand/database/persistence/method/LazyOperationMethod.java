@@ -18,14 +18,14 @@ public interface LazyOperationMethod {
 
     /**
      * @param
-     * @param params
+     * @param param
      * @return
      * @describe 获取持久性存储库
      * @author Jia wei Wu
      * @date 2021/4/17 3:38 下午
      **/
     @NonNull
-    PersistenceRepository analyzePersistenceRepository(Object... params) throws Exception;
+    PersistenceRepository analyzePersistenceRepository(Object param) throws Exception;
 
     /**
      * description 执行SQL 语句
@@ -37,16 +37,21 @@ public interface LazyOperationMethod {
      * @author Jia wei Wu
      * @date 2020/11/22 上午11:02
      */
-    default Object execute(DataSource dataSource, Object... params) throws Exception {
-        Connection connection = dataSource.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(analyzePersistenceRepository(params).getQueryString());
-        try {
-            return preparedStatement.execute();
-        } catch (SQLException sqlException) {
-            throw sqlException;
-        } finally {
-            preparedStatement.close();
+    default Object execute(DataSource dataSource, Object[] params) throws Exception {
+        for (Object param : params) {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(analyzePersistenceRepository(param).getQueryString());
+            try {
+                return preparedStatement.execute();
+            } catch (SQLException sqlException) {
+                throw sqlException;
+            } finally {
+                connection.close();
+                preparedStatement.close();
+            }
         }
+        return null;
+
     }
 
 }

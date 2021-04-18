@@ -7,9 +7,9 @@ package com.wu.framework.inner.layer.stereotype;
  * @date : 2021/4/6 7:51 下午
  */
 @FunctionalInterface
-public interface MethodParamFunction<P, R> {
+public interface MethodParamFunction<R> {
 
-    R defaultMethod(P method);
+    R defaultMethod(R r) throws Exception;
 
 
 }

@@ -1,8 +1,6 @@
 package com.wu.framework.inner.layer.stereotype.proxy;
 
-import com.wu.framework.inner.layer.stereotype.LayerClass;
 import com.wu.framework.inner.layer.stereotype.LayerMethod;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Indexed;
 
 import java.lang.annotation.*;
@@ -19,8 +17,6 @@ import java.lang.reflect.InvocationHandler;
 @Documented
 @Indexed
 @LayerMethod
-@LayerClass
-@Component
 public @interface ProxyStrategicApproach {
 
     @Deprecated

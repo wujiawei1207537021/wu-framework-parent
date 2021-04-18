@@ -19,8 +19,8 @@ import java.util.stream.Collectors;
 public class LazyOperationMethodActiveInsert extends AbstractLazyOperationMethod {
 
     @Override
-    public PersistenceRepository analyzePersistenceRepository(Object... params) throws IllegalArgumentException {
-        Object object = params[0];
+    public PersistenceRepository analyzePersistenceRepository(Object param) throws IllegalArgumentException {
+        Object object = param;
 
         // TODO EASYHASHMAP
         Persistence persistence = PersistenceConverter.activeInsertPrepared(object);
@@ -50,7 +50,7 @@ public class LazyOperationMethodActiveInsert extends AbstractLazyOperationMethod
      * @date 2020/11/22 上午11:02
      */
     @Override
-    public Object execute(DataSource dataSource, Object... params) throws Exception {
+    public Object execute(DataSource dataSource, Object[] params) throws Exception {
         return super.execute(dataSource, params);
     }
 }

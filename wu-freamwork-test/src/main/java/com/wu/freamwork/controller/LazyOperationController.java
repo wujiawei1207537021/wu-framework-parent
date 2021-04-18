@@ -1,0 +1,184 @@
+package com.wu.freamwork.controller;
+
+import com.wu.framework.inner.layer.web.EasyController;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.SQLAnalyze;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.converter.SQLConverter;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
+import com.wu.framework.inner.lazy.database.test.pojo.DataBaseUser;
+import org.springframework.boot.CommandLineRunner;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
+/**
+ * @author : 吴佳伟
+ * @version 1.0
+ * @describe :
+ * @date : 2021/4/17 10:37 下午
+ */
+@EasyController
+public class LazyOperationController implements CommandLineRunner {
+
+    private final LazyOperation lazyOperation;
+
+    public LazyOperationController(LazyOperation lazyOperation) {
+        this.lazyOperation = lazyOperation;
+    }
+
+    /**
+     * Callback used to run the bean.
+     *
+     * @param args incoming main method arguments
+     * @throws Exception on error
+     */
+    @Override
+    public void run(String... args) throws Exception {
+
+        EasyHashMap<String,String> easyHashMap=new EasyHashMap<>("temp_easy_hash");
+        easyHashMap.put("type","easy");
+        easyHashMap.put("name","map");
+        easyHashMap.put("date", LocalDate.now().toString());
+        final String s = easyHashMap.toEasyTableAnnotation(false).creatTableSQL();
+        lazyOperation.upsert(easyHashMap, Arrays.asList(easyHashMap));
+
+        upsert();
+        insert();
+        update();
+        delete();
+        select();
+    }
+
+    public static void main(String[] args) {
+
+        SQLConverter.createSelectSQL(DataBaseUser.class);
+    }
+
+    /**
+     * 更新或者插入
+     *
+     * @return
+     * @params
+     * @author Jia wei Wu
+     * @date 2020/7/5 下午1:55
+     **/
+//    @Scheduled(fixedRate = 1000)
+    public void upsert() {
+        long s = System.currentTimeMillis();
+        List<DataBaseUser> dataBaseUserList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            DataBaseUser dataBaseUser = new DataBaseUser();
+            dataBaseUser.setAddress("address");
+            dataBaseUser.setBirthday(LocalDateTime.now().toString());
+//            dataBaseUser.setId(12);
+            dataBaseUser.setSex("woman");
+            dataBaseUser.setUsername("methodName" + i);
+            dataBaseUserList.add(dataBaseUser);
+        }
+        lazyOperation.upsert(dataBaseUserList);
+        long e = System.currentTimeMillis();
+        System.out.println("共计用时：" + (e - s) + "ms");
+    }
+
+    /**
+     * 插入数据
+     *
+     * @return
+     * @params
+     * @author Jia wei Wu
+     * @date 2020/7/5 下午1:56
+     **/
+    public void insert() {
+        long s = System.currentTimeMillis();
+        List<DataBaseUser> dataBaseUserList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            DataBaseUser dataBaseUser = new DataBaseUser();
+            dataBaseUser.setAddress("address");
+            dataBaseUser.setBirthday(LocalDateTime.now().toString());
+//            dataBaseUser.setId(12);
+            dataBaseUser.setSex("woman");
+            dataBaseUser.setUsername("methodName" + i);
+            dataBaseUserList.add(dataBaseUser);
+        }
+        lazyOperation.insert(dataBaseUserList);
+        long e = System.currentTimeMillis();
+        System.out.println("共计用时：" + (e - s) + "ms");
+    }
+
+    /**
+     * 更新数据
+     *
+     * @return
+     * @params
+     * @author Jia wei Wu
+     * @date 2020/7/5 下午1:56
+     **/
+    public void update() {
+        long s = System.currentTimeMillis();
+        List<DataBaseUser> dataBaseUserList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            DataBaseUser dataBaseUser = new DataBaseUser();
+            dataBaseUser.setAddress("address");
+            dataBaseUser.setBirthday(LocalDateTime.now().toString());
+//            dataBaseUser.setId(12);
+            dataBaseUser.setSex("woman");
+            dataBaseUser.setUsername("methodName" + i);
+            dataBaseUserList.add(dataBaseUser);
+            lazyOperation.updateById(dataBaseUser);
+        }
+        lazyOperation.updateAllByIdList(dataBaseUserList);
+        long e = System.currentTimeMillis();
+        System.out.println("共计用时：" + (e - s) + "ms");
+    }
+
+    /**
+     * 删除
+     *
+     * @return
+     * @params
+     * @author Jia wei Wu
+     * @date 2020/7/5 下午5:05
+     **/
+    public void delete() {
+        long s = System.currentTimeMillis();
+        DataBaseUser dataBaseUser = new DataBaseUser();
+        dataBaseUser.setAddress("address");
+        dataBaseUser.setBirthday(LocalDateTime.now().toString());
+//            dataBaseUser.setId(12);
+        dataBaseUser.setSex("woman");
+        dataBaseUser.setUsername("methodName");
+        lazyOperation.deleteById(dataBaseUser);
+        long e = System.currentTimeMillis();
+        System.out.println("共计用时：" + (e - s) + "ms");
+    }
+
+    /**
+     * 查询
+     *
+     * @return
+     * @params
+     * @author Jia wei Wu
+     * @date 2020/7/5 下午5:05
+     **/
+    public void select() {
+        long s = System.currentTimeMillis();
+        DataBaseUser dataBaseUser = new DataBaseUser();
+        dataBaseUser.setAddress("address");
+//        dataBaseUser.setBirthday(LocalDateTime.now().toString());
+//            dataBaseUser.setId(12);
+        dataBaseUser.setSex("woman");
+        dataBaseUser.setUsername("methodName");
+        DataBaseUser dataBaseUser1 = lazyOperation.selectOne(dataBaseUser);
+        System.out.println(dataBaseUser1);
+
+        dataBaseUser.setUsername(null);
+        List<DataBaseUser> dataBaseUserList = lazyOperation.selectAll(dataBaseUser);
+        System.out.println(dataBaseUserList);
+        long e = System.currentTimeMillis();
+        System.out.println("共计用时：" + (e - s) + "ms");
+    }
+}

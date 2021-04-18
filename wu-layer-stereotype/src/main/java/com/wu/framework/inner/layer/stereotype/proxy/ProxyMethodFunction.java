@@ -11,9 +11,9 @@ import java.lang.reflect.Method;
  * @date : 2021/4/6 7:51 下午
  */
 @FunctionalInterface
-public interface ProxyMethodFunction extends MethodParamFunction<Method,Object> {
+public interface ProxyMethodFunction extends MethodParamFunction<Object> {
 
-    Object defaultMethod(Method method);
+    Object defaultMethod(Object method);
 
 
 }

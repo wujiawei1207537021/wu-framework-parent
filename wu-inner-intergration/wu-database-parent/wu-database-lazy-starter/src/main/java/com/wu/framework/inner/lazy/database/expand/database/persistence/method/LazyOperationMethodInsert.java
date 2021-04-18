@@ -16,24 +16,25 @@ import java.util.Collections;
  * @describe :  自定义数据库持久层操作方法插入
  * @date : 2020/7/3 下午10:28
  */
+@Deprecated
 @Component
 public class LazyOperationMethodInsert extends AbstractLazyOperationMethod implements MySQLDataProcessAnalyze {
 
 
     @Override
-    public PersistenceRepository analyzePersistenceRepository(Object... params) throws Exception {
+    public PersistenceRepository analyzePersistenceRepository(Object param) throws Exception {
             MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult;
 
             PersistenceRepository persistenceRepository = new PersistenceRepository();
             // 第一个参数 list
-            if (params[0] instanceof Collection) {
-                Collection collection = (Collection) params[0];
+            if (param instanceof Collection) {
+                Collection collection = (Collection) param;
                 Class clazz = collection.iterator().next().getClass();
                 mySQLProcessResult = dataPack(Collections.singletonList(collection), classLazyTableAnalyze(clazz));
                 persistenceRepository.setResultClass(clazz);
             } else {
-                mySQLProcessResult = dataPack(Collections.singletonList(params[0]), classLazyTableAnalyze(params[0].getClass()));
-                persistenceRepository.setResultClass(params[0].getClass());
+                mySQLProcessResult = dataPack(Collections.singletonList(param), classLazyTableAnalyze(param.getClass()));
+                persistenceRepository.setResultClass(param.getClass());
             }
             persistenceRepository.setQueryString(mySQLProcessResult.getSql());
             persistenceRepository.setBinaryList(mySQLProcessResult.getBinaryList());
@@ -51,7 +52,7 @@ public class LazyOperationMethodInsert extends AbstractLazyOperationMethod imple
      * @date 2020/11/22 上午11:02
      */
     @Override
-    public Object execute(DataSource dataSource, Object... params) throws Exception {
+    public Object execute(DataSource dataSource, Object[] params) throws Exception {
         PersistenceRepository persistenceRepository = analyzePersistenceRepository(params);
         Connection connection = dataSource.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());
@@ -64,6 +65,5 @@ public class LazyOperationMethodInsert extends AbstractLazyOperationMethod imple
             connection.close();
             preparedStatement.close();
         }
-
     }
 }

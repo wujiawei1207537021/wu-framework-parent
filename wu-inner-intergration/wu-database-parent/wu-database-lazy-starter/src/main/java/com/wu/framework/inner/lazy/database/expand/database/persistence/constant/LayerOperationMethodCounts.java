@@ -13,9 +13,9 @@ import java.util.List;
 public class LayerOperationMethodCounts {
 
     /**
-     * {@link com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation#upsertList(List)}
+     * {@link com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation#upsert(List)}
      */
-    public static final String UPSERT_LIST = "upsertList";
+    public static final String UPSERT_LIST = "upsert";
     /**
      * {@link com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation#insertList(List)}
      */

@@ -1,12 +1,13 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
-import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
-import com.wu.framework.inner.layer.data.JavaBasicType;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
+import com.wu.framework.inner.layer.data.JavaBasicType;
+import com.wu.framework.inner.layer.stereotype.MethodParamFunction;
 import com.wu.framework.inner.layer.stereotype.domain.LayerAnalyzeField;
 import com.wu.framework.inner.lazy.database.converter.PreparedStatementSQLConverter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.MySQLDataProcessAnalyze;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import org.springframework.util.ObjectUtils;
 
 import javax.sql.DataSource;
@@ -46,15 +47,15 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
     /**
      * description 执行SQL 语句
      *
+     * @param dataSource 数据源
+     * @param params     代理方法参数
      * @return
      * @params
      * @author Jia wei Wu
      * @date 2020/11/22 上午11:02
-     *
-     * @param dataSource
-     * @param params*/
+     */
     @Override
-    public Object execute(DataSource dataSource, Object... params) throws Exception {
+    public Object execute(DataSource dataSource, Object[] params) throws Exception {
         Connection connection = dataSource.getConnection();
         PersistenceRepository persistenceRepository = analyzePersistenceRepository(params);
         PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());
@@ -67,6 +68,46 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
             preparedStatement.close();
         }
     }
+
+    /**
+     * @param dataSource 数据源
+     * @param param      单个对象或是单条记录
+     * @return
+     * @describe 精准执行
+     * @author Jia wei Wu
+     * @date 2021/4/18 10:13 上午
+     **/
+    public Object accurateExecution(DataSource dataSource, Object param) throws Exception {
+        final Object o = executionFunction(dataSource, preparedStatement -> {
+            preparedStatement.execute();
+            return preparedStatement;
+        }, param);
+        return o;
+    }
+
+    /**
+     * @param dataSource          数据源
+     * @param methodParamFunction 返回数据中含有 PreparedStatement
+     * @param param               参数
+     * @return
+     * @describe 执行函数
+     * @author Jia wei Wu
+     * @date 2021/4/18 10:46 上午
+     **/
+    public Object executionFunction(DataSource dataSource, MethodParamFunction<PreparedStatement> methodParamFunction, Object param) throws Exception {
+        Connection connection = dataSource.getConnection();
+        PersistenceRepository persistenceRepository = analyzePersistenceRepository(param);
+        PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());
+        try {
+            return methodParamFunction.defaultMethod(preparedStatement);
+        } catch (SQLException sqlException) {
+            throw sqlException;
+        } finally {
+            connection.close();
+            preparedStatement.close();
+        }
+    }
+
 
     public <E> List<E> resultSetConverter(ResultSet resultSet, String resultType) {
         Class domainClass = null;

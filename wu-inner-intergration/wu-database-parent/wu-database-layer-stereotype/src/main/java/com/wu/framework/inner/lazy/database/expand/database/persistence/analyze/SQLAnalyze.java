@@ -3,9 +3,11 @@ package com.wu.framework.inner.lazy.database.expand.database.persistence.analyze
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.layer.stereotype.LayerField;
 import com.wu.framework.inner.layer.stereotype.analyze.LayerAnalyzeAdapter;
+import com.wu.framework.inner.layer.stereotype.domain.LayerAnalyzeField;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.UpsertJsonMessage;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.ConvertedField;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.LazyTableAnnotation;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTable;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTableField;
 import org.slf4j.Logger;
@@ -60,7 +62,7 @@ public interface SQLAnalyze extends LayerAnalyzeAdapter {
      *
      * @param clazz 数据传输类
      */
-    static void upsertSQL(Class clazz) {
+    default void upsertSQL(Class clazz) {
         StringBuilder stringBuilder = new StringBuilder("insert into ");
         List<String> fieldNames = new ArrayList<>();
         List<Integer> ignoredIndex = new ArrayList<>();
@@ -115,6 +117,13 @@ public interface SQLAnalyze extends LayerAnalyzeAdapter {
     }
 
 
+    /**
+    * @describe 将class 分析成建表语句
+    * @param
+    * @return
+    * @author Jia wei Wu
+    * @date 2021/4/18 11:20 上午
+    **/
     @Override
     default String analyze(Class clazz) {
         LazyTableAnnotation lazyTableAnnotation = classLazyTableAnalyze(clazz);
@@ -337,7 +346,7 @@ public interface SQLAnalyze extends LayerAnalyzeAdapter {
      * @author Jia wei Wu
      * @date 2020/7/8 下午1:06
      */
-    public static String createSelectSQL(Class clazz) {
+    public default String createSelectSQL(Class clazz) {
         /**
          *     <sql id="SEARCH_CONDITION_SQL">
          *         <where>
@@ -408,7 +417,7 @@ public interface SQLAnalyze extends LayerAnalyzeAdapter {
      * @author Jiawei Wu
      * @date 2020/12/29 下午12:39
      */
-    public static String createSelectSQL(List<ConvertedField> convertedFieldList, String tableName) {
+    static String createSelectSQL(List<ConvertedField> convertedFieldList, String tableName) {
         /**
          *     <sql id="SEARCH_CONDITION_SQL">
          *         <where>
@@ -476,7 +485,7 @@ public interface SQLAnalyze extends LayerAnalyzeAdapter {
      * @author Jia wei Wu
      * @date 2020/9/17 下午1:29
      */
-    static <T> List<ConvertedField> fieldNamesOnAnnotation(Class<T> clazz, LayerField.LayerFieldType tableFileIndexType) {
+    default  <T> List<ConvertedField> fieldNamesOnAnnotation(Class<T> clazz, LayerField.LayerFieldType tableFileIndexType) {
         List<ConvertedField> convertedFieldList = new ArrayList<>();
         for (Field declaredField : clazz.getDeclaredFields()) {
             if (!declaredField.isAccessible()) {
@@ -521,14 +530,12 @@ public interface SQLAnalyze extends LayerAnalyzeAdapter {
      **/
     default LazyTableAnnotation classLazyTableAnalyze(Class clazz) {
         if (!CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.containsKey(clazz)) {
-
             LazyTable lazyTable = AnnotatedElementUtils.findMergedAnnotation(clazz, LazyTable.class);
             String className = clazz.getName();
             String tableName = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
             String comment = "";
             boolean smartFillField = false;
             LazyTableAnnotation lazyTableAnnotation = new LazyTableAnnotation();
-
             if (null != lazyTable) {
                 if (!ObjectUtils.isEmpty(lazyTable.tableName())) {
                     tableName = lazyTable.tableName();
@@ -536,18 +543,113 @@ public interface SQLAnalyze extends LayerAnalyzeAdapter {
                 lazyTableAnnotation.setSchema(lazyTable.schema());
                 smartFillField = lazyTable.smartFillField();
             }
-
             lazyTableAnnotation.setComment(comment);
             lazyTableAnnotation.setClassName(className);
             lazyTableAnnotation.setClazz(clazz);
             lazyTableAnnotation.setTableName(tableName);
-            lazyTableAnnotation.setConvertedFieldList(SQLAnalyze.fieldNamesOnAnnotation(clazz, null));
+            lazyTableAnnotation.setConvertedFieldList(fieldNamesOnAnnotation(clazz, null));
             lazyTableAnnotation.setSmartFillField(smartFillField);
             log.info("Initialize {} annotation parameters  className:[{}],tableName:[{}],comment:[{}]", clazz,
                     className, tableName, comment);
             CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.put(clazz, lazyTableAnnotation);
         }
         return CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.get(clazz);
+    }
+
+    /**
+     * 更新的sql
+     *
+     * @return
+     * @params
+     * @author Jia wei Wu
+     * @date 2020/7/5 下午2:11
+     **/
+    default String updatePreparedStatementSQL(Object o) {
+        // update
+        StringBuffer stringBuffer = new StringBuffer("update ");
+        // table
+        stringBuffer.append(tableName(o.getClass())).append(" set ");
+        List<ConvertedField> convertedFieldList = fieldNamesOnAnnotation(o.getClass(),null);
+        boolean punctuationFlag = false;
+        boolean andFlag = false;
+        StringBuffer stringBufferWhere = new StringBuffer(" where ");
+        for (ConvertedField convertedField : convertedFieldList) {
+            try {
+
+                Field field = o.getClass().getDeclaredField(convertedField.getFieldName());
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                Object fieldVal = field.get(o);
+                if (convertedField.getFieldIndexType().equals(LayerField.LayerFieldType.FILE_TYPE)) {
+                    if (punctuationFlag) {
+                        stringBuffer.append(",");
+                    }
+                    stringBuffer.append(convertedField.getConvertedFieldName()).append(" = '").append(fieldVal).append("'");
+                    punctuationFlag = true;
+                } else {
+                    if (ObjectUtils.isEmpty(fieldVal)) {
+                        continue;
+                    }
+                    if (andFlag) {
+                        stringBufferWhere.append(" and ");
+                    }
+                    stringBufferWhere.append(convertedField.getConvertedFieldName()).append(" = '").append(fieldVal).append("'");
+                    andFlag = true;
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        // where
+        stringBuffer.append(stringBufferWhere);
+        System.out.println(stringBuffer.toString());
+        return stringBuffer.toString();
+
+    }
+
+    /**
+     * 删除sql
+     *
+     * @return
+     * @params
+     * @author Jia wei Wu
+     * @date 2020/7/5 下午4:00
+     **/
+    default  <T> String deletePreparedStatementSQL(Object o) {
+        Class clazz = o.getClass();
+        // DELETE FROM
+        StringBuffer stringBuffer = new StringBuffer(" DELETE FROM  ");
+        stringBuffer.append(tableName(clazz));
+        // where
+        stringBuffer.append(" where ");
+        boolean punctuationFlag = false;
+        List<LayerAnalyzeField> layerAnalyzeFieldList = fieldNamesOnAnnotation(clazz, LayerField.LayerFieldType.ID);
+
+        for (LayerAnalyzeField layerAnalyzeField : layerAnalyzeFieldList) {
+            try {
+                Field field = o.getClass().getDeclaredField(layerAnalyzeField.getFieldName());
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                Object fieldVal = field.get(o);
+                if (ObjectUtils.isEmpty(fieldVal)) {
+                    continue;
+                }
+                // add data
+                if (punctuationFlag) {
+                    stringBuffer.append(" and ");
+                }
+                stringBuffer.append(layerAnalyzeField.getConvertedFieldName()).append(" = '").append(fieldVal).append("'");
+                punctuationFlag = true;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+        }
+        return stringBuffer.toString();
     }
 
 }

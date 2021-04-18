@@ -1,6 +1,5 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
-import com.wu.framework.inner.lazy.database.converter.PreparedStatementSQLConverter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 import org.springframework.stereotype.Component;
 
@@ -16,19 +15,20 @@ import java.util.Collection;
  * @describe: 根据ID更新 自定义数据库持久层操作方法I按ID更新全部
  * @date : 2020/7/4 下午7:22
  */
+@Deprecated
 @Component
 public class LazyOperationMethodUpdateAllById extends AbstractLazyOperationMethod {
 
     @Override
-    public PersistenceRepository analyzePersistenceRepository(Object... params) throws IllegalArgumentException {
+    public PersistenceRepository analyzePersistenceRepository(Object param) throws IllegalArgumentException {
         String queryString = "";
-        Object object = params[0];
+        Object object = param;
         Class clazz;
         // 第一个参数 list
             Collection collection = (Collection) object;
             clazz = collection.iterator().next().getClass();
             for (Object o : collection) {
-                queryString += PreparedStatementSQLConverter.updatePreparedStatementSQL(o) + " ; \n ";
+                queryString += updatePreparedStatementSQL(o) + " ; \n ";
             }
             PersistenceRepository persistenceRepository = new PersistenceRepository();
             persistenceRepository.setQueryString(queryString);
@@ -43,11 +43,10 @@ public class LazyOperationMethodUpdateAllById extends AbstractLazyOperationMetho
      * @params
      * @author Jia wei Wu
      * @date 2020/11/22 上午11:02
-     *
-     * @param dataSource
-     * @param params*/
+     *@param dataSource
+     * @param params  */
     @Override
-    public Object execute(DataSource dataSource, Object... params) throws SQLException {
+    public Object execute(DataSource dataSource, Object[] params) throws SQLException {
         Connection connection = dataSource.getConnection();
         PersistenceRepository persistenceRepository = analyzePersistenceRepository(params);
         PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());
