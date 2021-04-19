@@ -80,11 +80,13 @@ public @interface EasySmartField {
     /**
      * 数据为空的时候使用字段默认值
      */
+    @AliasFor(annotation = LazyTableField.class,attribute = "fieldDefaultValue")
     String fieldDefaultValue() default "";
 
     /**
      * 转换指定类型的枚举 DefaultIEnum 不转换  转换失败默认是-1
      */
+    @AliasFor(annotation = LazyTableField.class,attribute = "iEnum")
     Class<? extends IEnum> iEnum() default DefaultIEnum.class;
 
     /**

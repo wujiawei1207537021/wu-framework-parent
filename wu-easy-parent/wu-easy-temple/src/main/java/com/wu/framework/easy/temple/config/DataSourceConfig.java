@@ -17,8 +17,8 @@ import javax.sql.DataSource;
 @Configuration
 public class DataSourceConfig {
 
-    @Bean(name = "autoDataSource1")
-    public DataSource dataSource1() {
+    @Bean(name = "dataSourceMySQL")
+    public DataSource dataSourceMySQL() {
         MysqlDataSource build = DataSourceBuilder.create().type(MysqlDataSource.class).build();
         build.setUrl("jdbc:mysql://127.0.0.1:3306/temp?rewriteBatchedStatements=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai");
         build.setUser("root");

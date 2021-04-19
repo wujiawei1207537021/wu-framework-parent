@@ -13,7 +13,28 @@ public class SQLConverter {
     };
 
 
-    public static String createSelectSQL(Class clazz) {
+    /**
+     * description 创建建表语句
+     * @param clazz 类
+     * @return
+     * @exception/throws
+     * @author 吴佳伟
+     * @date 2021/4/19 下午2:45
+     */
+    public static String creatTableSQL(Class clazz) {
         return sqlAnalyze.analyze(clazz);
+    }
+
+
+    /**
+     * description 创建查询语句
+     * @param clazz 类
+     * @return
+     * @exception/throws
+     * @author 吴佳伟
+     * @date 2021/4/19 下午2:44
+     */
+    public static String createSelectSQL(Class clazz) {
+        return sqlAnalyze.createSelectSQL(clazz);
     }
 }

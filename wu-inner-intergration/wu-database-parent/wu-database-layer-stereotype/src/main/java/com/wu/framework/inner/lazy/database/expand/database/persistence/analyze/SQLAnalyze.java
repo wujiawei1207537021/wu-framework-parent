@@ -213,13 +213,13 @@ public interface SQLAnalyze extends LayerAnalyzeAdapter {
                         continue;
                     }
                     Object fieldVal = declaredField.get(o);
-                    LazyTableField LazyTableField = AnnotationUtils.getAnnotation(declaredField, LazyTableField.class);
-                    if (!ObjectUtils.isEmpty(LazyTableField) && !LazyTableField.exist()) {
+                    LazyTableField lazyTableField = AnnotationUtils.getAnnotation(declaredField, LazyTableField.class);
+                    if (!ObjectUtils.isEmpty(lazyTableField) && !lazyTableField.exist()) {
                         continue;
                     }
                     if (ObjectUtils.isEmpty(fieldVal)) {
-                        if (null != LazyTableField && !ObjectUtils.isEmpty(LazyTableField.fieldDefaultValue())) {
-                            fieldVal = LazyTableField.fieldDefaultValue();
+                        if (null != lazyTableField && !ObjectUtils.isEmpty(lazyTableField.fieldDefaultValue())) {
+                            fieldVal = lazyTableField.fieldDefaultValue();
                         } else {
                             fieldVal = "NULL";
                         }
