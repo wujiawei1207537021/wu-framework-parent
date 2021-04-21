@@ -1,6 +1,6 @@
 package com.wu.framework.easy.stereotype.upsert;
 
-import com.wu.framework.inner.layer.data.SmartMark;
+import com.wu.framework.inner.layer.data.LayerData;
 import com.wu.framework.inner.layer.stereotype.LayerClass;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTable;
 import org.springframework.core.annotation.AliasFor;
@@ -20,6 +20,7 @@ import java.lang.annotation.*;
 @Indexed
 @LayerClass
 @LazyTable
+@LayerData
 public @interface EasySmart {
 
     /**
@@ -43,9 +44,10 @@ public @interface EasySmart {
 
     /**
      * 数据下钻
-     * the field use Annotation with {@link SmartMark}
+     * the field use Annotation with {@link LayerData}
      */
 
+    @AliasFor(attribute = "dataDrillDown", annotation = LayerData.class)
     boolean dataDrillDown() default false;
 
     /**
