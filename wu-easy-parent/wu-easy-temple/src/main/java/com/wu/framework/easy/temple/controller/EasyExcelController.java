@@ -3,6 +3,7 @@ package com.wu.framework.easy.temple.controller;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.wu.framework.easy.excel.stereotype.EasyExcel;
+import com.wu.framework.easy.excel.stereotype.RequestExcelBody;
 import com.wu.framework.easy.excel.util.EasyExcelUtil;
 import com.wu.framework.easy.temple.EasyExcelTemp;
 import com.wu.framework.easy.temple.domain.ComplexUseExcel;
@@ -137,4 +138,13 @@ public class EasyExcelController {
         EasyExcelUtil.modifyCurrentMethodEasyExcelFileName(this.getClass(), fileName);
         return run(size);
     }
+
+
+    @EasyExcel(fileName = "导入数据")
+    @ApiOperation(tags = "导入注解测试", value = "使用原生注解有效(自定义一导出文件名称)")
+    @GetMapping("/imp")
+    public List<UseExcel> imp(@RequestExcelBody List<UseExcel> useExcelList) {
+        return useExcelList;
+    }
+
 }
