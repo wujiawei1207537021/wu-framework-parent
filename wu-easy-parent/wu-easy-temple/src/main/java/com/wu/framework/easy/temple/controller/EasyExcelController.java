@@ -1,4 +1,4 @@
-package com.wu.framework.easy.temple.run;
+package com.wu.framework.easy.temple.controller;
 
 
 import com.alibaba.fastjson.annotation.JSONField;
@@ -8,7 +8,6 @@ import com.wu.framework.easy.temple.EasyExcelTemp;
 import com.wu.framework.easy.temple.domain.ComplexUseExcel;
 import com.wu.framework.easy.temple.domain.SmartExcel;
 import com.wu.framework.easy.temple.domain.UseExcel;
-import com.wu.framework.easy.temple.service.RunService;
 import com.wu.framework.inner.layer.web.EasyController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,13 +27,7 @@ import java.util.List;
  */
 @Api(tags = "导出注解测试")
 @EasyController("/excel")
-public class ExcelRunTest {
-
-    private final RunService runService;
-
-    public ExcelRunTest(RunService runService) {
-        this.runService = runService;
-    }
+public class EasyExcelController {
 
 
     @EasyExcel(fileName = "导出数据")
