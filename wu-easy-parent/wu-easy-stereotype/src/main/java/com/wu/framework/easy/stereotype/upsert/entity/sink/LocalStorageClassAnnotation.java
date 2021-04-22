@@ -119,11 +119,6 @@ public class LocalStorageClassAnnotation {
                  * @return
                  */
                 @Override
-                public String value() {
-                    return finalTableName;
-                }
-
-                @Override
                 public String tableName() {
                     return finalTableName;
                 }

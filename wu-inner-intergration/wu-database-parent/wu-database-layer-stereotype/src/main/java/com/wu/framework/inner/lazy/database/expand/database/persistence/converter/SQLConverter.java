@@ -22,7 +22,7 @@ public class SQLConverter {
      * @date 2021/4/19 下午2:45
      */
     public static String creatTableSQL(Class clazz) {
-        return sqlAnalyze.analyze(clazz);
+        return sqlAnalyze.classLazyTableAnalyze(clazz).creatTableSQL();
     }
 
 

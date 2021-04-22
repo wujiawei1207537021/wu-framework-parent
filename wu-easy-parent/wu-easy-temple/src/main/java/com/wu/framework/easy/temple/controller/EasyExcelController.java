@@ -12,9 +12,7 @@ import com.wu.framework.easy.temple.domain.UseExcel;
 import com.wu.framework.inner.layer.web.EasyController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -141,8 +139,8 @@ public class EasyExcelController {
 
 
     @EasyExcel(fileName = "导入数据")
-    @ApiOperation(tags = "导入注解测试", value = "使用原生注解有效(自定义一导出文件名称)")
-    @GetMapping("/imp")
+    @ApiOperation(tags = "导入注解测试", value = "导入注解测试")
+    @PostMapping("/imp")
     public List<UseExcel> imp(@RequestExcelBody List<UseExcel> useExcelList) {
         return useExcelList;
     }

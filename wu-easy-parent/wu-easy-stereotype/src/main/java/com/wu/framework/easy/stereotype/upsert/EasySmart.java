@@ -30,10 +30,7 @@ public @interface EasySmart {
      *
      * @return
      */
-    @AliasFor(attribute = "tableName", annotation = LazyTable.class)
-    String value() default "";
-
-    @AliasFor(attribute = "value", annotation = LazyTable.class)
+    @AliasFor(attribute = "name", annotation = LayerClass.class)
     String tableName() default "";
 
     /**

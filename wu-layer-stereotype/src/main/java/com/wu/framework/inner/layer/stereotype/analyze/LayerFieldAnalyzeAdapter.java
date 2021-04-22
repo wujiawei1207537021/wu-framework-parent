@@ -19,7 +19,7 @@ import java.util.List;
  * @author Jia wei Wu
  * @date 2021/4/1 下午3:32
  */
-public interface LayerFieldAnalyzeAdapter extends LayerDefault, Layer, LayerAnalyzeAdapter {
+public interface LayerFieldAnalyzeAdapter extends LayerAnalyzeAdapter {
 
 
     default List<AnalyzeField>  analyze(Class clazz) {
