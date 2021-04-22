@@ -1,7 +1,6 @@
 package com.wu.framework.inner.lazy.hbase.expland.analyze;
 
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
-import com.wu.framework.inner.layer.stereotype.Layer;
 import com.wu.framework.inner.layer.stereotype.LayerClass;
 import com.wu.framework.inner.layer.stereotype.analyze.LayerClassAnalyzeAdapter;
 import com.wu.framework.inner.lazy.hbase.expland.persistence.stereotype.HBaseTable;
@@ -21,44 +20,41 @@ public interface HBaseClassAnalyzeAdapter<P> extends LayerClassAnalyzeAdapter {
     default HBaseTable analyzeClass(Class clazz) {
 
 
-         HBaseTable mergedAnnotation = AnnotatedElementUtils.findMergedAnnotation(clazz, HBaseTable.class);
-
+        HBaseTable mergedAnnotation = AnnotatedElementUtils.findMergedAnnotation(clazz, HBaseTable.class);
         LayerClass layerClass = analyze(clazz);
-        if (ObjectUtils.isEmpty(mergedAnnotation)) {
-            mergedAnnotation =new HBaseTable(){
+        return new HBaseTable() {
 
-                /**
-                 * Returns the annotation type of this annotation.
-                 *
-                 * @return the annotation type of this annotation
-                 */
-                @Override
-                public Class<? extends Annotation> annotationType() {
-                    return HBaseTable.class;
-                }
+            /**
+             * Returns the annotation type of this annotation.
+             *
+             * @return the annotation type of this annotation
+             */
+            @Override
+            public Class<? extends Annotation> annotationType() {
+                return HBaseTable.class;
+            }
 
-                @Override
-                public String namespace() {
-                    return "default";
-                }
+            @Override
+            public String namespace() {
+                return mergedAnnotation.namespace();
+            }
 
-                @Override
-                public String tableName() {
-                    return layerClass.name();
-                }
+            @Override
+            public String tableName() {
+                return layerClass.name();
+            }
 
-                @Override
-                public String columnFamily() {
-                    return CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName().replaceAll("\\.","_"));
-                }
+            @Override
+            public String columnFamily() {
+                return null != mergedAnnotation & !ObjectUtils.isEmpty(mergedAnnotation.columnFamily()) ? mergedAnnotation.columnFamily() : CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName().replaceAll("\\.", "_"));
+            }
 
-                @Override
-                public boolean perfectTable() {
-                    return true;
-                }
-            };
-        }
-        return mergedAnnotation;
+            @Override
+            public boolean perfectTable() {
+                return mergedAnnotation.perfectTable();
+            }
+        };
+
     }
 
 }

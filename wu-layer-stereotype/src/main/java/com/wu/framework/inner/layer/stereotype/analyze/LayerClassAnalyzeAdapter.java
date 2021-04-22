@@ -47,7 +47,7 @@ public interface LayerClassAnalyzeAdapter extends LayerAnalyzeAdapter {
                  */
                 @Override
                 public String name() {
-                    return CamelAndUnderLineConverter.humpToLine2(clazz.getName());
+                    return CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
                 }
             };
         }
