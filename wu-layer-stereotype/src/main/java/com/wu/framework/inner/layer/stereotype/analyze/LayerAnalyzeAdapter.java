@@ -11,7 +11,7 @@ import java.lang.annotation.Annotation;
  * @author Jia wei Wu
  * @date 2021/4/1 下午3:32
  */
-public interface LayerAnalyzeAdapter<A extends Annotation> extends LayerDefault, Layer {
+public interface LayerAnalyzeAdapter<A> extends LayerDefault, Layer {
 
     <A> A analyze(Class clazz);
 }

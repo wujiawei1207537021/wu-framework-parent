@@ -1,9 +1,9 @@
 package com.wu.framework.inner.lazy.hbase.expland.analyze;
 
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
+import com.wu.framework.inner.layer.stereotype.LayerField;
 import com.wu.framework.inner.layer.stereotype.analyze.AnalyzeField;
-import com.wu.framework.inner.lazy.hbase.expland.persistence.stereotype.HBaseTableUnique;
-import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.util.ObjectUtils;
 
 import java.lang.reflect.Field;
@@ -22,7 +22,7 @@ public interface HBaseLayerFieldAnalyzeAdapterAdapter<P> extends HBaseClassAnaly
     default List<AnalyzeField> analyzeField(Class clazz) {
         List<AnalyzeField> analyzeFieldList = new ArrayList<>();
         for (Field field : clazz.getDeclaredFields()) {
-            HBaseTableUnique layerField = AnnotationUtils.findAnnotation(field, HBaseTableUnique.class);
+            LayerField layerField = AnnotatedElementUtils.findMergedAnnotation(field, LayerField.class);
             if (ObjectUtils.isEmpty(layerField) || layerField.exist()) {
                 AnalyzeField analyzeField = AnalyzeField.builder().fieldName(field.getName()).convertedFieldName(CamelAndUnderLineConverter.humpToLine2(field.getName())).build();
                 if (!ObjectUtils.isEmpty(layerField)) {

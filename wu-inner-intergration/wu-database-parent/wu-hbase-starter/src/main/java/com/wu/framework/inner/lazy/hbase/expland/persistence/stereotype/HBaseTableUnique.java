@@ -10,14 +10,8 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Indexed
-@LayerField(exist = true)
+@LayerField(indexType = LayerField.LayerFieldType.FILE_TYPE)
 public @interface HBaseTableUnique {
-    /**
-     * 字段索引类型(数据库)
-     */
-    LayerField.LayerFieldType indexType() default LayerField.LayerFieldType.FILE_TYPE;
 
-    @AliasFor(annotation = LayerField.class,value = "exist")
-    boolean exist() default true;
 
 }
