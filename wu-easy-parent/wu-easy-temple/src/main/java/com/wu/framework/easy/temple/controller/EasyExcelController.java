@@ -25,7 +25,7 @@ import java.util.List;
  * @date : 2020/9/18 下午11:32
  */
 @Api(tags = "导出注解测试")
-@EasyController("/excel")
+@EasyController("/easy/excel")
 public class EasyExcelController {
 
 

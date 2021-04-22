@@ -36,7 +36,7 @@ public interface HBaseClassAnalyzeAdapter<P> extends LayerClassAnalyzeAdapter {
 
             @Override
             public String namespace() {
-                return mergedAnnotation.namespace();
+                return null != mergedAnnotation  ? mergedAnnotation.namespace() :"default";
             }
 
             @Override
