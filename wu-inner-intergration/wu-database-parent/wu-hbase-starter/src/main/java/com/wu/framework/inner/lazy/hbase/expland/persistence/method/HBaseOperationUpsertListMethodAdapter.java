@@ -2,8 +2,6 @@ package com.wu.framework.inner.lazy.hbase.expland.persistence.method;
 
 
 import com.wu.framework.inner.layer.stereotype.analyze.AnalyzeField;
-import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
-import com.wu.framework.inner.lazy.hbase.expland.constant.HBaseOperationMethodCounts;
 import com.wu.framework.inner.lazy.hbase.expland.persistence.stereotype.HBaseTable;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.Admin;
@@ -48,7 +46,7 @@ public class HBaseOperationUpsertListMethodAdapter extends HBaseOperationMethodA
             entityClass = ((List) entity).get(0).getClass();
             // 处理数据
             HBaseTable hBaseTable = analyzeClass(entityClass);
-            table = connection.getTable(TableName.valueOf(hBaseTable.nameSpace(),hBaseTable.tableName()));
+            table = connection.getTable(TableName.valueOf(hBaseTable.namespace(),hBaseTable.tableName()));
 
             List<AnalyzeField> analyzeFieldList = analyzeField(entityClass);
 
@@ -71,7 +69,7 @@ public class HBaseOperationUpsertListMethodAdapter extends HBaseOperationMethodA
             entityClass = entity.getClass();
             // 处理数据
             HBaseTable hBaseTable = analyzeClass(entityClass);
-            table = connection.getTable(TableName.valueOf(hBaseTable.nameSpace(),hBaseTable.tableName()));
+            table = connection.getTable(TableName.valueOf(hBaseTable.namespace(),hBaseTable.tableName()));
 
             List<AnalyzeField> analyzeFieldList = analyzeField(entityClass);
 

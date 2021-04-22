@@ -3,6 +3,7 @@ package com.wu.framework.easy.stereotype.upsert;
 import com.wu.framework.inner.layer.data.LayerData;
 import com.wu.framework.inner.layer.stereotype.LayerClass;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTable;
+import com.wu.framework.inner.lazy.hbase.expland.persistence.stereotype.HBaseTable;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Indexed;
 
@@ -21,6 +22,7 @@ import java.lang.annotation.*;
 @LayerClass
 @LazyTable
 @LayerData
+@HBaseTable
 public @interface EasySmart {
 
     /**
@@ -119,6 +121,7 @@ public @interface EasySmart {
      *
      * @return
      */
+    @AliasFor(attribute = "columnFamily",annotation = HBaseTable.class)
     String columnFamily() default "";
 
     /**
@@ -126,4 +129,14 @@ public @interface EasySmart {
      * 针对数据源 如mysql查询结果、http请求结果中包含的数据字段不再当前对象中
      */
     boolean smartFillField() default false;
+
+
+    /**
+     * 表空间
+     * @return
+     */
+    @AliasFor(attribute = "namespace",annotation = HBaseTable.class)
+    String namespace() default "default";
+
+
 }

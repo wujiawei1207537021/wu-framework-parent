@@ -14,9 +14,10 @@ import java.lang.annotation.*;
 @LayerClass
 public @interface HBaseTable {
 
-    String nameSpace() default "default";
+    String namespace() default "default";
 
     String tableName() default "";
+
     String  columnFamily() default "";
 
     boolean perfectTable() default false;

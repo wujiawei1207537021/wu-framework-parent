@@ -3,7 +3,7 @@ package com.wu.framework.inner.lazy.database.expand.database.persistence.convert
 import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.SQLAnalyze;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * @describe :
  * @date : 2021/4/18 11:21 上午
@@ -18,7 +18,7 @@ public class SQLConverter {
      * @param clazz 类
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/4/19 下午2:45
      */
     public static String creatTableSQL(Class clazz) {
@@ -31,7 +31,7 @@ public class SQLConverter {
      * @param clazz 类
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/4/19 下午2:44
      */
     public static String createSelectSQL(Class clazz) {

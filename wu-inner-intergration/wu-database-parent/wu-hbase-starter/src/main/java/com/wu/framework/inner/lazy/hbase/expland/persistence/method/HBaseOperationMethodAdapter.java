@@ -16,7 +16,7 @@ public interface HBaseOperationMethodAdapter<P> extends
     /**
      * description  方法操作参数
      *
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/4/8 下午1:53
      */
     @Accessors(chain = true)

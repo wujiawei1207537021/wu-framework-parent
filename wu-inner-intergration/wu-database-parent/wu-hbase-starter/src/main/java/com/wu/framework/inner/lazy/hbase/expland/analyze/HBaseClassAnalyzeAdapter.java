@@ -9,9 +9,9 @@ import org.springframework.util.ObjectUtils;
 import java.lang.annotation.Annotation;
 
 /**
- * description
+ * description 分析class中的HBaseTable注解
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2021/4/7 下午5:12
  */
 public interface HBaseClassAnalyzeAdapter<P> extends Layer<P> {
@@ -32,18 +32,18 @@ public interface HBaseClassAnalyzeAdapter<P> extends Layer<P> {
                 }
 
                 @Override
-                public String nameSpace() {
+                public String namespace() {
                     return "default";
                 }
 
                 @Override
                 public String tableName() {
-                    return CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
+                    return CamelAndUnderLineConverter.humpToLine2(clazz.getName());
                 }
 
                 @Override
                 public String columnFamily() {
-                    return CamelAndUnderLineConverter.humpToLine2(clazz.getName().replaceAll("\\.","_"));
+                    return CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName().replaceAll("\\.","_"));
                 }
 
                 @Override

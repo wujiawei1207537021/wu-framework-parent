@@ -41,7 +41,7 @@ public class UpsertMySQLController {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/4/15 上午9:50
      */
     @EasyUpsertDS(type = EasyUpsertType.MySQL)
@@ -60,7 +60,7 @@ public class UpsertMySQLController {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/4/19 上午10:11
      */
     @QuickEasyUpsert(type = EasyUpsertType.MySQL)
@@ -132,7 +132,7 @@ public class UpsertMySQLController {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/4/19 上午10:11
      */
     @QuickEasyUpsert(type = EasyUpsertType.MySQL)
@@ -153,7 +153,7 @@ public class UpsertMySQLController {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/4/19 上午10:09
      */
     public List<UserLog> createUserLog(Integer size) {

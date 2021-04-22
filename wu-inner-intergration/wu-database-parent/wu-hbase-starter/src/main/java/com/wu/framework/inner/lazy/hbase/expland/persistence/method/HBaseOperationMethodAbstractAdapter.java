@@ -75,7 +75,7 @@ public abstract class HBaseOperationMethodAbstractAdapter
         HBaseTable hBaseTable = analyzeClass(clazz);
         if (hBaseTable.perfectTable()) {
 
-            NamespaceDescriptor namespaceDescriptor = NamespaceDescriptor.create(hBaseTable.nameSpace()).build();
+            NamespaceDescriptor namespaceDescriptor = NamespaceDescriptor.create(hBaseTable.namespace()).build();
 
             try {
                 admin.createNamespace(namespaceDescriptor);
@@ -83,7 +83,7 @@ public abstract class HBaseOperationMethodAbstractAdapter
                 System.out.println(namespaceDescriptor.getName() + "命名空间已存在!");
             }
 
-            TableName tableName = TableName.valueOf(hBaseTable.nameSpace(), hBaseTable.tableName());
+            TableName tableName = TableName.valueOf(hBaseTable.namespace(), hBaseTable.tableName());
             TableDescriptorBuilder tableDescriptorBuilder = TableDescriptorBuilder.newBuilder(tableName).
                     setColumnFamily(new ColumnFamilyDescriptorBuilder.ModifyableColumnFamilyDescriptor(Bytes.toBytes(hBaseTable.columnFamily())));
             TableDescriptor build = tableDescriptorBuilder.build();
@@ -105,7 +105,7 @@ public abstract class HBaseOperationMethodAbstractAdapter
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/4/9 下午1:25
      */
     public String hBaseRow(List<AnalyzeField> analyzeFieldList, Object source) {
