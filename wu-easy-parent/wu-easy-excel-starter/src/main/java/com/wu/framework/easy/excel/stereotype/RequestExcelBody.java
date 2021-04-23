@@ -6,10 +6,11 @@ import java.lang.annotation.*;
 
 
 /**
- * description
+ * description 未完成
  * @author 吴佳伟
  * @date 2021/4/23 下午12:06
  */
+@Deprecated
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

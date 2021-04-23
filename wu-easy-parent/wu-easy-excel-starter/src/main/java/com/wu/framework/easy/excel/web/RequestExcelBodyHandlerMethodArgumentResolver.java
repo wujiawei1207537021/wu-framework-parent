@@ -23,13 +23,14 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * description excel 导入拦截
+ * description excel 导入拦截  未完成
  * the method has parameter with annotation RequestExcelBody will auto  converter to List
  * see {@link RequestExcelBody}
  *
  * @author Jia wei Wu
  * @date 2021/4/23 上午10:13
  */
+@Deprecated
 public class RequestExcelBodyHandlerMethodArgumentResolver extends AbstractMessageConverterMethodArgumentResolver {
 
 

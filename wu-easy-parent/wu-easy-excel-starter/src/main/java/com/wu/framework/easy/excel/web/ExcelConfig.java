@@ -11,12 +11,12 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * description
+ * description 未完成
  *
  * @author 吴佳伟
  * @date 2021/4/23 上午10:10
  */
-
+@Deprecated
 public class ExcelConfig implements InitializingBean {
 
 
