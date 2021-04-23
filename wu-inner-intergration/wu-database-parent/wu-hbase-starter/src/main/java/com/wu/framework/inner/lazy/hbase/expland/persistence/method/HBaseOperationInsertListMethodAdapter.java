@@ -27,14 +27,6 @@ import java.util.UUID;
 @Component
 public class HBaseOperationInsertListMethodAdapter extends HBaseOperationMethodAbstractAdapter {
 
-    private final Admin admin;
-    private final Connection connection;
-
-    public HBaseOperationInsertListMethodAdapter(Admin admin, Connection connection) {
-        super(admin, connection);
-        this.admin = admin;
-        this.connection = connection;
-    }
 
     @Override
     public Object execute(Connection connection, Object... args) throws Exception {

@@ -21,11 +21,8 @@ import java.util.stream.Collectors;
  * @describe :
  * @date : 2021/3/28 10:12 下午
  */
-public abstract class HBaseOperationMethodAbstractAdapter
-        implements HBaseOperationMethodAdapter<HBaseOperationMethodAdapter.HBaseExecuteParams> {
+public abstract class HBaseOperationMethodAbstractAdapter implements HBaseOperationMethodAdapter<HBaseOperationMethodAdapter.HBaseExecuteParams> {
 
-    private final Admin admin;
-    private final Connection connection;
 
     /**
      * 是否存在唯一字段注解
@@ -33,10 +30,6 @@ public abstract class HBaseOperationMethodAbstractAdapter
     private Map<Class, List<AnalyzeField>> UNIQUE_FIELD = new HashMap<>();
 
 
-    protected HBaseOperationMethodAbstractAdapter(Admin admin, Connection connection) {
-        this.admin = admin;
-        this.connection = connection;
-    }
 
 
     @Override
@@ -47,7 +40,7 @@ public abstract class HBaseOperationMethodAbstractAdapter
     @Override
     public Object run(HBaseExecuteParams hBaseExecuteParam) throws Exception {
         // 执行前处理操作
-        perfectTable(connection.getAdmin(), hBaseExecuteParam.getObjects()[0]);
+        perfectTable(hBaseExecuteParam.getConnection().getAdmin(), hBaseExecuteParam.getObjects()[0]);
         return execute(hBaseExecuteParam.getConnection(), hBaseExecuteParam.getObjects());
     }
 

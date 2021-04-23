@@ -25,15 +25,6 @@ import java.util.UUID;
 @Deprecated
 public class HBaseOperationInsertMethodAdapter extends HBaseOperationMethodAbstractAdapter {
 
-    private final Admin admin;
-    private final Connection connection;
-
-    public HBaseOperationInsertMethodAdapter(Admin admin, Connection connection) {
-        super(admin, connection);
-        this.admin = admin;
-        this.connection = connection;
-    }
-
 
     @Override
     public Object execute(Connection connection, Object... args) throws Exception {

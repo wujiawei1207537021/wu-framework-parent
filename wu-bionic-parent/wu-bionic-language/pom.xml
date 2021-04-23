@@ -43,6 +43,10 @@
             <groupId>top.wu2020</groupId>
             <artifactId>wu-database-lazy-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-easy-upsert-starter</artifactId>
+        </dependency>
 
     </dependencies>
 

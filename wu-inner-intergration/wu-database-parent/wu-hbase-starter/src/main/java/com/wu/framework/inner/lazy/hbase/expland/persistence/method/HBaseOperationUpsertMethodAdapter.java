@@ -27,15 +27,6 @@ import java.util.stream.Collectors;
 @Deprecated
 public class HBaseOperationUpsertMethodAdapter extends HBaseOperationMethodAbstractAdapter {
 
-    private final Admin admin;
-    private final Connection connection;
-
-    public HBaseOperationUpsertMethodAdapter(Admin admin, Connection connection) {
-        super(admin, connection);
-        this.admin = admin;
-        this.connection = connection;
-    }
-
     @Override
     public Object execute(Connection connection, Object... args) throws Exception {
         Object entity = args[0];
