@@ -141,8 +141,8 @@ public class EasyExcelController {
     @EasyExcel(fileName = "导入数据")
     @ApiOperation(tags = "导入注解测试", value = "导入注解测试")
     @PostMapping("/imp")
-    public List<UseExcel> imp(@RequestExcelBody List<UseExcel> useExcelList) {
-        return useExcelList;
+    public List<UseExcel> imp(@RequestExcelBody List<UseExcel> useExcel) {
+        return useExcel;
     }
 
 }
