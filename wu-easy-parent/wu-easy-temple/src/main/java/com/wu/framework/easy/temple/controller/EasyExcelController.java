@@ -5,14 +5,20 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.wu.framework.easy.excel.stereotype.EasyExcel;
 import com.wu.framework.easy.excel.stereotype.RequestExcelBody;
 import com.wu.framework.easy.excel.util.EasyExcelUtil;
+import com.wu.framework.easy.excel.util.FastExcelImp;
+import com.wu.framework.easy.stereotype.upsert.dynamic.QuickEasyUpsert;
+import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.temple.EasyExcelTemp;
 import com.wu.framework.easy.temple.domain.ComplexUseExcel;
 import com.wu.framework.easy.temple.domain.SmartExcel;
 import com.wu.framework.easy.temple.domain.UseExcel;
 import com.wu.framework.inner.layer.web.EasyController;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -138,11 +144,22 @@ public class EasyExcelController {
     }
 
 
-    @EasyExcel(fileName = "导入数据")
-    @ApiOperation(tags = "导入注解测试", value = "导入注解测试")
-    @PostMapping("/imp")
-    public List<UseExcel> imp(@RequestExcelBody List<UseExcel> useExcel) {
-        return useExcel;
+
+    @ApiOperation(tags = "导入注解测试", value = "导入Excel并转换成对象")
+    @PostMapping("/imp1")
+    public String import1(@RequestPart MultipartFile multipartFile) {
+        List<UseExcel> userLogList = FastExcelImp.parseExcel(multipartFile, UseExcel.class);
+        return userLogList.toString();
+    }
+
+    @ApiOperation(tags = "导入注解测试", value = "导入Excel并转换成EasyHashMap对象")
+    @PostMapping("/imp1/hash-map")
+    public List<EasyHashMap> implMap(@RequestPart MultipartFile file) {
+        List<EasyHashMap> easyHashMapList = FastExcelImp.parseExcel(file, EasyHashMap.class);
+        if (ObjectUtils.isEmpty(easyHashMapList)) {
+            return easyHashMapList;
+        }
+        return easyHashMapList;
     }
 
 }
