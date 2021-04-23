@@ -58,7 +58,7 @@ public class EasyExcelController {
         return run(size);
     }
 
-    @EasyExcel(fileName = "非原生注解导出数据", fieldColumnAnnotation = JSONField.class, fieldColumnAnnotationAttribute = "tableName", multipleSheet = true, limit = 1000, sheetShowContext = EasyExcel.SheetShowContext.TEXT)
+    @EasyExcel(fileName = "非原生注解导出数据", fieldColumnAnnotation = JSONField.class, fieldColumnAnnotationAttribute = "name", multipleSheet = true, limit = 1000, sheetShowContext = EasyExcel.SheetShowContext.TEXT)
     @ApiOperation(tags = "导出注解测试", value = "非原生注解导出数据")
     @GetMapping("/run2/{size}")
     public List<UseExcel> run2(@PathVariable Integer size) {
