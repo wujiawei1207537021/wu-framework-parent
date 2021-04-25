@@ -13,9 +13,9 @@ spring:
     shiro:
       verification: session
   hbase:
-    zookeeperQuorum: 'k8s.wu2020.top:2181'
+    zookeeperQuorum: 'k8s.wu-framework.com:2181'
   redis:
-    host: k8s.wu2020.top
+    host: k8s.wu-framework.com
 
 
 wu:

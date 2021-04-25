@@ -29,7 +29,7 @@ spring:
             password: wujiawei
   elasticsearch:
     rest:
-      uris: "http://k8s.wu2020.top:9200"
+      uris: "http://k8s.wu-framework.com:9200"
   jpa:
     show-sql: true
 #  data:

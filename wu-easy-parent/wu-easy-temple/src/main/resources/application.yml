@@ -7,7 +7,7 @@ spring:
 
   #  elasticsearch:
   #    rest:
-  #      uris: "http://k8s.wu2020.top:9200"
+  #      uris: "http://k8s.wu-framework.com:9200"
   jpa:
     show-sql: true
   activemq:
@@ -27,7 +27,7 @@ spring:
         batch-limit: 10000
         record-log: true
   hbase:
-    zookeeper-quorum: 'k8s.wu2020.top:2181'
+    zookeeper-quorum: 'k8s.wu-framework.com:2181'
 
 
 

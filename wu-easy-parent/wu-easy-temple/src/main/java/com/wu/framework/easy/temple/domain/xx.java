@@ -11,7 +11,7 @@ import java.io.IOException;
 public class xx {
 
     public static void main(String[] args) throws IOException {
-//        WebClient webClient = WebClient.create("http://k8s.wu2020.top:9200/_bulk");
+//        WebClient webClient = WebClient.create("http://k8s.wu-framework.com:9200/_bulk");
 //
 //        File tempFile = new File("es.xx");
 //        if (!tempFile.exists()) {
