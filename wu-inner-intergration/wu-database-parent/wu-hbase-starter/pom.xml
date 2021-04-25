@@ -55,7 +55,7 @@
         </dependency>
         <dependency>
             <groupId>top.wu2020</groupId>
-            <artifactId>wu-layer-stereotype</artifactId>
+            <artifactId>wu-database-layer-stereotype</artifactId>
         </dependency>
 
 
