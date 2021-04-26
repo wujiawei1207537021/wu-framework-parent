@@ -95,9 +95,8 @@ public class LazyTableAnnotation implements LazyTable {
         // 添加字段
         convertedFieldList.stream().
                 filter(ConvertedField::isExist).
-                filter(convertedField -> !UpsertJsonMessage.ignoredFields.contains(convertedField.getConvertedFieldName())).forEach(convertedField -> {
-            createTableSQLBuffer.append(convertedField.createColumn());
-        });
+                filter(convertedField -> !UpsertJsonMessage.ignoredFields.contains(convertedField.getConvertedFieldName())).
+                forEach(convertedField -> createTableSQLBuffer.append(convertedField.createColumn()));
         createTableSQLBuffer.append(SQL_DEFAULT_FIELD);
 //        UNIQUE KEY `plate_num_color` (`plate_num`,`plate_color`),
         if (!ObjectUtils.isEmpty(uniqueList)) {

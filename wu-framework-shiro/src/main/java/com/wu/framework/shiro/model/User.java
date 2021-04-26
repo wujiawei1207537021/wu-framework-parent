@@ -19,7 +19,7 @@ public class User extends AbstractUserDetails {
 
     protected List permissionList;
 
-    private String userId;
+    private String id;
 
 //    protected List<String> roleSignList;
 

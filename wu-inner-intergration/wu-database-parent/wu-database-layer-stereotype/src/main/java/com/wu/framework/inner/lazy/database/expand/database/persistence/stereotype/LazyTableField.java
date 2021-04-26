@@ -118,6 +118,7 @@ public @interface LazyTableField {
     enum FileType {
         STRING(Collections.singletonList(String.class), " varchar(255) "),
         BYTE(Arrays.asList(Byte.class, byte.class), " varbinary(1024) "),
+        BYTE_ARRAYS(Arrays.asList(Byte[].class, byte[].class), " varbinary(1024) "),
         INTEGER(Arrays.asList(Integer.class, int.class), " int(11) "),
         LONG(Arrays.asList(Long.class, long.class), " bigint "),
         LOCAL_DATE_TIME(Arrays.asList(LocalDateTime.class, Timestamp.class), " datetime "),

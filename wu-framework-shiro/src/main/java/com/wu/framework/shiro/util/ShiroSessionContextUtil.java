@@ -21,6 +21,6 @@ public class ShiroSessionContextUtil {
         RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
         final HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
         final HttpSession session = request.getSession();
-        session.setAttribute(SESSION_USER_ID, userDetails.getUserId());
+        session.setAttribute(SESSION_USER_ID, userDetails.getId());
     }
 }

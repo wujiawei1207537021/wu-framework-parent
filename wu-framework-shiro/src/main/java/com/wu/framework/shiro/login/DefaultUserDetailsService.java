@@ -44,7 +44,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserById(String userId) {
         User u = new User();
-        u.setUserId(userId);
+        u.setId(userId);
         return lazyOperation.selectOne(u);
     }
 }
