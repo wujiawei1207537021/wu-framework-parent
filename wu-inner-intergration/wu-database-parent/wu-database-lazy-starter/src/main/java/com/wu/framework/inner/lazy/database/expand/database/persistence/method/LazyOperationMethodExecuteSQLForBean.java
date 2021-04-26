@@ -20,6 +20,7 @@ import java.util.List;
 @Component
 public class LazyOperationMethodExecuteSQLForBean extends AbstractLazyOperationMethod {
 
+
     @Override
     public PersistenceRepository analyzePersistenceRepository(Object param) throws IllegalArgumentException {
         // 第一个参数 SQL

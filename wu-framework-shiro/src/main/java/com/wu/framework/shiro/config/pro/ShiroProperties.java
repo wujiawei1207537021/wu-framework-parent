@@ -56,6 +56,15 @@ public class ShiroProperties {
     private Boolean checkApi = true;
 
     /**
+     * root 账号
+     */
+    private String userName="admin";
+    /**
+     * root 密码
+     */
+    private String  password="admin";
+
+    /**
      * 忽略的路径
      */
     private List<String> unCheckApiPath = Arrays.asList("/token/**", "/error/**", "/swagger-ui.html/**", "/favicon.ico", "/swagger-resources/**", "/webjars/**", "/v3/api-docs");

@@ -35,10 +35,10 @@ public @interface LazyTableField {
     /**
      * 字段名
      */
-    @AliasFor(attribute = "name")
+    @AliasFor(attribute = "name",annotation = LayerField.class)
     String value() default "";
 
-    @AliasFor(attribute = "value")
+    @AliasFor(attribute = "value",annotation = LayerField.class)
     String name() default "";
 
     /**

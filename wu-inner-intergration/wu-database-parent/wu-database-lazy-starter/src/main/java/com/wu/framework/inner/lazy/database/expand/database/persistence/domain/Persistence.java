@@ -3,6 +3,7 @@ package com.wu.framework.inner.lazy.database.expand.database.persistence.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
+import lombok.experimental.Accessors;
 
 import java.io.InputStream;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
  * @describe : Persistence  持久化SQL
  * @date : 2020/11/21 下午9:02
  */
+@Accessors(chain = true)
 @Data
 public class Persistence {
     /**

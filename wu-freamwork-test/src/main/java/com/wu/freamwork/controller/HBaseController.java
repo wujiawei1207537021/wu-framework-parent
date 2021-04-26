@@ -50,7 +50,7 @@ public class HBaseController implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        mysql2HBase();
+//        mysql2HBase();
 
     }
 

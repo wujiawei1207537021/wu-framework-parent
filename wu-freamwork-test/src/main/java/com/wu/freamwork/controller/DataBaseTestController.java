@@ -69,7 +69,7 @@ public class DataBaseTestController implements MySQLDataProcessAnalyze, CommandL
 //        SQLConverter.createSelectSQL(OmTpsmPubOthEqpOpemngVehicleRegistration.class);
 //        List<String> ss = lazyOperation.executeSQL("select id from user", String.class);
 //        System.out.println(ss);
-//        lazyOperation.activeUpsert(new DataBaseUser().setAge(20));
+//        lazyOperation.smartUpsert(new DataBaseUser().setAge(20));
 //        hc();
 //        Page<DataBaseUser> dataBaseUserPage = new Page<DataBaseUser>(1, 1000);
 //        Page<DataBaseUser> page = lazyOperation.page(dataBaseUserPage, DataBaseUser.class, null);

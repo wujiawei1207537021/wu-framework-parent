@@ -21,6 +21,7 @@ import java.util.List;
 @Component
 public class LazyOperationMethodSelectOne extends AbstractLazyOperationMethod {
 
+
     @Override
     public PersistenceRepository analyzePersistenceRepository(Object param) throws IllegalArgumentException {
         String queryString = "";

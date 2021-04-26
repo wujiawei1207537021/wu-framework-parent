@@ -2,8 +2,7 @@ package com.wu.framework.inner.lazy.database.expand.database.persistence.analyze
 
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.layer.stereotype.LayerField;
-import com.wu.framework.inner.layer.stereotype.analyze.LayerAnalyzeAdapter;
-import com.wu.framework.inner.layer.stereotype.analyze.LayerClassAnalyzeAdapter;
+import com.wu.framework.inner.layer.stereotype.analyze.LayerClassAnalyze;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.UpsertJsonMessage;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.ConvertedField;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.LazyTableAnnotation;
@@ -30,7 +29,7 @@ import java.util.stream.Collectors;
 
 import static com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.EasyAnnotationConverter.annotationConvertConversion;
 
-public interface SQLAnalyze extends LayerClassAnalyzeAdapter {
+public interface SQLAnalyze extends LayerClassAnalyze {
 
     Logger log = LoggerFactory.getLogger(SQLAnalyze.class);
 

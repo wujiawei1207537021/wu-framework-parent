@@ -19,6 +19,7 @@ import java.util.List;
 @Component
 public class LazyOperationMethodExecuteSQL extends AbstractLazyOperationMethod {
 
+
     @Override
     public PersistenceRepository analyzePersistenceRepository(Object param) throws IllegalArgumentException {
         // 第一个参数 SQL

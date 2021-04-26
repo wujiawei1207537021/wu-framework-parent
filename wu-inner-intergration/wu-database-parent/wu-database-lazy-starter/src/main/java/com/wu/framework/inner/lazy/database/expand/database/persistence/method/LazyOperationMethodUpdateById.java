@@ -17,6 +17,7 @@ import java.sql.SQLException;
 @Component
 public class LazyOperationMethodUpdateById extends AbstractLazyOperationMethod {
 
+
     @Override
     public PersistenceRepository analyzePersistenceRepository(Object param) throws IllegalArgumentException {
         String queryString;

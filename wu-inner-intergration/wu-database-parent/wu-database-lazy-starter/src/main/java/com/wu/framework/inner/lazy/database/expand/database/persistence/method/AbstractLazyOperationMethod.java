@@ -3,6 +3,7 @@ package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.layer.data.JavaBasicType;
 import com.wu.framework.inner.layer.stereotype.MethodParamFunction;
+import com.wu.framework.inner.layer.stereotype.analyze.LayerAnalyzeAdapter;
 import com.wu.framework.inner.layer.stereotype.domain.LayerAnalyzeField;
 import com.wu.framework.inner.lazy.database.converter.PreparedStatementSQLConverter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.MySQLDataProcessAnalyze;
@@ -27,6 +28,8 @@ import java.util.stream.Collectors;
 public abstract class AbstractLazyOperationMethod implements LazyOperationMethod, MySQLDataProcessAnalyze {
 
 
+
+
     /**
      * 是否基本数据类型
      *
@@ -44,30 +47,30 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
         }
     }
 
-    /**
-     * description 执行SQL 语句
-     *
-     * @param dataSource 数据源
-     * @param params     代理方法参数
-     * @return
-     * @params
-     * @author Jia wei Wu
-     * @date 2020/11/22 上午11:02
-     */
-    @Override
-    public Object execute(DataSource dataSource, Object[] params) throws Exception {
-        Connection connection = dataSource.getConnection();
-        PersistenceRepository persistenceRepository = analyzePersistenceRepository(params);
-        PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());
-        try {
-            return preparedStatement.execute();
-        } catch (SQLException sqlException) {
-            throw sqlException;
-        } finally {
-            connection.close();
-            preparedStatement.close();
-        }
-    }
+//    /**
+//     * description 执行SQL 语句
+//     *
+//     * @param dataSource 数据源
+//     * @param params     代理方法参数
+//     * @return
+//     * @params
+//     * @author Jia wei Wu
+//     * @date 2020/11/22 上午11:02
+//     */
+//    @Override
+//    public Object execute(DataSource dataSource, Object[] params) throws Exception {
+//        Connection connection = dataSource.getConnection();
+//        PersistenceRepository persistenceRepository = analyzePersistenceRepository(params);
+//        PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());
+//        try {
+//            return preparedStatement.execute();
+//        } catch (SQLException sqlException) {
+//            throw sqlException;
+//        } finally {
+//            connection.close();
+//            preparedStatement.close();
+//        }
+//    }
 
     /**
      * @param dataSource 数据源

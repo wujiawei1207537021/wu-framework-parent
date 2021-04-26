@@ -18,6 +18,7 @@ import java.util.Collection;
 @Component
 public class LazyOperationMethodDeleteByIdList extends AbstractLazyOperationMethod {
 
+
     @Override
     public PersistenceRepository analyzePersistenceRepository(Object param) throws IllegalArgumentException {
         String queryString = "";

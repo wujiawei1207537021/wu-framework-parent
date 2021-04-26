@@ -25,9 +25,9 @@ public class LayerOperationMethodCounts {
      */
     public static final String INSERT = "insert";
     /**
-     * {@link com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation#activeUpsert(Object)}
+     * {@link com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation#smartUpsert(Object)}
      */
-    public static final String ACTIVE_UPSERT = "activeUpsert";
+    public static final String ACTIVE_UPSERT = "smartUpsert";
     /**
      * {@link com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation#updateById(Object)}
      */

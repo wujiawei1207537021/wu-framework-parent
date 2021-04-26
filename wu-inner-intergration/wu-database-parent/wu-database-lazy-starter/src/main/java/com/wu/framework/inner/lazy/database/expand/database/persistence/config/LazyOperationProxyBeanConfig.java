@@ -15,7 +15,6 @@ import java.lang.reflect.Proxy;
 
 public class LazyOperationProxyBeanConfig {
 
-
     /**
      * description 添加懒人数据源配置
      *
@@ -26,7 +25,7 @@ public class LazyOperationProxyBeanConfig {
      * @author 吴佳伟
      * @date 2021/4/23 下午1:54
      */
-//    @ConditionalOnBean(DataSourceProperties.class)
+    @ConditionalOnBean(DataSourceProperties.class)
     @Bean(name = "lazyDataSource")
     public DataSource lazyDataSource(DataSourceProperties dataSourceProperties) {
         MysqlDataSource build = DataSourceBuilder.create().type(MysqlDataSource.class).build();

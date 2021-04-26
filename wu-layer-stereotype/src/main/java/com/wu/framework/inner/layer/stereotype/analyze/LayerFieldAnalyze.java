@@ -1,14 +1,10 @@
 package com.wu.framework.inner.layer.stereotype.analyze;
 
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
-import com.wu.framework.inner.layer.stereotype.Layer;
-import com.wu.framework.inner.layer.stereotype.LayerDefault;
 import com.wu.framework.inner.layer.stereotype.LayerField;
-import lombok.val;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.util.ObjectUtils;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +15,7 @@ import java.util.List;
  * @author Jia wei Wu
  * @date 2021/4/1 下午3:32
  */
-public interface LayerFieldAnalyzeAdapter extends LayerAnalyzeAdapter {
+public interface LayerFieldAnalyze extends LayerAnalyze {
 
 
     default List<AnalyzeField>  analyze(Class clazz) {

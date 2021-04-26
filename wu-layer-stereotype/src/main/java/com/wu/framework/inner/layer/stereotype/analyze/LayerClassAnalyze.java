@@ -13,8 +13,21 @@ import java.lang.annotation.Annotation;
  * @author Jia wei Wu
  * @date 2021/4/1 下午3:32
  */
-public interface LayerClassAnalyzeAdapter extends LayerAnalyzeAdapter {
+public interface LayerClassAnalyze extends LayerAnalyze {
 
+
+    /**
+     * description 是否支持
+     *
+     * @param analyzeParameter@return
+     * @exception/throws
+     * @author 吴佳伟
+     * @date 2021/4/26 4:31 下午
+     */
+    @Override
+    default boolean supportParameter(AnalyzeParameter analyzeParameter) {
+        return AnnotatedElementUtils.getMergedAnnotation(analyzeParameter.getClazz(), LayerClass.class) != null;
+    }
 
     /**
      * description 解析class

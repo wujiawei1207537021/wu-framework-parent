@@ -1,7 +1,7 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.map;
 
-import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.ConvertedField;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.JavaVerification;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.ConvertedField;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.LazyTableAnnotation;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTableField;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
@@ -32,6 +32,10 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBean
      */
     private String uniqueLabel = UUID.randomUUID().toString();
     private List<Object> uniqueFieldList=new ArrayList<>();
+
+
+    // 修改 唯一性标示
+    private boolean modifyUniqueLabel=false;
 
 
     public EasyHashMap() {
@@ -218,11 +222,17 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBean
         return super.put(key, value);
     }
 
+
+    public boolean isModifyUniqueLabel() {
+        return modifyUniqueLabel;
+    }
+
     public String getUniqueLabel() {
         return uniqueLabel;
     }
 
     public void setUniqueLabel(String uniqueLabel) {
+        this.modifyUniqueLabel=true;
         this.uniqueLabel = uniqueLabel;
     }
 

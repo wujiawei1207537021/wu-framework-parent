@@ -4,4 +4,5 @@ com.wu.framework.inner.layer.web.apo.MonitorCurrentMethodAdvisor,\
 com.wu.framework.inner.layer.web.apo.MonitorCurrentMethodAdvisor$MonitorCurrentMethodInterceptor,\
 com.wu.framework.inner.layer.stereotype.proxy.LayerProxyConfig,\
 com.wu.framework.inner.layer.data.apo.NormalConvertMapperAspectPointAspectAOP,\
-com.wu.framework.inner.layer.data.DefaultConvertAdapterService
+com.wu.framework.inner.layer.data.DefaultConvertAdapterService,\
+com.wu.framework.inner.layer.stereotype.analyze.LayerAnalyzeAdapter

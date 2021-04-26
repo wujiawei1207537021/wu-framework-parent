@@ -4,7 +4,6 @@ package com.wu.framework.inner.lazy.hbase.expland.persistence.method;
 import com.wu.framework.inner.layer.stereotype.analyze.AnalyzeField;
 import com.wu.framework.inner.lazy.hbase.expland.persistence.stereotype.HBaseTable;
 import org.apache.hadoop.hbase.TableName;
-import org.apache.hadoop.hbase.client.Admin;
 import org.apache.hadoop.hbase.client.Connection;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Table;
@@ -16,20 +15,20 @@ import org.springframework.util.ReflectionUtils;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe :
+ * @describe : HBaseOperation操作Insert数据到仓库
  * @date : 2021/3/29 7:19 下午
  */
 @Component
-public class HBaseOperationUpsertListMethodAdapter extends HBaseOperationMethodAbstractAdapter {
+public class HBaseOperationInsertListMethod extends HBaseOperationMethodAbstract {
 
 
     @Override
     public Object execute(Connection connection, Object... args) throws Exception {
-
         Object entity = args[0];
 
         Class entityClass;
@@ -38,13 +37,12 @@ public class HBaseOperationUpsertListMethodAdapter extends HBaseOperationMethodA
             entityClass = ((List) entity).get(0).getClass();
             // 处理数据
             HBaseTable hBaseTable = analyzeClass(entityClass);
-            table = connection.getTable(TableName.valueOf(hBaseTable.namespace(),hBaseTable.tableName()));
+            table = connection.getTable(TableName.valueOf(hBaseTable.namespace(), hBaseTable.tableName()));
 
             List<AnalyzeField> analyzeFieldList = analyzeField(entityClass);
-
             List<Put> putList = new ArrayList<>();
             for (Object o : ((List) entity)) {
-                Put put = new Put(Bytes.toBytes(hBaseRow(analyzeFieldList, o)));
+                Put put = new Put(Bytes.toBytes(UUID.randomUUID().toString()));
                 for (AnalyzeField analyzeField : analyzeFieldList) {
                     Field field = ReflectionUtils.findField(entityClass, analyzeField.getFieldName());
                     assert field != null;
@@ -61,11 +59,10 @@ public class HBaseOperationUpsertListMethodAdapter extends HBaseOperationMethodA
             entityClass = entity.getClass();
             // 处理数据
             HBaseTable hBaseTable = analyzeClass(entityClass);
-            table = connection.getTable(TableName.valueOf(hBaseTable.namespace(),hBaseTable.tableName()));
+            table = connection.getTable(TableName.valueOf(hBaseTable.tableName()));
 
             List<AnalyzeField> analyzeFieldList = analyzeField(entityClass);
-
-            Put put = new Put(Bytes.toBytes(hBaseRow(analyzeFieldList, entity)));
+            Put put = new Put(Bytes.toBytes(UUID.randomUUID().toString()));
             for (AnalyzeField analyzeField : analyzeFieldList) {
                 Field field = ReflectionUtils.findField(entityClass, analyzeField.getFieldName());
                 field.setAccessible(true);
@@ -77,6 +74,7 @@ public class HBaseOperationUpsertListMethodAdapter extends HBaseOperationMethodA
         }
         table.close();
         return true;
-
     }
+
+
 }

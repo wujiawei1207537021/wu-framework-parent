@@ -16,7 +16,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Indexed
-@LayerField
 @LazyTableField(indexType = LayerField.LayerFieldType.UNIQUE)
 public @interface LazyTableFieldUnique {
 

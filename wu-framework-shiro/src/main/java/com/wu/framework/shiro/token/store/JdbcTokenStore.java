@@ -230,7 +230,7 @@ public class JdbcTokenStore implements TokenStore {
                     .setClientId(null)
                     .setAuthentication(serializeAuthentication(authentication))
                     .setRefreshToken(extractTokenKey(accessTokenRO.getRefreshToken()));
-            lazyOperation.activeUpsert(accessToken);
+            lazyOperation.smartUpsert(accessToken);
             accessTokenRO.setExpiresIn(shiroProperties.getExpireTime());
         }
         accessTokenRO.setExpiresDate(null);

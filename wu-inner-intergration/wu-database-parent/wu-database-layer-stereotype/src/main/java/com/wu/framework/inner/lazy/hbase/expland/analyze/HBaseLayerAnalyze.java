@@ -4,7 +4,7 @@ import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.layer.stereotype.LayerClass;
 import com.wu.framework.inner.layer.stereotype.LayerField;
 import com.wu.framework.inner.layer.stereotype.analyze.AnalyzeField;
-import com.wu.framework.inner.layer.stereotype.analyze.LayerClassAnalyzeAdapter;
+import com.wu.framework.inner.layer.stereotype.analyze.LayerClassAnalyze;
 import com.wu.framework.inner.lazy.hbase.expland.persistence.stereotype.HBaseTable;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.util.ObjectUtils;
@@ -20,7 +20,7 @@ import java.util.List;
  * @describe :
  * @date : 2021/4/8 7:07 下午
  */
-public class HBaseLayerAnalyzeAdapter<P> implements LayerClassAnalyzeAdapter{
+public class HBaseLayerAnalyze<P> implements LayerClassAnalyze {
 
 
 

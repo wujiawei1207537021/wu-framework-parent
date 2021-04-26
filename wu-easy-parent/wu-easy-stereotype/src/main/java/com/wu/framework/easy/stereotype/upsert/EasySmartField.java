@@ -6,19 +6,17 @@ import com.wu.framework.inner.layer.stereotype.LayerField;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTableField;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Indexed;
 
-import java.io.File;
-import java.io.InputStream;
 import java.lang.annotation.*;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
-import java.util.function.Function;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -40,10 +38,10 @@ public @interface EasySmartField {
      * 删除原因 多个容易模糊啊
      */
     @Deprecated
-    @AliasFor(attribute = "name",annotation = LayerField.class)
+    @AliasFor(attribute = "name", annotation = LayerField.class)
     String value() default "";
 
-    @AliasFor(attribute = "name",annotation = LayerField.class)
+    @AliasFor(attribute = "name", annotation = LayerField.class)
     String name() default "";
 
     /**
@@ -83,13 +81,13 @@ public @interface EasySmartField {
     /**
      * 数据为空的时候使用字段默认值
      */
-    @AliasFor(annotation = LazyTableField.class,attribute = "fieldDefaultValue")
+    @AliasFor(annotation = LazyTableField.class, attribute = "fieldDefaultValue")
     String fieldDefaultValue() default "";
 
     /**
      * 转换指定类型的枚举 DefaultIEnum 不转换  转换失败默认是-1
      */
-    @AliasFor(annotation = LazyTableField.class,attribute = "iEnum")
+    @AliasFor(annotation = LazyTableField.class, attribute = "iEnum")
     Class<? extends IEnum> iEnum() default DefaultIEnum.class;
 
     /**
@@ -111,15 +109,14 @@ public @interface EasySmartField {
      *
      * @return
      */
-    String convert() default  "";
+    String convert() default "";
 
 
     /**
      * 字段索引类型(数据库)
      */
-    @AliasFor(attribute = "indexType",annotation =LayerField.class )
+    @AliasFor(attribute = "indexType", annotation = LayerField.class)
     LayerField.LayerFieldType indexType() default LayerField.LayerFieldType.FILE_TYPE;
-
 
 
     @AllArgsConstructor

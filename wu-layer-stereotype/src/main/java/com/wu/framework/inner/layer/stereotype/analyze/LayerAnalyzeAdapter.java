@@ -1,12 +1,38 @@
 package com.wu.framework.inner.layer.stereotype.analyze;
 
-/**
- * description layer 解析适配器
- *
- * @author Jia wei Wu
- * @date 2021/4/1 下午3:32
- */
-public interface LayerAnalyzeAdapter<A> {
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
-    <A> A analyze(Class clazz);
+/**
+ * description 解析适配器 选举
+ *
+ * @author 吴佳伟
+ * @date 2021/4/26 4:32 下午
+ */
+public class LayerAnalyzeAdapter {
+    private final List<LayerAnalyze> layerAnalyzeList;
+
+    private ConcurrentHashMap<AnalyzeParameter, LayerAnalyze> concurrentHashMap = new ConcurrentHashMap();
+
+    public LayerAnalyzeAdapter(List<LayerAnalyze> layerAnalyzeList) {
+        this.layerAnalyzeList = layerAnalyzeList;
+    }
+
+
+    boolean supportsParameter(AnalyzeParameter analyzeParameter) {
+        return true;
+    }
+
+
+    <A> A resolveLayerAnalyze(AnalyzeParameter analyzeParameter) {
+        if (!concurrentHashMap.containsKey(analyzeParameter)) {
+            layerAnalyzeList.forEach(layerAnalyze -> {
+                if (layerAnalyze.supportParameter(analyzeParameter)) {
+                    concurrentHashMap.put(analyzeParameter, layerAnalyze);
+                }
+            });
+        }
+        concurrentHashMap.get(analyzeParameter);
+        return null;
+    }
 }

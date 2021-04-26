@@ -1,5 +1,10 @@
 package com.wu.framework.shiro.config;
 
+import com.wu.framework.shiro.config.pro.ShiroProperties;
+import com.wu.framework.shiro.domain.LoginUserBO;
+import com.wu.framework.shiro.login.UserDetailsService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -15,9 +20,15 @@ import org.springframework.web.filter.CorsFilter;
  * @ UpdateRemark  :  修改内容
  * @ Version       :  1.0
  */
+@Slf4j
+public class ShiroCORSConfiguration implements InitializingBean {
 
-@Configuration
-public class CustomCORSConfiguration {
+
+    public ShiroCORSConfiguration(UserDetailsService userDetailsService, ShiroProperties shiroProperties) {
+        this.userDetailsService = userDetailsService;
+        this.shiroProperties = shiroProperties;
+    }
+
     private CorsConfiguration buildConfig() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.addAllowedHeader("*"); // 允许任何的head头部
@@ -33,6 +44,18 @@ public class CustomCORSConfiguration {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", buildConfig());
         return new CorsFilter(source);
+    }
+
+
+    private final UserDetailsService userDetailsService;
+    private final ShiroProperties shiroProperties;
+
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        // 初始化账号
+        log.info("初始化账号: {}/{} ",shiroProperties.getUserName(),shiroProperties.getPassword());
+        userDetailsService.createUser(new LoginUserBO().setUsername(shiroProperties.getUserName()).setPassword(shiroProperties.getPassword()));
     }
 }
 

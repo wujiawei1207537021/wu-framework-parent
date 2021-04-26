@@ -67,6 +67,15 @@ public class LazyOperationMethodInsert extends AbstractLazyOperationMethod imple
         return params.length;
     }
 
+    /**
+     * @param dataSource 数据源
+     * @param param      单个对象或是单条记录
+     * @return
+     * @describe 精准执行
+     * @exception/throws
+     * @author 吴佳伟
+     * @date 2021/4/26 5:12 下午
+     */
     @Override
     public Object accurateExecution(DataSource dataSource, Object param) throws Exception {
         PersistenceRepository persistenceRepository = analyzePersistenceRepository(param);

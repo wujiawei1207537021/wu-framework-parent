@@ -38,7 +38,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
     public void createUser(LoginUserBO loginUserBO) {
         String md5Password = DigestUtils.md5DigestAsHex(loginUserBO.getPassword().getBytes());
         loginUserBO.setPassword(md5Password);
-        lazyOperation.activeUpsert(loginUserBO);
+        lazyOperation.smartUpsert(loginUserBO);
     }
 
     @Override

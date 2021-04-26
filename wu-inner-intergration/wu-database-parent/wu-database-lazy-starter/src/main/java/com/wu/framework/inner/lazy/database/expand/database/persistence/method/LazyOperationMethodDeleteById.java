@@ -15,6 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Component
 public class LazyOperationMethodDeleteById extends AbstractLazyOperationMethod {
 
+
     @Override
     public PersistenceRepository analyzePersistenceRepository(Object param) throws IllegalArgumentException {
         String queryString = "";

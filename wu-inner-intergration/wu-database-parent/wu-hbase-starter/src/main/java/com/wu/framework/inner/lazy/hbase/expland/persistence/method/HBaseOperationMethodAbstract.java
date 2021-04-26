@@ -2,7 +2,7 @@ package com.wu.framework.inner.lazy.hbase.expland.persistence.method;
 
 import com.wu.framework.inner.layer.stereotype.LayerField;
 import com.wu.framework.inner.layer.stereotype.analyze.AnalyzeField;
-import com.wu.framework.inner.lazy.hbase.expland.analyze.HBaseLayerAnalyzeAdapter;
+import com.wu.framework.inner.lazy.hbase.expland.analyze.HBaseLayerAnalyze;
 import com.wu.framework.inner.lazy.hbase.expland.persistence.stereotype.HBaseTable;
 import org.apache.hadoop.hbase.NamespaceDescriptor;
 import org.apache.hadoop.hbase.TableName;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  * @describe :
  * @date : 2021/3/28 10:12 下午
  */
-public abstract class HBaseOperationMethodAbstractAdapter extends HBaseLayerAnalyzeAdapter implements HBaseOperationMethodAdapter<HBaseOperationMethodAdapter.HBaseExecuteParams> {
+public abstract class HBaseOperationMethodAbstract extends HBaseLayerAnalyze implements HBaseOperationMethodAdapter<HBaseOperationMethodAdapter.HBaseExecuteParams> {
 
 
     /**
