@@ -21,7 +21,7 @@ import java.util.Map;
  * @date : 2021/1/3 8:48 下午
  */
 @EasyController("/api/socket")
-public class WebsocketController {
+public class WebSocketController {
     //页面请求
     @GetMapping("/index/{userId}")
     public ModelAndView socket(@PathVariable String userId) {
