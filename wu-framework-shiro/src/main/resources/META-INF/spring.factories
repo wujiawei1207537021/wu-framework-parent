@@ -13,5 +13,4 @@ com.wu.framework.shiro.web.interceptors.AccessPermissionInterceptor,\
 com.wu.framework.shiro.web.interceptors.SessionPermissionInterceptor,\
 com.wu.framework.shiro.web.interceptors.RemoveAccessTokenInterceptor,\
 com.wu.framework.shiro.web.methodresolver.AccessTokenUserMethodArgumentResolver,\
-com.wu.framework.shiro.web.ShiroWebMvcConfigurer,\
-com.wu.framework.shiro.config.ShiroCORSConfiguration
+com.wu.framework.shiro.web.ShiroWebMvcConfigurer
