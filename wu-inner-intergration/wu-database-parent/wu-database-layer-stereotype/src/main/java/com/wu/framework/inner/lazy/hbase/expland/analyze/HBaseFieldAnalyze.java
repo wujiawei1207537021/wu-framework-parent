@@ -1,7 +1,10 @@
-package com.wu.framework.inner.layer.stereotype.analyze;
+package com.wu.framework.inner.lazy.hbase.expland.analyze;
 
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.layer.stereotype.LayerField;
+import com.wu.framework.inner.layer.stereotype.analyze.AnalyzeField;
+import com.wu.framework.inner.layer.stereotype.analyze.AnalyzeParameter;
+import com.wu.framework.inner.layer.stereotype.analyze.LayerAnalyze;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.util.ObjectUtils;
 
@@ -10,12 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * description layer 解析适配器
- *
- * @author Jia wei Wu
- * @date 2021/4/1 下午3:32
+ * @author : Jia wei Wu
+ * @version 1.0
+ * @describe : Hbase 字段解析
+ * @date : 2021/4/8 7:07 下午
  */
-public class LayerFieldAnalyze implements LayerAnalyze {
+public class HBaseFieldAnalyze implements LayerAnalyze {
 
 
     /**
@@ -31,7 +34,17 @@ public class LayerFieldAnalyze implements LayerAnalyze {
         return true;
     }
 
-    public List<AnalyzeField> analyze(AnalyzeParameter analyzeParameter) {
+    /**
+     * description  supportParameter 结果返回为true 时解析数据为指定类型的数据
+     * 解析字段
+     *
+     * @param analyzeParameter@return
+     * @exception/throws
+     * @author 吴佳伟
+     * @date 2021/4/27 3:05 下午
+     */
+    @Override
+    public Object analyze(AnalyzeParameter analyzeParameter) {
         List<AnalyzeField> analyzeFieldList = new ArrayList<>();
         for (Field field : analyzeParameter.getClazz().getDeclaredFields()) {
             LayerField layerField = AnnotatedElementUtils.findMergedAnnotation(field, LayerField.class);
@@ -45,5 +58,4 @@ public class LayerFieldAnalyze implements LayerAnalyze {
         }
         return analyzeFieldList;
     }
-
 }

@@ -10,6 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @date 2021/4/26 4:32 下午
  */
 public class LayerAnalyzeAdapter {
+
     private final List<LayerAnalyze> layerAnalyzeList;
 
     private ConcurrentHashMap<AnalyzeParameter, LayerAnalyze> concurrentHashMap = new ConcurrentHashMap();
@@ -24,15 +25,12 @@ public class LayerAnalyzeAdapter {
     }
 
 
-    <A> A resolveLayerAnalyze(AnalyzeParameter analyzeParameter) {
-        if (!concurrentHashMap.containsKey(analyzeParameter)) {
-            layerAnalyzeList.forEach(layerAnalyze -> {
-                if (layerAnalyze.supportParameter(analyzeParameter)) {
-                    concurrentHashMap.put(analyzeParameter, layerAnalyze);
-                }
-            });
-        }
-        concurrentHashMap.get(analyzeParameter);
-        return null;
+    Object  resolveLayerAnalyze(AnalyzeParameter analyzeParameter) {
+        if (!concurrentHashMap.containsKey(analyzeParameter)) layerAnalyzeList.forEach(layerAnalyze -> {
+            if (layerAnalyze.supportParameter(analyzeParameter)) {
+                concurrentHashMap.put(analyzeParameter, layerAnalyze);
+            }
+        });
+        return concurrentHashMap.get(analyzeParameter).analyze(analyzeParameter);
     }
 }

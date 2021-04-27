@@ -33,13 +33,14 @@ public interface LayerClassAnalyze extends LayerAnalyze {
      * description 解析class
      *
      * @param
+     * @param analyzeParameter
      * @return
      * @exception/throws
      * @author Jia wei Wu
      * @date 2021/4/7 下午1:47
      */
-    default LayerClass analyze(Class clazz) {
-        LayerClass mergedAnnotation = AnnotatedElementUtils.findMergedAnnotation(clazz, LayerClass.class);
+    default LayerClass analyze(AnalyzeParameter analyzeParameter) {
+        LayerClass mergedAnnotation = AnnotatedElementUtils.findMergedAnnotation(analyzeParameter.getClazz(), LayerClass.class);
         if (ObjectUtils.isEmpty(mergedAnnotation)|| ObjectUtils.isEmpty(mergedAnnotation.name())) {
             mergedAnnotation = new LayerClass() {
 
@@ -60,7 +61,7 @@ public interface LayerClassAnalyze extends LayerAnalyze {
                  */
                 @Override
                 public String name() {
-                    return CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
+                    return CamelAndUnderLineConverter.humpToLine2(analyzeParameter.getClazz().getSimpleName());
                 }
             };
         }

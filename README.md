@@ -23,4 +23,6 @@ export GPG_TTY=$(tty)
         3.重构upsert 策略
         4.适配HBase 数据库操作
         5.添加记忆芯片功能(仿生)
-   
+### 1.0.5 
+    使用spring-boot 2.4.5
+    

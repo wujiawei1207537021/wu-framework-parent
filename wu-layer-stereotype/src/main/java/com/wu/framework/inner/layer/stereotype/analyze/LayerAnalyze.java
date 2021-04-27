@@ -17,10 +17,16 @@ public interface LayerAnalyze<A> {
      * @author 吴佳伟
      * @date 2021/4/26 4:31 下午
      */
-    default boolean supportParameter(AnalyzeParameter analyzeParameter) {
-        return false;
-    }
+     boolean supportParameter(AnalyzeParameter analyzeParameter);
 
 
-    <A> A analyze(Class clazz);
+     /**
+      * description  supportParameter 结果返回为true 时解析数据为指定类型的数据
+      * @param
+      * @return
+      * @exception/throws
+      * @author 吴佳伟
+      * @date 2021/4/27 3:05 下午
+      */
+    <A> A analyze(AnalyzeParameter analyzeParameter);
 }

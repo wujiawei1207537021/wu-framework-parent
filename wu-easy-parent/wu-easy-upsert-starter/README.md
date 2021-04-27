@@ -18,8 +18,8 @@
 
 ### MYSQL 数据源 com.zaxxer.hikari.HikariDataSource &com.baomidou.dynamic.datasource.DynamicRoutingDataSource
 
-### log
-
-    com.supconit.its.eslog.util.DataAccessLogHelper,\
-    com.supconit.its.eslog.producer.ElasticLogProducer,\
-    com.supconit.its.eslog.config.LogKafkaConfig,\
+### 1.0.5
+    功能
+    1.新增HBase数据源
+    2.新增redis数据源
+    3.架构调整支持layer层的概念

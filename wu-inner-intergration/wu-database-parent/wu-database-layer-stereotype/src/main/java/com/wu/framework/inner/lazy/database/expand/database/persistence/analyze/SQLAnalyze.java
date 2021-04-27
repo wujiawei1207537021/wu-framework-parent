@@ -2,6 +2,7 @@ package com.wu.framework.inner.lazy.database.expand.database.persistence.analyze
 
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.layer.stereotype.LayerField;
+import com.wu.framework.inner.layer.stereotype.analyze.AnalyzeParameter;
 import com.wu.framework.inner.layer.stereotype.analyze.LayerClassAnalyze;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.UpsertJsonMessage;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.ConvertedField;
@@ -518,7 +519,7 @@ public interface SQLAnalyze extends LayerClassAnalyze {
         if (!CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.containsKey(clazz)) {
             LazyTable lazyTable = AnnotatedElementUtils.findMergedAnnotation(clazz, LazyTable.class);
             String className = clazz.getName();
-            String tableName = analyze(clazz).name();
+            String tableName = analyze(AnalyzeParameter.create().setClazz(clazz)).name();
             String comment = "";
             boolean smartFillField = false;
             LazyTableAnnotation lazyTableAnnotation = new LazyTableAnnotation();

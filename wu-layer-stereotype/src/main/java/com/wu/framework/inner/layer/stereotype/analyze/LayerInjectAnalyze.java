@@ -8,9 +8,9 @@ import java.lang.annotation.Annotation;
  * @author Jia wei Wu
  * @date 2021/4/1 下午3:32
  */
-public class LayerInjectAnalyze implements LayerAnalyze {
+public class LayerInjectAnalyze  {
 
-    public Annotation analyze(Class clazz) {
+    public Annotation analyze(AnalyzeParameter analyzeParameter) {
         return null;
     }
 }

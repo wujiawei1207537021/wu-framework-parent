@@ -2,6 +2,7 @@ package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.layer.data.NormalUsedString;
+import com.wu.framework.inner.layer.stereotype.analyze.AnalyzeParameter;
 import com.wu.framework.inner.layer.stereotype.analyze.LayerAnalyzeAdapter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.Persistence;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
@@ -82,7 +83,7 @@ public class LazyOperationMethodSmartUpsert extends AbstractLazyOperationMethod 
         // 列对应值
         List<String> columnValueList = new ArrayList<>();
         // 表名
-        String tableName = analyze(object.getClass()).name();
+        String tableName = analyze(AnalyzeParameter.create().setClazz(object.getClass())).name();
 
         // 二进制数据
         List<InputStream> binaryList = new ArrayList<>();

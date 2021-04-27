@@ -4,6 +4,7 @@ import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.layer.stereotype.LayerClass;
 import com.wu.framework.inner.layer.stereotype.LayerField;
 import com.wu.framework.inner.layer.stereotype.analyze.AnalyzeField;
+import com.wu.framework.inner.layer.stereotype.analyze.AnalyzeParameter;
 import com.wu.framework.inner.layer.stereotype.analyze.LayerClassAnalyze;
 import com.wu.framework.inner.lazy.hbase.expland.persistence.stereotype.HBaseTable;
 import org.springframework.core.annotation.AnnotatedElementUtils;
@@ -59,7 +60,7 @@ public class HBaseLayerAnalyze<P> implements LayerClassAnalyze {
      */
     public HBaseTable analyzeClass(Class clazz) {
         HBaseTable mergedAnnotation = AnnotatedElementUtils.findMergedAnnotation(clazz, HBaseTable.class);
-        LayerClass layerClass = analyze(clazz);
+        LayerClass layerClass = analyze(AnalyzeParameter.create().setClazz(clazz));
         return new HBaseTable() {
 
             /**
