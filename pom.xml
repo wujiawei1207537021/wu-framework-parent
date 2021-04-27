@@ -8,23 +8,23 @@
 
     <groupId>top.wu2020</groupId>
     <artifactId>wu-framework-parent</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
     <packaging>pom</packaging>
     <description>系统框架</description>
     <name>wu-framework-parent</name>
-    <url>https://github.com/wujiawei1207537021/wu-framework-parent</url>
+    <url>https://gitee.com/wujiawei1207537021/wu-framework-parent</url>
 
     <!-->开发者的信息<-->
     <developers>
         <developer>
-            <name>jiaweiWu</name>
+            <name>Jia Wei Wu</name>
             <email>1207537021@qq.com</email>
         </developer>
     </developers>
 
     <!-->项目的版本管理地址<-->
     <scm>
-        <url>https://github.com/wujiawei1207537021/wu-framework-parent</url>
+        <url>https://gitee.com/wujiawei1207537021/wu-framework-parent</url>
     </scm>
 
     <licenses>
@@ -64,7 +64,7 @@
         <wu-hbase-starter.version>${project.version}</wu-hbase-starter.version>
         <wu-elasticsearch-starter.version>${project.version}</wu-elasticsearch-starter.version>
 
-        <spring-boot-starter.version>2.4.4</spring-boot-starter.version>
+        <spring-boot-starter.version>2.4.5</spring-boot-starter.version>
     </properties>
 
     <modules>
