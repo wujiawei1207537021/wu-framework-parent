@@ -46,11 +46,12 @@ public class LazyOperationController implements CommandLineRunner {
         final String s = easyHashMap.toEasyTableAnnotation(false).creatTableSQL();
 //        lazyOperation.upsert(easyHashMap, Arrays.asList(easyHashMap));
 
-//        test();
+        test();
 
     }
 
     public void test() throws Exception {
+        smartUpsert();
         upsert();
         insert();
         update();
@@ -59,6 +60,32 @@ public class LazyOperationController implements CommandLineRunner {
         page();
         scroll();
     }
+
+    /**
+     * description 灵性添加
+     * @param
+     * @return
+     * @exception/throws
+     * @author 吴佳伟
+     * @date 2021/4/27 3:55 下午
+     */
+    public void smartUpsert() {
+        long s = System.currentTimeMillis();
+        List<DataBaseUser> dataBaseUserList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            DataBaseUser dataBaseUser = new DataBaseUser();
+            dataBaseUser.setAddress("address");
+            dataBaseUser.setBirthday(LocalDateTime.now().toString());
+//            dataBaseUser.setId(12);
+            dataBaseUser.setSex("woman");
+            dataBaseUser.setUsername("methodName" + i);
+            dataBaseUserList.add(dataBaseUser);
+        }
+        lazyOperation.smartUpsert(dataBaseUserList.get(0),dataBaseUserList.get(2),dataBaseUserList.get(3));
+        long e = System.currentTimeMillis();
+        System.out.println("共计用时：" + (e - s) + "ms");
+    }
+
 
     /**
      * 更新或者插入

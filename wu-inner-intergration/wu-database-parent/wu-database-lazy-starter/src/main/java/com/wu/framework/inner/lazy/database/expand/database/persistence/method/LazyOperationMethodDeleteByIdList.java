@@ -44,11 +44,11 @@ public class LazyOperationMethodDeleteByIdList extends AbstractLazyOperationMeth
      * @author Jia wei Wu
      * @date 2020/11/22 上午11:02
      *@param dataSource
-     * @param params  */
+     * @param sourceParams  */
     @Override
-    public Object execute(DataSource dataSource, Object[] params) throws SQLException {
+    public Object execute(DataSource dataSource, Object[] sourceParams) throws SQLException {
         Connection connection = dataSource.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(analyzePersistenceRepository(params[0]).getQueryString());
+        PreparedStatement preparedStatement = connection.prepareStatement(analyzePersistenceRepository(sourceParams[0]).getQueryString());
         try {
             return preparedStatement.executeBatch();
         } catch (SQLException sqlException) {

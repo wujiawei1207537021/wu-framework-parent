@@ -40,11 +40,11 @@ public class LazyOperationMethodExecuteSQL extends AbstractLazyOperationMethod {
      * @author Jia wei Wu
      * @date 2020/11/22 上午11:02
      *@param dataSource
-     * @param params  */
+     * @param sourceParams  */
     @Override
-    public Object execute(DataSource dataSource, Object[] params) throws SQLException {
+    public Object execute(DataSource dataSource, Object[] sourceParams) throws SQLException {
         Connection connection = dataSource.getConnection();
-        PersistenceRepository persistenceRepository = analyzePersistenceRepository(params);
+        PersistenceRepository persistenceRepository = analyzePersistenceRepository(sourceParams);
         PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());
         try {
             ResultSet resultSet = preparedStatement.executeQuery();

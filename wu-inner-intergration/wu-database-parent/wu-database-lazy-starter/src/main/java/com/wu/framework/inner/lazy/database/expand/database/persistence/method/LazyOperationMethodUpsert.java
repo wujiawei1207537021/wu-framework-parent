@@ -46,15 +46,15 @@ public class LazyOperationMethodUpsert extends AbstractLazyOperationMethod imple
      * description 执行SQL 语句
      *
      * @param dataSource
-     * @param params
+     * @param sourceParams
      * @return
      * @params
      * @author Jia wei Wu
      * @date 2020/11/22 上午11:02
      */
     @Override
-    public Object execute(DataSource dataSource, Object[] params) throws Exception {
-        Object param = params[0];
+    public Object execute(DataSource dataSource, Object[] sourceParams) throws Exception {
+        Object param = sourceParams[0];
         if (param instanceof Object[]) {
             Object[] upsertList = (Object[]) param;
             for (Object upsert : upsertList) {
@@ -63,7 +63,7 @@ public class LazyOperationMethodUpsert extends AbstractLazyOperationMethod imple
         } else {
             accurateExecution(dataSource, param);
         }
-        return params.length;
+        return sourceParams.length;
     }
 
     /**

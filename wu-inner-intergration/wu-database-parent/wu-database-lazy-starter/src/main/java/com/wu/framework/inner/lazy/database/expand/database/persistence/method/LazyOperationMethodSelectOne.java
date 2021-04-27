@@ -36,10 +36,10 @@ public class LazyOperationMethodSelectOne extends AbstractLazyOperationMethod {
     }
 
     @Override
-    public Object execute(DataSource dataSource, Object[] params) throws SQLException {
+    public Object execute(DataSource dataSource, Object[] sourceParams) throws SQLException {
 
         Connection connection = dataSource.getConnection();
-        PersistenceRepository persistenceRepository = analyzePersistenceRepository(params[0]);
+        PersistenceRepository persistenceRepository = analyzePersistenceRepository(sourceParams[0]);
         PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());
         try {
             ResultSet resultSet = preparedStatement.executeQuery();

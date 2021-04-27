@@ -23,6 +23,7 @@ public interface LazyBaseOperation {
      */
     @ProxyStrategicApproach(proxyClass = LazyOperationMethodUpsert.class)
     <T> void upsert(Object... objects);
+
     /**
      * 插入 单个/list
      *
@@ -34,9 +35,10 @@ public interface LazyBaseOperation {
 
     /**
      * 更新或者插入单个 去除空值、对比表
+     * 多个数据性能会慢，不经常使用
      */
     @ProxyStrategicApproach(proxyClass = LazyOperationMethodSmartUpsert.class)
-    <T> void smartUpsert(T t);
+    void smartUpsert(Object... t);
 
     /**
      * 根据ID更新

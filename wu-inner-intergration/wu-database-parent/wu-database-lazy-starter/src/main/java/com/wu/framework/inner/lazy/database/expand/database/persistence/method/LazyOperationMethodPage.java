@@ -54,16 +54,16 @@ public class LazyOperationMethodPage extends AbstractLazyOperationMethod {
      * description 执行SQL 语句
      *
      * @param dataSource
-     * @param params
+     * @param sourceParams
      * @return
      * @params
      * @author Jia wei Wu
      * @date 2020/11/22 上午11:02
      */
     @Override
-    public Object execute(DataSource dataSource, Object[] params) throws SQLException {
+    public Object execute(DataSource dataSource, Object[] sourceParams) throws SQLException {
         Statement statement = null;
-        PersistenceRepository persistenceRepository = analyzePersistenceRepository(params);
+        PersistenceRepository persistenceRepository = analyzePersistenceRepository(sourceParams);
         Connection connection = dataSource.getConnection();
         try {
             count(connection);

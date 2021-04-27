@@ -1,6 +1,7 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.proxy;
 
 import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.method.LazyOperationMethod;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -42,7 +43,7 @@ public class LazyOperationProxy implements InvocationHandler, InitializingBean {
                 throw exception;
             }
         } else {
-            return method.invoke(this, args);
+            return method.invoke(null, args);
         }
     }
 

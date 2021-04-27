@@ -92,7 +92,7 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
      * @param dataSource          数据源
      * @param methodParamFunction 返回数据中含有 PreparedStatement
      * @param param               参数
-     * @return
+     * @return   执行结果
      * @describe 执行函数
      * @author Jia wei Wu
      * @date 2021/4/18 10:46 上午
@@ -112,6 +112,15 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
     }
 
 
+    /**
+     * description 结果集转换器
+     * @param resultSet 结果集
+     * @param resultType  返回结果类型字符串
+     * @return
+     * @exception/throws
+     * @author 吴佳伟
+     * @date 2021/4/27 4:02 下午
+     */
     public <E> List<E> resultSetConverter(ResultSet resultSet, String resultType) {
         Class domainClass = null;
         try {
@@ -122,6 +131,15 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
         return resultSetConverter(resultSet, domainClass);
     }
 
+    /**
+     * description 结果集转换器
+     * @param resultSet 结果集
+     * @param domainClass  返回结果类型
+     * @return
+     * @exception/throws
+     * @author 吴佳伟
+     * @date 2021/4/27 4:02 下午
+     */
     public <E> List<E> resultSetConverter(ResultSet resultSet, Class<E> domainClass) {
         try {
             //封装结果集

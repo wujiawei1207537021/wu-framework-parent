@@ -31,14 +31,14 @@ public interface LazyOperationMethod {
      * description 执行SQL 语句
      *
      * @param dataSource
-     * @param params
+     * @param sourceParams
      * @return
      * @params
      * @author Jia wei Wu
      * @date 2020/11/22 上午11:02
      */
-    default Object execute(DataSource dataSource, Object[] params) throws Exception {
-        for (Object param : params) {
+    default Object execute(DataSource dataSource, Object[] sourceParams) throws Exception {
+        for (Object param : sourceParams) {
             Connection connection = dataSource.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(analyzePersistenceRepository(param).getQueryString());
             try {

@@ -34,16 +34,16 @@ public class LazyOperationMethodUpdateById extends AbstractLazyOperationMethod {
      * description 执行SQL 语句
      *
      * @param dataSource
-     * @param params
+     * @param sourceParams
      * @return
      * @params
      * @author Jia wei Wu
      * @date 2020/11/22 上午11:02
      */
     @Override
-    public Object execute(DataSource dataSource, Object[] params) throws SQLException {
+    public Object execute(DataSource dataSource, Object[] sourceParams) throws SQLException {
         int updateRw = 0;
-        for (Object param : params) {
+        for (Object param : sourceParams) {
             Connection connection = dataSource.getConnection();
             PersistenceRepository persistenceRepository = analyzePersistenceRepository(param);
             PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());
