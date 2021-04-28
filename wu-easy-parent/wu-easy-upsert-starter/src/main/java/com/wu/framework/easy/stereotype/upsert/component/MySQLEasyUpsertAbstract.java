@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * description MySQL数据插入
@@ -48,23 +49,25 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, MySQLDataP
     @Override
     public <T> Object upsert(List<T> list) throws Exception {
         DataSource dataSource = determineDataSource();
-        String threadName = Thread.currentThread().getName();
         Integer total = (list.size() + upsertConfig.getBatchLimit() - 1) / upsertConfig.getBatchLimit();
         log.info("计划处理步骤 【{}】 步", total);
         List<List<T>> splitList = splitList(list, upsertConfig.getBatchLimit());
-        int stepCount = 1;
-        for (List<T> ts : splitList) {
+        AtomicInteger stepCount = new AtomicInteger(1);
+        splitList.stream().parallel().forEach(ts -> {
+            stepCount.getAndIncrement();
             log.info("处理步骤第 【{}】 步 ,总步数 【{}】", stepCount, total);
-            execute(threadName, dataSource, ts);
-            stepCount++;
-        }
+            try {
+                execute(dataSource, ts);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         log.info("分步操作完成✅");
         return true;
     }
 
-    protected <T> Object execute(String threadName, DataSource dataSource, List<T> list) throws Exception {
+    protected <T> Object execute(DataSource dataSource, List<T> list) throws Exception {
         Future task = easyUpsertExecutor.submit((Callable) () -> {
-            Thread.currentThread().setName(threadName);
             // 第一个参数 clazz
 //            ParameterizedType parameterizedType = (ParameterizedType) list.getClass().getGenericSuperclass();
             Class clazz = list.get(0).getClass();

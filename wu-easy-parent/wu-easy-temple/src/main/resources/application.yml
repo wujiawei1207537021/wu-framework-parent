@@ -23,7 +23,7 @@ spring:
   easy:
     upsert:
       config:
-        print-sql: true
+        print-sql: false
         batch-limit: 10000
         record-log: true
   hbase:

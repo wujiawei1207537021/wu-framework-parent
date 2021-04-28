@@ -46,9 +46,7 @@ public class KafkaEasyUpsert implements IEasyUpsert {
 
     @Override
     public <T> Object upsert(List<T> list) throws Exception {
-        String threadName = Thread.currentThread().getName();
         Future task = easyUpsertExecutor.submit(() -> {
-            Thread.currentThread().setName(threadName);
             Class clazz = list.get(0).getClass();
             // 模块名称+业务+表名
             EasySmart lazyTableAnnotation =

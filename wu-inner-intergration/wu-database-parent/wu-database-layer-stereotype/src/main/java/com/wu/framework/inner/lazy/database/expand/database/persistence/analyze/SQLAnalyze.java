@@ -26,6 +26,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.stream.Collectors;
 
 import static com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.EasyAnnotationConverter.annotationConvertConversion;
@@ -505,7 +506,8 @@ public interface SQLAnalyze extends LayerClassAnalyze {
     }
 
 
-    Map<Class, LazyTableAnnotation> CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP = new ConcurrentHashMap<>();
+    // 防止多线程并发
+    ConcurrentMap<Class, LazyTableAnnotation> CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP = new ConcurrentHashMap<>();
 
 
     /**
@@ -517,25 +519,27 @@ public interface SQLAnalyze extends LayerClassAnalyze {
      **/
     default LazyTableAnnotation classLazyTableAnalyze(Class clazz) {
         if (!CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.containsKey(clazz)) {
-            LazyTable lazyTable = AnnotatedElementUtils.findMergedAnnotation(clazz, LazyTable.class);
-            String className = clazz.getName();
-            String tableName = analyze(AnalyzeParameter.create().setClazz(clazz)).name();
-            String comment = "";
-            boolean smartFillField = false;
-            LazyTableAnnotation lazyTableAnnotation = new LazyTableAnnotation();
-            if (null != lazyTable) {
-                lazyTableAnnotation.setSchema(lazyTable.schema());
-                smartFillField = lazyTable.smartFillField();
+            synchronized (CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP){
+                LazyTable lazyTable = AnnotatedElementUtils.findMergedAnnotation(clazz, LazyTable.class);
+                String className = clazz.getName();
+                String tableName = analyze(AnalyzeParameter.create().setClazz(clazz)).name();
+                String comment = "";
+                boolean smartFillField = false;
+                LazyTableAnnotation lazyTableAnnotation = new LazyTableAnnotation();
+                if (null != lazyTable) {
+                    lazyTableAnnotation.setSchema(lazyTable.schema());
+                    smartFillField = lazyTable.smartFillField();
+                }
+                lazyTableAnnotation.setComment(comment);
+                lazyTableAnnotation.setClassName(className);
+                lazyTableAnnotation.setClazz(clazz);
+                lazyTableAnnotation.setTableName(tableName);
+                lazyTableAnnotation.setConvertedFieldList(fieldNamesOnAnnotation(clazz, null));
+                lazyTableAnnotation.setSmartFillField(smartFillField);
+                log.info("Initialize {} annotation parameters  className:[{}],tableName:[{}],comment:[{}]", clazz,
+                        className, tableName, comment);
+                CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.put(clazz, lazyTableAnnotation);
             }
-            lazyTableAnnotation.setComment(comment);
-            lazyTableAnnotation.setClassName(className);
-            lazyTableAnnotation.setClazz(clazz);
-            lazyTableAnnotation.setTableName(tableName);
-            lazyTableAnnotation.setConvertedFieldList(fieldNamesOnAnnotation(clazz, null));
-            lazyTableAnnotation.setSmartFillField(smartFillField);
-            log.info("Initialize {} annotation parameters  className:[{}],tableName:[{}],comment:[{}]", clazz,
-                    className, tableName, comment);
-            CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.put(clazz, lazyTableAnnotation);
         }
         return CLASS_CUSTOM_TABLE_ANNOTATION_ATTR_MAP.get(clazz);
     }

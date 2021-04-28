@@ -50,10 +50,9 @@ public class UpsertMySQLController {
     @EasyUpsertDS(type = EasyUpsertType.MySQL)
     @ApiOperation(tags = "MySQL快速插入数据", value = "IUpsert操作数据入DB")
     @GetMapping()
-    public List<UserLog> upsert(@RequestParam(required = false, defaultValue = "100") Integer size) {
+    public void upsert(@RequestParam(required = false, defaultValue = "100") Integer size) {
         List<UserLog> userLogList = createUserLog(size);
         iUpsert.upsert(userLogList, userLogList, new UserLog());
-        return userLogList;
     }
 
 

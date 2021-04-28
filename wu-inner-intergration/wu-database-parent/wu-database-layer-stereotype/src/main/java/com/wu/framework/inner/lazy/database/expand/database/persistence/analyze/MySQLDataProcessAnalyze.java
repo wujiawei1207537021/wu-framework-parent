@@ -180,7 +180,7 @@ public interface MySQLDataProcessAnalyze extends LayerDefault,SQLAnalyze{
      * @author Jiawei Wu
      * @date 2020/12/31 8:18 下午
      **/
-    default int perfectTable(LazyTableAnnotation lazyTableAnnotation, DataSource dataSource) throws Exception {
+    default  int perfectTable(LazyTableAnnotation lazyTableAnnotation, DataSource dataSource) throws Exception {
         String tableName = lazyTableAnnotation.getTableName();
         Connection connection = null;
         int updateColumn = 0;
@@ -190,7 +190,7 @@ public interface MySQLDataProcessAnalyze extends LayerDefault,SQLAnalyze{
 
 //            String catalog = dataSource.getConnection().getCatalog();
 
-            ResultSet resultSet = metaData.getTables(lazyTableAnnotation.schema(), null, tableName, new String[]{"TABLE"});
+             ResultSet resultSet = metaData.getTables(lazyTableAnnotation.schema(), null, tableName, new String[]{"TABLE"});
             //
             String perfectTableSQL;
 //            while(resultSet.next()){
