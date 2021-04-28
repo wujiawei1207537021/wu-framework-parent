@@ -1,10 +1,11 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.proxy;
 
 import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.method.LazyOperationMethod;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 
 import javax.sql.DataSource;
@@ -21,14 +22,15 @@ import java.util.Map;
  * @date : 2020/6/25 下午11:19
  */
 @ConditionalOnBean(value = DataSource.class)
-public class LazyOperationProxy implements InvocationHandler, InitializingBean {
+public class LazyOperationProxy implements InvocationHandler, InitializingBean, ApplicationListener<ContextRefreshedEvent> {
 
     private final static Map<Class<? extends LazyOperationMethod>, LazyOperationMethod> LAZY_OPERATION_METHOD_MAP = new HashMap<>();
-    private final DataSource dataSource;
-    private final List<LazyOperationMethod> lazyOperationMethods;
 
-    public LazyOperationProxy(DataSource dataSource, List<LazyOperationMethod> lazyOperationMethods) {
-        this.dataSource = dataSource;
+    private final List<LazyOperationMethod> lazyOperationMethods;
+    protected String primary;
+    protected Map<String, DataSource> DynamicDataSourceMap;
+
+    public LazyOperationProxy(List<LazyOperationMethod> lazyOperationMethods) {
         this.lazyOperationMethods = lazyOperationMethods;
     }
 
@@ -38,7 +40,7 @@ public class LazyOperationProxy implements InvocationHandler, InitializingBean {
         if (null != mergedAnnotation) {
             LazyOperationMethod lazyOperationMethod = LAZY_OPERATION_METHOD_MAP.get(mergedAnnotation.proxyClass());
             try {
-                return lazyOperationMethod.execute(dataSource, args);
+                return lazyOperationMethod.execute(determineDataSource(""), args);
             } catch (Exception exception) {
                 throw exception;
             }
@@ -51,5 +53,16 @@ public class LazyOperationProxy implements InvocationHandler, InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         lazyOperationMethods.forEach(lazyOperationMethod -> LAZY_OPERATION_METHOD_MAP.put(lazyOperationMethod.getClass(), lazyOperationMethod));
+    }
+
+    @Override
+    public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
+        Map<String, DataSource> dataSourceMap = contextRefreshedEvent.getApplicationContext().getBeansOfType(DataSource.class);
+        this.primary = dataSourceMap.keySet().iterator().next();
+        DynamicDataSourceMap = dataSourceMap;
+    }
+
+    public DataSource determineDataSource(String name) {
+        return DynamicDataSourceMap.getOrDefault(name, DynamicDataSourceMap.get(primary));
     }
 }

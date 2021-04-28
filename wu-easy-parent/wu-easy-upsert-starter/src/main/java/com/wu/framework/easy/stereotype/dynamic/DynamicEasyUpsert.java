@@ -18,6 +18,8 @@ import java.lang.annotation.Annotation;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * description EasyUpsert获取IEasyUpsert和注解CustomDS实现类
@@ -31,7 +33,7 @@ public class DynamicEasyUpsert extends AbstractDynamicEasyUpsert implements Init
 
     private EasyUpsertType primary;
     private EasyUpsertDS primaryEasyUpsertDS;
-    private Map<EasyUpsertType, IEasyUpsert> iEasyUpsertMap = new LinkedHashMap<>();
+    private ConcurrentMap<EasyUpsertType, IEasyUpsert> iEasyUpsertMap = new ConcurrentHashMap<>();
 
 
     private List<IEasyUpsert> iEasyUpsertList;

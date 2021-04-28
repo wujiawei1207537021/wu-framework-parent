@@ -1,5 +1,6 @@
 package com.wu.framework.inner.lazy.hbase.expland.config;
 
+import com.wu.framework.inner.lazy.hbase.expland.prop.HBaseConfigProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;

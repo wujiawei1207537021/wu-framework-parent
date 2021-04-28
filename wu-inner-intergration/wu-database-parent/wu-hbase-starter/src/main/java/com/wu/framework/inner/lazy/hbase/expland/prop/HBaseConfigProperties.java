@@ -1,4 +1,4 @@
-package com.wu.framework.inner.lazy.hbase.expland.config;
+package com.wu.framework.inner.lazy.hbase.expland.prop;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

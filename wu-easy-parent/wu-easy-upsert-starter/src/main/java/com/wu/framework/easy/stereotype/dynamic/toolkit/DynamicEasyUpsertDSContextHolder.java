@@ -23,7 +23,7 @@ public final class DynamicEasyUpsertDSContextHolder {
      * </pre>
      */
     @SuppressWarnings("unchecked")
-    private static final ThreadLocal<Deque<EasyUpsertDS>> LOOKUP_KEY_HOLDER = ThreadLocal.withInitial(() -> new ArrayDeque());
+    private static final ThreadLocal<Deque<EasyUpsertDS>> LOOKUP_KEY_HOLDER = ThreadLocal.withInitial(ArrayDeque::new);
 
     private DynamicEasyUpsertDSContextHolder() {
     }

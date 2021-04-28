@@ -58,6 +58,10 @@
             <artifactId>wu-easy-excel-starter</artifactId>
             <version>1.0.5</version>
         </dependency>
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-database-lazy-starter</artifactId>
+        </dependency>
 
         <!--    ES    -->
         <!--        <dependency>-->

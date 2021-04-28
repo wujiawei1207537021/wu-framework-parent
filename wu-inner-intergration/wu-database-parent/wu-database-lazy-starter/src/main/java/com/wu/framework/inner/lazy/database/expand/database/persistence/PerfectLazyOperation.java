@@ -6,9 +6,11 @@ import com.wu.framework.inner.layer.util.FileUtil;
 import com.wu.framework.inner.lazy.database.domain.Page;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.MySQLDataProcessAnalyze;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.lang.NonNull;
 import org.springframework.util.ObjectUtils;
 
+import javax.sql.DataSource;
 import java.io.BufferedWriter;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -19,6 +21,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * @author Jia wei Wu
  * @date 2021/2/22 下午7:56
  */
+@ConditionalOnBean(DataSource.class)
 public class PerfectLazyOperation implements MySQLDataProcessAnalyze {
 
     private final LazyBaseOperation lazyBaseOperation;

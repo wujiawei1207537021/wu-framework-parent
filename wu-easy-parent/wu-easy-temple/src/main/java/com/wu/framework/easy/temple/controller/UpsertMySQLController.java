@@ -11,6 +11,7 @@ import com.wu.framework.easy.temple.domain.bo.ExtractBo;
 import com.wu.framework.easy.temple.domain.bo.MoreExtractBo;
 import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.prop.LazyDataSourceProperties;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,9 +31,11 @@ public class UpsertMySQLController {
 
 
     private final IUpsert iUpsert;
+    private final LazyDataSourceProperties lazyDataSourceProperties;
 
-    public UpsertMySQLController(IUpsert iUpsert) {
+    public UpsertMySQLController(IUpsert iUpsert, LazyDataSourceProperties lazyDataSourceProperties) {
         this.iUpsert = iUpsert;
+        this.lazyDataSourceProperties = lazyDataSourceProperties;
     }
 
     /**
