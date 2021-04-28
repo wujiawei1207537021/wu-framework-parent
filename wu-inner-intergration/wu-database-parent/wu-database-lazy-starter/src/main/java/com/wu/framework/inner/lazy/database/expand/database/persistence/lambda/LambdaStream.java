@@ -10,9 +10,28 @@ import java.util.stream.Collector;
  * @author 吴佳伟
  * @date 2021/4/27 3:41 下午
  */
-public interface LambdaStream<T> {
+@Deprecated
+public interface LambdaStream<T> extends AutoCloseable{
 
-
+    /**
+     * description 初始化数据范性
+     * @param
+     * @return
+     * @exception/throws
+     * @author 吴佳伟
+     * @date 2021/4/28 1:19 下午
+     */
+    @Deprecated
+    LambdaStream<T> type(Class<T> clazz);
+    /**
+     * description 主表
+     * @param
+     * @return
+     * @exception/throws
+     * @author 吴佳伟
+     * @date 2021/4/27 5:08 下午
+     */
+    LambdaStream<T> table(String primaryTable);
     /**
      * description 左关联
      * @param

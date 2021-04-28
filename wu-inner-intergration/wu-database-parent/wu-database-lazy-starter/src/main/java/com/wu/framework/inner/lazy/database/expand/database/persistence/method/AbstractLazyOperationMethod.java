@@ -3,10 +3,8 @@ package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.layer.data.JavaBasicType;
 import com.wu.framework.inner.layer.stereotype.MethodParamFunction;
-import com.wu.framework.inner.layer.stereotype.analyze.LayerAnalyzeAdapter;
-import com.wu.framework.inner.layer.stereotype.domain.LayerAnalyzeField;
-import com.wu.framework.inner.lazy.database.converter.PreparedStatementSQLConverter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.MySQLDataProcessAnalyze;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.ConvertedField;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import org.springframework.util.ObjectUtils;
@@ -180,8 +178,8 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
                     list.add(convertBasicTypeBean);
                 }
             } else {
-                List<LayerAnalyzeField> layerAnalyzeFieldList = PreparedStatementSQLConverter.fieldNamesOnAnnotation(domainClass);
-                Map<String, String> convertedFieldMap = layerAnalyzeFieldList.stream().collect(Collectors.toMap(LayerAnalyzeField::getFieldName, LayerAnalyzeField::getFieldName));
+                List<ConvertedField> convertedFieldList = fieldNamesOnAnnotation(domainClass,null);
+                Map<String, String> convertedFieldMap = convertedFieldList.stream().collect(Collectors.toMap(ConvertedField::getFieldName, ConvertedField::getFieldName));
                 while (resultSet.next()) {
                     //实例化要封装的实体类对象
                     E obj = (E) domainClass.newInstance();

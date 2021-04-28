@@ -125,7 +125,7 @@ public interface SQLAnalyze extends LayerClassAnalyze {
      * @author Jia wei Wu
      * @date 2020/7/3 下午9:48
      **/
-    static <T> String tableName(Class<T> clazz) {
+    default <T> String tableName(Class<T> clazz) {
         LazyTable tableNameAnnotation = AnnotatedElementUtils.findMergedAnnotation(clazz, LazyTable.class);
         if (!ObjectUtils.isEmpty(tableNameAnnotation) && !ObjectUtils.isEmpty(tableNameAnnotation.tableName())) {
             return tableNameAnnotation.tableName();
@@ -155,7 +155,7 @@ public interface SQLAnalyze extends LayerClassAnalyze {
      * @author Jia wei Wu
      * @date 2020/9/17 下午1:21
      */
-    static <T> String upsertPreparedStatementSQL(Collection collection, Class<T> clazz, Map iEnumList) {
+    default  <T> String upsertPreparedStatementSQL(Collection collection, Class<T> clazz, Map iEnumList) {
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         StringBuilder stringBuilder = new StringBuilder("insert into ");
         List<String> fieldNames = new ArrayList<>();

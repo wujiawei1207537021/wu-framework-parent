@@ -1,11 +1,12 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
-import com.wu.framework.inner.lazy.database.converter.PreparedStatementSQLConverter;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.ConvertedField;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import javax.sql.DataSource;
+import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,7 +28,7 @@ public class LazyOperationMethodSelectOne extends AbstractLazyOperationMethod {
         String queryString = "";
         Object object = param;
         Class clazz = object.getClass();
-        queryString = PreparedStatementSQLConverter.selectPreparedStatementSQL(object);
+        queryString = selectPreparedStatementSQL(object);
 //        System.out.println(queryString);
         PersistenceRepository persistenceRepository = new PersistenceRepository();
         persistenceRepository.setQueryString(queryString);
@@ -57,7 +58,46 @@ public class LazyOperationMethodSelectOne extends AbstractLazyOperationMethod {
             connection.close();
             preparedStatement.close();
         }
+    }
 
 
+    /**
+     * 查询生sql
+     *
+     * @return
+     * @params
+     * @author Jia wei Wu
+     * @date 2020/7/5 下午4:00
+     **/
+    public <T> String selectPreparedStatementSQL(Object o) {
+        Class clazz = o.getClass();
+        //  SELECT FROM
+        StringBuffer stringBuffer = new StringBuffer(" SELECT * FROM  ");
+        stringBuffer.append(tableName(clazz));
+        // where
+        stringBuffer.append(" where ");
+        boolean punctuationFlag = false;
+        List<ConvertedField> convertedFieldList = fieldNamesOnAnnotation(clazz,null);
+        for (ConvertedField convertedField : convertedFieldList) {
+            try {
+                Field field = o.getClass().getDeclaredField(convertedField.getFieldName());
+                if (!field.isAccessible()) {
+                    field.setAccessible(true);
+                }
+                Object fieldVal = field.get(o);
+                if (ObjectUtils.isEmpty(fieldVal)) {
+                    continue;
+                }
+                // add data
+                if (punctuationFlag) {
+                    stringBuffer.append(" and ");
+                }
+                stringBuffer.append(convertedField.getConvertedFieldName()).append(" = '").append(fieldVal).append("'");
+                punctuationFlag = true;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return stringBuffer.toString();
     }
 }

@@ -4,6 +4,7 @@ import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.inner.lazy.database.domain.Page;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.PerfectLazyOperation;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.lambda.ReferencePipeline;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import com.wu.framework.inner.lazy.database.test.pojo.DataBaseUser;
 import org.springframework.boot.CommandLineRunner;
@@ -12,6 +13,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.wu.framework.inner.lazy.database.expand.database.persistence.lambda.ReferencePipeline.lambdaStream;
 
 /**
  * @author : Jia wei Wu
@@ -59,10 +63,14 @@ public class LazyOperationController implements CommandLineRunner {
         select();
         page();
         scroll();
+
     }
+
+
 
     /**
      * description 灵性添加
+     *
      * @param
      * @return
      * @exception/throws
@@ -81,7 +89,7 @@ public class LazyOperationController implements CommandLineRunner {
             dataBaseUser.setUsername("methodName" + i);
             dataBaseUserList.add(dataBaseUser);
         }
-        lazyOperation.smartUpsert(dataBaseUserList.get(0),dataBaseUserList.get(2),dataBaseUserList.get(3));
+        lazyOperation.smartUpsert(dataBaseUserList.get(0), dataBaseUserList.get(2), dataBaseUserList.get(3));
         long e = System.currentTimeMillis();
         System.out.println("共计用时：" + (e - s) + "ms");
     }
