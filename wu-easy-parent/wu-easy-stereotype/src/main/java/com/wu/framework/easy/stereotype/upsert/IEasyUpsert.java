@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 public interface IEasyUpsert extends LayerDataAnalyzeAdapter, InitializingBean {
 
-    ThreadPoolExecutor easyUpsertExecutor = new ThreadPoolExecutor(10, 10, 200, TimeUnit.MILLISECONDS,
+    ThreadPoolExecutor easyUpsertExecutor = new ThreadPoolExecutor(5, 10, 200, TimeUnit.MILLISECONDS,
             new ArrayBlockingQueue<>(20), new EasyThreadFactory());
 
     <T> Object upsert(List<T> list) throws Exception;
