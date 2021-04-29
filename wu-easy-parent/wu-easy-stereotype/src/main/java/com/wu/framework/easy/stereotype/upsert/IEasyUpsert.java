@@ -8,27 +8,28 @@ import org.springframework.beans.factory.InitializingBean;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 
 public interface IEasyUpsert extends LayerDataAnalyzeAdapter, InitializingBean {
 
-    ThreadPoolExecutor easyUpsertExecutor = new ThreadPoolExecutor(50, 60, 200, TimeUnit.MILLISECONDS,
-            new ArrayBlockingQueue<>(60), new EasyThreadFactory());
+    ThreadPoolExecutor easyUpsertExecutor = new ThreadPoolExecutor(10, 10, 200, TimeUnit.MILLISECONDS,
+            new ArrayBlockingQueue<>(20), new EasyThreadFactory());
 
     <T> Object upsert(List<T> list) throws Exception;
 
 
     /**
-     * 模糊插入
+     * 模糊插入 支持任意对象
      *
      * @param objects
      * @param <T>
      * @return
      */
     default <T> Object fuzzyUpsert(Object... objects) {
-        Arrays.stream(objects).parallel().forEach(object->{
+        Arrays.stream(objects).parallel().forEach(object -> {
             if (object instanceof List) {
                 try {
                     upsert((List<T>) object);
@@ -46,7 +47,6 @@ public interface IEasyUpsert extends LayerDataAnalyzeAdapter, InitializingBean {
                 });
             }
         });
-
         return true;
     }
 

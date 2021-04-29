@@ -2,9 +2,10 @@ package com.wu.framework.easy.stereotype.upsert.handler;
 
 
 import com.wu.framework.easy.stereotype.dynamic.AbstractDynamicEasyUpsert;
-import com.wu.framework.inner.layer.stereotype.DefaultProxyMethod;
-import com.wu.framework.inner.layer.stereotype.proxy.ProxyMethodFunction;
 import org.springframework.util.ObjectUtils;
+
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
 
 /**
  * description database 配置优先
@@ -13,7 +14,7 @@ import org.springframework.util.ObjectUtils;
  * @date 2020/7/14 下午8:03
  */
 
-public class IUpsertHandler implements DefaultProxyMethod {
+public class IUpsertHandler implements InvocationHandler {
 
 
     private final AbstractDynamicEasyUpsert abstractDynamicEasyUpsert;
@@ -22,21 +23,26 @@ public class IUpsertHandler implements DefaultProxyMethod {
         this.abstractDynamicEasyUpsert = abstractDynamicEasyUpsert;
     }
 
+
     @Override
-    public Object invoke(Object proxy, ProxyMethodFunction proxyMethodFunction, Object[] args) throws Exception {
-        Object arg;
-        if (ObjectUtils.isEmpty(args) || null == (arg = args[0])) {
-            return false;
-        }
-        if (arg instanceof Object[]) {
-            Object[] objects = (Object[]) arg;
-            for (Object o : objects) {
-                abstractDynamicEasyUpsert.determineIEasyUpsert().fuzzyUpsert(o);
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        if (method.getParameterCount() != 0) {
+            Object arg;
+            if (ObjectUtils.isEmpty(args) || null == (arg = args[0])) {
+                return false;
             }
+            if (arg instanceof Object[]) {
+                Object[] objects = (Object[]) arg;
+                abstractDynamicEasyUpsert.determineIEasyUpsert().fuzzyUpsert(objects);
+            } else {
+                abstractDynamicEasyUpsert.determineIEasyUpsert().fuzzyUpsert(arg);
+            }
+            return true;
         } else {
-            abstractDynamicEasyUpsert.determineIEasyUpsert().fuzzyUpsert(arg);
+            return method.invoke(this,args);
         }
-        return true;
     }
+
+
 }
 

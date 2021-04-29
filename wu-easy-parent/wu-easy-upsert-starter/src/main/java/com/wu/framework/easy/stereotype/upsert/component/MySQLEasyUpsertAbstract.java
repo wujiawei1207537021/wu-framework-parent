@@ -52,7 +52,7 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, MySQLDataP
         Integer total = (list.size() + upsertConfig.getBatchLimit() - 1) / upsertConfig.getBatchLimit();
         log.info("计划处理步骤 【{}】 步", total);
         List<List<T>> splitList = splitList(list, upsertConfig.getBatchLimit());
-        AtomicInteger stepCount = new AtomicInteger(1);
+        AtomicInteger stepCount = new AtomicInteger(0);
         splitList.stream().parallel().forEach(ts -> {
             stepCount.getAndIncrement();
             log.info("处理步骤第 【{}】 步 ,总步数 【{}】", stepCount, total);

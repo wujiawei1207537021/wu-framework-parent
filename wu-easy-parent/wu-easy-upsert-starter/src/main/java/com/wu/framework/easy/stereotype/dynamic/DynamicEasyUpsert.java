@@ -65,6 +65,14 @@ public class DynamicEasyUpsert extends AbstractDynamicEasyUpsert implements Init
     }
 
 
+    /**
+     * description 确定主数据源
+     * @param
+     * @return
+     * @exception/throws
+     * @author 吴佳伟
+     * @date 2021/4/29 11:01 上午
+     */
     private IEasyUpsert determinePrimaryDataSource() {
         log.info("使用默认方式:【{}】", primary);
         return iEasyUpsertMap.get(primary);

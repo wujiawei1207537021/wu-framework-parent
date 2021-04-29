@@ -11,6 +11,7 @@ import java.lang.reflect.Method;
  * @describe : 修复hashCode 、 toString 方法空值问题
  * @date : 2021/4/6 7:29 下午
  */
+@Deprecated
 public interface DefaultProxyMethod extends InvocationHandler {
 
 
@@ -29,16 +30,6 @@ public interface DefaultProxyMethod extends InvocationHandler {
     }
 
 
-    default Object defaultMethod(Method defaultMethod) {
-        switch (defaultMethod.getName()) {
-            case "toString":
-                return defaultMethod.toString();
-            case "hashCode":
-                return defaultMethod.hashCode();
-            default:
-                return defaultMethod;
-        }
-    }
 
 
 }
