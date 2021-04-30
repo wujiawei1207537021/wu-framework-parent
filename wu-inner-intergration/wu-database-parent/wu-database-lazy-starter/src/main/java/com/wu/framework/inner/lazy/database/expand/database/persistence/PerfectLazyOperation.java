@@ -13,6 +13,8 @@ import org.springframework.util.ObjectUtils;
 import javax.sql.DataSource;
 import java.io.BufferedWriter;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -21,7 +23,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * @author Jia wei Wu
  * @date 2021/2/22 下午7:56
  */
-@ConditionalOnBean(DataSource.class)
+//@ConditionalOnBean(value = DataSource.class)
 public class PerfectLazyOperation implements MySQLDataProcessAnalyze {
 
     private final LazyBaseOperation lazyBaseOperation;
@@ -39,17 +41,34 @@ public class PerfectLazyOperation implements MySQLDataProcessAnalyze {
      * @author Jia wei Wu
      * @date 2021/4/8 下午4:33
      */
-   public  <T> void scroll( Page page, @NonNull Class<T> returnType, String sql,
-                    MethodParamFunction<Page<T>> methodParamFunction,
-                    Object... params) throws Exception {
+    public <T> void scroll(Page page, @NonNull Class<T> returnType, String sql,
+                           MethodParamFunction<Page<T>> methodParamFunction,
+                           Object... params) throws Exception {
         if (ObjectUtils.isEmpty(page)) {
             page = new Page<>(1, 1000);
         }
+        ExecutorService executorService = null;
+
         do {
-            Page<T> pageResult = lazyBaseOperation.page(page, returnType, sql, params);
-            methodParamFunction.defaultMethod(pageResult);
-            System.out.println("当前查询页数:" + page.getCurrent());
-            page.setCurrent(page.getCurrent() + 1);
+            if (page.getPages() > 10) {
+                if (null == executorService) {
+                    executorService = Executors.newWorkStealingPool(10);
+                }
+                page.setCurrent(page.getCurrent() + 1);
+                Page finalPage = page;
+                executorService.submit(() -> {
+                    try {
+                        methodParamFunction.defaultMethod(lazyBaseOperation.page(finalPage, returnType, sql, params));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }).get();
+            }else {
+                Page<T> pageResult = lazyBaseOperation.page(page, returnType, sql, params);
+                methodParamFunction.defaultMethod(pageResult);
+                System.out.println("当前查询页数:" + page.getCurrent());
+                page.setCurrent(page.getCurrent() + 1);
+            }
         } while (page.getRecord() != null && page.getRecord().size() == page.getSize());
     }
 
