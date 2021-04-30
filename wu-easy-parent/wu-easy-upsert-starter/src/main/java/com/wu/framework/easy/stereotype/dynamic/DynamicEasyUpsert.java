@@ -11,11 +11,11 @@ import com.wu.framework.easy.stereotype.upsert.exceptions.IllegalDataSourceExcep
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ObjectUtils;
 
 import java.lang.annotation.Annotation;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -36,12 +36,15 @@ public class DynamicEasyUpsert extends AbstractDynamicEasyUpsert implements Init
     private ConcurrentMap<EasyUpsertType, IEasyUpsert> iEasyUpsertMap = new ConcurrentHashMap<>();
 
 
-    private List<IEasyUpsert> iEasyUpsertList;
-    private UpsertConfig upsertConfig;
+    private final List<IEasyUpsert> iEasyUpsertList;
+    private final UpsertConfig upsertConfig;
 
-    public DynamicEasyUpsert(List<IEasyUpsert> iEasyUpsertList, UpsertConfig upsertConfig) {
+    private final ApplicationContext applicationContext;
+
+    public DynamicEasyUpsert(List<IEasyUpsert> iEasyUpsertList, UpsertConfig upsertConfig, ApplicationContext applicationContext) {
         this.iEasyUpsertList = iEasyUpsertList;
         this.upsertConfig = upsertConfig;
+        this.applicationContext = applicationContext;
     }
 
     /**
@@ -93,15 +96,16 @@ public class DynamicEasyUpsert extends AbstractDynamicEasyUpsert implements Init
     public void afterPropertiesSet() throws Exception {
         //        数据源类型存放
         primaryEasyUpsertDS = defaultCustomDS();
-        if (!ObjectUtils.isEmpty(iEasyUpsertList)) {
-            log.info("EasyUpsert 初始共加载 {} 种方式", iEasyUpsertList.size());
-            for (IEasyUpsert iEasyUpsert : iEasyUpsertList) {
+        Map<String, IEasyUpsert> beansOfType = applicationContext.getBeansOfType(IEasyUpsert.class);
+        if (!ObjectUtils.isEmpty(beansOfType)) {
+            log.info("EasyUpsert 初始共加载 {} 种方式", beansOfType.size());
+            beansOfType.forEach((s, iEasyUpsert) -> {
                 EasyUpsertStrategy easyUpsertStrategy = AnnotationUtils.findAnnotation(iEasyUpsert.getClass(), EasyUpsertStrategy.class);
                 if (null != easyUpsertStrategy) {
                     log.info("EasyUpsert 动态方式-加载 {} 成功", easyUpsertStrategy.easyUpsertType());
                     iEasyUpsertMap.put(easyUpsertStrategy.easyUpsertType(), iEasyUpsert);
                 }
-            }
+            });
             if (upsertConfig.getEasyUpsertType().equals(EasyUpsertType.AUTO)) {
                 if (ObjectUtils.isEmpty(iEasyUpsertMap)) {
                     return;
