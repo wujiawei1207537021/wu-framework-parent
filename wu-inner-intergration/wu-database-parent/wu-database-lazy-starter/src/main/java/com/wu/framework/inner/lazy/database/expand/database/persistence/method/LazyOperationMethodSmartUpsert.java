@@ -36,7 +36,7 @@ public class LazyOperationMethodSmartUpsert extends AbstractLazyOperationMethod 
     public PersistenceRepository analyzePersistenceRepository(Object param) throws IllegalArgumentException {
 
         // TODO EASYHASHMAP
-        Persistence persistence = activeInsertPrepared(param);
+        Persistence persistence = smartUpsert(param);
         StringBuffer stringBuffer = new StringBuffer(persistence.getExecutionEnum().getExecution());
         stringBuffer.append(persistence.getTableName());
         stringBuffer.append(NormalUsedString.LEFT_BRACKET);
@@ -101,7 +101,7 @@ public class LazyOperationMethodSmartUpsert extends AbstractLazyOperationMethod 
      * @date 2021/4/26 3:54 下午
      */
     @SneakyThrows
-    public Persistence activeInsertPrepared(Object object) {
+    public Persistence smartUpsert(Object object) {
         // 数据库列
         List<String> columnList = new ArrayList<>();
         // 列对应值

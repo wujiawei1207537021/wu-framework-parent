@@ -187,6 +187,8 @@ public interface MySQLDataProcessAnalyze extends LayerDefault,SQLAnalyze{
         try {
             connection = dataSource.getConnection();
             DatabaseMetaData metaData = connection.getMetaData();
+            // 添加 schema
+            lazyTableAnnotation.setSchema(ObjectUtils.isEmpty(lazyTableAnnotation.schema()) ? connection.getCatalog() : lazyTableAnnotation.schema());
 
 //            String catalog = dataSource.getConnection().getCatalog();
 

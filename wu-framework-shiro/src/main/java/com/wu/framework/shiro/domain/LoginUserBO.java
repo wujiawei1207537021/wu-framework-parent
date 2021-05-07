@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
  */
 @Accessors(chain = true)
 @Data
-@LazyTable(tableName = "sys_user")
+@LazyTable(tableName = "sys_user",perfectTable = true)
 public class LoginUserBO {
 
     /**

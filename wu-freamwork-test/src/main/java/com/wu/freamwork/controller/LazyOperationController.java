@@ -23,7 +23,7 @@ import static com.wu.framework.inner.lazy.database.expand.database.persistence.l
  * @describe :
  * @date : 2021/4/17 10:37 下午
  */
-@EasyController
+//@EasyController
 public class LazyOperationController implements CommandLineRunner {
 
     private final LazyOperation lazyOperation;
@@ -91,7 +91,7 @@ public class LazyOperationController implements CommandLineRunner {
         }
         lazyOperation.smartUpsert(dataBaseUserList.get(0), dataBaseUserList.get(2), dataBaseUserList.get(3));
         long e = System.currentTimeMillis();
-        System.out.println("共计用时：" + (e - s) + "ms");
+        System.out.println("smartUpsert共计用时：" + (e - s) + "ms");
     }
 
 
@@ -118,7 +118,7 @@ public class LazyOperationController implements CommandLineRunner {
         }
         lazyOperation.upsert(dataBaseUserList);
         long e = System.currentTimeMillis();
-        System.out.println("共计用时：" + (e - s) + "ms");
+        System.out.println("upsert共计用时：" + (e - s) + "ms");
     }
 
     /**
@@ -143,7 +143,7 @@ public class LazyOperationController implements CommandLineRunner {
         }
         lazyOperation.insert(dataBaseUserList);
         long e = System.currentTimeMillis();
-        System.out.println("共计用时：" + (e - s) + "ms");
+        System.out.println("insert共计用时：" + (e - s) + "ms");
     }
 
     /**
@@ -169,7 +169,7 @@ public class LazyOperationController implements CommandLineRunner {
         }
         lazyOperation.updateAllByIdList(dataBaseUserList);
         long e = System.currentTimeMillis();
-        System.out.println("共计用时：" + (e - s) + "ms");
+        System.out.println("update共计用时：" + (e - s) + "ms");
     }
 
     /**
@@ -190,7 +190,7 @@ public class LazyOperationController implements CommandLineRunner {
         dataBaseUser.setUsername("methodName");
         lazyOperation.deleteById(dataBaseUser);
         long e = System.currentTimeMillis();
-        System.out.println("共计用时：" + (e - s) + "ms");
+        System.out.println("delete共计用时：" + (e - s) + "ms");
     }
 
     /**
@@ -214,9 +214,8 @@ public class LazyOperationController implements CommandLineRunner {
 
         dataBaseUser.setUsername(null);
         List<DataBaseUser> dataBaseUserList = lazyOperation.selectAll(dataBaseUser);
-        System.out.println(dataBaseUserList);
         long e = System.currentTimeMillis();
-        System.out.println("共计用时：" + (e - s) + "ms");
+        System.out.println("select 共计用时：" + (e - s) + "ms");
     }
 
     /**
@@ -228,7 +227,7 @@ public class LazyOperationController implements CommandLineRunner {
      **/
     public void page() {
         Page<DataBaseUser> page = lazyOperation.page(new Page(), DataBaseUser.class, null);
-        System.out.println(page);
+        System.out.println("分页查询:"+page.getPages());
     }
 
     /**
@@ -240,7 +239,7 @@ public class LazyOperationController implements CommandLineRunner {
      **/
     public void scroll() throws Exception {
         perfectLazyOperation.scroll(null, DataBaseUser.class, null, m -> {
-            System.out.println(m);
+            System.out.println(m.getCurrent());
             return m;
         });
     }
