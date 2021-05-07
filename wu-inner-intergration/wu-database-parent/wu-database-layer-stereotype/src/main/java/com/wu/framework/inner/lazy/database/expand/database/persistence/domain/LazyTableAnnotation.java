@@ -1,6 +1,5 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.domain;
 
-import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.UpsertJsonMessage;
 import com.wu.framework.inner.layer.stereotype.LayerField;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTable;
 import lombok.Data;
@@ -45,7 +44,6 @@ public class LazyTableAnnotation implements LazyTable {
     private String comment;
 
 
-
     /**
      * 字段
      */
@@ -72,7 +70,6 @@ public class LazyTableAnnotation implements LazyTable {
      * 数据库名 schema
      */
     private String schema;
-
 
 
     /**

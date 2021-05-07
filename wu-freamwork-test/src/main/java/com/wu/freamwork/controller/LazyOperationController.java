@@ -4,7 +4,6 @@ import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.inner.lazy.database.domain.Page;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.PerfectLazyOperation;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.lambda.ReferencePipeline;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import com.wu.framework.inner.lazy.database.test.pojo.DataBaseUser;
 import org.springframework.boot.CommandLineRunner;
@@ -13,9 +12,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import static com.wu.framework.inner.lazy.database.expand.database.persistence.lambda.ReferencePipeline.lambdaStream;
 
 /**
  * @author : Jia wei Wu
@@ -23,7 +19,7 @@ import static com.wu.framework.inner.lazy.database.expand.database.persistence.l
  * @describe :
  * @date : 2021/4/17 10:37 下午
  */
-//@EasyController
+@EasyController
 public class LazyOperationController implements CommandLineRunner {
 
     private final LazyOperation lazyOperation;
@@ -65,7 +61,6 @@ public class LazyOperationController implements CommandLineRunner {
         scroll();
 
     }
-
 
 
     /**
@@ -227,7 +222,7 @@ public class LazyOperationController implements CommandLineRunner {
      **/
     public void page() {
         Page<DataBaseUser> page = lazyOperation.page(new Page(), DataBaseUser.class, null);
-        System.out.println("分页查询:"+page.getPages());
+        System.out.println("分页查询:" + page.getPages());
     }
 
     /**
