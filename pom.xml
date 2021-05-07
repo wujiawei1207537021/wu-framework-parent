@@ -52,17 +52,48 @@
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <github.global.server>github</github.global.server>
 
-        <wu-db-starter.version>${project.version}</wu-db-starter.version>
-        <wu-redis-lazy-starter.version>${project.version}</wu-redis-lazy-starter.version>
-        <wu-log-starter.version>${project.version}</wu-log-starter.version>
-        <wu-swagger-starter.version>${project.version}</wu-swagger-starter.version>
-        <wu-file-starter.version>${project.version}</wu-file-starter.version>
-        <wu-framework-parent.version>${project.version}</wu-framework-parent.version>
+        <wu-bionic-parent.version>${project.version}</wu-bionic-parent.version>
+        <wu-bionic-language.version>${project.version}</wu-bionic-language.version>
+        <wu-bionic-memory.version>${project.version}</wu-bionic-memory.version>
+        <wu-bionic-think.version>${project.version}</wu-bionic-think.version>
+
+        <wu-easy-parent.version>${project.version}</wu-easy-parent.version>
+        <wu-easy-excel-starter.version>${project.version}</wu-easy-excel-starter.version>
+        <wu-easy-stereotype.version>${project.version}</wu-easy-stereotype.version>
+        <wu-easy-temp.version>${project.version}</wu-easy-temp.version>
         <wu-easy-upsert-starter.version>${project.version}</wu-easy-upsert-starter.version>
+
+        <wu-framework-plus.version>${project.version}</wu-framework-plus.version>
+        <wu-database-plus.version>${project.version}</wu-database-plus.version>
+        <wu-framework-shiro.version>${project.version}</wu-framework-shiro.version>
+
+        <wu-inner-intergration.version>${project.version}</wu-inner-intergration.version>
+        <wu-common-starter.version>${project.version}</wu-common-starter.version>
+        <wu-database-parent.version>${project.version}</wu-database-parent.version>
+        <wu-database-core.version>${project.version}</wu-database-core.version>
+        <wu-database-generator-starter.version>${project.version}</wu-database-generator-starter.version>
+        <wu-database-layer-stereotype.version>${project.version}</wu-database-layer-stereotype.version>
         <wu-database-lazy-starter.version>${project.version}</wu-database-lazy-starter.version>
-        <wu-layer-stereotype.version>${project.version}</wu-layer-stereotype.version>
-        <wu-hbase-starter.version>${project.version}</wu-hbase-starter.version>
+        <wu-dynamic-database-starter.version>${project.version}</wu-dynamic-database-starter.version>
+
         <wu-elasticsearch-starter.version>${project.version}</wu-elasticsearch-starter.version>
+        <wu-hbase-starter.version>${project.version}</wu-hbase-starter.version>
+
+
+        <wu-file-starter.version>${project.version}</wu-file-starter.version>
+        <wu-ftp-starter.version>${project.version}</wu-ftp-starter.version>
+        <wu-log-starter.version>${project.version}</wu-log-starter.version>
+        <wu-redis-lazy-starter.version>${project.version}</wu-redis-lazy-starter.version>
+
+
+        <wu-db-starter.version>${project.version}</wu-db-starter.version>
+
+        <wu-swagger-starter.version>${project.version}</wu-swagger-starter.version>
+
+        <wu-framework-parent.version>${project.version}</wu-framework-parent.version>
+
+        <wu-layer-stereotype.version>${project.version}</wu-layer-stereotype.version>
+
 
         <spring-boot-starter.version>2.4.5</spring-boot-starter.version>
     </properties>
