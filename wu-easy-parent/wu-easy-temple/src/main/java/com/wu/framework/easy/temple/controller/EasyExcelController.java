@@ -3,6 +3,7 @@ package com.wu.framework.easy.temple.controller;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.wu.framework.easy.excel.stereotype.EasyExcel;
+import com.wu.framework.easy.excel.stereotype.RequestExcelBody;
 import com.wu.framework.easy.excel.util.EasyExcelUtil;
 import com.wu.framework.easy.excel.util.FastExcelImp;
 import com.wu.framework.easy.temple.EasyExcelTemp;
@@ -158,5 +159,14 @@ public class EasyExcelController {
         }
         return easyHashMapList;
     }
+
+
+    // TODO  导入Excel并自动转换成对象
+    @ApiOperation(tags = "导入注解测试", value = "导入Excel并自动转换成对象")
+    @PostMapping(value = "/imp/easy",headers = "content-type=multipart/form-data")
+    public String easy(@RequestExcelBody List<UseExcel> useExcelList) {
+        return useExcelList.toString();
+    }
+
 
 }

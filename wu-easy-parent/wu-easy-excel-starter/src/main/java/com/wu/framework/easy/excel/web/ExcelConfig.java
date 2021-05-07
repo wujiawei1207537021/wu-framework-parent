@@ -16,7 +16,6 @@ import java.util.List;
  * @author 吴佳伟
  * @date 2021/4/23 上午10:10
  */
-@Deprecated
 public class ExcelConfig implements InitializingBean {
 
 

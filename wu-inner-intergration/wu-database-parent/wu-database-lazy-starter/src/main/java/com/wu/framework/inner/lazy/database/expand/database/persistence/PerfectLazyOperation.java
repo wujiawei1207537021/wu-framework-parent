@@ -23,7 +23,6 @@ import java.util.concurrent.atomic.AtomicReference;
  * @author Jia wei Wu
  * @date 2021/2/22 下午7:56
  */
-//@ConditionalOnBean(value = DataSource.class)
 public class PerfectLazyOperation implements MySQLDataProcessAnalyze {
 
     private final LazyBaseOperation lazyBaseOperation;
