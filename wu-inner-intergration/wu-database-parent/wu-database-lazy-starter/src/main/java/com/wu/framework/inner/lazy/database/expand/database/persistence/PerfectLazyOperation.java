@@ -1,18 +1,22 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence;
 
 import com.wu.framework.inner.layer.data.NormalUsedString;
+import com.wu.framework.inner.layer.data.ProcessException;
 import com.wu.framework.inner.layer.stereotype.MethodParamFunction;
+import com.wu.framework.inner.layer.stereotype.MethodParamFunctionException;
 import com.wu.framework.inner.layer.util.FileUtil;
 import com.wu.framework.inner.lazy.database.domain.Page;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.MySQLDataProcessAnalyze;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
 import org.springframework.util.ObjectUtils;
 
-import javax.sql.DataSource;
 import java.io.BufferedWriter;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicReference;
@@ -23,9 +27,13 @@ import java.util.concurrent.atomic.AtomicReference;
  * @author Jia wei Wu
  * @date 2021/2/22 下午7:56
  */
-public class PerfectLazyOperation implements MySQLDataProcessAnalyze {
+@Slf4j
+public class PerfectLazyOperation {
 
     private final LazyBaseOperation lazyBaseOperation;
+
+    private final MySQLDataProcessAnalyze mySQLDataProcessAnalyze = new MySQLDataProcessAnalyze() {
+    };
 
     public PerfectLazyOperation(LazyBaseOperation lazyBaseOperation) {
         this.lazyBaseOperation = lazyBaseOperation;
@@ -42,7 +50,7 @@ public class PerfectLazyOperation implements MySQLDataProcessAnalyze {
      */
     public <T> void scroll(Page page, @NonNull Class<T> returnType, String sql,
                            MethodParamFunction<Page<T>> methodParamFunction,
-                           Object... params) throws Exception {
+                           Object... params) throws ExecutionException, InterruptedException, MethodParamFunctionException, IOException, ProcessException, SQLException {
         if (ObjectUtils.isEmpty(page)) {
             page = new Page<>(1, 1000);
         }
@@ -62,10 +70,10 @@ public class PerfectLazyOperation implements MySQLDataProcessAnalyze {
                         e.printStackTrace();
                     }
                 }).get();
-            }else {
+            } else {
                 Page<T> pageResult = lazyBaseOperation.page(page, returnType, sql, params);
                 methodParamFunction.defaultMethod(pageResult);
-                System.out.println("当前查询页数:" + page.getCurrent());
+                log.info("当前查询页数:" + page.getCurrent());
                 page.setCurrent(page.getCurrent() + 1);
             }
         } while (page.getRecord() != null && page.getRecord().size() == page.getSize());
@@ -76,10 +84,11 @@ public class PerfectLazyOperation implements MySQLDataProcessAnalyze {
      * @param nameDatabase 数据库名 默认当前连接数据
      *                     System.getProperty("user.dir") 数据文件地址
      * @return 保存数据到本地数据
+     * @description 数据库数据存储到sql文件
      * @author Jiawei Wu
      * @date 2021/1/31 6:40 下午
      **/
-    public void dataMigration(String nameDatabase) throws Exception {
+    public void saveSqlFile(String nameDatabase) throws IOException, ProcessException, MethodParamFunctionException, ExecutionException, InterruptedException, SQLException {
         // 当前数据库
         if (nameDatabase == null) {
             nameDatabase = lazyBaseOperation.executeSQLForBean("select database()", String.class);
@@ -99,13 +108,15 @@ public class PerfectLazyOperation implements MySQLDataProcessAnalyze {
 
                     Page page = new Page<>(1, 1000);
                     scroll(page, EasyHashMap.class, selectSQL, scrollList -> {
-                        System.out.println(scrollList);
+                        if (ObjectUtils.isEmpty(scrollList.getRecord())) {
+                            return scrollList;
+                        }
                         List<EasyHashMap> record = (List<EasyHashMap>) scrollList.getRecord();
                         tableInfo.set(record.get(0));
                         file.write("-- " + tableName);
                         file.newLine();
                         tableInfo.get().setUniqueLabel(tableName);
-                        final MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = upsertDataPack(record, tableInfo.get().toEasyTableAnnotation(false));
+                        MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = mySQLDataProcessAnalyze.upsertDataPack(record, tableInfo.get().toEasyTableAnnotation(false));
                         String s = mySQLProcessResult.getSql();
                         s = s.replaceAll("'true'", "1").
                                 replaceAll("'false'", "0").
@@ -113,7 +124,6 @@ public class PerfectLazyOperation implements MySQLDataProcessAnalyze {
                         file.write(s);
                         file.write(NormalUsedString.SEMICOLON);
                         file.newLine();
-                        System.out.println("当前查询页数:" + page.getCurrent());
                         page.setCurrent(page.getCurrent() + 1);
                         return scrollList;
                     }, tableName);
@@ -121,18 +131,21 @@ public class PerfectLazyOperation implements MySQLDataProcessAnalyze {
 
                 } else {
                     List<EasyHashMap> tableDateList = lazyBaseOperation.executeSQL(String.format(selectSQL, tableName), EasyHashMap.class);
-                    file.write("-- " + tableName);
-                    file.newLine();
-                    tableInfo.set(tableDateList.get(0));
-                    tableInfo.get().setUniqueLabel(tableName);
-                    MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = upsertDataPack(tableDateList, tableInfo.get().toEasyTableAnnotation(false));
-                    String s = mySQLProcessResult.getSql();
-                    s = s.replaceAll("'true'", "1").
-                            replaceAll("'false'", "0").
-                            replaceAll("'null'", NormalUsedString.NULL);
-                    file.write(s);
-                    file.write(NormalUsedString.SEMICOLON);
-                    file.newLine();
+                    if (!ObjectUtils.isEmpty(tableDateList)) {
+                        file.write("-- " + tableName);
+                        file.newLine();
+                        tableInfo.set(tableDateList.get(0));
+                        tableInfo.get().setUniqueLabel(tableName);
+                        MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = mySQLDataProcessAnalyze.upsertDataPack(tableDateList, tableInfo.get().toEasyTableAnnotation(false));
+                        String s = mySQLProcessResult.getSql();
+                        s = s.replaceAll("'true'", "1").
+                                replaceAll("'false'", "0").
+                                replaceAll("'null'", NormalUsedString.NULL);
+                        file.write(s);
+                        file.write(NormalUsedString.SEMICOLON);
+                        file.newLine();
+                    }
+
                 }
 
             }
@@ -142,7 +155,7 @@ public class PerfectLazyOperation implements MySQLDataProcessAnalyze {
     }
 
     /**
-     * description Mysql 服务器迁移
+     * description Mysql 服务器迁移本地文件sql
      *
      * @param
      * @return
@@ -150,10 +163,10 @@ public class PerfectLazyOperation implements MySQLDataProcessAnalyze {
      * @author Jia wei Wu
      * @date 2021/3/8 下午5:37
      */
-    public void mysqlServerMigration() throws Exception {
+    public void saveSqlFile() throws ProcessException, SQLException, MethodParamFunctionException, IOException, ExecutionException, InterruptedException {
         List<EasyHashMap> easyHashMaps = lazyBaseOperation.executeSQL("show databases;", EasyHashMap.class);
         for (EasyHashMap easyHashMap : easyHashMaps) {
-            dataMigration(easyHashMap.get("Database").toString());
+            saveSqlFile(easyHashMap.get("Database").toString());
         }
     }
 

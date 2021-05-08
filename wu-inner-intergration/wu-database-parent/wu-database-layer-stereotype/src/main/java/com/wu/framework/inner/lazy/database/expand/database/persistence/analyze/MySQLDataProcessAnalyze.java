@@ -1,13 +1,14 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.analyze;
 
-import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.ConvertedField;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.UpsertJsonMessage;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.LazyTableAnnotation;
-import com.wu.framework.inner.layer.data.JavaBasicType;
 import com.wu.framework.inner.layer.data.IBeanUpsert;
+import com.wu.framework.inner.layer.data.JavaBasicType;
 import com.wu.framework.inner.layer.data.NormalUsedString;
+import com.wu.framework.inner.layer.data.ProcessException;
 import com.wu.framework.inner.layer.stereotype.LayerDefault;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.UpsertJsonMessage;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.ConvertedField;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.LazyTableAnnotation;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import lombok.Data;
 import lombok.SneakyThrows;
 import lombok.experimental.Accessors;
@@ -37,8 +38,7 @@ import static com.wu.framework.inner.lazy.database.expand.database.persistence.a
  * @author Jia wei Wu
  * @date 2020/10/22 下午2:25
  */
-public interface MySQLDataProcessAnalyze extends LayerDefault,SQLAnalyze{
-
+public interface MySQLDataProcessAnalyze extends LayerDefault, SQLAnalyze {
 
 
     /**
@@ -51,10 +51,8 @@ public interface MySQLDataProcessAnalyze extends LayerDefault,SQLAnalyze{
      * @date 2020/10/22 下午2:20
      */
     default LazyTableAnnotation classAnalyze(Class clazz) {
-        return classLazyTableAnalyze(clazz );
+        return classLazyTableAnalyze(clazz);
     }
-
-
 
 
     /**
@@ -76,7 +74,7 @@ public interface MySQLDataProcessAnalyze extends LayerDefault,SQLAnalyze{
     /**
      * description upsert数据包装
      * INSERT INTO TEMP_EASY_HASH (DATE,NAME,TYPE) VALUES ('2021-04-18','MAP','EASY')  ON DUPLICATE KEY UPDATE
-     *  DATE=VALUES (DATE),NAME=VALUES (NAME),TYPE=VALUES (TYPE)
+     * DATE=VALUES (DATE),NAME=VALUES (NAME),TYPE=VALUES (TYPE)
      *
      * @param sourceData 源数据
      * @return ProcessResult
@@ -84,7 +82,7 @@ public interface MySQLDataProcessAnalyze extends LayerDefault,SQLAnalyze{
      * @author Jia wei Wu
      * @date 2020/10/22 下午2:23
      */
-    default MySQLProcessResult upsertDataPack(List sourceData, LazyTableAnnotation lazyTableAnnotation) throws Exception {
+    default MySQLProcessResult upsertDataPack(List sourceData, LazyTableAnnotation lazyTableAnnotation) throws ProcessException {
         MySQLProcessResult mySQLProcessResult = new MySQLProcessResult();
         List<InputStream> binaryList = new ArrayList<>();
         String insert = "insert into %s (%s) VALUES %s  ON DUPLICATE KEY UPDATE \n %s ";
@@ -180,7 +178,7 @@ public interface MySQLDataProcessAnalyze extends LayerDefault,SQLAnalyze{
      * @author Jiawei Wu
      * @date 2020/12/31 8:18 下午
      **/
-    default  int perfectTable(LazyTableAnnotation lazyTableAnnotation, DataSource dataSource) throws Exception {
+    default int perfectTable(LazyTableAnnotation lazyTableAnnotation, DataSource dataSource) throws Exception {
         String tableName = lazyTableAnnotation.getTableName();
         Connection connection = null;
         int updateColumn = 0;
@@ -192,7 +190,7 @@ public interface MySQLDataProcessAnalyze extends LayerDefault,SQLAnalyze{
 
 //            String catalog = dataSource.getConnection().getCatalog();
 
-             ResultSet resultSet = metaData.getTables(lazyTableAnnotation.schema(), null, tableName, new String[]{"TABLE"});
+            ResultSet resultSet = metaData.getTables(lazyTableAnnotation.schema(), null, tableName, new String[]{"TABLE"});
             //
             String perfectTableSQL;
 //            while(resultSet.next()){
@@ -211,7 +209,7 @@ public interface MySQLDataProcessAnalyze extends LayerDefault,SQLAnalyze{
                 statement.close();
                 updateColumn = executeBatch.length;
                 perfectTableSQL = createTableSQL;
-                log.info("create table {} success",tableName);
+                log.info("create table {} success", tableName);
             } else {
                 String string = resultSet.getString(1);
                 ResultSet columns = metaData.getColumns(lazyTableAnnotation.schema(), "%", tableName, "%");

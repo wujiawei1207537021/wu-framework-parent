@@ -2,7 +2,9 @@ package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.layer.data.JavaBasicType;
+import com.wu.framework.inner.layer.data.ProcessException;
 import com.wu.framework.inner.layer.stereotype.MethodParamFunction;
+import com.wu.framework.inner.layer.stereotype.MethodParamFunctionException;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.MySQLDataProcessAnalyze;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.ConvertedField;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
@@ -10,6 +12,7 @@ import com.wu.framework.inner.lazy.database.expand.database.persistence.map.Easy
 import org.springframework.util.ObjectUtils;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.sql.*;
 import java.util.ArrayList;
@@ -101,8 +104,6 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
         PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());
         try {
             return methodParamFunction.defaultMethod(preparedStatement);
-        } catch (SQLException sqlException) {
-            throw sqlException;
         } finally {
             connection.close();
             preparedStatement.close();
@@ -119,7 +120,7 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
      * @author 吴佳伟
      * @date 2021/4/27 4:02 下午
      */
-    public <E> List<E> resultSetConverter(ResultSet resultSet, String resultType) {
+    public <E> List<E> resultSetConverter(ResultSet resultSet, String resultType) throws SQLException, NoSuchFieldException, InstantiationException, IllegalAccessException {
         Class domainClass = null;
         try {
             domainClass = Class.forName(resultType);
@@ -138,8 +139,7 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
      * @author 吴佳伟
      * @date 2021/4/27 4:02 下午
      */
-    public <E> List<E> resultSetConverter(ResultSet resultSet, Class<E> domainClass) {
-        try {
+    public <E> List<E> resultSetConverter(ResultSet resultSet, Class<E> domainClass) throws SQLException, InstantiationException, IllegalAccessException, NoSuchFieldException {
             //封装结果集
             List list = new ArrayList();//定义返回值
 
@@ -212,9 +212,6 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
                 }
             }
             return list;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**

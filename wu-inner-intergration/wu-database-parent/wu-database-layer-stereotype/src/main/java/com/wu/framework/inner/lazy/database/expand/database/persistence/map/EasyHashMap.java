@@ -1,5 +1,6 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.map;
 
+import com.wu.framework.inner.layer.data.ProcessException;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.JavaVerification;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.ConvertedField;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.LazyTableAnnotation;
@@ -265,7 +266,7 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBean
      * @date 2021/3/2 6:24 下午
      **/
     @Override
-    public Object beforeObjectProcess() throws Exception {
+    public Object beforeObjectProcess() throws ProcessException {
         return null;
     }
 

@@ -15,5 +15,5 @@ public interface IBeanUpsert {
      * @author Jia wei Wu
      * @date 2021/3/2 6:24 下午
      **/
-    Object beforeObjectProcess() throws Exception;
+    Object beforeObjectProcess() throws ProcessException;
 }

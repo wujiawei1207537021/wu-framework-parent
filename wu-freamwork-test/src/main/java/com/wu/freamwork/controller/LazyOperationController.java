@@ -1,5 +1,7 @@
 package com.wu.freamwork.controller;
 
+import com.wu.framework.inner.layer.data.ProcessException;
+import com.wu.framework.inner.layer.stereotype.MethodParamFunctionException;
 import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.inner.lazy.database.domain.Page;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
@@ -8,10 +10,13 @@ import com.wu.framework.inner.lazy.database.expand.database.persistence.map.Easy
 import com.wu.framework.inner.lazy.database.test.pojo.DataBaseUser;
 import org.springframework.boot.CommandLineRunner;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @author : Jia wei Wu
@@ -60,6 +65,7 @@ public class LazyOperationController implements CommandLineRunner {
         page();
         scroll();
 
+        saveSqlFile();
     }
 
 
@@ -238,4 +244,19 @@ public class LazyOperationController implements CommandLineRunner {
             return m;
         });
     }
+
+
+
+    /**
+     * description 数据迁移
+     * @param
+     * @return
+     * @exception/throws
+     * @author 吴佳伟
+     * @date 2021/5/8 3:58 下午
+     */
+     public void saveSqlFile() throws ProcessException, IOException, SQLException, MethodParamFunctionException, ExecutionException, InterruptedException {
+         perfectLazyOperation.saveSqlFile("mysql");
+
+     }
 }

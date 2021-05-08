@@ -74,6 +74,12 @@ public class LazyOperationMethodPage extends AbstractLazyOperationMethod {
             return page;
         } catch (SQLException exception) {
             exception.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         } finally {
             assert statement != null;
             connection.close();
@@ -90,7 +96,7 @@ public class LazyOperationMethodPage extends AbstractLazyOperationMethod {
      * @author Jiawei Wu
      * @date 2021/1/24 9:27 下午
      **/
-    private void count(Connection connection) throws SQLException {
+    private void count(Connection connection) throws SQLException, NoSuchFieldException, InstantiationException, IllegalAccessException {
         PreparedStatement countPreparedStatement = connection.prepareStatement(countSql);
         ResultSet resultSet = countPreparedStatement.executeQuery();
         final List<Long> objects = resultSetConverter(resultSet, Long.class);
