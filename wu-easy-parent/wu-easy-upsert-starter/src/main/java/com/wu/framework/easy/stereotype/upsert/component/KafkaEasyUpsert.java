@@ -4,7 +4,7 @@ package com.wu.framework.easy.stereotype.upsert.component;
 import com.google.common.collect.Maps;
 import com.wu.framework.easy.stereotype.upsert.EasySmart;
 import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
-import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
+import com.wu.framework.easy.stereotype.upsert.config.SpringUpsertConfig;
 import com.wu.framework.easy.stereotype.upsert.converter.ConverterClass2KafkaSchema;
 import com.wu.framework.easy.stereotype.upsert.converter.JsonFileConverter;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
@@ -35,12 +35,12 @@ import java.util.concurrent.Future;
 public class KafkaEasyUpsert implements IEasyUpsert {
 
     private final UserConvertService userConvertService;
-    private final UpsertConfig upsertConfig;
+    private final SpringUpsertConfig springUpsertConfig;
     private final EasyUpsertExtractKafkaProducer easyUpsertExtractKafkaProducer;
 
-    public KafkaEasyUpsert(UserConvertService userConvertService, UpsertConfig upsertConfig, EasyUpsertExtractKafkaProducer easyUpsertExtractKafkaProducer) {
+    public KafkaEasyUpsert(UserConvertService userConvertService, SpringUpsertConfig springUpsertConfig, EasyUpsertExtractKafkaProducer easyUpsertExtractKafkaProducer) {
         this.userConvertService = userConvertService;
-        this.upsertConfig = upsertConfig;
+        this.springUpsertConfig = springUpsertConfig;
         this.easyUpsertExtractKafkaProducer = easyUpsertExtractKafkaProducer;
     }
 
@@ -50,14 +50,14 @@ public class KafkaEasyUpsert implements IEasyUpsert {
             Class clazz = list.get(0).getClass();
             // 模块名称+业务+表名
             EasySmart lazyTableAnnotation =
-                    LocalStorageClassAnnotation.getEasyTableAnnotation(clazz, upsertConfig.isForceDuplicateNameSwitch());
+                    LocalStorageClassAnnotation.getEasyTableAnnotation(clazz, springUpsertConfig.isForceDuplicateNameSwitch());
             String schemaName = lazyTableAnnotation.kafkaSchemaName();
 
             TargetJsonSchema targetJsonSchema = KafkaJsonMessage.targetSchemaMap.get(schemaName);
             if (targetJsonSchema == null) {
-                targetJsonSchema = ConverterClass2KafkaSchema.converterClass2TargetJsonSchema(clazz, upsertConfig.isForceDuplicateNameSwitch());
-                upsertConfig.getSchema().add(targetJsonSchema);
-                KafkaJsonMessage.targetSchemaMap = Maps.uniqueIndex(upsertConfig.getSchema(), TargetJsonSchema::getName);
+                targetJsonSchema = ConverterClass2KafkaSchema.converterClass2TargetJsonSchema(clazz, springUpsertConfig.isForceDuplicateNameSwitch());
+                springUpsertConfig.getSchema().add(targetJsonSchema);
+                KafkaJsonMessage.targetSchemaMap = Maps.uniqueIndex(springUpsertConfig.getSchema(), TargetJsonSchema::getName);
                 log.info(" Automatic loading TargetJsonSchema for class {}", schemaName);
             }
             KafkaJsonMessage kafkaJsonMessage = KafkaJsonMessage.newInstance("", schemaName);

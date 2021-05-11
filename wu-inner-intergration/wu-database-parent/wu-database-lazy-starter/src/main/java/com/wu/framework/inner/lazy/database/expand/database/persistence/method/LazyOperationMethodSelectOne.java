@@ -37,7 +37,7 @@ public class LazyOperationMethodSelectOne extends AbstractLazyOperationMethod {
     }
 
     @Override
-    public Object execute(DataSource dataSource, Object[] sourceParams) throws SQLException {
+    public Object execute(DataSource dataSource, Object[] sourceParams) throws SQLException, NoSuchFieldException, InstantiationException, IllegalAccessException {
 
         Connection connection = dataSource.getConnection();
         PersistenceRepository persistenceRepository = analyzePersistenceRepository(sourceParams[0]);

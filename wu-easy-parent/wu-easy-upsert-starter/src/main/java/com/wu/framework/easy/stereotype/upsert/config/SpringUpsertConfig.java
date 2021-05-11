@@ -24,8 +24,8 @@ import java.util.List;
 @Slf4j
 @Data
 @Configuration
-@ConfigurationProperties(prefix = UpsertConfig.UPSERT_PREFIX)
-public class UpsertConfig implements InitializingBean {
+@ConfigurationProperties(prefix = SpringUpsertConfig.UPSERT_PREFIX)
+public class SpringUpsertConfig implements InitializingBean {
 
     public static final String UPSERT_PREFIX = "spring.easy.upsert.config";
 

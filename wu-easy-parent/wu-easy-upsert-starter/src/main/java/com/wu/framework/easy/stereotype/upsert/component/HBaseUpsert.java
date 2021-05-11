@@ -1,7 +1,7 @@
 package com.wu.framework.easy.stereotype.upsert.component;
 
 import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
-import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
+import com.wu.framework.easy.stereotype.upsert.config.SpringUpsertConfig;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.inner.lazy.hbase.expland.persistence.HBaseOperation;
@@ -24,20 +24,20 @@ import java.util.concurrent.Callable;
 public class HBaseUpsert implements IEasyUpsert {
 
     private final HBaseOperation hBaseOperation;
-    private final UpsertConfig upsertConfig;
+    private final SpringUpsertConfig springUpsertConfig;
 
-    public HBaseUpsert(HBaseOperation hBaseOperation, UpsertConfig upsertConfig) {
+    public HBaseUpsert(HBaseOperation hBaseOperation, SpringUpsertConfig springUpsertConfig) {
         this.hBaseOperation = hBaseOperation;
-        this.upsertConfig = upsertConfig;
+        this.springUpsertConfig = springUpsertConfig;
     }
 
 
     @Override
     public <T> Object upsert(List<T> list) throws Exception {
-        Integer total = (list.size() + upsertConfig.getBatchLimit() - 1) / upsertConfig.getBatchLimit();
+        Integer total = (list.size() + springUpsertConfig.getBatchLimit() - 1) / springUpsertConfig.getBatchLimit();
         log.info("计划处理步骤 【{}】 步", total);
         int stepCount = 1;
-        for (List<T> ts : splitList(list, upsertConfig.getBatchLimit())) {
+        for (List<T> ts : splitList(list, springUpsertConfig.getBatchLimit())) {
             log.info("处理步骤第 【{}】 步 ,总步数 【{}】", stepCount, total);
             easyUpsertExecutor.submit((Callable) () -> hBaseOperation.upsertList(ts)).get();
             stepCount++;

@@ -44,7 +44,7 @@ public class LazyOperationMethodExecuteSQLForBean extends AbstractLazyOperationM
      * @date 2020/11/22 上午11:02
      */
     @Override
-    public Object execute(DataSource dataSource, Object[] sourceParams) throws SQLException {
+    public Object execute(DataSource dataSource, Object[] sourceParams) throws SQLException, NoSuchFieldException, InstantiationException, IllegalAccessException {
         Connection connection = dataSource.getConnection();
         PersistenceRepository persistenceRepository = analyzePersistenceRepository(sourceParams);
         PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());

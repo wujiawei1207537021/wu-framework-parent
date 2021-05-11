@@ -1,0 +1,6 @@
+spring:
+  easy:
+    upsert:
+      property:
+        kafka-properties:
+          bootstrap-servers: k8s.wu-framework.com:29092

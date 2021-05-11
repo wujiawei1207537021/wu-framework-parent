@@ -3,7 +3,7 @@ package com.wu.framework.easy.stereotype.upsert.component.mysql;
 
 import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
 import com.wu.framework.easy.stereotype.upsert.component.MySQLEasyUpsertAbstract;
-import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
+import com.wu.framework.easy.stereotype.upsert.config.SpringUpsertConfig;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.inner.layer.data.UserConvertService;
@@ -29,8 +29,8 @@ public class MySQLSimpleEasyUpsert extends MySQLEasyUpsertAbstract implements IE
 
     private final DataSource dataSource;
 
-    public MySQLSimpleEasyUpsert(DataSource dataSource, UserConvertService userConvertService, UpsertConfig upsertConfig) {
-        super(userConvertService, upsertConfig);
+    public MySQLSimpleEasyUpsert(DataSource dataSource, UserConvertService userConvertService, SpringUpsertConfig springUpsertConfig) {
+        super(userConvertService, springUpsertConfig);
         this.dataSource = dataSource;
     }
 

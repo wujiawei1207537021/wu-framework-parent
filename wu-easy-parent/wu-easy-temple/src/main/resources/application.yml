@@ -3,7 +3,7 @@ server:
 
 spring:
   profiles:
-    active: jpa
+    active: jpa,kafka,redis
 
   #  elasticsearch:
   #    rest:
@@ -12,9 +12,7 @@ spring:
     show-sql: true
   activemq:
     broker-url: 127.0.0.1:6631
-  redis:
-    host: easy.com
-    password: 123456
+
   rsocket:
     server:
       address: 127.0.0.1
@@ -26,8 +24,7 @@ spring:
         print-sql: false
         batch-limit: 10000
         record-log: true
-  hbase:
-    zookeeper-quorum: 'k8s.wu-framework.com:2181'
+
 
 
 

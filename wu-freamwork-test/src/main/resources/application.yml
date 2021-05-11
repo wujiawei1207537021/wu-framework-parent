@@ -8,24 +8,14 @@ server:
 
 spring:
   profiles:
-    active: wjw
+    active: empty
   wu:
     shiro:
       verification: session
   hbase:
-    zookeeperQuorum: 'k8s.wu-framework.com:2181'
+#    zookeeperQuorum: 'k8s.wu-framework.com:2181'
   redis:
     host: k8s.wu-framework.com
-
-
-wu:
-  database:
-    mapper:
-      scan-xml-path: classpath*:wu-mapper/*Dao.xml
-
-#debug: true
-mybatis:
-  mapperLocations: classpath:mapper/**/*.xml
 
 
 easy:

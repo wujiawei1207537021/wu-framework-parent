@@ -3,12 +3,12 @@ package com.wu.framework.easy.stereotype.upsert.component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wu.framework.easy.stereotype.upsert.config.SpringUpsertProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
@@ -23,27 +23,22 @@ import java.util.concurrent.TimeoutException;
  * @date 2020/7/16 下午1:27
  */
 @Slf4j
-@ConditionalOnProperty(prefix = "spring.kafka", value = "bootstrap-servers")
+@ConditionalOnProperty(prefix = "spring.easy.upsert.property.kafka-properties", value = "bootstrap-servers")
 public class EasyUpsertExtractKafkaProducer implements InitializingBean {
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     private final KafkaProducer<String, String> kafkaProducer;
 
-    //    private final DataAccessLogHelper dataAccessLogHelper; //TODO
 
-    public EasyUpsertExtractKafkaProducer(KafkaProperties kafkaProperties) {
+    public EasyUpsertExtractKafkaProducer(SpringUpsertProperties springUpsertProperties) {
 
-        //        this.dataAccessLogHelper = dataAccessLogHelper;
         Properties props = new Properties();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getBootstrapServers());
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, springUpsertProperties.getKafkaProperties().getBootstrapServers());
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        if (kafkaProperties.getBootstrapServers().size() == 1 && kafkaProperties.getBootstrapServers().get(0).equals("localhost:9092")) {
-            this.kafkaProducer = null;
-        } else {
-            this.kafkaProducer = new KafkaProducer<>(props);
-        }
+        this.kafkaProducer = new KafkaProducer<>(props);
+
     }
 
 

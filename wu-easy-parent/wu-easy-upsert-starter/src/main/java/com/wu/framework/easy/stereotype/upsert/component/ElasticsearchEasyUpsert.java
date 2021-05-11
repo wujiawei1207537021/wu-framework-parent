@@ -2,7 +2,7 @@ package com.wu.framework.easy.stereotype.upsert.component;
 
 import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
 import com.wu.framework.easy.stereotype.upsert.analyze.ElasticsearchEasyDataProcessAnalyze;
-import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
+import com.wu.framework.easy.stereotype.upsert.config.SpringUpsertConfig;
 import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import lombok.extern.slf4j.Slf4j;
@@ -37,11 +37,11 @@ public class ElasticsearchEasyUpsert implements IEasyUpsert, ElasticsearchEasyDa
             .build();
     private final ElasticsearchRestClientProperties elasticsearchRestClientProperties;
 
-    private final UpsertConfig upsertConfig;
+    private final SpringUpsertConfig springUpsertConfig;
 
-    ElasticsearchEasyUpsert(ElasticsearchRestClientProperties elasticsearchRestClientProperties, UpsertConfig upsertConfig) {
+    ElasticsearchEasyUpsert(ElasticsearchRestClientProperties elasticsearchRestClientProperties, SpringUpsertConfig springUpsertConfig) {
         this.elasticsearchRestClientProperties = elasticsearchRestClientProperties;
-        this.upsertConfig = upsertConfig;
+        this.springUpsertConfig = springUpsertConfig;
     }
 
     public static String fileSize(long size) {
@@ -98,14 +98,14 @@ public class ElasticsearchEasyUpsert implements IEasyUpsert, ElasticsearchEasyDa
     @Override
     public <T> Object upsert(List<T> list) throws Exception {
 
-        Integer total = (list.size() + upsertConfig.getBatchLimit() - 1) / upsertConfig.getBatchLimit();
+        Integer total = (list.size() + springUpsertConfig.getBatchLimit() - 1) / springUpsertConfig.getBatchLimit();
         log.info("计划处理写入文件 【{}】 个", total);
         int stepCount = 1;
         // 文件写入本地
-        List<List<T>> splitList = splitList(list, upsertConfig.getBatchLimit());
+        List<List<T>> splitList = splitList(list, springUpsertConfig.getBatchLimit());
         for (List<T> ts : splitList) {
             log.info("处理步写入文件 【{}】 步 ,总文件 【{}】", stepCount, total);
-            writeFileToLocal(ts, upsertConfig.getCacheFileAddress());
+            writeFileToLocal(ts, springUpsertConfig.getCacheFileAddress());
             stepCount++;
         }
         log.info("分步写入本地文件完成✅");
@@ -127,7 +127,7 @@ public class ElasticsearchEasyUpsert implements IEasyUpsert, ElasticsearchEasyDa
     private void send() {
         elasticsearchRestClientProperties.getUris().forEach(uri -> {
             // 指定类型文件
-            File cacheFile = new File(upsertConfig.getCacheFileAddress());
+            File cacheFile = new File(springUpsertConfig.getCacheFileAddress());
             final File[] listFiles = cacheFile.listFiles((dir, name) -> {
                 String fileName = name.toLowerCase();
                 return fileName.endsWith(ElasticsearchEasyDataProcessAnalyze.ES_UPSERT_FILE_SUFFIX);

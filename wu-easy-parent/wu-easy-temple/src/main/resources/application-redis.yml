@@ -1,0 +1,4 @@
+spring:
+  redis:
+    host: easy.com
+    password: 123456
