@@ -13,6 +13,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.ObjectUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,10 +31,6 @@ public class SpringUpsertConfig implements InitializingBean {
     public static final String UPSERT_PREFIX = "spring.easy.upsert.config";
 
 
-    /**
-     * 目标数据源的schema
-     */
-    private List<TargetJsonSchema> schema;
     /**
      * 强制重名开关
      */
@@ -72,17 +69,10 @@ public class SpringUpsertConfig implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        if (null == schema) {
-            return;
-        }
-        KafkaJsonMessage.targetSchemaMap = Maps.uniqueIndex(schema, TargetJsonSchema::getName);
+
         if (!ObjectUtils.isEmpty(ignoredFields)) {
             UpsertJsonMessage.ignoredFields.addAll(ignoredFields);
         }
-        for (TargetJsonSchema targetJsonSchema : schema) {
-            log.info("动态加载Schema:{}-成功", targetJsonSchema.getName());
-        }
-        log.info("动态Schema-加载 {} 成功", this.getSchema().size());
 
     }
 

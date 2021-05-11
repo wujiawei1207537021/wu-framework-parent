@@ -159,16 +159,7 @@ public class UpsertMySQLController {
      * @date 2021/4/19 上午10:09
      */
     public List<UserLog> createUserLog(Integer size) {
-        List<UserLog> userLogList = new ArrayList<>();
-        size = size == null ? 10000 : size;
-        for (int i = 0; i < size; i++) {
-            UserLog userLog = new UserLog();
-            userLog.setCurrentTime(LocalDateTime.now());
-            userLog.setContent("创建时间:" + userLog.getCurrentTime());
-            userLog.setUserId(i);
-            userLogList.add(userLog);
-        }
-        return userLogList;
+        return UserLog.createUserLogList(size);
     }
 
 

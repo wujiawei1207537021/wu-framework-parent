@@ -18,6 +18,7 @@ import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,8 +57,7 @@ public class KafkaEasyUpsert implements IEasyUpsert {
             TargetJsonSchema targetJsonSchema = KafkaJsonMessage.targetSchemaMap.get(schemaName);
             if (targetJsonSchema == null) {
                 targetJsonSchema = ConverterClass2KafkaSchema.converterClass2TargetJsonSchema(clazz, springUpsertConfig.isForceDuplicateNameSwitch());
-                springUpsertConfig.getSchema().add(targetJsonSchema);
-                KafkaJsonMessage.targetSchemaMap = Maps.uniqueIndex(springUpsertConfig.getSchema(), TargetJsonSchema::getName);
+                KafkaJsonMessage.targetSchemaMap = Maps.uniqueIndex(Arrays.asList(targetJsonSchema), TargetJsonSchema::getName);
                 log.info(" Automatic loading TargetJsonSchema for class {}", schemaName);
             }
             KafkaJsonMessage kafkaJsonMessage = KafkaJsonMessage.newInstance("", schemaName);
