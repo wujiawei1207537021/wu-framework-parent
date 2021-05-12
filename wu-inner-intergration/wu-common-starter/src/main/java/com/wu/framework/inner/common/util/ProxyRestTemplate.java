@@ -1,6 +1,7 @@
 package com.wu.framework.inner.common.util;
 
-import com.sun.deploy.net.proxy.ProxyInfo;
+
+import lombok.Data;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -109,6 +110,19 @@ public class ProxyRestTemplate {
 
                 + (random.nextInt(255) + 1);
 
+    }
+
+    @Data
+    public static class ProxyInfo {
+        private String proxy;
+        private int port;
+        private String socksProxy;
+        private int socksPort;
+
+        public ProxyInfo(String proxy, int port) {
+            this.proxy = proxy;
+            this.port = port;
+        }
     }
 
 
