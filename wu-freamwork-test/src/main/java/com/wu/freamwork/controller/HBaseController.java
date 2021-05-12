@@ -25,7 +25,7 @@ import java.util.List;
  * @date 2021/4/8 下午4:11
  */
 @Api(tags = "HBase测试操作")
-@EasyController("/HBase")
+//@EasyController("/HBase")
 public class HBaseController implements CommandLineRunner {
 
     private final HBaseOperation hBaseOperation;
