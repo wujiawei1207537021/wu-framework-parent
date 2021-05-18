@@ -51,7 +51,8 @@ public class LazyOperationController implements CommandLineRunner {
         final String s = easyHashMap.toEasyTableAnnotation(false).creatTableSQL();
 //        lazyOperation.upsert(easyHashMap, Arrays.asList(easyHashMap));
 
-        test();
+        select();
+
 
     }
 

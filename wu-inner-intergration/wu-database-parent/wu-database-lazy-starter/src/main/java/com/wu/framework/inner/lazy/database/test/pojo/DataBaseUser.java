@@ -32,7 +32,6 @@ public class DataBaseUser implements Serializable {
     @LazyTableField("sex")
     private String sex;
 
-
     @LazyTableField(value = "address", exist = false)
     private String address;
 
