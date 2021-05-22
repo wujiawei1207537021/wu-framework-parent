@@ -3,10 +3,9 @@ package com.wu.freamwork.controller;
 
 import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.inner.template.https.HttpsRestTemplate;
-import com.wu.framework.inner.template.proxy.http.ProxyProxyRestTemplate;
+import com.wu.framework.inner.template.proxy.http.ProxyRestTemplate;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
@@ -26,7 +25,7 @@ public class TemplateTestController {
     @Resource
     private HttpsRestTemplate httpsRestTemplate;
     @Resource
-    private ProxyProxyRestTemplate proxyProxyRestTemplate;
+    private ProxyRestTemplate proxyRestTemplate;
 
     //    @PostConstruct
     public void init() {
@@ -56,7 +55,7 @@ public class TemplateTestController {
 
     @GetMapping("/proxy")
     public Object proxyHttp(@RequestParam String url) {
-        return proxyProxyRestTemplate.getForObject(url, String.class);
+        return proxyRestTemplate.getForObject(url, String.class);
     }
 
 }

@@ -1,8 +1,7 @@
 package com.wu.framework.inner.template.proxy.http.config;
 
-import com.wu.framework.inner.template.proxy.http.ProxyProxyRestTemplate;
+import com.wu.framework.inner.template.proxy.http.ProxyRestTemplate;
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -56,8 +55,8 @@ public class ProxyHttpConfig {
     }
 
     @Bean
-    ProxyProxyRestTemplate proxyProxyRestTemplate() {
-        return new ProxyProxyRestTemplate(this);
+    ProxyRestTemplate proxyProxyRestTemplate() {
+        return new ProxyRestTemplate(this);
     }
 
     enum HttpProxyType {

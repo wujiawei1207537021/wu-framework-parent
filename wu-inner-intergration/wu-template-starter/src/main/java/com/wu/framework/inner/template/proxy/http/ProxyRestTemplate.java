@@ -42,7 +42,7 @@ import java.util.stream.Stream;
  * @describe :
  * @date : 2021/5/18 8:35 下午
  */
-public class ProxyProxyRestTemplate extends InterceptingHttpAccessor implements RestOperations {
+public class ProxyRestTemplate extends InterceptingHttpAccessor implements RestOperations {
 
     /**
      * Boolean flag controlled by a {@code spring.xml.ignore} system property that instructs Spring to
@@ -97,7 +97,7 @@ public class ProxyProxyRestTemplate extends InterceptingHttpAccessor implements 
      * Create a new instance of the {@link RestTemplate} using default settings.
      * Default {@link HttpMessageConverter HttpMessageConverters} are initialized.
      */
-    public ProxyProxyRestTemplate() {
+    public ProxyRestTemplate() {
         this.messageConverters.add(new ByteArrayHttpMessageConverter());
         this.messageConverters.add(new StringHttpMessageConverter());
         this.messageConverters.add(new ResourceHttpMessageConverter(false));
@@ -145,7 +145,7 @@ public class ProxyProxyRestTemplate extends InterceptingHttpAccessor implements 
 
     }
 
-    public ProxyProxyRestTemplate(ProxyHttpConfig proxyHttpConfig) {
+    public ProxyRestTemplate(ProxyHttpConfig proxyHttpConfig) {
         this();
         setRequestFactory(new ProxySimpleClientHttpRequestFactory(proxyHttpConfig));
     }
@@ -157,7 +157,7 @@ public class ProxyProxyRestTemplate extends InterceptingHttpAccessor implements 
      * @param messageConverters the list of {@link HttpMessageConverter} to use
      * @since 3.2.7
      */
-    public ProxyProxyRestTemplate(List<HttpMessageConverter<?>> messageConverters) {
+    public ProxyRestTemplate(List<HttpMessageConverter<?>> messageConverters) {
         validateConverters(messageConverters);
         this.messageConverters.addAll(messageConverters);
         this.uriTemplateHandler = initUriTemplateHandler();
