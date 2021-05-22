@@ -24,7 +24,7 @@ import java.util.concurrent.ExecutionException;
  * @describe :
  * @date : 2021/4/17 10:37 下午
  */
-//@EasyController
+//@EasyController("/public/lazy")
 public class LazyOperationController implements CommandLineRunner {
 
     private final LazyOperation lazyOperation;

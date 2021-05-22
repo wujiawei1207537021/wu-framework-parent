@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  * @author Jia wei Wu
  * @date 2020/10/26 下午2:14
  */
-@EasyController("/json")
+@EasyController("/public/json")
 public class JsonController {
 
 

@@ -3,7 +3,11 @@ package com.wu.freamwork.controller;
 
 import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.inner.template.https.HttpsRestTemplate;
+import com.wu.framework.inner.template.proxy.http.ProxyProxyRestTemplate;
 import io.swagger.annotations.Api;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 
@@ -16,11 +20,13 @@ import static java.lang.Thread.sleep;
  * @date : 2020/6/17 10:42 下午
  */
 @Api(tags = "Template 模板测试")
-@EasyController("/test/template")
+@EasyController("/public/test/template")
 public class TemplateTestController {
 
     @Resource
     private HttpsRestTemplate httpsRestTemplate;
+    @Resource
+    private ProxyProxyRestTemplate proxyProxyRestTemplate;
 
     //    @PostConstruct
     public void init() {
@@ -46,6 +52,11 @@ public class TemplateTestController {
                 init();
             }).run();
         }
+    }
+
+    @GetMapping("/proxy")
+    public Object proxyHttp(@RequestParam String url) {
+        return proxyProxyRestTemplate.getForObject(url, String.class);
     }
 
 }

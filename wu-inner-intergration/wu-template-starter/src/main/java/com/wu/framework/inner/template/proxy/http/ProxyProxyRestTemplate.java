@@ -1,11 +1,12 @@
 package com.wu.framework.inner.template.proxy.http;
 
+import com.wu.framework.inner.template.proxy.http.config.ProxyHttpConfig;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.SpringProperties;
 import org.springframework.http.*;
 import org.springframework.http.client.ClientHttpRequest;
-import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.http.client.ProxySimpleClientHttpRequestFactory;
 import org.springframework.http.client.support.InterceptingHttpAccessor;
 import org.springframework.http.converter.*;
 import org.springframework.http.converter.cbor.MappingJackson2CborHttpMessageConverter;
@@ -41,7 +42,7 @@ import java.util.stream.Stream;
  * @describe :
  * @date : 2021/5/18 8:35 下午
  */
-public class ProxyRestTemplate extends InterceptingHttpAccessor implements RestOperations {
+public class ProxyProxyRestTemplate extends InterceptingHttpAccessor implements RestOperations {
 
     /**
      * Boolean flag controlled by a {@code spring.xml.ignore} system property that instructs Spring to
@@ -96,7 +97,7 @@ public class ProxyRestTemplate extends InterceptingHttpAccessor implements RestO
      * Create a new instance of the {@link RestTemplate} using default settings.
      * Default {@link HttpMessageConverter HttpMessageConverters} are initialized.
      */
-    public ProxyRestTemplate() {
+    public ProxyProxyRestTemplate() {
         this.messageConverters.add(new ByteArrayHttpMessageConverter());
         this.messageConverters.add(new StringHttpMessageConverter());
         this.messageConverters.add(new ResourceHttpMessageConverter(false));
@@ -140,18 +141,13 @@ public class ProxyRestTemplate extends InterceptingHttpAccessor implements RestO
         }
 
         this.uriTemplateHandler = initUriTemplateHandler();
+
+
     }
 
-    /**
-     * Create a new instance of the {@link RestTemplate} based on the given {@link ClientHttpRequestFactory}.
-     *
-     * @param requestFactory the HTTP request factory to use
-     * @see org.springframework.http.client.SimpleClientHttpRequestFactory
-     * @see org.springframework.http.client.HttpComponentsClientHttpRequestFactory
-     */
-    public ProxyRestTemplate(ClientHttpRequestFactory requestFactory) {
+    public ProxyProxyRestTemplate(ProxyHttpConfig proxyHttpConfig) {
         this();
-        setRequestFactory(requestFactory);
+        setRequestFactory(new ProxySimpleClientHttpRequestFactory(proxyHttpConfig));
     }
 
     /**
@@ -161,7 +157,7 @@ public class ProxyRestTemplate extends InterceptingHttpAccessor implements RestO
      * @param messageConverters the list of {@link HttpMessageConverter} to use
      * @since 3.2.7
      */
-    public ProxyRestTemplate(List<HttpMessageConverter<?>> messageConverters) {
+    public ProxyProxyRestTemplate(List<HttpMessageConverter<?>> messageConverters) {
         validateConverters(messageConverters);
         this.messageConverters.addAll(messageConverters);
         this.uriTemplateHandler = initUriTemplateHandler();
@@ -989,5 +985,6 @@ public class ProxyRestTemplate extends InterceptingHttpAccessor implements RestO
             return response.getHeaders();
         }
     }
+
 
 }

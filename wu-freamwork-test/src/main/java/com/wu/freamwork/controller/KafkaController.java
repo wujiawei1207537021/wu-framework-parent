@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  * @author Jiawei Wu
  * @date 2021/1/27 上午10:24
  */
-//@EasyController
+//@EasyController("/public/kafka")
 public class KafkaController {
 
 

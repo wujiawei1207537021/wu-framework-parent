@@ -12,15 +12,24 @@ spring:
   wu:
     shiro:
       verification: session
+      un-check-api-path:
+        "/public/**"
+    http:
+      http-proxy-type: fixed
+      proxy: 192.168.1.22
+      port: 50
   hbase:
 #    zookeeperQuorum: 'k8s.wu-framework.com:2181'
   redis:
     host: k8s.wu-framework.com
 
 
-easy:
-  upsert:
-    config:
-      batch-limit: 10000
+  easy:
+    upsert:
+      config:
+        batch-limit: 10000
+
+
+
 
 
