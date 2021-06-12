@@ -25,4 +25,6 @@ export GPG_TTY=$(tty)
         5.添加记忆芯片功能(仿生)
 ### 1.0.5 
     使用spring-boot 2.4.5
+    1.shiro 版本启用 替换为 authorization
+    2.后续将持续更新authorization
     

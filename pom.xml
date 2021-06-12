@@ -99,8 +99,6 @@
     </properties>
 
     <modules>
-<!--        <module>wu-framework-shiro</module>-->
-        <!--        <module>wu-framework-system</module>-->
         <module>wu-inner-intergration</module>
         <module>wu-freamwork-test</module>
         <module>wu-inner-api</module>
@@ -154,12 +152,6 @@
                 <artifactId>wu-database-lazy-starter</artifactId>
                 <version>${wu-database-lazy-starter.version}</version>
             </dependency>
-            <!--swagger 即将弃用 原因swagger 官方推出starter 包 -->
-            <dependency>
-                <groupId>top.wu2020</groupId>
-                <artifactId>wu-swagger-starter</artifactId>
-                <version>${wu-swagger-starter.version}</version>
-            </dependency>
             <!--懒人redis-->
             <dependency>
                 <groupId>top.wu2020</groupId>
@@ -205,7 +197,6 @@
                 <version>${wu-framework-parent.version}</version>
             </dependency>
             <!--层方面注解-->
-
             <dependency>
                 <groupId>top.wu2020</groupId>
                 <artifactId>wu-layer-stereotype</artifactId>
