@@ -10,7 +10,7 @@ spring:
   profiles:
     active: wjw
   wu:
-    shiro:
+    authorization:
       verification: session
       un-check-api-path:
         "/public/**"

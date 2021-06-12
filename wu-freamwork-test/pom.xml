@@ -82,12 +82,6 @@
         <!--        </dependency>-->
 
         <dependency>
-            <groupId>top.wu2020</groupId>
-            <artifactId>wu-framework-shiro</artifactId>
-            <version>1.0.5</version>
-        </dependency>
-
-        <dependency>
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
             <version>1.6.1</version>
@@ -114,6 +108,10 @@
         <dependency>
             <groupId>top.wu2020</groupId>
             <artifactId>wu-hbase-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-authorization-server-starter</artifactId>
             <version>1.0.5</version>
         </dependency>
 

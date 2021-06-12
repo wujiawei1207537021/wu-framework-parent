@@ -99,7 +99,7 @@
     </properties>
 
     <modules>
-        <module>wu-framework-shiro</module>
+<!--        <module>wu-framework-shiro</module>-->
         <!--        <module>wu-framework-system</module>-->
         <module>wu-inner-intergration</module>
         <module>wu-freamwork-test</module>
@@ -109,6 +109,8 @@
         <module>wu-easy-parent</module>
         <module>wu-bionic-parent</module>
         <module>wu-layer-stereotype</module>
+        <module>wu-framework-web</module>
+        <module>wu-framework-authorization</module>
     </modules>
 
     <dependencies>
