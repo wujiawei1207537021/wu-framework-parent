@@ -1,7 +1,6 @@
 package com.wu.framework.authorization.token.store;
 
 import com.wu.framework.authorization.config.pro.AuthorizationProperties;
-import com.wu.framework.authorization.constant.AuthorizationConfigConstant;
 import com.wu.framework.authorization.domain.AccessTokenRO;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import com.wu.framework.authorization.domain.Authentication;

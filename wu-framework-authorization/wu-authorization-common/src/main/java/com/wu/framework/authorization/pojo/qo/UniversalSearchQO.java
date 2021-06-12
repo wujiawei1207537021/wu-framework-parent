@@ -1,4 +1,4 @@
-package com.wu.framework.pojo.qo;
+package com.wu.framework.authorization.pojo.qo;
 
 
 import lombok.Data;

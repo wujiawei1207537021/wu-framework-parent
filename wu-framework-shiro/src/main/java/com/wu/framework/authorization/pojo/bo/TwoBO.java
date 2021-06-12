@@ -1,10 +1,9 @@
-package com.wu.framework.pojo.bo;
-
+package com.wu.framework.authorization.pojo.bo;
 
 import lombok.Data;
 
 /**
- * @ Description   :  三个对象
+ * @ Description   :  两个对象
  * @ Author        :  wujiawei
  * @ CreateDate    :  2019/12/24 0024 9:31
  * @ UpdateUser    :  wujiawei
@@ -14,11 +13,9 @@ import lombok.Data;
  */
 
 @Data
-public class ThreeBO<F, S, T> {
+public class TwoBO<F, S> {
 
     private F first;
 
     private S second;
-
-    private T third;
 }
