@@ -76,7 +76,7 @@ public class NormalConvertMapperAspectPointAspectAOP extends AbstractPointcutAdv
             Object returnValue = invocation.proceed();
             defaultConvertConvertService.convertObjects(returnValue);
             long end = System.currentTimeMillis();
-            System.out.printf("当前方法%S执行时间:%s(毫秒) %n", invocation.getMethod().getName(), end - start);
+            System.out.printf("转换字典当前方法%s执行时间:%s(毫秒) %n", invocation.getMethod().getName(), end - start);
             return returnValue;
         }
     }
