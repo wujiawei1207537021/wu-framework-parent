@@ -23,8 +23,7 @@ public class AddressInfo implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws UnknownHostException {
-        String ip = "127.0.0.1";
-        log.info("加载 web-swagger2地址: http://{}:{}/swagger-ui.html", ip, serverProperties.getPort());
-        log.info("加载 web-swagger3地址: http://{}:{}/swagger-ui/index.html", ip, serverProperties.getPort());
+        log.info("加载 web-swagger2地址: http://127.0.0.1:{}/swagger-ui.html", serverProperties.getPort());
+        log.info("加载 web-swagger3地址: http://127.0.0.1:{}/swagger-ui/index.html", serverProperties.getPort());
     }
 }
