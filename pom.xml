@@ -59,7 +59,8 @@
 
         <wu-easy-parent.version>${project.version}</wu-easy-parent.version>
         <wu-easy-excel-starter.version>${project.version}</wu-easy-excel-starter.version>
-        <wu-easy-upsert-spring-boot-autoconfigure.version>${project.version}</wu-easy-upsert-spring-boot-autoconfigure.version>
+        <wu-easy-upsert-spring-boot-autoconfigure.version>${project.version}
+        </wu-easy-upsert-spring-boot-autoconfigure.version>
         <wu-easy-temp.version>${project.version}</wu-easy-temp.version>
         <wu-easy-upsert-starter.version>${project.version}</wu-easy-upsert-starter.version>
 
@@ -215,7 +216,12 @@
                 <artifactId>wu-elasticsearch-starter</artifactId>
                 <version>${wu-elasticsearch-starter.version}</version>
             </dependency>
-
+            <!--            web-->
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-framework-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
