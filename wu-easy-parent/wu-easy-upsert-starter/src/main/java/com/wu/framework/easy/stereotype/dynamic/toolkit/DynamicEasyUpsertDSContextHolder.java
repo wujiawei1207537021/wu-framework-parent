@@ -1,7 +1,7 @@
 package com.wu.framework.easy.stereotype.dynamic.toolkit;
 
 
-import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
+import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertDS;
 
 import java.util.ArrayDeque;
 import java.util.Deque;

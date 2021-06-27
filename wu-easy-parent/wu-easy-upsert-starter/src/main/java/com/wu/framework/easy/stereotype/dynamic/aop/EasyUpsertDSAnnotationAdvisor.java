@@ -2,7 +2,7 @@ package com.wu.framework.easy.stereotype.dynamic.aop;
 
 
 import com.wu.framework.easy.stereotype.dynamic.toolkit.DynamicEasyUpsertDSContextHolder;
-import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
+import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertDS;
 import lombok.NonNull;
 import org.aopalliance.aop.Advice;
 import org.aopalliance.intercept.MethodInterceptor;

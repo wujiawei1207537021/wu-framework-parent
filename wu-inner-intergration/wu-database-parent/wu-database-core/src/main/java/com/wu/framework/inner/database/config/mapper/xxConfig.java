@@ -1,6 +1,6 @@
 //package com.wu.framework.inner.database.config.mapper;
 //
-//import com.wu.framework.easy.stereotype.upsert.EasySmart;
+//import com.wu.framework.easy.upsert.autoconfigure.EasySmart;
 //import com.wu.framework.inner.database.DDLAutoOperate;
 //import com.wu.framework.inner.database.EasyDataSourceAdapter;
 //import com.wu.framework.inner.database.config.ICustomDatabaseConfiguration;

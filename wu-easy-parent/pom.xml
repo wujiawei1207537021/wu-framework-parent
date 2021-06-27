@@ -13,14 +13,15 @@
     <version>1.0.5</version>
     <packaging>pom</packaging>
     <properties>
-        <wu-easy-stereotype.version>${project.version}</wu-easy-stereotype.version>
+        <wu-easy-upsert-spring-boot-autoconfigure.version>${project.version}</wu-easy-upsert-spring-boot-autoconfigure.version>
     </properties>
     <modules>
-        <module>wu-easy-stereotype</module>
+        <module>wu-easy-upsert-spring-boot-autoconfigure</module>
         <module>wu-easy-upsert-starter</module>
         <module>wu-easy-temple</module>
         <module>wu-easy-kafka-connect</module>
         <module>wu-easy-excel-starter</module>
+        <module>wu-easy-upsert-sink-parent</module>
     </modules>
 
 
@@ -28,8 +29,8 @@
         <dependencies>
             <dependency>
                 <groupId>top.wu2020</groupId>
-                <artifactId>wu-easy-stereotype</artifactId>
-                <version>${wu-easy-stereotype.version}</version>
+                <artifactId>wu-easy-upsert-spring-boot-autoconfigure</artifactId>
+                <version>${wu-easy-upsert-spring-boot-autoconfigure.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

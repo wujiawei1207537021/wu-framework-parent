@@ -2,12 +2,12 @@ package com.wu.framework.easy.stereotype.dynamic;
 
 
 import com.wu.framework.easy.stereotype.dynamic.toolkit.DynamicEasyUpsertDSContextHolder;
-import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
-import com.wu.framework.easy.stereotype.upsert.config.SpringUpsertConfig;
-import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
-import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
-import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
-import com.wu.framework.easy.stereotype.upsert.exceptions.IllegalDataSourceException;
+import com.wu.framework.easy.upsert.autoconfigure.IEasyUpsert;
+import com.wu.framework.easy.stereotype.upsert.SpringUpsertConfig;
+import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertDS;
+import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertStrategy;
+import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
+import com.wu.framework.easy.upsert.autoconfigure.exceptions.IllegalDataSourceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;

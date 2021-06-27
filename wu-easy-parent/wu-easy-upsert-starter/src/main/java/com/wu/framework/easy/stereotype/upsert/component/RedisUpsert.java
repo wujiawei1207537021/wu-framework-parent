@@ -1,9 +1,9 @@
 package com.wu.framework.easy.stereotype.upsert.component;
 
-import com.wu.framework.easy.stereotype.upsert.EasySmart;
-import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
-import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
-import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
+import com.wu.framework.easy.upsert.autoconfigure.EasySmart;
+import com.wu.framework.easy.upsert.autoconfigure.IEasyUpsert;
+import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertStrategy;
+import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.redis.component.LazyRedisTemplate;
 import lombok.extern.slf4j.Slf4j;

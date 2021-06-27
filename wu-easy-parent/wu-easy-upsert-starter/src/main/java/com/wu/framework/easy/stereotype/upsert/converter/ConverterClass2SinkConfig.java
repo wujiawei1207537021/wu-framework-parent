@@ -2,7 +2,7 @@ package com.wu.framework.easy.stereotype.upsert.converter;
 
 
 import com.alibaba.fastjson.JSON;
-import com.wu.framework.easy.stereotype.upsert.EasySmart;
+import com.wu.framework.easy.upsert.autoconfigure.EasySmart;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.EasyAnnotationConverter;
 import org.springframework.core.annotation.AnnotationUtils;

@@ -1,6 +1,6 @@
 package com.wu.framework.easy.temple.domain;
 
-import com.wu.framework.easy.stereotype.upsert.EasySmart;
+import com.wu.framework.easy.upsert.autoconfigure.EasySmart;
 import lombok.Data;
 
 import java.io.File;

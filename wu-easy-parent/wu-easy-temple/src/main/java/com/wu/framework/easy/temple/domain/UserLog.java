@@ -1,8 +1,8 @@
 package com.wu.framework.easy.temple.domain;
 
 import com.wu.framework.easy.excel.stereotype.EasyExcelFiled;
-import com.wu.framework.easy.stereotype.upsert.EasySmart;
-import com.wu.framework.easy.stereotype.upsert.EasySmartField;
+import com.wu.framework.easy.upsert.autoconfigure.EasySmart;
+import com.wu.framework.easy.upsert.autoconfigure.EasySmartField;
 import lombok.Data;
 
 import java.time.LocalDateTime;

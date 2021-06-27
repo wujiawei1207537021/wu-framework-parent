@@ -1,9 +1,9 @@
 package com.wu.framework.easy.stereotype.upsert.component;
 
 import com.wu.framework.easy.stereotype.log.EasyUpsertLog;
-import com.wu.framework.easy.stereotype.upsert.EasySmart;
-import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
-import com.wu.framework.easy.stereotype.upsert.config.SpringUpsertConfig;
+import com.wu.framework.easy.upsert.autoconfigure.EasySmart;
+import com.wu.framework.easy.upsert.autoconfigure.IEasyUpsert;
+import com.wu.framework.easy.upsert.autoconfigure.config.SpringUpsertAutoConfigure;
 import com.wu.framework.inner.layer.data.UserConvertService;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.EasyAnnotationConverter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.MySQLDataProcessAnalyze;
@@ -35,11 +35,11 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, MySQLDataP
 
 
     private final UserConvertService userConvertService;
-    private final SpringUpsertConfig springUpsertConfig;
+    private final SpringUpsertAutoConfigure springUpsertAutoConfigure;
 
-    public MySQLEasyUpsertAbstract(UserConvertService userConvertService, SpringUpsertConfig springUpsertConfig) {
+    public MySQLEasyUpsertAbstract(UserConvertService userConvertService, SpringUpsertAutoConfigure springUpsertAutoConfigure) {
         this.userConvertService = userConvertService;
-        this.springUpsertConfig = springUpsertConfig;
+        this.springUpsertAutoConfigure = springUpsertAutoConfigure;
     }
 
     protected abstract DataSource determineDataSource();
@@ -48,9 +48,9 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, MySQLDataP
     @Override
     public <T> Object upsert(List<T> list) throws Exception {
         DataSource dataSource = determineDataSource();
-        Integer total = (list.size() + springUpsertConfig.getBatchLimit() - 1) / springUpsertConfig.getBatchLimit();
+        Integer total = (list.size() + springUpsertAutoConfigure.getBatchLimit() - 1) / springUpsertAutoConfigure.getBatchLimit();
         log.info("计划处理步骤 【{}】 步", total);
-        List<List<T>> splitList = splitList(list, springUpsertConfig.getBatchLimit());
+        List<List<T>> splitList = splitList(list, springUpsertAutoConfigure.getBatchLimit());
         AtomicInteger stepCount = new AtomicInteger(0);
         splitList.stream().parallel().forEach(ts -> {
             stepCount.getAndIncrement();
@@ -79,7 +79,7 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, MySQLDataP
             LazyTableAnnotation lazyTableAnnotation = dataAnalyze(clazz, EasyHashMap.class.isAssignableFrom(clazz) ? (EasyHashMap) list.get(0) : null);
             lazyTableAnnotation.setIEnumList(iEnumList);
             final MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = upsertDataPack(list, lazyTableAnnotation);
-            if (springUpsertConfig.isPrintSql()) {
+            if (springUpsertAutoConfigure.isPrintSql()) {
                 System.err.println(String.format("Execute SQL : %s", mySQLProcessResult.getSql()));
             }
             PreparedStatement upsertStatement = null;
@@ -122,7 +122,7 @@ public abstract class MySQLEasyUpsertAbstract implements IEasyUpsert, MySQLDataP
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        if (springUpsertConfig.isRecordLog()) {
+        if (springUpsertAutoConfigure.isRecordLog()) {
             perfectTable(classLazyTableAnalyze(EasyUpsertLog.class), determineDataSource());
         }
     }

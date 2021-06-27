@@ -1,8 +1,8 @@
 package com.wu.framework.easy.stereotype.dynamic;
 
 
-import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
-import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
+import com.wu.framework.easy.upsert.autoconfigure.IEasyUpsert;
+import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertDS;
 
 /**
  * description EasyUpsert获取IEasyUpsert和注解CustomDS抽象类

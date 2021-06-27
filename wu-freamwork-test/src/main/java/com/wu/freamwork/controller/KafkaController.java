@@ -1,7 +1,7 @@
 package com.wu.freamwork.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.wu.framework.easy.stereotype.upsert.config.SpringUpsertConfig;
+import com.wu.framework.easy.stereotype.upsert.SpringUpsertConfig;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import com.wu.framework.inner.layer.util.FileUtil;
 import org.apache.kafka.clients.consumer.ConsumerRecord;

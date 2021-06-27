@@ -73,7 +73,7 @@
         <!--        </dependency>-->
         <dependency>
             <groupId>top.wu2020</groupId>
-            <artifactId>wu-easy-stereotype</artifactId>
+            <artifactId>wu-easy-upsert-spring-boot-autoconfigure</artifactId>
             <version>1.0.5</version>
         </dependency>
 

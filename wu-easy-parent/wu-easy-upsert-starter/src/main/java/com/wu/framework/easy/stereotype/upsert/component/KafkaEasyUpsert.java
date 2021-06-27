@@ -2,16 +2,16 @@ package com.wu.framework.easy.stereotype.upsert.component;
 
 
 import com.google.common.collect.Maps;
-import com.wu.framework.easy.stereotype.upsert.EasySmart;
-import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
-import com.wu.framework.easy.stereotype.upsert.config.SpringUpsertConfig;
+import com.wu.framework.easy.upsert.autoconfigure.EasySmart;
+import com.wu.framework.easy.upsert.autoconfigure.IEasyUpsert;
+import com.wu.framework.easy.upsert.autoconfigure.config.SpringUpsertAutoConfigure;
 import com.wu.framework.easy.stereotype.upsert.converter.ConverterClass2KafkaSchema;
 import com.wu.framework.easy.stereotype.upsert.converter.JsonFileConverter;
-import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
+import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.stereotype.upsert.entity.kafka.KafkaJsonMessage;
 import com.wu.framework.easy.stereotype.upsert.entity.kafka.TargetJsonSchema;
-import com.wu.framework.easy.stereotype.upsert.entity.sink.LocalStorageClassAnnotation;
-import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
+import com.wu.framework.easy.upsert.autoconfigure.sink.LocalStorageClassAnnotation;
+import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
 import com.wu.framework.inner.layer.data.IBeanUpsert;
 import com.wu.framework.inner.layer.data.UserConvertService;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.EasyAnnotationConverter;
@@ -36,12 +36,12 @@ import java.util.concurrent.Future;
 public class KafkaEasyUpsert implements IEasyUpsert {
 
     private final UserConvertService userConvertService;
-    private final SpringUpsertConfig springUpsertConfig;
+    private final SpringUpsertAutoConfigure springUpsertAutoConfigure;
     private final EasyUpsertExtractKafkaProducer easyUpsertExtractKafkaProducer;
 
-    public KafkaEasyUpsert(UserConvertService userConvertService, SpringUpsertConfig springUpsertConfig, EasyUpsertExtractKafkaProducer easyUpsertExtractKafkaProducer) {
+    public KafkaEasyUpsert(UserConvertService userConvertService, SpringUpsertAutoConfigure springUpsertAutoConfigure, EasyUpsertExtractKafkaProducer easyUpsertExtractKafkaProducer) {
         this.userConvertService = userConvertService;
-        this.springUpsertConfig = springUpsertConfig;
+        this.springUpsertAutoConfigure = springUpsertAutoConfigure;
         this.easyUpsertExtractKafkaProducer = easyUpsertExtractKafkaProducer;
     }
 
@@ -51,12 +51,12 @@ public class KafkaEasyUpsert implements IEasyUpsert {
             Class clazz = list.get(0).getClass();
             // 模块名称+业务+表名
             EasySmart lazyTableAnnotation =
-                    LocalStorageClassAnnotation.getEasyTableAnnotation(clazz, springUpsertConfig.isForceDuplicateNameSwitch());
+                    LocalStorageClassAnnotation.getEasyTableAnnotation(clazz, springUpsertAutoConfigure.isForceDuplicateNameSwitch());
             String schemaName = lazyTableAnnotation.kafkaSchemaName();
 
             TargetJsonSchema targetJsonSchema = KafkaJsonMessage.targetSchemaMap.get(schemaName);
             if (targetJsonSchema == null) {
-                targetJsonSchema = ConverterClass2KafkaSchema.converterClass2TargetJsonSchema(clazz, springUpsertConfig.isForceDuplicateNameSwitch());
+                targetJsonSchema = ConverterClass2KafkaSchema.converterClass2TargetJsonSchema(clazz, springUpsertAutoConfigure.isForceDuplicateNameSwitch());
                 KafkaJsonMessage.targetSchemaMap = Maps.uniqueIndex(Arrays.asList(targetJsonSchema), TargetJsonSchema::getName);
                 log.info(" Automatic loading TargetJsonSchema for class {}", schemaName);
             }

@@ -1,8 +1,8 @@
 package com.wu.framework.easy.stereotype.upsert.analyze;
 
 import com.alibaba.fastjson.JSONObject;
-import com.wu.framework.easy.stereotype.upsert.EasySmart;
-import com.wu.framework.easy.stereotype.upsert.EasySmartField;
+import com.wu.framework.easy.upsert.autoconfigure.EasySmart;
+import com.wu.framework.easy.upsert.autoconfigure.EasySmartField;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.layer.stereotype.LayerDefault;
 import com.wu.framework.inner.layer.util.FileUtil;

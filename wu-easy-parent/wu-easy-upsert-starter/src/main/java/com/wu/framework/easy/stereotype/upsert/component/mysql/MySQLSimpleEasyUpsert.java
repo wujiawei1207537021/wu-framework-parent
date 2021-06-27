@@ -1,11 +1,11 @@
 package com.wu.framework.easy.stereotype.upsert.component.mysql;
 
 
-import com.wu.framework.easy.stereotype.upsert.IEasyUpsert;
+import com.wu.framework.easy.upsert.autoconfigure.IEasyUpsert;
 import com.wu.framework.easy.stereotype.upsert.component.MySQLEasyUpsertAbstract;
-import com.wu.framework.easy.stereotype.upsert.config.SpringUpsertConfig;
-import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertStrategy;
-import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
+import com.wu.framework.easy.stereotype.upsert.SpringUpsertConfig;
+import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertStrategy;
+import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
 import com.wu.framework.inner.layer.data.UserConvertService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
