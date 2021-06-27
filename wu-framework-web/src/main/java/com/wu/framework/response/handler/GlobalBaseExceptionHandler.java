@@ -1,12 +1,14 @@
 package com.wu.framework.response.handler;
 
 
+import com.wu.framework.info.AddressInfo;
 import com.wu.framework.response.Result;
 import com.wu.framework.response.ResultFactory;
 import com.wu.framework.response.enmus.DefaultResultCode;
 import com.wu.framework.response.exceptions.CustomException;
 import com.wu.framework.response.exceptions.CustomResponseException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Import;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -26,7 +28,7 @@ import java.util.Map;
  * 包含 类型转换异常  数组下表越界 文件没有找到 输入输出  空指针  参数校验 自定义异常 除数为零
  */
 
-
+@Import(AddressInfo.class)
 @RestControllerAdvice
 public class GlobalBaseExceptionHandler {
     /**
