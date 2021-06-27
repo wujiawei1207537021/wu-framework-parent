@@ -95,7 +95,7 @@
         <wu-layer-stereotype.version>${project.version}</wu-layer-stereotype.version>
 
 
-        <spring-boot-starter.version>2.4.5</spring-boot-starter.version>
+        <spring-boot-starter.version>2.5.2</spring-boot-starter.version>
     </properties>
 
     <modules>

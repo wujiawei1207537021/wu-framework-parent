@@ -3,7 +3,7 @@ package com.wu.framework.easy.stereotype.dynamic;
 
 import com.wu.framework.easy.stereotype.dynamic.toolkit.DynamicEasyUpsertDSContextHolder;
 import com.wu.framework.easy.upsert.autoconfigure.IEasyUpsert;
-import com.wu.framework.easy.stereotype.upsert.SpringUpsertConfig;
+import com.wu.framework.easy.upsert.autoconfigure.config.SpringUpsertAutoConfigure;
 import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertDS;
 import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
@@ -37,13 +37,13 @@ public class DynamicEasyUpsert extends AbstractDynamicEasyUpsert implements Init
 
 
     private final List<IEasyUpsert> iEasyUpsertList;
-    private final SpringUpsertConfig springUpsertConfig;
+    private final SpringUpsertAutoConfigure springUpsertAutoConfigure;
 
     private final ApplicationContext applicationContext;
 
-    public DynamicEasyUpsert(List<IEasyUpsert> iEasyUpsertList, SpringUpsertConfig springUpsertConfig, ApplicationContext applicationContext) {
+    public DynamicEasyUpsert(List<IEasyUpsert> iEasyUpsertList, SpringUpsertAutoConfigure springUpsertAutoConfigure, ApplicationContext applicationContext) {
         this.iEasyUpsertList = iEasyUpsertList;
-        this.springUpsertConfig = springUpsertConfig;
+        this.springUpsertAutoConfigure = springUpsertAutoConfigure;
         this.applicationContext = applicationContext;
     }
 
@@ -106,19 +106,19 @@ public class DynamicEasyUpsert extends AbstractDynamicEasyUpsert implements Init
                     iEasyUpsertMap.put(easyUpsertStrategy.easyUpsertType(), iEasyUpsert);
                 }
             });
-            if (springUpsertConfig.getEasyUpsertType().equals(EasyUpsertType.AUTO)) {
+            if (springUpsertAutoConfigure.getEasyUpsertType().equals(EasyUpsertType.AUTO)) {
                 if (ObjectUtils.isEmpty(iEasyUpsertMap)) {
                     return;
                 }
                 primary = iEasyUpsertMap.keySet().iterator().next();
                 log.info("当前的默认方式是 {} ", primary);
             } else {
-                if (iEasyUpsertMap.containsKey(springUpsertConfig.getEasyUpsertType())) {
-                    primary = springUpsertConfig.getEasyUpsertType();
-                    log.info("当前的默认方式是 {} ", springUpsertConfig.getEasyUpsertType());
+                if (iEasyUpsertMap.containsKey(springUpsertAutoConfigure.getEasyUpsertType())) {
+                    primary = springUpsertAutoConfigure.getEasyUpsertType();
+                    log.info("当前的默认方式是 {} ", springUpsertAutoConfigure.getEasyUpsertType());
                 } else {
                     primary = iEasyUpsertMap.keySet().iterator().next();
-                    log.info("无法找到方式 【{}】 使用默认方式【{}】 ", springUpsertConfig.getEasyUpsertType(), primary);
+                    log.info("无法找到方式 【{}】 使用默认方式【{}】 ", springUpsertAutoConfigure.getEasyUpsertType(), primary);
                 }
             }
         }
@@ -158,7 +158,7 @@ public class DynamicEasyUpsert extends AbstractDynamicEasyUpsert implements Init
              */
             @Override
             public EasyUpsertType type() {
-                return springUpsertConfig.getEasyUpsertType();
+                return springUpsertAutoConfigure.getEasyUpsertType();
             }
         };
     }

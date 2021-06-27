@@ -20,8 +20,8 @@ spring:
       port: 50
   hbase:
 #    zookeeperQuorum: 'k8s.wu-framework.com:2181'
-  redis:
-    host: k8s.wu-framework.com
+#  redis:
+#    host: k8s.wu-framework.com
 
 
   easy:

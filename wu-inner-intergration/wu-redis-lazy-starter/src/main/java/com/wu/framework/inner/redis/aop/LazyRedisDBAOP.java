@@ -6,7 +6,9 @@ import com.wu.framework.inner.redis.component.LazyRedisTemplate;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 
+@ConditionalOnBean(LazyRedisTemplate.class)
 @Aspect
 public class LazyRedisDBAOP {
 

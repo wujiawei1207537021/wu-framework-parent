@@ -21,6 +21,7 @@
     <modules>
         <module>wu-easy-upsert-mysql-sink</module>
         <module>wu-easy-upsert-hbase-sink</module>
+        <module>wu-easy-upsert-redis-sink</module>
     </modules>
 
     <dependencies>
@@ -29,5 +30,25 @@
             <artifactId>wu-easy-upsert-spring-boot-autoconfigure</artifactId>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-easy-upsert-mysql-sink</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-easy-upsert-hbase-sink</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-easy-upsert-redis-sink</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>

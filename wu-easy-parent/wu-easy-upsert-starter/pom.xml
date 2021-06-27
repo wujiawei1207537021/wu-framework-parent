@@ -54,19 +54,25 @@
 
         <dependency>
             <groupId>top.wu2020</groupId>
-            <artifactId>wu-redis-lazy-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>top.wu2020</groupId>
-            <artifactId>wu-hbase-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>top.wu2020</groupId>
             <artifactId>wu-elasticsearch-starter</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-easy-upsert-redis-sink</artifactId>
+        </dependency>
 
     </dependencies>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-easy-upsert-sink-parent</artifactId>
+                <version>1.0.5</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

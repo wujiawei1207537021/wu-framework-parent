@@ -1,7 +1,7 @@
 package com.wu.freamwork.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.wu.framework.easy.stereotype.upsert.SpringUpsertConfig;
+import com.wu.framework.easy.upsert.autoconfigure.config.SpringUpsertAutoConfigure;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import com.wu.framework.inner.layer.util.FileUtil;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -25,13 +25,13 @@ import java.util.stream.Collectors;
 public class KafkaController {
 
 
-    private final SpringUpsertConfig springUpsertConfig;
+    private final SpringUpsertAutoConfigure springUpsertAutoConfigure;
     // 车牌+时间
     Map<String, List<String>> TIME_VEH = new EasyHashMap<>();
 
 
-    public KafkaController(SpringUpsertConfig springUpsertConfig) {
-        this.springUpsertConfig = springUpsertConfig;
+    public KafkaController(SpringUpsertAutoConfigure springUpsertAutoConfigure) {
+        this.springUpsertAutoConfigure = springUpsertAutoConfigure;
     }
 
 
@@ -57,7 +57,7 @@ public class KafkaController {
 
     @PreDestroy
     public void writer() throws Exception {
-        BufferedWriter file = FileUtil.createFile(springUpsertConfig.getCacheFileAddress(), "809数据重复");
+        BufferedWriter file = FileUtil.createFile(springUpsertAutoConfigure.getCacheFileAddress(), "809数据重复");
         TIME_VEH.forEach((s, strings) -> {
             if (strings.size() > 1) {
                 try {
@@ -75,7 +75,7 @@ public class KafkaController {
         });
 
         // 数据量大于 30 的数据
-        BufferedWriter differentPlatforms = FileUtil.createFile(springUpsertConfig.getCacheFileAddress(), "msgGNSSCenterId重复");
+        BufferedWriter differentPlatforms = FileUtil.createFile(springUpsertAutoConfigure.getCacheFileAddress(), "msgGNSSCenterId重复");
         List<String> msgGNSSCenterId = TIME_VEH.values().stream().filter(strings -> strings.size() > 30).map(strings -> {
             String s = strings.get(0);
             EasyHashMap easyHashMap = JSONObject.parseObject(s, EasyHashMap.class);

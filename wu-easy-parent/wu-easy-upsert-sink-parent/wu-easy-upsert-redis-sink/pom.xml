@@ -9,18 +9,17 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>wu-easy-upsert-mysql-sink</artifactId>
-    <description>数据sink存储MySQL</description>
+    <artifactId>wu-easy-upsert-redis-sink</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>top.wu2020</groupId>
-            <artifactId>wu-database-lazy-starter</artifactId>
+            <artifactId>wu-redis-lazy-starter</artifactId>
         </dependency>
     </dependencies>
-
 </project>

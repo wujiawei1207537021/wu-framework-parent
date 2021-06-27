@@ -4,7 +4,7 @@ package com.wu.framework.easy.stereotype.upsert.component.mysql;
 import com.wu.framework.easy.stereotype.dynamic.toolkit.DynamicEasyUpsertDSContextHolder;
 import com.wu.framework.easy.upsert.autoconfigure.IEasyUpsert;
 import com.wu.framework.easy.stereotype.upsert.component.MySQLEasyUpsertAbstract;
-import com.wu.framework.easy.stereotype.upsert.SpringUpsertConfig;
+import com.wu.framework.easy.upsert.autoconfigure.config.SpringUpsertAutoConfigure;
 import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertDS;
 import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
@@ -37,8 +37,8 @@ public class MySQLBeanEasyUpsert extends MySQLEasyUpsertAbstract implements IEas
     private String primary;
     private Map<String, DataSource> dataSourceMap = new LinkedHashMap<>();
 
-    public MySQLBeanEasyUpsert(UserConvertService userConvertService, SpringUpsertConfig springUpsertConfig) {
-        super(userConvertService, springUpsertConfig);
+    public MySQLBeanEasyUpsert(UserConvertService userConvertService, SpringUpsertAutoConfigure springUpsertAutoConfigure) {
+        super(userConvertService, springUpsertAutoConfigure);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.wu.framework.easy.stereotype.upsert.component;
+package com.wu.framework.easy.upsert.sink;
 
 import com.wu.framework.easy.upsert.autoconfigure.EasySmart;
 import com.wu.framework.easy.upsert.autoconfigure.IEasyUpsert;
@@ -23,11 +23,11 @@ import java.util.stream.Collectors;
 @Slf4j
 @ConditionalOnProperty(prefix = "spring.redis", value = "host")
 @EasyUpsertStrategy(value = EasyUpsertType.REDIS)
-public class RedisUpsert implements IEasyUpsert {
+public class RedisUpsertSink implements IEasyUpsert {
 
     private final LazyRedisTemplate lazyRedisTemplate;
 
-    public RedisUpsert(LazyRedisTemplate lazyRedisTemplate) {
+    public RedisUpsertSink(LazyRedisTemplate lazyRedisTemplate) {
         this.lazyRedisTemplate = lazyRedisTemplate;
     }
 
