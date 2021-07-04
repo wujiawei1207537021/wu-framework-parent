@@ -1,4 +1,4 @@
-package com.wu.framework.easy.stereotype.upsert.component;
+package com.wu.framework.easy.upsert.sink;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -9,7 +9,6 @@ import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -32,13 +31,11 @@ public class EasyUpsertExtractKafkaProducer implements InitializingBean {
 
 
     public EasyUpsertExtractKafkaProducer(SpringUpsertProperties springUpsertProperties) {
-
         Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, springUpsertProperties.getKafkaProperties().getBootstrapServers());
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         this.kafkaProducer = new KafkaProducer<>(props);
-
     }
 
 
@@ -98,7 +95,7 @@ public class EasyUpsertExtractKafkaProducer implements InitializingBean {
         try {
             json = OBJECT_MAPPER.writeValueAsString(object);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException("转换为Json字符串出错:%s" + e.toString());
+            throw new RuntimeException("转换为Json字符串出错:%s" + e);
         }
         return json;
     }

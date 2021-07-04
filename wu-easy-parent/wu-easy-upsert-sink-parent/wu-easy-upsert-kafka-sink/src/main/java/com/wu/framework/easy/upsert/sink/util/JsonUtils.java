@@ -1,4 +1,4 @@
-package com.wu.framework.easy.stereotype.upsert.util;
+package com.wu.framework.easy.upsert.sink.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;

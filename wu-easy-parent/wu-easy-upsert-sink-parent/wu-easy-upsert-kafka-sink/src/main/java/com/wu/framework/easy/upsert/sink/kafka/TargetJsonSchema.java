@@ -1,4 +1,4 @@
-package com.wu.framework.easy.stereotype.upsert.entity.kafka;
+package com.wu.framework.easy.upsert.sink.kafka;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

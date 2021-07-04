@@ -1,4 +1,4 @@
-package com.wu.framework.easy.stereotype.upsert.converter;
+package com.wu.framework.easy.upsert.sink.converter;
 
 
 import com.alibaba.fastjson.JSON;

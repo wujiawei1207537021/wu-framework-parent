@@ -71,7 +71,7 @@ public class EasyUpsertDSAnnotationAdvisor extends AbstractPointcutAdvisor imple
         @Override
         public Object invoke(MethodInvocation invocation) throws Throwable {
             // 切换数据源
-            EasyUpsertDS easyUpsertDS = determineCustomDS(invocation);
+            EasyUpsertDS easyUpsertDS = determineEasyUpsertDS(invocation);
             try {
                 DynamicEasyUpsertDSContextHolder.push(easyUpsertDS);
                 return invocation.proceed();
@@ -80,7 +80,7 @@ public class EasyUpsertDSAnnotationAdvisor extends AbstractPointcutAdvisor imple
             }
         }
 
-        public EasyUpsertDS determineCustomDS(MethodInvocation invocation) {
+        public EasyUpsertDS determineEasyUpsertDS(MethodInvocation invocation) {
             Method method = invocation.getMethod();
             Class<?> declaringClass = method.getDeclaringClass();
             EasyUpsertDS ds = method.isAnnotationPresent(EasyUpsertDS.class) ? method.getAnnotation(EasyUpsertDS.class)

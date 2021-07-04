@@ -1,9 +1,9 @@
-package com.wu.framework.easy.stereotype.upsert.converter;
+package com.wu.framework.easy.upsert.sink.converter;
 
 
 import com.wu.framework.easy.upsert.autoconfigure.EasySmart;
 import com.wu.framework.easy.upsert.autoconfigure.EasySmartField;
-import com.wu.framework.easy.stereotype.upsert.entity.kafka.TargetJsonSchema;
+import com.wu.framework.easy.upsert.sink.kafka.TargetJsonSchema;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.UpsertJsonMessage;
 import org.apache.kafka.common.protocol.types.Type;

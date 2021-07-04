@@ -60,7 +60,10 @@
             <groupId>top.wu2020</groupId>
             <artifactId>wu-easy-upsert-redis-sink</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-easy-upsert-kafka-sink</artifactId>
+        </dependency>
     </dependencies>
 
 

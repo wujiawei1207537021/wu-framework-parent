@@ -1,4 +1,4 @@
-package com.wu.framework.easy.stereotype.upsert.entity.kafka;
+package com.wu.framework.easy.upsert.sink.kafka;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.Data;
@@ -6,8 +6,8 @@ import lombok.Data;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.wu.framework.easy.stereotype.upsert.util.JsonUtils.convertObject;
-import static com.wu.framework.easy.stereotype.upsert.util.JsonUtils.parseObject;
+import static com.wu.framework.easy.upsert.sink.util.JsonUtils.convertObject;
+import static com.wu.framework.easy.upsert.sink.util.JsonUtils.parseObject;
 
 
 /**
