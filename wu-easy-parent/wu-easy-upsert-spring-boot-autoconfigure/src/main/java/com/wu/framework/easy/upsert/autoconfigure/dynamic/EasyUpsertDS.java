@@ -32,7 +32,7 @@ public @interface EasyUpsertDS {
     String name() default "";
 
     /**
-     * 数据源类型 默认MySQL
+     * 数据源类型 默认AUTO
      */
     EasyUpsertType type() default EasyUpsertType.AUTO;
 
