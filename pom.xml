@@ -153,6 +153,12 @@
                 <artifactId>wu-database-lazy-starter</artifactId>
                 <version>${wu-database-lazy-starter.version}</version>
             </dependency>
+            <!--     懒人动态数据库       -->
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-dynamic-database-starter</artifactId>
+                <version>${wu-dynamic-database-starter.version}</version>
+            </dependency>
             <!--懒人redis-->
             <dependency>
                 <groupId>top.wu2020</groupId>

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Indexed;
 import java.lang.annotation.*;
 
 /**
- * description 自定义快速一数据源切换(Kafka、MySQL多数据源-mybatis)
+ * description 自定义一数据源切换(Kafka、MySQL)
  *
  * @param
  * @author Jia wei Wu
@@ -19,13 +19,11 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Indexed
-@EasyUpsert
-public @interface QuickEasyUpsert {
+public @interface EasyUpsert {
 
     /**
-     * 数据源类型 默认MySQL
+     * 数据源类型 默认AUTO
      */
-    @AliasFor(attribute = "type", annotation = EasyUpsert.class)
     EasyUpsertType type() default EasyUpsertType.AUTO;
 
 }

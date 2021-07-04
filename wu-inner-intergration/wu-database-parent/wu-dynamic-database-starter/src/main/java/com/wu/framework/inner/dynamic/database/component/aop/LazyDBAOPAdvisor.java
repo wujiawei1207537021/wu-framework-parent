@@ -1,9 +1,7 @@
-package com.wu.framework.easy.stereotype.dynamic.aop;
+package com.wu.framework.inner.dynamic.database.component.aop;
 
-
-import com.wu.framework.easy.stereotype.dynamic.toolkit.DynamicEasyUpsertDSContextHolder;
-import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsert;
-import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertDS;
+import com.wu.framework.inner.dynamic.database.toolkit.DynamicLazyDSContextHolder;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyDS;
 import lombok.NonNull;
 import org.aopalliance.aop.Advice;
 import org.aopalliance.intercept.MethodInterceptor;
@@ -20,24 +18,24 @@ import org.springframework.core.annotation.AnnotationUtils;
 import java.lang.reflect.Method;
 
 /**
- * description 自定义一数据源切面绑定
- *
- * @author Jia wei Wu
- * @date 2020/9/11 上午9:24
+ * @describe: 切换数据源
+ * @author : Jia wei Wu
+ * @date : 2021/7/4 6:05 下午
+ * @version : 1.0
  */
-public class EasyUpsertDSAnnotationAdvisor extends AbstractPointcutAdvisor implements BeanFactoryAware {
+public class LazyDBAOPAdvisor extends AbstractPointcutAdvisor implements BeanFactoryAware {
     private Advice advice;
 
     private Pointcut pointcut;
 
-    public EasyUpsertDSAnnotationAdvisor(@NonNull EasyUpsertDSAnnotationInterceptor easyUpsertDSAnnotationInterceptor) {
-        this.advice = easyUpsertDSAnnotationInterceptor;
+    public LazyDBAOPAdvisor(@NonNull LazyDBInterceptor lazyDBInterceptor) {
+        this.advice = lazyDBInterceptor;
         this.pointcut = buildPointcut();
     }
 
     private Pointcut buildPointcut() {
-        Pointcut cpc = new AnnotationMatchingPointcut(EasyUpsert.class, EasyUpsert.class,true);
-        return new ComposablePointcut(cpc);
+        Pointcut cpc = new AnnotationMatchingPointcut(LazyDS.class, LazyDS.class,true);
+        return cpc;
     }
 
     /**
@@ -66,27 +64,34 @@ public class EasyUpsertDSAnnotationAdvisor extends AbstractPointcutAdvisor imple
      * @author Jia wei Wu
      * @date 2020/9/11 上午9:28
      */
-    public static class EasyUpsertDSAnnotationInterceptor implements MethodInterceptor {
-
+    public static class LazyDBInterceptor implements MethodInterceptor {
         @Override
         public Object invoke(MethodInvocation invocation) throws Throwable {
             // 切换数据源
-            EasyUpsert easyUpsertDS = determineEasyUpsertDS(invocation);
+            LazyDS lazyDS = determineLazyDS(invocation);
+            DynamicLazyDSContextHolder.push(lazyDS);
             try {
-                DynamicEasyUpsertDSContextHolder.push(easyUpsertDS);
                 return invocation.proceed();
             } finally {
-                DynamicEasyUpsertDSContextHolder.poll();
+                DynamicLazyDSContextHolder.clear();
             }
         }
 
-        public EasyUpsert determineEasyUpsertDS(MethodInvocation invocation) {
+        /**
+         * @param
+         * @return
+         * @describe 确定 Lazy Redis
+         * @author Jia wei Wu
+         * @date 2021/7/4 5:04 下午
+         **/
+        public LazyDS determineLazyDS(MethodInvocation invocation) {
             Method method = invocation.getMethod();
             Class<?> declaringClass = method.getDeclaringClass();
-            EasyUpsert ds = method.isAnnotationPresent(EasyUpsert.class) ? method.getAnnotation(EasyUpsert.class)
-                    : AnnotationUtils.findAnnotation(declaringClass, EasyUpsert.class);
-            return ds;
+            LazyDS lazyDS = method.isAnnotationPresent(LazyDS.class) ? method.getAnnotation(LazyDS.class)
+                    : AnnotationUtils.findAnnotation(declaringClass, LazyDS.class);
+            return lazyDS;
         }
+
     }
 
 }

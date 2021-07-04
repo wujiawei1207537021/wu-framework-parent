@@ -22,6 +22,7 @@
         <module>wu-easy-upsert-mysql-sink</module>
         <module>wu-easy-upsert-hbase-sink</module>
         <module>wu-easy-upsert-redis-sink</module>
+        <module>wu-easy-upsert-kafka-sink</module>
     </modules>
 
     <dependencies>
@@ -46,6 +47,11 @@
             <dependency>
                 <groupId>top.wu2020</groupId>
                 <artifactId>wu-easy-upsert-redis-sink</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-easy-upsert-kafka-sink</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

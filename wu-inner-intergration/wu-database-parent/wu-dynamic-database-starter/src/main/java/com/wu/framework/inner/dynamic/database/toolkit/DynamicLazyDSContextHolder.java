@@ -1,17 +1,19 @@
-package com.wu.framework.easy.stereotype.dynamic.toolkit;
+package com.wu.framework.inner.dynamic.database.toolkit;
 
 
-import java.lang.annotation.Annotation;
+import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertDS;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyDS;
+
 import java.util.ArrayDeque;
 import java.util.Deque;
 
 /**
- * @author : Jia wei Wu
- * @version : 1.0
- * @describe: 核心基于ThreadLocal的切换数据源工具类
- * @date : 2021/7/4 5:50 下午
+ * 核心基于ThreadLocal的切换数据源工具类
+ *
+ * @author TaoYu Kanyuxia
+ * @since 1.0.1
  */
-public final class DynamicEasyUpsertDSContextHolder {
+public final class DynamicLazyDSContextHolder {
 
     /**
      * 为什么要用链表存储(准确的是栈)
@@ -22,9 +24,9 @@ public final class DynamicEasyUpsertDSContextHolder {
      * </pre>
      */
     @SuppressWarnings("unchecked")
-    private static final ThreadLocal<Deque<Annotation>> LOOKUP_KEY_HOLDER = ThreadLocal.withInitial(ArrayDeque::new);
+    private static final ThreadLocal<Deque<LazyDS>> LOOKUP_KEY_HOLDER = ThreadLocal.withInitial(ArrayDeque::new);
 
-    private DynamicEasyUpsertDSContextHolder() {
+    private DynamicLazyDSContextHolder() {
     }
 
     /**
@@ -32,17 +34,8 @@ public final class DynamicEasyUpsertDSContextHolder {
      *
      * @return 数据源名称
      */
-    public static Annotation peek() {
+    public static LazyDS peek() {
         return LOOKUP_KEY_HOLDER.get().peek();
-    }
-
-    public static <T> T peek(Class<T> easyUpsertType) {
-        Annotation annotation = peek();
-        if (annotation.annotationType()==easyUpsertType) {
-            return (T) annotation;
-        } else {
-            throw new IllegalArgumentException(String.format("无法找到 类型%s的注解",easyUpsertType));
-        }
     }
 
     /**
@@ -53,7 +46,7 @@ public final class DynamicEasyUpsertDSContextHolder {
      *
      * @param ds 数据源名称
      */
-    public static void push(Annotation ds) {
+    public static void push(LazyDS ds) {
         LOOKUP_KEY_HOLDER.get().push(ds);
     }
 
@@ -65,7 +58,7 @@ public final class DynamicEasyUpsertDSContextHolder {
      * </p>
      */
     public static void poll() {
-        Deque<Annotation> deque = LOOKUP_KEY_HOLDER.get();
+        Deque<LazyDS> deque = LOOKUP_KEY_HOLDER.get();
         deque.poll();
         if (deque.isEmpty()) {
             LOOKUP_KEY_HOLDER.remove();
@@ -82,3 +75,4 @@ public final class DynamicEasyUpsertDSContextHolder {
         LOOKUP_KEY_HOLDER.remove();
     }
 }
+

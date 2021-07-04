@@ -1,4 +1,4 @@
-package com.wu.framework.easy.temple.run;
+package com.wu.framework.easy.temple.controller;
 
 import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.inner.redis.annotation.LazyRedis;
@@ -21,15 +21,15 @@ import java.util.Set;
  * @date : 2020/12/27 7:07 下午
  */
 @Api(tags = "Redis数据插入")
-@EasyController("/redis")
-public class RedisTemplateRun {
+@EasyController("/redis/template")
+public class RedisTemplateController {
 
     private final RedisTemplate redisTemplate;
     private final StringRedisTemplate stringRedisTemplate;
 
     private final LazyRedisTemplate lazyRedisTemplate;
 
-    public RedisTemplateRun(RedisTemplate redisTemplate, StringRedisTemplate stringRedisTemplate, LazyRedisTemplate lazyRedisTemplate) {
+    public RedisTemplateController(RedisTemplate redisTemplate, StringRedisTemplate stringRedisTemplate, LazyRedisTemplate lazyRedisTemplate) {
         this.redisTemplate = redisTemplate;
         this.stringRedisTemplate = stringRedisTemplate;
         this.lazyRedisTemplate = lazyRedisTemplate;

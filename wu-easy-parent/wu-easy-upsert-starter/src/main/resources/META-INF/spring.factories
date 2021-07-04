@@ -3,7 +3,5 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 com.wu.framework.easy.stereotype.upsert.handler.IUpsertHandler,\
 com.wu.framework.easy.stereotype.dynamic.config.EasyDynamicDataSourceConfig,\
 com.wu.framework.inner.layer.data.DefaultUserConvertService,\
-com.wu.framework.easy.stereotype.upsert.component.mysql.MySQLSimpleEasyUpsert,\
-com.wu.framework.easy.stereotype.upsert.component.mysql.MySQLBeanEasyUpsert,\
 com.wu.framework.easy.stereotype.upsert.component.ElasticsearchEasyUpsert,\
 com.wu.framework.easy.stereotype.dynamic.DynamicEasyUpsert

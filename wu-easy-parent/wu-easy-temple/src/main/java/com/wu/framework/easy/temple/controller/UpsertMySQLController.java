@@ -1,14 +1,14 @@
 package com.wu.framework.easy.temple.controller;
 
 import com.wu.framework.easy.stereotype.upsert.component.IUpsert;
-import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertDS;
-import com.wu.framework.easy.upsert.autoconfigure.dynamic.QuickEasyUpsert;
-import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
 import com.wu.framework.easy.temple.domain.UpsertBinary;
 import com.wu.framework.easy.temple.domain.UseExcel;
 import com.wu.framework.easy.temple.domain.UserLog;
 import com.wu.framework.easy.temple.domain.bo.ExtractBo;
 import com.wu.framework.easy.temple.domain.bo.MoreExtractBo;
+import com.wu.framework.easy.upsert.EasyUpsertMySQL;
+import com.wu.framework.easy.upsert.autoconfigure.dynamic.QuickEasyUpsert;
+import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
 import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.prop.LazyDataSourceProperties;
@@ -47,7 +47,7 @@ public class UpsertMySQLController {
      * @author Jia wei Wu
      * @date 2021/4/15 上午9:50
      */
-    @EasyUpsertDS(type = EasyUpsertType.MySQL)
+    @EasyUpsertMySQL(name = "dataSourceH2")
     @ApiOperation(tags = "MySQL快速插入数据", value = "IUpsert操作数据入DB")
     @GetMapping()
     public void upsert(@RequestParam(required = false, defaultValue = "100") Integer size) {
@@ -124,8 +124,6 @@ public class UpsertMySQLController {
         moreExtractBo.setUserLogList(createUserLog(1000));
         return moreExtractBo;
     }
-
-
 
 
     /**

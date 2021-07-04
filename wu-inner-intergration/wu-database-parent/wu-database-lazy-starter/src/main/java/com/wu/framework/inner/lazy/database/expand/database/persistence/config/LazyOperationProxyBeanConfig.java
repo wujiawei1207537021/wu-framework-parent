@@ -1,12 +1,9 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.config;
 
 
-import com.mysql.cj.jdbc.MysqlDataSource;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.prop.LazyDataSourceProperties;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.proxy.LazyOperationProxy;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 
 import javax.sql.DataSource;

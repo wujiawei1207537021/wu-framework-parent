@@ -5,6 +5,7 @@ import com.wu.framework.easy.upsert.autoconfigure.EasySmart;
 import com.wu.framework.easy.upsert.autoconfigure.EasySmartField;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
  */
 @Data
 @EasySmart(perfectTable = true)
-public class UserLog {
+public class UserLog implements Serializable {
 
     @EasySmartField(name = "user_id")
     private Integer userId;

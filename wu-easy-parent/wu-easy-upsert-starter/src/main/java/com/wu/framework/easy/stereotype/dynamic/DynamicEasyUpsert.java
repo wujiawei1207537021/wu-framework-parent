@@ -4,6 +4,7 @@ package com.wu.framework.easy.stereotype.dynamic;
 import com.wu.framework.easy.stereotype.dynamic.toolkit.DynamicEasyUpsertDSContextHolder;
 import com.wu.framework.easy.upsert.autoconfigure.IEasyUpsert;
 import com.wu.framework.easy.upsert.autoconfigure.config.SpringUpsertAutoConfigure;
+import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsert;
 import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertDS;
 import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
@@ -32,7 +33,7 @@ public class DynamicEasyUpsert extends AbstractDynamicEasyUpsert implements Init
     private static final Logger log = LoggerFactory.getLogger(DynamicEasyUpsert.class);
 
     private EasyUpsertType primary;
-    private EasyUpsertDS primaryEasyUpsertDS;
+    private EasyUpsert primaryEasyUpsert;
     private ConcurrentMap<EasyUpsertType, IEasyUpsert> iEasyUpsertMap = new ConcurrentHashMap<>();
 
 
@@ -54,7 +55,7 @@ public class DynamicEasyUpsert extends AbstractDynamicEasyUpsert implements Init
      */
     @Override
     public EasyUpsertDS determineEasyUpsertDS() {
-        return DynamicEasyUpsertDSContextHolder.peek();
+        return DynamicEasyUpsertDSContextHolder.peek(EasyUpsertDS.class);
     }
 
     /**
@@ -64,7 +65,7 @@ public class DynamicEasyUpsert extends AbstractDynamicEasyUpsert implements Init
      */
     @Override
     public IEasyUpsert determineIEasyUpsert() {
-        return getIEasyUpsert(DynamicEasyUpsertDSContextHolder.peek());
+        return getIEasyUpsert(DynamicEasyUpsertDSContextHolder.peek(EasyUpsert.class));
     }
 
 
@@ -81,7 +82,7 @@ public class DynamicEasyUpsert extends AbstractDynamicEasyUpsert implements Init
         return iEasyUpsertMap.get(primary);
     }
 
-    private IEasyUpsert getIEasyUpsert(EasyUpsertDS peek) {
+    private IEasyUpsert getIEasyUpsert(EasyUpsert peek) {
         if (ObjectUtils.isEmpty(peek) || peek.type().equals(EasyUpsertType.AUTO)) {
             return determinePrimaryDataSource();
         } else if (iEasyUpsertMap.containsKey(peek.type())) {
@@ -95,7 +96,7 @@ public class DynamicEasyUpsert extends AbstractDynamicEasyUpsert implements Init
     @Override
     public void afterPropertiesSet() throws Exception {
         //        数据源类型存放
-        primaryEasyUpsertDS = defaultCustomDS();
+        primaryEasyUpsert = defaultEasyUpsert();
         Map<String, IEasyUpsert> beansOfType = applicationContext.getBeansOfType(IEasyUpsert.class);
         if (!ObjectUtils.isEmpty(beansOfType)) {
             log.info("EasyUpsert 初始共加载 {} 种方式", beansOfType.size());
@@ -130,27 +131,12 @@ public class DynamicEasyUpsert extends AbstractDynamicEasyUpsert implements Init
      *
      * @return
      */
-    private EasyUpsertDS defaultCustomDS() {
-        return new EasyUpsertDS() {
+    private EasyUpsert defaultEasyUpsert() {
+        return new EasyUpsert() {
 
             @Override
             public Class<? extends Annotation> annotationType() {
-                return EasyUpsertDS.class;
-            }
-
-            /**
-             * 数据源名称(MYSQL多数据源有效)
-             *
-             * @return
-             */
-            @Override
-            public String value() {
-                return "";
-            }
-
-            @Override
-            public String name() {
-                return "";
+                return EasyUpsert.class;
             }
 
             /**

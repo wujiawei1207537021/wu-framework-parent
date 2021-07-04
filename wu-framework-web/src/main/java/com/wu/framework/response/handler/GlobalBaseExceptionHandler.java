@@ -7,13 +7,14 @@ import com.wu.framework.response.ResultFactory;
 import com.wu.framework.response.enmus.DefaultResultCode;
 import com.wu.framework.response.exceptions.CustomException;
 import com.wu.framework.response.exceptions.CustomResponseException;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.io.FileNotFoundException;
@@ -33,11 +34,16 @@ import java.util.Map;
 public class GlobalBaseExceptionHandler {
     /**
      * 所有异常报错
-     * TODO  策略处理
-     * @param ex
+     *
      * @return
      * @throws Exception
      */
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Result exception(Exception exception) {
+        exception.printStackTrace();
+        return ResultFactory.errorOf(exception.getMessage());
+    }
 
     /**
      * 类转换异常

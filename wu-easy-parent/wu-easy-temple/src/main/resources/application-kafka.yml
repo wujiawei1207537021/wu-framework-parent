@@ -3,4 +3,4 @@ spring:
     upsert:
       property:
         kafka-properties:
-          bootstrap-servers: k8s.wu-framework.com:29092
+          bootstrap-servers: cloud-kafka:9092
