@@ -1,6 +1,5 @@
 package com.wu.framework.easy.temple.controller;
 
-import com.wu.framework.easy.stereotype.upsert.component.IUpsert;
 import com.wu.framework.easy.temple.domain.UpsertBinary;
 import com.wu.framework.easy.temple.domain.UseExcel;
 import com.wu.framework.easy.temple.domain.UserLog;
@@ -9,6 +8,7 @@ import com.wu.framework.easy.temple.domain.bo.MoreExtractBo;
 import com.wu.framework.easy.upsert.EasyUpsertMySQL;
 import com.wu.framework.easy.upsert.autoconfigure.dynamic.QuickEasyUpsert;
 import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
+import com.wu.framework.easy.upsert.core.dynamic.IUpsert;
 import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.prop.LazyDataSourceProperties;

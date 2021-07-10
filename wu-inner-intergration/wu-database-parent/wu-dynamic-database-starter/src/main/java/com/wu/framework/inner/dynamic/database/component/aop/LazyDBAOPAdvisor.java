@@ -34,8 +34,10 @@ public class LazyDBAOPAdvisor extends AbstractPointcutAdvisor implements BeanFac
     }
 
     private Pointcut buildPointcut() {
-        Pointcut cpc = new AnnotationMatchingPointcut(LazyDS.class, LazyDS.class,true);
-        return cpc;
+        Pointcut cpc = new AnnotationMatchingPointcut(LazyDS.class, true);
+        Pointcut mpc = AnnotationMatchingPointcut.forMethodAnnotation(LazyDS.class);
+        Pointcut classAnnotation = AnnotationMatchingPointcut.forClassAnnotation(LazyDS.class);
+        return new ComposablePointcut(cpc).union(mpc).union(classAnnotation);
     }
 
     /**

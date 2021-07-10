@@ -1,9 +1,9 @@
 package com.wu.framework.easy.upsert.sink;
 
 import com.wu.framework.easy.upsert.autoconfigure.EasySmart;
-import com.wu.framework.easy.upsert.autoconfigure.IEasyUpsert;
 import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
+import com.wu.framework.easy.upsert.core.dynamic.IEasyUpsert;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.redis.component.LazyRedisTemplate;
 import lombok.extern.slf4j.Slf4j;

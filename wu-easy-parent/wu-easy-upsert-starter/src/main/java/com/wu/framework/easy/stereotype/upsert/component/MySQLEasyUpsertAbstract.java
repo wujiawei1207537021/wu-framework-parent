@@ -2,7 +2,7 @@
 //
 //import com.wu.framework.easy.stereotype.log.EasyUpsertLog;
 //import com.wu.framework.easy.upsert.autoconfigure.EasySmart;
-//import com.wu.framework.easy.upsert.autoconfigure.IEasyUpsert;
+//import com.wu.framework.easy.upsert.core.dynamic.IEasyUpsert;
 //import com.wu.framework.easy.upsert.autoconfigure.config.SpringUpsertAutoConfigure;
 //import com.wu.framework.inner.layer.data.UserConvertService;
 //import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.EasyAnnotationConverter;

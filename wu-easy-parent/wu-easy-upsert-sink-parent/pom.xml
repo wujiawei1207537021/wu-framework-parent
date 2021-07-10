@@ -23,12 +23,15 @@
         <module>wu-easy-upsert-hbase-sink</module>
         <module>wu-easy-upsert-redis-sink</module>
         <module>wu-easy-upsert-kafka-sink</module>
+        <module>wu-easy-upsert-h2-sink</module>
+        <module>wu-easy-upsert-pulsar-sink</module>
+        <module>wu-easy-upsert-influxdb-sink</module>
     </modules>
 
     <dependencies>
         <dependency>
             <groupId>top.wu2020</groupId>
-            <artifactId>wu-easy-upsert-spring-boot-autoconfigure</artifactId>
+            <artifactId>wu-easy-upsert-core</artifactId>
         </dependency>
     </dependencies>
 
@@ -52,6 +55,21 @@
             <dependency>
                 <groupId>top.wu2020</groupId>
                 <artifactId>wu-easy-upsert-kafka-sink</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-easy-upsert-h2-sink</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-easy-upsert-pulsar-sink</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-easy-upsert-influxdb-sink</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

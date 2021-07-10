@@ -1,8 +1,8 @@
 //package com.wu.framework.easy.stereotype.upsert.component.mysql;
 //
 //
-//import com.wu.framework.easy.stereotype.dynamic.toolkit.DynamicEasyUpsertDSContextHolder;
-//import com.wu.framework.easy.upsert.autoconfigure.IEasyUpsert;
+//import com.wu.framework.easy.stereotype.dynamic.toolkit.DynamicEasyUpsertContextHolder;
+//import com.wu.framework.easy.upsert.core.dynamic.IEasyUpsert;
 //import com.wu.framework.easy.stereotype.upsert.component.MySQLEasyUpsertAbstract;
 //import com.wu.framework.easy.upsert.autoconfigure.config.SpringUpsertAutoConfigure;
 //import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertDS;
@@ -43,7 +43,7 @@
 //
 //    @Override
 //    protected DataSource determineDataSource() {
-//        EasyUpsertDS easyUpsertDS = DynamicEasyUpsertDSContextHolder.peek(EasyUpsertDS.class);
+//        EasyUpsertDS easyUpsertDS = DynamicEasyUpsertContextHolder.peek(EasyUpsertDS.class);
 //        if (!ObjectUtils.isEmpty(easyUpsertDS) && dataSourceMap.containsKey(easyUpsertDS.name())) {
 //            return dataSourceMap.get(easyUpsertDS.name());
 //        }

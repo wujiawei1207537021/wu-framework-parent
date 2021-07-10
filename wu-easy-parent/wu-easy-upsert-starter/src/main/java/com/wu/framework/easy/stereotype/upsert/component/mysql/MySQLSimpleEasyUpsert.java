@@ -1,7 +1,7 @@
 //package com.wu.framework.easy.stereotype.upsert.component.mysql;
 //
 //
-//import com.wu.framework.easy.upsert.autoconfigure.IEasyUpsert;
+//import com.wu.framework.easy.upsert.core.dynamic.IEasyUpsert;
 //import com.wu.framework.easy.stereotype.upsert.component.MySQLEasyUpsertAbstract;
 //import com.wu.framework.easy.upsert.autoconfigure.config.SpringUpsertAutoConfigure;
 //import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertStrategy;

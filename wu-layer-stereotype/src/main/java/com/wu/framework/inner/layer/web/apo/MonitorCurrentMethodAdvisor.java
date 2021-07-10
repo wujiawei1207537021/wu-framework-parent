@@ -19,7 +19,7 @@ import org.springframework.beans.factory.BeanFactoryAware;
  * @describe :
  * @date : 2021/1/9 5:07 下午
  */
-public class MonitorCurrentMethodAdvisor extends AbstractPointcutAdvisor implements BeanFactoryAware {
+public class MonitorCurrentMethodAdvisor extends AbstractPointcutAdvisor  {
     private final Advice advice;
 
     private final Pointcut pointcut;
@@ -50,10 +50,7 @@ public class MonitorCurrentMethodAdvisor extends AbstractPointcutAdvisor impleme
         return advice;
     }
 
-    @Override
-    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
 
-    }
 
 
     public static class MonitorCurrentMethodInterceptor implements MethodInterceptor {

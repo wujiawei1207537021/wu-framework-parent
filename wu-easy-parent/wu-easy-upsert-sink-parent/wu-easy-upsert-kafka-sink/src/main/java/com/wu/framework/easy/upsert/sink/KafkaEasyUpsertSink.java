@@ -3,11 +3,11 @@ package com.wu.framework.easy.upsert.sink;
 
 import com.google.common.collect.Maps;
 import com.wu.framework.easy.upsert.autoconfigure.EasySmart;
-import com.wu.framework.easy.upsert.autoconfigure.IEasyUpsert;
 import com.wu.framework.easy.upsert.autoconfigure.config.SpringUpsertAutoConfigure;
 import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.upsert.autoconfigure.sink.LocalStorageClassAnnotation;
 import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
+import com.wu.framework.easy.upsert.core.dynamic.IEasyUpsert;
 import com.wu.framework.easy.upsert.sink.converter.ConverterClass2KafkaSchema;
 import com.wu.framework.easy.upsert.sink.converter.JsonFileConverter;
 import com.wu.framework.easy.upsert.sink.kafka.KafkaJsonMessage;

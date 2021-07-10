@@ -95,6 +95,8 @@
 
         <wu-layer-stereotype.version>${project.version}</wu-layer-stereotype.version>
 
+        <wu-easy-upsert-spring-boot-autoconfigure.version>${project.version}</wu-easy-upsert-spring-boot-autoconfigure.version>
+        <wu-easy-upsert-core.version>${project.version}</wu-easy-upsert-core.version>
 
         <spring-boot-starter.version>2.5.2</spring-boot-starter.version>
     </properties>
@@ -227,6 +229,16 @@
                 <groupId>top.wu2020</groupId>
                 <artifactId>wu-framework-web</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-easy-upsert-core</artifactId>
+                <version>${wu-easy-upsert-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-easy-upsert-spring-boot-autoconfigure</artifactId>
+                <version>${wu-easy-upsert-spring-boot-autoconfigure.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

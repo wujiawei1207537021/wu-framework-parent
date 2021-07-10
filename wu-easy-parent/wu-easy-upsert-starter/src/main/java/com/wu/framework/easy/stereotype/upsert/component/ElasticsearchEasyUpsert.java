@@ -1,12 +1,13 @@
 package com.wu.framework.easy.stereotype.upsert.component;
 
-import com.wu.framework.easy.upsert.autoconfigure.IEasyUpsert;
+import com.wu.framework.easy.upsert.core.dynamic.IEasyUpsert;
 import com.wu.framework.easy.stereotype.upsert.analyze.ElasticsearchEasyDataProcessAnalyze;
 import com.wu.framework.easy.upsert.autoconfigure.config.SpringUpsertAutoConfigure;
 import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchRestClientProperties;
 import org.springframework.core.io.FileSystemResource;
@@ -26,6 +27,7 @@ import java.util.List;
  */
 @Slf4j
 @EasyUpsertStrategy(value = EasyUpsertType.ES)
+@ConditionalOnBean(ElasticsearchRestClientProperties.class)
 @ConditionalOnProperty(prefix = "spring.elasticsearch.rest", value = "uris")
 public class ElasticsearchEasyUpsert implements IEasyUpsert, ElasticsearchEasyDataProcessAnalyze, InitializingBean {
 

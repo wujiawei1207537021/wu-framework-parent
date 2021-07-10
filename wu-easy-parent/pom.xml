@@ -22,6 +22,7 @@
         <module>wu-easy-kafka-connect</module>
         <module>wu-easy-excel-starter</module>
         <module>wu-easy-upsert-sink-parent</module>
+        <module>wu-easy-upsert-core</module>
     </modules>
 
 

@@ -9,6 +9,10 @@ import java.io.OutputStream;
 import java.util.Map;
 
 public class ResultFactory {
+    public static Result of(Integer code, String message) {
+        return new Result(code, message);
+    }
+
     public static Result of(ResultCode resultCode) {
         return new Result(resultCode.getCode(), resultCode.getMessage());
     }
@@ -78,8 +82,8 @@ public class ResultFactory {
         return of(DefaultResultCode.INTERNAL_SERVER_ERROR);
     }
 
-    public static Result errorOf(Object data) {
-        return of(DefaultResultCode.INTERNAL_SERVER_ERROR, data);
+    public static Result errorOf(String data) {
+        return of(DefaultResultCode.INTERNAL_SERVER_ERROR.code, data);
     }
 
 }

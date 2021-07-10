@@ -16,5 +16,9 @@ public enum EasyUpsertType {
     KAFKA,
     ES,
     REDIS,
-    HBASE;
+    HBASE,
+    INFLUXDB,
+    H2,
+    PULSAR
+    ;
 }

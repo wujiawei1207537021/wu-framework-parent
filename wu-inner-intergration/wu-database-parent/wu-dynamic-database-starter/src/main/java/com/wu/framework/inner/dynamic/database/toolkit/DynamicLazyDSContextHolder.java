@@ -1,9 +1,10 @@
 package com.wu.framework.inner.dynamic.database.toolkit;
 
 
-import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertDS;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyDS;
+import org.springframework.core.annotation.AnnotatedElementUtils;
 
+import java.lang.annotation.Annotation;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
@@ -37,6 +38,7 @@ public final class DynamicLazyDSContextHolder {
     public static LazyDS peek() {
         return LOOKUP_KEY_HOLDER.get().peek();
     }
+
 
     /**
      * 设置当前线程数据源

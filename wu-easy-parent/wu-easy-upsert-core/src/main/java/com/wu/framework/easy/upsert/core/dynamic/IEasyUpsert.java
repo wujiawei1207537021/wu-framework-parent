@@ -1,4 +1,4 @@
-package com.wu.framework.easy.upsert.autoconfigure;
+package com.wu.framework.easy.upsert.core.dynamic;
 
 
 import com.wu.framework.easy.upsert.autoconfigure.factory.EasyThreadFactory;

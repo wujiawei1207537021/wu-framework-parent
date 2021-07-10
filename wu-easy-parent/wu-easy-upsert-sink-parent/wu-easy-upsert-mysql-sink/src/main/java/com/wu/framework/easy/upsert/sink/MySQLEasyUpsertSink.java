@@ -1,7 +1,7 @@
 package com.wu.framework.easy.upsert.sink;
 
 import com.wu.framework.easy.upsert.autoconfigure.EasySmart;
-import com.wu.framework.easy.upsert.autoconfigure.IEasyUpsert;
+import com.wu.framework.easy.upsert.core.dynamic.IEasyUpsert;
 import com.wu.framework.easy.upsert.autoconfigure.config.SpringUpsertAutoConfigure;
 import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
@@ -15,9 +15,7 @@ import com.wu.framework.inner.lazy.database.expand.database.persistence.map.Easy
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.AnnotatedElementUtils;
-import org.springframework.core.annotation.Order;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -57,22 +55,24 @@ public class MySQLEasyUpsertSink implements IEasyUpsert, MySQLDataProcessAnalyze
 
     @Override
     public <T> Object upsert(List<T> list) throws Exception {
-        DataSource dataSource = dynamicLazyDSAdapter.determineDataSource();
-        Integer total = (list.size() + springUpsertAutoConfigure.getBatchLimit() - 1) / springUpsertAutoConfigure.getBatchLimit();
-        log.info("计划处理步骤 【{}】 步", total);
-        List<List<T>> splitList = splitList(list, springUpsertAutoConfigure.getBatchLimit());
-        AtomicInteger stepCount = new AtomicInteger(0);
-        splitList.stream().parallel().forEach(ts -> {
-            stepCount.getAndIncrement();
-            log.info("处理步骤第 【{}】 步 ,总步数 【{}】", stepCount, total);
-            try {
-                execute(dataSource, ts);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-        log.info("分步操作完成✅");
-        return true;
+        synchronized (dynamicLazyDSAdapter){
+            DataSource dataSource = dynamicLazyDSAdapter.determineDataSource();
+            Integer total = (list.size() + springUpsertAutoConfigure.getBatchLimit() - 1) / springUpsertAutoConfigure.getBatchLimit();
+            log.info("计划处理步骤 【{}】 步", total);
+            List<List<T>> splitList = splitList(list, springUpsertAutoConfigure.getBatchLimit());
+            AtomicInteger stepCount = new AtomicInteger(0);
+            splitList.stream().parallel().forEach(ts -> {
+                stepCount.getAndIncrement();
+                log.info("处理步骤第 【{}】 步 ,总步数 【{}】", stepCount, total);
+                try {
+                    execute(dataSource, ts);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            log.info("分步操作完成✅");
+            return true;
+        }
     }
 
     protected <T> Object execute(DataSource dataSource, List<T> list) throws Exception {
