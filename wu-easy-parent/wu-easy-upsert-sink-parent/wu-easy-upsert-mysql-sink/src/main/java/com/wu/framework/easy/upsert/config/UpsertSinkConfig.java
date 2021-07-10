@@ -1,6 +1,8 @@
 package com.wu.framework.easy.upsert.config;
 
+import com.wu.framework.easy.upsert.core.dynamic.AbstractDynamicEasyUpsert;
 import com.wu.framework.easy.upsert.dynamic.aop.EasyUpsertMySQLAnnotationAdvisor;
+import com.wu.framework.easy.upsert.dynamic.aop.QuickEasyUpsertMySQLAnnotationAdvisor;
 import com.wu.framework.easy.upsert.sink.MySQLEasyUpsertSink;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -23,4 +25,13 @@ public class UpsertSinkConfig {
         advisor.setOrder(Ordered.LOWEST_PRECEDENCE);
         return advisor;
     }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public QuickEasyUpsertMySQLAnnotationAdvisor quickEasyUpsertMySQLAnnotationAdvisor(AbstractDynamicEasyUpsert abstractDynamicEasyUpsert) {
+        QuickEasyUpsertMySQLAnnotationAdvisor advisor = new QuickEasyUpsertMySQLAnnotationAdvisor(abstractDynamicEasyUpsert);
+        advisor.setOrder(Ordered.LOWEST_PRECEDENCE);
+        return advisor;
+    }
+
 }
