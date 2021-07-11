@@ -1,8 +1,6 @@
 package com.wu.framework.easy.temple.controller;
 
 
-import com.wu.framework.easy.upsert.core.dynamic.aop.EasyUpsertAnnotationAdvisor;
-import org.aopalliance.aop.Advice;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,39 +13,40 @@ import javax.annotation.Resource;
 class UpsertMySQLControllerTest {
 
     @Resource
-    EasyUpsertAnnotationAdvisor easyUpsertAnnotationAdvisor;
-
-    @Test
-    public void getEasyUpsertDSAnnotationAdvisor() {
-        final Advice advice = easyUpsertAnnotationAdvisor.getAdvice();
-        System.out.println(advice);
-    }
+    UpsertMySQLController upsertMySQLController;
 
     @Test
     void upsert() {
+        upsertMySQLController.upsert(10);
     }
 
     @Test
-    void upsertSize() {
+    void quickUpsertSize() {
+        upsertMySQLController.quickUpsertSize(10);
     }
 
     @Test
-    void easyHashMap() {
+    void quickEasyHashMap() {
+        upsertMySQLController.quickEasyHashMap(10);
     }
 
     @Test
-    void complexData() {
+    void quickComplexData() {
+        upsertMySQLController.quickComplexData();
     }
 
     @Test
-    void moreExtractBo() {
+    void quickMoreExtractBo() {
+        upsertMySQLController.quickMoreExtractBo();
     }
 
     @Test
-    void binary() {
+    void quickBinary() {
+        upsertMySQLController.quickBinary(10);
     }
 
     @Test
     void createUserLog() {
+        upsertMySQLController.createUserLog(10);
     }
 }

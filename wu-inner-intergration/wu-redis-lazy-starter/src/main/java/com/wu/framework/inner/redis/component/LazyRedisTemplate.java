@@ -76,6 +76,16 @@ public class LazyRedisTemplate extends StringRedisTemplate {
     public void setDyDatabase(Integer dyDatabase) {
         this.dyDatabase = dyDatabase;
     }
+    /**
+    * @describe 重置
+    * @param
+    * @return
+    * @author Jia wei Wu
+    * @date 2021/7/11 3:21 下午
+    **/
+    public void reset(){
+        this.dyDatabase=this.MASTER;
+    }
 
 
 }

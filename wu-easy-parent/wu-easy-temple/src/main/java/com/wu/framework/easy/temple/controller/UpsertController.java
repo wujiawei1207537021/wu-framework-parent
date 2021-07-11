@@ -1,5 +1,6 @@
 package com.wu.framework.easy.temple.controller;
 
+import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsert;
 import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertDS;
 import com.wu.framework.easy.upsert.autoconfigure.dynamic.QuickEasyUpsert;
 import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
@@ -48,7 +49,7 @@ public class UpsertController {
         }
     }
 
-    @EasyUpsertDS(type = EasyUpsertType.MySQL)
+    @EasyUpsert(type = EasyUpsertType.MySQL)
     @ApiOperation(tags = "快速插入数据", value = "入DB")
     @GetMapping()
     public List<UserLog> upsert(@RequestParam(required = false, defaultValue = "100") Integer size) {
@@ -65,7 +66,7 @@ public class UpsertController {
         return userLogList;
     }
 
-    @EasyUpsertDS(type = EasyUpsertType.MySQL)
+    @EasyUpsert(type = EasyUpsertType.MySQL)
     @ApiOperation(tags = "快速插入数据", value = "service 实现类操作数据插入")
     @GetMapping("/size")
     public void upsertSize(@RequestParam(required = false, defaultValue = "100") Integer size) {
@@ -82,7 +83,7 @@ public class UpsertController {
      * @author Jia wei Wu
      * @date 2020/12/7 下午6:32
      */
-    @EasyUpsertDS(type = EasyUpsertType.ES)
+    @EasyUpsert(type = EasyUpsertType.ES)
     @ApiOperation(tags = "快速插入数据", value = "操作数据入ES")
     @GetMapping("/bigDataPartitionTest")
     public void bigDataPartitionTest(@RequestParam(required = false, defaultValue = "100") Integer size) {
@@ -174,7 +175,7 @@ public class UpsertController {
     }
 
     @QuickEasyUpsert(type = EasyUpsertType.MySQL)
-    @ApiOperation(tags = "快速插入数据", value = "binary 数据插入")
+    @ApiOperation(tags = "快速插入数据", value = "quickBinary 数据插入")
     @GetMapping("/binary")
     public List binary(@RequestParam(required = false, defaultValue = "1000") Integer size) {
         return runService.binary(size);

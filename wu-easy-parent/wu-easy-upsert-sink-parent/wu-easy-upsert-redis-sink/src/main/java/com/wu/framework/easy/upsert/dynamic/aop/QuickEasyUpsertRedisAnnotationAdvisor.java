@@ -1,13 +1,13 @@
 package com.wu.framework.easy.upsert.dynamic.aop;
 
 
-import com.wu.framework.easy.upsert.QuickEasyUpsertMySQL;
+import com.wu.framework.easy.upsert.QuickEasyUpsertRedis;
 import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsert;
 import com.wu.framework.easy.upsert.core.dynamic.AbstractDynamicEasyUpsert;
 import com.wu.framework.easy.upsert.core.dynamic.aop.AbstractPointcutQuickEasyUpsertAnnotationAdvisor;
 import com.wu.framework.easy.upsert.core.dynamic.toolkit.DynamicEasyUpsertContextHolder;
-import com.wu.framework.inner.dynamic.database.toolkit.DynamicLazyDSContextHolder;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyDS;
+import com.wu.framework.inner.redis.annotation.LazyRedis;
+import com.wu.framework.inner.redis.component.LazyRedisTemplate;
 import org.aopalliance.aop.Advice;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
@@ -22,13 +22,15 @@ import java.lang.annotation.Annotation;
  * @author Jia wei Wu
  * @date 2020/9/11 上午9:24
  */
-public class QuickEasyUpsertMySQLAnnotationAdvisor extends AbstractPointcutQuickEasyUpsertAnnotationAdvisor {
+public class QuickEasyUpsertRedisAnnotationAdvisor extends AbstractPointcutQuickEasyUpsertAnnotationAdvisor {
 
     private final AbstractDynamicEasyUpsert abstractDynamicEasyUpsert;
+    private final LazyRedisTemplate lazyRedisTemplate;
 
-    public QuickEasyUpsertMySQLAnnotationAdvisor(AbstractDynamicEasyUpsert abstractDynamicEasyUpsert) {
+    public QuickEasyUpsertRedisAnnotationAdvisor(AbstractDynamicEasyUpsert abstractDynamicEasyUpsert, LazyRedisTemplate lazyRedisTemplate) {
         super(abstractDynamicEasyUpsert);
         this.abstractDynamicEasyUpsert = abstractDynamicEasyUpsert;
+        this.lazyRedisTemplate = lazyRedisTemplate;
     }
 
     /**
@@ -44,9 +46,9 @@ public class QuickEasyUpsertMySQLAnnotationAdvisor extends AbstractPointcutQuick
             @Override
             public Object invoke(@Nonnull MethodInvocation invocation) throws Throwable {
                 // 切换数据源
-                LazyDS lazyDS = determineEasyUpsert(invocation, LazyDS.class);
+                LazyRedis lazyRedis = determineEasyUpsert(invocation, LazyRedis.class);
                 // 数据库数据源切换
-                DynamicLazyDSContextHolder.push(lazyDS);
+                lazyRedisTemplate.setDyDatabase(lazyRedis.database());
                 // upsert 策略切换
                 EasyUpsert easyUpsert = determineEasyUpsert(invocation, EasyUpsert.class);
                 DynamicEasyUpsertContextHolder.push(easyUpsert);
@@ -58,8 +60,8 @@ public class QuickEasyUpsertMySQLAnnotationAdvisor extends AbstractPointcutQuick
                     abstractDynamicEasyUpsert.determineIEasyUpsert().fuzzyUpsert(object);
                     return object;
                 } finally {
-                    DynamicLazyDSContextHolder.clear();
                     DynamicEasyUpsertContextHolder.clear();
+                    lazyRedisTemplate.reset();
                 }
             }
         };
@@ -67,6 +69,6 @@ public class QuickEasyUpsertMySQLAnnotationAdvisor extends AbstractPointcutQuick
 
     @Override
     public Class<? extends Annotation> getAnnotationClass() {
-        return QuickEasyUpsertMySQL.class;
+        return QuickEasyUpsertRedis.class;
     }
 }

@@ -25,5 +25,9 @@
             <groupId>top.wu2020</groupId>
             <artifactId>wu-easy-upsert-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-layer-stereotype</artifactId>
+        </dependency>
     </dependencies>
 </project>

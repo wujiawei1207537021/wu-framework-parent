@@ -1,7 +1,5 @@
 package com.wu.framework.easy.upsert;
 
-import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsert;
-import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertDS;
 import com.wu.framework.easy.upsert.autoconfigure.dynamic.QuickEasyUpsert;
 import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
 import org.springframework.core.annotation.AliasFor;

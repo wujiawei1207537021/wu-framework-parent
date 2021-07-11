@@ -131,7 +131,7 @@ public class UpsertHBaseController implements LayerDataAnalyzeAdapter {
 
 
     /**
-     * description binary 或者文件类型数据插入
+     * description quickBinary 或者文件类型数据插入
      *
      * @param
      * @return
@@ -140,7 +140,7 @@ public class UpsertHBaseController implements LayerDataAnalyzeAdapter {
      * @date 2021/4/19 上午10:11
      */
     @QuickEasyUpsert(type = EasyUpsertType.HBASE)
-    @ApiOperation(tags = "HBase数据快速插入", value = "binary 数据插入")
+    @ApiOperation(tags = "HBase数据快速插入", value = "quickBinary 数据插入")
     @GetMapping("/binary")
     public List<UpsertBinary> binary(@RequestParam(required = false, defaultValue = "1000") Integer size) {
         List<UpsertBinary> upsertBinaryList = new ArrayList<>();

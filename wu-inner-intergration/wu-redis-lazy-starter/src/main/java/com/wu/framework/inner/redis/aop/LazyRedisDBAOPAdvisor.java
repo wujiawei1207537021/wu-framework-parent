@@ -72,7 +72,11 @@ public class LazyRedisDBAOPAdvisor extends AbstractPointcutAdvisor implements Be
             // 切换数据源
             LazyRedis lazyRedis = determineLazyRedis(invocation);
             lazyRedisTemplate.setDyDatabase(lazyRedis.database());
-            return invocation.proceed();
+            try {
+                return invocation.proceed();
+            }finally {
+                lazyRedisTemplate.reset();
+            }
         }
 
         /**

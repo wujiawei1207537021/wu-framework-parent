@@ -35,7 +35,9 @@ public class DynamicLazyDSAdapter implements DynamicLazyDS, ApplicationListener<
     @Override
     public DataSource determineDataSource() {
         LazyDS lazyDS = DynamicLazyDSContextHolder.peek();
-        if (!ObjectUtils.isEmpty(lazyDS) && dataSourceMap.containsKey(lazyDS.name())) {
+        if (ObjectUtils.isEmpty(lazyDS)) {
+            log.warn("当前方法没有设置默认值,将使用默认数据源master:{} ", primary);
+        } else if (dataSourceMap.containsKey(lazyDS.name())) {
             return dataSourceMap.get(lazyDS.name());
         } else {
             log.warn("无法使用数据源{} 将使用默认数据源master:{} ", lazyDS, primary);

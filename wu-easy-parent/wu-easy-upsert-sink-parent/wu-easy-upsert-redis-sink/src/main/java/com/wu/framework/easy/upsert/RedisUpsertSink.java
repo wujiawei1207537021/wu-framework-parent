@@ -1,4 +1,4 @@
-package com.wu.framework.easy.upsert.sink;
+package com.wu.framework.easy.upsert;
 
 import com.wu.framework.easy.upsert.autoconfigure.EasySmart;
 import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertStrategy;
