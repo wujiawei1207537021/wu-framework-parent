@@ -5,7 +5,9 @@ import com.wu.framework.easy.upsert.core.dynamic.IEasyUpsert;
 import com.wu.framework.easy.upsert.autoconfigure.config.SpringUpsertAutoConfigure;
 import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
+import com.wu.framework.easy.upsert.core.dynamic.exception.UpsertException;
 import com.wu.framework.inner.dynamic.database.DynamicLazyDSAdapter;
+import com.wu.framework.inner.layer.data.ClassSchema;
 import com.wu.framework.inner.layer.data.UserConvertService;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.EasyAnnotationConverter;
@@ -54,7 +56,7 @@ public class MySQLEasyUpsertSink implements IEasyUpsert, MySQLDataProcessAnalyze
 
 
     @Override
-    public <T> Object upsert(List<T> list) throws Exception {
+    public <T> Object upsert(List<T> list, ClassSchema classSchema) throws UpsertException {
         synchronized (dynamicLazyDSAdapter){
             DataSource dataSource = dynamicLazyDSAdapter.determineDataSource();
             Integer total = (list.size() + springUpsertAutoConfigure.getBatchLimit() - 1) / springUpsertAutoConfigure.getBatchLimit();

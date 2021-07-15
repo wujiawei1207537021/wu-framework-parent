@@ -5,6 +5,8 @@ import com.wu.framework.easy.stereotype.upsert.analyze.ElasticsearchEasyDataProc
 import com.wu.framework.easy.upsert.autoconfigure.config.SpringUpsertAutoConfigure;
 import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
+import com.wu.framework.easy.upsert.core.dynamic.exception.UpsertException;
+import com.wu.framework.inner.layer.data.ClassSchema;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -98,7 +100,7 @@ public class ElasticsearchEasyUpsert implements IEasyUpsert, ElasticsearchEasyDa
     }
 
     @Override
-    public <T> Object upsert(List<T> list) throws Exception {
+    public <T> Object upsert(List<T> list, ClassSchema classSchema) throws UpsertException {
 
         Integer total = (list.size() + springUpsertAutoConfigure.getBatchLimit() - 1) / springUpsertAutoConfigure.getBatchLimit();
         log.info("计划处理写入文件 【{}】 个", total);

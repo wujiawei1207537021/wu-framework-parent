@@ -4,7 +4,9 @@ import com.wu.framework.easy.upsert.autoconfigure.EasySmart;
 import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
 import com.wu.framework.easy.upsert.core.dynamic.IEasyUpsert;
+import com.wu.framework.easy.upsert.core.dynamic.exception.UpsertException;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
+import com.wu.framework.inner.layer.data.ClassSchema;
 import com.wu.framework.inner.redis.component.LazyRedisTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -33,7 +35,7 @@ public class RedisUpsertSink implements IEasyUpsert {
 
 
     @Override
-    public <T> Object upsert(List<T> list) {
+    public <T> Object upsert(List<T> list, ClassSchema classSchema) throws UpsertException {
         Class<?> clazz = list.get(0).getClass();
         EasySmart easySmart = AnnotatedElementUtils.findMergedAnnotation(clazz, EasySmart.class);
         String key = easySmart.redisKey();

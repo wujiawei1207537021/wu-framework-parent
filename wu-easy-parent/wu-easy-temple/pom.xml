@@ -34,10 +34,6 @@
         <!--            <artifactId>spring-boot-starter-data-jpa</artifactId>-->
         <!--        </dependency>-->
 
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>top.wu2020</groupId>
@@ -84,10 +80,6 @@
         <dependency>
             <groupId>top.wu2020</groupId>
             <artifactId>wu-framework-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>top.wu2020</groupId>
-            <artifactId>wu-easy-upsert-spring-boot-autoconfigure</artifactId>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>

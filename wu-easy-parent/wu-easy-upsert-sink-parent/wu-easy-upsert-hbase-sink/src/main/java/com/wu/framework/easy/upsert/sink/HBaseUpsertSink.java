@@ -4,6 +4,8 @@ import com.wu.framework.easy.upsert.autoconfigure.config.SpringUpsertAutoConfigu
 import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
 import com.wu.framework.easy.upsert.core.dynamic.IEasyUpsert;
+import com.wu.framework.easy.upsert.core.dynamic.exception.UpsertException;
+import com.wu.framework.inner.layer.data.ClassSchema;
 import com.wu.framework.inner.lazy.hbase.expland.persistence.HBaseOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -33,7 +35,7 @@ public class HBaseUpsertSink implements IEasyUpsert {
 
 
     @Override
-    public <T> Object upsert(List<T> list) throws Exception {
+    public <T> Object upsert(List<T> list, ClassSchema classSchema) throws UpsertException {
         Integer total = (list.size() + springUpsertAutoConfigure.getBatchLimit() - 1) / springUpsertAutoConfigure.getBatchLimit();
         log.info("计划处理步骤 【{}】 步", total);
         int stepCount = 1;

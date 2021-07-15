@@ -5,13 +5,15 @@ import com.google.common.collect.Maps;
 import com.wu.framework.easy.upsert.autoconfigure.EasySmart;
 import com.wu.framework.easy.upsert.autoconfigure.config.SpringUpsertAutoConfigure;
 import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertStrategy;
-import com.wu.framework.easy.upsert.autoconfigure.sink.LocalStorageClassAnnotation;
 import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
+import com.wu.framework.easy.upsert.autoconfigure.sink.LocalStorageClassAnnotation;
 import com.wu.framework.easy.upsert.core.dynamic.IEasyUpsert;
+import com.wu.framework.easy.upsert.core.dynamic.exception.UpsertException;
 import com.wu.framework.easy.upsert.sink.converter.ConverterClass2KafkaSchema;
 import com.wu.framework.easy.upsert.sink.converter.JsonFileConverter;
 import com.wu.framework.easy.upsert.sink.kafka.KafkaJsonMessage;
 import com.wu.framework.easy.upsert.sink.kafka.TargetJsonSchema;
+import com.wu.framework.inner.layer.data.ClassSchema;
 import com.wu.framework.inner.layer.data.IBeanUpsert;
 import com.wu.framework.inner.layer.data.UserConvertService;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.EasyAnnotationConverter;
@@ -22,6 +24,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 /**
@@ -46,7 +49,7 @@ public class KafkaEasyUpsertSink implements IEasyUpsert {
     }
 
     @Override
-    public <T> Object upsert(List<T> list) throws Exception {
+    public <T> Object upsert(List<T> list, ClassSchema classSchema) throws UpsertException, ExecutionException, InterruptedException {
         Future task = easyUpsertExecutor.submit(() -> {
             Class clazz = list.get(0).getClass();
             // 模块名称+业务+表名
@@ -56,7 +59,7 @@ public class KafkaEasyUpsertSink implements IEasyUpsert {
 
             TargetJsonSchema targetJsonSchema = KafkaJsonMessage.targetSchemaMap.get(schemaName);
             if (targetJsonSchema == null) {
-                synchronized (KafkaJsonMessage.targetSchemaMap){
+                synchronized (KafkaJsonMessage.targetSchemaMap) {
                     targetJsonSchema = ConverterClass2KafkaSchema.converterClass2TargetJsonSchema(clazz, springUpsertAutoConfigure.isForceDuplicateNameSwitch());
                     KafkaJsonMessage.targetSchemaMap = Maps.uniqueIndex(Arrays.asList(targetJsonSchema), TargetJsonSchema::getName);
                     log.info(" Automatic loading TargetJsonSchema for class {}", schemaName);

@@ -45,7 +45,7 @@
         </dependency>
         <dependency>
             <groupId>top.wu2020</groupId>
-            <artifactId>wu-easy-upsert-core</artifactId>
+            <artifactId>wu-easy-upsert-h2-sink</artifactId>
         </dependency>
     </dependencies>
 
