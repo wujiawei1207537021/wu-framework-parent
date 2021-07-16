@@ -1,5 +1,6 @@
 package com.wu.framework.authorization.web;
 
+import com.wu.framework.authorization.config.AuthorizationCORSConfiguration;
 import com.wu.framework.authorization.config.pro.AuthorizationProperties;
 import com.wu.framework.authorization.endpoint.TokenKeyEndpoint;
 import com.wu.framework.authorization.login.DefaultUserDetailsService;
@@ -25,7 +26,7 @@ import java.util.List;
 @Slf4j
 @Import(value = {AccessTokenUserMethodArgumentResolver.class, RemoveAccessTokenInterceptor.class, AuthorizationProperties.class,
         AccessPermissionInterceptor.class, SessionPermissionInterceptor.class,
-        LoginService.class, TokenKeyEndpoint.class, DefaultUserDetailsService.class})
+        LoginService.class, TokenKeyEndpoint.class, DefaultUserDetailsService.class, AuthorizationCORSConfiguration.class})
 public class AuthorizationWebMvcConfigurer implements WebMvcConfigurer {
 
 
