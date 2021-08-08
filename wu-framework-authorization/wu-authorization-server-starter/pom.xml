@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>wu-authorization-server-starter</artifactId>
+    <description>授权管理服务</description>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

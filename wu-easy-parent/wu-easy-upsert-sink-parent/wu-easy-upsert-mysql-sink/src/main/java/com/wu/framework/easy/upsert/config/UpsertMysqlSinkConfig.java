@@ -16,7 +16,7 @@ import org.springframework.core.Ordered;
  * @date : 2021/7/9 9:45 下午
  */
 @Import({MySQLEasyUpsertSink.class})
-public class UpsertSinkConfig {
+public class UpsertMysqlSinkConfig {
 
     @Bean
     @ConditionalOnMissingBean

@@ -15,6 +15,7 @@ import java.util.Collection;
  * @describe: 根据ID更新  自定义数据库持久层操作方法I按ID列表删除
  * @date : 2020/7/4 下午7:22
  */
+@Deprecated
 @Component
 public class LazyOperationMethodDeleteByIdList extends AbstractLazyOperationMethod {
 

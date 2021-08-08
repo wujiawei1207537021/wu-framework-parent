@@ -46,6 +46,7 @@ public interface LazyBaseOperation {
      * @param t
      * @param <T>
      */
+    @Deprecated
     @ProxyStrategicApproach(proxyClass = LazyOperationMethodUpdateById.class)
     <T> void updateById(T t);
 
@@ -65,6 +66,7 @@ public interface LazyBaseOperation {
      * @param list
      * @param <T>
      */
+    @Deprecated
     @ProxyStrategicApproach(proxyClass = LazyOperationMethodDeleteByIdList.class)
     <T> void deleteByIdList(List<T> list);
 
@@ -74,6 +76,7 @@ public interface LazyBaseOperation {
      * @param t
      * @param <T>
      */
+    @Deprecated
     @ProxyStrategicApproach(proxyClass = LazyOperationMethodDeleteById.class)
     <T> void deleteById(T t);
 
@@ -92,6 +95,7 @@ public interface LazyBaseOperation {
      * @param t
      * @param <T>
      */
+    @Deprecated
     @ProxyStrategicApproach(proxyClass = LazyOperationMethodSelectOne.class)
     <T> T selectOne(T t);
 
@@ -101,6 +105,7 @@ public interface LazyBaseOperation {
      * @param t
      * @param <T>
      */
+    @Deprecated
     @ProxyStrategicApproach(proxyClass = LazyOperationMethodSelectList.class)
     <T> List<T> selectAll(T t);
 

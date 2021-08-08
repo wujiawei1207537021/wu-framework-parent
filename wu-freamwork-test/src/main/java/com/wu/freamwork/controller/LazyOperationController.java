@@ -24,7 +24,7 @@ import java.util.concurrent.ExecutionException;
  * @describe :
  * @date : 2021/4/17 10:37 下午
  */
-//@EasyController("/public/lazy")
+@EasyController("/public/lazy")
 public class LazyOperationController implements CommandLineRunner {
 
     private final LazyOperation lazyOperation;
@@ -211,11 +211,13 @@ public class LazyOperationController implements CommandLineRunner {
 //            dataBaseUser.setId(12);
         dataBaseUser.setSex("woman");
         dataBaseUser.setUsername("methodName");
-        DataBaseUser dataBaseUser1 = lazyOperation.selectOne(dataBaseUser);
-        System.out.println(dataBaseUser1);
+        lazyOperation.smartUpsert(dataBaseUser);
+//        DataBaseUser dataBaseUser1 = lazyOperation.selectOne(dataBaseUser);
+//        System.out.println(dataBaseUser1);
 
         dataBaseUser.setUsername(null);
         List<DataBaseUser> dataBaseUserList = lazyOperation.selectAll(dataBaseUser);
+        System.out.println(dataBaseUserList);
         long e = System.currentTimeMillis();
         System.out.println("select 共计用时：" + (e - s) + "ms");
     }

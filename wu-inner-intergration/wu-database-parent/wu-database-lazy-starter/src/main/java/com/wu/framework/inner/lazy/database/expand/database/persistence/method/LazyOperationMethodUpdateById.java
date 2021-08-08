@@ -14,6 +14,7 @@ import java.sql.SQLException;
  * @describe: 根据ID更新 自定义数据库持久层操作方法I通过ID更新
  * @date : 2020/7/4 下午7:22
  */
+@Deprecated
 @Component
 public class LazyOperationMethodUpdateById extends AbstractLazyOperationMethod {
 

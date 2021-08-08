@@ -5,6 +5,7 @@ import com.wu.framework.easy.upsert.core.dynamic.AbstractDynamicEasyUpsert;
 import com.wu.framework.easy.upsert.dynamic.aop.EasyUpsertRedisAnnotationAdvisor;
 import com.wu.framework.easy.upsert.dynamic.aop.QuickEasyUpsertRedisAnnotationAdvisor;
 import com.wu.framework.inner.redis.component.LazyRedisTemplate;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
@@ -15,8 +16,9 @@ import org.springframework.context.annotation.Import;
  * @describe :
  * @date : 2021/7/11 2:45 下午
  */
+@ConditionalOnBean(LazyRedisTemplate.class)
 @Import({RedisUpsertSink.class})
-public class UpsertSinkConfig {
+public class UpsertRedisSinkConfig {
 
     @Bean
     @ConditionalOnMissingBean
