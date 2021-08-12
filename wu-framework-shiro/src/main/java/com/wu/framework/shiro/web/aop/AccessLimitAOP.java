@@ -39,7 +39,7 @@ public class AccessLimitAOP {
 //        if ((accessLimitMap.get(key) + 1) > maxCount) {
 //            //访问频繁
 ////            ResultFactory.of(DefaultResultCode.DEFAULT_ERROR, "访问频繁");
-//            throw new CustomException("访问频繁");
+//            throw new ShiroException("访问频繁");
 //        }
 //
 //    }
@@ -118,7 +118,7 @@ public class AccessLimitAOP {
 //            UserDetails userDetails = ILoginService.user(accessToken);
 //            if (ObjectUtils.isEmpty(userDetails)) {
 //                ResultFactory.of(DefaultResultCode.DEFAULT_ERROR, "");
-//                throw new CustomException("验证登录失败");
+//                throw new ShiroException("验证登录失败");
 //            }
 //            key += userDetails.getUsername();
 //        } else {
@@ -136,7 +136,7 @@ public class AccessLimitAOP {
 //                }
 //            }
 //            if (ObjectUtils.isEmpty(parameter)) {
-//                throw new CustomException("AccessLimit 注解使用错误 属性：" + paramName + "不存在");
+//                throw new ShiroException("AccessLimit 注解使用错误 属性：" + paramName + "不存在");
 //            }
 //            key += ReflectiveUtil.getBaseClassValByAttributeName(parameter, paramName);
 ////            System.out.println(key);

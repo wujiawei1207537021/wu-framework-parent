@@ -41,7 +41,7 @@ public class PersistenceRepository {
 
     @NonNull
     public String getQueryString() {
-        System.err.printf("执行SQL: %S%n", queryString);
+        System.err.printf("执行SQL: %s%n", queryString);
         return queryString;
     }
 }

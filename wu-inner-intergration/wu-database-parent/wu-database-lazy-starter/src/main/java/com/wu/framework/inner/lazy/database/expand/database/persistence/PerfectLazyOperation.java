@@ -7,6 +7,7 @@ import com.wu.framework.inner.layer.stereotype.MethodParamFunctionException;
 import com.wu.framework.inner.layer.util.FileUtil;
 import com.wu.framework.inner.lazy.database.domain.Page;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.MySQLDataProcessAnalyze;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.config.ExportDataConfiguration;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
@@ -20,6 +21,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 /**
  * description 懒人完美数据库持久层操作合集
@@ -30,13 +32,42 @@ import java.util.concurrent.atomic.AtomicReference;
 @Slf4j
 public class PerfectLazyOperation {
 
+
+    /*
+ Easy Upsert Data Transfer
+
+ Source Server         : ETMS2.0
+ Source Server Type    : MySQL
+ Source Server Version : 80025
+ Source Host           : 192.168.17.221:30712
+ Source Schema         : etms_2_0_central_user
+
+ Target Server Type    : MySQL
+ Target Server Version : 80025
+ File Encoding         : 65001
+
+ Date: 06/08/2021 15:56:31
+*/
+
+    /**
+     * 表数据模版
+     */
+    private final String tableTemp =
+            "\n" +
+                    "-- ----------------------------\n" +
+                    "-- Table data for %s \n" +
+                    "-- Table table_comment for %s \n" +
+                    "-- ----------------------------";
+
     private final LazyBaseOperation lazyBaseOperation;
+    private final ExportDataConfiguration exportDataConfiguration;
 
     private final MySQLDataProcessAnalyze mySQLDataProcessAnalyze = new MySQLDataProcessAnalyze() {
     };
 
-    public PerfectLazyOperation(LazyBaseOperation lazyBaseOperation) {
+    public PerfectLazyOperation(LazyBaseOperation lazyBaseOperation, ExportDataConfiguration exportDataConfiguration) {
         this.lazyBaseOperation = lazyBaseOperation;
+        this.exportDataConfiguration = exportDataConfiguration;
     }
 
     /**
@@ -100,6 +131,7 @@ public class PerfectLazyOperation {
         for (EasyHashMap table : allTables) {
             String countSQL = "select count(1) from %s ";
             String tableName = table.get("tableName").toString();
+            Object tableComment = table.get("TABLECOMMENT");
             Integer count = lazyBaseOperation.executeSQLForBean(String.format(countSQL, tableName), Integer.class);
             if (count != 0) {
                 AtomicReference<EasyHashMap> tableInfo = new AtomicReference<>();
@@ -112,14 +144,34 @@ public class PerfectLazyOperation {
                             return scrollList;
                         }
                         List<EasyHashMap> record = (List<EasyHashMap>) scrollList.getRecord();
+                        // 忽略指定字段
+                        final List<String> ignoreExportedFields = exportDataConfiguration.getIgnoreExportedFields();
+                        if (!ObjectUtils.isEmpty(ignoreExportedFields)) {
+                            EasyHashMap<Object, Object> one = record.get(0);
+                            List<Object> ignoreFields = one.keySet().stream().filter(key -> ignoreExportedFields.contains(key)).collect(Collectors.toList());
+
+                            if (!ObjectUtils.isEmpty(ignoreFields)) {
+                                // 忽略后的数据
+                                List<EasyHashMap> ignoredData = record.stream().map(easyHashMap -> {
+                                    for (Object ignoreField : ignoreFields) {
+                                        easyHashMap.remove(ignoreField);
+                                    }
+                                    return easyHashMap;
+                                }).collect(Collectors.toList());
+                                record = ignoredData;
+                            }
+
+                        }
+
                         tableInfo.set(record.get(0));
-                        file.write("-- " + tableName);
+
+                        file.write(String.format(tableTemp, tableName, tableComment));
                         file.newLine();
                         tableInfo.get().setUniqueLabel(tableName);
                         MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = mySQLDataProcessAnalyze.upsertDataPack(record, tableInfo.get().toEasyTableAnnotation(false));
                         String s = mySQLProcessResult.getSql();
-                        s = s.replaceAll("'true'", "1").
-                                replaceAll("'false'", "0").
+                        s = s.replaceAll("'true'", NormalUsedString.ONE).
+                                replaceAll("'false'", NormalUsedString.ZERO).
                                 replaceAll("'null'", NormalUsedString.NULL);
                         file.write(s);
                         file.write(NormalUsedString.SEMICOLON);
@@ -131,12 +183,34 @@ public class PerfectLazyOperation {
 
                 } else {
                     List<EasyHashMap> tableDateList = lazyBaseOperation.executeSQL(String.format(selectSQL, tableName), EasyHashMap.class);
+
+
                     if (!ObjectUtils.isEmpty(tableDateList)) {
-                        file.write("-- " + tableName);
+                        // 忽略指定字段
+                        final List<String> ignoreExportedFields = exportDataConfiguration.getIgnoreExportedFields();
+                        if (!ObjectUtils.isEmpty(ignoreExportedFields)) {
+                            EasyHashMap<Object, Object> one = tableDateList.get(0);
+                            List<Object> ignoreFields = one.keySet().stream().filter(key -> ignoreExportedFields.contains(key)).collect(Collectors.toList());
+
+                            if (!ObjectUtils.isEmpty(ignoreFields)) {
+                                // 忽略后的数据
+                                List<EasyHashMap> ignoredData = tableDateList.stream().map(easyHashMap -> {
+                                    for (Object ignoreField : ignoreFields) {
+                                        easyHashMap.remove(ignoreField);
+                                    }
+                                    return easyHashMap;
+                                }).collect(Collectors.toList());
+                                tableDateList = ignoredData;
+                            }
+
+                        }
+                        file.write(String.format(tableTemp, tableName, tableComment));
                         file.newLine();
                         tableInfo.set(tableDateList.get(0));
                         tableInfo.get().setUniqueLabel(tableName);
-                        MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = mySQLDataProcessAnalyze.upsertDataPack(tableDateList, tableInfo.get().toEasyTableAnnotation(false));
+                        MySQLDataProcessAnalyze.MySQLProcessResult
+                                mySQLProcessResult = mySQLDataProcessAnalyze.upsertDataPack(tableDateList,
+                                tableInfo.get().toEasyTableAnnotation(false,true));
                         String s = mySQLProcessResult.getSql();
                         s = s.replaceAll("'true'", "1").
                                 replaceAll("'false'", "0").

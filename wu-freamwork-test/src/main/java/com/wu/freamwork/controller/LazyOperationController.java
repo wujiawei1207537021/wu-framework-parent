@@ -6,13 +6,11 @@ import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.inner.lazy.database.domain.Page;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.PerfectLazyOperation;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import com.wu.framework.inner.lazy.database.test.pojo.DataBaseUser;
 import org.springframework.boot.CommandLineRunner;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,17 +41,9 @@ public class LazyOperationController implements CommandLineRunner {
      */
     @Override
     public void run(String... args) throws Exception {
-
-        EasyHashMap<String, String> easyHashMap = new EasyHashMap<>("temp_easy_hash");
-        easyHashMap.put("type", "easy");
-        easyHashMap.put("name", "map");
-        easyHashMap.put("date", LocalDate.now().toString());
-        final String s = easyHashMap.toEasyTableAnnotation(false).creatTableSQL();
-//        lazyOperation.upsert(easyHashMap, Arrays.asList(easyHashMap));
-
-        select();
-
-
+        perfectLazyOperation.saveSqlFile("etms_2_0_central_config");
+        perfectLazyOperation.saveSqlFile("etms_2_0_central_user");
+        System.out.println("数据导出成功");
     }
 
     public void test() throws Exception {
@@ -249,17 +239,17 @@ public class LazyOperationController implements CommandLineRunner {
     }
 
 
-
     /**
      * description 数据迁移
+     *
      * @param
      * @return
      * @exception/throws
      * @author 吴佳伟
      * @date 2021/5/8 3:58 下午
      */
-     public void saveSqlFile() throws ProcessException, IOException, SQLException, MethodParamFunctionException, ExecutionException, InterruptedException {
-         perfectLazyOperation.saveSqlFile("mysql");
+    public void saveSqlFile() throws ProcessException, IOException, SQLException, MethodParamFunctionException, ExecutionException, InterruptedException {
+        perfectLazyOperation.saveSqlFile("mysql");
 
-     }
+    }
 }

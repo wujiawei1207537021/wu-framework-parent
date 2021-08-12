@@ -162,16 +162,20 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBean
         return toEasyTableAnnotation(false);
     }
 
+    public LazyTableAnnotation toEasyTableAnnotation(boolean isCapitalized) {
+        return toEasyTableAnnotation(false,false);
+    }
     /**
      * description
      *
      * @param isCapitalized 是否大写
+     * @param humpToUnderline 驼峰转下划线
      * @return
      * @exception/throws
      * @author Jiawei Wu
      * @date 2021/1/20 下午5:28
      */
-    public LazyTableAnnotation toEasyTableAnnotation(boolean isCapitalized) {
+    public LazyTableAnnotation toEasyTableAnnotation(boolean isCapitalized,boolean humpToUnderline) {
         LazyTableAnnotation lazyTableAnnotation = new LazyTableAnnotation();
         lazyTableAnnotation.setClassName(this.getClass().getName());
         lazyTableAnnotation.setClazz(this.getClass());
@@ -183,10 +187,15 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBean
         List<ConvertedField> convertedFieldList = new ArrayList<>();
         forEach((key, value) -> {
             String fieldName;
+            if(humpToUnderline){
+                fieldName=CamelAndUnderLineConverter.humpToLine2(key.toString());
+            }else {
+                fieldName=key.toString();
+            }
             if (isCapitalized) {
-                fieldName = key.toString().toUpperCase();
+                fieldName = fieldName.toUpperCase();
             } else {
-                fieldName = key.toString().toLowerCase();
+                fieldName = fieldName.toLowerCase();
             }
             ConvertedField convertedField = new ConvertedField();
             convertedField.setFieldName(fieldName);

@@ -1,6 +1,6 @@
 package com.wu.framework.shiro.util;
 
-import com.wu.framework.response.exceptions.CustomException;
+import com.wu.framework.response.exceptions.ShiroException;
 import org.springframework.util.ObjectUtils;
 
 import java.lang.reflect.Field;
@@ -19,7 +19,7 @@ public class ReflectiveUtil {
      */
     public static Object getValByAttributeName(Object o, String attributeName) {
         if (ObjectUtils.isEmpty(o)) {
-            throw new CustomException("反射获取属性异常");
+            throw new ShiroException("反射获取属性异常");
         }
         Class clazz = o.getClass();
         for (Field declaredField : clazz.getDeclaredFields()) {
@@ -32,7 +32,7 @@ public class ReflectiveUtil {
                 }
             }
         }
-        throw new CustomException("反射获取属性失败 attributeName" + attributeName);
+        throw new ShiroException("反射获取属性失败 attributeName" + attributeName);
     }
 
     public static Object getBaseClassValByAttributeName(Object o, String attributeName) {

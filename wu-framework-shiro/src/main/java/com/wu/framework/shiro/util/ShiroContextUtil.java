@@ -1,6 +1,6 @@
 package com.wu.framework.shiro.util;
 
-import com.wu.framework.response.exceptions.CustomException;
+import com.wu.framework.response.exceptions.ShiroException;
 import com.wu.framework.shiro.function.ShiroFunction;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -34,7 +34,7 @@ public class ShiroContextUtil implements ApplicationContextAware {
 
     public static <T> T getBeansWithAnnotation(Class<T> interfac, Class<? extends Annotation> annotation, String code, ShiroFunction<T, Class<? extends Annotation>> shiroFunction) throws BeansException {
         if (ObjectUtils.isEmpty(code)) {
-            throw new CustomException("code is null ");
+            throw new ShiroException("code is null ");
         }
         Collection<T> tCollection = ShiroContextUtil.getApplicationContext().getBeansOfType(interfac).values();
 /**
@@ -46,14 +46,14 @@ public class ShiroContextUtil implements ApplicationContextAware {
  *
  *             A a = (A) t.getClass().getAnnotation(annotation);
  *             if (ObjectUtils.isEmpty(a)) {
- *                 throw new CustomException("not found code by QRService :" + code);
+ *                 throw new ShiroException("not found code by QRService :" + code);
  *             }
  *             if (code.equals(qrService.methodName().methodName())) {
  *                 return t;
  *             }
  *
  *         }
- *         throw new CustomException("fail to find  code by  :" + code);
+ *         throw new ShiroException("fail to find  code by  :" + code);
  *
  */
         return shiroFunction.getBeanWithAnnotation(tCollection, annotation);

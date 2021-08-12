@@ -4,7 +4,6 @@ package com.wu.framework.response.handler;
 import com.wu.framework.response.Result;
 import com.wu.framework.response.ResultFactory;
 import com.wu.framework.response.enmus.DefaultResultCode;
-import com.wu.framework.response.exceptions.CustomException;
 import com.wu.framework.response.exceptions.CustomResponseException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
@@ -117,11 +116,11 @@ public class GlobalBaseExceptionHandler {
      * @param exception
      * @return
      */
-    @ExceptionHandler(CustomException.class)
-    public Result customException(CustomException exception) {
-        exception.printStackTrace();
-        return ResultFactory.of(DefaultResultCode.DEFAULT_ERROR, exception.getMessage());
-    }
+//    @ExceptionHandler(CustomException.class)
+//    public Result customException(CustomException exception) {
+//        exception.printStackTrace();
+//        return ResultFactory.of(DefaultResultCode.DEFAULT_ERROR, exception.getMessage());
+//    }
 
     /**
      * 自定义返回异常
