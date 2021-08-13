@@ -35,6 +35,11 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBean
     private String uniqueLabel = UUID.randomUUID().toString();
     private List<Object> uniqueFieldList = new ArrayList<>();
 
+    /**
+     * value  对应的集类型
+     */
+    private HashMap<K, Class> ValueType = new HashMap();
+
 
     // 修改 唯一性标示
     private boolean modifyUniqueLabel = false;
@@ -204,7 +209,7 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBean
             }
             ConvertedField convertedField = new ConvertedField();
             convertedField.setFieldName(fieldName);
-            Class fieldClazz = null == value ? String.class : value.getClass();
+            Class fieldClazz = null == value ? ValueType.getOrDefault(key, String.class) : value.getClass();
             convertedField.setType(LazyTableField.FileType.getTypeByClass(fieldClazz));
             convertedField.setComment(String.format("字段创建时间%s", LocalDateTime.now()));
             convertedField.setClazz(fieldClazz);
@@ -219,6 +224,20 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBean
         });
         lazyTableAnnotation.setConvertedFieldList(convertedFieldList);
         return lazyTableAnnotation;
+    }
+
+    public V put(K key, V value, String valueClass) {
+        try {
+            ValueType.put(key, Class.forName(valueClass));
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return put(key, value);
+    }
+
+    public V put(K key, V value, Class valueClass) {
+        ValueType.put(key, valueClass);
+        return put(key, value);
     }
 
     /**
