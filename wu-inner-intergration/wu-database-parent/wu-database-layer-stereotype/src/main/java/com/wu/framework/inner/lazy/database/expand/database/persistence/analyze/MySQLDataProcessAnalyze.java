@@ -5,7 +5,7 @@ import com.wu.framework.inner.layer.data.JavaBasicType;
 import com.wu.framework.inner.layer.data.NormalUsedString;
 import com.wu.framework.inner.layer.data.ProcessException;
 import com.wu.framework.inner.layer.stereotype.LayerDefault;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.UpsertJsonMessage;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.LazyDatabaseJsonMessage;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.ConvertedField;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.LazyTableAnnotation;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
@@ -28,6 +28,7 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.EasyAnnotationConverter.annotationConvertConversion;
@@ -93,13 +94,13 @@ public interface MySQLDataProcessAnalyze extends LayerDefault, SQLAnalyze {
         // 添加字段
         List<ConvertedField> convertedFieldList = lazyTableAnnotation.getConvertedFieldList();
         String column = convertedFieldList.stream().filter(ConvertedField::isExist).
-                filter(convertedField -> !UpsertJsonMessage.ignoredFields.contains(convertedField.getFieldName())).
+                filter(convertedField -> !LazyDatabaseJsonMessage.ignoredFields.contains(convertedField.getFieldName())).
                 map(ConvertedField::getConvertedFieldName).
-                collect(Collectors.joining(","));
+                collect(Collectors.joining(NormalUsedString.COMMA));
         String updateColumn = convertedFieldList.stream().filter(ConvertedField::isExist).
-                filter(convertedField -> !UpsertJsonMessage.ignoredFields.contains(convertedField.getFieldName())).
+                filter(convertedField -> !LazyDatabaseJsonMessage.ignoredFields.contains(convertedField.getFieldName())).
                 map(convertedField -> convertedField.getConvertedFieldName() + "=VALUES (" + convertedField.getConvertedFieldName() + ")").
-                collect(Collectors.joining(","));
+                collect(Collectors.joining(NormalUsedString.COMMA));
 
         String data;
         // 添加 数据
@@ -121,12 +122,15 @@ public interface MySQLDataProcessAnalyze extends LayerDefault, SQLAnalyze {
                         if (value == null && !JavaBasicType.DEFAULT_VALUE_HASHMAP.containsKey(convertedField.getClazz())) {
                             throw new RuntimeException("current  data is null and we could not find the default value of type" + convertedField.getClazz());
                         }
-                        return "'" + (value == null ? JavaBasicType.DEFAULT_VALUE_HASHMAP.get(convertedField.getClazz()) : value).toString().replaceAll("'", "’") + "'";
-                    }).collect(Collectors.joining(",")) + NormalUsedString.RIGHT_BRACKET).collect(Collectors.joining(","));
+                        return "'" + (value == null ?
+                                JavaBasicType.DEFAULT_VALUE_HASHMAP.get(convertedField.getClazz())
+                                : value).
+                                toString().replaceAll("'", "’") + "'";
+                    }).collect(Collectors.joining(",")) + NormalUsedString.RIGHT_BRACKET).collect(Collectors.joining(NormalUsedString.COMMA));
         } else {
             final List<Field> fieldList = convertedFieldList.stream().filter(ConvertedField::isExist).
-                    filter(convertedField -> !UpsertJsonMessage.ignoredFields.contains(convertedField.getFieldName())).
-                    map(convertedField -> ReflectionUtils.findField(lazyTableAnnotation.getClazz(), convertedField.getFieldName())).
+                    filter(convertedField -> !LazyDatabaseJsonMessage.ignoredFields.contains(convertedField.getFieldName())).
+                    map(convertedField -> ReflectionUtils.findField(lazyTableAnnotation.getClazz(), convertedField.getFieldName())).filter(Objects::nonNull).
                     peek(field -> field.setAccessible(true)).
                     collect(Collectors.toList());
             List<String> tempList = new ArrayList<>();

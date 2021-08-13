@@ -2,7 +2,7 @@ package com.wu.framework.easy.upsert.autoconfigure.config;
 
 
 import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.UpsertJsonMessage;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.LazyDatabaseJsonMessage;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
@@ -67,7 +67,7 @@ public class SpringUpsertAutoConfigure implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
 
         if (!ObjectUtils.isEmpty(ignoredFields)) {
-            UpsertJsonMessage.ignoredFields.addAll(ignoredFields);
+            LazyDatabaseJsonMessage.ignoredFields.addAll(ignoredFields);
         }
 
     }

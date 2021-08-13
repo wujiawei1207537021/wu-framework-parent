@@ -6,7 +6,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wu.framework.easy.upsert.autoconfigure.EasySmartField;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.UpsertJsonMessage;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.LazyDatabaseJsonMessage;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.util.ObjectUtils;
 
@@ -93,7 +93,7 @@ public class JsonFileConverter {
                 if (!declaredField.isAccessible()) {
                     declaredField.setAccessible(true);
                 }
-                if (UpsertJsonMessage.ignoredFields.contains(declaredField.getName())) {
+                if (LazyDatabaseJsonMessage.ignoredFields.contains(declaredField.getName())) {
                     continue;
                 }
                 EasySmartField easySmartField = AnnotatedElementUtils.getMergedAnnotation(declaredField, EasySmartField.class);

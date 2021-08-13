@@ -5,7 +5,7 @@ import com.wu.framework.easy.upsert.autoconfigure.EasySmart;
 import com.wu.framework.easy.upsert.autoconfigure.EasySmartField;
 import com.wu.framework.easy.upsert.sink.kafka.TargetJsonSchema;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.UpsertJsonMessage;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.LazyDatabaseJsonMessage;
 import org.apache.kafka.common.protocol.types.Type;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -41,7 +41,7 @@ public class ConverterClass2KafkaSchema {
             if (!field.isAccessible()) {
                 field.setAccessible(true);
             }
-            if (UpsertJsonMessage.ignoredFields.contains(field.getName())) {
+            if (LazyDatabaseJsonMessage.ignoredFields.contains(field.getName())) {
                 continue;
             }
             TargetJsonSchema.Field t = new TargetJsonSchema.Field();

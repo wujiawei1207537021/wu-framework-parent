@@ -66,7 +66,7 @@ public enum JavaBasicType {
 
     ;
 
-    public static Map<Class, Object> DEFAULT_VALUE_HASHMAP = new HashMap<Class, Object>();
+    public static Map<Class, Object> DEFAULT_VALUE_HASHMAP = new HashMap<>();
     public static Map<String, Object> DEFAULT_CLASS_NAME_VALUE_HASHMAP = new HashMap<String, Object>();
 
     static {

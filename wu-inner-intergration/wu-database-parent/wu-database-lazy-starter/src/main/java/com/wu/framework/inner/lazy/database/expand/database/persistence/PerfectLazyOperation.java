@@ -168,7 +168,8 @@ public class PerfectLazyOperation {
                         file.write(String.format(tableTemp, tableName, tableComment));
                         file.newLine();
                         tableInfo.get().setUniqueLabel(tableName);
-                        MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = mySQLDataProcessAnalyze.upsertDataPack(record, tableInfo.get().toEasyTableAnnotation(false));
+                        MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = mySQLDataProcessAnalyze.upsertDataPack(record,
+                                tableInfo.get().toEasyTableAnnotation(false,true));
                         String s = mySQLProcessResult.getSql();
                         s = s.replaceAll("'true'", NormalUsedString.ONE).
                                 replaceAll("'false'", NormalUsedString.ZERO).

@@ -4,7 +4,7 @@ import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.layer.stereotype.LayerField;
 import com.wu.framework.inner.layer.stereotype.analyze.AnalyzeParameter;
 import com.wu.framework.inner.layer.stereotype.analyze.LayerClassAnalyze;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.UpsertJsonMessage;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.LazyDatabaseJsonMessage;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.ConvertedField;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.LazyTableAnnotation;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTable;
@@ -170,7 +170,7 @@ public interface SQLAnalyze extends LayerClassAnalyze {
          * 是否添加逗号
          */
         for (Field declaredField : fields) {
-            if (UpsertJsonMessage.ignoredFields.contains(declaredField.getName())) {
+            if (LazyDatabaseJsonMessage.ignoredFields.contains(declaredField.getName())) {
                 continue;
             }
             LazyTableField tableField = AnnotatedElementUtils.findMergedAnnotation(declaredField, LazyTableField.class);
@@ -199,7 +199,7 @@ public interface SQLAnalyze extends LayerClassAnalyze {
             for (Field declaredField : o.getClass().getDeclaredFields()) {
                 try {
                     declaredField.setAccessible(true);
-                    if (UpsertJsonMessage.ignoredFields.contains(declaredField.getName())) {
+                    if (LazyDatabaseJsonMessage.ignoredFields.contains(declaredField.getName())) {
                         continue;
                     }
                     Object fieldVal = declaredField.get(o);

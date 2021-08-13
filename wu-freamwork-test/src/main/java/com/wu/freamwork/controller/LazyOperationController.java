@@ -41,8 +41,8 @@ public class LazyOperationController implements CommandLineRunner {
      */
     @Override
     public void run(String... args) throws Exception {
-        perfectLazyOperation.saveSqlFile("etms_2_0_central_config");
-        perfectLazyOperation.saveSqlFile("etms_2_0_central_user");
+//        perfectLazyOperation.saveSqlFile();
+        perfectLazyOperation.saveSqlFile();
         System.out.println("数据导出成功");
     }
 
@@ -242,8 +242,6 @@ public class LazyOperationController implements CommandLineRunner {
     /**
      * description 数据迁移
      *
-     * @param
-     * @return
      * @exception/throws
      * @author 吴佳伟
      * @date 2021/5/8 3:58 下午

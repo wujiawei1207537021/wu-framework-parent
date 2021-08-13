@@ -1,11 +1,14 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.config;
 
+import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.LazyDatabaseJsonMessage;
 import lombok.Data;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -18,12 +21,25 @@ import java.util.List;
 @Data
 @ConfigurationProperties(prefix = "spring.datasource")
 @Configuration
-public class ExportDataConfiguration {
+public class ExportDataConfiguration implements InitializingBean {
 
     /**
      * 忽略导出的字段
      */
     private List<String> ignoreExportedFields;
 
+    /**
+     * 特殊字段
+     */
+    private List<String> specialFields= Arrays.asList("DESC","CURRENT_TIME");
 
+    public void setSpecialFields(List<String> specialFields) {
+        this.specialFields.addAll(specialFields);
+
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        LazyDatabaseJsonMessage.specialFields.addAll(this.specialFields);
+    }
 }

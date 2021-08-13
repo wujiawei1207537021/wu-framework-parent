@@ -1,14 +1,15 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.map;
 
-import com.wu.framework.inner.layer.data.ProcessException;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.JavaVerification;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.ConvertedField;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.LazyTableAnnotation;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTableField;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.layer.data.IBeanUpsert;
 import com.wu.framework.inner.layer.data.NormalUsedString;
+import com.wu.framework.inner.layer.data.ProcessException;
 import com.wu.framework.inner.layer.stereotype.LayerField;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.LazyDatabaseJsonMessage;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.ConvertedField;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.JavaVerification;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.LazyTableAnnotation;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTableField;
 import org.springframework.util.ObjectUtils;
 
 import java.lang.reflect.ParameterizedType;
@@ -32,11 +33,11 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBean
      * 唯一性标示
      */
     private String uniqueLabel = UUID.randomUUID().toString();
-    private List<Object> uniqueFieldList=new ArrayList<>();
+    private List<Object> uniqueFieldList = new ArrayList<>();
 
 
     // 修改 唯一性标示
-    private boolean modifyUniqueLabel=false;
+    private boolean modifyUniqueLabel = false;
 
 
     public EasyHashMap() {
@@ -163,19 +164,20 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBean
     }
 
     public LazyTableAnnotation toEasyTableAnnotation(boolean isCapitalized) {
-        return toEasyTableAnnotation(false,false);
+        return toEasyTableAnnotation(false, false);
     }
+
     /**
      * description
      *
-     * @param isCapitalized 是否大写
+     * @param isCapitalized   是否大写
      * @param humpToUnderline 驼峰转下划线
      * @return
      * @exception/throws
      * @author Jiawei Wu
      * @date 2021/1/20 下午5:28
      */
-    public LazyTableAnnotation toEasyTableAnnotation(boolean isCapitalized,boolean humpToUnderline) {
+    public LazyTableAnnotation toEasyTableAnnotation(boolean isCapitalized, boolean humpToUnderline) {
         LazyTableAnnotation lazyTableAnnotation = new LazyTableAnnotation();
         lazyTableAnnotation.setClassName(this.getClass().getName());
         lazyTableAnnotation.setClazz(this.getClass());
@@ -186,16 +188,19 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBean
 //        lazyTableAnnotation.setKafkaSchemaName(UUID.randomUUID() + uniqueLabel);
         List<ConvertedField> convertedFieldList = new ArrayList<>();
         forEach((key, value) -> {
-            String fieldName;
-            if(humpToUnderline){
-                fieldName=CamelAndUnderLineConverter.humpToLine2(key.toString());
-            }else {
-                fieldName=key.toString();
+            String fieldName = key.toString();
+
+            if (humpToUnderline) {
+                fieldName = CamelAndUnderLineConverter.humpToLine2(fieldName);
             }
             if (isCapitalized) {
                 fieldName = fieldName.toUpperCase();
             } else {
                 fieldName = fieldName.toLowerCase();
+            }
+            String tempFieldName = new String(fieldName);
+            if (LazyDatabaseJsonMessage.specialFields.contains(tempFieldName.toUpperCase())) {
+                fieldName = "`" + fieldName + "`";
             }
             ConvertedField convertedField = new ConvertedField();
             convertedField.setFieldName(fieldName);
@@ -204,9 +209,9 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBean
             convertedField.setComment(String.format("字段创建时间%s", LocalDateTime.now()));
             convertedField.setClazz(fieldClazz);
             convertedField.setConvertedFieldName(CamelAndUnderLineConverter.humpToLine2(fieldName));
-            if(uniqueFieldList.contains(key)){
+            if (uniqueFieldList.contains(key)) {
                 convertedField.setFieldIndexType(LayerField.LayerFieldType.UNIQUE);
-            }else {
+            } else {
                 convertedField.setFieldIndexType(LayerField.LayerFieldType.FILE_TYPE);
             }
 
@@ -242,7 +247,7 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBean
     }
 
     public void setUniqueLabel(String uniqueLabel) {
-        this.modifyUniqueLabel=true;
+        this.modifyUniqueLabel = true;
         this.uniqueLabel = uniqueLabel;
     }
 
