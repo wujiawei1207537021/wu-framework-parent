@@ -23,7 +23,7 @@ import java.util.Map;
 @Getter
 @AllArgsConstructor
 public enum JavaBasicType {
-    STRING(String.class, ""),
+    STRING(String.class, "''"),
     BOOLEAN(Boolean.class, false),
     BOOLEAN_M(boolean.class, false),
 
@@ -62,9 +62,7 @@ public enum JavaBasicType {
 
     DATE(Date.class, new Date()),
     SQL_DATE(java.sql.Date.class, java.sql.Date.valueOf(LocalDate.now())),
-
-
-    ;
+    Object(java.lang.Object.class, null);
 
     public static Map<Class, Object> DEFAULT_VALUE_HASHMAP = new HashMap<>();
     public static Map<String, Object> DEFAULT_CLASS_NAME_VALUE_HASHMAP = new HashMap<String, Object>();

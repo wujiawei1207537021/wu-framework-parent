@@ -13,8 +13,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 /**
  * @author : Jia wei Wu
@@ -42,7 +44,7 @@ public class LazyOperationController implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 //        perfectLazyOperation.saveSqlFile();
-        perfectLazyOperation.saveSqlFile("etms_2_0_central_config");
+        perfectLazyOperation.saveSqlFile("temp");
         System.out.println("数据导出成功");
     }
 
@@ -59,6 +61,10 @@ public class LazyOperationController implements CommandLineRunner {
         saveSqlFile();
     }
 
+    public static void main(String[] args) {
+        List xx= Arrays.asList("\"\"","\"\"","\"\"");
+        System.out.println(xx.stream().collect(Collectors.joining(",")));
+    }
 
     /**
      * description 灵性添加

@@ -105,28 +105,35 @@ public interface MySQLDataProcessAnalyze extends LayerDefault, SQLAnalyze {
         String data;
         // 添加 数据
         if (lazyTableAnnotation.getClassName().equals(EasyHashMap.class.getName())) {
-            data = ((List<EasyHashMap>) sourceData).stream().
-                    map(easyHashMap -> NormalUsedString.LEFT_BRACKET + convertedFieldList.stream().map(convertedField -> {
-                        try {
-                            easyHashMap.beforeObjectProcess();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        final Object value = easyHashMap.getOrDefault(convertedField.getFieldName(), null);
-                        //判断是否为binary数据
-                        final InputStream binary = isBinary(value);
-                        if (!ObjectUtils.isEmpty(binary)) {
-                            binaryList.add(binary);
-                            return NormalUsedString.QUESTION_MARK;
-                        }
-                        if (value == null && !JavaBasicType.DEFAULT_VALUE_HASHMAP.containsKey(convertedField.getClazz())) {
-                            throw new RuntimeException("current  data is null and we could not find the default value of type" + convertedField.getClazz());
-                        }
-                        return "'" + (value == null ?
-                                JavaBasicType.DEFAULT_VALUE_HASHMAP.get(convertedField.getClazz())
-                                : value).
-                                toString().replaceAll("'", "’") + "'";
-                    }).collect(Collectors.joining(",")) + NormalUsedString.RIGHT_BRACKET).collect(Collectors.joining(NormalUsedString.COMMA));
+            final List<EasyHashMap> easyHashMaps = sourceData;
+            data = easyHashMaps.stream().
+                    map(
+                            easyHashMap -> NormalUsedString.LEFT_BRACKET + convertedFieldList.stream().map(convertedField -> {
+                                try {
+                                    easyHashMap.beforeObjectProcess();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                Object value = easyHashMap.getOrDefault(convertedField.getFieldName(), null);
+                                //判断是否为binary数据
+                                final InputStream binary = isBinary(value);
+                                if (!ObjectUtils.isEmpty(binary)) {
+                                    binaryList.add(binary);
+                                    return NormalUsedString.QUESTION_MARK;
+                                }
+                                if (value == null && !JavaBasicType.DEFAULT_VALUE_HASHMAP.containsKey(convertedField.getClazz())) {
+                                    throw new RuntimeException("current  data is null and we could not find the default value of type " + convertedField.getClazz());
+                                }
+                                if (null == value) {
+                                    if (JavaBasicType.DEFAULT_VALUE_HASHMAP.get(convertedField.getClazz()) == null) {
+                                        return null;
+                                    } else {
+                                        value = JavaBasicType.DEFAULT_VALUE_HASHMAP.get(convertedField.getClazz());
+                                    }
+                                }
+                                return "'" + value.toString().replaceAll("'", "’") + "'";
+                            }).collect(Collectors.joining(NormalUsedString.COMMA)) + NormalUsedString.RIGHT_BRACKET
+                    ).collect(Collectors.joining(NormalUsedString.COMMA));
         } else {
             final List<Field> fieldList = convertedFieldList.stream().filter(ConvertedField::isExist).
                     filter(convertedField -> !LazyDatabaseJsonMessage.ignoredFields.contains(convertedField.getFieldName())).
@@ -174,7 +181,6 @@ public interface MySQLDataProcessAnalyze extends LayerDefault, SQLAnalyze {
         mySQLProcessResult.setBinaryList(binaryList);
         return mySQLProcessResult;
     }
-
 
     /**
      * @return
