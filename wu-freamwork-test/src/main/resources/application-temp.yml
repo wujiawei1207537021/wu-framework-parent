@@ -10,3 +10,5 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     ignore-exported-fields:
       - id
+    special-fields:
+      - ASC

@@ -44,7 +44,7 @@ public class LazyOperationController implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 //        perfectLazyOperation.saveSqlFile();
-        perfectLazyOperation.saveSqlFile("temp");
+        perfectLazyOperation.saveSqlFile();
         System.out.println("数据导出成功");
     }
 
@@ -61,10 +61,6 @@ public class LazyOperationController implements CommandLineRunner {
         saveSqlFile();
     }
 
-    public static void main(String[] args) {
-        List xx= Arrays.asList("\"\"","\"\"","\"\"");
-        System.out.println(xx.stream().collect(Collectors.joining(",")));
-    }
 
     /**
      * description 灵性添加
