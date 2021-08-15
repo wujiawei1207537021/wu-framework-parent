@@ -1,11 +1,13 @@
 package com.wu.freamwork.controller;
 
+import com.wu.framework.authorization.model.User;
 import com.wu.framework.inner.layer.data.ProcessException;
 import com.wu.framework.inner.layer.stereotype.MethodParamFunctionException;
 import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.inner.lazy.database.domain.Page;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.PerfectLazyOperation;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.lambda.LambdaStream;
 import com.wu.framework.inner.lazy.database.test.pojo.DataBaseUser;
 import org.springframework.boot.CommandLineRunner;
 
@@ -13,10 +15,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
 
 /**
  * @author : Jia wei Wu
@@ -29,10 +30,12 @@ public class LazyOperationController implements CommandLineRunner {
 
     private final LazyOperation lazyOperation;
     public final PerfectLazyOperation perfectLazyOperation;
+    public final LambdaStream lambdaStream;
 
-    public LazyOperationController(LazyOperation lazyOperation, PerfectLazyOperation perfectLazyOperation) {
+    public LazyOperationController(LazyOperation lazyOperation, PerfectLazyOperation perfectLazyOperation, LambdaStream lambdaStream) {
         this.lazyOperation = lazyOperation;
         this.perfectLazyOperation = perfectLazyOperation;
+        this.lambdaStream = lambdaStream;
     }
 
     /**
@@ -44,8 +47,9 @@ public class LazyOperationController implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 //        perfectLazyOperation.saveSqlFile();
-        perfectLazyOperation.saveSqlFile();
-        System.out.println("数据导出成功");
+//        perfectLazyOperation.saveSqlFile();
+//        System.out.println("数据导出成功");
+        lambdaStream();
     }
 
     public void test() throws Exception {
@@ -250,6 +254,14 @@ public class LazyOperationController implements CommandLineRunner {
      */
     public void saveSqlFile() throws ProcessException, IOException, SQLException, MethodParamFunctionException, ExecutionException, InterruptedException {
         perfectLazyOperation.saveSqlFile("mysql");
+    }
 
+    public void lambdaStream() {
+        final Collection<User> collection = lambdaStream.select()
+                .table(User.class)
+                .eq("username","admin")
+                .eq("id","1")
+                .collection(User.class);
+        System.out.println(collection);
     }
 }

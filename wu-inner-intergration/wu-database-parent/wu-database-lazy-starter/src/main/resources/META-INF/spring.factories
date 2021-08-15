@@ -5,6 +5,7 @@ com.wu.framework.inner.lazy.database.expand.database.persistence.config.LazyData
 com.wu.framework.inner.lazy.database.expand.database.persistence.proxy.LazyOperationProxy,\
 com.wu.framework.inner.lazy.database.expand.database.persistence.config.LazyOperationProxyBeanConfig,\
 com.wu.framework.inner.lazy.database.expand.database.persistence.method.LazyMethodConfig,\
-com.wu.framework.inner.lazy.database.expand.database.persistence.config.ExportDataConfiguration
+com.wu.framework.inner.lazy.database.expand.database.persistence.config.ExportDataConfiguration,\
+com.wu.framework.inner.lazy.database.expand.database.persistence.stream.config.LazyDataBaseStreamConfig
 
 

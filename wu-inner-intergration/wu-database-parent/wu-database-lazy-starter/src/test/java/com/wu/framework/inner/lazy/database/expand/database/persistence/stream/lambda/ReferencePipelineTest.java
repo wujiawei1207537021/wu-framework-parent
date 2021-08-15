@@ -7,7 +7,7 @@ import java.util.Collection;
 class ReferencePipelineTest {
 
     public static void main(String[] args) {
-        ReferencePipeline<Object> objectReferencePipeline = new ReferencePipeline<Object>(null);
+        ReferencePipeline objectReferencePipeline = new ReferencePipeline(null);
 
         final Collection collection = objectReferencePipeline
                 .select()

@@ -10,7 +10,7 @@ import java.util.function.Predicate;
  * @describe: 拼接参数
  * @date : 2021/7/17 12:24 下午
  */
-public interface LambdaSplicing<T, R> extends LambdaStreamCollector<T> {
+public interface LambdaSplicing<T, R> extends LambdaTable<T, R> {
 
     /**
      * description 左关联
@@ -82,9 +82,9 @@ public interface LambdaSplicing<T, R> extends LambdaStreamCollector<T> {
      * @author Jia wei Wu
      * @date 2021/7/16 9:44 下午
      **/
-    LambdaSplicing<T, R> eq(boolean condition, R row, Object var);
+    LambdaStreamCollector<T, R> eq(boolean condition, R row, Object var);
 
-    default LambdaSplicing<T, R> eq(R row, Object var) {
+    default LambdaStreamCollector<T, R> eq(R row, Object var) {
         return eq(true, row, var);
     }
 

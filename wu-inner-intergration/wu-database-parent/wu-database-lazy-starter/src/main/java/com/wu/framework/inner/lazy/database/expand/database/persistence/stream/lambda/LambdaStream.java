@@ -1,6 +1,5 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.stream.lambda;
 
-import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.LambdaStreamCollector;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.LambdaTable;
 
 /**
@@ -9,7 +8,7 @@ import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.L
  * @author 吴佳伟
  * @date 2021/4/27 3:41 下午
  */
-public interface LambdaStream<T, R> extends AutoCloseable {
+public interface LambdaStream extends AutoCloseable {
 
     @Override
     default void close() throws Exception {
@@ -18,6 +17,5 @@ public interface LambdaStream<T, R> extends AutoCloseable {
 
     LambdaTable select();
 
-    LambdaStreamCollector collector();
 
 }

@@ -19,7 +19,6 @@ class LazyOperationControllerTest {
 
     @Test
     void select() {
-        ReferencePipeline<User> userReferencePipeline = new ReferencePipeline<>(lazyOperation);
 
     }
 }

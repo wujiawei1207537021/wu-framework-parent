@@ -8,7 +8,7 @@ import java.util.Collection;
  * @describe : 集合数据收集器
  * @date : 2021/8/8 11:25 上午
  */
-public interface LambdaStreamCollector<T> {
+public interface LambdaStreamCollector<T,R> extends LambdaSplicing<T, R> {
 
     /**
      * @param
