@@ -68,6 +68,57 @@ public abstract class ReferencePipelineCollector<T, R> extends ReferencePipeline
         return null;
     }
 
+
+    /**
+     * @param condition
+     * @param row
+     * @param var
+     * @return
+     * @describe 大于
+     * @author Jia wei Wu
+     * @date 2021/8/15 4:52 下午
+     **/
+    @Override
+    public LambdaStreamCollector<T, R> gt(boolean condition, R row, Object var) {
+        if (checkCondition(condition)) {
+            this.SQLExecuted
+                    .append(NormalUsedString.SPACE)
+                    .append(row)
+                    .append(NormalUsedString.SPACE)
+                    .append(NormalUsedString.RIGHT_CHEV)
+                    .append(NormalUsedString.SPACE)
+                    .append(NormalUsedString.SINGLE_QUOTE)
+                    .append(var)
+                    .append(NormalUsedString.SINGLE_QUOTE);
+        }
+        return this;
+    }
+
+    /**
+     * @param condition
+     * @param row
+     * @param var
+     * @return
+     * @describe 小于
+     * @author Jia wei Wu
+     * @date 2021/8/15 4:52 下午
+     **/
+    @Override
+    public LambdaStreamCollector<T, R> lt(boolean condition, R row, Object var) {
+        if (checkCondition(condition)) {
+            this.SQLExecuted
+                    .append(NormalUsedString.SPACE)
+                    .append(row)
+                    .append(NormalUsedString.SPACE)
+                    .append(NormalUsedString.LEFT_CHEV)
+                    .append(NormalUsedString.SPACE)
+                    .append(NormalUsedString.SINGLE_QUOTE)
+                    .append(var)
+                    .append(NormalUsedString.SINGLE_QUOTE);
+        }
+        return this;
+    }
+
     /**
      * @param condition
      * @param row

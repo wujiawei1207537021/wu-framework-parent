@@ -260,7 +260,8 @@ public class LazyOperationController implements CommandLineRunner {
         final Collection<User> collection = lambdaStream.select()
                 .table(User.class)
                 .eq("username","admin")
-                .between("id","0","2")
+                .gt("id","10")
+                .lt("id","20")
                 .collection(User.class);
 
 

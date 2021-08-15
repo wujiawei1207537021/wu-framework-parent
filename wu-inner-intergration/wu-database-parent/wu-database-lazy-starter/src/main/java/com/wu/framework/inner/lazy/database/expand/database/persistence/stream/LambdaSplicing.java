@@ -91,6 +91,33 @@ public interface LambdaSplicing<T, R> extends LambdaTable<T, R> {
     /**
      * @param
      * @return
+     * @describe 大于
+     * @author Jia wei Wu
+     * @date 2021/8/15 4:52 下午
+     **/
+    LambdaStreamCollector<T, R> gt(boolean condition, R row, Object var);
+
+    default LambdaStreamCollector<T, R> gt(R row, Object var) {
+        return gt(true, row, var);
+    }
+
+
+    /**
+     * @param
+     * @return
+     * @describe 小于
+     * @author Jia wei Wu
+     * @date 2021/8/15 4:52 下午
+     **/
+    LambdaStreamCollector<T, R> lt(boolean condition, R row, Object var);
+
+    default LambdaStreamCollector<T, R> lt(R row, Object var) {
+        return lt(true, row, var);
+    }
+
+    /**
+     * @param
+     * @return
      * @describe like 条件
      * @author Jia wei Wu
      * @date 2021/7/16 9:45 下午
@@ -111,10 +138,10 @@ public interface LambdaSplicing<T, R> extends LambdaTable<T, R> {
      * @author Jia wei Wu
      * @date 2021/7/16 9:45 下午
      **/
-    LambdaStreamCollector<T, R> between(boolean condition, R row, Object leftVar,Object rightVar);
+    LambdaStreamCollector<T, R> between(boolean condition, R row, Object leftVar, Object rightVar);
 
-    default LambdaStreamCollector<T, R> between(R row, Object leftVar,Object rightVar) {
-        return between(true, row, leftVar,rightVar);
+    default LambdaStreamCollector<T, R> between(R row, Object leftVar, Object rightVar) {
+        return between(true, row, leftVar, rightVar);
     }
 
 
