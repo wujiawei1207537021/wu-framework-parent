@@ -61,16 +61,19 @@ public interface LambdaSplicing<T, R> extends LambdaTable<T, R> {
      * @author Jia wei Wu
      * @date 2021/7/16 9:43 下午
      **/
-    LambdaSplicing<T, R> and(Predicate<? super T> predicate);
+    LambdaStreamCollector<T, R> and(boolean condition, R row, Object var);
 
     /**
      * @param
+     * @param condition
+     * @param row
+     * @param var
      * @return
      * @describe or 条件
      * @author Jia wei Wu
      * @date 2021/7/16 9:43 下午
      **/
-    LambdaSplicing<T, R> or(Predicate<? super T> predicate);
+    LambdaStreamCollector<T, R> or(boolean condition, R row, Object var);
 
     /**
      * @param

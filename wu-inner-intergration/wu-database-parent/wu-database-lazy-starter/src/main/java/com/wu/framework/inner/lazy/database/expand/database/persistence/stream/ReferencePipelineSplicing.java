@@ -1,5 +1,7 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.stream;
 
+import com.wu.framework.inner.layer.data.NormalUsedString;
+
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -77,27 +79,6 @@ public abstract class ReferencePipelineSplicing<T, R> extends ReferencePipelineL
         return null;
     }
 
-    /**
-     * @param predicate@return
-     * @describe and条件
-     * @author Jia wei Wu
-     * @date 2021/7/16 9:43 下午
-     **/
-    @Override
-    public LambdaSplicing<T, R> and(Predicate<? super T> predicate) {
-        return null;
-    }
-
-    /**
-     * @param predicate@return
-     * @describe or 条件
-     * @author Jia wei Wu
-     * @date 2021/7/16 9:43 下午
-     **/
-    @Override
-    public LambdaSplicing<T, R> or(Predicate<? super T> predicate) {
-        return null;
-    }
 
 //    /**
 //     * @param condition
@@ -131,7 +112,6 @@ public abstract class ReferencePipelineSplicing<T, R> extends ReferencePipelineL
 //    }
 
 
-
     /**
      * @return
      * @describe 获取执行的sql语句
@@ -141,6 +121,25 @@ public abstract class ReferencePipelineSplicing<T, R> extends ReferencePipelineL
     @Override
     public String getSqlStatement() {
         return this.SQLExecuted.toString();
+    }
+
+
+    /**
+     * 检查条件
+     */
+    public boolean checkCondition(boolean condition) {
+        this.where();
+        if (condition) {
+            if (haveAnd) {
+                this.SQLExecuted.
+                        append(NormalUsedString.SPACE)
+                        .append(NormalUsedString.AND)
+                        .append(NormalUsedString.SPACE);
+            } else {
+                this.haveAnd = true;
+            }
+        }
+        return condition;
     }
 
     /**
