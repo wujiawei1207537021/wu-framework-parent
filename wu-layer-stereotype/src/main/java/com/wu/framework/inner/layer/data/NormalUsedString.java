@@ -26,6 +26,10 @@ public interface NormalUsedString {
     String DOT_JAVA = ".java";
     String EMPTY = "";
     String EQUALS = "=";
+    // 数据库使用
+    String LIKE = "like";
+    String BETWEEN="between";
+
     String FALSE = "false";
     String SLASH = "/";
     String HASH = "#";

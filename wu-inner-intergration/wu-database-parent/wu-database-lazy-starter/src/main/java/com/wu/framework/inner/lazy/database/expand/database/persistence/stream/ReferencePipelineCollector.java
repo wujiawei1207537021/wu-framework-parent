@@ -1,5 +1,6 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.stream;
 
+import com.wu.framework.inner.layer.data.NormalUsedString;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 
 import java.util.Collection;
@@ -67,6 +68,104 @@ public abstract class ReferencePipelineCollector<T, R> extends ReferencePipeline
         return null;
     }
 
+    /**
+     * @param condition
+     * @param row
+     * @param leftVar
+     * @param rightVar
+     * @return
+     * @describe 区间
+     * @author Jia wei Wu
+     * @date 2021/7/16 9:45 下午
+     **/
+    @Override
+    public LambdaStreamCollector<T, R> between(boolean condition, R row, Object leftVar, Object rightVar) {
+        if (checkCondition(condition)) {
+            this.SQLExecuted
+                    .append(NormalUsedString.SPACE)
+                    .append(row)
+                    .append(NormalUsedString.SPACE)
+                    .append(NormalUsedString.BETWEEN)
+                    .append(NormalUsedString.SPACE)
+                    .append(NormalUsedString.SINGLE_QUOTE)
+                    .append(leftVar)
+                    .append(NormalUsedString.SINGLE_QUOTE)
+                    .append(NormalUsedString.SPACE)
+                    .append(NormalUsedString.AND)
+                    .append(NormalUsedString.SPACE)
+                    .append(NormalUsedString.SINGLE_QUOTE)
+                    .append(rightVar)
+                    .append(NormalUsedString.SINGLE_QUOTE);
+        }
+        return this;
+    }
+
+    /**
+     * @param condition
+     * @param row
+     * @param var
+     * @return
+     * @describe like 条件
+     * @author Jia wei Wu
+     * @date 2021/7/16 9:45 下午
+     **/
+    @Override
+    public LambdaStreamCollector<T, R> like(boolean condition, R row, Object var) {
+        if (checkCondition(condition)) {
+            this.SQLExecuted
+                    .append(NormalUsedString.SPACE)
+                    .append(row)
+                    .append(NormalUsedString.SPACE)
+                    .append(NormalUsedString.LIKE)
+                    .append(NormalUsedString.SPACE)
+                    .append(NormalUsedString.SINGLE_QUOTE)
+                    .append(var)
+                    .append(NormalUsedString.SINGLE_QUOTE);
+        }
+        return this;
+    }
+
+    /**
+     * @param condition
+     * @param row
+     * @param var
+     * @return
+     * @describe 等于条件
+     * @author Jia wei Wu
+     * @date 2021/7/16 9:44 下午
+     **/
+    public LambdaStreamCollector<T, R> eq(boolean condition, R row, Object var) {
+        if (checkCondition(condition)) {
+            this.SQLExecuted
+                    .append(NormalUsedString.SPACE)
+                    .append(row)
+                    .append(NormalUsedString.SPACE)
+                    .append(NormalUsedString.EQUALS)
+                    .append(NormalUsedString.SPACE)
+                    .append(NormalUsedString.SINGLE_QUOTE)
+                    .append(var)
+                    .append(NormalUsedString.SINGLE_QUOTE);
+        }
+        return this;
+    }
+
+    /**
+     * 检查条件
+     */
+    public boolean checkCondition(boolean condition) {
+        this.where();
+        if (condition) {
+            if (haveAnd) {
+                this.SQLExecuted.
+                        append(NormalUsedString.SPACE)
+                        .append(NormalUsedString.AND)
+                        .append(NormalUsedString.SPACE);
+            } else {
+                this.haveAnd = true;
+            }
+        }
+        return condition;
+    }
 
 //    public ReferencePipelineCollector(LazyOperation lazyOperation) {
 //        this.lazyOperation = lazyOperation;

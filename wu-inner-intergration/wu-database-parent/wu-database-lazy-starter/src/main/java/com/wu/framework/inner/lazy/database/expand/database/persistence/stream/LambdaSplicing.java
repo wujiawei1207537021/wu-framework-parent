@@ -95,16 +95,28 @@ public interface LambdaSplicing<T, R> extends LambdaTable<T, R> {
      * @author Jia wei Wu
      * @date 2021/7/16 9:45 下午
      **/
-    LambdaSplicing<T, R> like(Predicate<? super T> predicate);
+    LambdaStreamCollector<T, R> like(boolean condition, R row, Object var);
+
+    default LambdaStreamCollector<T, R> like(R row, Object var) {
+        return like(true, row, var);
+    }
 
     /**
      * @param
+     * @param condition
+     * @param row
+     * @param var
      * @return
      * @describe 区间
      * @author Jia wei Wu
      * @date 2021/7/16 9:45 下午
      **/
-    LambdaSplicing<T, R> between(Predicate<? super T> predicate);
+    LambdaStreamCollector<T, R> between(boolean condition, R row, Object leftVar,Object rightVar);
+
+    default LambdaStreamCollector<T, R> between(R row, Object leftVar,Object rightVar) {
+        return between(true, row, leftVar,rightVar);
+    }
+
 
     /**
      * @param

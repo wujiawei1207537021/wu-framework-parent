@@ -1,5 +1,6 @@
 package com.wu.freamwork.controller;
 
+import com.wu.framework.authorization.model.AccessToken;
 import com.wu.framework.authorization.model.User;
 import com.wu.framework.inner.layer.data.ProcessException;
 import com.wu.framework.inner.layer.stereotype.MethodParamFunctionException;
@@ -96,7 +97,6 @@ public class LazyOperationController implements CommandLineRunner {
     /**
      * 更新或者插入
      *
-     * @return
      * @params
      * @author Jia wei Wu
      * @date 2020/7/5 下午1:55
@@ -260,8 +260,10 @@ public class LazyOperationController implements CommandLineRunner {
         final Collection<User> collection = lambdaStream.select()
                 .table(User.class)
                 .eq("username","admin")
-                .eq("id","1")
+                .between("id","0","2")
                 .collection(User.class);
+
+
         System.out.println(collection);
     }
 }

@@ -5,6 +5,8 @@ import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.util.LazyTableUtil;
 
+import java.util.function.Predicate;
+
 /**
  * @author : 吴佳伟
  * @version 1.0
@@ -47,36 +49,6 @@ public class SelectReferencePipeline<T, R> extends ReferencePipelineCollector<T,
         return this;
     }
 
-    /**
-     * @param condition
-     * @param row
-     * @param var
-     * @return
-     * @describe 等于条件
-     * @author Jia wei Wu
-     * @date 2021/7/16 9:44 下午
-     **/
-    public LambdaStreamCollector<T, R> eq(boolean condition, R row, Object var) {
-        this.where();
-        if (condition) {
-            if (haveAnd) {
-                this.SQLExecuted.
-                        append(NormalUsedString.SPACE)
-                        .append(NormalUsedString.AND)
-                        .append(NormalUsedString.SPACE);
-            } else {
-                this.haveAnd = true;
-            }
-            this.SQLExecuted
-                    .append(NormalUsedString.SPACE)
-                    .append(row)
-                    .append(NormalUsedString.SPACE)
-                    .append(NormalUsedString.EQUALS)
-                    .append(NormalUsedString.SPACE)
-                    .append(NormalUsedString.SINGLE_QUOTE)
-                    .append(var)
-                    .append(NormalUsedString.SINGLE_QUOTE);
-        }
-        return this;
-    }
+
+
 }

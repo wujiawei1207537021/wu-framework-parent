@@ -130,27 +130,7 @@ public abstract class ReferencePipelineSplicing<T, R> extends ReferencePipelineL
 //        return this;
 //    }
 
-    /**
-     * @param predicate@return
-     * @describe like 条件
-     * @author Jia wei Wu
-     * @date 2021/7/16 9:45 下午
-     **/
-    @Override
-    public LambdaSplicing<T, R> like(Predicate<? super T> predicate) {
-        return null;
-    }
 
-    /**
-     * @param predicate@return
-     * @describe 区间
-     * @author Jia wei Wu
-     * @date 2021/7/16 9:45 下午
-     **/
-    @Override
-    public LambdaSplicing<T, R> between(Predicate<? super T> predicate) {
-        return null;
-    }
 
     /**
      * @return
