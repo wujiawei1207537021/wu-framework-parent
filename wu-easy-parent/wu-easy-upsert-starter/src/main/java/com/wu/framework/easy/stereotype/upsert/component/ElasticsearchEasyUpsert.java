@@ -1,17 +1,16 @@
 package com.wu.framework.easy.stereotype.upsert.component;
 
-import com.wu.framework.easy.upsert.core.dynamic.IEasyUpsert;
 import com.wu.framework.easy.stereotype.upsert.analyze.ElasticsearchEasyDataProcessAnalyze;
+import com.wu.framework.easy.stereotype.upsert.config.ElasticsearchProperties;
 import com.wu.framework.easy.upsert.autoconfigure.config.SpringUpsertAutoConfigure;
 import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
+import com.wu.framework.easy.upsert.core.dynamic.IEasyUpsert;
 import com.wu.framework.easy.upsert.core.dynamic.exception.UpsertException;
 import com.wu.framework.inner.layer.data.ClassSchema;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchRestClientProperties;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
@@ -29,22 +28,21 @@ import java.util.List;
  */
 @Slf4j
 @EasyUpsertStrategy(value = EasyUpsertType.ES)
-@ConditionalOnBean(ElasticsearchRestClientProperties.class)
-@ConditionalOnProperty(prefix = "spring.elasticsearch.rest", value = "uris")
+@ConditionalOnProperty(prefix = ElasticsearchProperties.ELASTICSEARCH_PROPERTIES_PREFIX, value = "uris")
 public class ElasticsearchEasyUpsert implements IEasyUpsert, ElasticsearchEasyDataProcessAnalyze, InitializingBean {
 
     protected final WebClient webClient = WebClient.builder().exchangeStrategies(ExchangeStrategies.builder()
-            .codecs(configurer -> configurer
-                    .defaultCodecs()
-                    .maxInMemorySize(16 * 1024 * 1024))
-            .build())
+                    .codecs(configurer -> configurer
+                            .defaultCodecs()
+                            .maxInMemorySize(16 * 1024 * 1024))
+                    .build())
             .build();
-    private final ElasticsearchRestClientProperties elasticsearchRestClientProperties;
+    private final ElasticsearchProperties elasticsearchProperties;
 
     private final SpringUpsertAutoConfigure springUpsertAutoConfigure;
 
-    ElasticsearchEasyUpsert(ElasticsearchRestClientProperties elasticsearchRestClientProperties, SpringUpsertAutoConfigure springUpsertAutoConfigure) {
-        this.elasticsearchRestClientProperties = elasticsearchRestClientProperties;
+    ElasticsearchEasyUpsert(ElasticsearchProperties elasticsearchProperties, SpringUpsertAutoConfigure springUpsertAutoConfigure) {
+        this.elasticsearchProperties = elasticsearchProperties;
         this.springUpsertAutoConfigure = springUpsertAutoConfigure;
     }
 
@@ -129,7 +127,7 @@ public class ElasticsearchEasyUpsert implements IEasyUpsert, ElasticsearchEasyDa
     }
 
     private void send() {
-        elasticsearchRestClientProperties.getUris().forEach(uri -> {
+        elasticsearchProperties.getUris().forEach(uri -> {
             // 指定类型文件
             File cacheFile = new File(springUpsertAutoConfigure.getCacheFileAddress());
             final File[] listFiles = cacheFile.listFiles((dir, name) -> {

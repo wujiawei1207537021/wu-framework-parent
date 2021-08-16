@@ -50,7 +50,7 @@ public class LazyOperationController implements CommandLineRunner {
 //        perfectLazyOperation.saveSqlFile();
 //        perfectLazyOperation.saveSqlFile();
 //        System.out.println("数据导出成功");
-        lambdaStream();
+//        lambdaStream();
     }
 
     public void test() throws Exception {
