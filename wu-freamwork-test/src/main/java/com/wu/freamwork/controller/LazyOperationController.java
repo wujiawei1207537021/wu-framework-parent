@@ -8,6 +8,7 @@ import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.inner.lazy.database.domain.Page;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.PerfectLazyOperation;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.condition.BasicComparison;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.lambda.LambdaStream;
 import com.wu.framework.inner.lazy.database.test.pojo.DataBaseUser;
 import org.springframework.boot.CommandLineRunner;
@@ -262,6 +263,7 @@ public class LazyOperationController implements CommandLineRunner {
                 .eq("username","admin")
                 .gt("id","10")
                 .lt("id","20")
+//                .leftJoin(BasicComparison.<User>wrapper().eq("",""))
                 .collection(User.class);
 
 

@@ -1,6 +1,5 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.stream;
 
-import com.wu.framework.inner.layer.data.NormalUsedString;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 
 import java.util.Collection;
@@ -11,8 +10,7 @@ import java.util.Collection;
  * @describe : 执行sql 并返回数据
  * @date : 2021/8/8 11:47 上午
  */
-public abstract class ReferencePipelineCollector<T, R> extends ReferencePipelineSplicing<T, R>
-        implements LambdaStreamCollector<T, R> {
+public abstract class ReferencePipelineCollector<T, R> implements LambdaStreamCollector<T, R> {
     private final LazyOperation lazyOperation;
 
     protected ReferencePipelineCollector(LazyOperation lazyOperation) {
@@ -66,179 +64,6 @@ public abstract class ReferencePipelineCollector<T, R> extends ReferencePipeline
     @Override
     public T collectOne() {
         return null;
-    }
-
-
-    /**
-     * @param condition
-     * @param row
-     * @param var
-     * @return
-     * @describe and条件
-     * @author Jia wei Wu
-     * @date 2021/7/16 9:43 下午
-     **/
-    // TODO
-    @Override
-    public LambdaStreamCollector<T, R> and(boolean condition, R row, Object var) {
-        if (checkCondition(condition)) {
-            this.SQLExecuted
-                    .append(NormalUsedString.SPACE)
-                    .append(row)
-                    .append(NormalUsedString.SPACE)
-                    .append(NormalUsedString.RIGHT_CHEV)
-                    .append(NormalUsedString.SPACE)
-                    .append(NormalUsedString.SINGLE_QUOTE)
-                    .append(var)
-                    .append(NormalUsedString.SINGLE_QUOTE);
-        }
-        return this;
-    }
-
-    /**
-     * @param condition
-     * @param row
-     * @param var
-     * @return
-     * @describe or 条件
-     * @author Jia wei Wu
-     * @date 2021/7/16 9:43 下午
-     **/
-    // TODO
-    @Override
-    public LambdaStreamCollector<T, R> or(boolean condition, R row, Object var) {
-        return null;
-    }
-
-    /**
-     * @param condition
-     * @param row
-     * @param var
-     * @return
-     * @describe 大于
-     * @author Jia wei Wu
-     * @date 2021/8/15 4:52 下午
-     **/
-    @Override
-    public LambdaStreamCollector<T, R> gt(boolean condition, R row, Object var) {
-        if (checkCondition(condition)) {
-            this.SQLExecuted
-                    .append(NormalUsedString.SPACE)
-                    .append(row)
-                    .append(NormalUsedString.SPACE)
-                    .append(NormalUsedString.RIGHT_CHEV)
-                    .append(NormalUsedString.SPACE)
-                    .append(NormalUsedString.SINGLE_QUOTE)
-                    .append(var)
-                    .append(NormalUsedString.SINGLE_QUOTE);
-        }
-        return this;
-    }
-
-    /**
-     * @param condition
-     * @param row
-     * @param var
-     * @return
-     * @describe 小于
-     * @author Jia wei Wu
-     * @date 2021/8/15 4:52 下午
-     **/
-    @Override
-    public LambdaStreamCollector<T, R> lt(boolean condition, R row, Object var) {
-        if (checkCondition(condition)) {
-            this.SQLExecuted
-                    .append(NormalUsedString.SPACE)
-                    .append(row)
-                    .append(NormalUsedString.SPACE)
-                    .append(NormalUsedString.LEFT_CHEV)
-                    .append(NormalUsedString.SPACE)
-                    .append(NormalUsedString.SINGLE_QUOTE)
-                    .append(var)
-                    .append(NormalUsedString.SINGLE_QUOTE);
-        }
-        return this;
-    }
-
-    /**
-     * @param condition
-     * @param row
-     * @param leftVar
-     * @param rightVar
-     * @return
-     * @describe 区间
-     * @author Jia wei Wu
-     * @date 2021/7/16 9:45 下午
-     **/
-    @Override
-    public LambdaStreamCollector<T, R> between(boolean condition, R row, Object leftVar, Object rightVar) {
-        if (checkCondition(condition)) {
-            this.SQLExecuted
-                    .append(NormalUsedString.SPACE)
-                    .append(row)
-                    .append(NormalUsedString.SPACE)
-                    .append(NormalUsedString.BETWEEN)
-                    .append(NormalUsedString.SPACE)
-                    .append(NormalUsedString.SINGLE_QUOTE)
-                    .append(leftVar)
-                    .append(NormalUsedString.SINGLE_QUOTE)
-                    .append(NormalUsedString.SPACE)
-                    .append(NormalUsedString.AND)
-                    .append(NormalUsedString.SPACE)
-                    .append(NormalUsedString.SINGLE_QUOTE)
-                    .append(rightVar)
-                    .append(NormalUsedString.SINGLE_QUOTE);
-        }
-        return this;
-    }
-
-    /**
-     * @param condition
-     * @param row
-     * @param var
-     * @return
-     * @describe like 条件
-     * @author Jia wei Wu
-     * @date 2021/7/16 9:45 下午
-     **/
-    @Override
-    public LambdaStreamCollector<T, R> like(boolean condition, R row, Object var) {
-        if (checkCondition(condition)) {
-            this.SQLExecuted
-                    .append(NormalUsedString.SPACE)
-                    .append(row)
-                    .append(NormalUsedString.SPACE)
-                    .append(NormalUsedString.LIKE)
-                    .append(NormalUsedString.SPACE)
-                    .append(NormalUsedString.SINGLE_QUOTE)
-                    .append(var)
-                    .append(NormalUsedString.SINGLE_QUOTE);
-        }
-        return this;
-    }
-
-    /**
-     * @param condition
-     * @param row
-     * @param var
-     * @return
-     * @describe 等于条件
-     * @author Jia wei Wu
-     * @date 2021/7/16 9:44 下午
-     **/
-    public LambdaStreamCollector<T, R> eq(boolean condition, R row, Object var) {
-        if (checkCondition(condition)) {
-            this.SQLExecuted
-                    .append(NormalUsedString.SPACE)
-                    .append(row)
-                    .append(NormalUsedString.SPACE)
-                    .append(NormalUsedString.EQUALS)
-                    .append(NormalUsedString.SPACE)
-                    .append(NormalUsedString.SINGLE_QUOTE)
-                    .append(var)
-                    .append(NormalUsedString.SINGLE_QUOTE);
-        }
-        return this;
     }
 
 

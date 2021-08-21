@@ -8,7 +8,7 @@ import java.util.Collection;
  * @describe : 集合数据收集器
  * @date : 2021/8/8 11:25 上午
  */
-public interface LambdaStreamCollector<T,R> extends LambdaSplicing<T, R> {
+public interface LambdaStreamCollector<T,R> {
 
     /**
      * @param
@@ -48,5 +48,14 @@ public interface LambdaStreamCollector<T,R> extends LambdaSplicing<T, R> {
      * @date 2021/8/8 12:04 下午
      **/
     T collectOne();
+
+    /**
+     * @param
+     * @return
+     * @describe 获取执行的sql语句
+     * @author Jia wei Wu
+     * @date 2021/8/8 2:28 下午
+     **/
+    String getSqlStatement();
 
 }
