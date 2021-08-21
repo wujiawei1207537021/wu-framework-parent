@@ -8,7 +8,7 @@ server:
 
 spring:
   profiles:
-    active: wjw
+    active: wjw,es
   wu:
     authorization:
       verification: session
