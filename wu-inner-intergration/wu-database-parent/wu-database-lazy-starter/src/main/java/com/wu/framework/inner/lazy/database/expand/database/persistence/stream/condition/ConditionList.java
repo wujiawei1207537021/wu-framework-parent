@@ -21,18 +21,21 @@ public class ConditionList extends ArrayList<ConditionList.Condition> {
     }
 
     /**
-    * @describe 拼接
-    * @param
-    * @return
-    * @author Jia wei Wu
-    * @date 2021/8/21 7:50 下午
-    **/
-    public StringBuilder splice(String prefix){
-        final StringBuilder builder = new StringBuilder(prefix);
-        final String splice = this.stream().map(condition -> condition.rowName + NormalUsedString.SPACE + condition.type + NormalUsedString.SPACE +
-                NormalUsedString.SINGLE_QUOTE + condition.rowValue + NormalUsedString.SINGLE_QUOTE).collect(Collectors.joining(NormalUsedString.AND));
+     * @param
+     * @return
+     * @describe 拼接
+     * @author Jia wei Wu
+     * @date 2021/8/21 7:50 下午
+     **/
+    public StringBuilder splice(String prefix) {
+        final StringBuilder builder = new StringBuilder(prefix + NormalUsedString.SPACE);
+        final String splice = this.stream().map(condition ->
+                NormalUsedString.SPACE + condition.rowName + NormalUsedString.SPACE +
+                        NormalUsedString.SPACE + condition.type + NormalUsedString.SPACE +
+                        NormalUsedString.SPACE + NormalUsedString.SINGLE_QUOTE + condition.rowValue + NormalUsedString.SINGLE_QUOTE + NormalUsedString.SPACE).collect(Collectors.joining(NormalUsedString.AND));
         return builder.append(splice);
     }
+
     @Accessors(chain = true)
     @Data
     public class Condition {

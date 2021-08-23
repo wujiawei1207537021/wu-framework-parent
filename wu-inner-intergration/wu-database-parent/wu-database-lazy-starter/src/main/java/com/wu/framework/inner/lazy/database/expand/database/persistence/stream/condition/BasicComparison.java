@@ -1,12 +1,14 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.stream.condition;
 
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.function.Snippet;
+
 /**
  * @author : Jia wei Wu
  * @version : 1.0
  * @describe: 基本比较
  * @date : 2021/8/21 6:38 下午
  */
-public interface BasicComparison<T, R,C extends BasicComparison<T,R,C>> {
+public interface BasicComparison<T, R, C extends BasicComparison<T, R, C>> {
 
     /**
      * @param
@@ -90,17 +92,20 @@ public interface BasicComparison<T, R,C extends BasicComparison<T,R,C>> {
     }
 
     /**
-    * @describe 获取条件集合
-    * @param 
-    * @return 
-    * @author Jia wei Wu
-    * @date 2021/8/21 7:57 下午
-    **/
+     * @param
+     * @return
+     * @describe 获取条件集合
+     * @author Jia wei Wu
+     * @date 2021/8/21 7:57 下午
+     **/
     ConditionList getConditionList();
-    
-   static BasicComparison wrapper() {
-        return new DefaultBasicComparison();
+
+    static DefaultBasicComparison wrapper() {
+        return new DefaultBasicComparison<Object, Snippet>();
     }
 
+    static LambdaBasicComparison<Object> lambdaWrapper() {
+        return new LambdaBasicComparison<Object>();
+    }
 
 }

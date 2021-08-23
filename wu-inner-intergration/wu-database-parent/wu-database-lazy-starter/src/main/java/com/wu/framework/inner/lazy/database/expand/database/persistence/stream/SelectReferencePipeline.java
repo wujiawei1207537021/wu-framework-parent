@@ -2,6 +2,7 @@ package com.wu.framework.inner.lazy.database.expand.database.persistence.stream;
 
 import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.function.Snippet;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.util.LazyTableUtil;
 
 /**
@@ -11,7 +12,7 @@ import com.wu.framework.inner.lazy.database.expand.database.persistence.util.Laz
  * @date : 2021/8/8 2:38 下午
  */
 @ProxyStrategicApproach
-public class SelectReferencePipeline<T, R> extends ReferencePipelineSplicing<T, R> {
+public class SelectReferencePipeline<T> extends ReferencePipelineSplicing<T, Snippet> {
 
 
     public SelectReferencePipeline(LazyOperation lazyOperation) {
@@ -27,7 +28,7 @@ public class SelectReferencePipeline<T, R> extends ReferencePipelineSplicing<T, 
      * @date 2021/8/8 12:27 下午
      */
     @Override
-    public LambdaSplicing<T, R> table(Class primaryTable) {
+    public LambdaSplicing<T, Snippet> table(Class primaryTable) {
         this.lambdaTableType = LambdaTableType.SELECT;
         this.primaryTable = primaryTable;
         this.SQLExecuted = new StringBuilder(String.format("%s * from %s ", this.lambdaTableType.getValue(), LazyTableUtil.getTableName(this.primaryTable)));
@@ -41,7 +42,7 @@ public class SelectReferencePipeline<T, R> extends ReferencePipelineSplicing<T, 
      * @return
      */
     @Override
-    public LambdaStreamCollector<T, R> lambdaTableType(LambdaTableType lambdaTableType) {
+    public LambdaStreamCollector<T, Snippet> lambdaTableType(LambdaTableType lambdaTableType) {
         this.lambdaTableType = LambdaTableType.SELECT;
         return this;
     }

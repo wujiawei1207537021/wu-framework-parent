@@ -21,19 +21,6 @@ public abstract class ReferencePipelineLambdaTable<T, R> extends ReferencePipeli
     }
 
 
-    /**
-     * description 左关联
-     *
-     * @param comparison
-     * @return
-     * @exception/throws
-     * @author 吴佳伟
-     * @date 2021/4/27 3:47 下午
-     */
-    @Override
-    public LambdaSplicing<T, R> leftJoin(BasicComparison comparison) {
-        return null;
-    }
 
     /**
      * description 右关联

@@ -51,7 +51,7 @@ public class LazyOperationController implements CommandLineRunner {
 //        perfectLazyOperation.saveSqlFile();
 //        perfectLazyOperation.saveSqlFile();
 //        System.out.println("数据导出成功");
-//        lambdaStream();
+        lambdaStream();
     }
 
     public void test() throws Exception {
@@ -260,6 +260,7 @@ public class LazyOperationController implements CommandLineRunner {
     public void lambdaStream() {
         final Collection<User> collection = lambdaStream.select()
                 .table(User.class)
+                .leftJoin(BasicComparison.<User>wrapper().eq("hh","哈哈哈"))
                 .eq("username","admin")
                 .gt("id","10")
                 .lt("id","20")

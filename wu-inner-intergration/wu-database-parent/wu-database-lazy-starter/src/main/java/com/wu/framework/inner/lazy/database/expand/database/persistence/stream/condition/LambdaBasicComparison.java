@@ -1,16 +1,14 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.stream.condition;
 
-import com.wu.framework.inner.layer.data.NormalUsedString;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.function.Snippet;
 
 /**
  * @author : 吴佳伟
  * @version 1.0
  * @describe :
- * @date : 2021/8/21 7:09 下午
+ * @date : 2021/8/23 8:36 下午
  */
-public class DefaultBasicComparison<T, R> implements BasicComparison<T, R, DefaultBasicComparison<T,R>> {
-
-    protected ConditionList conditionList = new ConditionList();
+public class LambdaBasicComparison<T> implements BasicComparison<T, Snippet,LambdaBasicComparison<T>> {
 
     /**
      * @return
@@ -19,8 +17,8 @@ public class DefaultBasicComparison<T, R> implements BasicComparison<T, R, Defau
      * @date 2021/8/8 12:33 下午
      **/
     @Override
-    public DefaultBasicComparison<T, R> where() {
-        return this;
+    public LambdaBasicComparison<T> where() {
+        return null;
     }
 
     /**
@@ -33,11 +31,8 @@ public class DefaultBasicComparison<T, R> implements BasicComparison<T, R, Defau
      * @date 2021/7/16 9:44 下午
      **/
     @Override
-    public DefaultBasicComparison<T, R> eq(boolean condition, R row, Object var) {
-        if (condition) {
-            conditionList.put(row, NormalUsedString.EQUALS, var);
-        }
-        return this;
+    public LambdaBasicComparison<T> eq(boolean condition, Snippet row, Object var) {
+        return null;
     }
 
     /**
@@ -50,11 +45,8 @@ public class DefaultBasicComparison<T, R> implements BasicComparison<T, R, Defau
      * @date 2021/8/15 4:52 下午
      **/
     @Override
-    public DefaultBasicComparison<T, R> gt(boolean condition, R row, Object var) {
-        if (condition) {
-            conditionList.put(row, NormalUsedString.RIGHT_CHEV, var);
-        }
-        return this;
+    public LambdaBasicComparison<T> gt(boolean condition, Snippet row, Object var) {
+        return null;
     }
 
     /**
@@ -67,11 +59,8 @@ public class DefaultBasicComparison<T, R> implements BasicComparison<T, R, Defau
      * @date 2021/8/15 4:52 下午
      **/
     @Override
-    public DefaultBasicComparison<T, R> lt(boolean condition, R row, Object var) {
-        if (condition) {
-            conditionList.put(row, NormalUsedString.LEFT_CHEV, var);
-        }
-        return this;
+    public LambdaBasicComparison<T> lt(boolean condition, Snippet row, Object var) {
+        return null;
     }
 
     /**
@@ -84,11 +73,8 @@ public class DefaultBasicComparison<T, R> implements BasicComparison<T, R, Defau
      * @date 2021/7/16 9:45 下午
      **/
     @Override
-    public DefaultBasicComparison<T, R> like(boolean condition, R row, Object var) {
-        if (condition) {
-            conditionList.put(row, NormalUsedString.LIKE, var);
-        }
-        return this;
+    public LambdaBasicComparison<T> like(boolean condition, Snippet row, Object var) {
+        return null;
     }
 
     /**
@@ -102,12 +88,8 @@ public class DefaultBasicComparison<T, R> implements BasicComparison<T, R, Defau
      * @date 2021/7/16 9:45 下午
      **/
     @Override
-    public DefaultBasicComparison<T, R> between(boolean condition, R row, Object leftVar, Object rightVar) {
-        if (condition) {
-            conditionList.put(row, NormalUsedString.BETWEEN, leftVar);
-            conditionList.put(row, NormalUsedString.AND, rightVar);
-        }
-        return this;
+    public LambdaBasicComparison<T> between(boolean condition, Snippet row, Object leftVar, Object rightVar) {
+        return null;
     }
 
     /**
@@ -118,6 +100,6 @@ public class DefaultBasicComparison<T, R> implements BasicComparison<T, R, Defau
      **/
     @Override
     public ConditionList getConditionList() {
-        return conditionList;
+        return null;
     }
 }

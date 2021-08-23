@@ -36,6 +36,22 @@ public abstract class ReferencePipelineSplicing<T, R> extends ReferencePipelineL
 
 
     /**
+     * description 左关联
+     *
+     * @param comparison
+     * @return
+     * @exception/throws
+     * @author 吴佳伟
+     * @date 2021/4/27 3:47 下午
+     */
+    @Override
+    public LambdaSplicing<T, R> leftJoin(BasicComparison comparison) {
+        conditionList.put("leftjoin","table","");
+        conditionList.addAll(comparison.getConditionList());
+        return this;
+    }
+
+    /**
      * @return
      * @describe 添加where 条件
      * @author Jia wei Wu
@@ -54,10 +70,10 @@ public abstract class ReferencePipelineSplicing<T, R> extends ReferencePipelineL
      * description 参数过滤
      *
      * @param predicate @return
+     * @return
      * @exception/throws
      * @author 吴佳伟
      * @date 2021/4/27 3:46 下午
-     * @return
      */
     @Override
     public LambdaTable<T, R> filter(Predicate<? super T> predicate) {
@@ -105,6 +121,8 @@ public abstract class ReferencePipelineSplicing<T, R> extends ReferencePipelineL
      **/
     @Override
     public String getSqlStatement() {
+        final StringBuilder demo = conditionList.splice("demo");
+        System.err.println(demo.toString());
         return this.SQLExecuted.toString();
     }
 
