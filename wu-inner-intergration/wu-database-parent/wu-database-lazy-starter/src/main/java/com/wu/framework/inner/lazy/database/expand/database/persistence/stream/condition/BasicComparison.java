@@ -101,7 +101,7 @@ public interface BasicComparison<T, R, C extends BasicComparison<T, R, C>> {
     ConditionList getConditionList();
 
     static DefaultBasicComparison wrapper() {
-        return new DefaultBasicComparison<Object, Snippet>();
+        return new DefaultBasicComparison();
     }
 
     static LambdaBasicComparison<Object> lambdaWrapper() {
