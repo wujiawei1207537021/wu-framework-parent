@@ -1,6 +1,7 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.stream.condition;
 
 import com.wu.framework.inner.layer.data.NormalUsedString;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.util.LazyTableUtil;
 
 /**
  * @author : 吴佳伟
@@ -11,6 +12,14 @@ import com.wu.framework.inner.layer.data.NormalUsedString;
 public class DefaultBasicComparison<T, R> implements BasicComparison<T, R, DefaultBasicComparison<T,R>> {
 
     protected ConditionList conditionList = new ConditionList();
+
+
+    // TODO 此处作为上一层级 不与数据交互放在一起
+    @Override
+    public DefaultBasicComparison<T, R> table(Class primaryTable) {
+        conditionList.put(NormalUsedString.SPACE, LazyTableUtil.getTableName(primaryTable), NormalUsedString.SPACE);
+        return this;
+    }
 
     /**
      * @return

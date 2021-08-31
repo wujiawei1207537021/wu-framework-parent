@@ -10,6 +10,11 @@ import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.f
  */
 public class LambdaBasicComparison<T> implements BasicComparison<T, Snippet,LambdaBasicComparison<T>> {
 
+    @Override
+    public LambdaBasicComparison<T> table(Class primaryTable) {
+        return null;
+    }
+
     /**
      * @return
      * @describe 添加where 条件
