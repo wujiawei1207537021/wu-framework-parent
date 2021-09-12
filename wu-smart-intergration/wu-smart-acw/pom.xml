@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>wu-smart-acw</artifactId>
-    <dependencies>Automatic code writing</dependencies>
+    <description>Automatic code writing</description>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
