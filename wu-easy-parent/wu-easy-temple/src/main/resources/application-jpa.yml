@@ -5,6 +5,6 @@ spring:
   #数据库配置
   datasource:
     username: root
-    password: wujiawei
+    password: laihui
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://easy.com:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=true&allowMultiQueries=true&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://192.168.17.221:30712/test?useUnicode=true&characterEncoding=utf-8&useSSL=true&allowMultiQueries=true&serverTimezone=Asia/Shanghai

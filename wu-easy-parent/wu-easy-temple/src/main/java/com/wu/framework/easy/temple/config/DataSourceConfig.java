@@ -20,9 +20,9 @@ public class DataSourceConfig {
     @Bean(name = "dataSourceMySQL")
     public DataSource dataSourceMySQL() {
         MysqlDataSource build = DataSourceBuilder.create().type(MysqlDataSource.class).build();
-        build.setUrl("jdbc:mysql://127.0.0.1:3306/temp?rewriteBatchedStatements=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai");
+        build.setUrl("jdbc:mysql://192.168.17.221:30712/test?rewriteBatchedStatements=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai");
         build.setUser("root");
-        build.setPassword("wujiawei");
+        build.setPassword("laihui");
         return build;
     }
 

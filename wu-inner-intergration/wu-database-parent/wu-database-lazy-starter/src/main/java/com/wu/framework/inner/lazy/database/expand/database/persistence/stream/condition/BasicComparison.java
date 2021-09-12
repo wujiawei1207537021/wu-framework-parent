@@ -1,7 +1,5 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.stream.condition;
 
-import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.function.Snippet;
-
 /**
  * @author : Jia wei Wu
  * @version : 1.0
@@ -9,6 +7,8 @@ import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.f
  * @date : 2021/8/21 6:38 下午
  */
 public interface BasicComparison<T, R, C extends BasicComparison<T, R, C>> {
+
+    C table(Class primaryTable);
 
     /**
      * @param
