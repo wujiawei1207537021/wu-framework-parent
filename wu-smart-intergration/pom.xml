@@ -12,6 +12,9 @@
 
     <artifactId>wu-smart-intergration</artifactId>
     <version>1.0.5</version>
+    <modules>
+        <module>wu-smart-acw</module>
+    </modules>
     <packaging>pom</packaging>
 
 </project>
