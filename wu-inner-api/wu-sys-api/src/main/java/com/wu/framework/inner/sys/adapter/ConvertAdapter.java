@@ -1,4 +1,4 @@
-package com.wu.inner.sys.adapter;
+package com.wu.framework.inner.sys.adapter;
 
 import org.springframework.beans.factory.InitializingBean;
 

@@ -1,4 +1,4 @@
-package com.wu.inner.sys.adapter.stereotype;
+package com.wu.framework.inner.sys.adapter.stereotype;
 
 import java.lang.annotation.*;
 

@@ -1,4 +1,4 @@
-package com.wu.inner.sys.adapter;
+package com.wu.framework.inner.sys.adapter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +33,7 @@ public abstract class ConvertAdapterAbstract implements ConvertAdapter {
      * @author Jia wei Wu
      * @date 2020/6/17 3:40 下午
      */
+    @Override
     public void convertObjects(Object... objects) {
         if (ObjectUtils.isEmpty(objects)) {
             return;

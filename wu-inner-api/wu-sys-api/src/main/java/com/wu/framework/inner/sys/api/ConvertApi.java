@@ -1,4 +1,4 @@
-package com.wu.inner.sys.api;
+package com.wu.framework.inner.sys.api;
 
 import java.util.List;
 import java.util.Map;
