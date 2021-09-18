@@ -31,11 +31,11 @@ public class LazyRedisTemplate extends StringRedisTemplate {
     protected Map<Integer, RedisConnectionFactory> redisConnectionFactoryMap = new ConcurrentHashMap<>(20);
     private Integer dyDatabase;
 
-    public LazyRedisTemplate(LettuceConnectionFactory lettuceConnectionFactory, RedisProperties redisProperties) {
-        MASTER = lettuceConnectionFactory.getDatabase();
+    public LazyRedisTemplate(RedisConnectionFactory redisConnectionFactory, RedisProperties redisProperties) {
+        MASTER = redisProperties.getDatabase();
         this.redisProperties = redisProperties;
         dyDatabase = MASTER;
-        redisConnectionFactoryMap.put(MASTER, lettuceConnectionFactory);
+        redisConnectionFactoryMap.put(MASTER, redisConnectionFactory);
     }
 
 
@@ -76,15 +76,13 @@ public class LazyRedisTemplate extends StringRedisTemplate {
     public void setDyDatabase(Integer dyDatabase) {
         this.dyDatabase = dyDatabase;
     }
+
+
     /**
-    * @describe 重置
-    * @param
-    * @return
-    * @author Jia wei Wu
-    * @date 2021/7/11 3:21 下午
-    **/
-    public void reset(){
-        this.dyDatabase=this.MASTER;
+     * 重置
+     */
+    public void reset() {
+        this.dyDatabase = this.MASTER;
     }
 
 
