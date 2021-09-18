@@ -38,8 +38,12 @@ public class RedisUpsertSink implements IEasyUpsert {
     public <T> Object upsert(List<T> list, ClassSchema classSchema) throws UpsertException {
         Class<?> clazz = list.get(0).getClass();
         EasySmart easySmart = AnnotatedElementUtils.findMergedAnnotation(clazz, EasySmart.class);
-        String key = easySmart.redisKey();
-        if (ObjectUtils.isEmpty(key)) key = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
+        String key;
+        if (ObjectUtils.isEmpty(easySmart)) {
+            key = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
+        } else {
+            key = easySmart.redisKey();
+        }
         String[] strings = list.stream().map(Object::toString).collect(Collectors.toList()).toArray(new String[list.size()]);
         Long add = lazyRedisTemplate.opsForSet().add(key, strings);
         return add;
