@@ -3,6 +3,7 @@ package com.wu.framework.info;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
+import org.springframework.util.ObjectUtils;
 
 import java.net.UnknownHostException;
 
@@ -23,7 +24,11 @@ public class AddressInfo implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws UnknownHostException {
-        log.info("加载 web-swagger2地址: http://127.0.0.1:{}/swagger-ui.html", serverProperties.getPort());
-        log.info("加载 web-swagger3地址: http://127.0.0.1:{}/swagger-ui/index.html", serverProperties.getPort());
+         Integer port = serverProperties.getPort();
+        if(ObjectUtils.isEmpty(port)){
+            port=8080;
+        }
+        log.info("加载 web-swagger2地址: http://127.0.0.1:{}/swagger-ui.html", port);
+        log.info("加载 web-swagger3地址: http://127.0.0.1:{}/swagger-ui/index.html", port);
     }
 }

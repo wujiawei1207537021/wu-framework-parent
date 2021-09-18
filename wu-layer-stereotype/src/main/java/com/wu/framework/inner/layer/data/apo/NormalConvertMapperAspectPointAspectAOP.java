@@ -1,8 +1,7 @@
 package com.wu.framework.inner.layer.data.apo;
 
-import com.wu.framework.inner.layer.data.ConvertApi;
+import com.wu.framework.inner.layer.data.api.ConvertApi;
 import com.wu.framework.inner.layer.data.NormalConvertMapper;
-import lombok.NonNull;
 import org.aopalliance.aop.Advice;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;

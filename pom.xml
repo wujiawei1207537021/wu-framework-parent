@@ -98,8 +98,10 @@
 
         <wu-layer-stereotype.version>${project.version}</wu-layer-stereotype.version>
 
-        <wu-easy-upsert-spring-boot-autoconfigure.version>${project.version}</wu-easy-upsert-spring-boot-autoconfigure.version>
+        <wu-easy-upsert-spring-boot-autoconfigure.version>${project.version}
+        </wu-easy-upsert-spring-boot-autoconfigure.version>
         <wu-easy-upsert-core.version>${project.version}</wu-easy-upsert-core.version>
+        <wu-sys-api.version>${project.version}</wu-sys-api.version>
 
         <spring-boot-starter.version>2.5.2</spring-boot-starter.version>
     </properties>
@@ -146,6 +148,13 @@
                 <scope>import</scope>
             </dependency>
 
+<!--            <dependency>-->
+<!--                <groupId>top.wu2020</groupId>-->
+<!--                <artifactId>wu-database-parent</artifactId>-->
+<!--                <version>${wu-database-parent.version}</version>-->
+<!--                <type>pom</type>-->
+<!--                <scope>import</scope>-->
+<!--            </dependency>-->
             <!--数据库 即将弃用 考虑重构架构 -->
             <!--            <dependency>-->
             <!--                <groupId>top.wu2020</groupId>-->
@@ -227,17 +236,19 @@
                 <artifactId>wu-elasticsearch-starter</artifactId>
                 <version>${wu-elasticsearch-starter.version}</version>
             </dependency>
-            <!--            web-->
+            <!--            web        -->
             <dependency>
                 <groupId>top.wu2020</groupId>
                 <artifactId>wu-framework-web</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <!--    upsert核心代理        -->
             <dependency>
                 <groupId>top.wu2020</groupId>
                 <artifactId>wu-easy-upsert-core</artifactId>
                 <version>${wu-easy-upsert-core.version}</version>
             </dependency>
+            <!--    upsert 配置依赖        -->
             <dependency>
                 <groupId>top.wu2020</groupId>
                 <artifactId>wu-easy-upsert-spring-boot-autoconfigure</artifactId>

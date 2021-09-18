@@ -1,4 +1,4 @@
-package com.wu.framework.inner.layer.data;
+package com.wu.framework.inner.layer.data.api;
 
 import java.util.List;
 import java.util.Map;

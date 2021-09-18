@@ -13,6 +13,18 @@
     <version>1.0.5</version>
     <packaging>pom</packaging>
     <description>数据库</description>
+
+    <properties>
+        <wu-database-lazy-starter.version>${project.version}</wu-database-lazy-starter.version>
+        <wu-dynamic-database-starter.version>${project.version}</wu-dynamic-database-starter.version>
+
+        <wu-database-generator-starter.version>${project.version}</wu-database-generator-starter.version>
+        <wu-database-core.version>${project.version}</wu-database-core.version>
+        <wu-hbase-starter.version>${project.version}</wu-hbase-starter.version>
+        <wu-database-layer-stereotype.version>${project.version}</wu-database-layer-stereotype.version>
+        <wu-elasticsearch-starter.version>${project.version}</wu-elasticsearch-starter.version>
+
+    </properties>
     <modules>
         <!--wudb-->
         <!--        <module>wu-db-starter</module>-->
@@ -43,9 +55,43 @@
         <dependencies>
             <dependency>
                 <groupId>top.wu2020</groupId>
-                <artifactId>wu-database-layer-stereotype</artifactId>
-                <version>${project.version}</version>
+                <artifactId>wu-database-lazy-starter</artifactId>
+                <version>${wu-database-lazy-starter.version}</version>
             </dependency>
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-dynamic-database-starter</artifactId>
+                <version>${wu-dynamic-database-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-database-generator-starter</artifactId>
+                <version>${wu-database-generator-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-database-core</artifactId>
+                <version>${wu-database-core.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-hbase-starter</artifactId>
+                <version>${wu-hbase-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-database-layer-stereotype</artifactId>
+                <version>${wu-database-layer-stereotype.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-elasticsearch-starter</artifactId>
+                <version>${wu-elasticsearch-starter.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

@@ -284,6 +284,11 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBean
         return createClass ? easySmartFillFieldConverter.targetClassWriteAttributeFieldList(createInfo) : easySmartFillFieldConverter.createInfo2String(createInfo);
     }
 
+    /**
+     * 生成class 并创建class 文件
+     * @param createJava
+     * @return
+     */
     public String generateJava(boolean createJava) {
         EasySmartFillFieldConverter easySmartFillFieldConverter = new EasySmartFillFieldConverter();
         EasySmartFillFieldConverterAbstract.CreateInfo createInfo = mapConverterJava((Map<Object, Object>) this);

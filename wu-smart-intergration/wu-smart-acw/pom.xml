@@ -17,4 +17,49 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
+    <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-framework-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-layer-stereotype</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-database-layer-stereotype</artifactId>
+            <version>1.0.5</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!--        <dependency>-->
+<!--            <groupId>top.wu2020</groupId>-->
+<!--            <artifactId>wu-database-layer-stereotype</artifactId>-->
+<!--        </dependency>-->
+
+
+    </dependencies>
+
 </project>

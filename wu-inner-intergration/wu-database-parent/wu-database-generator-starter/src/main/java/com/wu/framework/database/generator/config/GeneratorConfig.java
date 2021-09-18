@@ -9,6 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 import java.util.Date;
@@ -38,6 +39,10 @@ public class GeneratorConfig implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        log.info("初始化加载 generator-starter 成功 登陆地址: http://127.0.0.1:{}/login.html",serverProperties.getPort());
+        Integer port = serverProperties.getPort();
+        if(ObjectUtils.isEmpty(port)){
+            port=8080;
+        }
+        log.info("初始化加载 generator-starter 成功 登陆地址: http://127.0.0.1:{}/login.html",port);
     }
 }

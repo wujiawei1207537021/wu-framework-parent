@@ -107,4 +107,19 @@ public enum JavaBasicType {
         }
         return obj;
     }
+
+    public static <T> T getDefaultValue(Class<T> clazz) {
+        return (T) DEFAULT_VALUE_HASHMAP.getOrDefault(clazz, null);
+    }
+
+    public static Object getDefaultValue(String className) {
+        Class<?> forName;
+        try {
+            forName = Class.forName(className);
+            return DEFAULT_VALUE_HASHMAP.getOrDefault(forName, null);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
