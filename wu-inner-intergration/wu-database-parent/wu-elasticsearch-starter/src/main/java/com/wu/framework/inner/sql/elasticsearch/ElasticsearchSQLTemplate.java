@@ -151,7 +151,7 @@ public class ElasticsearchSQLTemplate {
                 // 获取行列名称
                 Stream.iterate(0, i -> i + 1).
                         limit(esResult.getColumns().size()).
-                        collect(Collectors.toMap(i -> i, i -> CamelAndUnderLineConverter.lineToHump(esResult.getColumns().get(i).getName()))).entrySet().
+                        collect(Collectors.toMap(i -> i, i -> CamelAndUnderLineConverter.lineToHumpField(esResult.getColumns().get(i).getName()))).entrySet().
                         stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)).forEach((index, fileName) -> {
                     Object o = list.get(index);
                     easyHashMap.put(fileName, o);
@@ -163,7 +163,7 @@ public class ElasticsearchSQLTemplate {
                 // 获取查询语句中列名称
                 Map<Integer, String> columnMap = Stream.iterate(0, i -> i + 1).
                         limit(esResult.getColumns().size()).
-                        collect(Collectors.toMap(i -> i, i -> CamelAndUnderLineConverter.lineToHump(esResult.getColumns().get(i).getName()))).entrySet().
+                        collect(Collectors.toMap(i -> i, i -> CamelAndUnderLineConverter.lineToHumpField(esResult.getColumns().get(i).getName()))).entrySet().
                         stream().
                         filter(integerStringEntry -> declaredFieldList.contains(integerStringEntry.getValue())).
                         collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));

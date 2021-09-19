@@ -1,5 +1,6 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.domain;
 
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.LambdaTable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,7 +25,7 @@ public class PersistenceRepository {
     private String resultType;//实体类的全限定类名
     private Class resultClass;//实体类
 
-    private String executionType;//执行类型
+    private LambdaTable.LambdaTableType executionType= LambdaTable.LambdaTableType.SELECT;//执行类型
 
     /**
      * 二进制数据

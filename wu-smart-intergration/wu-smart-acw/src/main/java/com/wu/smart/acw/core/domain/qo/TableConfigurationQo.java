@@ -1,6 +1,6 @@
-package com.wu.smart.acw.domain;
+package com.wu.smart.acw.core.domain.qo;
 
-import com.wu.framework.inner.layer.data.JavaBasicType;
+import com.wu.framework.inner.layer.data.JavaBasicTypeDefaultValue;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -12,7 +12,7 @@ import java.util.List;
  */
 @Data
 @Accessors(chain = true)
-public class TableConfiguration {
+public class TableConfigurationQo {
 
     private String name;
 
@@ -23,7 +23,7 @@ public class TableConfiguration {
     @Data
     public static class FieldConfig {
         private String name;
-        private JavaBasicType type;
+        private JavaBasicTypeDefaultValue type;
     }
 
 

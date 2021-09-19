@@ -1,7 +1,7 @@
-package com.wu.smart.acw.service;
+package com.wu.smart.acw.core.service;
 
 import com.wu.framework.response.Result;
-import com.wu.smart.acw.domain.TableConfiguration;
+import com.wu.smart.acw.core.domain.qo.TableConfigurationQo;
 
 public interface DemandCodeGenerationService {
 
@@ -11,12 +11,12 @@ public interface DemandCodeGenerationService {
      * @param table
      * @return
      */
-    Result generationTable(TableConfiguration table);
+    Result generationTable(TableConfigurationQo table);
 
     /**
      * 生成
      * @param table
      * @return
      */
-    Result generation(TableConfiguration table);
+    Result generation(TableConfigurationQo table);
 }

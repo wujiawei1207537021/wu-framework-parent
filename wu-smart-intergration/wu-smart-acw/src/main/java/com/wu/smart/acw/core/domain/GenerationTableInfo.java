@@ -1,4 +1,4 @@
-package com.wu.smart.acw.domain;
+package com.wu.smart.acw.core.domain;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

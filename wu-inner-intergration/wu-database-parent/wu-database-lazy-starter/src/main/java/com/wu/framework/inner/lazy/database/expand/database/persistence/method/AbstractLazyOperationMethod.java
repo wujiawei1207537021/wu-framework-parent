@@ -1,10 +1,8 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
-import com.wu.framework.inner.layer.data.JavaBasicType;
-import com.wu.framework.inner.layer.data.ProcessException;
+import com.wu.framework.inner.layer.data.JavaBasicTypeDefaultValue;
 import com.wu.framework.inner.layer.stereotype.MethodParamFunction;
-import com.wu.framework.inner.layer.stereotype.MethodParamFunctionException;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.MySQLDataProcessAnalyze;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.ConvertedField;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
@@ -12,7 +10,6 @@ import com.wu.framework.inner.lazy.database.expand.database.persistence.map.Easy
 import org.springframework.util.ObjectUtils;
 
 import javax.sql.DataSource;
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.sql.*;
 import java.util.ArrayList;
@@ -164,11 +161,11 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
                         String columnClassName = resultSetMetaData.getColumnClassName(i);
                         //根据得到列名，获取每列的值
                         Object columnValue = resultSet.getObject(i);
-//                        if(null==columnValue)columnValue=JavaBasicType.DEFAULT_CLASS_NAME_VALUE_HASHMAP.get(columnClassName);
+//                        if(null==columnValue)columnValue=JavaBasicTypeDefaultValue.DEFAULT_CLASS_NAME_VALUE_HASHMAP.get(columnClassName);
                         if (EasyHashMap.class.isAssignableFrom(domainClass)) {
-                            ((EasyHashMap) hashMap).put(CamelAndUnderLineConverter.lineToHump(columnName), columnValue,columnClassName);
+                            ((EasyHashMap) hashMap).put(CamelAndUnderLineConverter.lineToHumpField(columnName), columnValue,columnClassName);
                         }else {
-                            hashMap.put(CamelAndUnderLineConverter.lineToHump(columnName), columnValue);
+                            hashMap.put(CamelAndUnderLineConverter.lineToHumpField(columnName), columnValue);
                         }
 
                     }
@@ -179,7 +176,7 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
             } else if (isWrapClass(domainClass)) {
                 //基本数据类型
                 while (resultSet.next()) {
-                    Object convertBasicTypeBean = JavaBasicType.convertBasicTypeBean(domainClass, resultSet.getObject(1));
+                    Object convertBasicTypeBean = JavaBasicTypeDefaultValue.convertBasicTypeBean(domainClass, resultSet.getObject(1));
                     list.add(convertBasicTypeBean);
                 }
             } else {
@@ -196,7 +193,7 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
                     for (int i = 1; i <= columnCount; i++) {
                         //获取每列的名称，列名的序号是从1开始的
                         String columnName = rsmd.getColumnName(i).toLowerCase();
-                        columnName = CamelAndUnderLineConverter.lineToHump(columnName);
+                        columnName = CamelAndUnderLineConverter.lineToHumpField(columnName);
                         String columnLabel = rsmd.getColumnLabel(i);
                         String fieldName = convertedFieldMap.getOrDefault(columnName, convertedFieldMap.get(columnLabel));
                         if (ObjectUtils.isEmpty(fieldName)) {

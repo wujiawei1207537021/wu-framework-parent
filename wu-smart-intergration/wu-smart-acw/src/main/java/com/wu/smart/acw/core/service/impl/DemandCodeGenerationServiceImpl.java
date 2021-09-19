@@ -1,4 +1,4 @@
-package com.wu.smart.acw.service.impl;
+package com.wu.smart.acw.core.service.impl;
 
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.layer.data.NormalUsedString;
@@ -8,8 +8,8 @@ import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.Laz
 import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasySmartFillFieldConverter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasySmartFillFieldConverterAbstract;
 import com.wu.framework.response.Result;
-import com.wu.smart.acw.domain.TableConfiguration;
-import com.wu.smart.acw.service.DemandCodeGenerationService;
+import com.wu.smart.acw.core.domain.qo.TableConfigurationQo;
+import com.wu.smart.acw.core.service.DemandCodeGenerationService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -31,14 +31,20 @@ public class DemandCodeGenerationServiceImpl implements DemandCodeGenerationServ
      * @return
      */
     @Override
-    public Result generationTable(TableConfiguration table) {
+    public Result generationTable(TableConfigurationQo table) {
 
 
         return null;
     }
 
     @Override
-    public Result generation(TableConfiguration table) {
+    public Result generation(TableConfigurationQo table) {
+
+        // 存储项目
+        // 存储项目依赖
+        // 存储 class
+        //存储 方法
+        //存储代码
 
         // 中文翻译
         // test table
@@ -49,7 +55,7 @@ public class DemandCodeGenerationServiceImpl implements DemandCodeGenerationServ
         classLazyTableEndpoint.setTableName(toLowerCaseTable);
         classLazyTableEndpoint.setComment(table.getName());
         classLazyTableEndpoint.setFieldEndpoints(new ArrayList<>());
-        for (TableConfiguration.FieldConfig field : table.getFields()) {
+        for (TableConfigurationQo.FieldConfig field : table.getFields()) {
             // test id
             String fieldEn = this.translate.translate(field.getName(), TranslateApi.LanguageType.zh);
             // test_id
@@ -85,6 +91,7 @@ public class DemandCodeGenerationServiceImpl implements DemandCodeGenerationServ
         easySmartFillFieldConverter.targetClassWriteAttributeFieldList(createInfo);
 
         // 生成接口 (CRUD)
+
 
         // acw
 

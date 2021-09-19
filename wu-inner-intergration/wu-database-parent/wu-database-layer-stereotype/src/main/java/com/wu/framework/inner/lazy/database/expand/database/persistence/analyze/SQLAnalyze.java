@@ -455,7 +455,7 @@ public interface SQLAnalyze extends LayerClassAnalyze {
         }
         builder.append("  </where> \n </sql>\n");
         // 查询sql
-        String beanName = CamelAndUnderLineConverter.lineToHump(tableName);
+        String beanName = CamelAndUnderLineConverter.lineToHumpField(tableName);
         builder.append(" <select id=\"select" + beanName + "\" resultType=\"" + beanName + "\"> \n");
         builder.append("SELECT T.* FROM ");
         builder.append(tableName).append(" T \n");

@@ -1,4 +1,4 @@
-package com.wu.smart.acw.rpc;
+package com.wu.smart.acw.core.rpc;
 
 import com.wu.framework.inner.layer.data.api.TranslateApi;
 import org.springframework.boot.web.client.RestTemplateBuilder;

@@ -22,7 +22,7 @@ import java.util.Map;
  */
 @Getter
 @AllArgsConstructor
-public enum JavaBasicType {
+public enum JavaBasicTypeDefaultValue {
     STRING(String.class, "''"),
     BOOLEAN(Boolean.class, false),
     BOOLEAN_M(boolean.class, false),
@@ -85,7 +85,7 @@ public enum JavaBasicType {
      * @date 2021/1/3 1:03 下午
      **/
     public static Object convertBasicTypeBean(Class clazz, Object obj) {
-        if (null == obj) return JavaBasicType.DEFAULT_VALUE_HASHMAP.get(clazz);
+        if (null == obj) return JavaBasicTypeDefaultValue.DEFAULT_VALUE_HASHMAP.get(clazz);
         if (clazz.equals(Integer.class) || clazz.equals(int.class)) {
             return Integer.valueOf(obj.toString());
         } else if (clazz.equals(String.class)) {

@@ -81,6 +81,7 @@ public interface LambdaTable<T, R> extends LambdaStreamCollector<T, R>{
     @Getter
     @AllArgsConstructor
     enum LambdaTableType {
+        DELETE("delete", "删除"),
         SELECT("select", "查询");
         private String value;
         private String msg;

@@ -18,14 +18,6 @@ public abstract class ReferencePipelineSplicing<T, R> extends ReferencePipelineL
 
     //    protected LambdaTable.LambdaTableType lambdaTableType;
 //    protected Class<T> primaryTable;
-    @Deprecated
-    protected boolean noWhere = true;
-    @Deprecated
-    protected Boolean haveAnd = false;
-
-    @Deprecated
-    // 执行的SQL
-    protected StringBuilder SQLExecuted;
 
 
     protected ConditionList conditionList = new ConditionList();
@@ -46,7 +38,7 @@ public abstract class ReferencePipelineSplicing<T, R> extends ReferencePipelineL
      */
     @Override
     public LambdaSplicing<T, R> leftJoin(BasicComparison comparison) {
-        conditionList.put("leftjoin","table","");
+        conditionList.put("leftjoin", "", "");
         conditionList.addAll(comparison.getConditionList());
         return this;
     }
@@ -59,10 +51,6 @@ public abstract class ReferencePipelineSplicing<T, R> extends ReferencePipelineL
      **/
     @Override
     public LambdaTable<T, R> where() {
-        if (noWhere) {
-            this.noWhere = false;
-            this.SQLExecuted.append(" where ");
-        }
         return this;
     }
 
@@ -78,52 +66,6 @@ public abstract class ReferencePipelineSplicing<T, R> extends ReferencePipelineL
     @Override
     public LambdaTable<T, R> filter(Predicate<? super T> predicate) {
         return null;
-    }
-
-
-//    /**
-//     * @param condition
-//     * @param row
-//     * @param var
-//     * @return
-//     * @describe 等于条件
-//     * @author Jia wei Wu
-//     * @date 2021/7/16 9:44 下午
-//     **/
-//    @Override
-//    public LambdaStreamCollector<T, R> eq(boolean condition, R row, Object var) {
-//        if (condition) {
-//            if (haveAnd) {
-//                this.SQLExecuted.
-//                        append(NormalUsedString.SPACE)
-//                        .append(NormalUsedString.AND)
-//                        .append(NormalUsedString.SPACE);
-//            } else {
-//                this.haveAnd = true;
-//            }
-//            this.SQLExecuted
-//                    .append(NormalUsedString.SPACE)
-//                    .append(row)
-//                    .append(NormalUsedString.SPACE)
-//                    .append(NormalUsedString.EQUALS)
-//                    .append(NormalUsedString.SPACE)
-//                    .append(var);
-//        }
-//        return this;
-//    }
-
-
-    /**
-     * @return
-     * @describe 获取执行的sql语句
-     * @author Jia wei Wu
-     * @date 2021/8/8 2:28 下午
-     **/
-    @Override
-    public String getSqlStatement() {
-        final StringBuilder demo = conditionList.splice("demo");
-        System.err.println(demo.toString());
-        return this.SQLExecuted.toString();
     }
 
 
@@ -163,18 +105,12 @@ public abstract class ReferencePipelineSplicing<T, R> extends ReferencePipelineL
      **/
     @Override
     public LambdaSplicing<T, R> gt(boolean condition, R row, Object var) {
+        // 检查是否
         if (checkCondition(condition)) {
-            this.SQLExecuted
-                    .append(NormalUsedString.SPACE)
-                    .append(row)
-                    .append(NormalUsedString.SPACE)
-                    .append(NormalUsedString.RIGHT_CHEV)
-                    .append(NormalUsedString.SPACE)
-                    .append(NormalUsedString.SINGLE_QUOTE)
-                    .append(var)
-                    .append(NormalUsedString.SINGLE_QUOTE);
+            conditionList.put(row, NormalUsedString.RIGHT_CHEV, var);
+            return this;
+
         }
-        conditionList.put(row, NormalUsedString.RIGHT_CHEV, var);
         return this;
     }
 
@@ -190,17 +126,8 @@ public abstract class ReferencePipelineSplicing<T, R> extends ReferencePipelineL
     @Override
     public LambdaSplicing<T, R> lt(boolean condition, R row, Object var) {
         if (checkCondition(condition)) {
-            this.SQLExecuted
-                    .append(NormalUsedString.SPACE)
-                    .append(row)
-                    .append(NormalUsedString.SPACE)
-                    .append(NormalUsedString.LEFT_CHEV)
-                    .append(NormalUsedString.SPACE)
-                    .append(NormalUsedString.SINGLE_QUOTE)
-                    .append(var)
-                    .append(NormalUsedString.SINGLE_QUOTE);
+            conditionList.put(row, NormalUsedString.LEFT_CHEV, var);
         }
-        conditionList.put(row, NormalUsedString.LEFT_CHEV, var);
         return this;
     }
 
@@ -217,24 +144,9 @@ public abstract class ReferencePipelineSplicing<T, R> extends ReferencePipelineL
     @Override
     public LambdaSplicing<T, R> between(boolean condition, R row, Object leftVar, Object rightVar) {
         if (checkCondition(condition)) {
-            this.SQLExecuted
-                    .append(NormalUsedString.SPACE)
-                    .append(row)
-                    .append(NormalUsedString.SPACE)
-                    .append(NormalUsedString.BETWEEN)
-                    .append(NormalUsedString.SPACE)
-                    .append(NormalUsedString.SINGLE_QUOTE)
-                    .append(leftVar)
-                    .append(NormalUsedString.SINGLE_QUOTE)
-                    .append(NormalUsedString.SPACE)
-                    .append(NormalUsedString.AND)
-                    .append(NormalUsedString.SPACE)
-                    .append(NormalUsedString.SINGLE_QUOTE)
-                    .append(rightVar)
-                    .append(NormalUsedString.SINGLE_QUOTE);
+            conditionList.put(row, NormalUsedString.BETWEEN, leftVar);
+            conditionList.put(row, NormalUsedString.AND, rightVar);
         }
-        conditionList.put(row, NormalUsedString.BETWEEN, leftVar);
-        conditionList.put(row, NormalUsedString.AND, rightVar);
         return this;
     }
 
@@ -250,17 +162,9 @@ public abstract class ReferencePipelineSplicing<T, R> extends ReferencePipelineL
     @Override
     public LambdaSplicing<T, R> like(boolean condition, R row, Object var) {
         if (checkCondition(condition)) {
-            this.SQLExecuted
-                    .append(NormalUsedString.SPACE)
-                    .append(row)
-                    .append(NormalUsedString.SPACE)
-                    .append(NormalUsedString.LIKE)
-                    .append(NormalUsedString.SPACE)
-                    .append(NormalUsedString.SINGLE_QUOTE)
-                    .append(var)
-                    .append(NormalUsedString.SINGLE_QUOTE);
+            conditionList.put(row, NormalUsedString.LIKE, var);
         }
-        conditionList.put(row, NormalUsedString.LIKE, var);
+
         return this;
     }
 
@@ -275,35 +179,15 @@ public abstract class ReferencePipelineSplicing<T, R> extends ReferencePipelineL
      **/
     public LambdaSplicing<T, R> eq(boolean condition, R row, Object var) {
         if (checkCondition(condition)) {
-            this.SQLExecuted
-                    .append(NormalUsedString.SPACE)
-                    .append(row)
-                    .append(NormalUsedString.SPACE)
-                    .append(NormalUsedString.EQUALS)
-                    .append(NormalUsedString.SPACE)
-                    .append(NormalUsedString.SINGLE_QUOTE)
-                    .append(var)
-                    .append(NormalUsedString.SINGLE_QUOTE);
+            conditionList.put(row, NormalUsedString.EQUALS, var);
         }
-        conditionList.put(row, NormalUsedString.EQUALS, var);
         return this;
     }
 
     /**
-     * 检查条件
+     * 检查条是否存在and件
      */
     public boolean checkCondition(boolean condition) {
-        this.where();
-        if (condition) {
-            if (haveAnd) {
-                this.SQLExecuted.
-                        append(NormalUsedString.SPACE)
-                        .append(NormalUsedString.AND)
-                        .append(NormalUsedString.SPACE);
-            } else {
-                this.haveAnd = true;
-            }
-        }
         return condition;
     }
 
@@ -313,4 +197,5 @@ public abstract class ReferencePipelineSplicing<T, R> extends ReferencePipelineL
     protected void pretreatment() {
 
     }
+
 }

@@ -1,7 +1,7 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.analyze;
 
 import com.wu.framework.inner.layer.data.IBeanUpsert;
-import com.wu.framework.inner.layer.data.JavaBasicType;
+import com.wu.framework.inner.layer.data.JavaBasicTypeDefaultValue;
 import com.wu.framework.inner.layer.data.NormalUsedString;
 import com.wu.framework.inner.layer.data.ProcessException;
 import com.wu.framework.inner.layer.stereotype.LayerDefault;
@@ -121,14 +121,14 @@ public interface MySQLDataProcessAnalyze extends LayerDefault, SQLAnalyze {
                                     binaryList.add(binary);
                                     return NormalUsedString.QUESTION_MARK;
                                 }
-                                if (value == null && !JavaBasicType.DEFAULT_VALUE_HASHMAP.containsKey(convertedField.getClazz())) {
+                                if (value == null && !JavaBasicTypeDefaultValue.DEFAULT_VALUE_HASHMAP.containsKey(convertedField.getClazz())) {
                                     throw new RuntimeException("current  data is null and we could not find the default value of type " + convertedField.getClazz());
                                 }
                                 if (null == value) {
-                                    if (JavaBasicType.DEFAULT_VALUE_HASHMAP.get(convertedField.getClazz()) == null) {
+                                    if (JavaBasicTypeDefaultValue.DEFAULT_VALUE_HASHMAP.get(convertedField.getClazz()) == null) {
                                         return null;
                                     } else {
-                                        value = JavaBasicType.DEFAULT_VALUE_HASHMAP.get(convertedField.getClazz());
+                                        value = JavaBasicTypeDefaultValue.DEFAULT_VALUE_HASHMAP.get(convertedField.getClazz());
                                     }
                                 }
                                 return "'" + value.toString().replaceAll("'", "’") + "'";
@@ -163,7 +163,7 @@ public interface MySQLDataProcessAnalyze extends LayerDefault, SQLAnalyze {
                                 fieldVal = annotationConvertConversion(field, fieldVal, lazyTableAnnotation.getIEnumList());
                                 return "'" + fieldVal.toString().replaceAll("'", "\"") + "'";
                             } else {
-//                                fieldVal = JavaBasicType.DEFAULT_VALUE_HASHMAP.get(field.getType());
+//                                fieldVal = JavaBasicTypeDefaultValue.DEFAULT_VALUE_HASHMAP.get(field.getType());
                                 return null;
                             }
                         }).collect(Collectors.joining(NormalUsedString.COMMA)) + NormalUsedString.RIGHT_BRACKET;

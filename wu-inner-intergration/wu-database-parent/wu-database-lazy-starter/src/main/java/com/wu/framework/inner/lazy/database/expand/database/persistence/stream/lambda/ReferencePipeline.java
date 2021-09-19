@@ -1,6 +1,7 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.stream.lambda;
 
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.DeleteReferencePipeline;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.LambdaTable;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.SelectReferencePipeline;
 import lombok.Getter;
@@ -25,4 +26,8 @@ public class ReferencePipeline implements LambdaStream {
         return new SelectReferencePipeline(lazyOperation);
     }
 
+    @Override
+    public LambdaTable delete() {
+        return new DeleteReferencePipeline(lazyOperation);
+    }
 }

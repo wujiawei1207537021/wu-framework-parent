@@ -1,4 +1,4 @@
-package com.wu.smart.acw;
+package com.wu.smart.acw.core;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

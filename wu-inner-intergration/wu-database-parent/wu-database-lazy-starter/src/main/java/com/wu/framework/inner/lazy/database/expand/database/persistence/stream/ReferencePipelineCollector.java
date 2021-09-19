@@ -39,8 +39,8 @@ public abstract class ReferencePipelineCollector<T, R> implements LambdaStreamCo
      * @date 2021/8/8 12:04 下午
      **/
     @Override
-    public Collection<T> collection() {
-        return null;
+    public Collection collection() {
+        return lazyOperation.executeSQL(getSqlStatement(), Integer.class);
     }
 
     /**

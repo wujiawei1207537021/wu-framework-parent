@@ -91,7 +91,7 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBean
                 if (fieldName.contains(NormalUsedString.RIGHT_TITLE_NUMBER)) {
                     System.out.println(fieldName);
                 }
-                String className = CamelAndUnderLineConverter.lineToHump(NormalUsedString.UNDERSCORE + fieldName);
+                String className = CamelAndUnderLineConverter.lineToHumpField(NormalUsedString.UNDERSCORE + fieldName);
                 if (v instanceof Map) {
                     EasySmartFillFieldConverterAbstract.CreateInfo innerClass = mapConverterJava((Map<Object, Object>) v);
                     innerClass.setClassName(className);

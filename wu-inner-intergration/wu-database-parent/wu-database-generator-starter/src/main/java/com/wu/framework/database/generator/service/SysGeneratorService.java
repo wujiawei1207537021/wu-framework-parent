@@ -105,7 +105,7 @@ public class SysGeneratorService {
         List<ConvertedField> convertedFieldList = columnEntityList.stream().map(columnEntity -> {
             ConvertedField convertedField = new ConvertedField();
             convertedField.setConvertedFieldName(columnEntity.getColumnName());
-            convertedField.setFieldName(CamelAndUnderLineConverter.lineToHump(columnEntity.getColumnName()));
+            convertedField.setFieldName(CamelAndUnderLineConverter.lineToHumpField(columnEntity.getColumnName()));
             convertedField.setType(columnEntity.getDataType());
             return convertedField;
         }).collect(Collectors.toList());

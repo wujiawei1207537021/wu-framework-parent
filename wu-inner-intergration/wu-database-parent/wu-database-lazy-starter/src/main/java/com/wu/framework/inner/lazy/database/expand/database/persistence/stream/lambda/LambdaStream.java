@@ -18,4 +18,5 @@ public interface LambdaStream extends AutoCloseable {
     LambdaTable select();
 
 
+    LambdaTable delete();
 }

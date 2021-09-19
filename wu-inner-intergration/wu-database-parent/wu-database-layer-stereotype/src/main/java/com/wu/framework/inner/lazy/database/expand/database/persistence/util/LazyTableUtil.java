@@ -12,10 +12,10 @@ import org.springframework.core.annotation.AnnotatedElementUtils;
  */
 public class LazyTableUtil {
 
-    public static final String getTableName(Class clazz) {
+    public static String getTableName(Class clazz) {
         LazyTable lazyTable = AnnotatedElementUtils.findMergedAnnotation(clazz, LazyTable.class);
         if (null == lazyTable) {
-            String className = clazz.getName();
+            String className = clazz.getSimpleName();
             return CamelAndUnderLineConverter.humpToLine2(className);
         }
         return lazyTable.tableName();
