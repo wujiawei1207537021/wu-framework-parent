@@ -5,6 +5,7 @@ import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOper
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.lambda.LambdaStream;
 import com.wu.framework.response.Result;
 import com.wu.framework.response.ResultFactory;
+import com.wu.smart.acw.core.domain.uo.DependencyUo;
 import com.wu.smart.acw.core.domain.uo.ProjectUo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -46,6 +47,13 @@ public class ProjectController {
     public Result delete(@PathVariable("id") Long id) {
         val collection = lambdaStream.delete().table(ProjectUo.class).eq("id", id).collection();
         return ResultFactory.successOf(collection);
+    }
+
+    @ApiOperation(value = "新增/更新依赖")
+    @PostMapping("/dependency")
+    public Result dependency(@RequestBody DependencyUo dependencyUo){
+        lazyOperation.smartUpsert(dependencyUo);
+        return ResultFactory.successOf();
     }
 
 }

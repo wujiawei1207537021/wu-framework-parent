@@ -41,10 +41,13 @@ public class DemandCodeGenerationServiceImpl implements DemandCodeGenerationServ
     public Result generation(TableConfigurationQo table) {
 
         // 存储项目
+
         // 存储项目依赖
+
         // 存储 class
-        //存储 方法
-        //存储代码
+
+        // 存储 方法
+        // 存储代码
 
         // 中文翻译
         // test table
