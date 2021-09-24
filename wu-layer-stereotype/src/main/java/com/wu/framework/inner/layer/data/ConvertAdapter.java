@@ -13,4 +13,8 @@ public interface ConvertAdapter extends InitializingBean {
 
     void convertObjects(Object... objects);
 
+    default void transformation(Object object) {
+        convertObjects(object);
+    }
+
 }

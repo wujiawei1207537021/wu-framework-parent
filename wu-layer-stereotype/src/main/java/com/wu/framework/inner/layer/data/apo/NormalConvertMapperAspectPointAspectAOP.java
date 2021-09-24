@@ -1,7 +1,8 @@
 package com.wu.framework.inner.layer.data.apo;
 
-import com.wu.framework.inner.layer.data.api.ConvertApi;
+import com.wu.framework.inner.layer.data.ConvertAdapter;
 import com.wu.framework.inner.layer.data.NormalConvertMapper;
+import com.wu.framework.inner.layer.data.api.ConvertApi;
 import org.aopalliance.aop.Advice;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
@@ -12,7 +13,6 @@ import org.springframework.aop.support.annotation.AnnotationMatchingPointcut;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
-import com.wu.framework.inner.layer.data.ConvertAdapter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 
 /**
@@ -26,11 +26,10 @@ public class NormalConvertMapperAspectPointAspectAOP extends AbstractPointcutAdv
     private final Advice advice;
 
     private final Pointcut pointcut;
-    private final ConvertAdapter convertAdapter;
 
-    public NormalConvertMapperAspectPointAspectAOP( ConvertAdapter convertAdapter) {
+
+    public NormalConvertMapperAspectPointAspectAOP(ConvertAdapter convertAdapter) {
         this.advice = new MonitorCurrentMethodInterceptor(convertAdapter);
-        this.convertAdapter = convertAdapter;
         this.pointcut = buildPointcut();
     }
 
@@ -73,7 +72,7 @@ public class NormalConvertMapperAspectPointAspectAOP extends AbstractPointcutAdv
         public Object invoke(MethodInvocation invocation) throws Throwable {
             long start = System.currentTimeMillis();
             Object returnValue = invocation.proceed();
-            defaultConvertConvertService.convertObjects(returnValue);
+            defaultConvertConvertService.transformation(returnValue);
             long end = System.currentTimeMillis();
             System.out.printf("转换字典当前方法%s执行时间:%s(毫秒) %n", invocation.getMethod().getName(), end - start);
             return returnValue;
