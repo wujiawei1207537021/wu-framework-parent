@@ -1,14 +1,17 @@
 package com.wu.smart.acw.core.service.impl;
 
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
+import com.wu.framework.inner.layer.data.JavaClassType;
 import com.wu.framework.inner.layer.data.NormalUsedString;
 import com.wu.framework.inner.layer.data.api.TranslateApi;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.ClassLazyTableEndpoint;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.LazyTableFieldEndpoint;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasySmartFillFieldConverter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasySmartFillFieldConverterAbstract;
 import com.wu.framework.response.Result;
 import com.wu.smart.acw.core.domain.qo.TableConfigurationQo;
+import com.wu.smart.acw.core.domain.uo.ClassCodeUo;
 import com.wu.smart.acw.core.service.DemandCodeGenerationService;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +22,11 @@ import java.util.Locale;
 public class DemandCodeGenerationServiceImpl implements DemandCodeGenerationService {
 
     private final TranslateApi translate;
+    private final LazyOperation lazyOperation;
 
-    public DemandCodeGenerationServiceImpl(TranslateApi translate) {
+    public DemandCodeGenerationServiceImpl(TranslateApi translate, LazyOperation lazyOperation) {
         this.translate = translate;
+        this.lazyOperation = lazyOperation;
     }
 
     /**
@@ -40,23 +45,15 @@ public class DemandCodeGenerationServiceImpl implements DemandCodeGenerationServ
     @Override
     public Result generation(TableConfigurationQo table) {
 
-        // 存储项目
-
-        // 存储项目依赖
-
-        // 存储 class
-
-        // 存储 方法
-        // 存储代码
 
         // 中文翻译
         // test table
-        String tableEn = this.translate.translate(table.getName(), TranslateApi.LanguageType.zh);
+        String tableEn = this.translate.translate(table.getTableZhName(), TranslateApi.LanguageType.zh);
         ClassLazyTableEndpoint classLazyTableEndpoint = new ClassLazyTableEndpoint();
         // test_table
         final String toLowerCaseTable = tableEn.replace(NormalUsedString.SPACE, NormalUsedString.UNDERSCORE).toLowerCase(Locale.ROOT);
         classLazyTableEndpoint.setTableName(toLowerCaseTable);
-        classLazyTableEndpoint.setComment(table.getName());
+        classLazyTableEndpoint.setComment(table.getTableZhName());
         classLazyTableEndpoint.setFieldEndpoints(new ArrayList<>());
         for (TableConfigurationQo.FieldConfig field : table.getFields()) {
             // test id
@@ -92,6 +89,17 @@ public class DemandCodeGenerationServiceImpl implements DemandCodeGenerationServ
         }
         EasySmartFillFieldConverter easySmartFillFieldConverter = new EasySmartFillFieldConverter();
         easySmartFillFieldConverter.targetClassWriteAttributeFieldList(createInfo);
+
+        // 存储 class
+        final ClassCodeUo classCodeUo = new ClassCodeUo();
+        classCodeUo.setName(humpTable).
+                setAnnotationList().
+                setProjectId(table.getProjectId()).
+                setType(JavaClassType.CLASS);
+
+        lazyOperation.upsert(classCodeUo);
+        // 存储 方法
+        // 存储代码
 
         // 生成接口 (CRUD)
 

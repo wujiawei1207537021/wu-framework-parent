@@ -2,6 +2,7 @@ package com.wu.smart.acw.core.domain.uo;
 
 
 import com.wu.framework.inner.layer.data.JavaClassType;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTableField;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -36,6 +37,7 @@ public class ClassCodeUo {
     /**
      * 类注解
      */
+    @LazyTableField
     private List<ClassCodeUo> annotationList;
     /**
      * 类 父类
