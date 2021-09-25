@@ -65,7 +65,7 @@ public interface MySQLDataProcessAnalyze extends LayerDefault, SQLAnalyze {
     default LazyTableAnnotation dataAnalyze(Class clazz, EasyHashMap easyHashMap) {
         LazyTableAnnotation lazyTableAnnotation;
         if (EasyHashMap.class.isAssignableFrom(clazz)) {
-            lazyTableAnnotation = easyHashMap.toEasyTableAnnotation();
+            lazyTableAnnotation = easyHashMap.toEasyTableAnnotation(false,true);
         } else {
             lazyTableAnnotation = classAnalyze(clazz);
         }
