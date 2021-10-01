@@ -9,7 +9,7 @@ import java.lang.reflect.InvocationHandler;
 /**
  * @author : Jia wei Wu
  * @version : 1.0
- * @describe: 策略方法
+ * describe: 策略方法
  * @date : 2021/4/8 6:55 下午
  */
 @Target({ElementType.METHOD, ElementType.TYPE})
@@ -24,8 +24,6 @@ public @interface ProxyStrategicApproach {
 
 
     /**
-     * @param
-     * @return
      * @describe 代理类
      * @author Jia wei Wu
      * @date 2021/3/28 10:16 下午
