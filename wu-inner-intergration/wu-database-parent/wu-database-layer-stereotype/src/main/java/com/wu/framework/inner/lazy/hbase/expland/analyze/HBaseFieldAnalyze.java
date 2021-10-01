@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe : Hbase 字段解析
+ * describe : Hbase 字段解析
  * @date : 2021/4/8 7:07 下午
  */
 public class HBaseFieldAnalyze implements LayerAnalyze {

@@ -12,7 +12,7 @@ import java.lang.annotation.Annotation;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2020/12/9 9:07 下午
  */
 public class DefaultStyle implements Style {

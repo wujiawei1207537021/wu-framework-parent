@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * @author : Jiawei Wu
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/1/1 3:38 下午
  */
 @Data

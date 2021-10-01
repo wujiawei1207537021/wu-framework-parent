@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * @author : Jia Wei Wu
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/3/2 7:35 下午
  */
 @SpringBootApplication

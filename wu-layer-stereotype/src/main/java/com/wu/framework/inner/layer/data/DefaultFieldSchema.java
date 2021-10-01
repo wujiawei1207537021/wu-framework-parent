@@ -8,7 +8,7 @@ import java.lang.reflect.Field;
 /**
  * @author : 吴佳伟
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/7/13 9:34 下午
  */
 public class DefaultFieldSchema implements FieldSchema {

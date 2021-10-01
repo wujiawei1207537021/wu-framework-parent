@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe : Persistence  持久化SQL
+ * describe : Persistence  持久化SQL
  * @date : 2020/11/21 下午9:02
  */
 @Accessors(chain = true)
@@ -49,7 +49,7 @@ public class Persistence {
     /**
      * @author : Jia wei Wu
      * @version : 1.0
-     * @describe: 执行类型
+     * describe: 执行类型
      * @date : 2020/11/21 下午9:06
      */
     @Getter

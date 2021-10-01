@@ -20,7 +20,7 @@ public class DeleteReferencePipeline<T> extends ReferencePipelineSplicing<T, Sni
 
     /**
      * @param primaryTable@return
-     * @describe 主表
+     * describe 主表
      * @author Jia wei Wu
      * @date 2021/8/8 12:27 下午
      **/
@@ -34,7 +34,7 @@ public class DeleteReferencePipeline<T> extends ReferencePipelineSplicing<T, Sni
 
     /**
      * @return
-     * @describe 获取执行的sql语句
+     * describe 获取执行的sql语句
      * @author Jia wei Wu
      * @date 2021/8/8 2:28 下午
      **/

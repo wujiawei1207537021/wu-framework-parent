@@ -18,7 +18,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 /**
  * @author : Jiawei Wu
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/1/9 5:07 下午
  */
 @ConditionalOnBean(ConvertApi.class)

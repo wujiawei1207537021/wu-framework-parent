@@ -11,7 +11,7 @@ public interface IEasySmartConverter extends Layer, LayerDefault {
      * @param source 数据源
      * @param target 目标数据
      * @return
-     * @describe 转换
+     * describe 转换
      * @author Jia wei Wu
      * @date 2021/3/3 11:23 下午
      **/

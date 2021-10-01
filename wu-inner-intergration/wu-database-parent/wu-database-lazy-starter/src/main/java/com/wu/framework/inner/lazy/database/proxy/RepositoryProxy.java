@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe : 执行sql 的代理类
+ * describe : 执行sql 的代理类
  * @date : 2020/6/25 下午11:19
  */
 @Deprecated

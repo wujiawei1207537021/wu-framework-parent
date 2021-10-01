@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 /**
  * @author : 吴佳伟
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/7/13 9:29 下午
  */
 public class DefaultClassSchema implements ClassSchema {

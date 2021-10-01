@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 /**
  * @author : Jia wei Wu
  * @version : 1.0
- * @describe: 智能填充数据 处理
+ * describe: 智能填充数据 处理
  * @date : 2021/3/3 9:25 下午
  */
 public abstract class EasySmartFillFieldConverterAbstract extends EasySmartConverterAbstract implements IEasySmartConverter, SQLAnalyze {
@@ -28,7 +28,7 @@ public abstract class EasySmartFillFieldConverterAbstract extends EasySmartConve
      * @param source 数据源
      * @param target 目标数据 或者目标类存放地址已经存在的class 同级
      * @return
-     * @describe 智能填充数据
+     * describe 智能填充数据
      * @author Jia wei Wu
      * @date 2021/3/3 9:23 下午
      **/
@@ -86,7 +86,7 @@ public abstract class EasySmartFillFieldConverterAbstract extends EasySmartConve
     /**
      * @param createInfo 创建信息
      * @return
-     * @describe 目标类写入属性字段
+     * describe 目标类写入属性字段
      * @author Jia wei Wu
      * @date 2021/3/3 10:04 下午
      **/
@@ -96,7 +96,7 @@ public abstract class EasySmartFillFieldConverterAbstract extends EasySmartConve
      * @param source 数据源
      * @param target 目标数据
      * @return
-     * @describe 转换
+     * describe 转换
      * @author Jia wei Wu
      * @date 2021/3/3 11:23 下午
      **/
@@ -108,7 +108,7 @@ public abstract class EasySmartFillFieldConverterAbstract extends EasySmartConve
 
     /**
      * @author Jia wei Wu
-     * @describe 创建字段信息
+     * describe 创建字段信息
      * @date 2021/3/5 6:42 下午
      **/
     @Accessors(chain = true)

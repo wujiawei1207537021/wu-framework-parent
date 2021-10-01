@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe :  智能填充数据
+ * describe :  智能填充数据
  * @date : 2021/3/3 11:18 下午
  */
 
@@ -34,7 +34,7 @@ public class EasySmartFillFieldConverter extends EasySmartFillFieldConverterAbst
     /**
      * @param createInfo 创建信息
      * @return
-     * @describe 目标类写入属性字段
+     * describe 目标类写入属性字段
      * @author Jia wei Wu
      * @date 2021/3/3 10:04 下午
      **/
@@ -68,7 +68,7 @@ public class EasySmartFillFieldConverter extends EasySmartFillFieldConverterAbst
     /**
      * @param createInfo
      * @return
-     * @describe 将CreateInfo 转换成String
+     * describe 将CreateInfo 转换成String
      * @author Jia wei Wu
      * @date 2021/3/5 8:51 下午
      **/

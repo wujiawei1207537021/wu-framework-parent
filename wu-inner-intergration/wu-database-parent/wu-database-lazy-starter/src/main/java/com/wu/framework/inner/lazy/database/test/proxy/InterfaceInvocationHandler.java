@@ -9,7 +9,7 @@ import java.util.Arrays;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe : 代理IInvocationHandlerTest
+ * describe : 代理IInvocationHandlerTest
  * @date : 2020/6/25 下午8:31
  */
 public class InterfaceInvocationHandler implements InvocationHandler {

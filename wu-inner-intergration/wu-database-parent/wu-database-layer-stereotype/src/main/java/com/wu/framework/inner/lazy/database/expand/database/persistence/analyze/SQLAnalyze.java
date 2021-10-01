@@ -513,7 +513,7 @@ public interface SQLAnalyze extends LayerClassAnalyze {
     /**
      * @param
      * @return
-     * @describe 通过class 解析出 LazyTableAnnotation 对象
+     * describe 通过class 解析出 LazyTableAnnotation 对象
      * @author Jia wei Wu
      * @date 2021/4/11 10:47 上午
      **/

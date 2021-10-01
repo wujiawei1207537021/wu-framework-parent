@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2020/8/12 下午7:39
  */
 public class DyMethodUtil {

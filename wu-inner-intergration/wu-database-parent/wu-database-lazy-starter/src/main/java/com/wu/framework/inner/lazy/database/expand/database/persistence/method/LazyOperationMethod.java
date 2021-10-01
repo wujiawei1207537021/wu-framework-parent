@@ -20,7 +20,7 @@ public interface LazyOperationMethod {
      * @param
      * @param param
      * @return
-     * @describe 获取持久性存储库
+     * describe 获取持久性存储库
      * @author Jia wei Wu
      * @date 2021/4/17 3:38 下午
      **/

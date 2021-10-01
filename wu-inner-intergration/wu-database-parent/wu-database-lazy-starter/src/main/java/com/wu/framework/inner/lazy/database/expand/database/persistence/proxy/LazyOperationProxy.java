@@ -22,7 +22,7 @@ import java.util.Map;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe : 自定义接口实现方法执行代理类
+ * describe : 自定义接口实现方法执行代理类
  * @date : 2020/6/25 下午11:19
  */
 @ConditionalOnBean(value = DataSource.class)

@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/4/8 7:07 下午
  */
 public class HBaseLayerAnalyze<P> implements LayerClassAnalyze {

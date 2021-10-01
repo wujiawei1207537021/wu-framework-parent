@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Import;
 /**
  * @author : 吴佳伟
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/7/4 5:06 下午
  */
 @Import({LazyRedisTemplate.class})

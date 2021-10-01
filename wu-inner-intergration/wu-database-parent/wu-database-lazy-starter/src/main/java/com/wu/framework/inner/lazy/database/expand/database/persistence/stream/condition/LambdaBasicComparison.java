@@ -5,7 +5,7 @@ import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.f
 /**
  * @author : 吴佳伟
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/8/23 8:36 下午
  */
 public class LambdaBasicComparison<T> implements BasicComparison<T, Snippet,LambdaBasicComparison<T>> {
@@ -17,7 +17,7 @@ public class LambdaBasicComparison<T> implements BasicComparison<T, Snippet,Lamb
 
     /**
      * @return
-     * @describe 添加where 条件
+     * describe 添加where 条件
      * @author Jia wei Wu
      * @date 2021/8/8 12:33 下午
      **/
@@ -31,7 +31,7 @@ public class LambdaBasicComparison<T> implements BasicComparison<T, Snippet,Lamb
      * @param row
      * @param var
      * @return
-     * @describe 等于条件
+     * describe 等于条件
      * @author Jia wei Wu
      * @date 2021/7/16 9:44 下午
      **/
@@ -45,7 +45,7 @@ public class LambdaBasicComparison<T> implements BasicComparison<T, Snippet,Lamb
      * @param row
      * @param var
      * @return
-     * @describe 大于
+     * describe 大于
      * @author Jia wei Wu
      * @date 2021/8/15 4:52 下午
      **/
@@ -59,7 +59,7 @@ public class LambdaBasicComparison<T> implements BasicComparison<T, Snippet,Lamb
      * @param row
      * @param var
      * @return
-     * @describe 小于
+     * describe 小于
      * @author Jia wei Wu
      * @date 2021/8/15 4:52 下午
      **/
@@ -73,7 +73,7 @@ public class LambdaBasicComparison<T> implements BasicComparison<T, Snippet,Lamb
      * @param row
      * @param var
      * @return
-     * @describe like 条件
+     * describe like 条件
      * @author Jia wei Wu
      * @date 2021/7/16 9:45 下午
      **/
@@ -88,7 +88,7 @@ public class LambdaBasicComparison<T> implements BasicComparison<T, Snippet,Lamb
      * @param leftVar
      * @param rightVar
      * @return
-     * @describe 区间
+     * describe 区间
      * @author Jia wei Wu
      * @date 2021/7/16 9:45 下午
      **/
@@ -99,7 +99,7 @@ public class LambdaBasicComparison<T> implements BasicComparison<T, Snippet,Lamb
 
     /**
      * @return
-     * @describe 获取条件集合
+     * describe 获取条件集合
      * @author Jia wei Wu
      * @date 2021/8/21 7:57 下午
      **/

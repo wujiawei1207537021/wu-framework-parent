@@ -10,7 +10,7 @@ import java.net.UnknownHostException;
 /**
  * @author : 吴佳伟
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/6/27 7:55 下午
  */
 @Slf4j

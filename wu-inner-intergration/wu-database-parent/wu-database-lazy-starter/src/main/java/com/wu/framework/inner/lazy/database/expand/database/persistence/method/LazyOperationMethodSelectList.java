@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * @author : Jia wei Wu
  * @version : 1.0
- * @describe: 根据ID更新  自定义数据库持久层操作方法我选择列表
+ * describe: 根据ID更新  自定义数据库持久层操作方法我选择列表
  * @date : 2020/7/4 下午7:22
  */
 @Deprecated

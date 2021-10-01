@@ -39,7 +39,7 @@ import java.util.stream.Stream;
 /**
  * @author : 吴佳伟
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/5/18 8:35 下午
  */
 public class ProxyRestTemplate extends InterceptingHttpAccessor implements RestOperations {

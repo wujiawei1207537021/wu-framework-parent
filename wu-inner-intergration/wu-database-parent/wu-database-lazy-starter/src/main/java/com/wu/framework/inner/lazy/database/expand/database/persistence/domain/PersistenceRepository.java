@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @author : Jia wei Wu
  * @version : 1.0
- * @describe: 预执行SQL需要的属性
+ * describe: 预执行SQL需要的属性
  * @date : 2020/11/21 下午8:49
  */
 @Data

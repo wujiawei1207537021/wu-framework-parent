@@ -7,7 +7,7 @@ import java.lang.annotation.*;
 /**
  * @author : Jia wei Wu
  * @version : 1.0
- * @describe: 参数注解
+ * describe: 参数注解
  * @date : 2020/7/31 下午10:25
  */
 @Target(ElementType.PARAMETER)

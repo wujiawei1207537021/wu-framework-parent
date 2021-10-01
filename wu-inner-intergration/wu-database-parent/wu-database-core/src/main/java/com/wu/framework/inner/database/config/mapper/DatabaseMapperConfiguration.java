@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * @author : Jia wei Wu
  * @version : 1.0
- * @describe: 扫描xml
+ * describe: 扫描xml
  * @date : 2020/9/5 上午2:29
  */
 @Data

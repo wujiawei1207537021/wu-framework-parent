@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe : 模版参数抽象实体
+ * describe : 模版参数抽象实体
  * @date : 2020/8/3 下午9:45
  */
 @Data

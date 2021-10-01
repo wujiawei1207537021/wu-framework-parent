@@ -33,7 +33,7 @@ public abstract class AbstractPointcutEasyUpsertAnnotationAdvisor extends Abstra
     /**
      * @param
      * @return
-     * @describe 获取注解
+     * describe 获取注解
      * @author Jia wei Wu
      * @date 2021/7/10 12:15 下午
      **/
@@ -44,7 +44,7 @@ public abstract class AbstractPointcutEasyUpsertAnnotationAdvisor extends Abstra
     /**
      * @param
      * @return
-     * @describe 获取指定类型的注解
+     * describe 获取指定类型的注解
      * @author Jia wei Wu
      * @date 2021/7/10 12:15 下午
      **/
@@ -72,7 +72,7 @@ public abstract class AbstractPointcutEasyUpsertAnnotationAdvisor extends Abstra
     /**
      * @param
      * @return
-     * @describe 切面处理
+     * describe 切面处理
      * @author Jia wei Wu
      * @date 2021/7/10 11:15 上午
      **/

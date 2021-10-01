@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 /**
  * @author : Jia wei Wu
  * @version : 1.0
- * @describe: 拼接参数
+ * describe: 拼接参数
  * @date : 2021/7/17 12:24 下午
  */
 public interface LambdaSplicing<T, R> extends LambdaTable<T, R> {
@@ -17,7 +17,7 @@ public interface LambdaSplicing<T, R> extends LambdaTable<T, R> {
     /**
      * @param
      * @return
-     * @describe 添加where 条件
+     * describe 添加where 条件
      * @author Jia wei Wu
      * @date 2021/8/8 12:33 下午
      **/
@@ -38,7 +38,7 @@ public interface LambdaSplicing<T, R> extends LambdaTable<T, R> {
      * @param
      * @param comparison
      * @return
-     * @describe and条件
+     * describe and条件
      * @author Jia wei Wu
      * @date 2021/7/16 9:43 下午
      **/
@@ -48,7 +48,7 @@ public interface LambdaSplicing<T, R> extends LambdaTable<T, R> {
      * @param
      * @param comparison
      * @return
-     * @describe or 条件
+     * describe or 条件
      * @author Jia wei Wu
      * @date 2021/7/16 9:43 下午
      **/
@@ -60,7 +60,7 @@ public interface LambdaSplicing<T, R> extends LambdaTable<T, R> {
      * @param row
      * @param var
      * @return
-     * @describe 等于条件
+     * describe 等于条件
      * @author Jia wei Wu
      * @date 2021/7/16 9:44 下午
      **/
@@ -73,7 +73,7 @@ public interface LambdaSplicing<T, R> extends LambdaTable<T, R> {
     /**
      * @param
      * @return
-     * @describe 大于
+     * describe 大于
      * @author Jia wei Wu
      * @date 2021/8/15 4:52 下午
      **/
@@ -87,7 +87,7 @@ public interface LambdaSplicing<T, R> extends LambdaTable<T, R> {
     /**
      * @param
      * @return
-     * @describe 小于
+     * describe 小于
      * @author Jia wei Wu
      * @date 2021/8/15 4:52 下午
      **/
@@ -100,7 +100,7 @@ public interface LambdaSplicing<T, R> extends LambdaTable<T, R> {
     /**
      * @param
      * @return
-     * @describe like 条件
+     * describe like 条件
      * @author Jia wei Wu
      * @date 2021/7/16 9:45 下午
      **/
@@ -116,7 +116,7 @@ public interface LambdaSplicing<T, R> extends LambdaTable<T, R> {
      * @param condition
      * @param row
      * @return
-     * @describe 区间
+     * describe 区间
      * @author Jia wei Wu
      * @date 2021/7/16 9:45 下午
      **/

@@ -6,7 +6,7 @@ import com.wu.framework.inner.lazy.database.expand.database.persistence.util.Laz
 /**
  * @author : 吴佳伟
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/8/21 7:09 下午
  */
 public class DefaultBasicComparison<T, R> implements BasicComparison<T, R, DefaultBasicComparison<T,R>> {
@@ -23,7 +23,7 @@ public class DefaultBasicComparison<T, R> implements BasicComparison<T, R, Defau
 
     /**
      * @return
-     * @describe 添加where 条件
+     * describe 添加where 条件
      * @author Jia wei Wu
      * @date 2021/8/8 12:33 下午
      **/
@@ -37,7 +37,7 @@ public class DefaultBasicComparison<T, R> implements BasicComparison<T, R, Defau
      * @param row
      * @param var
      * @return
-     * @describe 等于条件
+     * describe 等于条件
      * @author Jia wei Wu
      * @date 2021/7/16 9:44 下午
      **/
@@ -54,7 +54,7 @@ public class DefaultBasicComparison<T, R> implements BasicComparison<T, R, Defau
      * @param row
      * @param var
      * @return
-     * @describe 大于
+     * describe 大于
      * @author Jia wei Wu
      * @date 2021/8/15 4:52 下午
      **/
@@ -71,7 +71,7 @@ public class DefaultBasicComparison<T, R> implements BasicComparison<T, R, Defau
      * @param row
      * @param var
      * @return
-     * @describe 小于
+     * describe 小于
      * @author Jia wei Wu
      * @date 2021/8/15 4:52 下午
      **/
@@ -88,7 +88,7 @@ public class DefaultBasicComparison<T, R> implements BasicComparison<T, R, Defau
      * @param row
      * @param var
      * @return
-     * @describe like 条件
+     * describe like 条件
      * @author Jia wei Wu
      * @date 2021/7/16 9:45 下午
      **/
@@ -106,7 +106,7 @@ public class DefaultBasicComparison<T, R> implements BasicComparison<T, R, Defau
      * @param leftVar
      * @param rightVar
      * @return
-     * @describe 区间
+     * describe 区间
      * @author Jia wei Wu
      * @date 2021/7/16 9:45 下午
      **/
@@ -121,7 +121,7 @@ public class DefaultBasicComparison<T, R> implements BasicComparison<T, R, Defau
 
     /**
      * @return
-     * @describe 获取条件集合
+     * describe 获取条件集合
      * @author Jia wei Wu
      * @date 2021/8/21 7:57 下午
      **/

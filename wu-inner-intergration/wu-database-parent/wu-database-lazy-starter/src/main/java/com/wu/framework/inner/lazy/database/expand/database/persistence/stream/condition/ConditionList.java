@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 /**
  * @author : 吴佳伟
  * @version 1.0
- * @describe : 条件
+ * describe : 条件
  * @date : 2021/8/21 7:35 下午
  */
 public class ConditionList extends ArrayList<ConditionList.Condition> {
@@ -23,7 +23,7 @@ public class ConditionList extends ArrayList<ConditionList.Condition> {
     /**
      * @param
      * @return
-     * @describe 拼接
+     * describe 拼接
      * @author Jia wei Wu
      * @date 2021/8/21 7:50 下午
      **/

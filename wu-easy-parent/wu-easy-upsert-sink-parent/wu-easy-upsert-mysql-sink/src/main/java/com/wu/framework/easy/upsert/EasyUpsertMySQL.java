@@ -10,7 +10,7 @@ import org.springframework.stereotype.Indexed;
 import java.lang.annotation.*;
 
 /**
- * @describe: 切换MySQL数据源
+ * describe: 切换MySQL数据源
  * @author : Jia wei Wu
  * @date : 2021/7/4 7:37 下午
  * @version : 1.0

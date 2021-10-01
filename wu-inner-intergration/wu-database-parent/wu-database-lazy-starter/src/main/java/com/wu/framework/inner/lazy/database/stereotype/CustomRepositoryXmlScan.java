@@ -8,7 +8,7 @@ import java.lang.annotation.*;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe : xml 扫描
+ * describe : xml 扫描
  * @date : 2020/7/5 下午2:31
  */
 @Target(ElementType.FIELD)

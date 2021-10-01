@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe : 完美的惰性操作代理
+ * describe : 完美的惰性操作代理
  * @date : 2020/6/25 下午11:19
  */
 @ConditionalOnBean(value = DataSource.class)

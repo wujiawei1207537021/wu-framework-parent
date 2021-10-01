@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * @author : 吴佳伟
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/7/4 6:20 下午
  */
 @Slf4j
@@ -28,7 +28,7 @@ public class DynamicLazyDSAdapter implements DynamicLazyDS, ApplicationListener<
 
     /**
      * @return
-     * @describe 确定数据源
+     * describe 确定数据源
      * @author Jia wei Wu
      * @date 2021/7/4 6:19 下午
      **/

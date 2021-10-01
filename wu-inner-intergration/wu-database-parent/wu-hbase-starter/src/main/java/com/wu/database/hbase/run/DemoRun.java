@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/3/15 8:25 下午
  */
 @EasyController

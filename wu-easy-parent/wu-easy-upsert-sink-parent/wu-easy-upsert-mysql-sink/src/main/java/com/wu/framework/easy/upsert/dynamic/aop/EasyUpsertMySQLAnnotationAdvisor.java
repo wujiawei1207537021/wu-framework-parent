@@ -25,7 +25,7 @@ public class EasyUpsertMySQLAnnotationAdvisor extends AbstractPointcutEasyUpsert
 
     /**
      * @return
-     * @describe 切面处理
+     * describe 切面处理
      * @author Jia wei Wu
      * @date 2021/7/10 11:15 上午
      **/

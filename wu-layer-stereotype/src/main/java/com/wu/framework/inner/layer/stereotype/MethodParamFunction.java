@@ -8,7 +8,7 @@ import java.sql.SQLException;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe : 方法参数功能
+ * describe : 方法参数功能
  * @date : 2021/4/6 7:51 下午
  */
 @FunctionalInterface

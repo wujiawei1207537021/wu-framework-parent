@@ -10,7 +10,7 @@ import java.util.function.Predicate;
 /**
  * @author : 吴佳伟
  * @version 1.0
- * @describe : 拼接参考流
+ * describe : 拼接参考流
  * @date : 2021/8/8 11:44 上午
  */
 public abstract class ReferencePipelineSplicing<T, R> extends ReferencePipelineLambdaTable<T, R>
@@ -45,7 +45,7 @@ public abstract class ReferencePipelineSplicing<T, R> extends ReferencePipelineL
 
     /**
      * @return
-     * @describe 添加where 条件
+     * describe 添加where 条件
      * @author Jia wei Wu
      * @date 2021/8/8 12:33 下午
      **/
@@ -71,7 +71,7 @@ public abstract class ReferencePipelineSplicing<T, R> extends ReferencePipelineL
 
     /**
      * @return
-     * @describe and条件
+     * describe and条件
      * @author Jia wei Wu
      * @date 2021/7/16 9:43 下午
      **/
@@ -84,7 +84,7 @@ public abstract class ReferencePipelineSplicing<T, R> extends ReferencePipelineL
     /**
      * @param comparison
      * @return
-     * @describe or 条件
+     * describe or 条件
      * @author Jia wei Wu
      * @date 2021/7/16 9:43 下午
      **/
@@ -99,7 +99,7 @@ public abstract class ReferencePipelineSplicing<T, R> extends ReferencePipelineL
      * @param row
      * @param var
      * @return
-     * @describe 大于
+     * describe 大于
      * @author Jia wei Wu
      * @date 2021/8/15 4:52 下午
      **/
@@ -119,7 +119,7 @@ public abstract class ReferencePipelineSplicing<T, R> extends ReferencePipelineL
      * @param row
      * @param var
      * @return
-     * @describe 小于
+     * describe 小于
      * @author Jia wei Wu
      * @date 2021/8/15 4:52 下午
      **/
@@ -137,7 +137,7 @@ public abstract class ReferencePipelineSplicing<T, R> extends ReferencePipelineL
      * @param leftVar
      * @param rightVar
      * @return
-     * @describe 区间
+     * describe 区间
      * @author Jia wei Wu
      * @date 2021/7/16 9:45 下午
      **/
@@ -155,7 +155,7 @@ public abstract class ReferencePipelineSplicing<T, R> extends ReferencePipelineL
      * @param row
      * @param var
      * @return
-     * @describe like 条件
+     * describe like 条件
      * @author Jia wei Wu
      * @date 2021/7/16 9:45 下午
      **/
@@ -173,7 +173,7 @@ public abstract class ReferencePipelineSplicing<T, R> extends ReferencePipelineL
      * @param row
      * @param var
      * @return
-     * @describe 等于条件
+     * describe 等于条件
      * @author Jia wei Wu
      * @date 2021/7/16 9:44 下午
      **/

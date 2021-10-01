@@ -9,7 +9,7 @@ import java.util.function.Consumer;
 /**
  * @param
  * @author Jia wei Wu
- * @describe 声明表并创建相应表的过滤条件
+ * describe 声明表并创建相应表的过滤条件
  * @return
  * @date 2021/8/15 12:07 下午
  **/
@@ -19,7 +19,7 @@ public interface LambdaTable<T, R> extends LambdaStreamCollector<T, R>{
     /**
      * @param
      * @return
-     * @describe 主表
+     * describe 主表
      * @author Jia wei Wu
      * @date 2021/8/8 12:27 下午
      **/
@@ -52,7 +52,7 @@ public interface LambdaTable<T, R> extends LambdaStreamCollector<T, R>{
      * @param
      * @param comparison
      * @return
-     * @describe and条件
+     * describe and条件
      * @author Jia wei Wu
      * @date 2021/7/16 9:43 下午
      **/
@@ -62,7 +62,7 @@ public interface LambdaTable<T, R> extends LambdaStreamCollector<T, R>{
      * @param
      * @param comparison
      * @return
-     * @describe or 条件
+     * describe or 条件
      * @author Jia wei Wu
      * @date 2021/7/16 9:43 下午
      **/

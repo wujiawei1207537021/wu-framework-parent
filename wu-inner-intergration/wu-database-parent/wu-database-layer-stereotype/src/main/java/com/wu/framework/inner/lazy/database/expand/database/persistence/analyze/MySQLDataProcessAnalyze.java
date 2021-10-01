@@ -268,7 +268,7 @@ public interface MySQLDataProcessAnalyze extends LayerDefault, SQLAnalyze {
     /**
      * @param
      * @return
-     * @describe 字段是否为二进制数据
+     * describe 字段是否为二进制数据
      * @author Jia wei Wu
      * @date 2021/3/1 7:07 下午
      **/

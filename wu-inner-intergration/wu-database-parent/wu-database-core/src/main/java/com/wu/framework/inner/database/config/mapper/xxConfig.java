@@ -27,7 +27,7 @@
 ///**
 // * @author : Jia wei Wu
 // * @version 1.0
-// * @describe :
+// * describe :
 // * @date : 2020/9/13 下午8:10
 // */
 //public class xxConfig implements InitializingBean {

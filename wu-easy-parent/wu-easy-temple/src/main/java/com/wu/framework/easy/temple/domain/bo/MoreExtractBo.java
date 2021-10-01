@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe : 更复杂对象数据
+ * describe : 更复杂对象数据
  * @date : 2020/12/14 9:40 下午
  */
 @Data

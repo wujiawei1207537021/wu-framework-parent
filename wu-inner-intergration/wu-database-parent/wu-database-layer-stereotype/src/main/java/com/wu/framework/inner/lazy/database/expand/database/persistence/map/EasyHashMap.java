@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
 /**
  * @author : Jiawei Wu
  * @version 1.0
- * @describe : 使用此对象会自动创建数据库表
+ * describe : 使用此对象会自动创建数据库表
  * @date : 2020/12/31 6:42 下午
  */
 public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBeanUpsert {
@@ -66,7 +66,7 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBean
     /**
      * @param
      * @return
-     * @describe 将Map 转换成 Java
+     * describe 将Map 转换成 Java
      * @author Jia wei Wu
      * @date 2021/3/5 7:48 下午
      **/
@@ -272,7 +272,7 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBean
 
     /**
      * @return String  class 字符串
-     * @describe 生成class
+     * describe 生成class
      * @author Jia wei Wu
      * @date 2021/1/31 8:12 下午
      **/
@@ -299,7 +299,7 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBean
 
     /**
      * @return
-     * @describe 对象处理之前
+     * describe 对象处理之前
      * @author Jia wei Wu
      * @date 2021/3/2 6:24 下午
      **/

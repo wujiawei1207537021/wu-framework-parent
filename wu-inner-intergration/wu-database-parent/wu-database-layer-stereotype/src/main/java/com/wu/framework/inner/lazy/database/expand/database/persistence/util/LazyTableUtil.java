@@ -7,7 +7,7 @@ import org.springframework.core.annotation.AnnotatedElementUtils;
 /**
  * @author : 吴佳伟
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/8/8 2:35 下午
  */
 public class LazyTableUtil {

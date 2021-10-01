@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * @author : 吴佳伟
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/1/3 8:48 下午
  */
 @EasyController("/api/socket")

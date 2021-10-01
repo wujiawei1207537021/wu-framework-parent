@@ -94,7 +94,7 @@ public class ConverterClass2KafkaSchema {
     /**
      * @param
      * @return
-     * @describe 数据库字段转换架构类型
+     * describe 数据库字段转换架构类型
      * @author Jia wei Wu
      * @date 2021/4/11 10:34 上午
      **/

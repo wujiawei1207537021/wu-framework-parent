@@ -3,7 +3,7 @@ package com.wu.framework.easy.upsert.core.dynamic.exception;
 /**
  * @author : 吴佳伟
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/7/13 9:39 下午
  */
 public class UpsertException extends RuntimeException {

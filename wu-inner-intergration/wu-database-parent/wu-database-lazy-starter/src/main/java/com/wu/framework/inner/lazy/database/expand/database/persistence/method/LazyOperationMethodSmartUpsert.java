@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe : 灵活更新 去除null的字段、创建表
+ * describe : 灵活更新 去除null的字段、创建表
  * 插入的对象数据不能时list 空数据过滤问题
  * @date : 2020/7/3 下午10:28
  */

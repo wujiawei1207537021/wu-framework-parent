@@ -6,7 +6,7 @@ import lombok.experimental.Accessors;
 /**
  * @author : 吴佳伟
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/9/12 3:24 下午
  */
 @Accessors(chain = true)

@@ -6,7 +6,7 @@ import lombok.experimental.Accessors;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/3/5 10:06 下午
  */
 @Accessors(chain = true)

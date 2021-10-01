@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Import;
 /**
  * @author : 吴佳伟
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/7/11 2:45 下午
  */
 @ConditionalOnBean(LazyRedisTemplate.class)

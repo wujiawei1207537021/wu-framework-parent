@@ -8,7 +8,7 @@ import java.lang.annotation.*;
 /**
  * @author : 吴佳伟
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/7/4 6:00 下午
  */
 @Target(ElementType.TYPE)

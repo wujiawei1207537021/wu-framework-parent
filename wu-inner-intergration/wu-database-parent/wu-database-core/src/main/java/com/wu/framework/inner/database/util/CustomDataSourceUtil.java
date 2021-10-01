@@ -19,7 +19,7 @@ import java.util.Set;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe : 创建数据库链接
+ * describe : 创建数据库链接
  * @date : 2020/6/25 下午11:13
  */
 public class CustomDataSourceUtil {

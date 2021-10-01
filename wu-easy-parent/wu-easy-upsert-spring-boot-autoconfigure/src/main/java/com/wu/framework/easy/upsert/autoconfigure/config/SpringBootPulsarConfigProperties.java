@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * @author : 吴佳伟
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/7/13 9:06 下午
  */
 @Data

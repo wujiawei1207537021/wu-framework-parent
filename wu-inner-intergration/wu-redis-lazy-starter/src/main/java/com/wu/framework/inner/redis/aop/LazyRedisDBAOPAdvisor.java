@@ -80,7 +80,7 @@ public class LazyRedisDBAOPAdvisor extends AbstractPointcutAdvisor implements Be
         }
 
         /**
-        * @describe 确定 Lazy Redis
+        * describe 确定 Lazy Redis
         * @param
         * @return
         * @author Jia wei Wu

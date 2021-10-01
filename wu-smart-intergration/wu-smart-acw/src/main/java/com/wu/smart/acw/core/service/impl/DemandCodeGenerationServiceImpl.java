@@ -93,7 +93,7 @@ public class DemandCodeGenerationServiceImpl implements DemandCodeGenerationServ
         // 存储 class
         final ClassCodeUo classCodeUo = new ClassCodeUo();
         classCodeUo.setName(humpTable).
-                setAnnotationList().
+//                setAnnotationList().
                 setProjectId(table.getProjectId()).
                 setType(JavaClassType.CLASS);
 

@@ -24,7 +24,7 @@ public @interface ProxyStrategicApproach {
 
 
     /**
-     * @describe 代理类
+     * describe 代理类
      * @author Jia wei Wu
      * @date 2021/3/28 10:16 下午
      **/

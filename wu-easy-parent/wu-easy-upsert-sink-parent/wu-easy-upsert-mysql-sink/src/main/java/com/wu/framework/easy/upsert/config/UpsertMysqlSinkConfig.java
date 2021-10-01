@@ -12,7 +12,7 @@ import org.springframework.core.Ordered;
 /**
  * @author : 吴佳伟
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/7/9 9:45 下午
  */
 @Import({MySQLEasyUpsertSink.class})

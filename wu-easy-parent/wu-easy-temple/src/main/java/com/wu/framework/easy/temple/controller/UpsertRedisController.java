@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * @author : 吴佳伟
  * @version 1.0
- * @describe : 数据快速插入redis
+ * describe : 数据快速插入redis
  * @date : 2021/7/4 4:42 下午
  */
 @Api(tags = "REDIS数据快速存储")

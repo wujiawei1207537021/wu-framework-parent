@@ -16,7 +16,7 @@ public class LazyOperationProxyBeanConfig {
     /**
      * @param
      * @return
-     * @describe 延迟操作代理
+     * describe 延迟操作代理
      * @author Jia wei Wu
      * @date 2021/4/17 7:34 下午
      **/
@@ -28,7 +28,7 @@ public class LazyOperationProxyBeanConfig {
 
 
 //    /**
-//    * @describe 完美的惰性操作代理
+//    * describe 完美的惰性操作代理
 //    * @param
 //    * @return
 //    * @author Jia wei Wu

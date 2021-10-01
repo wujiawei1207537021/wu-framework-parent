@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe : 转换后的字段
+ * describe : 转换后的字段
  * @date : 2020/7/4 下午10:17
  */
 @Data

@@ -3,7 +3,7 @@ package com.wu.framework.authorization.util;
 /**
  * @author : Jiawei Wu
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/1/9 3:41 下午
  */
 

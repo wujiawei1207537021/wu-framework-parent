@@ -11,7 +11,7 @@ import java.sql.SQLException;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2020/6/25 下午11:09
  */
 @Deprecated

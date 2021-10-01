@@ -74,7 +74,7 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
      * @param dataSource 数据源
      * @param param      单个对象或是单条记录
      * @return
-     * @describe 精准执行
+     * describe 精准执行
      * @author Jia wei Wu
      * @date 2021/4/18 10:13 上午
      **/
@@ -91,7 +91,7 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
      * @param methodParamFunction 返回数据中含有 PreparedStatement
      * @param param               参数
      * @return   执行结果
-     * @describe 执行函数
+     * describe 执行函数
      * @author Jia wei Wu
      * @date 2021/4/18 10:46 上午
      **/

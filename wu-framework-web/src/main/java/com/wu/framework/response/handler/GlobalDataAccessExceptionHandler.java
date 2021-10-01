@@ -24,8 +24,6 @@ public class GlobalDataAccessExceptionHandler {
     /**
      * sql异常
      *
-     * @param exception
-     * @return
      */
 //    @ExceptionHandler({BadSqlGrammarException.class, SQLException.class})
 //    public Result sqlException(Exception exception) {
@@ -47,8 +45,6 @@ public class GlobalDataAccessExceptionHandler {
     /**
      * HttpMessageNotReadableException
      *
-     * @param exception
-     * @return
      */
     @ExceptionHandler({HttpMessageNotReadableException.class})
     public Result httpMessageNotReadableException(HttpMessageNotReadableException exception) {

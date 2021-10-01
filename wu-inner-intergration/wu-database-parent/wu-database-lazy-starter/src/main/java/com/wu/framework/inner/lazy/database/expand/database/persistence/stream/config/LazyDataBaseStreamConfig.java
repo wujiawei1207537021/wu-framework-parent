@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 /**
  * @author : 吴佳伟
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/8/15 3:18 下午
  */
 @ConditionalOnBean(DataSource.class)
@@ -22,7 +22,7 @@ public class LazyDataBaseStreamConfig {
     /**
      * @param
      * @return
-     * @describe Stream通道对象
+     * describe Stream通道对象
      * @author Jia wei Wu
      * @date 2021/8/15 3:19 下午
      **/
@@ -35,7 +35,7 @@ public class LazyDataBaseStreamConfig {
     /**
      * @param
      * @return
-     * @describe 查询的Stream 操作对象
+     * describe 查询的Stream 操作对象
      * @author Jia wei Wu
      * @date 2021/8/15 3:19 下午
      **/

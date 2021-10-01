@@ -18,7 +18,7 @@ import org.springframework.core.annotation.AnnotationUtils;
 import java.lang.reflect.Method;
 
 /**
- * @describe: 切换数据源
+ * describe: 切换数据源
  * @author : Jia wei Wu
  * @date : 2021/7/4 6:05 下午
  * @version : 1.0
@@ -82,7 +82,7 @@ public class LazyDBAOPAdvisor extends AbstractPointcutAdvisor implements BeanFac
         /**
          * @param
          * @return
-         * @describe 确定 Lazy Redis
+         * describe 确定 Lazy Redis
          * @author Jia wei Wu
          * @date 2021/7/4 5:04 下午
          **/

@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/3/28 10:12 下午
  */
 public abstract class HBaseOperationMethodAbstract extends HBaseLayerAnalyze implements HBaseOperationMethodAdapter<HBaseOperationMethodAdapter.HBaseExecuteParams> {
@@ -53,7 +53,7 @@ public abstract class HBaseOperationMethodAbstract extends HBaseLayerAnalyze imp
     /**
      * @param
      * @return
-     * @describe 是否完善表
+     * describe 是否完善表
      * @author Jia wei Wu
      * @date 2021/4/7 6:55 下午
      **/

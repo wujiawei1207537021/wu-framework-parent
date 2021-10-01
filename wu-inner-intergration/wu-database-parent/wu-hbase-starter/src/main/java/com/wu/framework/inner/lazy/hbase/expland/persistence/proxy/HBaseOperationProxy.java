@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/3/27 10:57 下午
  */
 @ConditionalOnBean(Connection.class)

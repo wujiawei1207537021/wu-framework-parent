@@ -10,7 +10,7 @@ import java.util.Deque;
 /**
  * @author : Jia wei Wu
  * @version : 1.0
- * @describe: 核心基于ThreadLocal的切换数据源工具类
+ * describe: 核心基于ThreadLocal的切换数据源工具类
  * @date : 2021/7/4 5:50 下午
  * @see {@link EasyUpsert}
  */

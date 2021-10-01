@@ -53,7 +53,7 @@ public class EasyDynamicDataSourceConfig {
     /**
      * @param
      * @return
-     * @describe 注册IUpsert的代理类
+     * describe 注册IUpsert的代理类
      * @author Jia wei Wu
      * @date 2021/3/29 6:58 下午
      **/

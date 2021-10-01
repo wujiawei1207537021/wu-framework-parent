@@ -8,7 +8,7 @@ import java.lang.annotation.*;
 /**
  * @author : Jia wei Wu
  * @version : 1.0
- * @describe: 分页注解  指定位置添加分页
+ * describe: 分页注解  指定位置添加分页
  * @date : 2020/8/2 下午6:11
  */
 @Target(ElementType.PARAMETER)

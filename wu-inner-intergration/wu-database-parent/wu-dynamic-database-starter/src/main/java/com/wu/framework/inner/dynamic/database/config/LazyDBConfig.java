@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Import;
 /**
  * @author : 吴佳伟
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/7/4 6:07 下午
  */
 @Import(DynamicLazyDSAdapter.class)

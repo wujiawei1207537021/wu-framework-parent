@@ -17,7 +17,7 @@ import java.util.Set;
 /**
  * @author : Jiawei Wu
  * @version 1.0
- * @describe : Redis数据插入
+ * describe : Redis数据插入
  * @date : 2020/12/27 7:07 下午
  */
 @Api(tags = "Redis数据插入")

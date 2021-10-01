@@ -24,7 +24,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/4/17 10:37 下午
  */
 @EasyController("/public/lazy")
@@ -222,7 +222,7 @@ public class LazyOperationController implements CommandLineRunner {
     /**
      * @param
      * @return
-     * @describe 分页查询
+     * describe 分页查询
      * @author Jia wei Wu
      * @date 2021/4/18 12:50 下午
      **/
@@ -234,7 +234,7 @@ public class LazyOperationController implements CommandLineRunner {
     /**
      * @param
      * @return
-     * @describe 滚动查询
+     * describe 滚动查询
      * @author Jia wei Wu
      * @date 2021/4/18 7:31 下午
      **/

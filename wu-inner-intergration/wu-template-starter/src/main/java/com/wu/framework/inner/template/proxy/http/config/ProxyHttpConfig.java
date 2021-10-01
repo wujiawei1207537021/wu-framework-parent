@@ -11,7 +11,7 @@ import java.util.Random;
 /**
  * @author : 吴佳伟
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/5/22 3:56 下午
  */
 @Data

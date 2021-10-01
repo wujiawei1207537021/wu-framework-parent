@@ -17,7 +17,7 @@
 ///**
 // * @author :  Jia wei Wu
 // * @version 1.0
-// * @describe : 持久化转换工具
+// * describe : 持久化转换工具
 // * @date : 2020/11/21 下午11:04
 // */
 //public class PersistenceConverter {

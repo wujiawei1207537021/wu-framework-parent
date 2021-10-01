@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2020/12/20 8:27 下午
  */
 @Slf4j

@@ -13,7 +13,7 @@ import java.util.*;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe : 扫描xml
+ * describe : 扫描xml
  * @date : 2020/6/25 下午11:59
  */
 public class ScanXmlPathUtil {

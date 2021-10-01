@@ -5,7 +5,7 @@ import java.util.Collection;
 /**
  * @author : 吴佳伟
  * @version 1.0
- * @describe : 集合数据收集器
+ * describe : 集合数据收集器
  * @date : 2021/8/8 11:25 上午
  */
 public interface LambdaStreamCollector<T,R> {
@@ -13,7 +13,7 @@ public interface LambdaStreamCollector<T,R> {
     /**
      * @param
      * @return
-     * @describe 返回指定类型的数据
+     * describe 返回指定类型的数据
      * 收集集合
      * @author Jia wei Wu
      * @date 2021/8/8 12:03 下午
@@ -23,7 +23,7 @@ public interface LambdaStreamCollector<T,R> {
     /**
      * @param
      * @return
-     * @describe 收集集合
+     * describe 收集集合
      * @author Jia wei Wu
      * @date 2021/8/8 12:04 下午
      **/
@@ -33,7 +33,7 @@ public interface LambdaStreamCollector<T,R> {
     /**
      * @param
      * @return
-     * @describe 返回指定类型的数据
+     * describe 返回指定类型的数据
      * 收集一个数据
      * @author Jia wei Wu
      * @date 2021/8/8 12:04 下午
@@ -43,7 +43,7 @@ public interface LambdaStreamCollector<T,R> {
     /**
      * @param
      * @return
-     * @describe 收集一个数据
+     * describe 收集一个数据
      * @author Jia wei Wu
      * @date 2021/8/8 12:04 下午
      **/
@@ -52,7 +52,7 @@ public interface LambdaStreamCollector<T,R> {
     /**
      * @param
      * @return
-     * @describe 获取执行的sql语句
+     * describe 获取执行的sql语句
      * @author Jia wei Wu
      * @date 2021/8/8 2:28 下午
      **/

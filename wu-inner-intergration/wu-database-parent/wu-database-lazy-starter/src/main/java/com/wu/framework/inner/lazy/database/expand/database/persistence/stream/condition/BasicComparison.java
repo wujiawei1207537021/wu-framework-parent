@@ -3,7 +3,7 @@ package com.wu.framework.inner.lazy.database.expand.database.persistence.stream.
 /**
  * @author : Jia wei Wu
  * @version : 1.0
- * @describe: 基本比较
+ * describe: 基本比较
  * @date : 2021/8/21 6:38 下午
  */
 public interface BasicComparison<T, R, C extends BasicComparison<T, R, C>> {
@@ -13,7 +13,7 @@ public interface BasicComparison<T, R, C extends BasicComparison<T, R, C>> {
     /**
      * @param
      * @return
-     * @describe 添加where 条件
+     * describe 添加where 条件
      * @author Jia wei Wu
      * @date 2021/8/8 12:33 下午
      **/
@@ -25,7 +25,7 @@ public interface BasicComparison<T, R, C extends BasicComparison<T, R, C>> {
      * @param row
      * @param var
      * @return
-     * @describe 等于条件
+     * describe 等于条件
      * @author Jia wei Wu
      * @date 2021/7/16 9:44 下午
      **/
@@ -38,7 +38,7 @@ public interface BasicComparison<T, R, C extends BasicComparison<T, R, C>> {
     /**
      * @param
      * @return
-     * @describe 大于
+     * describe 大于
      * @author Jia wei Wu
      * @date 2021/8/15 4:52 下午
      **/
@@ -52,7 +52,7 @@ public interface BasicComparison<T, R, C extends BasicComparison<T, R, C>> {
     /**
      * @param
      * @return
-     * @describe 小于
+     * describe 小于
      * @author Jia wei Wu
      * @date 2021/8/15 4:52 下午
      **/
@@ -65,7 +65,7 @@ public interface BasicComparison<T, R, C extends BasicComparison<T, R, C>> {
     /**
      * @param
      * @return
-     * @describe like 条件
+     * describe like 条件
      * @author Jia wei Wu
      * @date 2021/7/16 9:45 下午
      **/
@@ -81,7 +81,7 @@ public interface BasicComparison<T, R, C extends BasicComparison<T, R, C>> {
      * @param row
      * @param rightVar
      * @return
-     * @describe 区间
+     * describe 区间
      * @author Jia wei Wu
      * @date 2021/7/16 9:45 下午
      **/
@@ -94,7 +94,7 @@ public interface BasicComparison<T, R, C extends BasicComparison<T, R, C>> {
     /**
      * @param
      * @return
-     * @describe 获取条件集合
+     * describe 获取条件集合
      * @author Jia wei Wu
      * @date 2021/8/21 7:57 下午
      **/

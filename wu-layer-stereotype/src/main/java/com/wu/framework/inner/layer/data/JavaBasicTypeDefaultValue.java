@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * @author : Jiawei Wu
  * @version : 1.0
- * @describe: Java 基础Class 对应默认值
+ * describe: Java 基础Class 对应默认值
  * @date : 2021/1/1 1:10 下午
  */
 @Getter

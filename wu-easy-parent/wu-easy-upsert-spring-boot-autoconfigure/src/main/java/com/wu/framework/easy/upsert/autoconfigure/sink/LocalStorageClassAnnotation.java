@@ -44,7 +44,7 @@ public class LocalStorageClassAnnotation {
      * @param clazz                      类
      * @param isForceDuplicateNameSwitch 是强制重复名称切换
      * @return
-     * @describe
+     * describe
      * @author Jia wei Wu
      * @date 2021/3/3 9:34 下午
      **/
@@ -56,7 +56,7 @@ public class LocalStorageClassAnnotation {
     /**
      * @param
      * @return
-     * @describe 获取并且完善 LazyTable
+     * describe 获取并且完善 LazyTable
      * @author Jia wei Wu
      * @date 2021/3/29 8:43 下午
      **/

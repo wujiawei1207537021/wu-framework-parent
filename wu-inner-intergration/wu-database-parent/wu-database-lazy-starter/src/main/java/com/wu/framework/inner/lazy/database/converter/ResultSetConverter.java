@@ -16,7 +16,7 @@
 ///**
 // * @author : Jia wei Wu
 // * @version 1.0
-// * @describe : 解析ResultSet
+// * describe : 解析ResultSet
 // * @date : 2020/7/8 下午9:21
 // */
 //public class ResultSetConverter {

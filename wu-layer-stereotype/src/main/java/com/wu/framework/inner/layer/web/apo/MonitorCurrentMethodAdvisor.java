@@ -16,7 +16,7 @@ import org.springframework.beans.factory.BeanFactoryAware;
 /**
  * @author : Jiawei Wu
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/1/9 5:07 下午
  */
 public class MonitorCurrentMethodAdvisor extends AbstractPointcutAdvisor  {

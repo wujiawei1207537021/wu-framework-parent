@@ -20,7 +20,7 @@ import java.util.UUID;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe : HBaseOperation操作Insert数据到仓库
+ * describe : HBaseOperation操作Insert数据到仓库
  * @date : 2021/3/29 7:19 下午
  */
 @Component

@@ -20,7 +20,7 @@ public interface HBaseOperation {
     /**
      * @param <T>
      * @return t
-     * @describe 新增数据
+     * describe 新增数据
      * @author Jia wei Wu
      * @date 2021/3/27 9:21 下午
      **/
@@ -44,7 +44,7 @@ public interface HBaseOperation {
     /**
      * @param <T>
      * @return t
-     * @describe 更新或者插入数据
+     * describe 更新或者插入数据
      * @author Jia wei Wu
      * @date 2021/3/27 9:21 下午
      **/

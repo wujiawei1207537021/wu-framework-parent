@@ -121,7 +121,7 @@ public class ElasticsearchSQLTemplate {
 
 
     /**
-    * @describe 获取集群中任意一个 es节点数据
+    * describe 获取集群中任意一个 es节点数据
     * @param
     * @return
     * @author Jia wei Wu

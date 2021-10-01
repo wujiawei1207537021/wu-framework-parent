@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe : 简单线程工厂
+ * describe : 简单线程工厂
  * @date : 2020/11/8 下午12:30
  */
 public class EasyThreadFactory implements ThreadFactory {

@@ -5,7 +5,7 @@ import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/4/18 11:21 上午
  */
 public class SQLConverter {

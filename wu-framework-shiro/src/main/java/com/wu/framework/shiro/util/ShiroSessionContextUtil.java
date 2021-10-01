@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 /**
  * @author : Jiawei Wu
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/1/8 8:55 下午
  */
 public class ShiroSessionContextUtil {

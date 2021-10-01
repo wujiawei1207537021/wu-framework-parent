@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * @author : Jia wei Wu
  * @version : 1.0
- * @describe: 惰性基础操作
+ * describe: 惰性基础操作
  * @date : 2020/7/3 下午8:48
  */
 public interface LazyBaseOperation {

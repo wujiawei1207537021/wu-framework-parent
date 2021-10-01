@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe :  自定义数据库持久层操作方法插入
+ * describe :  自定义数据库持久层操作方法插入
  * @date : 2020/7/3 下午10:28
  */
 @Component
@@ -71,7 +71,7 @@ public class LazyOperationMethodInsert extends AbstractLazyOperationMethod imple
      * @param dataSource 数据源
      * @param param      单个对象或是单条记录
      * @return
-     * @describe 精准执行
+     * describe 精准执行
      * @exception/throws
      * @author 吴佳伟
      * @date 2021/4/26 5:12 下午

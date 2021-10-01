@@ -104,7 +104,7 @@ public interface ElasticsearchEasyDataProcessAnalyze extends LayerDefault {
     /**
      * @param
      * @return
-     * @describe 获取类格式化后的 bulk索引文档
+     * describe 获取类格式化后的 bulk索引文档
      * @author Jia wei Wu
      * @date 2020/12/6 5:29 下午
      **/
@@ -119,7 +119,7 @@ public interface ElasticsearchEasyDataProcessAnalyze extends LayerDefault {
 
     /**
      * @return
-     * @describe 写入文件到本地
+     * describe 写入文件到本地
      * @params
      * @author Jia wei Wu
      * @date 2020/12/6 5:36 下午

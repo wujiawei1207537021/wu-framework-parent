@@ -15,7 +15,7 @@ import static java.lang.Thread.sleep;
 /**
  * @author : Jia wei Wu
  * @version : 1.0
- * @describe: 测试https
+ * describe: 测试https
  * @date : 2020/6/17 10:42 下午
  */
 @Api(tags = "Template 模板测试")
