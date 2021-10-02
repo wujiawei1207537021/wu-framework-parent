@@ -9,7 +9,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
-import com.wu.framework.easy.upsert.autoconfigure.config.SpringUpsertProperties;
+import com.wu.framework.easy.upsert.autoconfigure.config.SpringBootKafkaConfigtProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -66,9 +66,9 @@ public class EasyUpsertExtractKafkaProducer implements InitializingBean {
     private final KafkaProducer<String, String> kafkaProducer;
 
 
-    public EasyUpsertExtractKafkaProducer(SpringUpsertProperties springUpsertProperties) {
+    public EasyUpsertExtractKafkaProducer(SpringBootKafkaConfigtProperties springBootKafkaConfigtProperties) {
         Properties props = new Properties();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, springUpsertProperties.getKafkaProperties().getBootstrapServers());
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, springBootKafkaConfigtProperties.getKafkaProperties().getBootstrapServers());
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         this.kafkaProducer = new KafkaProducer<>(props);
