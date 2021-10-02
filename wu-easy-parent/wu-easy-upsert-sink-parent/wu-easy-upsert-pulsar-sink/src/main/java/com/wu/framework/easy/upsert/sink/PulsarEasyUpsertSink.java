@@ -2,21 +2,25 @@ package com.wu.framework.easy.upsert.sink;
 
 import com.wu.framework.easy.upsert.PulsarSchema;
 import com.wu.framework.easy.upsert.autoconfigure.config.SpringBootPulsarConfigProperties;
+import com.wu.framework.easy.upsert.autoconfigure.config.SpringUpsertAutoConfigure;
 import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
 import com.wu.framework.easy.upsert.core.dynamic.IEasyUpsert;
 import com.wu.framework.easy.upsert.core.dynamic.exception.UpsertException;
+import com.wu.framework.easy.upsert.core.dynamic.function.EasyUpsertFunction;
+import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.layer.data.ClassSchema;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.pulsar.client.api.MessageId;
 import org.apache.pulsar.client.api.PulsarClient;
 import org.apache.pulsar.client.impl.schema.JSONSchema;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * description MySQL数据插入
@@ -30,21 +34,39 @@ import java.util.List;
 public class PulsarEasyUpsertSink implements IEasyUpsert, InitializingBean {
 
     private final PulsarClient pulsarClient;
+    private final SpringUpsertAutoConfigure configure;
 
-    public PulsarEasyUpsertSink(PulsarClient pulsarClient) {
+    public PulsarEasyUpsertSink(PulsarClient pulsarClient, SpringUpsertAutoConfigure configure) {
         this.pulsarClient = pulsarClient;
+        this.configure = configure;
     }
 
-    @SneakyThrows
     @Override
-    public <T> Object upsert(List<T> list, ClassSchema classSchema) throws UpsertException {
-        PulsarSchema pulsarSchema = classSchema.classAnnotation(PulsarSchema.class);
+    public <T> Object upsert(List<T> list, ClassSchema classSchema) throws UpsertException, ExecutionException, InterruptedException {
         List<MessageId> messageIdList=new ArrayList<>();
-        for (T item : list) {
-            MessageId messageId = pulsarClient.newProducer(JSONSchema.of(classSchema.clazz())).
-                    topic(pulsarSchema.topic()).create().send(item);
-            messageIdList.add(messageId);
-        }
+        splitListThen(list, configure.getBatchLimit(), new EasyUpsertFunction() {
+            @Override
+            public <t> void handle(List<t> source) {
+                PulsarSchema pulsarSchema = classSchema.classAnnotation(PulsarSchema.class);
+                String topic= CamelAndUnderLineConverter.humpToLine2(classSchema.clazz().getSimpleName());
+                if(!ObjectUtils.isEmpty(pulsarSchema)){
+                    if(!ObjectUtils.isEmpty(pulsarSchema.topic())){
+                        topic=pulsarSchema.topic();
+                    }
+                }
+                for (t item : source) {
+                  try {
+                      MessageId messageId = pulsarClient.newProducer(JSONSchema.of(classSchema.clazz())).
+                              topic(topic).create().send(item);
+                      messageIdList.add(messageId);
+                  }catch (Exception e){
+                      e.printStackTrace();
+                      throw new UpsertException(e);
+                  }
+                }
+            }
+        });
+
         return messageIdList;
     }
 }

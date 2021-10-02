@@ -47,6 +47,10 @@
             <groupId>top.wu2020</groupId>
             <artifactId>wu-easy-upsert-h2-sink</artifactId>
         </dependency>
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-easy-upsert-pulsar-sink</artifactId>
+        </dependency>
     </dependencies>
 
 

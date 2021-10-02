@@ -44,8 +44,8 @@ public class RedisUpsertSink implements IEasyUpsert {
             splitListThen(list, springUpsertAutoConfigure.getBatchLimit(), new EasyUpsertFunction() {
                 @Override
                 public <T> void handle(List<T> source) {
-                    Class<?> clazz = source.get(0).getClass();
-                    EasySmart easySmart = AnnotatedElementUtils.findMergedAnnotation(clazz, EasySmart.class);
+                    Class<?> clazz = classSchema.clazz();
+                    EasySmart easySmart = classSchema.classAnnotation( EasySmart.class);
                     String key = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
                     if (!ObjectUtils.isEmpty(easySmart)) {
                         if (!ObjectUtils.isEmpty(easySmart.redisKey())) {
@@ -58,6 +58,7 @@ public class RedisUpsertSink implements IEasyUpsert {
             });
         } catch (Exception e) {
             e.printStackTrace();
+            throw new UpsertException(e);
         }
         return null;
     }
