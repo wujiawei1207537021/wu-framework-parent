@@ -23,9 +23,9 @@
         <module>wu-easy-upsert-hbase-sink</module>
         <module>wu-easy-upsert-redis-sink</module>
         <module>wu-easy-upsert-kafka-sink</module>
-        <module>wu-easy-upsert-h2-sink</module>
+<!--        <module>wu-easy-upsert-h2-sink</module>-->
         <module>wu-easy-upsert-pulsar-sink</module>
-        <module>wu-easy-upsert-influxdb-sink</module>
+<!--        <module>wu-easy-upsert-influxdb-sink</module>-->
     </modules>
 
     <dependencies>
