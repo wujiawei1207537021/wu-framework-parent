@@ -6,8 +6,9 @@ import java.util.List;
 public interface EasyUpsertFunction {
     /**
      * 处理数据
+     *
      * @param source
      * @param <T>
      */
-   <T> void handle(List<T> source);
+    <T> void handle(List<T> source);
 }

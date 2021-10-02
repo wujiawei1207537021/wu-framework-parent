@@ -58,6 +58,15 @@ public interface IEasyUpsert extends LayerDataAnalyzeAdapter, InitializingBean {
     }
 
 
+    /**
+     *  数据切分后分组分线程操作
+     * @param source
+     * @param groupSize
+     * @param easyUpsertFunction
+     * @param <T>
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     default <T> void splitListThen(List<T> source, int groupSize, EasyUpsertFunction easyUpsertFunction) throws ExecutionException, InterruptedException {
         Integer total = (source.size() + groupSize - 1) / groupSize;
         log.info("计划处理步骤 【{}】 步", total);
