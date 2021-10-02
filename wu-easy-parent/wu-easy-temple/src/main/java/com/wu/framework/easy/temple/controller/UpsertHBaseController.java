@@ -1,13 +1,13 @@
 package com.wu.framework.easy.temple.controller;
 
-import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertDS;
-import com.wu.framework.easy.upsert.autoconfigure.dynamic.QuickEasyUpsert;
-import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
 import com.wu.framework.easy.temple.domain.UpsertBinary;
 import com.wu.framework.easy.temple.domain.UseExcel;
 import com.wu.framework.easy.temple.domain.UserLog;
 import com.wu.framework.easy.temple.domain.bo.ExtractBo;
 import com.wu.framework.easy.temple.domain.bo.MoreExtractBo;
+import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsert;
+import com.wu.framework.easy.upsert.autoconfigure.dynamic.QuickEasyUpsert;
+import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
 import com.wu.framework.easy.upsert.core.dynamic.IUpsert;
 import com.wu.framework.inner.layer.data.LayerDataAnalyzeAdapter;
 import com.wu.framework.inner.layer.web.EasyController;
@@ -48,7 +48,7 @@ public class UpsertHBaseController implements LayerDataAnalyzeAdapter {
      * @author Jia wei Wu
      * @date 2021/4/15 上午9:50
      */
-    @EasyUpsertDS(type = EasyUpsertType.HBASE)
+    @EasyUpsert(type = EasyUpsertType.HBASE)
     @ApiOperation(tags = "HBase数据快速插入", value = "IUpsert操作数据入HBase")
     @GetMapping()
     public List<UserLog> upsert(@RequestParam(required = false, defaultValue = "100") Integer size) {
@@ -126,8 +126,6 @@ public class UpsertHBaseController implements LayerDataAnalyzeAdapter {
         moreExtractBo.setUserLogList(createUserLog(1000));
         return moreExtractBo;
     }
-
-
 
 
     /**
