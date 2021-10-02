@@ -45,7 +45,6 @@ public class RedisUpsertSink implements IEasyUpsert {
             key = easySmart.redisKey();
         }
         String[] strings = list.stream().map(Object::toString).collect(Collectors.toList()).toArray(new String[list.size()]);
-        Long add = lazyRedisTemplate.opsForSet().add(key, strings);
-        return add;
+        return lazyRedisTemplate.opsForSet().add(key, strings);
     }
 }
