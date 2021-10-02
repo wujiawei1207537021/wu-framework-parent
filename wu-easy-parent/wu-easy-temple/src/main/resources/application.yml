@@ -3,7 +3,7 @@ server:
 
 spring:
   profiles:
-    active: es,redis,jpa
+    active: es,redis,jpa,kafka
 
   #  elasticsearch:
   #    rest:

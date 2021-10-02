@@ -1,8 +1,8 @@
 package com.wu.framework.easy.temple.controller;
 
-import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertDS;
-import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
 import com.wu.framework.easy.temple.domain.UserLog;
+import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsert;
+import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
 import com.wu.framework.easy.upsert.core.dynamic.IUpsert;
 import com.wu.framework.inner.layer.web.EasyController;
 import io.swagger.annotations.Api;
@@ -37,7 +37,7 @@ public class UpsertKafkaController {
      * @author Jia wei Wu
      * @date 2021/4/15 上午9:50
      */
-    @EasyUpsertDS(type = EasyUpsertType.KAFKA)
+    @EasyUpsert(type = EasyUpsertType.KAFKA)
     @ApiOperation(tags = "kafka数据快速存储", value = "IUpsert操作数据入kafka")
     @GetMapping()
     public void upsert(@RequestParam(required = false, defaultValue = "100") Integer size) {
