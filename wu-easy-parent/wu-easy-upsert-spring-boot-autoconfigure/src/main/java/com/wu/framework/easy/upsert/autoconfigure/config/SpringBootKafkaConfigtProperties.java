@@ -7,15 +7,15 @@ import org.springframework.context.annotation.Configuration;
 import java.util.List;
 
 /**
- * description upsert 数据源配置
+ * description kafka 数据源配置
  *
  * @author Jia wei Wu
  * @date 2021/5/11 12:22 下午
  */
 @Data
 @Configuration
-@ConfigurationProperties(prefix = SpringUpsertProperties.UPSERT_PROPERTY_PREFIX)
-public class SpringUpsertProperties {
+@ConfigurationProperties(prefix = SpringBootKafkaConfigtProperties.UPSERT_PROPERTY_PREFIX)
+public class SpringBootKafkaConfigtProperties {
 
     public static final String UPSERT_PROPERTY_PREFIX = "spring.easy.upsert.property";
 
