@@ -1,10 +1,12 @@
 package com.wu.framework.easy.upsert;
 
 import com.wu.framework.easy.upsert.autoconfigure.EasySmart;
+import com.wu.framework.easy.upsert.autoconfigure.config.SpringUpsertAutoConfigure;
 import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
 import com.wu.framework.easy.upsert.core.dynamic.IEasyUpsert;
 import com.wu.framework.easy.upsert.core.dynamic.exception.UpsertException;
+import com.wu.framework.easy.upsert.core.dynamic.function.EasyUpsertFunction;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.layer.data.ClassSchema;
 import com.wu.framework.inner.redis.component.LazyRedisTemplate;
@@ -28,23 +30,35 @@ import java.util.stream.Collectors;
 public class RedisUpsertSink implements IEasyUpsert {
 
     private final LazyRedisTemplate lazyRedisTemplate;
+    private final SpringUpsertAutoConfigure springUpsertAutoConfigure;
 
-    public RedisUpsertSink(LazyRedisTemplate lazyRedisTemplate) {
+    public RedisUpsertSink(LazyRedisTemplate lazyRedisTemplate, SpringUpsertAutoConfigure springUpsertAutoConfigure) {
         this.lazyRedisTemplate = lazyRedisTemplate;
+        this.springUpsertAutoConfigure = springUpsertAutoConfigure;
     }
 
 
     @Override
     public <T> Object upsert(List<T> list, ClassSchema classSchema) throws UpsertException {
-        Class<?> clazz = list.get(0).getClass();
-        EasySmart easySmart = AnnotatedElementUtils.findMergedAnnotation(clazz, EasySmart.class);
-        String key;
-        if (ObjectUtils.isEmpty(easySmart)) {
-            key = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
-        } else {
-            key = easySmart.redisKey();
+        try {
+            splitListThen(list, springUpsertAutoConfigure.getBatchLimit(), new EasyUpsertFunction() {
+                @Override
+                public <T> void handle(List<T> source) {
+                    Class<?> clazz = source.get(0).getClass();
+                    EasySmart easySmart = AnnotatedElementUtils.findMergedAnnotation(clazz, EasySmart.class);
+                    String key = CamelAndUnderLineConverter.humpToLine2(clazz.getSimpleName());
+                    if (!ObjectUtils.isEmpty(easySmart)) {
+                        if (!ObjectUtils.isEmpty(easySmart.redisKey())) {
+                            key = easySmart.redisKey();
+                        }
+                    }
+                    String[] strings = source.stream().map(Object::toString).collect(Collectors.toList()).toArray(new String[source.size()]);
+                    lazyRedisTemplate.opsForSet().add(key, strings);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        String[] strings = list.stream().map(Object::toString).collect(Collectors.toList()).toArray(new String[list.size()]);
-        return lazyRedisTemplate.opsForSet().add(key, strings);
+        return null;
     }
 }

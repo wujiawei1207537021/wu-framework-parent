@@ -47,7 +47,8 @@ public class UpsertRedisController {
     @GetMapping("/upsert")
     @EasyUpsertRedis(database = 2)
     public Result upsert() {
-        iUpsert.upsert(UserLog.createUserLogList(10), UserLog.createUserLogList(100));
+        final List<UserLog> userLogList = UserLog.createUserLogList(1000000);
+        iUpsert.upsert(userLogList, userLogList);
         return ResultFactory.successOf();
     }
 
