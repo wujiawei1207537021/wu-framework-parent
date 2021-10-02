@@ -5,6 +5,7 @@ import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
 import com.wu.framework.easy.upsert.core.dynamic.IEasyUpsert;
 import com.wu.framework.easy.upsert.core.dynamic.exception.UpsertException;
+import com.wu.framework.easy.upsert.core.dynamic.function.EasyUpsertFunction;
 import com.wu.framework.inner.layer.data.ClassSchema;
 import com.wu.framework.inner.lazy.hbase.expland.persistence.HBaseOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -38,15 +39,7 @@ public class HBaseUpsertSink implements IEasyUpsert {
 
     @Override
     public <T> Object upsert(List<T> list, ClassSchema classSchema) throws UpsertException, ExecutionException, InterruptedException {
-        Integer total = (list.size() + springUpsertAutoConfigure.getBatchLimit() - 1) / springUpsertAutoConfigure.getBatchLimit();
-        log.info("计划处理步骤 【{}】 步", total);
-        int stepCount = 1;
-        for (List<T> ts : splitList(list, springUpsertAutoConfigure.getBatchLimit())) {
-            log.info("处理步骤第 【{}】 步 ,总步数 【{}】", stepCount, total);
-            final Future submit = easyUpsertExecutor.submit((Callable) () -> hBaseOperation.upsertList(ts));
-            submit.get();
-            stepCount++;
-        }
+        splitListThen(list, springUpsertAutoConfigure.getBatchLimit(), hBaseOperation::upsertList);
         log.info("分步操作完成✅");
         return true;
     }

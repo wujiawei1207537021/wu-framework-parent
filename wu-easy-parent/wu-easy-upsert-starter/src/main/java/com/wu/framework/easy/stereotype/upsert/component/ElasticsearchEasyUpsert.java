@@ -7,6 +7,7 @@ import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
 import com.wu.framework.easy.upsert.core.dynamic.IEasyUpsert;
 import com.wu.framework.easy.upsert.core.dynamic.exception.UpsertException;
+import com.wu.framework.easy.upsert.core.dynamic.function.EasyUpsertFunction;
 import com.wu.framework.inner.layer.data.ClassSchema;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
@@ -19,6 +20,7 @@ import reactor.core.publisher.Mono;
 
 import java.io.File;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * description Elasticsearch
@@ -98,7 +100,7 @@ public class ElasticsearchEasyUpsert implements IEasyUpsert, ElasticsearchEasyDa
     }
 
     @Override
-    public <T> Object upsert(List<T> list, ClassSchema classSchema) throws UpsertException {
+    public <T> Object upsert(List<T> list, ClassSchema classSchema) throws UpsertException, ExecutionException, InterruptedException {
 
         Integer total = (list.size() + springUpsertAutoConfigure.getBatchLimit() - 1) / springUpsertAutoConfigure.getBatchLimit();
         log.info("计划处理写入文件 【{}】 个", total);
