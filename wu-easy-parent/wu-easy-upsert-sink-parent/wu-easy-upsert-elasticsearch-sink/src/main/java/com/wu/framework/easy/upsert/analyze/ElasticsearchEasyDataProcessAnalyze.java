@@ -1,4 +1,4 @@
-package com.wu.framework.easy.stereotype.upsert.analyze;
+package com.wu.framework.easy.upsert.analyze;
 
 import com.alibaba.fastjson.JSONObject;
 import com.wu.framework.easy.upsert.autoconfigure.EasySmart;
@@ -53,12 +53,18 @@ public interface ElasticsearchEasyDataProcessAnalyze extends LayerDefault {
             String prefix = table.indexPrefix();
             String format = table.indexFormat();
             String suffix = table.indexSuffix();
-            indexType = table.indexType();
-            if (ObjectUtils.isEmpty(format)) {
-                index = prefix + suffix;
-            } else {
-                index = prefix + LocalDateTime.now().format(DateTimeFormatter.ofPattern(format)) + suffix;
+            if(!ObjectUtils.isEmpty(table.indexType())){
+                indexType = table.indexType();
             }
+
+            if(!ObjectUtils.isEmpty(prefix)|!ObjectUtils.isEmpty(suffix)){
+                if (ObjectUtils.isEmpty(format)) {
+                    index = prefix + suffix;
+                } else {
+                    index = prefix + LocalDateTime.now().format(DateTimeFormatter.ofPattern(format)) + suffix;
+                }
+            }
+
         }
         elasticsearchPreProcessResult.setIndex(index);
         elasticsearchPreProcessResult.setIndexType(indexType);
@@ -86,7 +92,8 @@ public interface ElasticsearchEasyDataProcessAnalyze extends LayerDefault {
             String fieldName = CamelAndUnderLineConverter.humpToLine2(field.getName());
             Object fieldValue = new Object();
             try {
-                fieldValue = field.get(sourceData).toString();
+                final Object o = field.get(sourceData);
+                fieldValue = o == null ? null : o.toString();
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
@@ -103,8 +110,7 @@ public interface ElasticsearchEasyDataProcessAnalyze extends LayerDefault {
 
     /**
      * @param
-     * @return
-     * describe 获取类格式化后的 bulk索引文档
+     * @return describe 获取类格式化后的 bulk索引文档
      * @author Jia wei Wu
      * @date 2020/12/6 5:29 下午
      **/
@@ -118,8 +124,7 @@ public interface ElasticsearchEasyDataProcessAnalyze extends LayerDefault {
     }
 
     /**
-     * @return
-     * describe 写入文件到本地
+     * @return describe 写入文件到本地
      * @params
      * @author Jia wei Wu
      * @date 2020/12/6 5:36 下午

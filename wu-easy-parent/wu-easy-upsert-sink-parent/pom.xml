@@ -25,7 +25,8 @@
         <module>wu-easy-upsert-kafka-sink</module>
 <!--        <module>wu-easy-upsert-h2-sink</module>-->
         <module>wu-easy-upsert-pulsar-sink</module>
-<!--        <module>wu-easy-upsert-influxdb-sink</module>-->
+        <module>wu-easy-upsert-elasticsearch-sink</module>
+        <!--        <module>wu-easy-upsert-influxdb-sink</module>-->
     </modules>
 
     <dependencies>
@@ -70,6 +71,11 @@
             <dependency>
                 <groupId>top.wu2020</groupId>
                 <artifactId>wu-easy-upsert-influxdb-sink</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-easy-upsert-elasticsearch-sink</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

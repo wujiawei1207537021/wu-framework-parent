@@ -1,13 +1,13 @@
-package com.wu.framework.easy.stereotype.upsert.component;
+package com.wu.framework.easy.upsert;
 
-import com.wu.framework.easy.stereotype.upsert.analyze.ElasticsearchEasyDataProcessAnalyze;
-import com.wu.framework.easy.stereotype.upsert.config.ElasticsearchProperties;
+
+import com.wu.framework.easy.upsert.analyze.ElasticsearchEasyDataProcessAnalyze;
+import com.wu.framework.easy.upsert.autoconfigure.config.SpringBootElasticsearchConfigProperties;
 import com.wu.framework.easy.upsert.autoconfigure.config.SpringUpsertAutoConfigure;
 import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
 import com.wu.framework.easy.upsert.core.dynamic.IEasyUpsert;
 import com.wu.framework.easy.upsert.core.dynamic.exception.UpsertException;
-import com.wu.framework.easy.upsert.core.dynamic.function.EasyUpsertFunction;
 import com.wu.framework.inner.layer.data.ClassSchema;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
@@ -30,7 +30,7 @@ import java.util.concurrent.ExecutionException;
  */
 @Slf4j
 @EasyUpsertStrategy(value = EasyUpsertType.ES)
-@ConditionalOnProperty(prefix = ElasticsearchProperties.ELASTICSEARCH_PROPERTIES_PREFIX, value = "uris")
+@ConditionalOnProperty(prefix = SpringBootElasticsearchConfigProperties.ELASTICSEARCH_PROPERTIES_PREFIX, value = "uris")
 public class ElasticsearchEasyUpsert implements IEasyUpsert, ElasticsearchEasyDataProcessAnalyze, InitializingBean {
 
     protected final WebClient webClient = WebClient.builder().exchangeStrategies(ExchangeStrategies.builder()
@@ -39,11 +39,11 @@ public class ElasticsearchEasyUpsert implements IEasyUpsert, ElasticsearchEasyDa
                             .maxInMemorySize(16 * 1024 * 1024))
                     .build())
             .build();
-    private final ElasticsearchProperties elasticsearchProperties;
+    private final SpringBootElasticsearchConfigProperties elasticsearchProperties;
 
     private final SpringUpsertAutoConfigure springUpsertAutoConfigure;
 
-    ElasticsearchEasyUpsert(ElasticsearchProperties elasticsearchProperties, SpringUpsertAutoConfigure springUpsertAutoConfigure) {
+    ElasticsearchEasyUpsert(SpringBootElasticsearchConfigProperties elasticsearchProperties, SpringUpsertAutoConfigure springUpsertAutoConfigure) {
         this.elasticsearchProperties = elasticsearchProperties;
         this.springUpsertAutoConfigure = springUpsertAutoConfigure;
     }

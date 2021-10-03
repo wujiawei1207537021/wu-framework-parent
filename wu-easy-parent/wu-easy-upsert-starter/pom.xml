@@ -51,6 +51,10 @@
             <groupId>top.wu2020</groupId>
             <artifactId>wu-easy-upsert-pulsar-sink</artifactId>
         </dependency>
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-easy-upsert-elasticsearch-sink</artifactId>
+        </dependency>
     </dependencies>
 
 
