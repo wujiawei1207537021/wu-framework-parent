@@ -4,12 +4,7 @@ import com.wu.framework.inner.layer.data.LayerData;
 
 import java.util.List;
 
-/**
- * @author 吴佳伟
- * @description
- * @company 杭州来回科技有限公司
- * @date 2021/9/15$ 11:33 上午$
- */
+
 public interface LazyTableEndpoint {
 
     /**
