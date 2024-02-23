@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>top.wu2020</groupId>
+        <artifactId>wu-framework-parent</artifactId>
+        <version>1.0.4</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>top.wu2020</groupId>
+    <artifactId>wu-framework-system</artifactId>
+    <version>1.0.4.1</version>
+    <description>添加RequiredPermission 权限注解</description>
+
+    <properties>
+        <fastdfs-client.version>1.26.2</fastdfs-client.version>
+    </properties>
+
+    <dependencies>
+
+        <!--        框架-->
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-framework-shiro</artifactId>
+            <version>1.0.8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+
+        <!-- 阿里巴巴钉钉-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.alibaba</groupId>-->
+        <!--            <artifactId>dingtalk</artifactId>-->
+        <!--            <version>1.0.4</version>-->
+        <!--        </dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/net.guerlab.sdk/sdk-dingtalk-core -->
+        <dependency>
+            <groupId>net.guerlab.sdk</groupId>
+            <artifactId>sdk-dingtalk-core</artifactId>
+            <version>0.1.0</version>
+        </dependency>
+
+
+        <!--文件资源服务-->
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-file-starter</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.reflections/reflections -->
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.9.11</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javassist</groupId>
+                    <artifactId>javassist</artifactId>
+                </exclusion>
+            </exclusions>
+
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.alipay.sdk/alipay-sdk-java  支付宝-->
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>4.9.28.ALL</version>
+        </dependency>
+    </dependencies>
+
+</project>

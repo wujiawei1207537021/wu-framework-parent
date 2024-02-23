@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wuframework.system.persistence.mapper.SysRoleMenuMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.wuframework.system.common.entity.SysRoleMenu">
+        <id column="id" property="id"/>
+        <result column="role_id" property="roleId"/>
+        <result column="menu_id" property="menuId"/>
+        <result column="default_menu_id" property="defaultMenuId"/>
+        <result column="parent_id" property="parentId"/>
+    </resultMap>
+
+    <select id="saveRoleDefaultPage">
+        UPDATE sys_role SET default_menu_id = #{menuId}
+        WHERE role_id = #{roleId}
+    </select>
+
+    <select id="getRoleDefaultPage" resultMap="BaseResultMap">
+        SELECT
+            a.default_menu_id,
+            a.role_id,
+            (
+                SELECT
+                    parent_id
+                FROM
+                    sys_menu b
+                WHERE
+                    b.menu_id = a.default_menu_id
+            ) AS parent_id
+        FROM
+            sys_role a
+        INNER JOIN sys_user_role d ON a.role_id = d.role_id
+        WHERE
+	        d.user_id = #{userId}
+    </select>
+
+</mapper>

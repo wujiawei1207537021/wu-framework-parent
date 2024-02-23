@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wuframework.system.persistence.mapper.DefaultSysUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.wuframework.system.common.entity.DefaultSysUser">
+        <id column="user_id" property="userId"/>
+        <result column="username" property="username"/>
+        <result column="name" property="name"/>
+        <result column="password" property="password"/>
+        <result column="id_card" property="idCard"/>
+        <result column="sex" property="sex"/>
+        <result column="dept_id" property="deptId"/>
+        <result column="email" property="email"/>
+        <result column="mobile" property="mobile"/>
+        <result column="telephone" property="telephone"/>
+        <result column="user_classify" property="userClassify"/>
+        <result column="status" property="status"/>
+        <result column="user_id_create" property="userIdCreate"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+        <result column="photo" property="photo"/>
+        <result column="signature" property="signature"/>
+
+        <result column="dingtalkOpenId" property="dingtalkOpenId"/>
+        <result column="qqOpenId" property="qqOpenId"/>
+        <result column="weChatOpenId" property="weChatOpenId"/>
+        <result column="alipayOpenId" property="alipayOpenId"/>
+
+        <collection ofType="com.wuframework.system.common.entity.SysMenu" property="menus">
+            <id column="menu_id" property="menuId"/>
+            <result column="parent_id" property="parentId"/>
+            <result column="name" property="name"/>
+            <result column="url" property="url"/>
+            <result column="perms" property="perms"/>
+            <result column="type" property="type"/>
+            <result column="icon" property="icon"/>
+            <result column="order_num" property="orderNum"/>
+            <result column="gmt_create" property="gmtCreate"/>
+            <result column="gmt_modified" property="gmtModified"/>
+        </collection>
+        <collection ofType="com.wuframework.system.common.entity.SysPermission" property="permissionList">
+            <id column="permission_id" property="permissionId"/>
+            <result column="permission_type" property="permissionType"/>
+            <result column="remark" property="remark"/>
+            <result column="permission_root_path" property="permissionRootPath"/>
+            <result column="permission_complete_path" property="permissionCompletePath"/>
+        </collection>
+        <collection property="roleSignList" ofType="string">
+            <constructor>
+                <arg column="role_sign"/>
+            </constructor>
+        </collection>
+    </resultMap>
+    <!--==================================用户登录======================================-->
+    <select id="selectByLogin" parameterType="com.wuframework.system.common.entity.DefaultSysUser"
+            resultMap="BaseResultMap">
+        select u.*,m.*,r.role_id,r.role_name,r.role_sign,r.remark,r.data_type,r.manageable_role,
+        r.gmt_create AS r_gmt_create,
+        r.gmt_modified AS r_gmt_modified,
+        r.user_id_create AS r_user_id_create
+        from sys_user u
+        LEFT JOIN sys_user_role m ON u.user_id = m.user_id
+        LEFT JOIN sys_role r ON m.role_id = r.role_id
+        WHERE u.username = '${username}'
+        AND u.password = '${password}'
+    </select>
+    <!-- 根据手机号登录账户 -->
+    <select id="loginByPhone" parameterType="com.wuframework.system.common.entity.DefaultSysUser"
+            resultMap="BaseResultMap">
+        select u.*,m.*,r.role_id,r.role_name,r.role_sign,r.remark,r.data_type,
+        r.gmt_create AS r_gmt_create,
+        r.gmt_modified AS r_gmt_modified,
+        r.user_id_create AS r_user_id_create
+        from sys_user u
+        LEFT JOIN sys_user_role m ON u.user_id = m.user_id
+        LEFT JOIN sys_role r ON m.role_id = r.role_id
+        WHERE u.mobile = '${mobile}'
+        AND u.password = '${password}'
+    </select>
+    <!--==================权限验证根据用户名链接查询角色表,封装在List<Role>======================-->
+    <select id="selectByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select u.*,m.*,r.role_id,r.role_name,r.role_sign,r.remark,r.data_type,
+        r.gmt_create AS r_gmt_create,
+        r.gmt_modified AS r_gmt_modified,
+        r.user_id_create AS r_user_id_create
+        from sys_user u
+        LEFT JOIN sys_user_role m ON u.user_id = m.user_id
+        LEFT JOIN sys_role r ON m.role_id = r.role_id
+        where u.username = #{0}
+        limit 1
+    </select>
+
+    <resultMap id="BaseUserResultMap" type="com.wuframework.system.common.entity.DefaultSysUser">
+        <id column="user_id" property="userId"/>
+        <result column="username" property="username"/>
+        <result column="name" property="name"/>
+        <result column="age" property="age"/>
+        <result column="password" property="password"/>
+        <result column="id_card" property="idCard"/>
+        <result column="sex" property="sex"/>
+        <result column="dept_id" property="deptId"/>
+        <result column="email" property="email"/>
+        <result column="mobile" property="mobile"/>
+        <result column="telephone" property="telephone"/>
+        <result column="user_classify" property="userClassify"/>
+        <result column="status" property="status"/>
+        <result column="user_id_create" property="userIdCreate"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+        <result column="photo" property="photo"/>
+        <result column="signature" property="signature"/>
+    </resultMap>
+    <!-- 根据角色查询用户-->
+    <select id="getUserListByRoleId" parameterType="java.lang.Long" resultMap="BaseUserResultMap">
+        select user.* from sys_user user ,sys_user_role user_role
+        where user.user_id = user_role.user_id
+        and user_role.role_id = #{0}
+    </select>
+
+    <!--简单的用户数据Select组件查询-->
+    <select id="selectSimpleSelectVoList" parameterType="com.wuframework.system.common.dto.UserDTO"
+            resultType="com.wuframework.system.common.vo.SimpleSelectVo">
+        select 'false' disabled, user_id as row_key, name title,username value
+        from sys_user
+        <where>
+            status = 1
+            <if test="null != userClassify and '' != userClassify">
+                AND user_classify IN (${userClassify})
+            </if>
+            <if test="null != deptIds and '' != deptIds">
+                AND dept_id IN (${deptIds})
+            </if>
+        </where>
+    </select>
+    <!--<select id="selectAllUserListByRole" parameterType="java.lang.String" resultMap="java.util.HashMap">-->
+
+    <!--SELECT user.user_id,username,IF(role_id IS NOT NULL,1,0) checked,user.name-->
+    <!--FROM sys_user user-->
+    <!--left join (select * from sys_user_role where role_id=2) user_role-->
+    <!--ON user.user_id=user_role.user_id-->
+    <!--</select>-->
+
+    <select id="selectUser" parameterType="com.wuframework.system.common.dto.UserDTO"
+            resultType="com.wuframework.system.common.vo.UserVO">
+        SELECT * FROM (
+        SELECT
+        u.user_id userId,
+        u.username,
+        u.name,
+        u.id_card idCard,
+        u.sex,
+        u.dept_id deptId,
+        d.dept_name deptName,
+        u.email,
+        u.mobile,
+        u.`status`,
+        u.gmt_create gmtCreate,
+        CASE u.`status`
+        WHEN 1 THEN '启用'
+        WHEN 0 THEN '停用' END statusName,
+        u.user_classify userClassify,
+        (SELECT name from sys_dict where type = 'user_classify' and value = u.user_classify) userClassifyName,
+        u.photo,
+        u.signature,
+        (SELECT GROUP_CONCAT(s.role_id) FROM sys_user_role s WHERE user_id = u.user_id) AS roleIds,
+        (SELECT GROUP_CONCAT(r.role_name SEPARATOR ' | ') FROM sys_user_role s LEFT JOIN sys_role r ON s.role_id =
+        r.role_id WHERE user_id = u.user_id) AS roleNames
+        from sys_user u
+        LEFT JOIN sys_dept d
+        ON u.dept_id= d.dept_id
+        <where>
+            <if test="deptIds != null and deptIds != ''">
+                AND u.dept_id IN (${deptIds})
+            </if>
+            <if test="userId !=null and userId != ''">
+                AND u.user_id = #{userId}
+            </if>
+            <if test="username !=null and username != ''">
+                AND u.username LIKE CONCAT('%',#{username},'%')
+            </if>
+            <if test="name !=null and name != ''">
+                AND u.name LIKE CONCAT('%',#{name},'%')
+            </if>
+            <if test="userClassify != null and userClassify != ''">
+                AND u.user_classify = #{userClassify}
+            </if>
+            <if test="status != null">
+                AND u.status = #{status}
+            </if>
+        </where>
+        ) as a
+        <where>
+            <if test="null != roleIdList">
+                <foreach collection="roleIdList" index="index" item="item" open="(" separator="and" close=")">
+                    a.roleIds LIKE CONCAT('%',#{item},'%')
+                </foreach>
+            </if>
+        </where>
+        order by a.userId desc
+    </select>
+
+    <insert id="insertBatchUser" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="userId">
+        INSERT INTO sys_user
+        (username,name,password,dept_id,email,mobile,user_classify,status,user_id_create,gmt_create)
+        VALUES
+        <foreach collection="list" index="index" item="user" separator=",">
+            (
+            #{user.username},
+            #{user.name},
+            #{user.password},
+            #{user.deptId},
+            #{user.email},
+            #{user.mobile},
+            #{user.userClassify},
+            #{user.status},
+            #{user.userIdCreate},
+            #{user.gmtCreate}
+            )
+        </foreach>
+    </insert>
+
+    <!--获取经营者id-->
+    <select id="selectDealerId" parameterType="string" resultType="long">
+        SELECT user_id FROM sys_user WHERE name = #{dealerName}
+
+    </select>
+
+    <select id="selectUserId" resultType="long">
+        SELECT user_id FROM sys_user
+    </select>
+
+
+    <select id="isExistAppointRole" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM sys_user u
+        INNER JOIN sys_user_role m ON u.user_id = m.user_id
+        INNER JOIN sys_role r ON m.role_id = r.role_id
+        WHERE u.user_id = #{userId}
+        AND r.role_sign = #{roleSign}
+    </select>
+
+
+    <select id="getUserByUsername" resultMap="BaseResultMap">
+        SELECT
+            su.*,
+            sr.*,
+            sm.*,
+            sp.*,
+            su.we_chat_open_id IS NULL AS weChatOpenId,
+            su.qq_open_id IS NULL AS qqOpenId,
+            su.dingtalk_open_id IS NULL AS dingtalkOpenId,
+            su.alipay_open_id IS NULL AS alipayOpenId
+        FROM
+            `sys_user` su
+            LEFT JOIN sys_user_role sur ON su.user_id = sur.user_id
+            LEFT JOIN sys_role sr ON sr.role_id = sur.role_id
+            LEFT JOIN sys_role_menu srm ON sr.role_id = srm.role_id
+            LEFT JOIN sys_menu sm ON sm.menu_id = srm.menu_id
+            LEFT JOIN  sys_role_permission srp ON srp.role_id=sr.role_id
+            LEFT JOIN sys_permission sp ON sp.permission_id=srp.permission_id
+        WHERE
+            su.username = #{userName} group by role_id , srp.permission_id,sm.menu_id
+    </select>
+
+</mapper>

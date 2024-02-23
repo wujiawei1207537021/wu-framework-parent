@@ -1,0 +1,116 @@
+server:
+  port: 8080
+  tomcat:
+    max-http-post-size: -1
+  undertow:
+    max-http-post-size: -1B
+  max-http-header-size: 10240000
+
+#官方配置
+spring:
+  #数据库配置
+  datasource:
+    username: root
+    password: yuntsoft
+    type: com.zaxxer.hikari.HikariDataSource
+    #    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/cloud_iot1?useUnicode=true&characterEncoding=utf-8&useSSL=true&allowMultiQueries=true&serverTimezone=Asia/Shanghai
+    platform: h2
+    continue-on-error: true
+    druid:
+      stat-view-servlet:
+        login-username: yuntsoft
+        login-password: yuntsoft
+        reset-enable: false
+        url-pattern: /druid/*
+      filter:
+        wall:
+          config:
+            #            允许双const条件 1=1
+            select-where-alway-true-check: false
+            comment-allow: true
+      aop-patterns: com.*.*.controller.*.*
+  transaction:
+    rollback-on-commit-failure: true
+  h2:
+    console:
+      path: /console
+      enabled: true
+  #热启动
+  devtools:
+    restart:
+      enabled: false
+  #时间数据格式化
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  #项目字符集
+  http:
+    encoding:
+      charset: utf-8
+      enabled: true
+      force: true
+  #redis配置
+  redis:
+    host: www.yuntsoft.com
+    database: 0
+    port: 7379
+    jedis:
+      pool:
+        max-idle: 8
+        min-idle: 0
+        max-active: 100
+        max-wait: -1
+      timeout: 3000
+  main:
+    allow-bean-definition-overriding: true
+  #应用名称
+  application:
+    name: system-base
+    #    version: '@project.version@'
+    accesspath: ${fdfs.file.accesspath}
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+#mybatis-plus配置
+mybatis-plus:
+  configuration:
+    cache-enabled: false
+    default-executor-type: reuse
+    default-statement-timeout: 50000
+    map-underscore-to-camel-case: true
+  typeAliasesPackage: com.wuframework.system.common.entity.mybatis
+  mapper-locations: classpath*:mapper/*Mapper.xml
+  global-config:
+    db-config:
+      logic-not-delete-value: 1
+      field-strategy: not_empty
+      db-type: h2
+      logic-delete-value: 0
+      column-underline: true
+      id-type: id_worker
+    refresh: true
+
+#fastdfs配置
+fdfs:
+  connectTimeout: 600
+  file:
+    accesspath: http://www.yuntsoft.com:7389/
+  pool:
+    max-total: 100
+    max-wait-millis: 100
+  soTimeout: 1500
+  tracker-list: www.yuntsoft.com:22122
+
+#pom版本号
+#version: '@project.version@'
+
+
+
+
+
+
+

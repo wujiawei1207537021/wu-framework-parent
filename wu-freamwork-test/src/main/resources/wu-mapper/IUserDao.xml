@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapper namespace="com.wu.framework.inner.database.test.dao.IUserDao">
+    <!--配置查询所有-->
+    <select id="findAll" resultType="com.wu.framework.inner.database.test.pojo.DataBaseUser">
+        select id,username from user
+    </select>
+    <select id="selectAll" resultType="com.wu.framework.inner.database.test.pojo.DataBaseUser">
+        select * from user
+    </select>
+
+    <delete id="delete" resultType="com.wu.framework.inner.database.test.pojo.DataBaseUser">
+        delete from user
+    </delete>
+</mapper>
