@@ -1,0 +1,14 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.wu.framework.inner.layer.web.aop.MonitorCurrentMethodAdvisor,\
+com.wu.framework.inner.layer.web.aop.MonitorCurrentMethodAdvisor$MonitorCurrentMethodInterceptor,\
+com.wu.framework.inner.layer.stereotype.proxy.LayerInvocationHandlerConfig,\
+com.wu.framework.inner.layer.data.dictionary.config.ConvertAutoConfigure,\
+com.wu.framework.inner.layer.stereotype.analyze.LayerAnalyzeAdapter,\
+com.wu.framework.inner.layer.stereotype.proxy.DefaultProxyMethodInvocationHandler,\
+com.wu.framework.inner.layer.data.limit.config.LayerEnableAutoLimitConfiguration,\
+com.wu.framework.inner.layer.data.lock.config.LayerEnableAutoLockConfiguration,\
+com.wu.framework.inner.layer.util.SpringContextHolder,\
+com.wu.framework.inner.layer.data.encryption.config.EncryptionDecryptionAutoConfig,\
+com.wu.framework.inner.layer.data.encryption.config.EncryptionDecryptionConvertAutoConfig,\
+com.wu.framework.inner.layer.data.translation.config.TranslationAutoConfigure

@@ -1,0 +1,193 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: common-cnf
+  namespace: wujiawei
+data:
+  # JAVA程序运行时区
+  TZ: Asia/Shanghai
+  management.endpoint.health.show-details: ALWAYS
+  management.endpoints.web.exposure.include: '*'
+  # 数据库
+  MAIN_DB_HOST: 'cloud-mysql:3306'
+  spring.datasource.dynamic.p6spy: 'false' #关闭数据库spy日志防止磁盘占用过大
+  spring.datasource.dynamic.hikari.max-lifetime: '60000'  # 链接超时问题修改
+  # 项目JAVA程序默认JVM参数，正式环境需要删除或修改为合适的内存参数
+  JAVA_OPTS: '-Xmx256m'
+  # 启用的配置
+  spring.profiles.active: prod
+  # 注册中心地址
+  spring.cloud.nacos.discovery.server-addr: 'http://cloud-nacos:8848'
+  spring.cloud.nacos.discovery.namespace: 'namespace'
+  spring.cloud.nacos.discovery.register-enable: 'true'
+  spring.cloud.nacos.config.server-addr: 'http://cloud-nacos:8848'
+  spring.cloud.nacos.config.namespace: 'namespace'
+  spring.cloud.sentinel.eager: 'true'
+  spring.cloud.sentinel.transport.client-ip: cloud-sentinel
+  spring.cloud.sentinel.transport.dashboard: 'cloud-sentinel:8858'
+  spring.cloud.sentinel.transport.port: '8719'
+  # redis地址
+  spring.data.redis.host: cloud-redis
+  spring.data.redis.port: '6379'
+  spring.data.redis.password: 'root'
+  # 链路追踪地址与采样率
+  spring.zipkin.base-url: 'http://monitor-zipkin:9411/'
+  spring.sleuth.sampler.probability: '0.1'
+  spring.sleuth.scheduled.enabled: 'false'
+  spring.sleuth.messaging.kafka.enabled: 'false'
+  spring.sleuth.redis.enabled: 'false'
+  # xxl-job-admin地址
+  spring.xxl.job.admin-addresses: 'http://cloud-xxl-job-admin:8080/xxl-job-admin'
+  #  http 请求文件上传大小不限制
+  server.tomcat.max-http-post-size: '-1'
+  spring.main.allow-bean-definition-overriding: 'true'
+  # jvm-prometheus监控
+  management.metrics.tags.application: ${spring.application.name}
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-cnf
+  namespace: wujiawei
+data:
+  cnf: >-
+    [mysqld]
+
+    skip-host-cache
+
+    skip-name-resolve
+
+    max_connections=1000
+
+    lower_case_table_names=0
+
+    default-time-zone='+08:00'
+
+    sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION'
+
+    log_timestamps='SYSTEM'
+
+    slow_query_log=ON
+
+    innodb_buffer_pool_size=16G
+
+    expire_logs_days = 2
+
+    innodb_flush_log_at_trx_commit=2
+
+    innodb_read_io_threads=8
+
+    innodb_write_io_threads=8
+
+    group_concat_max_len=102400
+
+---
+apiVersion: v1
+data:
+  default-conf: |-
+    server {
+    listen       80;
+    server_name  localhost;
+    client_max_body_size 200M;
+
+    #charset koi8-r;
+    #access_log  /var/log/nginx/log/host.access.log  main;
+    location ^~/ {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+    }
+                  #platform
+              location ^~/platform {
+              root   /usr/share/nginx/html;
+              index  index.html index.htm;
+              try_files $uri $uri/ /platform/index.html;
+            }
+    # 网关
+     location /gateway/ {
+        proxy_pass http://cloud-gateway:7777/;
+       proxy_set_header Host $host:30500;
+     }
+
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }}
+  nginx-conf: |-
+    user  nginx;
+    worker_processes  1;
+
+    error_log  /var/log/nginx/error.log warn;
+    pid        /var/run/nginx.pid;
+
+
+    events {
+        worker_connections  1024;
+    }
+
+
+    http {
+        include       /etc/nginx/mime.types;
+        default_type  application/octet-stream;
+
+        log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                          '$status $body_bytes_sent "$http_referer" '
+                          '"$http_user_agent" "$http_x_forwarded_for"';
+
+        access_log  /var/log/nginx/access.log  main;
+
+        sendfile        on;
+        #tcp_nopush     on;
+
+        keepalive_timeout  65;
+
+        #gzip  on;
+
+        underscores_in_headers on;
+
+        include /etc/nginx/conf.d/*.conf;
+    }
+kind: ConfigMap
+metadata:
+  annotations: { }
+  labels: { }
+  name: nginx-cnf
+  namespace: wujiawei
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: storm-cnf
+  namespace: wujiawei
+data:
+  storm-yaml: |-
+    storm.zookeeper.servers:
+         - "cloud-zookeeper"
+    nimbus.seeds: ["cloud-storm-nimbus"]
+    storm.log.dir: "/logs"
+    storm.local.dir: "/data"
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: redis-cnf
+  namespace: wujiawei
+data:
+  init.sh: |-
+    #!/bin/sh
+    echo 511 > /proc/sys/net/core/somaxconn
+    mount -o rw,remount /sys
+    echo never > /sys/kernel/mm/transparent_hugepage/enabled
+    exec "$@"
+  redis.conf: |-
+    appendonly yes
+    protected-mode no
+    dir /data
+    port 6379
+    requirepass root
+

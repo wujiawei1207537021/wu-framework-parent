@@ -1,0 +1,4 @@
+com.wu.framework.easy.excel.web.ExcelResponseHandler
+com.wu.framework.easy.excel.web.EasyFileResponseHandler
+com.wu.framework.easy.excel.web.ExcelConfig
+com.wu.framework.easy.excel.web.RequestExcelBodyMethodArgumentResolver

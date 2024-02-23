@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>wu-easy-upsert-sink-parent</artifactId>
+        <groupId>top.wu2020</groupId>
+        <version>1.2.2-JDK17-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>wu-easy-upsert-redisearch-sink</artifactId>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-easy-upsert-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-redis-lazy-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-layer-stereotype</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.redislabs</groupId>
+            <artifactId>jredisearch</artifactId>
+            <version>1.8.1</version>
+        </dependency>
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-easy-upsert-spring-boot-autoconfigure</artifactId>
+        </dependency>
+
+    </dependencies>
+</project>

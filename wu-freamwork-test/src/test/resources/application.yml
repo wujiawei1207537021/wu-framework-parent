@@ -1,0 +1,49 @@
+https:
+  authorization:
+    password: gps@zdzk
+    platform-name: 测试https接口
+    username: gps_zdzk
+server:
+  port: 2018
+
+spring:
+  profiles:
+    active: temp
+  wu:
+    authorization:
+      verification: session
+      un-check-api-path:
+        "/public/**"
+    http:
+      http-proxy-type: fixed
+      proxy: 192.168.1.22
+      port: 50
+  hbase:
+  #    zookeeperQuorum: 'k8s.wu-framework.com:2181'
+  #  redis:
+  #    getHost: k8s.wu-framework.com
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+
+
+  easy:
+    upsert:
+      config:
+        batch-limit: 10000
+  lazy:
+    printf-query: on
+    fill-ignored-fields:
+      - id
+      - create_time
+    enable-reverse-engineering: false
+    enable-auto-schema: true
+#    reverse-engineering:
+#      enable-lazy: false
+#      enable-lombok-accessors: false
+#      enable-lombok-data: false
+#      #      package-name: com.wu.lazy
+#      enable-swagger: false
+
+

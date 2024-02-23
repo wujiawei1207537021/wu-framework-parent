@@ -1,0 +1,10 @@
+server:
+  port: 18080
+
+spring:
+  profiles:
+    active: mysql,seata,lazy,authorization,heartbeat,druid
+  servlet:
+    multipart:
+      max-file-size: 1024MB
+      max-request-size: 1024MB

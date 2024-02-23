@@ -1,0 +1,4 @@
+spring:
+  hbase:
+    #    zookeeper-quorum: "zookeeper1:2181,zookeeper2:2181"
+    zookeeper-quorum: "hbase-master:2181"

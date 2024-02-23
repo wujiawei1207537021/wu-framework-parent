@@ -1,0 +1,80 @@
+version: '3'
+services:
+  mysql:
+    image: mysql
+    restart: always
+    networks:
+      - mysql_net
+    container_name: mysql_master
+    environment:
+      MYSQL_ROOT_PASSWORD: wujiawei
+      MYSQL_DATABASE: sqle
+    command:
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+      --explicit_defaults_for_timestamp=true
+      --lower_case_table_names=1
+      --max_allowed_packet=128M;
+    ports:
+      - "13306:3306"
+  #    volumes:
+  #      - /root/docker-compose-service/mysql/data:/var/lib/mysql
+  #      - /root/docker-compose-service/mysql/conf.d:/etc/mysql/conf.d
+  #      - /etc/localtime:/etc/localtime:ro
+  sqle-server:
+    image: actiontech/sqle-ce:latest
+    container_name: sqle-server
+    networks:
+      - mysql_net
+    hostname: sqle-server
+    privileged: true
+    stdin_open: true
+    tty: true
+    restart: always
+    security_opt:
+      - seccomp:unconfined
+    ports:
+      - "10000:10000"
+    environment:
+      - MYSQL_HOST=mysql_master
+      - MYSQL_PORT=3306
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=wujiawei
+      - MYSQL_SCHEMA=sqle
+    depends_on:
+      - mysql
+    command: bash -c "sleep 10 && /opt/start.sh"
+
+  #    账号密码 admin/admin
+
+  yearning:
+    image: aeert/yearning:2.2.2
+    container_name: yearning
+    restart: always
+    ports:
+      - "8000:8000"
+    networks:
+      - mysql_net
+    environment:
+      - MYSQL_ADDR=mysql_master:3306
+      - MYSQL_DB=yearning
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=wujiawei
+    depends_on:
+      - mysql
+
+  #      账号：admin
+  #      密码：Yearning_admin
+
+  soar-web:
+    image: becivells/soar-web
+    container_name: soar-web
+    ports:
+      - "5077:5077"
+    restart: always
+
+
+networks:
+  mysql_net:
+    driver: bridge

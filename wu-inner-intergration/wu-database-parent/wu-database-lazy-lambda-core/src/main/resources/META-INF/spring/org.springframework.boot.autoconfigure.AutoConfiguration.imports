@@ -1,0 +1,6 @@
+com.wu.framework.inner.lazy.database.other.config.mapper.SimpleCustomDatabaseConfiguration
+com.wu.framework.inner.lazy.database.other.config.mapper.DatabaseMapperConfiguration
+com.wu.framework.inner.lazy.database.expand.database.persistence.stream.config.LazyDataBaseStreamConfig
+com.wu.framework.inner.lazy.database.dynamic.config.LazyDynamicBeanConfig
+
+

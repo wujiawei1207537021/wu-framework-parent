@@ -1,0 +1,5 @@
+#hbase配置，端口默认2181，
+hbase:
+  conf:
+  confMaps:
+    hbase-zookeeper-quorum: '127.0.0.1:2181,k8s.wu-framework.com:2181'

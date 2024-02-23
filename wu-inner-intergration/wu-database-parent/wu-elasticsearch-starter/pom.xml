@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>wu-database-parent</artifactId>
+        <groupId>top.wu2020</groupId>
+        <version>1.2.2-JDK17-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>wu-elasticsearch-starter</artifactId>
+
+
+    <dependencies>
+        <!--webclient-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+
+        <!--    层模块    -->
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-layer-stereotype</artifactId>
+        </dependency>
+        <!--    整理完EasyHashMap后需要删除此处依赖    -->
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-database-layer-stereotype</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-database-lazy-spring-boot-autoconfigure</artifactId>
+        </dependency>
+
+    </dependencies>
+
+</project>

@@ -1,0 +1,2 @@
+com.wu.framework.easy.redis.listener.EasyRedisListenerAnnotationBeanPostProcessor
+com.wu.framework.easy.redis.listener.config.JedisConfig

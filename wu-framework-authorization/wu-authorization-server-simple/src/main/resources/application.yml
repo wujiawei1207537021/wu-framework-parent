@@ -1,0 +1,17 @@
+server:
+  port: 12018
+
+spring:
+  profiles:
+    active: dev
+  lazy:
+    authorization:
+      verification: session
+      un-check-api-path:
+        "/public/**"
+
+
+
+
+
+

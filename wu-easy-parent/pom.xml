@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>wu-framework-parent</artifactId>
+        <groupId>top.wu2020</groupId>
+        <version>1.2.2-JDK17-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>wu-easy-parent</artifactId>
+    <packaging>pom</packaging>
+    <properties>
+        <wu-easy-upsert-spring-boot-autoconfigure.version>${project.version}
+        </wu-easy-upsert-spring-boot-autoconfigure.version>
+        <wu-easy-listener-spring-boot-autoconfigure.version>${project.version}
+        </wu-easy-listener-spring-boot-autoconfigure.version>
+        <wu-easy-listener-core.version>${project.version}
+        </wu-easy-listener-core.version>
+    </properties>
+    <modules>
+        <module>wu-easy-temple</module>
+        <module>wu-easy-kafka-connect</module>
+        <module>wu-easy-excel-starter</module>
+        <module>wu-easy-upsert-sink-parent</module>
+        <module>wu-easy-listener-parent</module>
+    </modules>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-easy-upsert-spring-boot-autoconfigure</artifactId>
+                <version>${wu-easy-upsert-spring-boot-autoconfigure.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-easy-listener-spring-boot-autoconfigure</artifactId>
+                <version>${wu-easy-listener-spring-boot-autoconfigure.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-easy-listener-core</artifactId>
+                <version>${wu-easy-listener-core.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+</project>

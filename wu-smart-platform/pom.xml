@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>wu-framework-parent</artifactId>
+        <groupId>top.wu2020</groupId>
+        <version>1.2.2-JDK17-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>wu-smart-platform</artifactId>
+    <packaging>pom</packaging>
+
+
+    <modules>
+        <module>wu-authorization-server-platform-starter</module>
+        <module>wu-upsert-server-platform-starter</module>
+        <module>wu-data-relay-server-platform-starter</module>
+        <module>wu-play-server-platform-starter</module>
+        <module>wu-log-server-platform-starter</module>
+        <module>wu-sql-audit-server-platform-starter</module>
+        <module>wu-doc-server-platform-starter</module>
+        <module>wu-jvm-server-platform-starter</module>
+        <module>wu-dynamic-iframe-platform-starter</module>
+        <module>wu-ssh-server-platform-starter</module>
+        <module>wu-automation-server-platform-starter</module>
+        <module>wu-tts-server-platform-starter</module>
+    </modules>
+
+
+</project>

@@ -1,0 +1,18 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wu.framework.inner.lazy.example.domain.infrastructure.mapper.InterfaceReleaseMapper">
+<resultMap id="BaseResultMap" type="com.wu.framework.inner.lazy.example.domain.infrastructure.entity.InterfaceReleaseDO">
+<result column="pub_api_id" property="pubApiId" />
+<result column="pub_id" property="pubId" />
+<result column="pub_method" property="pubMethod" />
+<result column="pub_path" property="pubPath" />
+<result column="pub_release_time" property="pubReleaseTime" />
+<result column="pub_sample" property="pubSample" />
+<result column="pub_schema" property="pubSchema" />
+<result column="pub_script" property="pubScript" />
+<result column="pub_script_ori" property="pubScriptOri" />
+<result column="pub_status" property="pubStatus" />
+<result column="pub_type" property="pubType" />
+</resultMap>
+</mapper>

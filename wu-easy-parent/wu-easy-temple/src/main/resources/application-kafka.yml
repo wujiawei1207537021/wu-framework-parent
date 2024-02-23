@@ -1,0 +1,7 @@
+spring:
+  easy:
+    upsert:
+      property:
+        kafka-properties:
+          #          bootstrap-servers: cloud-kafka:9092
+          bootstrap-servers: 127.0.0.1:9092

@@ -1,0 +1,10 @@
+#hbase配置，端口默认2181，
+
+spring:
+  hbase:
+    zookeeper-quorum: 'k8s.wu-framework.com:2181'
+
+
+server:
+  port: 201
+

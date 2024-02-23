@@ -1,0 +1,18 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wu.framework.inner.lazy.example.domain.infrastructure.mapper.InterfaceInfoMapper">
+<resultMap id="BaseResultMap" type="com.wu.framework.inner.lazy.example.domain.infrastructure.entity.InterfaceInfoDO">
+<result column="api_comment" property="apiComment" />
+<result column="api_create_time" property="apiCreateTime" />
+<result column="api_gmt_time" property="apiGmtTime" />
+<result column="api_id" property="apiId" />
+<result column="api_method" property="apiMethod" />
+<result column="api_path" property="apiPath" />
+<result column="api_sample" property="apiSample" />
+<result column="api_schema" property="apiSchema" />
+<result column="api_script" property="apiScript" />
+<result column="api_status" property="apiStatus" />
+<result column="api_type" property="apiType" />
+</resultMap>
+</mapper>

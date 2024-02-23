@@ -1,0 +1,160 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  annotations:
+    k8s.eip.work/displayName: ewomail
+    k8s.eip.work/ingress: 'false'
+    k8s.eip.work/service: ClusterIP
+    k8s.eip.work/workload: ewomail
+    k8s.kuboard.cn/displayName: ewomail
+  labels:
+    k8s.eip.work/layer: cloud
+    k8s.eip.work/name: ewomail
+    k8s.kuboard.cn/layer: svc
+    k8s.kuboard.cn/name: ewomail
+  name: ewomail
+  namespace: normal-system
+  resourceVersion: '4324788'
+spec:
+  podManagementPolicy: OrderedReady
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      k8s.eip.work/layer: cloud
+      k8s.eip.work/name: ewomail
+  serviceName: cloud-ewomail
+  template:
+    metadata:
+      labels:
+        k8s.eip.work/layer: cloud
+        k8s.eip.work/name: ewomail
+    spec:
+      containers:
+        - image: 'bestwu/ewomail:latest'
+          imagePullPolicy: Always
+          name: ewomail
+          resources: { }
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /ewomail
+              name: ewomail-data
+            - mountPath: /etc/ssl
+              name: ewomail-data
+              subPath: ssl
+            - mountPath: /etc/localtime
+              name: tz
+      dnsPolicy: ClusterFirst
+      hostAliases:
+        - hostnames:
+            - mail.wujiawei.com
+          ip: 127.0.0.1
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: { }
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - hostPath:
+            path: /usr/share/zoneinfo/Asia/Shanghai
+            type: File
+          name: tz
+  updateStrategy:
+    rollingUpdate:
+      partition: 0
+    type: RollingUpdate
+  volumeClaimTemplates:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        annotations:
+          k8s.eip.work/pvcType: Dynamic
+        name: ewomail-data
+      spec:
+        accessModes:
+          - ReadWriteMany
+        resources:
+          requests:
+            storage: 5Gi
+        storageClassName: nfs1-storage
+        volumeMode: Filesystem
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations: { }
+  labels:
+    k8s.eip.work/layer: cloud
+    k8s.eip.work/name: ewomail
+    k8s.kuboard.cn/layer: svc
+    k8s.kuboard.cn/name: ewomail
+  name: ewomail
+  namespace: normal-system
+spec:
+  clusterIP: 10.96.126.51
+  clusterIPs:
+    - 10.96.126.51
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+    - name: kasdz8
+      nodePort: 30488
+      port: 25
+      protocol: TCP
+      targetPort: 25
+    - name: r68hpd
+      nodePort: 32410
+      port: 109
+      protocol: TCP
+      targetPort: 109
+    - name: pksrzd
+      nodePort: 32756
+      port: 110
+      protocol: TCP
+      targetPort: 110
+    - name: nkfnbw
+      nodePort: 30154
+      port: 143
+      protocol: TCP
+      targetPort: 143
+    - name: thm5fc
+      nodePort: 31966
+      port: 465
+      protocol: TCP
+      targetPort: 465
+    - name: qkyt74
+      nodePort: 31611
+      port: 587
+      protocol: TCP
+      targetPort: 587
+    - name: qxf5hj
+      nodePort: 31393
+      port: 993
+      protocol: TCP
+      targetPort: 993
+    - name: wncj77
+      nodePort: 31558
+      port: 995
+      protocol: TCP
+      targetPort: 995
+    - name: znfa2n
+      nodePort: 32636
+      port: 80
+      protocol: TCP
+      targetPort: 80
+    - name: fdqsh6
+      nodePort: 31993
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    k8s.eip.work/layer: cloud
+    k8s.eip.work/name: ewomail
+  sessionAffinity: None
+  type: NodePort
+

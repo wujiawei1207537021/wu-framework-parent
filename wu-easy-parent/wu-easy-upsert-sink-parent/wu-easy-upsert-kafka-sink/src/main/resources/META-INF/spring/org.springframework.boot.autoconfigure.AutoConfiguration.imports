@@ -1,0 +1,2 @@
+com.wu.framework.easy.upsert.sink.KafkaEasyUpsertSink
+com.wu.framework.easy.upsert.sink.EasyUpsertExtractKafkaProducer

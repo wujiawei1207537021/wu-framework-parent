@@ -1,0 +1,110 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  annotations:
+    k8s.eip.work/displayName: 禅道
+    k8s.eip.work/ingress: 'false'
+    k8s.eip.work/service: ClusterIP
+    k8s.eip.work/workload: zentao
+  labels:
+    k8s.eip.work/layer: cloud
+    k8s.eip.work/name: zentao
+    k8s.kuboard.cn/name: zentao
+  name: zentao
+  namespace: normal-system
+spec:
+  podManagementPolicy: OrderedReady
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      k8s.eip.work/layer: cloud
+      k8s.eip.work/name: zentao
+  serviceName: cloud-zentao
+  template:
+    metadata:
+      labels:
+        k8s.eip.work/layer: cloud
+        k8s.eip.work/name: zentao
+    spec:
+      containers:
+        - env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: '123456'
+          image: 'easysoft/zentao:max3.8'
+          imagePullPolicy: IfNotPresent
+          name: zentao
+          resources: { }
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /www/zentaopms
+              name: zentao-data
+            - mountPath: /var/lib/mysql
+              name: zentao-mysql-data
+            - mountPath: /etc/localtime
+              name: tz
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: { }
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - hostPath:
+            path: /usr/share/zoneinfo/Asia/Shanghai
+            type: File
+          name: tz
+  updateStrategy:
+    rollingUpdate:
+      partition: 0
+    type: RollingUpdate
+  volumeClaimTemplates:
+    - metadata:
+        annotations:
+          k8s.eip.work/pvcType: Dynamic
+        name: zentao-data
+      spec:
+        accessModes:
+          - ReadWriteMany
+        resources:
+          requests:
+            storage: 5Gi
+        storageClassName: nfs1-storage
+    - metadata:
+        name: zentao-mysql-data
+        annotations:
+          k8s.eip.work/pvcType: Dynamic
+      spec:
+        accessModes:
+          - ReadWriteMany
+        resources:
+          requests:
+            storage: 5Gi
+        storageClassName: nfs1-storage
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations: { }
+  labels:
+    k8s.eip.work/layer: cloud
+    k8s.eip.work/name: zentao
+    k8s.kuboard.cn/name: zentao
+  name: zentao
+  namespace: normal-system
+spec:
+  ipFamilyPolicy: SingleStack
+  ports:
+    - name: bcmdmj
+      port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    k8s.eip.work/layer: cloud
+    k8s.eip.work/name: zentao
+  sessionAffinity: None
+  type: ClusterIP
+

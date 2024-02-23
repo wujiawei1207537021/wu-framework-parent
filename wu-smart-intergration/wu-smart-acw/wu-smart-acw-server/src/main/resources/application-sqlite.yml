@@ -1,0 +1,9 @@
+server:
+  port: 18080
+
+spring:
+  datasource:
+    url: jdbc:sqlite::resource:dbs/sqlite.db
+    driver-class-name: org.sqlite.JDBC
+
+

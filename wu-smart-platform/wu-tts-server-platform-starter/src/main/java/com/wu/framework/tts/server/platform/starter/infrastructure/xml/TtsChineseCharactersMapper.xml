@@ -1,0 +1,24 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wu.framework.tts.server.platform.starter.infrastructure.mapper.TtsChineseCharactersMapper">
+<resultMap id="BaseResultMap" type="com.wu.framework.tts.server.platform.starter.infrastructure.entity.TtsChineseCharactersDO">
+<result column="pin_yin" property="pinYin" />
+<result column="voice" property="voice" />
+<result column="strokes" property="strokes" />
+<result column="radicals" property="radicals" />
+<result column="more" property="more" />
+<result column="old_word" property="oldWord" />
+<result column="explanation" property="explanation" />
+<result column="word" property="word" />
+<id column="id" property="id" />
+<result column="is_deleted" property="isDeleted" />
+<result column="create_time" property="createTime" />
+<result column="update_time" property="updateTime" />
+<result column="pinYin" property="pinYin" />
+<result column="isDeleted" property="isDeleted" />
+<result column="createTime" property="createTime" />
+<result column="oldWord" property="oldWord" />
+<result column="updateTime" property="updateTime" />
+</resultMap>
+</mapper>

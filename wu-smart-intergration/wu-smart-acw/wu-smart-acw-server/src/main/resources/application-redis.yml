@@ -1,0 +1,12 @@
+
+
+spring:
+  data:
+    redis:
+      alias: master
+      host: localhost
+      port: 6379
+
+
+
+

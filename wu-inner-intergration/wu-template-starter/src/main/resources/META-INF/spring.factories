@@ -1,0 +1,6 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.wu.framework.inner.template.https.HttpsRestTemplate,\
+com.wu.framework.inner.template.https.config.HttpsAuthorization,\
+com.wu.framework.inner.template.https.factory.HttpsClientRequestFactory,\
+com.wu.framework.inner.template.proxy.http.config.ProxyHttpConfig

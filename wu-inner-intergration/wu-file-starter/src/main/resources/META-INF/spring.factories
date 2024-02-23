@@ -1,0 +1,10 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.wu.framework.inner.file.wrapper.WuFastDFSClientWrapper,\
+com.wu.framework.inner.file.wrapper.WuDevWuFastDFSClientWrapper,\
+com.wu.framework.inner.file.wrapper.config.QiNiuAuthProperties,\
+com.wu.framework.inner.file.wrapper.config.dev.DevTrackerConnectionManager,\
+com.wu.framework.inner.file.wrapper.config.dev.WuDevFdfsFileProperties,\
+com.wu.framework.inner.file.wrapper.config.WuFdfsFileProperties,\
+com.wu.framework.inner.file.wrapper.QiNiuAuthWrapper,\
+com.wu.framework.inner.file.wrapper.config.WuFileProperties

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>wu-smart-acw</artifactId>
+        <groupId>top.wu2020</groupId>
+        <version>1.2.2-JDK17-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>wu-smart-acw-core</artifactId>
+
+
+    <dependencies>
+
+
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-springdoc-compatible-swagger-plus-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-layer-stereotype</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-database-layer-stereotype</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-database-lazy-spring-boot-autoconfigure</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-framework-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.sundr</groupId>
+            <artifactId>sundr-codegen</artifactId>
+            <version>0.22.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-database-lazy-sql-core</artifactId>
+        </dependency>
+
+
+    </dependencies>
+
+</project>

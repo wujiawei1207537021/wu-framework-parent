@@ -1,0 +1,11 @@
+spring:
+  acw:
+    server-url: http://127.0.0.1:18080
+    client-id: client-simple
+  lazy:
+    netty:
+      inet-host: ${ACW_HOST:124.222.48.62}
+      inet-port: ${ACW_PORT:31193}
+      client-id: ${ACW_CLIENT_ID:client-simple}
+
+

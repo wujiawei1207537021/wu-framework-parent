@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    special-fields:
+      - ID  # 特殊字段
+    ignore-exported-fields:
+      - name # 忽略导出的字段
+  lazy:
+    printf-query: true # 打印sql
+    ignored-database: # 自动填充忽略的数据库
+      - "mysql"
+      - "information_schema"
+      - "performance_schema"
+      - "sys"
+    fill-ignored-fields: # 自动填充时 填充忽略的字段 自增的、含有默认值、可以为null的字段
+      - id
+    fill-maximum: 10 # 自动填充时 最大条数(触发后使用多线程处理)
+    ddl-auto: perfect # DDL  操作
+    enable-reverse-engineering: true # 允许逆向工程 为true时 ReverseEngineering 有效
+    reverse-engineering:
+      enable-my-batis: true # 逆向工程 允许 mybatis
+      enable-lazy: true # 逆向工程 允许lazy
+      enable-swagger: true # 逆向工程 允许swagger
+      enable-lombok-data: true # 逆向工程 允许 lombok.Data
+      enable-lombok-accessors: true #  逆向工程 允许 lombok.Accessors
+      package-name: com.wu.framework.inner.lazy.example # 逆向工程 包名
+      reverse-engineering-mvc:
+        enable-lazy-operation-mvc: true # 允许 基于lazyOperation的mvc项目

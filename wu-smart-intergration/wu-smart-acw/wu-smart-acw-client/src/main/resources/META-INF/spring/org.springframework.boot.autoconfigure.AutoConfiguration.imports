@@ -1,0 +1,3 @@
+com.wu.smart.acw.core.rpc.TranslateRpc
+com.wu.smart.acw.client.nocode.config.NoCodeLazyConfig
+com.wu.smart.acw.client.config.AcwClientEnableAutoConfiguration

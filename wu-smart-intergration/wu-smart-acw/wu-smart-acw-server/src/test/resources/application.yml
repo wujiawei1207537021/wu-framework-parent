@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driver: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/acw_test
+    username: root
+    password: wujiawei
+  lazy:
+    printf-query: on
+    ddl-auto: perfect
+  easy:
+    print-execute-time: on
+
+
+

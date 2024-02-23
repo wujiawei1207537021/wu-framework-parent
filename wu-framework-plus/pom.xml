@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>wu-framework-parent</artifactId>
+        <groupId>top.wu2020</groupId>
+        <version>1.2.2-JDK17-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>wu-framework-plus</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>wu-database-plus</module>
+        <module>wu-database-lazy-plus-starter</module>
+        <module>wu-database-lazy-mybatis-cure-plus-starter</module>
+        <module>wu-database-lazy-table-structure-plus-starter</module>
+        <module>wu-database-lazy-seata-cure-plus-starter</module>
+        <module>wu-springdoc-compatible-swagger-plus-starter</module>
+        <module>wu-spring-online-doc-plus-starter</module>
+    </modules>
+
+
+</project>

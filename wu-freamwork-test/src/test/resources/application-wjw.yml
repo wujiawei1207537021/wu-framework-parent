@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    dynamic:
+      p6spy: true
+      datasource:
+        master:
+    username: root
+    password: wujiawei
+    url: jdbc:mysql://127.0.0.1:3306/temp?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    ignore-exported-fields:
+      - id

@@ -1,0 +1,38 @@
+server:
+  port: 1180
+
+spring:
+  profiles:
+    active: es,temp
+
+  #  elasticsearch:
+  #    rest:
+  #      uris: "http://k8s.wu-framework.com:9200"
+  jpa:
+    show-sql: true
+  activemq:
+    broker-url: 127.0.0.1:6631
+
+  rsocket:
+    server:
+      address: 127.0.0.1
+  application:
+    name: temple
+  easy:
+    upsert:
+      config:
+        print-sql: false
+        batch-limit: 10000
+        record-log: true
+  lazy:
+    printf-query: false
+
+
+
+debug: false
+
+nacos:
+  config:
+    server-addr: easy.com:8848
+    namespace: public
+

@@ -1,0 +1,29 @@
+server:
+  port: 2181
+
+debug: false
+easy:
+  upsert:
+    config:
+      print-sql: true
+      batch-limit: 10000000
+
+spring:
+  #数据库配置
+  datasource:
+    username: root
+    password: wujiawei
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/upsert?useUnicode=true&characterEncoding=utf-8&useSSL=true&allowMultiQueries=true&serverTimezone=Asia/Shanghai
+    continue-on-error: true
+  servlet:
+    multipart:
+      max-request-size: 1GB
+      max-file-size: 200MB
+  lazy:
+    ddl-configure:
+      schema-script:
+        class-path-resources:
+          - sql/chinese_characters.sql
+
+

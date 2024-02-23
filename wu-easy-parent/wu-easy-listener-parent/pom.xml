@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>wu-easy-parent</artifactId>
+        <groupId>top.wu2020</groupId>
+        <version>1.2.2-JDK17-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>wu-easy-listener-parent</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>wu-easy-listener-starter</module>
+        <module>wu-easy-listener-core</module>
+        <module>wu-easy-listener-spring-boot-autoconfigure</module>
+        <module>wu-easy-kafka-listener</module>
+        <module>wu-easy-mysql-listener</module>
+        <module>wu-easy-pulsar-listener</module>
+        <!--        <module>wu-easy-rocketmq-listener</module>-->
+        <module>wu-easy-redis-listener</module>
+        <module>wu-easy-mysql-binlog-listener</module>
+    </modules>
+
+    <properties>
+
+
+        <wu-easy-listener-spring-boot-autoconfigure.version>${project.version}
+        </wu-easy-listener-spring-boot-autoconfigure.version>
+        <wu-easy-listener-core.version>${project.version}</wu-easy-listener-core.version>
+
+        <wu-easy-kafka-listener.version>${project.version}</wu-easy-kafka-listener.version>
+        <wu-easy-mysql-listener.version>${project.version}</wu-easy-mysql-listener.version>
+        <wu-easy-pulsar-listener.version>${project.version}</wu-easy-pulsar-listener.version>
+        <wu-easy-redis-listener.version>${project.version}</wu-easy-redis-listener.version>
+        <wu-easy-mysql-binlog-listener.version>${project.version}</wu-easy-mysql-binlog-listener.version>
+
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-easy-upsert-core</artifactId>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-easy-listener-spring-boot-autoconfigure</artifactId>
+                <version>${wu-easy-listener-spring-boot-autoconfigure.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-easy-listener-core</artifactId>
+                <version>${wu-easy-listener-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-easy-kafka-listener</artifactId>
+                <version>${wu-easy-kafka-listener.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-easy-mysql-listener</artifactId>
+                <version>${wu-easy-mysql-listener.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-easy-pulsar-listener</artifactId>
+                <version>${wu-easy-pulsar-listener.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-easy-redis-listener</artifactId>
+                <version>${wu-easy-redis-listener.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-easy-mysql-binlog-listener</artifactId>
+                <version>${wu-easy-mysql-binlog-listener.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+</project>

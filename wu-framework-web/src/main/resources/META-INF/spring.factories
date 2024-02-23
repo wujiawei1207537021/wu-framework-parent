@@ -1,0 +1,5 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.wu.framework.response.handler.GlobalBaseExceptionHandler,\
+com.wu.framework.request.LazyWebMvcConfigurer,\
+com.wu.framework.config.LazyWebEnableAutoConfiguration
