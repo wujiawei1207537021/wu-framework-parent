@@ -17,8 +17,8 @@ public interface ListenerEndpointRegistrar<Endpoint extends ListenerEndpoint, Fa
     /**
      * 注册 端点
      *
-     * @param endpoint
-     * @param factory
+     * @param endpoint 端点
+     * @param factory  工厂
      */
     void registerEndpoint(Endpoint endpoint, Factory factory);
 

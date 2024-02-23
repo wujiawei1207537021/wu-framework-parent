@@ -1,6 +1,8 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.stream.execute;
 
 
+import com.wu.framework.inner.lazy.database.domain.Page;
+
 import java.util.Collection;
 
 /**
@@ -24,11 +26,21 @@ public interface Execute<T> {
      * describe 收集集合
      *
      * @param
-     * @return
+     * @return Collection<T> 收集集合
      * @author Jia wei Wu
      * @date 2021/8/8 12:04 下午
      **/
     Collection<T> collection();
+
+    /**
+     * describe 分叶
+     *
+     * @param page 分页参数
+     * @return Page<T> 分页结果
+     * @author Jia wei Wu
+     * @date 2022/2/1 15:13
+     **/
+    Page<T> page(Page page);
 
 
     /**

@@ -3,6 +3,7 @@ package com.wu.framework.inner.lazy.database.expand.database.persistence.factory
 import com.wu.framework.inner.layer.data.convert.LayerOperationConvert;
 import com.wu.framework.inner.layer.data.convert.LayerOperationConvertDefault;
 import com.wu.framework.inner.layer.data.convert.LayerOperationConvertEnums;
+import com.wu.framework.inner.layer.data.convert.LayerOperationConvertList;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -13,7 +14,7 @@ import java.util.List;
  */
 public class LazyDataFactory {
 
-    private static List<LayerOperationConvert> layerOperationConvertList = Arrays.asList(new LayerOperationConvertDefault(), new LayerOperationConvertEnums());
+    private static List<LayerOperationConvert> layerOperationConvertList = Arrays.asList(new LayerOperationConvertDefault(), new LayerOperationConvertEnums(), new LayerOperationConvertList());
 
 
     /**

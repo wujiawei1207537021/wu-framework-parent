@@ -77,6 +77,9 @@ public class EasyAnnotationConverter {
      * @date 2020/8/4 下午4:39
      */
     public static Object annotationConvertConversion(Field field, Object fieldVal, Map<String, Map<String, String>> iEnumList) {
+        if (ObjectUtils.isEmpty(iEnumList)) {
+            return fieldVal;
+        }
         LazyTableField lazyTableField = AnnotatedElementUtils.getMergedAnnotation(field, LazyTableField.class);
         // 确认枚举转换
         if (null != lazyTableField && !DefaultIEnum.class.equals(lazyTableField.iEnum()) && lazyTableField.iEnum().isEnum()) {

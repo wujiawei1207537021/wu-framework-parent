@@ -75,6 +75,41 @@ public interface BasicComparison<T, R, V, C extends BasicComparison<T, R, V, C>>
     }
 
     /**
+     * in 查询
+     *
+     * @param condition 判断
+     * @param row       行
+     * @param var       数据
+     * @return
+     */
+    C in(boolean condition, R row, V var);
+
+    /**
+     * in 查询
+     *
+     * @param row 行
+     * @param var 数据
+     * @return
+     */
+    default C in(R row, V var) {
+        return in(true, row, var);
+    }
+
+    /**
+     * 忽略空数据
+     * <p>
+     * in 查询
+     *
+     * @param row 行
+     * @param var 数据
+     * @return
+     */
+    default C inIgnoreEmpty(R row, V var) {
+        return in(!ObjectUtils.isEmpty(var), row, var);
+    }
+
+
+    /**
      * @param
      * @param condition
      * @param row

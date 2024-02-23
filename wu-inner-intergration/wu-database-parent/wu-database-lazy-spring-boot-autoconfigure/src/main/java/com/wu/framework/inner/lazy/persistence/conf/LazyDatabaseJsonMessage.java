@@ -21,4 +21,10 @@ public class LazyDatabaseJsonMessage {
      */
     public static List<String> specialFields = new ArrayList<>();
 
+
+    /**
+     * 本地缓存实体class
+     */
+    public static List<Class<?>> localCacheEntityClass = new ArrayList<>();
+
 }

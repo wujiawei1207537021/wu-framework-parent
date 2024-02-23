@@ -64,8 +64,9 @@ public class LazyTransactionalAOPAdvisor extends AbstractPointcutAdvisor {
         @Override
         public Object invoke(MethodInvocation invocation) throws Throwable {
 
-            final Connection currentConnection = lazyOperationProxy.determineConnection("");
+            final Connection currentConnection = lazyOperationProxy.determineConnection();
             lazyOperationProxy.setTransactional(true);
+            lazyOperationProxy.setCurrentConnection(currentConnection);
             //  开启事物
             final LazyTransactional transactional = determineLazyTransactional(invocation);
             currentConnection.setAutoCommit(false);

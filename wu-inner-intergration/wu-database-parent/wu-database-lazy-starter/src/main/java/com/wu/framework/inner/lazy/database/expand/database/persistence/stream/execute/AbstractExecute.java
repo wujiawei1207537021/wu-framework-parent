@@ -1,5 +1,6 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.stream.execute;
 
+import com.wu.framework.inner.lazy.database.domain.Page;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 
@@ -21,8 +22,9 @@ public abstract class AbstractExecute<T> implements Execute<T> {
 
 
     /**
-     * @param aClass@return describe 返回指定类型的数据
-     *                      收集集合
+     * 返回指定类型的数据 收集集合
+     *
+     * @param aClass
      * @author Jia wei Wu
      * @date 2021/8/8 12:03 下午
      **/
@@ -45,6 +47,20 @@ public abstract class AbstractExecute<T> implements Execute<T> {
     }
 
     /**
+     * describe 分叶
+     *
+     * @param page
+     * @return
+     * @author Jia wei Wu
+     * @date 2022/2/1 15:13
+     */
+    @Override
+    public Page<T> page(Page page) {
+        PersistenceRepository persistenceRepository = persistenceRepository();
+        return lazyOperation.page(page, persistenceRepository.getResultClass(), persistenceRepository.getQueryString());
+    }
+
+    /**
      * @param aClass@return describe 返回指定类型的数据
      *                      收集一个数据
      * @author Jia wei Wu
@@ -54,7 +70,8 @@ public abstract class AbstractExecute<T> implements Execute<T> {
     public T collectOne(Class aClass) {
         PersistenceRepository persistenceRepository = persistenceRepository();
         persistenceRepository.setResultClass(aClass);
-        return (T) lazyOperation.executeOne(persistenceRepository);
+        final Object o = lazyOperation.executeOne(persistenceRepository);
+        return (T) o;
     }
 
     /**
@@ -65,6 +82,7 @@ public abstract class AbstractExecute<T> implements Execute<T> {
      **/
     @Override
     public T collectOne() {
-        return null;
+        PersistenceRepository persistenceRepository = persistenceRepository();
+        return (T) lazyOperation.executeOne(persistenceRepository);
     }
 }

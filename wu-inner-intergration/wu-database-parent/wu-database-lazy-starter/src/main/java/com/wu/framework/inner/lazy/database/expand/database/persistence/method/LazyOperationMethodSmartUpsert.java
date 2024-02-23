@@ -8,11 +8,15 @@ import com.wu.framework.inner.lazy.config.LazyOperationConfig;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.Persistence;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepositoryFactory;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.factory.LazyTableStructureConverterFactory;
 import com.wu.framework.inner.lazy.persistence.analyze.DefaultMySQLDataProcessAnalyze;
 import com.wu.framework.inner.lazy.persistence.conf.ClassLazyTableEndpoint;
 import com.wu.framework.inner.lazy.persistence.conf.FieldLazyTableFieldEndpoint;
+import com.wu.framework.inner.lazy.persistence.conf.LazyDatabaseJsonMessage;
+import com.wu.framework.inner.lazy.persistence.conf.LazyTableStructure;
 import com.wu.framework.inner.lazy.persistence.map.EasyHashMap;
 import com.wu.framework.inner.lazy.persistence.util.LazyTableUtil;
+import com.wu.framework.inner.lazy.persistence.util.MySQLUtil;
 import com.wu.framework.inner.lazy.stereotype.LazyTableField;
 import lombok.SneakyThrows;
 import org.springframework.core.annotation.AnnotatedElementUtils;
@@ -27,8 +31,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
+
+import static com.wu.framework.inner.layer.data.NormalUsedString.BACKTICK;
 
 /**
  * @author : Jia wei Wu
@@ -49,8 +56,10 @@ public class LazyOperationMethodSmartUpsert extends AbstractLazyOperationMethod 
 
 
     /**
-     * @param param
-     * @return description 通过参数获取持久性存储库对象
+     * description 通过参数获取持久性存储库对象
+     *
+     * @param param 反射传过来的对象
+     * @return PersistenceRepository 持久性存储库对象
      * @author Jia wei Wu
      * @date 2021/4/17 3:38 下午
      **/
@@ -58,8 +67,6 @@ public class LazyOperationMethodSmartUpsert extends AbstractLazyOperationMethod 
     public PersistenceRepository analyzePersistenceRepository(Object param) throws IllegalArgumentException {
 
         // TODO EASYHASHMAP
-
-        //
 
         Persistence persistence = smartUpsert(param);
         StringBuffer stringBuffer = new StringBuffer(persistence.getExecutionEnum().getExecution());
@@ -101,7 +108,8 @@ public class LazyOperationMethodSmartUpsert extends AbstractLazyOperationMethod 
                     Collection collection = (Collection) o;
                     for (Object item : collection) {
                         if (!modify.get()) {
-                            perfect(connection, item.getClass());
+                            final LazyTableStructure lazyTableStructure = LazyTableStructureConverterFactory.dataStructure(item);
+                            perfect(connection, lazyTableStructure.schema());
                         }
                         modify.set(true);
                         Object generatedKey = accurateExecution(connection, item);
@@ -109,7 +117,8 @@ public class LazyOperationMethodSmartUpsert extends AbstractLazyOperationMethod 
                     log.warn("使用灵活更新、去除null、创建表 插入的对象数据是时list 消耗性能，建议初始化表后使用upsert方法操作！");
                 } else {
                     if (!modify.get()) {
-                        perfect(connection, o.getClass());
+                        final LazyTableStructure lazyTableStructure = LazyTableStructureConverterFactory.dataStructure(o);
+                        perfect(connection, lazyTableStructure.schema());
                     }
                     modify.set(true);
                     Object generatedKey = accurateExecution(connection, o);
@@ -117,7 +126,8 @@ public class LazyOperationMethodSmartUpsert extends AbstractLazyOperationMethod 
 
             }
         } else {
-            perfect(connection, param.getClass());
+            final LazyTableStructure lazyTableStructure = LazyTableStructureConverterFactory.dataStructure(param);
+            perfect(connection, lazyTableStructure.schema());
             Object generatedKey = accurateExecution(connection, param);
 
         }
@@ -146,18 +156,11 @@ public class LazyOperationMethodSmartUpsert extends AbstractLazyOperationMethod 
         }
 
         try {
-//            if (ObjectUtils.isEmpty(lazyTableFieldEndpoints)) {
-//                preparedStatement.execute();
-//            }else {
-//                // 会创建id自增
-//                preparedStatement.executeUpdate();
-//            }
             preparedStatement.execute();
 
             String generatedKey = "0";
             if (!ObjectUtils.isEmpty(lazyTableFieldEndpoints)) {
                 ResultSet resultSet = preparedStatement.getGeneratedKeys();
-//            final List<EasyHashMap> easyHashMaps = resultSetConverter(resultSet, EasyHashMap.class);
                 if (resultSet.next()) {
                     generatedKey = resultSet.getString(1);
                 }
@@ -209,12 +212,17 @@ public class LazyOperationMethodSmartUpsert extends AbstractLazyOperationMethod 
         if (EasyHashMap.class.isAssignableFrom(aClass)) {
             EasyHashMap easyHashMap = (EasyHashMap) object;
             if (easyHashMap.isModifyUniqueLabel()) {
+                tableName = easyHashMap.getUniqueLabel();
                 easyHashMap.forEach((key, value) -> {
                     if (!ObjectUtils.isEmpty(value)) {
-                        columnList.add(key.toString());
+                        if (LazyDatabaseJsonMessage.specialFields.contains(key.toString().toUpperCase(Locale.ROOT))) {
+                            columnList.add(BACKTICK + key + BACKTICK);
+                        } else {
+                            columnList.add(key.toString());
+                        }
                         final byte[] binary = defaultMySQLDataProcessAnalyze.isBinary(value);
                         if (ObjectUtils.isEmpty(binary)) {
-                            columnValueList.add(value.toString());
+                            columnValueList.add(NormalUsedString.SINGLE_QUOTE + value + NormalUsedString.SINGLE_QUOTE);
                         } else {
                             columnValueList.add(BinHexSwitchUtil.bytesToHexSql(binary));
                         }
@@ -236,11 +244,16 @@ public class LazyOperationMethodSmartUpsert extends AbstractLazyOperationMethod 
                 }
                 String column = ObjectUtils.isEmpty(tableField) || ObjectUtils.isEmpty(tableField.name()) ?
                         CamelAndUnderLineConverter.humpToLine2(declaredField.getName()) : tableField.name();
-                columnList.add(column);
 
-                final byte[] binary = defaultMySQLDataProcessAnalyze.isBinary(o);
+                if (LazyDatabaseJsonMessage.specialFields.contains(column.toUpperCase(Locale.ROOT))) {
+                    columnList.add(BACKTICK + column + BACKTICK);
+                } else {
+                    columnList.add(column);
+                }
+
+                final byte[] binary = MySQLUtil.isBinary(o);
                 if (ObjectUtils.isEmpty(binary)) {
-                    columnValueList.add("'" + o + "'");
+                    columnValueList.add(MySQLUtil.convertValueToMysqlColumnData(o).toString());
                 } else {
                     columnValueList.add(BinHexSwitchUtil.bytesToHexSql(binary));
                 }

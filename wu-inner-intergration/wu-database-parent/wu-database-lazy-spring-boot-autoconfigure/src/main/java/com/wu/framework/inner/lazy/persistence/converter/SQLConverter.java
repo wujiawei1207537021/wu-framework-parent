@@ -222,7 +222,7 @@ public class SQLConverter {
      * @author Jia wei Wu
      * @date 2020/9/17 下午1:21
      */
-    public static <T> String upsertPreparedStatementSQL(Collection collection, Class<T> clazz, Map iEnumList) {
+    public static String upsertPreparedStatementSQL(Collection collection, Class<?> clazz, Map iEnumList) {
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         StringBuilder stringBuilder = new StringBuilder("insert into ");
         List<String> fieldNames = new ArrayList<>();

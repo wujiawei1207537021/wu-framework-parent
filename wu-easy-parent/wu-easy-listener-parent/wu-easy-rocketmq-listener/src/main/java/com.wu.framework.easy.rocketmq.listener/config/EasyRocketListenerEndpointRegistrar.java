@@ -69,8 +69,8 @@ public class EasyRocketListenerEndpointRegistrar implements ListenerEndpointRegi
     /**
      * 注册 端点
      *
-     * @param endpoint
-     * @param factory
+     * @param endpoint 端点
+     * @param factory  工厂
      */
     @Override
     public void registerEndpoint(MethodRocketListenerEndpoint endpoint, RocketConcurrentListenerContainerFactory factory) {

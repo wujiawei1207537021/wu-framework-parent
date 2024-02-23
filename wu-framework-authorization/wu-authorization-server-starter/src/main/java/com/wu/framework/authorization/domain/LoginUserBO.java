@@ -1,6 +1,7 @@
 package com.wu.framework.authorization.domain;
 
 import com.wu.framework.inner.lazy.stereotype.LazyTable;
+import com.wu.framework.inner.lazy.stereotype.LazyTableFieldId;
 import com.wu.framework.inner.lazy.stereotype.LazyTableFieldUnique;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -14,6 +15,8 @@ import lombok.experimental.Accessors;
 @LazyTable(tableName = "sys_user", perfectTable = true)
 public class LoginUserBO {
 
+    @LazyTableFieldId
+    private Long id;
     /**
      * 登录用户
      */

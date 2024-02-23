@@ -13,7 +13,7 @@ import com.wu.framework.inner.lazy.persistence.util.LazyTableUtil;
  * describe :
  * @date : 2021/8/23 8:36 下午
  */
-public class StringBasicComparison<T> extends AbstractBasicComparison<T, Snippet<T, ?>, Object> {
+public class StringBasicComparison<T> extends AbstractBasicComparison<T, String, Object> {
 
     /**
      * @return describe 获取条件集合
@@ -26,15 +26,5 @@ public class StringBasicComparison<T> extends AbstractBasicComparison<T, Snippet
     }
 
 
-    @Override
-    protected String columnToString(Snippet<T, ?> row) {
-        final LambdaMeta meta = SnippetUtil.extract(row);
-        assert meta != null;
-        final Class<?> tClass = meta.instantiatedClass();
-        final String field = CamelAndUnderLineConverter.methodToField(meta.methodName());
-        final String fieldRowName = CamelAndUnderLineConverter.humpToLine2(field);
-        final String tableName = LazyTableUtil.getTableName(tClass);
-        return tableName + NormalUsedString.DOT + fieldRowName;
-    }
 
 }

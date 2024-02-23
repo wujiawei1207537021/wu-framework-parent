@@ -30,6 +30,7 @@ public interface NormalUsedString {
     String WHERE = "where";
     String LIKE = "like";
     String BETWEEN = "between";
+    String IN = "in";
 
     String FALSE = "false";
     String SLASH = "/";

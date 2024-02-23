@@ -4,7 +4,7 @@ server:
 spring:
   profiles:
     active: dev
-  wu:
+  lazy:
     authorization:
       verification: session
       un-check-api-path:

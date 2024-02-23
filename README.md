@@ -11,11 +11,20 @@
         
         gpg --keyserver hkp://209.244.105.201 --send-keys D63ABA42B8ABC9DFCED412B7BB95A422DD6915C1
 
-## mvn clean install
+# maven
 
-## mvn deploy -P oss -X
+     mvn clean install
+    
+     mvn deploy -P oss -X    
 
-export GPG_TTY=$(tty)
+     export GPG_TTY=$(tty)
+
+## mvnd
+
+     mvnd clean install -T24
+     mvnd deploy -P oss -X -T24
+    
+     export GPG_TTY=$(tty)
 
 ### 1.0.4
 
@@ -38,4 +47,9 @@ export GPG_TTY=$(tty)
 ### 1.0.6
 
     使用spring-boot 2.6.0 jdk 11
+
+### 1.0.7
+
+    使用spring-boot 3.0.0  jdk 17
+    ACW 模块 auto code write
     

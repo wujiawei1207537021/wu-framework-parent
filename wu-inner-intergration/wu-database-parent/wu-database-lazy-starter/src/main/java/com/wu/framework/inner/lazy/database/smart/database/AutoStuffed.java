@@ -57,11 +57,11 @@ public interface AutoStuffed {
      * describe 根据表明创建出Java文件
      *
      * @param schema 数据库
-     * @param table  表名
+     * @param tableName  表名
      * @return
      * @author Jia wei Wu
      * @date 2022/1/23 12:23 上午
      **/
-    void stuffedJava(String schema, String table);
+    void stuffedJava(String schema, String tableName);
 
 }

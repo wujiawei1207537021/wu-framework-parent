@@ -22,6 +22,7 @@ import org.springframework.util.ObjectUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -244,18 +245,22 @@ public class LazyOperationAutoStuffed implements AutoStuffed {
      * describe 根据表明创建出Java文件
      *
      * @param schema 数据库
-     * @param table  表名
+     * @param tableName  表名
      * @return
      * @author Jia wei Wu
      * @date 2022/1/23 12:23 上午
      **/
     @Override
-    public void stuffedJava(String schema, String table) {
+    public void stuffedJava(String schema, String tableName) {
+        LazyTableInfo lazyTableInfo= lazyLambdaStream.of(LazyTableInfo.class).select(LazyWrappers.<LazyTableInfo>lambdaWrapper().
+                eqIgnoreEmpty(LazyTableInfo::getTableSchema, schema).
+                eqIgnoreEmpty(LazyTableInfo::getTableName, tableName)).collectOne();
+
         List<FieldLazyTableFieldEndpoint> fieldLazyTableFieldEndpointList = lazyLambdaStream.of(LazyColumn.class)
                 .select(
                         LazyWrappers.<LazyColumn>lambdaWrapper()
                                 .eqIgnoreEmpty(LazyColumn::getTableSchema, schema)
-                                .eqIgnoreEmpty(LazyColumn::getTableName, table))
+                                .eqIgnoreEmpty(LazyColumn::getTableName, tableName))
                 .collection().stream().map(lazyColumn -> {
                     FieldLazyTableFieldEndpoint fieldEndpoint = new FieldLazyTableFieldEndpoint();
                     final String columnName = lazyColumn.getColumnName();
@@ -268,9 +273,10 @@ public class LazyOperationAutoStuffed implements AutoStuffed {
                 }).collect(Collectors.toList());
         ClassLazyTableEndpoint tableEndpoint = new ClassLazyTableEndpoint();
         tableEndpoint.setSchema(schema);
-        tableEndpoint.setTableName(table);
-        tableEndpoint.setClassName(CamelAndUnderLineConverter.lineToHumpClass(table));
+        tableEndpoint.setTableName(tableName);
+        tableEndpoint.setClassName(CamelAndUnderLineConverter.lineToHumpClass(tableName));
         tableEndpoint.setFieldEndpoints(fieldLazyTableFieldEndpointList);
+        tableEndpoint.setComment(lazyTableInfo.getTableComment());
         tableEndpoint.setPackageName(operationConfig.getReverseEngineering().getPackageName()+NormalUsedString.DOT + "domain");
 
         LazyTableUtil.createJava(tableEndpoint, operationConfig.getReverseEngineering());

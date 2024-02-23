@@ -24,7 +24,171 @@ HOURS
 MINUTES
 }
 
+ class DatabaseServerUo {
 
+    /**
+     * 主键
+     */
+    @LazyTableFieldId
+    @ApiModelProperty(name = "id")
+    private Long id;
+    /**
+     * Name of the datasource. Default to "testdb" when using an embedded database.
+     */
+    @ApiModelProperty(name = "name", example = "normal")
+    private String name;
+
+    /**
+     * Fully qualified name of the JDBC driver. Auto-detected based on the URL by default.
+     */
+    @ApiModelProperty(value = "driverClassName", example = "com.mysql.cj.jdbc.Driver")
+    private String driverClassName;
+
+    /**
+     * JDBC URL of the database.
+     */
+    @ApiModelProperty(value = "url", example = "jdbc:mysql://127.0.0.1:3306/upsert?useUnicode=true&characterEncoding=utf-8&useSSL=true&allowMultiQueries=true&serverTimezone=Asia/Shanghai")
+    private String url;
+
+    /**
+     * Login username of the database.
+     */
+    @ApiModelProperty(value = "username", example = "root")
+    private String username;
+
+    /**
+     * Login password of the database.
+     */
+    @ApiModelProperty(value = "password", example = "wujiawei")
+    private String password;
+
+
+}
+
+class ProjectUo {
+    /**
+     * 主键
+     */
+    @LazyTableFieldId
+    @ApiModelProperty(hidden = true)
+    private Long id;
+    /**
+    *数据库服务器ID
+    */
+    @ApiModelProperty(value = "数据库服务器ID")
+    private Long databaseServerId;
+    /**
+     * 项目名称
+     */
+    @LazyTableFieldUnique
+    @ApiModelProperty(value = "项目名称", example = "acw-project")
+    private String projectName;
+    /**
+     * 版本
+     */
+    @LazyTableFieldUnique
+    @ApiModelProperty(value = "版本", example = "acw-1.0.0")
+    private String version;
+
+    /**
+     * 拥有者
+     */
+    @LazyTableFieldUnique
+    @ApiModelProperty(value = "拥有者", example = "wujiawei")
+    private String owner;
+    /**
+     * 依赖
+     */
+    @ApiModelProperty(value = "依赖", dataType = "DependencyUo")
+    private List<DependencyUo> dependencyUoList;
+
+    /**
+     * orm 框架
+     */
+    private OrmFrameEnums ormFrameEnums = OrmFrameEnums.UPSERT;
+
+    /**
+     * UI 框架
+     */
+    private UIFrameEnums uiFrameEnums = UIFrameEnums.VUE;
+
+}
+
+class TableClassUo {
+
+    /**
+     * 主键
+     */
+    @LazyTableFieldId
+    private Long id;
+    /**
+     * class id
+     */
+    @LazyTableFieldUnique
+    private Long classId;
+    /**
+     * project id
+     */
+    @LazyTableFieldUnique
+    private Long projectId;
+    /**
+     * 数据库服务器ID
+     */
+    @ApiModelProperty(value = "数据库服务器ID")
+    private Long databaseServerId;
+    /**
+     * 数据库名称
+     */
+    private String schema;
+    /**
+     * table name
+     */
+    @LazyTableFieldUnique
+    private String tableName;
+
+}
+
+ class ApiUo {
+    /**
+     * 主键
+     */
+    @LazyTableField(indexType = LayerField.LayerFieldType.ID)
+    private Long id;
+
+    /**
+     * 项目id
+     */
+    @LazyTableFieldUnique
+    @NotNull(message = "项目id 不能为空", groups = ValidType.Create.class)
+    private Long projectId;
+
+    /**
+     * 标签 默认根据表进行分组
+     */
+    @LazyTableFieldUnique
+    private String tag;
+
+    /**
+     * 请求类型
+     */
+    @LazyTableFieldUnique
+    @NotNull(message = "请求类型 不能为空", groups = ValidType.Create.class)
+    private RequestMethod method = RequestMethod.GET;
+
+    /**
+     * api 路径
+     */
+    @LazyTableFieldUnique
+    @NotNull(message = "api 路径 不能为空", groups = ValidType.Create.class)
+    private String path;
+
+    /**
+     * table name
+     */
+    private String tableName;
+
+
+}
 class Class{
     /**
      * 主键

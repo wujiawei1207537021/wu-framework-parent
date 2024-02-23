@@ -12,6 +12,7 @@ import com.wu.framework.inner.lazy.persistence.conf.LazyDatabaseJsonMessage;
 import com.wu.framework.inner.lazy.persistence.conf.LazyTableFieldEndpoint;
 import com.wu.framework.inner.lazy.persistence.map.EasyHashMap;
 import com.wu.framework.inner.lazy.persistence.util.LazyTableUtil;
+import com.wu.framework.inner.lazy.persistence.util.MySQLUtil;
 import lombok.Data;
 import lombok.SneakyThrows;
 import lombok.experimental.Accessors;
@@ -27,7 +28,12 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -153,9 +159,10 @@ public interface MySQLDataProcessAnalyze extends LayerDefault, SQLAnalyze {
                             } catch (IllegalAccessException e) {
                                 e.printStackTrace();
                             }
+                            fieldVal = MySQLUtil.convertValueToMysqlColumnData(fieldVal);
                             if (null != fieldVal) {
                                 fieldVal = EasyAnnotationConverter.annotationConvertConversion(field, fieldVal, tableEndpoint.getIEnumList());
-                                return "'" + fieldVal.toString().replaceAll("'", "\"") + "'";
+                                return fieldVal.toString();
                             } else {
 //                                fieldVal = JavaBasicTypeDefaultValue.DEFAULT_VALUE_HASHMAP.get(field.getType());
                                 return null;
@@ -170,6 +177,7 @@ public interface MySQLDataProcessAnalyze extends LayerDefault, SQLAnalyze {
         mySQLProcessResult.setSql(sql);
         return mySQLProcessResult;
     }
+
 
     /**
      * 完善表

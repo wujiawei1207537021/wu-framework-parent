@@ -1,3 +1,6 @@
+server:
+  port: 18080
+
 spring:
   datasource:
     driver: com.mysql.cj.jdbc.Driver
@@ -7,8 +10,21 @@ spring:
   lazy:
     printf-query: on
     ddl-auto: perfect
+    authorization:
+      verification: session
+    enable-reverse-engineering: true
+    reverse-engineering:
+      reverse-engineering-mvc:
+        enable-lazy-operation-mvc: true
+      enable-mybatis: true
+#      enable-lazy: false
+#      enable-lombok-data: true
+#      enable-swagger: true
+#      enable-lombok-accessors: true
   easy:
     print-execute-time: on
+  application:
+    name: acw-server
 
 
 

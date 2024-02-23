@@ -6,6 +6,7 @@ import lombok.Getter;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
@@ -23,7 +24,7 @@ import java.util.stream.Collectors;
 public enum MysqlColumnTypeEnum {
 
     // -127~127
-    tinyint("tinyint", Integer.class, -128, 127),
+    tinyint("tinyint", Boolean.class, -128, 127),
     smallint("smallint", Integer.class, -32768, 32767),
     mediumint("mediumint", Integer.class),
     int1("int", Integer.class),
@@ -44,7 +45,7 @@ public enum MysqlColumnTypeEnum {
 
 
     date("date", Date.class),
-    datetime("datetime", Date.class),
+    datetime("datetime", LocalDateTime.class),
     timestamp("timestamp", Date.class),
     NUMBER("NUMBER", Integer.class),
 
@@ -74,7 +75,7 @@ public enum MysqlColumnTypeEnum {
 
 
     DATE("DATE", Date.class),
-    DATETIME("DATETIME", Date.class),
+    DATETIME("DATETIME", LocalDateTime.class),
     TIMESTAMP("TIMESTAMP", Date.class),
     TIMESTAMP6("TIMESTAMP(6)", Date.class),
 

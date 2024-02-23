@@ -2,6 +2,7 @@ package com.wu.framework.easy.redis.listener;
 
 import com.wu.framework.easy.listener.DynamicListenerType;
 import com.wu.framework.easy.listener.core.AbstractEasyListenerAnnotationBeanPostProcessor;
+import com.wu.framework.easy.listener.core.config.ListenerEndpoint;
 import com.wu.framework.easy.listener.stereotype.EasyListener;
 import com.wu.framework.easy.listener.stereotype.ListenerProcessorStrategy;
 import com.wu.framework.easy.listener.stereotype.redis.EasyRedisListener;

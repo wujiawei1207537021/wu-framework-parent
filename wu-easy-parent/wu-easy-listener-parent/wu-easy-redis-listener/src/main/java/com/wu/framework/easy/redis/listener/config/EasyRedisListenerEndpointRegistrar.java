@@ -69,8 +69,8 @@ public class EasyRedisListenerEndpointRegistrar implements ListenerEndpointRegis
     /**
      * 注册 端点
      *
-     * @param endpoint
-     * @param factory
+     * @param endpoint 端点
+     * @param factory  工厂
      */
     @Override
     public void registerEndpoint(MethodRedisListenerEndpoint endpoint, RedisConcurrentListenerContainerFactory factory) {

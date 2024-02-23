@@ -5,6 +5,8 @@ import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.f
 import com.wu.framework.inner.lazy.persistence.util.LazyTableUtil;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 /**
  * @author : Jia wei Wu
@@ -39,7 +41,7 @@ public abstract class AbstractBasicComparison<T, R, V> implements BasicCompariso
      * 右边 关联
      *
      * @param rightJoinBasicComparison
-     * @param <R2>
+     * @param <T2>
      * @return
      */
     public <T2> AbstractBasicComparison<T, R, V> rightJoin(AbstractJoinBasicComparison<T, T2, Snippet<T, ?>, Snippet<T2, ?>> rightJoinBasicComparison) {
@@ -124,6 +126,28 @@ public abstract class AbstractBasicComparison<T, R, V> implements BasicCompariso
     }
 
     /**
+     * in 查询
+     *
+     * @param condition 判断
+     * @param row       行
+     * @param var       数据
+     * @return
+     */
+    @Override
+    public AbstractBasicComparison<T, R, V> in(boolean condition, R row, V var) {
+        if (condition) {
+            if (Collection.class.isAssignableFrom(var.getClass())) {
+                final String in = ((Collection<?>) var).stream().map(o -> NormalUsedString.SINGLE_QUOTE + o.toString() + NormalUsedString.SINGLE_QUOTE).collect(Collectors.joining(NormalUsedString.COMMA));
+                conditionList.put(columnToString(row), NormalUsedString.IN, ConditionList.RowValueType.EXPRESSION, NormalUsedString.LEFT_BRACKET + in + NormalUsedString.RIGHT_BRACKET);
+            } else {
+                conditionList.put(columnToString(row), NormalUsedString.IN, ConditionList.RowValueType.EXPRESSION, NormalUsedString.LEFT_BRACKET + var + NormalUsedString.RIGHT_BRACKET);
+            }
+
+        }
+        return this;
+    }
+
+    /**
      * @param condition
      * @param row
      * @param leftVar
@@ -173,8 +197,8 @@ public abstract class AbstractBasicComparison<T, R, V> implements BasicCompariso
     }
 
 
-    protected String valueToString(V v) {
-        return (String) v;
+    protected Object valueToString(V v) {
+        return v;
     }
 
 }

@@ -3,10 +3,12 @@ package com.wu.framework.authorization.config;
 import com.wu.framework.authorization.config.pro.AuthorizationProperties;
 import com.wu.framework.authorization.domain.LoginUserBO;
 import com.wu.framework.authorization.login.UserDetailsService;
+import com.wu.framework.authorization.password.PasswordEncoderConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
@@ -23,6 +25,7 @@ import org.springframework.web.filter.CorsFilter;
  * @ Version       :  1.0
  */
 @Slf4j
+@Import(PasswordEncoderConfig.class)
 public class AuthorizationCORSConfiguration implements InitializingBean {
 
 
@@ -39,7 +42,7 @@ public class AuthorizationCORSConfiguration implements InitializingBean {
         corsConfiguration.addAllowedHeader("*"); // 允许任何的head头部
         corsConfiguration.addAllowedOrigin("*"); // 允许任何域名使用
         corsConfiguration.addAllowedMethod("*"); // 允许任何的请求方法
-        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.addAllowedOriginPattern("*");
         return corsConfiguration;
     }
 
@@ -58,10 +61,5 @@ public class AuthorizationCORSConfiguration implements InitializingBean {
         userDetailsService.createUser(new LoginUserBO().setUsername(authorizationProperties.getUserName()).setPassword(authorizationProperties.getPassword()));
     }
 
-    @ConditionalOnMissingBean(PasswordEncoder.class)
-    @Bean
-    public PasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 }
 

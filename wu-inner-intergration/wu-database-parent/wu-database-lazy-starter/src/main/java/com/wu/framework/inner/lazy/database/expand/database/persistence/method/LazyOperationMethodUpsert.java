@@ -29,7 +29,7 @@ public class LazyOperationMethodUpsert extends AbstractLazyOperationMethod {
 
 
     /**
-     * @param params
+     * @param params 参数实体对象的任意状态数组或者是集合
      * @return description 通过参数获取持久性存储库对象
      * @author Jia wei Wu
      * @date 2021/4/17 3:38 下午

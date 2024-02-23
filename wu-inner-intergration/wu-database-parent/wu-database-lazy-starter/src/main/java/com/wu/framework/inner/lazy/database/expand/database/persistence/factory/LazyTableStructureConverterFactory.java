@@ -29,7 +29,7 @@ public class LazyTableStructureConverterFactory {
     public static LazyTableStructure dataStructure(Object source) {
         Assert.notNull(source, "source 数据不能为空");
         final Class<?> sourceClass = source.getClass();
-        if (Iterable.class.isAssignableFrom(sourceClass)) {
+        if (sourceClass.isArray()) {
             return LazyTableStructureConverterFactory.wrapperIterable((Iterable) source);
         } else if (EasyHashMap.class.isAssignableFrom(sourceClass)) {
             return LazyTableStructureConverterFactory.wrapperEasyHashMap((EasyHashMap) source);

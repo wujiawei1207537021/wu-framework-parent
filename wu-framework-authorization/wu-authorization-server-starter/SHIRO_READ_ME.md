@@ -15,7 +15,7 @@
             <dependency>
                 <groupId>com.wu</groupId>
                 <artifactId>wu-framework-shiro</artifactId>
-                <version>1.0.6</version>
+                <version>1.0.7</version>
             </dependency>
 
 ## 功能
@@ -209,3 +209,12 @@
 ### shiro 1.0.8 升级1.0.9 (下个版本)
 
     1.添加控制器接口 自动实现CRUD
+
+```yaml
+spring:
+  lazy:
+    authorization:
+      verification: session
+      un-check-api-path:
+        "/public/**"
+```

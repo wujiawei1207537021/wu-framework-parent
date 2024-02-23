@@ -65,20 +65,20 @@ public interface EasyListenerAnnotationBeanPostProcessor<L extends Annotation> e
     /**
      * 类注解普遍方法监听
      *
-     * @param classLevelListeners
-     * @param multiMethods
-     * @param bean
-     * @param beanName
+     * @param classLevelListeners 监听注解修饰的类
+     * @param multiMethods        监听注解修饰类中的方法
+     * @param bean                监听注解修饰对象
+     * @param beanName            监听注解修饰对象名称
      */
     void processMultiMethodListeners(Collection<L> classLevelListeners, List<Method> multiMethods, Object bean, String beanName);
 
     /**
      * 监听注解
      *
-     * @param listener
-     * @param method
-     * @param bean
-     * @param beanName
+     * @param listener 自定义注解
+     * @param method   监听注解修饰的方法
+     * @param bean     监听注解修饰的对象
+     * @param beanName 监听注解修饰的对象名称
      */
     void processListener(L listener, Method method, Object bean, String beanName);
 
@@ -86,10 +86,10 @@ public interface EasyListenerAnnotationBeanPostProcessor<L extends Annotation> e
     /**
      * 处理 EasyListener 监听
      *
-     * @param listener
-     * @param method
-     * @param bean
-     * @param beanName
+     * @param listener 通用监听注解
+     * @param method   监听注解修饰的方法
+     * @param bean     监听注解修饰的对象
+     * @param beanName 监听注解修饰对象名称
      */
     void processEasyListener(EasyListener listener, Method method, Object bean, String beanName);
 
@@ -97,10 +97,10 @@ public interface EasyListenerAnnotationBeanPostProcessor<L extends Annotation> e
     /**
      * 处理注解中指定类型注解的 监听
      *
-     * @param listener
-     * @param method
-     * @param bean
-     * @param beanName
+     * @param listener 监听注解中的制定注解
+     * @param method   监听注解修饰的方法
+     * @param bean     监听注解修饰的对象
+     * @param beanName 监听注解修饰的对象名称
      */
     void processAssignEasyListener(EasyListener listener, Method method, Object bean, String beanName);
 

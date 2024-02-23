@@ -18,6 +18,10 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "spring.datasource")
 public class LazyDataSourceProperties {
 
+    /**
+     * 别名
+     */
+    private String alias;
 
     /**
      * JDBC URL of the database.

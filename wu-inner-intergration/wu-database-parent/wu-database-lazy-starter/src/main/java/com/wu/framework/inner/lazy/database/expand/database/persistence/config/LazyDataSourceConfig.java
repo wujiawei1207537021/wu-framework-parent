@@ -3,6 +3,7 @@ package com.wu.framework.inner.lazy.database.expand.database.persistence.config;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import com.wu.framework.inner.lazy.config.prop.LazyDataSourceProperties;
 import lombok.Data;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -36,6 +37,7 @@ public class LazyDataSourceConfig {
      * @date 2021/4/23 下午1:54
      */
     @Bean(name = "lazyDataSource")
+    @ConditionalOnMissingBean(DataSource.class)
     public DataSource lazyDataSource(LazyDataSourceProperties dataSourceProperties) {
         MysqlDataSource build = DataSourceBuilder.create().type(MysqlDataSource.class).build();
         build.setUrl(dataSourceProperties.getUrl());

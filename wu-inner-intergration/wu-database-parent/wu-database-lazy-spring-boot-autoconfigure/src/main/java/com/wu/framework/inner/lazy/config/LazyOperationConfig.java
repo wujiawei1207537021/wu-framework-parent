@@ -25,7 +25,6 @@ public class LazyOperationConfig {
     /**
      * 忽略的数据库
      */
-
     private List<String> ignoredDatabase = Arrays.asList("mysql", "information_schema", "performance_schema", "sys");
     /**
      * 自动填充时 填充忽略的字段 自增的、含有默认值、可以为null的字段
@@ -86,6 +85,11 @@ public class LazyOperationConfig {
          * 逆向工程 允许 lombok.Accessors
          */
         private boolean enableLombokAccessors = true;
+
+        /**
+         * 逆向工程 允许 mybatis
+         */
+        private boolean enableMyBatis;
 
 
         /**

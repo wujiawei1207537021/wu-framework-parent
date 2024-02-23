@@ -1,6 +1,7 @@
 package com.wu.framework.inner.lazy.persistence.conf;
 
 
+import com.wu.framework.inner.layer.data.NormalUsedString;
 import com.wu.framework.inner.layer.stereotype.LayerField;
 import com.wu.framework.inner.lazy.persistence.analyze.SQLAnalyze;
 import lombok.Data;
@@ -50,13 +51,14 @@ public class ClassLazyTableEndpoint extends AbstractLazyTableEndpoint {
 
         fieldEndpoints.stream().
                 filter(LazyTableFieldEndpoint::isExist).
-                filter(field -> !SQLAnalyze.SQL_DEFAULT_FIELD.contains(field.getName())).
+                filter(field -> !SQLAnalyze.SQL_DEFAULT_FIELD.contains(field.getColumnName())).
                 forEach(field -> createTableSQLBuffer.append(field.createColumn()));
         createTableSQLBuffer.append(SQLAnalyze.SQL_DEFAULT_FIELD_STATEMENT);
 //        UNIQUE KEY `plate_num_color` (`plate_num`,`plate_color`),
         if (!ObjectUtils.isEmpty(uniqueList)) {
             createTableSQLBuffer.append(" , UNIQUE KEY `");
-            createTableSQLBuffer.append(String.join("_", uniqueList).replaceAll("`", ""));
+            // 唯一性索引 key
+            createTableSQLBuffer.append(uniqueList.stream().map(s -> s.replaceAll(NormalUsedString.BACKTICK, NormalUsedString.EMPTY).substring(0, 1)).collect(Collectors.joining(NormalUsedString.UNDERSCORE)));
             createTableSQLBuffer.append("` (`");
             createTableSQLBuffer.append(String.join("`,`", uniqueList));
             createTableSQLBuffer.append("`)");
@@ -91,17 +93,17 @@ public class ClassLazyTableEndpoint extends AbstractLazyTableEndpoint {
     public String alterTableSQL(List<FieldLazyTableFieldEndpoint> currentColumnNameList) {
         String ALTER_TABLE = "ALTER TABLE %s ";
         // 字段名 字段类型 字段备注
-        String ADD_FIELD = " ADD %s %s comment '%s' ";
+        String ADD_FIELD = " ADD `%s` %s comment '%s' ";
         Map<String, FieldLazyTableFieldEndpoint> map = currentColumnNameList.stream().
                 collect(Collectors.toMap(FieldLazyTableFieldEndpoint::getColumnName, convertedField -> convertedField, (A, B) -> A));
 
         String ADD_SQL = getFieldEndpoints().stream().
                 filter(field -> !map.containsKey(field.getColumnName().replaceAll("`", ""))).
-                map(convertedField ->
-                        String.format(ADD_FIELD,
-                                convertedField.getColumnName(),
-                                convertedField.getColumnType(),
-                                convertedField.getComment())).
+                map(convertedField -> String.format(ADD_FIELD,
+                        convertedField.getColumnName(),
+                        convertedField.getColumnType(),
+                        convertedField.getComment())
+                ).
                 collect(Collectors.joining(","));
         if (ObjectUtils.isEmpty(ADD_SQL)) {
             return null;

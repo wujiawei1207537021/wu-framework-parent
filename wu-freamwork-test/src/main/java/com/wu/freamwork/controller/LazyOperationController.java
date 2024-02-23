@@ -339,7 +339,7 @@ public class LazyOperationController implements CommandLineRunner {
 
     public void lambdaStream() {
         final Collection<User> collection = lambdaStream
-                .of(User.class).select(LazyWrappers.<User>wrapper()
+                .of(User.class).select(LazyWrappers.<User>lambdaWrapper()
                                 //                .leftJoin(BasicComparison.<User>wrapper().eq("hh","哈哈哈"))
                                 .eq(User::getUsername, "admin")
                                 .gt(User::getId, "10")

@@ -5,7 +5,7 @@
     <parent>
         <artifactId>wu-framework-parent</artifactId>
         <groupId>top.wu2020</groupId>
-        <version>1.0.6</version>
+        <version>1.0.7</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -30,22 +30,22 @@
             <dependency>
                 <groupId>top.wu2020</groupId>
                 <artifactId>wu-authorization-client-starter</artifactId>
-                <version>1.0.6</version>
+                <version>1.0.7</version>
             </dependency>
             <dependency>
                 <groupId>top.wu2020</groupId>
                 <artifactId>wu-authorization-server-starter</artifactId>
-                <version>1.0.6</version>
+                <version>1.0.7</version>
             </dependency>
             <dependency>
                 <groupId>top.wu2020</groupId>
                 <artifactId>wu-authorization-spring-boot-autoconfigure</artifactId>
-                <version>1.0.6</version>
+                <version>1.0.7</version>
             </dependency>
             <dependency>
                 <groupId>top.wu2020</groupId>
                 <artifactId>wu-authorization-common</artifactId>
-                <version>1.0.6</version>
+                <version>1.0.7</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

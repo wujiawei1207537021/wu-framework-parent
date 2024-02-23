@@ -1,6 +1,7 @@
 package com.wu.framework.inner.lazy.persistence.conf;
 
 import com.wu.framework.inner.layer.data.IEnum;
+import com.wu.framework.inner.layer.data.NormalUsedString;
 import com.wu.framework.inner.layer.stereotype.LayerField;
 import com.wu.framework.inner.lazy.stereotype.LazyTableFieldId;
 
@@ -109,6 +110,6 @@ public interface LazyTableFieldEndpoint {
      * @date 2020/12/31 9:19 下午
      **/
     default String createColumn() {
-        return getColumnName() + " " + getColumnType() + " COMMENT '" + getComment() + "', \n";
+        return NormalUsedString.BACKTICK + getColumnName() + NormalUsedString.BACKTICK + " " + getColumnType() + " COMMENT '" + getComment() + "', \n";
     }
 }

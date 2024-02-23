@@ -1,19 +1,14 @@
 package com.wu.smart.acw.server.controller;
 
 import com.wu.framework.inner.layer.web.EasyController;
-import com.wu.framework.inner.lazy.database.domain.LazyColumn;
-import com.wu.framework.inner.lazy.database.domain.LazyTableInfo;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.lambda.LazyLambdaStream;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.wrapper.LazyWrappers;
 import com.wu.framework.response.Result;
-import com.wu.framework.response.ResultFactory;
+import com.wu.smart.acw.server.service.DatabaseService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.Collection;
 
 /**
  * describe : 数据库操作
@@ -27,8 +22,11 @@ import java.util.Collection;
 public class DatabaseController {
     private final LazyLambdaStream lambdaStream;
 
-    public DatabaseController(LazyLambdaStream lambdaStream) {
+    private final DatabaseService databaseService;
+
+    public DatabaseController(LazyLambdaStream lambdaStream, DatabaseService databaseService) {
         this.lambdaStream = lambdaStream;
+        this.databaseService = databaseService;
     }
 
     /**
@@ -41,10 +39,9 @@ public class DatabaseController {
      **/
     @ApiOperation("查看表")
     @GetMapping("/table/list")
-    public Result list(@ApiParam(required = false, defaultValue = "acw_test") @RequestParam(required = false, defaultValue = "acw_test") String schema) {
-        final Collection collection = lambdaStream.of(LazyTableInfo.class).
-                select(LazyWrappers.<LazyTableInfo>lambdaWrapper().eq(LazyTableInfo::getTableSchema, schema)).collection();
-        return ResultFactory.successOf(collection);
+    public Result list(@ApiParam(required = true, defaultValue = "acw_test", value = "数据库表") @RequestParam(required = true, defaultValue = "acw_test") String schema,
+                       @ApiParam(required = true, defaultValue = "1", value = "数据库服务器ID") @RequestParam(required = true, defaultValue = "1") Long databaseServerId) {
+        return databaseService.listTable(databaseServerId, schema);
     }
 
     /**
@@ -57,13 +54,12 @@ public class DatabaseController {
      **/
     @ApiOperation("查看表中的字段")
     @GetMapping("/table/column")
-    public Result listLazyColumn(@ApiParam(required = false) @RequestParam(required = false, defaultValue = "acw_test") String schema,
-                                 @ApiParam(required = false) @RequestParam(required = false, defaultValue = "database_server") String tableName) {
-        final Collection collection = lambdaStream.of(LazyColumn.class).select(LazyWrappers.<LazyColumn>lambdaWrapper().
-                        eq(LazyColumn::getTableSchema, schema).
-                        eq(LazyColumn::getTableName, tableName)).
-                collection();
-        return ResultFactory.successOf(collection);
+    public Result listLazyColumn(
+            @ApiParam(required = true, defaultValue = "1", value = "数据库服务器ID") @RequestParam(defaultValue = "1") Long databaseServerId,
+            @ApiParam(required = true, value = "数据库") @RequestParam(defaultValue = "acw_test") String schema,
+            @ApiParam(required = true, value = "表") @RequestParam(defaultValue = "database_server") String tableName) {
+        return databaseService.listLazyColumn(databaseServerId, schema, tableName);
+
     }
 
 }

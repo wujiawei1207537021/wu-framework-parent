@@ -14,6 +14,7 @@ import java.lang.annotation.*;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -120,11 +121,16 @@ public @interface LazyTableField {
         BYTE_ARRAYS(Arrays.asList(Byte[].class, byte[].class), " varbinary(1024) "),
         INTEGER(Arrays.asList(Integer.class, int.class), " int(11) "),
         LONG(Arrays.asList(Long.class, long.class), " bigint "),
+        BOOLEAN(Arrays.asList(Boolean.class, boolean.class), " tinyint(1) "),
         LOCAL_DATE_TIME(Arrays.asList(LocalDateTime.class, Timestamp.class), " datetime "),
-        LOCAL_DATE(Arrays.asList(LocalDate.class, Date.class), " date "),
+        TIME(Arrays.asList(LocalTime.class), " time "),
+        LOCAL_DATE(Arrays.asList(LocalDate.class, java.sql.Date.class, java.util.Date.class), " date "),
         DOUBLE(Arrays.asList(Double.class, double.class), " double "),
         FLOAT(Arrays.asList(Float.class, float.class), " float "),
-        BINARY(Arrays.asList(File.class, InputStream.class), " Blob ");
+        BINARY(Arrays.asList(File.class, InputStream.class), " Blob "),
+//        JSON(Arrays.asList(List.class, Arrays.class), " json "),
+
+        ;
         private static final Map<Class, String> TYPE_MAP = new HashMap<>();
 
         static {
@@ -139,6 +145,9 @@ public @interface LazyTableField {
         private String type;
 
         public static String getTypeByClass(Class clazz) {
+//            if (clazz.isArray()) {
+//                return JSON.type;
+//            }
             for (FieldType fieldType : values()) {
                 if (fieldType.clazz.contains(clazz)) {
                     return fieldType.type;

@@ -38,7 +38,7 @@
 //    @ApiOperation(value = "Elasticsearch-Search", tags = "Elasticsearch")
 //    @PostMapping("/_search")
 //    public SearchHits<ElasticsearchUser> elasticsearchSearch() {
-//        Query query = Query.findAll();
+//        Query query = Query.retrieveAll();
 //        SearchHits<ElasticsearchUser> userLogSearchHits = elasticsearchRestTemplate.search(query, ElasticsearchUser.class);
 //        return userLogSearchHits;
 //    }
@@ -60,9 +60,9 @@
 //        indexOperations.createMapping(ElasticsearchUser.class);
 //    }
 //
-//    @ApiOperation(value = "findAll", tags = "Elasticsearch")
+//    @ApiOperation(value = "retrieveAll", tags = "Elasticsearch")
 //    @GetMapping("/_findAll")
-//    public List<DynGpsVehRun> findAll() {
+//    public List<DynGpsVehRun> retrieveAll() {
 //        List<DynGpsVehRun> dynGpsVehRunList =
 //                elasticsearchGPSRepository.findAllByIndustryAndGpsVdate("080", "2020-12-02");
 //        return dynGpsVehRunList;

@@ -47,7 +47,7 @@ public class ProjectController {
     @ApiOperation(value = "删除项目")
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable("id") Long id) {
-        Long collection = lambdaStream.of(ProjectUo.class).delete(LazyWrappers.<ProjectUo>lambdaWrapper().eqIgnoreEmpty(ProjectUo::getId, id));
+        Integer collection = lambdaStream.of(ProjectUo.class).delete(LazyWrappers.<ProjectUo>lambdaWrapper().eqIgnoreEmpty(ProjectUo::getId, id));
         return ResultFactory.successOf(collection);
     }
 

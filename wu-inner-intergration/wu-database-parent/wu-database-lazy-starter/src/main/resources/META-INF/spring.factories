@@ -9,6 +9,8 @@ com.wu.framework.inner.lazy.database.expand.database.persistence.stream.config.L
 com.wu.framework.inner.lazy.database.smart.database.persistence.LazyOperationAutoStuffed,\
 com.wu.framework.inner.lazy.database.smart.database.persistence.LazySmartLazyOperation,\
 com.wu.framework.inner.lazy.database.smart.database.adapter.ReverseEngineeringAdapter,\
-com.wu.framework.inner.lazy.database.expand.database.persistence.factory.config.LazyBeanPostProcessor
+com.wu.framework.inner.lazy.database.expand.database.persistence.factory.config.LazyBeanPostProcessor,\
+com.wu.framework.inner.lazy.database.dynamic.config.LazyDynamicConfig,\
+com.wu.framework.inner.lazy.database.dynamic.LazyDynamicAdapter
 
 

@@ -92,14 +92,14 @@ public class LazySmartLazyOperation implements SmartLazyOperation {
      * describe 根据表明创建出Java文件
      *
      * @param schema 数据库
-     * @param table  表名
+     * @param tableName  表名
      * @return
      * @author Jia wei Wu
      * @date 2022/1/23 12:23 上午
      **/
     @Override
-    public void stuffedJava(String schema, String table) {
-        autoStuffed.stuffedJava(schema, table);
+    public void stuffedJava(String schema, String tableName) {
+        autoStuffed.stuffedJava(schema, tableName);
     }
 
     /**

@@ -19,7 +19,7 @@ import java.util.List;
 public class AuthorizationProperties {
 
     // 前缀
-    public static final String AUTHORIZATION_PREFIX = "spring.wu.authorization";
+    public static final String AUTHORIZATION_PREFIX = "spring.lazy.authorization";
     /**
      * token的名称
      */

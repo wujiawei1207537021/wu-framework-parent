@@ -8,7 +8,7 @@
 
     <groupId>top.wu2020</groupId>
     <artifactId>wu-framework-parent</artifactId>
-    <version>1.0.6</version>
+    <version>1.0.7</version>
     <packaging>pom</packaging>
     <description>系统框架</description>
     <name>wu-framework-parent</name>
@@ -39,9 +39,9 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <java.version>11</java.version>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <java.version>17</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
 
         <skipTests>true</skipTests>
 
@@ -70,8 +70,13 @@
         <wu-easy-upsert-starter.version>${project.version}</wu-easy-upsert-starter.version>
 
         <wu-framework-plus.version>${project.version}</wu-framework-plus.version>
+        <wu-database-lazy-plus-starter.version>${project.version}</wu-database-lazy-plus-starter.version>
+
         <wu-database-plus.version>${project.version}</wu-database-plus.version>
         <wu-framework-shiro.version>${project.version}</wu-framework-shiro.version>
+
+        <wu-authorization-server-starter.version>${project.version}</wu-authorization-server-starter.version>
+        <wu-authorization-client-starter.version>${project.version}</wu-authorization-client-starter.version>
 
         <wu-inner-intergration.version>${project.version}</wu-inner-intergration.version>
         <wu-common-starter.version>${project.version}</wu-common-starter.version>
@@ -105,7 +110,12 @@
         <wu-easy-upsert-core.version>${project.version}</wu-easy-upsert-core.version>
         <wu-sys-api.version>${project.version}</wu-sys-api.version>
 
-        <spring-boot-starter.version>2.6.0</spring-boot-starter.version>
+        <!--   平台服务版本控制     -->
+        <wu-authorization-server-platform-starter.version>${project.version}
+        </wu-authorization-server-platform-starter.version>
+        <wu-upsert-server-platform-starter.version>${project.version}</wu-upsert-server-platform-starter.version>
+
+        <spring-boot-starter.version>2.6.3</spring-boot-starter.version>
     </properties>
 
     <modules>
@@ -119,6 +129,7 @@
         <module>wu-layer-stereotype</module>
         <module>wu-framework-web</module>
         <module>wu-framework-authorization</module>
+        <module>wu-smart-platform</module>
     </modules>
 
     <dependencies>
@@ -199,7 +210,12 @@
                 <artifactId>wu-easy-upsert-starter</artifactId>
                 <version>${wu-framework-parent.version}</version>
             </dependency>
-
+            <!--简单数据监听-->
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-easy-listener-starter</artifactId>
+                <version>${wu-framework-parent.version}</version>
+            </dependency>
             <!--    通用        -->
             <dependency>
                 <groupId>top.wu2020</groupId>
@@ -256,6 +272,37 @@
                 <artifactId>wu-easy-upsert-spring-boot-autoconfigure</artifactId>
                 <version>${wu-easy-upsert-spring-boot-autoconfigure.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-authorization-server-starter</artifactId>
+                <version>${wu-authorization-server-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-authorization-client-starter</artifactId>
+                <version>${wu-authorization-client-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-database-lazy-plus-starter</artifactId>
+                <version>${wu-database-lazy-plus-starter.version}</version>
+            </dependency>
+
+
+            <!--     平台服务注释       -->
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-authorization-server-platform-starter</artifactId>
+                <version>${wu-authorization-server-platform-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-upsert-server-platform-starter</artifactId>
+                <version>${wu-upsert-server-platform-starter.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

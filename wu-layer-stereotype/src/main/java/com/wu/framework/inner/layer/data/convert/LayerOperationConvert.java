@@ -12,11 +12,11 @@ public interface LayerOperationConvert<T> extends LayerConvert<T> {
     /**
      * 支持
      *
-     * @param valueClass 字段类型
+     * @param fieldType 字段类型
      * @return
      */
     @Override
-    boolean support(Class<T> valueClass);
+    boolean support(Class<T> fieldType);
 
     /**
      * 处理对象赋值
@@ -30,12 +30,12 @@ public interface LayerOperationConvert<T> extends LayerConvert<T> {
     /**
      * 将对象转换成指定类型的对象
      *
-     * @param value 对象
-     * @param clazz 对象转换后的类型
+     * @param value     对象
+     * @param fieldType 对象转换后的类型
      * @param <T>
      * @return
      */
-    T handler(Object value, Class clazz);
+    T handler(Object value, Class fieldType);
 
 
 }

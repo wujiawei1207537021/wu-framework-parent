@@ -7,11 +7,10 @@ import com.wu.framework.inner.layer.stereotype.MethodParamFunction;
 import com.wu.framework.inner.lazy.database.domain.LazyColumn;
 import com.wu.framework.inner.lazy.database.domain.LazyTableInfo;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepositoryFactory;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.factory.LazyDataFactory;
 import com.wu.framework.inner.lazy.persistence.analyze.DefaultMySQLDataProcessAnalyze;
-import com.wu.framework.inner.lazy.persistence.conf.ClassLazyTableEndpoint;
-import com.wu.framework.inner.lazy.persistence.conf.FieldLazyTableFieldEndpoint;
-import com.wu.framework.inner.lazy.persistence.conf.LazyTableFieldEndpoint;
+import com.wu.framework.inner.lazy.persistence.conf.*;
 import com.wu.framework.inner.lazy.persistence.map.EasyHashMap;
 import com.wu.framework.inner.lazy.persistence.util.LazyTableFieldUtil;
 import com.wu.framework.inner.lazy.persistence.util.LazyTableUtil;
@@ -257,22 +256,62 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
      * 装载sql参数
      */
     public String loadSqlParameters(String sqlFormat, Object... params) {
-        return String.format(sqlFormat, params);
+        final PersistenceRepository persistenceRepository = PersistenceRepositoryFactory.create();
+        final String sql = String.format(sqlFormat, params);
+        persistenceRepository.setQueryString(sql);
+        return persistenceRepository.getQueryString();
     }
 
 
     /**
      * describe 完善表
      *
-     * @param
+     * @param connection  连接对象
+     * @param easyHashMap 实体对象
+     * @return boolean 执行成功或者失败
+     * @author Jia wei Wu
+     * @date 2022/1/2 5:41 下午
+     **/
+    public synchronized boolean perfect(Connection connection, EasyHashMap easyHashMap) throws SQLException, NoSuchFieldException, InstantiationException, IllegalAccessException {
+        final ClassLazyTableEndpoint classLazyTableEndpoint = easyHashMap.toEasyTableAnnotation();
+        return perfect(connection, classLazyTableEndpoint);
+    }
+
+    /**
+     * describe 完善表
+     *
+     * @param connection  连接对象
+     * @param entityClass 实体对象class
+     * @return boolean 执行成功或者失败
+     * @author Jia wei Wu
+     * @date 2022/1/2 5:41 下午
+     **/
+    public synchronized boolean perfect(Connection connection, Class entityClass) throws SQLException, NoSuchFieldException, InstantiationException, IllegalAccessException {
+
+        // 本地缓存实体class
+        if (LazyDatabaseJsonMessage.localCacheEntityClass.contains(entityClass)) {
+            return true;
+        }
+        if (!EasyHashMap.class.isAssignableFrom(entityClass)) {
+            LazyDatabaseJsonMessage.localCacheEntityClass.add(entityClass);
+        }
+        ClassLazyTableEndpoint classLazyTableEndpoint = LazyTableUtil.analyzeLazyTable(entityClass);
+        return perfect(connection, classLazyTableEndpoint);
+    }
+
+    /**
+     * describe 完善表
+     *
+     * @param connection             连接对象
+     * @param classLazyTableEndpoint 实体对象 schema
      * @return
      * @author Jia wei Wu
      * @date 2022/1/2 5:41 下午
      **/
-    public boolean perfect(Connection connection, Class entityClass) throws SQLException, NoSuchFieldException, InstantiationException, IllegalAccessException {
+    public synchronized boolean perfect(Connection connection, LazyTableEndpoint classLazyTableEndpoint) throws SQLException, NoSuchFieldException, InstantiationException, IllegalAccessException {
         Statement statement = connection.createStatement();
 
-        ClassLazyTableEndpoint classLazyTableEndpoint = LazyTableUtil.analyzeLazyTable(entityClass);
+
         final String schema = ObjectUtils.isEmpty(classLazyTableEndpoint.getSchema()) ? connection.getCatalog() : classLazyTableEndpoint.getSchema();
 
         ResultSet resultSet = statement.executeQuery(loadSqlParameters("select * from information_schema.tables where table_schema='%s' and table_name='%s' ",
@@ -312,4 +351,5 @@ public abstract class AbstractLazyOperationMethod implements LazyOperationMethod
         statement.close();
         return true;
     }
+
 }

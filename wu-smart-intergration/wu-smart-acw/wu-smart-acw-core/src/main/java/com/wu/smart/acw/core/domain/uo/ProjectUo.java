@@ -2,6 +2,7 @@ package com.wu.smart.acw.core.domain.uo;
 
 
 import com.wu.framework.inner.lazy.stereotype.LazyTable;
+import com.wu.framework.inner.lazy.stereotype.LazyTableField;
 import com.wu.framework.inner.lazy.stereotype.LazyTableFieldId;
 import com.wu.framework.inner.lazy.stereotype.LazyTableFieldUnique;
 import com.wu.smart.acw.core.domain.enums.OrmFrameEnums;
@@ -29,8 +30,18 @@ public class ProjectUo {
     @ApiModelProperty(hidden = true)
     private Long id;
 
+    /**
+     * 数据库服务器ID
+     */
     @ApiModelProperty(value = "数据库服务器ID")
     private Long databaseServerId;
+
+    /**
+     * 数据库名称
+     */
+    @LazyTableField(name = "schema")
+    @ApiModelProperty(required = true, value = "数据库名称")
+    private String schema;
     /**
      * 项目名称
      */
@@ -44,6 +55,9 @@ public class ProjectUo {
     @ApiModelProperty(value = "版本", example = "acw-1.0.0")
     private String version;
 
+    /**
+     * 拥有者
+     */
     @LazyTableFieldUnique
     @ApiModelProperty(value = "拥有者", example = "wujiawei")
     private String owner;

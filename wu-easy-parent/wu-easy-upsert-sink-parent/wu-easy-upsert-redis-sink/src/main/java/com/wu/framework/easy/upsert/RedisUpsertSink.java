@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
  * @date : 2020/12/20 8:27 下午
  */
 @Slf4j
-@ConditionalOnProperty(prefix = "spring.redis", value = "host")
+@ConditionalOnProperty(prefix = "spring.redis", value = "host",matchIfMissing = true)
 @EasyUpsertStrategy(value = EasyUpsertType.REDIS)
 public class RedisUpsertSink implements IEasyUpsert {
 

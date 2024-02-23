@@ -162,8 +162,9 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBean
     }
 
     /**
+     * 转换成 LazyTableAnnotation
+     *
      * @return
-     * @params 转换成 LazyTableAnnotation
      * @author Jiawei Wu
      * @date 2020/12/31 6:52 下午
      **/
@@ -171,15 +172,22 @@ public class EasyHashMap<K, V> extends HashMap<K, V> implements Map<K, V>, IBean
         return toEasyTableAnnotation(false);
     }
 
+    /**
+     * 转换成 LazyTableAnnotation
+     *
+     * @param isCapitalized 字段 是否大写
+     * @author Jiawei Wu
+     * @date 2020/12/31 6:52 下午
+     **/
     public ClassLazyTableEndpoint toEasyTableAnnotation(boolean isCapitalized) {
-        return toEasyTableAnnotation(false, false);
+        return toEasyTableAnnotation(isCapitalized, false);
     }
 
     /**
-     * description
+     * description 转换成 LazyTableAnnotation
      *
-     * @param isCapitalized   是否大写
-     * @param humpToUnderline 驼峰转下划线
+     * @param isCapitalized   字段 是否大写
+     * @param humpToUnderline 字段 是否驼峰转下划线
      * @return
      * @exception/throws
      * @author Jiawei Wu

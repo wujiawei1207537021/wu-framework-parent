@@ -1,7 +1,9 @@
 package com.wu.smart.acw.core.domain.uo;
 
+import com.wu.framework.inner.lazy.stereotype.LazyTableField;
 import com.wu.framework.inner.lazy.stereotype.LazyTableFieldId;
 import com.wu.framework.inner.lazy.stereotype.LazyTableFieldUnique;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -27,6 +29,16 @@ public class TableClassUo {
      */
     @LazyTableFieldUnique
     private Long projectId;
+    /**
+     * 数据库服务器ID
+     */
+    @ApiModelProperty(value = "数据库服务器ID")
+    private Long databaseServerId;
+    /**
+     * 数据库名称
+     */
+    @LazyTableField(name = "schema")
+    private String schema;
     /**
      * table name
      */

@@ -4,6 +4,8 @@ import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationEventPublisherAware;
 
+import java.util.function.Consumer;
+
 /**
  * describe : 抽象消息侦听器容器
  *
@@ -13,6 +15,5 @@ import org.springframework.context.ApplicationEventPublisherAware;
  */
 public abstract class AbstractMessageListenerContainer<K, V> implements GenericMessageListenerContainer<K, V>, BeanNameAware, ApplicationEventPublisherAware,
         ApplicationContextAware {
-
 
 }

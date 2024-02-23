@@ -57,8 +57,7 @@ public class ApiController {
     @ApiOperation(value = "删除api")
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable("id") Long id) {
-//        Collection collection = lambdaStream.delete().table(ApiUo.class).eq("id", id).collection();
-        Collection collection = null;
-        return ResultFactory.successOf(collection);
+        Integer count = lazyLambdaStream.of(ApiUo.class).delete(LazyWrappers.<ApiUo>lambdaWrapper().eq(ApiUo::getId, id));
+        return ResultFactory.successOf(count);
     }
 }

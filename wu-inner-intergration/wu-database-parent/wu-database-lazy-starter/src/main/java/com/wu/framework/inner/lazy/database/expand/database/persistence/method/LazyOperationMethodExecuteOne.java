@@ -43,7 +43,7 @@ public class LazyOperationMethodExecuteOne extends AbstractLazyOperationMethod {
                 return result.get(0);
             } else {
                 int update = preparedStatement.executeUpdate();
-                return Arrays.asList(update);
+                return update;
             }
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();

@@ -5,6 +5,7 @@ import com.wu.framework.response.Result;
 import com.wu.framework.response.ResultFactory;
 import com.wu.smart.acw.core.domain.uo.ProjectUo;
 import com.wu.smart.acw.server.service.ProjectService;
+import com.wu.smart.acw.server.service.TableClassService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,15 +18,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProjectServiceImpl implements ProjectService {
     private final LazyOperation lazyOperation;
+    private final TableClassService listClassService;
 
-    public ProjectServiceImpl(LazyOperation lazyOperation) {
+    public ProjectServiceImpl(LazyOperation lazyOperation, TableClassService listClassService) {
         this.lazyOperation = lazyOperation;
+        this.listClassService = listClassService;
     }
 
 
     @Override
     public Result save(ProjectUo project) {
         lazyOperation.smartUpsert(project);
+        final Long id = project.getId();
+        final Long databaseServerId = project.getDatabaseServerId();
+        final String schema = project.getSchema();
+        listClassService.singleTable(id, databaseServerId, schema);
         return ResultFactory.successOf(project);
     }
 }

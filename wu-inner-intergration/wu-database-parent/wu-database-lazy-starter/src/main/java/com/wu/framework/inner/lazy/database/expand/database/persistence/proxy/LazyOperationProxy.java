@@ -1,13 +1,13 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.proxy;
 
 import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
+import com.wu.framework.inner.lazy.database.dynamic.LazyDynamicAdapter;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.method.LazyOperationMethod;
 import com.wu.framework.inner.lazy.database.smart.database.persistence.PerfectLazyOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Import;
-import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 
 import javax.sql.DataSource;
@@ -25,6 +25,7 @@ import java.util.Map;
  * describe : 自定义接口实现方法执行代理类
  * @date : 2020/6/25 下午11:19
  */
+@Slf4j
 @ConditionalOnBean(value = DataSource.class)
 @Import(PerfectLazyOperation.class)
 public class LazyOperationProxy implements InvocationHandler, InitializingBean {
@@ -32,9 +33,8 @@ public class LazyOperationProxy implements InvocationHandler, InitializingBean {
     private final static Map<Class<? extends LazyOperationMethod>, LazyOperationMethod> LAZY_OPERATION_METHOD_MAP = new HashMap<>();
 
     private final List<LazyOperationMethod> lazyOperationMethods;
-    private final ApplicationContext applicationContext;
-    protected String primary;
-    protected Map<String, DataSource> DynamicDataSourceMap;
+
+    private final LazyDynamicAdapter lazyDynamicAdapter;
 
 
     // 当前链接对象
@@ -42,9 +42,9 @@ public class LazyOperationProxy implements InvocationHandler, InitializingBean {
     // 是否添加事务
     private boolean transactional = false;
 
-    public LazyOperationProxy(List<LazyOperationMethod> lazyOperationMethods, ApplicationContext applicationContext) {
+    public LazyOperationProxy(List<LazyOperationMethod> lazyOperationMethods, LazyDynamicAdapter lazyDynamicAdapter) {
         this.lazyOperationMethods = lazyOperationMethods;
-        this.applicationContext = applicationContext;
+        this.lazyDynamicAdapter = lazyDynamicAdapter;
     }
 
     @Override
@@ -55,11 +55,12 @@ public class LazyOperationProxy implements InvocationHandler, InitializingBean {
             // TODO 动态数据源切换
 
             // 不是事物重新获取链接
-            if (!transactional) {
-                this.currentConnection = determineConnection("");
-            }
+//            if (!transactional) {
+//                currentConnection = determineConnection();
+//            }
             try {
-                final Object execute = lazyOperationMethod.execute(this.currentConnection, args);
+                // 判断不是事物重新获取链接
+                final Object execute = lazyOperationMethod.execute(transactional ? this.currentConnection : determineConnection(), args);
                 return execute;
             } catch (Exception exception) {
                 exception.printStackTrace();
@@ -86,46 +87,18 @@ public class LazyOperationProxy implements InvocationHandler, InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         lazyOperationMethods.forEach(lazyOperationMethod -> LAZY_OPERATION_METHOD_MAP.put(lazyOperationMethod.getClass(), lazyOperationMethod));
-        Map<String, DataSource> dataSourceMap = applicationContext.getBeansOfType(DataSource.class);
-        this.primary = dataSourceMap.keySet().iterator().next();
-        DynamicDataSourceMap = dataSourceMap;
-    }
-
-    public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        Map<String, DataSource> dataSourceMap = contextRefreshedEvent.getApplicationContext().getBeansOfType(DataSource.class);
-        this.primary = dataSourceMap.keySet().iterator().next();
-        DynamicDataSourceMap = dataSourceMap;
     }
 
     /**
-     * description 确定数据源
+     * 确定链接对象
      *
-     * @param name
-     * @return
-     * @exception/throws
-     * @author Jia wei Wu
-     * @date 2021/4/30 3:26 下午
-     */
-    public DataSource determineDataSource(String name) {
-        return DynamicDataSourceMap.getOrDefault(name, DynamicDataSourceMap.get(primary));
-    }
-
-    /**
-     * describe 确定链接对象
-     *
-     * @param name 数据库别名
      * @return
      * @author Jia wei Wu
      * @date 2022/1/1 5:02 下午
      **/
-    public Connection determineConnection(String name) {
-        final DataSource dataSource = determineDataSource(name);
-        try {
-            this.currentConnection = dataSource.getConnection();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return currentConnection;
+    public Connection determineConnection() throws SQLException {
+        final DataSource dataSource = lazyDynamicAdapter.determineDataSource();
+        return dataSource.getConnection();
     }
 
     /**

@@ -3,9 +3,10 @@ package com.wu.framework.authorization.login;
 import com.wu.framework.authorization.domain.LoginUserBO;
 import com.wu.framework.authorization.model.User;
 import com.wu.framework.authorization.model.UserDetails;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.lambda.LazyLambdaStream;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.wrapper.LazyWrappers;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.util.DigestUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * @ Description : 当前框架默认实现方法 @ Author : wujiawei @ CreateDate : 2019/12/17 0017 11:46 @ UpdateUser
@@ -14,15 +15,19 @@ import org.springframework.util.DigestUtils;
 @ConditionalOnMissingBean(UserDetailsService.class)
 public class DefaultUserDetailsService implements UserDetailsService {
 
-    private final LazyOperation lazyOperation;
 
-    public DefaultUserDetailsService(LazyOperation lazyOperation) {
-        this.lazyOperation = lazyOperation;
+    private final LazyLambdaStream lazyLambdaStream;
+    private final PasswordEncoder passwordEncoder;
+
+    public DefaultUserDetailsService(LazyLambdaStream lazyLambdaStream, PasswordEncoder passwordEncoder) {
+        this.lazyLambdaStream = lazyLambdaStream;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public UserDetails loadUserByUsername(String userName) {
-        return lazyOperation.executeSQLForBean(String.format("select * from sys_user where user_name='%s'", userName), User.class);
+        final User user = lazyLambdaStream.of(LoginUserBO.class).select(LazyWrappers.<LoginUserBO>lambdaWrapper().eq(LoginUserBO::getUsername, userName)).collectOne(User.class);
+        return user;
     }
 
     /**
@@ -34,13 +39,14 @@ public class DefaultUserDetailsService implements UserDetailsService {
      **/
     @Override
     public void createUser(LoginUserBO loginUserBO) {
-        String md5Password = DigestUtils.md5DigestAsHex(loginUserBO.getPassword().getBytes());
+        String md5Password = passwordEncoder.encode(loginUserBO.getPassword());
         loginUserBO.setPassword(md5Password);
-        lazyOperation.smartUpsert(loginUserBO);
+        lazyLambdaStream.smartUpsert(loginUserBO);
     }
 
     @Override
     public UserDetails loadUserById(String userId) {
-        return lazyOperation.executeSQLForBean(String.format("select * from sys_user where id='%s'", userId), User.class);
+        final User user = lazyLambdaStream.of(LoginUserBO.class).select(LazyWrappers.<LoginUserBO>lambdaWrapper().eq(LoginUserBO::getId, userId)).collectOne(User.class);
+        return user;
     }
 }

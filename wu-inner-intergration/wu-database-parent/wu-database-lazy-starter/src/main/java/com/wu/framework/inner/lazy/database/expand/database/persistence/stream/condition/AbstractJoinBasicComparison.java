@@ -77,6 +77,19 @@ public abstract class AbstractJoinBasicComparison<T1, T2, R1, R2> implements Bas
     }
 
     /**
+     * in 查询
+     *
+     * @param condition 判断
+     * @param row       行
+     * @param var       数据
+     * @return
+     */
+    @Override
+    public AbstractJoinBasicComparison<T1, T2, R1, R2> in(boolean condition, R1 row, R2 var) {
+        return null;
+    }
+
+    /**
      * @param condition
      * @param row
      * @param leftVar

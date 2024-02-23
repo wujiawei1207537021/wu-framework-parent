@@ -50,4 +50,19 @@ public interface LazyTableEndpoint {
      * 针对数据源 如mysql查询结果、http请求结果中包含的数据字段不再当前对象中
      */
     boolean isSmartFillField();
+
+    /**
+     * 创建建表语句
+     *
+     * @return
+     */
+    String creatTableSQL();
+
+    /**
+     * 创建修改表语句
+     *
+     * @param currentColumnNameList
+     * @return
+     */
+    String alterTableSQL(List<FieldLazyTableFieldEndpoint> currentColumnNameList);
 }

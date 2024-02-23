@@ -1,7 +1,7 @@
 package com.wu.framework.response.repository;
 
 
-public interface WuRepository<R> {
+public interface LazyRepository<T> {
 
 
 }

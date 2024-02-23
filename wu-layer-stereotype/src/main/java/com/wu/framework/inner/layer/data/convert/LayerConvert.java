@@ -7,8 +7,8 @@ public interface LayerConvert<T> {
     /**
      * 支持
      *
-     * @param valueClass 字段类型
+     * @param fieldType 字段类型
      * @return
      */
-    boolean support(Class<T> valueClass);
+    boolean support(Class<T> fieldType);
 }
