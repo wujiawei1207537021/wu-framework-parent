@@ -3,6 +3,7 @@ package com.wu.bionic.point.so;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.experimental.Accessors;
+import sun.reflect.generics.repository.MethodRepository;
 
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
@@ -16,7 +17,7 @@ import java.lang.reflect.Method;
  */
 @Accessors(chain = true)
 @Data
-public final class DefaultBreakPointSo extends AbstractBreakPointSo implements Serializable {
+public final class DefaultBreakPointSo extends BreakPointSoAbstract implements Serializable {
 
     private Class<?> clazz;
     //        private int                 slot;
@@ -28,7 +29,7 @@ public final class DefaultBreakPointSo extends AbstractBreakPointSo implements S
     // Generics and annotations support
     private transient String signature;
     // generic info repository; lazily initialized
-//    private transient MethodRepository genericInfo;
+    private transient MethodRepository genericInfo;
     private Annotation[] annotations;
     private Annotation[][] parameterAnnotations;
     private Object[] params;

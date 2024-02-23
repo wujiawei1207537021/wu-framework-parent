@@ -21,20 +21,20 @@ import io.swagger.annotations.*;
  */
 @Data
 @Table(name = "${tableName}")
-@Schema(title = "${className}", description = "${comments}")
+@ApiModel(value = "${className}", description = "${comments}")
 public class ${className}Entity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    #foreach ($lazyColumn in $columns)
+    #foreach ($column in $columns)
         /**
-         *  $lazyColumn.columnComment
+         *  $column.columnComment
          */
-        @Schema(description = "$lazyColumn.columnComment", example = "$lazyColumn.val")
-            #if($lazyColumn.columnName == $pk.columnName)
+        @ApiModelProperty(value = "$column.columnComment", example = "$column.val")
+            #if($column.columnName == $pk.columnName)
             @Id
             #end
-        private $lazyColumn.attrType $lazyColumn.attrname;
+        private $column.attrType $column.attrname;
 
     #end
 

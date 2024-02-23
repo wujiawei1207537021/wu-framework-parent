@@ -1,9 +1,7 @@
 package com.wu.framework.inner.layer.data;
 
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.context.annotation.Role;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +12,6 @@ import java.util.Map;
  * @author Jia wei Wu
  * @date 2020/9/11 下午12:21
  */
-@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @ConditionalOnMissingBean(UserConvertService.class)
 public class DefaultUserConvertService implements UserConvertService, InitializingBean {
 

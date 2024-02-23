@@ -3,13 +3,13 @@ package com.wu.database.hbase.run;
 import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.inner.lazy.hbase.expland.bo.HBaseUserBo;
 import com.wu.framework.inner.lazy.hbase.expland.persistence.HBaseOperation;
-import jakarta.annotation.PostConstruct;
 import lombok.val;
 import org.apache.hadoop.hbase.Cell;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * describe :
+ * @describe :
  * @date : 2021/3/15 8:25 下午
  */
 @EasyController
@@ -55,12 +55,13 @@ public class DemoRun {
         for (TableDescriptor tableDescriptor : tableDescriptors) {
             val columnFamilies = tableDescriptor.getColumnFamilies();
             for (ColumnFamilyDescriptor columnFamily : columnFamilies) {
-                System.out.println(String.format("表%s,列蔟%s", tableDescriptor.getTableName().getNameAsString(), columnFamily.getNameAsString()));
+                System.out.println(String.format("表%s,列蔟%s", tableDescriptor.getTableName().getNameAsString(),columnFamily.getNameAsString()));
             }
 //            System.out.println(String.format("表%s数据", tableDescriptor.getTableName().getNameAsString()));
 //            System.out.println(scanAllRecord(tableDescriptor.getTableName().getNameAsString()));
         }
     }
+
 
 
     public String scanAllRecord(String tableName) throws IOException {

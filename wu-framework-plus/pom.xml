@@ -5,7 +5,7 @@
     <parent>
         <artifactId>wu-framework-parent</artifactId>
         <groupId>top.wu2020</groupId>
-        <version>1.2.2-JDK17-SNAPSHOT</version>
+        <version>1.0.4</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -13,12 +13,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>wu-database-plus</module>
-        <module>wu-database-lazy-plus-starter</module>
-        <module>wu-database-lazy-mybatis-cure-plus-starter</module>
-        <module>wu-database-lazy-table-structure-plus-starter</module>
-        <module>wu-database-lazy-seata-cure-plus-starter</module>
-        <module>wu-springdoc-compatible-swagger-plus-starter</module>
-        <module>wu-spring-online-doc-plus-starter</module>
     </modules>
 
 

@@ -1,18 +1,18 @@
 package com.wu.framework.easy.temple.controller;
 
+import com.wu.framework.easy.stereotype.upsert.component.IUpsert;
+import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
+import com.wu.framework.easy.stereotype.upsert.dynamic.QuickEasyUpsert;
+import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.temple.domain.UpsertBinary;
+import com.wu.framework.easy.temple.domain.UseExcel;
 import com.wu.framework.easy.temple.domain.UserLog;
 import com.wu.framework.easy.temple.domain.bo.ExtractBo;
 import com.wu.framework.easy.temple.domain.bo.MoreExtractBo;
-import com.wu.framework.easy.temple.domain.excel.UseUserExcel;
-import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsert;
-import com.wu.framework.easy.upsert.autoconfigure.dynamic.QuickEasyUpsert;
-import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
-import com.wu.framework.easy.upsert.core.dynamic.IUpsert;
 import com.wu.framework.inner.layer.data.LayerDataAnalyzeAdapter;
 import com.wu.framework.inner.layer.web.EasyController;
-import com.wu.framework.inner.lazy.persistence.map.EasyHashMap;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.val;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,10 +25,10 @@ import java.util.List;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * describe :
+ * @describe :
  * @date : 2020/11/7 下午5:57
  */
-@Tag(name = "HBase数据快速插入")
+@Api(tags = "HBase数据快速插入")
 @EasyController("/upsert/HBase")
 public class UpsertHBaseController implements LayerDataAnalyzeAdapter {
 
@@ -48,7 +48,7 @@ public class UpsertHBaseController implements LayerDataAnalyzeAdapter {
      * @author Jia wei Wu
      * @date 2021/4/15 上午9:50
      */
-    @EasyUpsert(type = EasyUpsertType.HBASE)
+    @EasyUpsertDS(type = EasyUpsertType.HBASE)
     @ApiOperation(tags = "HBase数据快速插入", value = "IUpsert操作数据入HBase")
     @GetMapping()
     public List<UserLog> upsert(@RequestParam(required = false, defaultValue = "100") Integer size) {
@@ -100,15 +100,15 @@ public class UpsertHBaseController implements LayerDataAnalyzeAdapter {
         userLog.setContent("创建时间:" + userLog.getCurrentTime());
         userLog.setUserId(1);
 
-        UseUserExcel useUserExcel = new UseUserExcel();
-        useUserExcel.setCurrentTime(LocalDateTime.now());
-        useUserExcel.setDesc("默认方式导出数据");
-        useUserExcel.setExcelId(2);
-        useUserExcel.setType("默认方式双注解导出");
+        UseExcel useExcel = new UseExcel();
+        useExcel.setCurrentTime(LocalDateTime.now());
+        useExcel.setDesc("默认方式导出数据");
+        useExcel.setExcelId(2);
+        useExcel.setType("默认方式双注解导出");
 
         ExtractBo extractBo = new ExtractBo();
         extractBo.setUserLog(userLog);
-        extractBo.setUseUserExcel(useUserExcel);
+        extractBo.setUseExcel(useExcel);
 
         val lists = extractData(null, extractBo);
         return extractBo;
@@ -121,15 +121,17 @@ public class UpsertHBaseController implements LayerDataAnalyzeAdapter {
         MoreExtractBo moreExtractBo = new MoreExtractBo();
         ExtractBo extractBo = complexData();
         moreExtractBo.setExtractBo(extractBo);
-        moreExtractBo.setUseUserExcel(extractBo.getUseUserExcel());
+        moreExtractBo.setUseExcel(extractBo.getUseExcel());
         moreExtractBo.setUserLog(extractBo.getUserLog());
         moreExtractBo.setUserLogList(createUserLog(1000));
         return moreExtractBo;
     }
 
 
+
+
     /**
-     * description quickBinary 或者文件类型数据插入
+     * description binary 或者文件类型数据插入
      *
      * @param
      * @return
@@ -138,7 +140,7 @@ public class UpsertHBaseController implements LayerDataAnalyzeAdapter {
      * @date 2021/4/19 上午10:11
      */
     @QuickEasyUpsert(type = EasyUpsertType.HBASE)
-    @ApiOperation(tags = "HBase数据快速插入", value = "quickBinary 数据插入")
+    @ApiOperation(tags = "HBase数据快速插入", value = "binary 数据插入")
     @GetMapping("/binary")
     public List<UpsertBinary> binary(@RequestParam(required = false, defaultValue = "1000") Integer size) {
         List<UpsertBinary> upsertBinaryList = new ArrayList<>();

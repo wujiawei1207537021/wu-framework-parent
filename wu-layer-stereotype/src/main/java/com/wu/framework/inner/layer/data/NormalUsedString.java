@@ -12,7 +12,6 @@ public interface NormalUsedString {
     String JODD = "jodd";
     String AMPERSAND = "&";
     String AND = "and";
-    String OR = "or";
     String AT = "@";
     String ASTERISK = "*";
     String STAR = ASTERISK;
@@ -25,39 +24,8 @@ public interface NormalUsedString {
     String DOTDOT = "..";
     String DOT_CLASS = ".class";
     String DOT_JAVA = ".java";
-    String DOT_XML = ".xml";
     String EMPTY = "";
     String EQUALS = "=";
-    // 数据库使用
-
-    String ADD = "ADD";
-    String DROP = "DROP";
-    String MODIFY = "MODIFY";
-    String COLUMN = "COLUMN";
-    String INSERT = "INSERT";
-    String UPDATE = "UPDATE";
-    String DELETE = "DELETE";
-    String DISTINCT="DISTINCT";
-    String SET = "SET";
-    String WHERE = "where";
-    String LIKE = "like";
-    String BETWEEN = "between";
-    String IN = "in";
-    String FROM = "from";
-    String AS = "as";
-    String IS = "IS";
-    String IS_NOT = " is not ";
-    String value = "value";
-    String VALUES = "values";
-    String ON_DUPLICATE_KEY_UPDATE = "ON DUPLICATE KEY UPDATE";
-    String NOT = "not";
-    String COMMENT = "COMMENT";
-    String DEFAULT = "DEFAULT";
-    String ASC = "ASC";
-    String DESC = "DESC";
-    String PRIMARY = "PRIMARY";
-    String AUTO_INCREMENT = "AUTO_INCREMENT";
-
     String FALSE = "false";
     String SLASH = "/";
     String HASH = "#";
@@ -84,7 +52,6 @@ public interface NormalUsedString {
     String RIGHT_CHEV = ">";
     String SEMICOLON = ";";
     String SINGLE_QUOTE = "'";
-    String DOUBLE_QUOTE = "\"";
     String BACKTICK = "`";
     String SPACE = " ";
     String TILDA = "~";
@@ -111,7 +78,6 @@ public interface NormalUsedString {
     String CLASS = "class";
     String PUBLIC = "public";
     String PRIVATE = "private";
-    String PROTECTED = "protected";
     String STRING = "String";
     //title_number
     String RIGHT_TITLE_NUMBER = "«";

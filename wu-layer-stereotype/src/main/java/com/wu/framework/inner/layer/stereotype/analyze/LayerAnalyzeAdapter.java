@@ -1,38 +1,12 @@
 package com.wu.framework.inner.layer.stereotype.analyze;
 
-import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
-
 /**
- * description 解析适配器 选举
+ * description layer 解析适配器
  *
  * @author Jia wei Wu
- * @date 2021/4/26 4:32 下午
+ * @date 2021/4/1 下午3:32
  */
-public class LayerAnalyzeAdapter {
+public interface LayerAnalyzeAdapter<A> {
 
-    private final List<LayerAnalyze> layerAnalyzeList;
-
-    private ConcurrentHashMap<AnalyzeParameter, LayerAnalyze> concurrentHashMap = new ConcurrentHashMap();
-
-    public LayerAnalyzeAdapter(List<LayerAnalyze> layerAnalyzeList) {
-        this.layerAnalyzeList = layerAnalyzeList;
-    }
-
-
-    boolean supportsParameter(AnalyzeParameter analyzeParameter) {
-        return true;
-    }
-
-
-    Object resolveLayerAnalyze(AnalyzeParameter analyzeParameter) {
-        if (!concurrentHashMap.containsKey(analyzeParameter)) {
-            layerAnalyzeList.forEach(layerAnalyze -> {
-                if (layerAnalyze.supportParameter(analyzeParameter)) {
-                    concurrentHashMap.put(analyzeParameter, layerAnalyze);
-                }
-            });
-        }
-        return concurrentHashMap.get(analyzeParameter).analyze(analyzeParameter);
-    }
+    <A> A analyze(Class clazz);
 }

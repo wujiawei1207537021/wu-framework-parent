@@ -1,8 +1,9 @@
 package com.wu.freamwork.controller;
 
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import com.wu.framework.inner.layer.util.FileUtil;
 import com.wu.framework.inner.layer.web.EasyController;
-import com.wu.framework.inner.lazy.persistence.map.EasyHashMap;
+
 import com.wu.framework.inner.sql.elasticsearch.ElasticsearchSQLTemplate;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 
@@ -27,7 +28,7 @@ public class ElasticsearchController {
         List<EasyHashMap> scroll = elasticsearchSQLTemplate.scroll(sql, EasyHashMap.class);
 
         //
-        BufferedWriter file = FileUtil.createFileBufferedWriter("/Users/wujiawei/IdeaProjects/wu-framework-parent", "2021.01.04.txt");
+        BufferedWriter file = FileUtil.createFile("/Users/wujiawei/IdeaProjects/wu-framework-parent", "2021.01.04.txt");
         for (EasyHashMap easyHashMap : scroll) {
             file.newLine();
             file.write(easyHashMap.toString());

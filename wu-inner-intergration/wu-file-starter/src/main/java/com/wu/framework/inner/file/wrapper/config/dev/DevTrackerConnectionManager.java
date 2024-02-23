@@ -7,12 +7,12 @@ import com.github.tobato.fastdfs.conn.FdfsConnectionPool;
 import com.github.tobato.fastdfs.domain.TrackerLocator;
 import com.github.tobato.fastdfs.exception.FdfsConnectException;
 import com.github.tobato.fastdfs.proto.FdfsCommand;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+import javax.validation.constraints.NotNull;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.List;

@@ -5,14 +5,14 @@ import com.wu.framework.database.generator.entity.ColumnEntity;
 import com.wu.framework.database.generator.entity.EncapsulatedTableInfo;
 import com.wu.framework.database.generator.entity.TableEntity;
 import com.wu.framework.database.generator.utils.GenUtils;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.SQLAnalyze;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.ConvertedField;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.LazyPage;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.lambda.LazyLambdaStream;
-import com.wu.framework.inner.lazy.persistence.analyze.SQLAnalyze;
-import com.wu.framework.inner.lazy.persistence.conf.mysql.FieldLazyTableFieldEndpoint;
-import com.wu.framework.inner.lazy.persistence.map.EasyHashMap;
+import com.wu.framework.inner.lazy.database.domain.Page;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import org.apache.commons.io.IOUtils;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -22,40 +22,43 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.zip.ZipOutputStream;
 
-@Service
+@Component
 public class SysGeneratorService {
 
     private final GeneratorConfig generatorConfig;
 
-    private final LazyLambdaStream lazyLambdaStream;
+    private final LazyOperation lazyOperation;
 
-    public SysGeneratorService(GeneratorConfig generatorConfig, LazyLambdaStream lazyLambdaStream) {
+    public SysGeneratorService(GeneratorConfig generatorConfig, LazyOperation lazyOperation) {
         this.generatorConfig = generatorConfig;
-        this.lazyLambdaStream = lazyLambdaStream;
+        this.lazyOperation = lazyOperation;
     }
 
-    public LazyPage queryList(String tableName, Integer size, Integer current) {
-        LazyPage lazyPage = new LazyPage<>();
-        lazyPage.setCurrent(current);
-        lazyPage.setSize(size);
-        String sql = "select table_name tableName, engine, table_comment tableComment, create_time createTime from information_schema.tables where table_schema = (select database())   %s order by create_time orderByDesc ";
+    public Page queryList(String tableName, Integer size, Integer current) {
+        Page page = new Page<>();
+        page.setCurrent(current);
+        page.setSize(size);
+        String sql = "select table_name tableName, engine, table_comment tableComment, create_time createTime from information_schema.tables where table_schema = (select database())   %s order by create_time desc ";
         if (ObjectUtils.isEmpty(tableName)) {
             tableName = "";
         } else {
             tableName = " and table_name like '%" + tableName + "%'";
         }
-        lazyLambdaStream.selectPage(lazyPage, LinkedHashMap.class, String.format(sql, tableName));
-        return lazyPage;
+        List<LinkedHashMap> list = lazyOperation.executeSQL(String.format(sql + " limit %s, %s", tableName, current - 1, size), LinkedHashMap.class);
+//        Integer total= lazyOperation.executeSQLForBean(String.format("select count(1) from ("+sql+") T",tableName), Integer.class);
+//        page.setTotal(total);
+        page.setRecord(list);
+        return page;
     }
 
     public TableEntity queryTable(String tableName) {
         String SQL = "select table_name tableName, engine as engine, table_comment comments, create_time createTime from information_schema.tables where table_schema = (select database()) and table_name =%s";
-        return lazyLambdaStream.executeSQLForBean(String.format(SQL, "'" + tableName + "'"), TableEntity.class);
+        return lazyOperation.executeSQLForBean(String.format(SQL, "'" + tableName + "'"), TableEntity.class);
     }
 
     public List<ColumnEntity> queryColumns(String tableName) {
         String SQL = "select column_name columnName, data_type dataType, column_comment columnComment, column_key columnKey, extra from information_schema.columns where table_name =%s and table_schema = (select database()) order by ordinal_position";
-        return lazyLambdaStream.executeSQL(String.format(SQL, "'" + tableName + "'"), ColumnEntity.class);
+        return lazyOperation.executeSQL(String.format(SQL, "'" + tableName + "'"), ColumnEntity.class);
     }
 
     public byte[] generatorCode(String[] tableNames, String moduleName, String packageName, String author) {
@@ -87,7 +90,7 @@ public class SysGeneratorService {
      */
     public Map queryTableColumnDefaultValue(String tableName) {
         String SQL = "select  * from %s limit 1";
-        return lazyLambdaStream.executeSQLForBean(String.format(SQL, tableName), EasyHashMap.class);
+        return lazyOperation.executeSQLForBean(String.format(SQL, tableName), EasyHashMap.class);
     }
 
 
@@ -102,11 +105,11 @@ public class SysGeneratorService {
      */
     public String tableQueryConditions(String tableName) {
         List<ColumnEntity> columnEntityList = queryColumns(tableName);
-        List<FieldLazyTableFieldEndpoint> convertedFieldList = columnEntityList.stream().map(columnEntity -> {
-            FieldLazyTableFieldEndpoint convertedField = new FieldLazyTableFieldEndpoint();
-            convertedField.setColumnName(columnEntity.getColumnName());
-            convertedField.setName(CamelAndUnderLineConverter.lineToHumpField(columnEntity.getColumnName()));
-            convertedField.setColumnType(columnEntity.getDataType());
+        List<ConvertedField> convertedFieldList = columnEntityList.stream().map(columnEntity -> {
+            ConvertedField convertedField = new ConvertedField();
+            convertedField.setConvertedFieldName(columnEntity.getColumnName());
+            convertedField.setFieldName(CamelAndUnderLineConverter.lineToHump(columnEntity.getColumnName()));
+            convertedField.setType(columnEntity.getDataType());
             return convertedField;
         }).collect(Collectors.toList());
         return SQLAnalyze.createSelectSQL(convertedFieldList, tableName);

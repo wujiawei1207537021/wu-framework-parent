@@ -13,17 +13,16 @@ import java.util.OptionalInt;
 /**
  * @author : Jia Wei Wu
  * @version 1.0
- * describe :
+ * @describe :
  * @date : 2021/2/28 9:35 下午
  */
 public class zz {
 
 
     public static void main(String[] args) {
-        PlayTest playTest = new PlayTest("/Users/wujiawei/Desktop/aa.mp3");
-        playTest.start();
-        System.out.println("dd");
-        // 停止播放
+//            PlayTest playTest = new PlayTest("/Users/wujiawei/Desktop/aa.mp3");
+//            playTest.start();
+//            System.out.println("dd");
 //        playTest.stop();
 
         List<Integer> all = new ArrayList<>();

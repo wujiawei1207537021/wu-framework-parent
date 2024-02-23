@@ -2,12 +2,11 @@ package com.wu.bionic.point.config;
 
 import com.wu.bionic.point.BreakPointMemory;
 import com.wu.bionic.point.so.DefaultBreakPointSo;
-import jakarta.annotation.PostConstruct;
 import org.springframework.context.ApplicationContext;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-
+import javax.annotation.PostConstruct;
 import java.util.Collection;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -33,7 +32,7 @@ public class Scheduling {
 
     public Scheduling(BreakPointMemory breakPointMemory, ApplicationContext applicationContext) {
         this.breakPointMemory = breakPointMemory;
-        Scheduling.applicationContext = applicationContext;
+        this.applicationContext = applicationContext;
     }
 
 

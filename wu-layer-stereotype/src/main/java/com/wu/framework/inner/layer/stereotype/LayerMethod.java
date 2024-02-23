@@ -19,10 +19,4 @@ import java.lang.annotation.*;
 @Documented
 @Indexed
 public @interface LayerMethod {
-
-    String methodName();
-
-
-    Class<?>[] parameterTypes();
-
 }

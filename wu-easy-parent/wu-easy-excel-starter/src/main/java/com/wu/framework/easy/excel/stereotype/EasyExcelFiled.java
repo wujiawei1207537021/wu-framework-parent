@@ -11,7 +11,7 @@ import java.lang.annotation.*;
  * @author Jia wei Wu
  * @date 2020/10/5 下午7:08
  */
-@Target({ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.TYPE})
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
@@ -103,35 +103,4 @@ public @interface EasyExcelFiled {
 //     * 列背景表达式
 //     */
 //    String columnBGExpression() default "";
-
-    /**
-     * 下拉框选项
-     *
-     * @return
-     */
-    String[] dropdownOptions() default {};
-
-    /**
-     * 字段合并方式
-     *
-     * @return
-     */
-    EasyExcelFieldMerge fieldMerge() default EasyExcelFieldMerge.NONE;
-
-    /**
-     * 序号 数值越大越靠前
-     */
-    int serialNumber() default 0;
-
-    /**
-     * 字段合并 枚举
-     */
-    enum EasyExcelFieldMerge {
-        //水平方向
-        LEVEL,
-        // 垂直方向
-        VERTICAL,
-        // 空的
-        NONE
-    }
 }

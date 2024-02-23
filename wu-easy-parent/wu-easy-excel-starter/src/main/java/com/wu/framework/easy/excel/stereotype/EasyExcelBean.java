@@ -13,7 +13,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-@EasyExcelFiled(name = "default")
 public @interface EasyExcelBean {
 
 }

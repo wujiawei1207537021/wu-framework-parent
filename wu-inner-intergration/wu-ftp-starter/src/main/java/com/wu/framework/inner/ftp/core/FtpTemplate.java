@@ -4,8 +4,7 @@ import com.wu.framework.inner.ftp.connection.FtpConnectionFactory;
 import org.springframework.beans.factory.BeanClassLoaderAware;
 
 /**
- * description
- *
+ * @Description
  * @Author Jia wei Wu
  * @Date 2020-05-22 2:56 下午
  */

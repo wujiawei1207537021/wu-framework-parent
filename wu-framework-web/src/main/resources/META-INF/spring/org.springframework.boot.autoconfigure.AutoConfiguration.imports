@@ -1,3 +1,0 @@
-com.wu.framework.response.handler.GlobalBaseExceptionHandler
-com.wu.framework.request.LazyWebMvcConfigurer
-com.wu.framework.config.LazyWebEnableAutoConfiguration

@@ -36,9 +36,9 @@ public class ${className}Controller {
     @RequestMapping("/list")
     @RequiresPermissions("${moduleName}:${pathName}:list")
     public R list(@RequestParam Map<String, Object> params) {
-        PageUtils lazyPage = ${classname}Service.queryPage(params);
+        PageUtils page = ${classname}Service.queryPage(params);
 
-        return R.ok().put("lazyPage", lazyPage);
+        return R.ok().put("page", page);
     }
 
 

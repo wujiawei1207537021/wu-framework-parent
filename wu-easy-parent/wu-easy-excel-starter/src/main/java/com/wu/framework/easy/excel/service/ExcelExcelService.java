@@ -1,6 +1,6 @@
 package com.wu.framework.easy.excel.service;
 
-import com.wu.framework.easy.excel.endpoint.EasyExcelPoint;
+import com.wu.framework.easy.excel.stereotype.EasyExcel;
 import lombok.SneakyThrows;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
@@ -16,8 +16,12 @@ public interface ExcelExcelService {
     int TITLE_COLUMN = 0;
 
     @SneakyThrows
-    static byte[] exportExcel(EasyExcelPoint easyExcelPoint, Collection collection) {
-        return NormalExcelExportService.exportExcel(easyExcelPoint, collection);
+    static byte[] exportExcel(EasyExcel easyExcel, Collection collection) {
+        if (easyExcel.isComplicated()) {
+            return ComplexExcelExportService.exportExcel(easyExcel, collection);
+        } else {
+            return NormalExcelExportService.exportExcel(easyExcel, collection);
+        }
     }
 
     static List<List> splitList(List list, int len) {
@@ -38,9 +42,6 @@ public interface ExcelExcelService {
      * 设置行列内容
      */
     static void setRowColumnContent(HSSFCell hssfCell, Object value) {
-        if (null == value) {
-            return;
-        }
         final Class<?> valueClass = value.getClass();
         if (valueClass.isAssignableFrom(String.class)) {
             hssfCell.setCellValue(String.valueOf(value));

@@ -1,7 +1,7 @@
 package domain;
 
-import com.wu.framework.easy.upsert.autoconfigure.EasySmart;
-import com.wu.framework.easy.upsert.autoconfigure.EasySmartField;
+import com.wu.framework.easy.stereotype.upsert.EasySmart;
+import com.wu.framework.easy.stereotype.upsert.EasySmartField;
 import lombok.Data;
 
 import java.util.Date;

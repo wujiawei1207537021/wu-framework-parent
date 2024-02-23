@@ -3,13 +3,13 @@ package com.wu.framework.database.generator.controller;
 
 import com.wu.framework.database.generator.service.SysGeneratorService;
 import com.wu.framework.inner.layer.web.EasyController;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.LazyPage;
-import jakarta.servlet.http.HttpServletResponse;
+import com.wu.framework.inner.lazy.database.domain.Page;
 import org.apache.commons.io.IOUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
@@ -27,8 +27,9 @@ public class SysGeneratorController {
      */
     @ResponseBody
     @GetMapping("/list")
-    public LazyPage list(@RequestParam(required = false, defaultValue = "") String tableName, @RequestParam Integer size, @RequestParam Integer current) {
-        return sysGeneratorService.queryList(tableName, size, current);
+    public Page list(@RequestParam(required = false, defaultValue = "") String tableName, @RequestParam Integer size, @RequestParam Integer current) {
+        Page page = sysGeneratorService.queryList(tableName, size, current);
+        return page;
     }
 
     /**

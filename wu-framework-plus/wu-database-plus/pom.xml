@@ -5,7 +5,7 @@
     <parent>
         <artifactId>wu-framework-plus</artifactId>
         <groupId>top.wu2020</groupId>
-        <version>1.2.2-JDK17-SNAPSHOT</version>
+        <version>1.0.4</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -15,7 +15,6 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.21</version>
             <scope>runtime</scope>
         </dependency>
     </dependencies>

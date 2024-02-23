@@ -5,113 +5,34 @@
     <parent>
         <artifactId>wu-inner-intergration</artifactId>
         <groupId>top.wu2020</groupId>
-        <version>1.2.2-JDK17-SNAPSHOT</version>
+        <version>1.0.4</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>wu-database-parent</artifactId>
+    <version>1.0.4</version>
     <packaging>pom</packaging>
     <description>数据库</description>
-
-    <properties>
-        <wu-database-lazy-starter.version>${project.version}</wu-database-lazy-starter.version>
-        <wu-dynamic-database-starter.version>${project.version}</wu-dynamic-database-starter.version>
-
-        <wu-database-generator-starter.version>${project.version}</wu-database-generator-starter.version>
-        <wu-database-lazy-lambda-core.version>${project.version}</wu-database-lazy-lambda-core.version>
-        <wu-hbase-starter.version>${project.version}</wu-hbase-starter.version>
-        <wu-database-layer-stereotype.version>${project.version}</wu-database-layer-stereotype.version>
-        <wu-elasticsearch-starter.version>${project.version}</wu-elasticsearch-starter.version>
-        <wu-database-lazy-spring-boot-autoconfigure.version>${project.version}
-        </wu-database-lazy-spring-boot-autoconfigure.version>
-        <wu-database-lazy-sql-core.version>${project.version}</wu-database-lazy-sql-core.version>
-
-    </properties>
     <modules>
         <!--wudb-->
         <!--        <module>wu-db-starter</module>-->
         <module>wu-database-lazy-starter</module>
         <module>wu-dynamic-database-starter</module>
         <module>wu-database-generator-starter</module>
-        <module>wu-database-lazy-lambda-core</module>
+        <module>wu-database-core</module>
         <module>wu-hbase-starter</module>
         <module>wu-database-layer-stereotype</module>
         <module>wu-elasticsearch-starter</module>
-        <module>wu-database-lazy-spring-boot-autoconfigure</module>
-        <module>wu-database-mysql-lazy-starter</module>
-        <module>wu-database-lazy-sql-core</module>
-        <module>wu-database-lazy-datasource-starter</module>
-        <module>wu-database-click-house-starter</module>
     </modules>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
 
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>top.wu2020</groupId>
-                <artifactId>wu-database-lazy-starter</artifactId>
-                <version>${wu-database-lazy-starter.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>top.wu2020</groupId>
-                <artifactId>wu-dynamic-database-starter</artifactId>
-                <version>${wu-dynamic-database-starter.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>top.wu2020</groupId>
-                <artifactId>wu-database-generator-starter</artifactId>
-                <version>${wu-database-generator-starter.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>top.wu2020</groupId>
-                <artifactId>wu-database-lazy-lambda-core</artifactId>
-                <version>${wu-database-lazy-lambda-core.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>top.wu2020</groupId>
-                <artifactId>wu-hbase-starter</artifactId>
-                <version>${wu-hbase-starter.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>top.wu2020</groupId>
                 <artifactId>wu-database-layer-stereotype</artifactId>
-                <version>${wu-database-layer-stereotype.version}</version>
+                <version>${project.version}</version>
             </dependency>
-            <dependency>
-                <groupId>top.wu2020</groupId>
-                <artifactId>wu-elasticsearch-starter</artifactId>
-                <version>${wu-elasticsearch-starter.version}</version>
-            </dependency>
-
-
-            <dependency>
-                <groupId>top.wu2020</groupId>
-                <artifactId>wu-database-lazy-spring-boot-autoconfigure</artifactId>
-                <version>${wu-database-lazy-spring-boot-autoconfigure.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>top.wu2020</groupId>
-                <artifactId>wu-database-lazy-sql-core</artifactId>
-                <version>${wu-database-lazy-sql-core.version}</version>
-            </dependency>
-
         </dependencies>
     </dependencyManagement>
 

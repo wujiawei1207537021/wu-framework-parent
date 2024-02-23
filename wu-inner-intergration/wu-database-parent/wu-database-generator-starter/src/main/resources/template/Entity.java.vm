@@ -23,15 +23,15 @@ import lombok.Data;
 public class ${className}Entity implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    #foreach ($lazyColumn in $columns)
+    #foreach ($column in $columns)
         /**
-         * $lazyColumn.columnComment
+         * $column.columnComment
          */
-        #if($lazyColumn.columnName == $pk.columnName)
+        #if($column.columnName == $pk.columnName)
         @TableId
         #end
-    @Schema(description = "$lazyColumn.columnComment", example = "$lazyColumn.val")
-    private $lazyColumn.attrType $lazyColumn.attrname;
+    @ApiModelProperty(value = "$column.columnComment", example = "$column.val")
+    private $column.attrType $column.attrname;
     #end
 
 }

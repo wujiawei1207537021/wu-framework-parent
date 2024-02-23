@@ -5,8 +5,8 @@
 
     <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="${package}.${moduleName}.entity.${className}Entity" id="${classname}Map">
-        #foreach($lazyColumn in $columns)
-            <result property="${lazyColumn.attrname}" lazyColumn="${lazyColumn.columnName}"/>
+        #foreach($column in $columns)
+            <result property="${column.attrname}" column="${column.columnName}"/>
         #end
     </resultMap>
 

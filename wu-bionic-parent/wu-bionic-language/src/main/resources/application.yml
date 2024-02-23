@@ -14,16 +14,11 @@ spring:
     username: root
     password: wujiawei
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/upsert?useUnicode=true&characterEncoding=utf-8&useSSL=true&allowMultiQueries=true&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://easy.com:3306/upsert?useUnicode=true&characterEncoding=utf-8&useSSL=true&allowMultiQueries=true&serverTimezone=Asia/Shanghai
     continue-on-error: true
   servlet:
     multipart:
       max-request-size: 1GB
       max-file-size: 200MB
-  lazy:
-    ddl-configure:
-      schema-script:
-        class-path-resources:
-          - sql/chinese_characters.sql
 
 

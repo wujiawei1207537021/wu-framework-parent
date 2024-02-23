@@ -1,8 +1,0 @@
----
-version: '2'
-services:
-  redisearch:
-    image: redislabs/redisearch
-    container_name: redisearch
-    ports:
-      - "6379:6379"

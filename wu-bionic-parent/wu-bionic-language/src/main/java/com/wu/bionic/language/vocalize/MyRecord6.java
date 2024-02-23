@@ -122,12 +122,10 @@ public class MyRecord6 extends JFrame implements MouseListener {
 
     }
 
-    @Override
     public void mouseClicked(MouseEvent e) {
 
     }
 
-    @Override
     public void mousePressed(MouseEvent e) {
         //当开始录音按钮被按下时就开始录音
         if (e.getSource().equals(captureBtn)) {
@@ -143,7 +141,6 @@ public class MyRecord6 extends JFrame implements MouseListener {
 
     }
 
-    @Override
     public void mouseReleased(MouseEvent e) {
         //当松开录音按钮时停止录音并保存录音的文件
         if (e.getSource().equals(captureBtn)) {
@@ -164,13 +161,11 @@ public class MyRecord6 extends JFrame implements MouseListener {
         }
     }
 
-    @Override
     public void mouseEntered(MouseEvent e) {
 
 
     }
 
-    @Override
     public void mouseExited(MouseEvent e) {
 
 
@@ -363,7 +358,6 @@ public class MyRecord6 extends JFrame implements MouseListener {
 
         //将字节数组包装到流里，最终存入到baos中
         //重写run函数
-        @Override
         public void run() {
             baos = new ByteArrayOutputStream();
             try {
@@ -429,7 +423,6 @@ public class MyRecord6 extends JFrame implements MouseListener {
     //因为要使用一些主函数中的数据，所以做成内部类
     class RecordWave extends JPanel implements Runnable {
         //用画笔画出波形
-        @Override
         public void paint(Graphics g) {
             super.paint(g);
             g.fillRect(jp2.getX(), jp2.getY(), 800, 380);
@@ -445,7 +438,6 @@ public class MyRecord6 extends JFrame implements MouseListener {
             }
         }
 
-        @Override
         public void run() {
             //刷新波形
             while (true) {

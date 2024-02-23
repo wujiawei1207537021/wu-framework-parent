@@ -1,5 +1,0 @@
-com.wu.framework.inner.lazy.config.LazyApplicationConfig
-com.wu.framework.inner.lazy.config.LazyDataSourceConfig
-com.wu.framework.inner.lazy.config.prop.LazyDataSourceProperties
-com.wu.framework.inner.lazy.config.LazyOperationConfig
-com.wu.framework.inner.lazy.persistence.util.SpringLazyContextHolder

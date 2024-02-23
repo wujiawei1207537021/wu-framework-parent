@@ -1,7 +1,6 @@
 package com.wu.framework.easy.excel.util;
 
 import com.wu.framework.easy.excel.stereotype.EasyExcelFiled;
-import com.wu.framework.inner.layer.data.convert.LazyDataFactory;
 import org.apache.poi.ss.format.CellFormat;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.util.LocaleUtil;
@@ -97,18 +96,12 @@ public class FastExcelImp {
                 if (Map.class.isAssignableFrom(clazz)) {
                     Map map = (Map) clazz.newInstance();
                     cellNames.entrySet().stream().forEach(stringIntegerEntry -> {
-                        Cell cel = r.getCell(stringIntegerEntry.getValue());
-                        Object value = "";
-                        if (cel != null) {
-                            if (CellType.NUMERIC.equals(cel.getCellType()) && DateUtil.isCellDateFormatted(cel)) {
-                                // 日期格式
-                                value = cel.getDateCellValue();
-                            } else {
-                                value = cellFormat.apply(cel).text;
-                            }
+                        Cell cell = r.getCell(stringIntegerEntry.getValue());
+                        Object v = "";
+                        if (cell != null) {
+                            v = cellFormat.apply(cell).text;
                         }
-
-                        map.put(stringIntegerEntry.getKey(), value);
+                        map.put(stringIntegerEntry.getKey(), v);
                     });
                     rst.add((T) map);
                 } else {
@@ -123,19 +116,8 @@ public class FastExcelImp {
                         if (cel == null) {
                             continue;
                         }
-
                         field.setAccessible(true);
-
-                        Object text;
-                        if (CellType.NUMERIC.equals(cel.getCellType()) && DateUtil.isCellDateFormatted(cel)) {
-                            // 日期格式
-                            text = cel.getDateCellValue();
-                        } else {
-                            text = cellFormat.apply(cel).text;
-                        }
-                        LazyDataFactory.handler(inst, field, text);
-//                        Object transform = BeanTypeTransformUtil.transform(text, field.getType());
-//                        field.set(inst, transform);
+                        field.set(inst, cellFormat.apply(cel).text);
                     }
                     rst.add(inst);
                 }

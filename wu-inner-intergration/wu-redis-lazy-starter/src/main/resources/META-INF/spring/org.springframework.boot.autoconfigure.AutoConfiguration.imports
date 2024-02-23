@@ -1,4 +1,0 @@
-com.wu.framework.inner.redis.config.LazyRedisConfig
-com.wu.framework.inner.redis.config.LazyRedisBeanAutoConfiguration
-com.wu.framework.inner.redis.config.LazyRedisProxyBeanAutoConfiguration
-com.wu.framework.inner.redis.config.LazyRedisProperties

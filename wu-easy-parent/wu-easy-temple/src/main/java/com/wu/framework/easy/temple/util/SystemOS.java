@@ -3,7 +3,7 @@ package com.wu.framework.easy.temple.util;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * describe :
+ * @describe :
  * @date : 2020/12/1 下午10:19
  */
 public class SystemOS {

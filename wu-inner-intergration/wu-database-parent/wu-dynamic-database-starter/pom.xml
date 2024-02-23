@@ -5,12 +5,12 @@
     <parent>
         <artifactId>wu-database-parent</artifactId>
         <groupId>top.wu2020</groupId>
-        <version>1.2.2-JDK17-SNAPSHOT</version>
+        <version>1.0.4</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>wu-dynamic-database-starter</artifactId>
-
+    <version>1.0.4</version>
     <dependencies>
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -34,7 +34,8 @@
         </dependency>
         <dependency>
             <groupId>top.wu2020</groupId>
-            <artifactId>wu-database-lazy-lambda-core</artifactId>
+            <artifactId>wu-database-core</artifactId>
+            <version>1.0.4</version>
         </dependency>
     </dependencies>
 

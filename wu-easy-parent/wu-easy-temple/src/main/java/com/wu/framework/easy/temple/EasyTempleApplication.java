@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * describe :
+ * @describe :
  * @date : 2020/9/18 下午11:30
  */
 //@NacosPropertySource(dataId = "temple", autoRefreshed = true)

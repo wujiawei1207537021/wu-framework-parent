@@ -3,7 +3,6 @@ package com.wu.framework.easy.excel.service;
 import com.wu.framework.easy.excel.stereotype.EasyExcel;
 import com.wu.framework.easy.excel.stereotype.EasyExcelBean;
 import com.wu.framework.easy.excel.util.ISheetShowContextMethod;
-import com.wu.framework.inner.layer.data.convert.LayerOperationConvert;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,12 +21,10 @@ import java.util.stream.Collectors;
 
 /**
  * description 复杂Excel导出工具
- * 删除复杂Excel
  *
  * @author Jia wei Wu
  * @date 2020/10/6 下午8:28
  */
-@Deprecated
 public class ComplexExcelExportService implements ExcelExcelService {
 
 
@@ -245,10 +242,7 @@ public class ComplexExcelExportService implements ExcelExcelService {
      *
      * @param object
      * @return
-     * @see LayerOperationConvert
-     * {@link LayerOperationConvert}
      */
-    @Deprecated
     public static boolean isBaseType(Object object) {
         Class className = object.getClass();
         String packageName = className.getPackage().getName();

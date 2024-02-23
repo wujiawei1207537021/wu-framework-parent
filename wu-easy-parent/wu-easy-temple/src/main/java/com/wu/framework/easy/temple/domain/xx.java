@@ -5,13 +5,13 @@ import java.io.IOException;
 /**
  * @author : Jiawei Wu
  * @version 1.0
- * describe :
+ * @describe :
  * @date : 2020/12/2 下午9:54
  */
 public class xx {
 
     public static void main(String[] args) throws IOException {
-//        WebClient webClient = WebClient.create("http://k8s.wu-framework.com:9200/_bulk");
+//        WebClient webClient = WebClient.create("http://k8s.wu2020.top:9200/_bulk");
 //
 //        File tempFile = new File("es.xx");
 //        if (!tempFile.exists()) {
@@ -52,7 +52,7 @@ public class xx {
 //        map.put("shide","是的");
 //        map.put("haode","好的");
 //        System.out.println(JSONObject.toJSONString(map));
-//        SQLAnalyze.createTableSQL(UseUserExcel.class);
+//        SQLAnalyze.createTableSQL(UseExcel.class);
     }
 
 //    public static InputStream getStrToStream(String sInputString) {

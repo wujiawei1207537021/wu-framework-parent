@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunklazy_ui=self.webpackChunklazy_ui||[]).push([[4736,289],{62859:function(u,e,a){a.r(e),a.d(e,{default:function(){return f}});var n=a(66252),t=a(2262),r=a(85729);var f={__name:"404",setup(u){return(u,e)=>((0,n.wg)(),(0,n.j4)((0,t.SU)(r.default)))}}}}]);

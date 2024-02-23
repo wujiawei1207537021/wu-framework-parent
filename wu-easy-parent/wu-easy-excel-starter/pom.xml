@@ -5,14 +5,15 @@
     <parent>
         <artifactId>wu-easy-parent</artifactId>
         <groupId>top.wu2020</groupId>
-        <version>1.2.2-JDK17-SNAPSHOT</version>
+        <version>1.0.4</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>wu-easy-excel-starter</artifactId>
+    <version>1.0.4</version>
     <properties>
-        <!--    poi-ooxml 版本    -->
-        <poi-ooxml.version>5.2.3</poi-ooxml.version>
+<!--    poi-ooxml 版本    -->
+        <poi-ooxml.version>4.0.0</poi-ooxml.version>
     </properties>
 
     <dependencies>
@@ -23,12 +24,12 @@
             <version>${poi-ooxml.version}</version>
         </dependency>
         <dependency>
-            <groupId>top.wu2020</groupId>
-            <artifactId>wu-framework-web</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
         </dependency>
 
     </dependencies>

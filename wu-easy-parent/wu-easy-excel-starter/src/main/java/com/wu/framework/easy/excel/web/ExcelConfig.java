@@ -1,52 +1,54 @@
 package com.wu.framework.easy.excel.web;
 
-import com.wu.framework.easy.excel.adapter.ExcelExcelServiceAdapter;
-import com.wu.framework.easy.excel.processor.BeanEasyExcelProcessor;
-import com.wu.framework.easy.excel.processor.EasyExcelProcessor;
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * description 未完成
  *
- * @author Jia wei Wu
+ * @author 吴佳伟
  * @date 2021/4/23 上午10:10
  */
-public class ExcelConfig {
+@Deprecated
+public class ExcelConfig implements InitializingBean {
 
 
-//    /**
-//     * 实体转换成excel 处理器
-//     * @return
-//     */
-//    @Bean
-//    public AbstractNormalBeanEasyExcelProcessor normalBeanEasyExcelProcessor(){
-//        return new AbstractNormalBeanEasyExcelProcessor();
-//    }
+    private final RequestMappingHandlerAdapter requestMappingHandlerAdapter;
 
-//    /**
-//     * map 转出成Excel处理器
-//     * @return
-//     */
-//    @Bean
-//    public AbstractNormalMapEasyExcelProcessor normalMapEasyExcelProcessor(){
-//        return new AbstractNormalMapEasyExcelProcessor();
-//    }
+
+    public ExcelConfig(RequestMappingHandlerAdapter requestMappingHandlerAdapter) {
+        this.requestMappingHandlerAdapter = requestMappingHandlerAdapter;
+    }
 
     /**
-     * bean 转出成Excel处理器
-     *
-     * @return
+     * 添加拦截RequestExcelBody 注解并解析文件为对应数据
      */
-    @Bean
-    public BeanEasyExcelProcessor beanEasyExcelProcessor() {
-        return new BeanEasyExcelProcessor();
+    @Override
+    public void afterPropertiesSet() throws Exception {
+
+
+        RequestExcelBodyHandlerMethodArgumentResolver requestExcelBodyHandlerMethodArgumentResolver = new RequestExcelBodyHandlerMethodArgumentResolver(requestMappingHandlerAdapter.getMessageConverters());
+
+        List<HandlerMethodArgumentResolver> argumentResolvers = requestMappingHandlerAdapter.getArgumentResolvers();
+        if (ObjectUtils.isEmpty(argumentResolvers)) {
+            argumentResolvers = Arrays.asList(requestExcelBodyHandlerMethodArgumentResolver);
+        } else {
+
+            //参数解析器
+            List<HandlerMethodArgumentResolver> tempArgumentResolvers = new ArrayList<>(Collections.singletonList(requestExcelBodyHandlerMethodArgumentResolver));
+            tempArgumentResolvers.addAll(argumentResolvers);
+            argumentResolvers = tempArgumentResolvers;
+
+        }
+        requestMappingHandlerAdapter.setArgumentResolvers(argumentResolvers);
     }
 
-    @Bean
-    public ExcelExcelServiceAdapter excelExcelServiceAdapter(List<EasyExcelProcessor> easyExcelProcessorList) {
-        return new ExcelExcelServiceAdapter(easyExcelProcessorList);
-    }
 
 }

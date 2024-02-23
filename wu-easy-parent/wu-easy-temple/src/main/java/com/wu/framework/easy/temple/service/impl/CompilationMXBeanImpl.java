@@ -4,11 +4,10 @@ import com.wu.framework.easy.temple.service.TestMXBean;
 
 import javax.management.ObjectName;
 
-
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * describe :
+ * @describe :
  * @date : 2020/11/7 下午10:04
  */
 

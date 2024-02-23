@@ -1,3 +1,4 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.wu.framework.inner.dynamic.database.config.LazyDBConfig
+com.wu.framework.inner.dynamic.database.config.DynamicDatabaseConfig,\
+com.wu.framework.inner.dynamic.database.component.aop.MultiDataSourceSwitching

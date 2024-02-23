@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * describe : 常量 弃用使用策略方式调整为方法上直接找到数据
+ * @describe : 常量 弃用使用策略方式调整为方法上直接找到数据
  * @date : 2021/3/29 7:34 下午
  */
 @Deprecated
@@ -22,7 +22,7 @@ public class HBaseOperationMethodCounts {
     /**
      * {@link com.wu.framework.inner.lazy.hbase.expland.persistence.HBaseOperation#insertList(List)}
      */
-    public static final String INSERT_LIST = "insertList";// 批量数据批量插入
+    public static final String INSERT_LIST="insertList";// 批量数据批量插入
 
     /**
      * {@link com.wu.framework.inner.lazy.hbase.expland.persistence.HBaseOperation#upsert(Object)}

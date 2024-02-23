@@ -10,7 +10,7 @@
 ///**
 // * @author : Jia wei Wu
 // * @version 1.0
-// * describe :
+// * @describe :
 // * @date : 2020/11/25 下午9:12
 // */
 //@Data
@@ -19,9 +19,9 @@
 //public class ElasticsearchUser {
 //    @Id
 //    private int id;
-//    @Field(columnType = FieldType.Text, analyzer = "ik_max_word")
+//    @Field(type = FieldType.Text, analyzer = "ik_max_word")
 //    private String name;
-//    @Field(columnType = FieldType.Text, analyzer = "ik_max_word")
+//    @Field(type = FieldType.Text, analyzer = "ik_max_word")
 //    private String tags;
 //
 //    public ElasticsearchUser(int id, String name, String tags) {

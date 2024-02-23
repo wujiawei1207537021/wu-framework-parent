@@ -1,13 +1,13 @@
 package com.wu.freamwork.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.wu.framework.easy.upsert.autoconfigure.config.SpringUpsertAutoConfigure;
+import com.wu.framework.easy.stereotype.upsert.config.UpsertConfig;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import com.wu.framework.inner.layer.util.FileUtil;
-import com.wu.framework.inner.lazy.persistence.map.EasyHashMap;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 
-import jakarta.annotation.PreDestroy;
+import javax.annotation.PreDestroy;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,17 +21,17 @@ import java.util.stream.Collectors;
  * @author Jiawei Wu
  * @date 2021/1/27 上午10:24
  */
-//@EasyController("/public/kafka")
+//@EasyController
 public class KafkaController {
 
 
-    private final SpringUpsertAutoConfigure springUpsertAutoConfigure;
+    private final UpsertConfig upsertConfig;
     // 车牌+时间
     Map<String, List<String>> TIME_VEH = new EasyHashMap<>();
 
 
-    public KafkaController(SpringUpsertAutoConfigure springUpsertAutoConfigure) {
-        this.springUpsertAutoConfigure = springUpsertAutoConfigure;
+    public KafkaController(UpsertConfig upsertConfig) {
+        this.upsertConfig = upsertConfig;
     }
 
 
@@ -57,7 +57,7 @@ public class KafkaController {
 
     @PreDestroy
     public void writer() throws Exception {
-        BufferedWriter file = FileUtil.createFileBufferedWriter(springUpsertAutoConfigure.getCacheFileAddress(), "809数据重复");
+        BufferedWriter file = FileUtil.createFile(upsertConfig.getCacheFileAddress(), "809数据重复");
         TIME_VEH.forEach((s, strings) -> {
             if (strings.size() > 1) {
                 try {
@@ -75,7 +75,7 @@ public class KafkaController {
         });
 
         // 数据量大于 30 的数据
-        BufferedWriter differentPlatforms = FileUtil.createFileBufferedWriter(springUpsertAutoConfigure.getCacheFileAddress(), "msgGNSSCenterId重复");
+        BufferedWriter differentPlatforms = FileUtil.createFile(upsertConfig.getCacheFileAddress(), "msgGNSSCenterId重复");
         List<String> msgGNSSCenterId = TIME_VEH.values().stream().filter(strings -> strings.size() > 30).map(strings -> {
             String s = strings.get(0);
             EasyHashMap easyHashMap = JSONObject.parseObject(s, EasyHashMap.class);
@@ -84,6 +84,7 @@ public class KafkaController {
         }).collect(Collectors.toList());
         for (String s : msgGNSSCenterId) {
             differentPlatforms.newLine();
+            ;
             differentPlatforms.write(s);
         }
         differentPlatforms.close();

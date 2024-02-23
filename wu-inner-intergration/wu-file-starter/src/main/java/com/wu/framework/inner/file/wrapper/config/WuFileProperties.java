@@ -1,10 +1,10 @@
 package com.wu.framework.inner.file.wrapper.config;
 
 
-import jakarta.annotation.Resource;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.util.ObjectUtils;
 
+import javax.annotation.Resource;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -54,11 +54,11 @@ public class WuFileProperties {
 //    @ApiOperation("获取媒体接口")
 //    @GetMapping("/{groupName}/{path1}/{path2}/{path3}/{path4}")
 //    public void getMedia(HttpServletResponse httpServletResponse,
-//                         @Parameter("分组") @PathVariable String groupName,
-//                         @Parameter("路径1") @PathVariable String path1,
-//                         @Parameter("路径2") @PathVariable String path2,
-//                         @Parameter("路径3") @PathVariable String path3,
-//                         @Parameter("路径4") @PathVariable String path4) throws IOException {
+//                         @ApiParam("分组") @PathVariable String groupName,
+//                         @ApiParam("路径1") @PathVariable String path1,
+//                         @ApiParam("路径2") @PathVariable String path2,
+//                         @ApiParam("路径3") @PathVariable String path3,
+//                         @ApiParam("路径4") @PathVariable String path4) throws IOException {
 //        String path=path1+"/"+path2+"/"+path3+"/"+path4;
 //        DownloadByteArray downloadByteArray = new DownloadByteArray();
 //        byte [] bytes= fastDFSClientWrapper.getStorageClient().downloadFile(groupName, path,downloadByteArray);

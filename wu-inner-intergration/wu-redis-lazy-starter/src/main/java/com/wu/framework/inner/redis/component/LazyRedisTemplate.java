@@ -1,14 +1,14 @@
 package com.wu.framework.inner.redis.component;
 
 
+import com.wu.framework.inner.redis.LazyRedis;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -23,19 +23,18 @@ import java.util.concurrent.ConcurrentHashMap;
  * @ Version       :  1.0
  */
 @Slf4j
-@ConditionalOnProperty(prefix = "spring.data.redis", value = "host")
-public class LazyRedisTemplate<K, V> extends RedisTemplate<K, V> {
+public class LazyRedisTemplate extends StringRedisTemplate implements LazyRedis {
 
     private final Integer MASTER;
     private final RedisProperties redisProperties;
     protected Map<Integer, RedisConnectionFactory> redisConnectionFactoryMap = new ConcurrentHashMap<>(20);
     private Integer dyDatabase;
 
-    public LazyRedisTemplate(RedisConnectionFactory redisConnectionFactory, RedisProperties redisProperties) {
-        MASTER = redisProperties.getDatabase();
+    public LazyRedisTemplate(LettuceConnectionFactory lettuceConnectionFactory, RedisProperties redisProperties) {
+        MASTER = lettuceConnectionFactory.getDatabase();
         this.redisProperties = redisProperties;
         dyDatabase = MASTER;
-        redisConnectionFactoryMap.put(MASTER, redisConnectionFactory);
+        redisConnectionFactoryMap.put(MASTER, lettuceConnectionFactory);
     }
 
 
@@ -75,14 +74,6 @@ public class LazyRedisTemplate<K, V> extends RedisTemplate<K, V> {
 
     public void setDyDatabase(Integer dyDatabase) {
         this.dyDatabase = dyDatabase;
-    }
-
-
-    /**
-     * 重置
-     */
-    public void reset() {
-        this.dyDatabase = this.MASTER;
     }
 
 

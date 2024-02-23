@@ -5,11 +5,12 @@
     <parent>
         <groupId>top.wu2020</groupId>
         <artifactId>wu-framework-parent</artifactId>
-        <version>1.2.2-JDK17-SNAPSHOT</version>
+        <version>1.0.4</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>wu-inner-intergration</artifactId>
+    <version>1.0.4</version>
     <packaging>pom</packaging>
     <description>wu内部整合</description>
 
@@ -30,11 +31,29 @@
         <module>wu-ftp-starter</module>
         <!--   common     -->
         <module>wu-common-starter</module>
+        <!--    模版   -->
+        <module>wu-template-starter</module>
         <!--     数据库   -->
         <module>wu-database-parent</module>
-        <module>wu-kafka-parent</module>
-        <module>wu-rocketmq-parent</module>
     </modules>
+    <dependencies>
+        <!--    lombok    -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <!-- 生成 spring-configuration-metadata.json-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+    </dependencies>
 
 
 </project>

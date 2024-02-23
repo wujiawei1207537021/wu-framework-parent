@@ -2,7 +2,6 @@ package com.wu.framework.easy.temple.domain;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.wu.framework.easy.excel.stereotype.EasyExcelBean;
-import com.wu.framework.easy.temple.domain.excel.UseUserExcel;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -32,7 +31,7 @@ public class ComplexUseExcel {
     private SmartExcel smartExcel;
 
     @EasyExcelBean
-    private List<UseUserExcel> useUserExcelList;
+    private List<UseExcel> useExcelList;
 
 //
 //    @JSONField(tableName = "例外")

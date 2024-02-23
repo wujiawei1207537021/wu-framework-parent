@@ -1,17 +1,17 @@
 package com.wu.framework.easy.temple.controller;
 
+import com.wu.framework.easy.stereotype.upsert.component.IUpsert;
+import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
+import com.wu.framework.easy.stereotype.upsert.dynamic.QuickEasyUpsert;
+import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.temple.domain.DynGpsVehRun;
+import com.wu.framework.easy.temple.domain.UseExcel;
 import com.wu.framework.easy.temple.domain.UserLog;
 import com.wu.framework.easy.temple.domain.bo.ExtractBo;
 import com.wu.framework.easy.temple.domain.bo.MoreExtractBo;
-import com.wu.framework.easy.temple.domain.excel.UseUserExcel;
 import com.wu.framework.easy.temple.service.RunService;
-import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsert;
-import com.wu.framework.easy.upsert.autoconfigure.dynamic.QuickEasyUpsert;
-import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
-import com.wu.framework.easy.upsert.core.dynamic.IUpsert;
 import com.wu.framework.inner.layer.web.EasyController;
-import com.wu.framework.inner.lazy.persistence.map.EasyHashMap;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * describe :
+ * @describe :
  * @date : 2020/11/7 下午5:57
  */
 @EasyController("/upsert")
@@ -48,7 +48,7 @@ public class UpsertController {
         }
     }
 
-    @EasyUpsert(type = EasyUpsertType.MySQL)
+    @EasyUpsertDS(type = EasyUpsertType.MySQL)
     @ApiOperation(tags = "快速插入数据", value = "入DB")
     @GetMapping()
     public List<UserLog> upsert(@RequestParam(required = false, defaultValue = "100") Integer size) {
@@ -65,7 +65,7 @@ public class UpsertController {
         return userLogList;
     }
 
-    @EasyUpsert(type = EasyUpsertType.MySQL)
+    @EasyUpsertDS(type = EasyUpsertType.MySQL)
     @ApiOperation(tags = "快速插入数据", value = "service 实现类操作数据插入")
     @GetMapping("/size")
     public void upsertSize(@RequestParam(required = false, defaultValue = "100") Integer size) {
@@ -82,7 +82,7 @@ public class UpsertController {
      * @author Jia wei Wu
      * @date 2020/12/7 下午6:32
      */
-    @EasyUpsert(type = EasyUpsertType.ES)
+    @EasyUpsertDS(type = EasyUpsertType.ES)
     @ApiOperation(tags = "快速插入数据", value = "操作数据入ES")
     @GetMapping("/bigDataPartitionTest")
     public void bigDataPartitionTest(@RequestParam(required = false, defaultValue = "100") Integer size) {
@@ -121,15 +121,15 @@ public class UpsertController {
         userLog.setContent("创建时间:" + userLog.getCurrentTime());
         userLog.setUserId(1);
 
-        UseUserExcel useUserExcel = new UseUserExcel();
-        useUserExcel.setCurrentTime(LocalDateTime.now());
-        useUserExcel.setDesc("默认方式导出数据");
-        useUserExcel.setExcelId(2);
-        useUserExcel.setType("默认方式双注解导出");
+        UseExcel useExcel = new UseExcel();
+        useExcel.setCurrentTime(LocalDateTime.now());
+        useExcel.setDesc("默认方式导出数据");
+        useExcel.setExcelId(2);
+        useExcel.setType("默认方式双注解导出");
 
         ExtractBo extractBo = new ExtractBo();
         extractBo.setUserLog(userLog);
-        extractBo.setUseUserExcel(useUserExcel);
+        extractBo.setUseExcel(useExcel);
 
 //        extractData(null, extractBo);
         return extractBo;
@@ -142,7 +142,7 @@ public class UpsertController {
         MoreExtractBo moreExtractBo = new MoreExtractBo();
         ExtractBo extractBo = complexData();
         moreExtractBo.setExtractBo(extractBo);
-        moreExtractBo.setUseUserExcel(extractBo.getUseUserExcel());
+        moreExtractBo.setUseExcel(extractBo.getUseExcel());
         moreExtractBo.setUserLog(extractBo.getUserLog());
         moreExtractBo.setUserLogList(runService.run(1000));
         return moreExtractBo;
@@ -174,7 +174,7 @@ public class UpsertController {
     }
 
     @QuickEasyUpsert(type = EasyUpsertType.MySQL)
-    @ApiOperation(tags = "快速插入数据", value = "quickBinary 数据插入")
+    @ApiOperation(tags = "快速插入数据", value = "binary 数据插入")
     @GetMapping("/binary")
     public List binary(@RequestParam(required = false, defaultValue = "1000") Integer size) {
         return runService.binary(size);

@@ -1,6 +1,4 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.wu.framework.inner.redis.config.LazyRedisConfig,\
-com.wu.framework.inner.redis.config.LazyRedisBeanAutoConfiguration,\
-com.wu.framework.inner.redis.config.LazyRedisProxyBeanAutoConfiguration,\
-com.wu.framework.inner.redis.config.LazyRedisProperties
+com.wu.framework.inner.redis.component.LazyRedisTemplate,\
+com.wu.framework.inner.redis.aop.LazyRedisDBAOP

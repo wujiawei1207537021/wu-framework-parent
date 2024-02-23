@@ -1,11 +1,11 @@
 package com.wu.framework.easy.temple.run;
 
 import com.wu.framework.easy.excel.util.FastExcelImp;
-import com.wu.framework.easy.temple.domain.excel.UseUserExcel;
-import com.wu.framework.easy.upsert.autoconfigure.dynamic.QuickEasyUpsert;
-import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
+import com.wu.framework.easy.stereotype.upsert.dynamic.QuickEasyUpsert;
+import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
+import com.wu.framework.easy.temple.domain.UseExcel;
 import com.wu.framework.inner.layer.web.EasyController;
-import com.wu.framework.inner.lazy.persistence.map.EasyHashMap;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * describe : 测试Excel导出
+ * @describe : 测试Excel导出
  * @date : 2020/10/18 下午9:32
  */
 @EasyController
@@ -31,7 +31,7 @@ public class ExcelImpRunTest {
      */
     @PostMapping("/imp1")
     public String import1(@RequestBody MultipartFile multipartFile) {
-        List<UseUserExcel> userLogList = FastExcelImp.parseExcel(multipartFile, UseUserExcel.class);
+        List<UseExcel> userLogList = FastExcelImp.parseExcel(multipartFile, UseExcel.class);
         return userLogList.toString();
     }
 

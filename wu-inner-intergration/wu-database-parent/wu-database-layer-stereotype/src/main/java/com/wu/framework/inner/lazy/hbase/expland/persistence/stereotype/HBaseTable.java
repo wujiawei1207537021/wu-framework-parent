@@ -20,7 +20,7 @@ public @interface HBaseTable {
     @AliasFor(attribute = "name", annotation = LayerClass.class)
     String tableName() default "";
 
-    String columnFamily() default "";
+    String  columnFamily() default "";
 
     boolean perfectTable() default false;
 

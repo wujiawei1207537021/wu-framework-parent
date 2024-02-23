@@ -1,8 +1,7 @@
 package com.wu.framework.inner.ftp.util;
 
 /**
- * description
- *
+ * @Description
  * @Author Jia wei Wu
  * @Date 2020-05-22 2:31 下午
  */

@@ -1,15 +1,10 @@
 package com.wu.framework.easy.excel.stereotype;
 
-import com.wu.framework.easy.excel.endpoint.EasyExcelPoint;
 import com.wu.framework.easy.excel.service.style.DefaultStyle;
 import com.wu.framework.easy.excel.service.style.Style;
-import com.wu.framework.easy.excel.toolkit.DynamicEasyExcelContextHolder;
-import com.wu.framework.easy.excel.toolkit.DynamicEasyExcelPointContextHolder;
 import com.wu.framework.easy.excel.util.ISheetShowContextMethod;
 import com.wu.framework.easy.excel.util.SheetNumContextMethod;
 import com.wu.framework.easy.excel.util.SheetTextContextMethod;
-import com.wu.framework.easy.excel.web.ExcelResponseHandler;
-import com.wu.framework.inner.layer.toolkit.DynamicLazyAttributeContextHolder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -20,18 +15,6 @@ import java.lang.annotation.*;
  *
  * @author Jia wei Wu
  * @date 2020/10/5 下午7:08
- *
- *
- * <p>
- * @EasyExcel(fileName = "导出数据")
- * @GetMapping("/run/{size}") public List<UserLog> run(@PathVariable Integer size) {
- * return runService.run(size);
- * }
- * </p>
- * @see DynamicEasyExcelPointContextHolder#push(EasyExcelPoint)
- * @see EasyExcelPoint
- * @see class : EasyExcel object:EasyExcelPoint
- * @see ExcelResponseHandler
  */
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
@@ -43,9 +26,6 @@ public @interface EasyExcel {
      * 文件名
      *
      * @return String
-     * <p>
-     * to dynamic fileName
-     * Class:EasyExcel  Object:fileName
      */
     String fileName() default "temp";
 
@@ -66,11 +46,9 @@ public @interface EasyExcel {
     /**
      * 默认 false
      * 是否复杂导出
-     * 删除复杂导出 使用字段合并功能
      *
      * @return boolean
      */
-    @Deprecated
     boolean isComplicated() default false;
 
     /**
@@ -128,19 +106,13 @@ public @interface EasyExcel {
     /**
      * 表头固定
      */
-    boolean titleFixedHead() default false;
+    boolean titleFixedHead() default true;
 
     @Getter
     @AllArgsConstructor
     enum SheetShowContext {
-        /**
-         * 数字 1000~2000
-         */
-        NUM(SheetNumContextMethod.class),
-        /**
-         * 数字中文 一  二 三
-         */
-        TEXT(SheetTextContextMethod.class);
+        NUM(SheetNumContextMethod.class),// 1000~2000
+        TEXT(SheetTextContextMethod.class);// 一  二 三
         private Class<? extends ISheetShowContextMethod> iSheetShowContextMethod;
     }
 

@@ -18,7 +18,7 @@
 ///**
 // * @author : Jia wei Wu
 // * @version 1.0
-// * describe :
+// * @describe :
 // * @date : 2020/11/25 下午8:13
 // */
 //@EasyController
@@ -38,7 +38,7 @@
 //    @ApiOperation(value = "Elasticsearch-Search", tags = "Elasticsearch")
 //    @PostMapping("/_search")
 //    public SearchHits<ElasticsearchUser> elasticsearchSearch() {
-//        Query query = Query.retrieveAll();
+//        Query query = Query.findAll();
 //        SearchHits<ElasticsearchUser> userLogSearchHits = elasticsearchRestTemplate.search(query, ElasticsearchUser.class);
 //        return userLogSearchHits;
 //    }
@@ -60,9 +60,9 @@
 //        indexOperations.createMapping(ElasticsearchUser.class);
 //    }
 //
-//    @ApiOperation(value = "retrieveAll", tags = "Elasticsearch")
+//    @ApiOperation(value = "findAll", tags = "Elasticsearch")
 //    @GetMapping("/_findAll")
-//    public List<DynGpsVehRun> retrieveAll() {
+//    public List<DynGpsVehRun> findAll() {
 //        List<DynGpsVehRun> dynGpsVehRunList =
 //                elasticsearchGPSRepository.findAllByIndustryAndGpsVdate("080", "2020-12-02");
 //        return dynGpsVehRunList;

@@ -1,7 +1,7 @@
 package com.wu.freamwork.service.impl;
 
 
-import com.wu.framework.inner.layer.data.dictionary.api.ConvertApi;
+import com.wu.framework.inner.layer.data.ConvertApi;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashMap;
@@ -11,12 +11,11 @@ import java.util.Map;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * describe :
+ * @describe :
  * @date : 2020/11/7 下午4:41
  */
 @Service
 public class ConvertApiImpl implements ConvertApi {
-
     /**
      * description 查询多个字典
      *
@@ -34,13 +33,6 @@ public class ConvertApiImpl implements ConvertApi {
         itemMap.put("1", "男");
         itemMap.put("2", "女");
         map.put("SEX", itemMap);
-        Map<String, String> roleItemMap = new LinkedHashMap() {
-            {
-                put("1", "平台角色");
-                put("2", "测试角色");
-            }
-        };
-        map.put("ROLE_TYPE", roleItemMap);
         return map;
     }
 }

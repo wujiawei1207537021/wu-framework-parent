@@ -1,8 +1,8 @@
 package com.wu.framework.easy.stereotype.upsert.converter.stereotype;
 
 import com.wu.framework.easy.temple.domain.SmartFillField;
-import com.wu.framework.inner.lazy.persistence.map.EasyHashMap;
-import com.wu.framework.inner.lazy.persistence.map.EasySmartFillFieldConverter;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasySmartFillFieldConverter;
 
 import java.io.File;
 import java.io.IOException;

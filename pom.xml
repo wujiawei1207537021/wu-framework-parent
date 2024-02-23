@@ -8,23 +8,23 @@
 
     <groupId>top.wu2020</groupId>
     <artifactId>wu-framework-parent</artifactId>
-    <version>1.2.2-JDK17-SNAPSHOT</version>
+    <version>1.0.4</version>
     <packaging>pom</packaging>
     <description>系统框架</description>
     <name>wu-framework-parent</name>
-    <url>https://gitee.com/wujiawei1207537021/wu-framework-parent</url>
+    <url>https://github.com/wujiawei1207537021/wu-framework-parent</url>
 
     <!-->开发者的信息<-->
     <developers>
         <developer>
-            <name>Jia Wei Wu</name>
+            <name>jiaweiWu</name>
             <email>1207537021@qq.com</email>
         </developer>
     </developers>
 
     <!-->项目的版本管理地址<-->
     <scm>
-        <url>https://gitee.com/wujiawei1207537021/wu-framework-parent</url>
+        <url>https://github.com/wujiawei1207537021/wu-framework-parent</url>
     </scm>
 
     <licenses>
@@ -35,47 +35,41 @@
         </license>
     </licenses>
 
+
     <properties>
-        <revision>1.2.2-JDK17-SNAPSHOT</revision>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
-
-        <java.version>17</java.version>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-
-        <skipTests>true</skipTests>
-        <!--    javadoc error 跳过    -->
-        <maven.javadoc.failOnError>false</maven.javadoc.failOnError>
-
-        <maven-clean-plugin.version>3.3.1</maven-clean-plugin.version>
-        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+        <java.version>1.8</java.version>
+        <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
+        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>
         <maven-install-plugin.version>2.5.2</maven-install-plugin.version>
         <maven-invoker-plugin.version>3.1.0</maven-invoker-plugin.version>
-        <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
-        <maven-deploy-plugin.version>3.1.1</maven-deploy-plugin.version>
-        <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
+        <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+        <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
         <maven-shade-plugin.version>3.2.1</maven-shade-plugin.version>
-        <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
-        <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
-        <flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
+        <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
+        <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <github.global.server>github</github.global.server>
 
-        <!--   平台服务版本控制     -->
-        <wu-authorization-server-platform-starter.version>${project.version}
-        </wu-authorization-server-platform-starter.version>
-        <wu-upsert-server-platform-starter.version>${project.version}</wu-upsert-server-platform-starter.version>
-        <wu-data-relay-server-platform-starter.version>${project.version}
-        </wu-data-relay-server-platform-starter.version>
-        <wu-play-server-platform-starter.version>${project.version}</wu-play-server-platform-starter.version>
-        <!--   springboot 版本     -->
-        <spring-boot-starter.version>3.2.1</spring-boot-starter.version>
-        <!--   wu-framework-dependencies 依赖管理     -->
-        <wu-framework-dependencies.version>1.2.2-JDK17-SNAPSHOT</wu-framework-dependencies.version>
+        <wu-db-starter.version>${project.version}</wu-db-starter.version>
+        <wu-redis-lazy-starter.version>${project.version}</wu-redis-lazy-starter.version>
+        <wu-log-starter.version>${project.version}</wu-log-starter.version>
+        <wu-swagger-starter.version>${project.version}</wu-swagger-starter.version>
+        <wu-file-starter.version>${project.version}</wu-file-starter.version>
+        <wu-framework-parent.version>${project.version}</wu-framework-parent.version>
+        <wu-easy-upsert-starter.version>${project.version}</wu-easy-upsert-starter.version>
+        <wu-database-lazy-starter.version>${project.version}</wu-database-lazy-starter.version>
+        <wu-layer-stereotype.version>${project.version}</wu-layer-stereotype.version>
+        <wu-hbase-starter.version>${project.version}</wu-hbase-starter.version>
+        <wu-elasticsearch-starter.version>${project.version}</wu-elasticsearch-starter.version>
+
+        <spring-boot-starter.version>2.4.4</spring-boot-starter.version>
     </properties>
 
     <modules>
+        <module>wu-framework-shiro</module>
+        <!--        <module>wu-framework-system</module>-->
         <module>wu-inner-intergration</module>
         <module>wu-freamwork-test</module>
         <module>wu-inner-api</module>
@@ -84,10 +78,6 @@
         <module>wu-easy-parent</module>
         <module>wu-bionic-parent</module>
         <module>wu-layer-stereotype</module>
-        <module>wu-framework-web</module>
-        <module>wu-framework-authorization</module>
-        <module>wu-smart-platform</module>
-        <module>wu-framework-bean</module>
     </modules>
 
     <dependencies>
@@ -102,15 +92,6 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-autoconfigure</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.graalvm.buildtools</groupId>
-            <artifactId>native-maven-plugin</artifactId>
-            <version>0.9.21</version>
-        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -123,12 +104,88 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <!--数据库 即将弃用 考虑重构架构 -->
+            <!--            <dependency>-->
+            <!--                <groupId>top.wu2020</groupId>-->
+            <!--                <artifactId>wu-db-starter</artifactId>-->
+            <!--                <version>${wu-db-starter.version}</version>-->
+            <!--            </dependency>-->
+            <!--     懒人数据库       -->
             <dependency>
                 <groupId>top.wu2020</groupId>
-                <artifactId>wu-framework-dependencies</artifactId>
-                <version>${wu-framework-dependencies.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
+                <artifactId>wu-database-lazy-starter</artifactId>
+                <version>${wu-database-lazy-starter.version}</version>
+            </dependency>
+            <!--swagger 即将弃用 原因swagger 官方推出starter 包 -->
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-swagger-starter</artifactId>
+                <version>${wu-swagger-starter.version}</version>
+            </dependency>
+            <!--懒人redis-->
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-redis-lazy-starter</artifactId>
+                <version>${wu-redis-lazy-starter.version}</version>
+            </dependency>
+            <!--文件资源服务-->
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-file-starter</artifactId>
+                <version>${wu-framework-parent.version}</version>
+            </dependency>
+            <!--      日志      -->
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-log-starter</artifactId>
+                <version>${wu-log-starter.version}</version>
+            </dependency>
+            <!--     简单数据插入       -->
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-easy-upsert-starter</artifactId>
+                <version>${wu-framework-parent.version}</version>
+            </dependency>
+
+            <!--    通用        -->
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-common-starter</artifactId>
+                <version>${wu-framework-parent.version}</version>
+            </dependency>
+            <!--     模板       -->
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-template-starter</artifactId>
+                <version>${wu-framework-parent.version}</version>
+            </dependency>
+
+            <!--  数据库code生成        -->
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-database-generator-starter</artifactId>
+                <version>${wu-framework-parent.version}</version>
+            </dependency>
+            <!--层方面注解-->
+
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-layer-stereotype</artifactId>
+                <version>${wu-layer-stereotype.version}</version>
+            </dependency>
+
+            <!--       HBase starter包     -->
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-hbase-starter</artifactId>
+                <version>${wu-hbase-starter.version}</version>
+            </dependency>
+            <!--ES7后支持的sql查询-->
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-elasticsearch-starter</artifactId>
+                <version>${wu-elasticsearch-starter.version}</version>
             </dependency>
 
         </dependencies>
@@ -152,58 +209,23 @@
                     </executions>
                 </plugin>
                 <plugin>
-                    <groupId>org.graalvm.buildtools</groupId>
-                    <artifactId>native-maven-plugin</artifactId>
-                    <version>0.9.21</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>${maven-deploy-plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <id>deploy</id>
-                            <phase>deploy</phase>
-                            <goals>
-                                <goal>deploy</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>${maven-jar-plugin.version}</version>
-                    <configuration>
-                        <archive>
-                            <!--            MANIFEST.MF 文件添加 Implementation-Version、Implementation-Title、Automatic-Module-Name             -->
-                            <manifestEntries>
-                                <Implementation-Version>${project.version}</Implementation-Version>
-                                <Implementation-Title>${project.artifactId}</Implementation-Title>
-                                <Automatic-Module-Name>${project.groupId}</Automatic-Module-Name>
-                                <!--            构建时间                    -->
-                                <Built-Time>${maven.build.timestamp}</Built-Time>
-                            </manifestEntries>
-                        </archive>
-                    </configuration>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
                     <version>${maven-clean-plugin.version}</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>${maven-resources-plugin.version}</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven-compiler-plugin.version}</version>
                     <configuration>
-                        <source>17</source>
-                        <target>17</target>
+                        <source>1.8</source>
+                        <target>1.8</target>
                         <encoding>UTF-8</encoding>
                         <compilerArgs>
                             <compilerArg>-parameters</compilerArg>
@@ -211,7 +233,6 @@
                     </configuration>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven-surefire-plugin.version}</version>
                 </plugin>
@@ -219,32 +240,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-gpg-plugin</artifactId>
                     <version>${maven-gpg-plugin.version}</version>
-                </plugin>
-                <!--        flatten            -->
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>flatten-maven-plugin</artifactId>
-                    <version>${flatten-maven-plugin.version}</version>
-                    <configuration>
-                        <updatePomFile>true</updatePomFile>
-                        <flattenMode>resolveCiFriendliesOnly</flattenMode>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>flatten</id>
-                            <phase>process-resources</phase>
-                            <goals>
-                                <goal>flatten</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>flatten.clean</id>
-                            <phase>clean</phase>
-                            <goals>
-                                <goal>clean</goal>
-                            </goals>
-                        </execution>
-                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -303,32 +298,6 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <!--        flatten            -->
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>flatten-maven-plugin</artifactId>
-                        <version>${flatten-maven-plugin.version}</version>
-                        <configuration>
-                            <updatePomFile>true</updatePomFile>
-                            <flattenMode>resolveCiFriendliesOnly</flattenMode>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>flatten</id>
-                                <phase>process-resources</phase>
-                                <goals>
-                                    <goal>flatten</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>flatten.clean</id>
-                                <phase>clean</phase>
-                                <goals>
-                                    <goal>clean</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
                 </plugins>
             </build>
             <!-->发布的地址<-->
@@ -342,81 +311,6 @@
                     <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
                 </repository>
             </distributionManagement>
-        </profile>
-
-
-        <profile>
-            <id>snapshots</id>
-            <!-->发布的地址<-->
-            <distributionManagement>
-                <snapshotRepository>
-                    <id>maven-snapshots</id>
-                    <name>deployment</name>
-                    <url>http://192.168.17.221:31004/repository/maven-snapshots/</url>
-                </snapshotRepository>
-                <repository>
-                    <id>maven-releases</id>
-                    <name>deployment</name>
-                    <url>http://192.168.17.221:31004/repository/maven-releases/</url>
-                </repository>
-            </distributionManagement>
-        </profile>
-        <profile>
-            <id>native</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.graalvm.buildtools</groupId>
-                        <artifactId>native-maven-plugin</artifactId>
-                        <version>0.9.28</version>
-                        <!-- 使用graalvm提供的可达性元数据，很多第三方库就直接可以构建成可执行文件了 -->
-                        <configuration>
-                            <!-- for agent -->
-                            <agent>
-                                <defaultMode>Standard</defaultMode>
-                                <options>
-                                    <builtinCallerFilter>true</builtinCallerFilter>
-                                    <builtinHeuristicFilter>true</builtinHeuristicFilter>
-                                    <enableExperimentalPredefinedClasses>true
-                                    </enableExperimentalPredefinedClasses>
-                                    <enableExperimentalUnsafeAllocationTracing>true
-                                    </enableExperimentalUnsafeAllocationTracing>
-                                    <trackReflectionMetadata>true</trackReflectionMetadata>
-                                </options>
-                                <metadataCopy>
-                                    <merge>true</merge>
-                                </metadataCopy>
-                            </agent>
-                            <!-- for metadata repository -->
-                            <metadataRepository>
-                                <enabled>true</enabled>
-                            </metadataRepository>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>add-reachability-metadata</id>
-                                <goals>
-                                    <goal>add-reachability-metadata</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>test-native</id>
-                                <goals>
-                                    <goal>test</goal>
-                                </goals>
-                                <phase>test</phase>
-                            </execution>
-                            <execution>
-                                <id>build-native</id>
-                                <goals>
-                                    <goal>compile-no-fork</goal>
-                                </goals>
-                                <phase>package</phase>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
     </profiles>
 

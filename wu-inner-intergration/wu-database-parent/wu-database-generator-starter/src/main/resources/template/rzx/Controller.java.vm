@@ -3,7 +3,7 @@ package ${package}.${moduleName}.controller;
 import java.util.Arrays;
 import java.util.Map;
 
-import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +20,7 @@ import java.util.List;
  * @author ${author}
  * @date ${datetime}
  */
-@Tag(name = "${moduleName}")
+@Api(tags = "${moduleName}")
 @RestController
 @RequestMapping("${moduleName}/${pathName}")
 public class ${className}Controller {

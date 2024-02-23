@@ -1,4 +1,0 @@
-com.wu.framework.easy.upsert.autoconfigure.config.SpringUpsertAutoConfigure
-com.wu.framework.easy.upsert.autoconfigure.config.SpringBootKafkaConfigProperties
-com.wu.framework.easy.upsert.autoconfigure.config.SpringBootPulsarConfigProperties
-com.wu.framework.easy.upsert.autoconfigure.config.SpringBootElasticsearchConfigProperties
