@@ -1,6 +1,6 @@
 package com.wu.framework.authorization.model;
 
-import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTable;
+import com.wu.framework.inner.lazy.stereotype.LazyTable;
 import lombok.Data;
 
 import java.util.List;

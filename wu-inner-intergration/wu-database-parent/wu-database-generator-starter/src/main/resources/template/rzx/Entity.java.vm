@@ -26,15 +26,15 @@ public class ${className}Entity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    #foreach ($column in $columns)
+    #foreach ($lazyColumn in $columns)
         /**
-         *  $column.columnComment
+         *  $lazyColumn.columnComment
          */
-        @ApiModelProperty(value = "$column.columnComment", example = "$column.val")
-            #if($column.columnName == $pk.columnName)
+        @ApiModelProperty(value = "$lazyColumn.columnComment", example = "$lazyColumn.val")
+            #if($lazyColumn.columnName == $pk.columnName)
             @Id
             #end
-        private $column.attrType $column.attrname;
+        private $lazyColumn.attrType $lazyColumn.attrname;
 
     #end
 

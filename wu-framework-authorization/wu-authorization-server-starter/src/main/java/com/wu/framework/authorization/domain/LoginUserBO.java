@@ -1,7 +1,7 @@
 package com.wu.framework.authorization.domain;
 
-import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTable;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTableFieldUnique;
+import com.wu.framework.inner.lazy.stereotype.LazyTable;
+import com.wu.framework.inner.lazy.stereotype.LazyTableFieldUnique;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
  */
 @Accessors(chain = true)
 @Data
-@LazyTable(tableName = "sys_user",perfectTable = true)
+@LazyTable(tableName = "sys_user", perfectTable = true)
 public class LoginUserBO {
 
     /**

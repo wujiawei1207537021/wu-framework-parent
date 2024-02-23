@@ -77,40 +77,52 @@ public class ArabicNumeralsToChineseNumerals {
      * @return
      */
     public static String[] convert(long num, boolean isColloquial) {
-        if (num < 10) {// 10以下直接返回对应汉字
-            return new String[]{CN_CHARS[(int) num]};// ASCII2int
+        // 10以下直接返回对应汉字
+        if (num < 10) {
+            // ASCII2int
+            return new String[]{CN_CHARS[(int) num]};
         }
 
         char[] chars = String.valueOf(num).toCharArray();
-        if (chars.length > CN_UNITS.length) {// 超过单位表示范围的返回空
+        // 超过单位表示范围的返回空
+        if (chars.length > CN_UNITS.length) {
             return new String[]{};
         }
-
-        boolean isLastUnitStep = false;// 记录上次单位进位
-        ArrayList<String> cnchars = new ArrayList<String>(chars.length * 2);// 创建数组，将数字填入单位对应的位置
-        for (int pos = chars.length - 1; pos >= 0; pos--) {// 从低位向高位循环
+// 记录上次单位进位
+        boolean isLastUnitStep = false;
+        // 创建数组，将数字填入单位对应的位置
+        ArrayList<String> cnchars = new ArrayList<String>(chars.length * 2);
+        // 从低位向高位循环
+        for (int pos = chars.length - 1; pos >= 0; pos--) {
             char ch = chars[pos];
-            String cnChar = CN_CHARS[ch - '0'];// ascii2int 汉字
-            int unitPos = chars.length - pos - 1;// 对应的单位坐标
-            String cnUnit = CN_UNITS[unitPos];// 单位
-            boolean isZero = (ch == '0');// 是否为0
-            boolean isZeroLow = (pos + 1 < chars.length && chars[pos + 1] == '0');// 是否低位为0
-
-            boolean isUnitStep = (unitPos >= UNIT_STEP && (unitPos % UNIT_STEP == 0));// 当前位是否需要单位进位
-
-            if (isUnitStep && isLastUnitStep) {// 去除相邻的上一个单位进位
+            // ascii2int 汉字
+            String cnChar = CN_CHARS[ch - '0'];
+            // 对应的单位坐标
+            int unitPos = chars.length - pos - 1;
+            // 单位
+            String cnUnit = CN_UNITS[unitPos];
+            // 是否为0
+            boolean isZero = (ch == '0');
+            // 是否低位为0
+            boolean isZeroLow = (pos + 1 < chars.length && chars[pos + 1] == '0');
+// 当前位是否需要单位进位
+            boolean isUnitStep = (unitPos >= UNIT_STEP && (unitPos % UNIT_STEP == 0));
+// 去除相邻的上一个单位进位
+            if (isUnitStep && isLastUnitStep) {
                 int size = cnchars.size();
                 cnchars.remove(size - 1);
-                if (!CN_CHARS[0].equals(cnchars.get(size - 2))) {// 补0
+                // 补0
+                if (!CN_CHARS[0].equals(cnchars.get(size - 2))) {
                     cnchars.add(CN_CHARS[0]);
                 }
             }
-
-            if (isUnitStep || !isZero) {// 单位进位(万、亿)，或者非0时加上单位
+// 单位进位(万、亿)，或者非0时加上单位
+            if (isUnitStep || !isZero) {
                 cnchars.add(cnUnit);
                 isLastUnitStep = isUnitStep;
             }
-            if (isZero && (isZeroLow || isUnitStep)) {// 当前位为0低位为0，或者当前位为0并且为单位进位时进行省略
+            // 当前位为0低位为0，或者当前位为0并且为单位进位时进行省略
+            if (isZero && (isZeroLow || isUnitStep)) {
                 continue;
             }
             cnchars.add(cnChar);
@@ -129,7 +141,8 @@ public class ArabicNumeralsToChineseNumerals {
         if (isColloquial) {
             String chFirst = cnchars.get(0);
             String chSecond = cnchars.get(1);
-            if (chFirst.equals(CN_CHARS[1]) && chSecond.startsWith(CN_UNITS[1])) {// 是否以'一'开头，紧跟'十'
+            // 是否以'一'开头，紧跟'十'
+            if (chFirst.equals(CN_CHARS[1]) && chSecond.startsWith(CN_UNITS[1])) {
                 cnchars.remove(0);
             }
         }

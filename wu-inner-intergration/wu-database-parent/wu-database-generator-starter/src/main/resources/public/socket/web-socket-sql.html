@@ -13,7 +13,7 @@ Welcome<br/><input id="text" type="text"/>
 <hr/>
 <button onclick="closeWebSocket()">关闭WebSocket连接</button>
 <hr/>
-<div id="message"></div>
+<div id="record"></div>
 </body>
 <script type="text/javascript">
     var websocket = null;
@@ -53,7 +53,7 @@ Welcome<br/><input id="text" type="text"/>
 
     //将消息显示在网页上
     function setMessageInnerHTML(innerHTML) {
-        document.getElementById('message').innerHTML += innerHTML + '<br/>';
+        document.getElementById('record').innerHTML += innerHTML + '<br/>';
     }
 
     //关闭WebSocket连接
@@ -63,9 +63,9 @@ Welcome<br/><input id="text" type="text"/>
 
     //发送消息
     function send() {
-        var message = document.getElementById('text').value;
-        websocket.send('{"msg":"' + message + '"}');
-        setMessageInnerHTML(message + "&#13;");
+        var record = document.getElementById('text').value;
+        websocket.send('{"msg":"' + record + '"}');
+        setMessageInnerHTML(record + "&#13;");
     }
 </script>
 

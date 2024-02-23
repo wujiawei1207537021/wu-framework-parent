@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>wu-framework-parent</artifactId>
         <groupId>top.wu2020</groupId>
-        <version>1.0.5</version>
+        <version>1.0.6</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -16,6 +16,7 @@
         <module>wu-authorization-client-starter</module>
         <module>wu-authorization-spring-boot-autoconfigure</module>
         <module>wu-authorization-common</module>
+        <module>wu-authorization-server-simple</module>
     </modules>
 
     <properties>
@@ -29,22 +30,22 @@
             <dependency>
                 <groupId>top.wu2020</groupId>
                 <artifactId>wu-authorization-client-starter</artifactId>
-                <version>1.0.5</version>
+                <version>1.0.6</version>
             </dependency>
             <dependency>
                 <groupId>top.wu2020</groupId>
                 <artifactId>wu-authorization-server-starter</artifactId>
-                <version>1.0.5</version>
+                <version>1.0.6</version>
             </dependency>
             <dependency>
                 <groupId>top.wu2020</groupId>
                 <artifactId>wu-authorization-spring-boot-autoconfigure</artifactId>
-                <version>1.0.5</version>
+                <version>1.0.6</version>
             </dependency>
             <dependency>
                 <groupId>top.wu2020</groupId>
                 <artifactId>wu-authorization-common</artifactId>
-                <version>1.0.5</version>
+                <version>1.0.6</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

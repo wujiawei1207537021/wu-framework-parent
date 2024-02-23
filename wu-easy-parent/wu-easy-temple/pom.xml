@@ -5,12 +5,12 @@
     <parent>
         <artifactId>wu-easy-parent</artifactId>
         <groupId>top.wu2020</groupId>
-        <version>1.0.5</version>
+        <version>1.0.6</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>wu-easy-temple</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
     <description>easy使用模版</description>
 
     <dependencies>
@@ -52,7 +52,7 @@
         <dependency>
             <groupId>top.wu2020</groupId>
             <artifactId>wu-easy-excel-starter</artifactId>
-            <version>1.0.5</version>
+            <version>1.0.6</version>
         </dependency>
         <dependency>
             <groupId>top.wu2020</groupId>
@@ -99,6 +99,12 @@
         <!--            <artifactId>nacos-config-spring-boot-starter</artifactId>-->
         <!--            <version>0.2.7</version>-->
         <!--        </dependency>-->
+
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-easy-listener-starter</artifactId>
+            <version>1.0.6</version>
+        </dependency>
     </dependencies>
     <!--    <build>-->
     <!--        <plugins>-->

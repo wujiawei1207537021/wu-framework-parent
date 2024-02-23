@@ -14,7 +14,7 @@ import java.util.Random;
 /**
  * description  代理发送请求
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2021/5/12 9:39 上午
  */
 public class ProxyRestTemplate {

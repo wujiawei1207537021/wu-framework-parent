@@ -4,7 +4,7 @@ package com.wu.freamwork.controller;
 import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.inner.template.https.HttpsRestTemplate;
 import com.wu.framework.inner.template.proxy.http.ProxyRestTemplate;
-import io.swagger.annotations.Api;
+import org.apache.pulsar.shade.io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -15,7 +15,7 @@ import static java.lang.Thread.sleep;
 /**
  * @author : Jia wei Wu
  * @version : 1.0
- * describe: 测试https
+ * 测试https
  * @date : 2020/6/17 10:42 下午
  */
 @Api(tags = "Template 模板测试")

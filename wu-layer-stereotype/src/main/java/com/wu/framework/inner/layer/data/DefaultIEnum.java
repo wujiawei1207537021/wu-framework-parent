@@ -3,9 +3,16 @@ package com.wu.framework.inner.layer.data;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * @author wujiawei
+ */
+
 @Getter
 @AllArgsConstructor
 public enum DefaultIEnum implements IEnum {
+    /**
+     * 默认操作
+     */
     DEFAULT;
 
     @Override

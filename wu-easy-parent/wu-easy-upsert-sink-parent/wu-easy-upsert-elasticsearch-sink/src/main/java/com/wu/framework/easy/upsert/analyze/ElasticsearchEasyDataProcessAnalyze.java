@@ -6,7 +6,7 @@ import com.wu.framework.easy.upsert.autoconfigure.EasySmartField;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.layer.stereotype.LayerDefault;
 import com.wu.framework.inner.layer.util.FileUtil;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.DataProcess;
+import com.wu.framework.inner.lazy.persistence.analyze.DataProcess;
 import lombok.Data;
 import lombok.SneakyThrows;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -53,11 +53,11 @@ public interface ElasticsearchEasyDataProcessAnalyze extends LayerDefault {
             String prefix = table.indexPrefix();
             String format = table.indexFormat();
             String suffix = table.indexSuffix();
-            if(!ObjectUtils.isEmpty(table.indexType())){
+            if (!ObjectUtils.isEmpty(table.indexType())) {
                 indexType = table.indexType();
             }
 
-            if(!ObjectUtils.isEmpty(prefix)|!ObjectUtils.isEmpty(suffix)){
+            if (!ObjectUtils.isEmpty(prefix) | !ObjectUtils.isEmpty(suffix)) {
                 if (ObjectUtils.isEmpty(format)) {
                     index = prefix + suffix;
                 } else {

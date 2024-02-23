@@ -22,7 +22,7 @@ public class HBaseOperationMethodCounts {
     /**
      * {@link com.wu.framework.inner.lazy.hbase.expland.persistence.HBaseOperation#insertList(List)}
      */
-    public static final String INSERT_LIST="insertList";// 批量数据批量插入
+    public static final String INSERT_LIST = "insertList";// 批量数据批量插入
 
     /**
      * {@link com.wu.framework.inner.lazy.hbase.expland.persistence.HBaseOperation#upsert(Object)}

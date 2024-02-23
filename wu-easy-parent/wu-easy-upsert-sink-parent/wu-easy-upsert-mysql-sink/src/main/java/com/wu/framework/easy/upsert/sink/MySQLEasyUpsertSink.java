@@ -1,19 +1,20 @@
 package com.wu.framework.easy.upsert.sink;
 
 import com.wu.framework.easy.upsert.autoconfigure.EasySmart;
-import com.wu.framework.easy.upsert.core.dynamic.IEasyUpsert;
 import com.wu.framework.easy.upsert.autoconfigure.config.SpringUpsertAutoConfigure;
 import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsertStrategy;
 import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
+import com.wu.framework.easy.upsert.core.dynamic.IEasyUpsert;
 import com.wu.framework.easy.upsert.core.dynamic.exception.UpsertException;
 import com.wu.framework.inner.dynamic.database.DynamicLazyDSAdapter;
 import com.wu.framework.inner.layer.data.ClassSchema;
 import com.wu.framework.inner.layer.data.UserConvertService;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.EasyAnnotationConverter;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.MySQLDataProcessAnalyze;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.LazyTableAnnotation;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
+import com.wu.framework.inner.lazy.persistence.analyze.DefaultMySQLDataProcessAnalyze;
+import com.wu.framework.inner.lazy.persistence.analyze.EasyAnnotationConverter;
+import com.wu.framework.inner.lazy.persistence.analyze.MySQLDataProcessAnalyze;
+import com.wu.framework.inner.lazy.persistence.conf.ClassLazyTableEndpoint;
+import com.wu.framework.inner.lazy.persistence.map.EasyHashMap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -39,13 +40,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 @ConditionalOnBean(DataSource.class)
 @EasyUpsertStrategy(value = EasyUpsertType.MySQL)
-public class MySQLEasyUpsertSink implements IEasyUpsert, MySQLDataProcessAnalyze, InitializingBean {
+public class MySQLEasyUpsertSink implements IEasyUpsert, InitializingBean {
 
 
     private final UserConvertService userConvertService;
     private final SpringUpsertAutoConfigure springUpsertAutoConfigure;
     private final LazyOperation lazyOperation;
     private final DynamicLazyDSAdapter dynamicLazyDSAdapter;
+    private final DefaultMySQLDataProcessAnalyze processAnalyze = new DefaultMySQLDataProcessAnalyze();
 
     public MySQLEasyUpsertSink(UserConvertService userConvertService, SpringUpsertAutoConfigure springUpsertAutoConfigure, LazyOperation lazyOperation, DynamicLazyDSAdapter dynamicLazyDSAdapter) {
         this.userConvertService = userConvertService;
@@ -57,7 +59,7 @@ public class MySQLEasyUpsertSink implements IEasyUpsert, MySQLDataProcessAnalyze
 
     @Override
     public <T> Object upsert(List<T> list, ClassSchema classSchema) throws UpsertException {
-        synchronized (dynamicLazyDSAdapter){
+        synchronized (dynamicLazyDSAdapter) {
             DataSource dataSource = dynamicLazyDSAdapter.determineDataSource();
             Integer total = (list.size() + springUpsertAutoConfigure.getBatchLimit() - 1) / springUpsertAutoConfigure.getBatchLimit();
             log.info("计划处理步骤 【{}】 步", total);
@@ -78,7 +80,7 @@ public class MySQLEasyUpsertSink implements IEasyUpsert, MySQLDataProcessAnalyze
     }
 
     protected <T> Object execute(DataSource dataSource, List<T> list) throws Exception {
-        Future task = easyUpsertExecutor.submit((Callable) () -> {
+        Future task = EASY_UPSERT_EXECUTOR.submit((Callable) () -> {
             // 第一个参数 clazz
 //            ParameterizedType parameterizedType = (ParameterizedType) list.getClass().getGenericSuperclass();
             Class clazz = list.get(0).getClass();
@@ -88,9 +90,9 @@ public class MySQLEasyUpsertSink implements IEasyUpsert, MySQLDataProcessAnalyze
                 iEnumList = userConvertService.userConvert(clazz);
             }
             iEnumList.putAll(EasyAnnotationConverter.collectionConvert(clazz));
-            LazyTableAnnotation lazyTableAnnotation = dataAnalyze(clazz, EasyHashMap.class.isAssignableFrom(clazz) ? (EasyHashMap) list.get(0) : null);
+            ClassLazyTableEndpoint lazyTableAnnotation = processAnalyze.dataAnalyze(clazz, EasyHashMap.class.isAssignableFrom(clazz) ? (EasyHashMap) list.get(0) : null);
             lazyTableAnnotation.setIEnumList(iEnumList);
-            final MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = upsertDataPack(list, lazyTableAnnotation);
+            final MySQLDataProcessAnalyze.MySQLProcessResult mySQLProcessResult = processAnalyze.upsertDataPack(list, lazyTableAnnotation);
             if (springUpsertAutoConfigure.isPrintSql()) {
                 System.err.println(String.format("Execute SQL : %s", mySQLProcessResult.getSql()));
             }
@@ -99,22 +101,20 @@ public class MySQLEasyUpsertSink implements IEasyUpsert, MySQLDataProcessAnalyze
             boolean rs;
             try {
                 connection = dataSource.getConnection();
+                connection.setAutoCommit(false);
                 //初始化表
                 if ((null != easySmart && easySmart.perfectTable()) | EasyHashMap.class.isAssignableFrom(clazz)) {
-                    synchronized (this){
-                        perfectTable(lazyTableAnnotation, dataSource);
+                    synchronized (this) {
+                        processAnalyze.perfectTable(lazyTableAnnotation, connection);
                     }
                 }
                 //获取PreparedStatement对象
                 upsertStatement = connection.prepareStatement(mySQLProcessResult.getSql());
-                if (mySQLProcessResult.isHasBinary()) {
-                    for (int i = 0; i < mySQLProcessResult.getBinaryList().size(); i++) {
-                        upsertStatement.setBinaryStream(i + 1, mySQLProcessResult.getBinaryList().get(i));
-                    }
-                }
                 //执行SQL语句，获取结果集
                 rs = upsertStatement.execute();
+                connection.commit();
             } catch (Exception e) {
+                connection.rollback();
                 log.error(e.toString());
                 throw new RuntimeException(e);
             } finally {

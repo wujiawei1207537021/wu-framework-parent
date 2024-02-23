@@ -8,7 +8,7 @@ import java.lang.annotation.*;
 /**
  * description 导入Excel数据， 自动准换乘List 类型的数据
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2021/4/23 下午12:06
  */
 @Target(ElementType.PARAMETER)

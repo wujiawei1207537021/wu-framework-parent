@@ -24,13 +24,13 @@ import java.util.List;
 public class HBaseLayerAnalyze<P> implements LayerClassAnalyze {
 
 
-
     /**
      * description 分析字段
+     *
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/4/25 下午1:39
      */
     public List<AnalyzeField> analyzeField(Class clazz) {
@@ -55,7 +55,7 @@ public class HBaseLayerAnalyze<P> implements LayerClassAnalyze {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/4/25 下午1:39
      */
     public HBaseTable analyzeClass(Class clazz) {
@@ -64,9 +64,9 @@ public class HBaseLayerAnalyze<P> implements LayerClassAnalyze {
         return new HBaseTable() {
 
             /**
-             * Returns the annotation type of this annotation.
+             * Returns the annotation columnType of this annotation.
              *
-             * @return the annotation type of this annotation
+             * @return the annotation columnType of this annotation
              */
             @Override
             public Class<? extends Annotation> annotationType() {
@@ -75,7 +75,7 @@ public class HBaseLayerAnalyze<P> implements LayerClassAnalyze {
 
             @Override
             public String namespace() {
-                return null != mergedAnnotation  ? mergedAnnotation.namespace() :"default";
+                return null != mergedAnnotation ? mergedAnnotation.namespace() : "default";
             }
 
             @Override

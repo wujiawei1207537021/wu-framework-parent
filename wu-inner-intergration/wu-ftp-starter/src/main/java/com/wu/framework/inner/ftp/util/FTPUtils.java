@@ -1,12 +1,14 @@
 package com.wu.framework.inner.ftp.util;
 
 /**
- * @Description
+ * description
+ *
  * @Author Jia wei Wu
  * @Date 2020-05-22 2:16 下午
  */
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
@@ -90,11 +92,14 @@ public class FTPUtils {
             log.error("FTP文件下载失败！" + e);
         } finally {
             try {
-                if (fos != null) fos.close();
-                if (is != null) is.close();
+                if (fos != null) {
+                    fos.close();
+                }
+                if (is != null) {
+                    is.close();
+                }
             } catch (IOException e) {
                 log.error("下载流关闭失败" + e);
-                return null;
             }
         }
         return localFilePath + fileName;
@@ -110,8 +115,11 @@ public class FTPUtils {
      */
     public static File downloadFile(FTPClient ftpClient, String servicePath, String fileName, String localFilePath) {
         String name = dowFile(ftpClient, servicePath, fileName, localFilePath);
-        if (name != null && !name.equals("")) return new File(fileName);
-        else return null;
+        if (name != null && !"".equals(name)) {
+            return new File(fileName);
+        } else {
+            return null;
+        }
     }
 
 
@@ -146,7 +154,7 @@ public class FTPUtils {
     public static boolean uploadFile(FTPClient ftpClient, String serviceDec, String fileName, InputStream inputStream) {
         try {
             log.info("开始上传文件");
-            ftpClient.setFileType(ftpClient.BINARY_FILE_TYPE);
+            ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
             createDirecroty(ftpClient, serviceDec);
             ftpClient.makeDirectory(serviceDec);
             ftpClient.changeWorkingDirectory(serviceDec);
@@ -158,10 +166,12 @@ public class FTPUtils {
             log.error("上传文件失败" + e);
         } finally {
             try {
-                if (ftpClient.isConnected())
+                if (ftpClient.isConnected()) {
                     ftpClient.disconnect();
-                if (null != inputStream)
+                }
+                if (null != inputStream) {
                     inputStream.close();
+                }
             } catch (IOException e) {
                 log.error("上传文件失败" + e);
                 return false;
@@ -193,7 +203,7 @@ public class FTPUtils {
         boolean success = true;
         String directory = remote + "/";
         // 如果远程目录不存在，则递归创建远程服务器目录
-        if (!directory.equalsIgnoreCase("/") && !changeWorkingDirectory(ftpClient, new String(directory))) {
+        if (!"/".equalsIgnoreCase(directory) && !changeWorkingDirectory(ftpClient, new String(directory))) {
             int start = 0;
             int end = 0;
             if (directory.startsWith("/")) {
@@ -299,18 +309,24 @@ public class FTPUtils {
         if (ftpDirPath.startsWith("/") && ftpDirPath.endsWith("/")) {
             // 通过提供的文件路径获取FTPFile对象列表
             FTPFile[] files = ftpClient.listFiles(ftpDirPath);
-            if (files == null) throw new Exception("文件数组为空");
+            if (files == null) {
+                throw new Exception("文件数组为空");
+            }
             Arrays.sort(files, new Comparator<FTPFile>() {
+                @Override
                 public int compare(FTPFile f1, FTPFile f2) {
                     return f1.getTimestamp().compareTo(f2.getTimestamp());
                 }
 
+                @Override
                 public boolean equals(Object obj) {
                     return true;
                 }
             });
             return ftpDirPath + "/" + files[files.length - 1].getName();
-        } else throw new Exception("文件夹路径错误！");
+        } else {
+            throw new Exception("文件夹路径错误！");
+        }
     }
 
     public static void main(String[] args) throws IOException {

@@ -11,7 +11,7 @@ import com.wu.framework.easy.temple.domain.ComplexUseExcel;
 import com.wu.framework.easy.temple.domain.SmartExcel;
 import com.wu.framework.easy.temple.domain.UseExcel;
 import com.wu.framework.inner.layer.web.EasyController;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
+import com.wu.framework.inner.lazy.persistence.map.EasyHashMap;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.util.ObjectUtils;
@@ -142,7 +142,6 @@ public class EasyExcelController {
     }
 
 
-
     @ApiOperation(tags = "导入注解测试", value = "导入Excel并转换成对象")
     @PostMapping("/imp1")
     public String import1(@RequestPart MultipartFile multipartFile) {
@@ -163,7 +162,7 @@ public class EasyExcelController {
 
     // TODO  导入Excel并自动转换成对象
     @ApiOperation(tags = "导入注解测试", value = "导入Excel并自动转换成对象")
-    @PostMapping(value = "/imp/easy",headers = "content-type=multipart/form-data")
+    @PostMapping(value = "/imp/easy", headers = "content-columnType=multipart/form-data")
     public String easy(@RequestExcelBody List<UseExcel> useExcelList) {
         return useExcelList.toString();
     }

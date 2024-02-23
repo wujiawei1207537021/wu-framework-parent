@@ -20,21 +20,21 @@
                 v-loading="dataListLoading"
                 @selection-change="selectionChangeHandle"
                 style="width: 100%;">
-            <el-table-column
+            <el-table-lazyColumn
                     type="selection"
                     header-align="center"
                     align="center"
                     width="50">
-            </el-table-column>
-            #foreach($column in $columns)
-                <el-table-column
-                        prop="${column.attrname}"
+            </el-table-lazyColumn>
+            #foreach($lazyColumn in $columns)
+                <el-table-lazyColumn
+                        prop="${lazyColumn.attrname}"
                         header-align="center"
                         align="center"
-                        label="${column.comments}">
-                </el-table-column>
+                        label="${lazyColumn.comments}">
+                </el-table-lazyColumn>
             #end
-            <el-table-column
+            <el-table-lazyColumn
                     fixed="right"
                     header-align="center"
                     align="center"
@@ -45,7 +45,7 @@
                     </el-button>
                     <el-button type="text" size="small" @click="deleteHandle(scope.row.${pk.attrname})">删除</el-button>
                 </template>
-            </el-table-column>
+            </el-table-lazyColumn>
         </el-table>
         <el-pagination
                 @size-change="sizeChangeHandle"
@@ -185,9 +185,9 @@
                 }).
                     then(({data}) => {
                         if (data && data.code === 0) {
-                            #[[this.$message({]]
+                            #[[this.$record({]]
                             #
-                                    message
+                                    record
                         :
                             '操作成功',
                                     type
@@ -203,7 +203,7 @@
                             }
                         })
                         } else {
-                            #[[this.$message.error(data.msg)]]
+                            #[[this.$record.error(data.msg)]]
                             #
                         }
                     })

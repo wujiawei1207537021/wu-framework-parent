@@ -27,21 +27,25 @@ public @interface LayerField {
      * 字段名(默认驼峰)
      */
     @AliasFor(attribute = "value")
-     String name() default "";
+    String name() default "";
 
     @AliasFor(attribute = "name")
     String value() default "";
 
     /**
      * 字段索引类型
+     *
      * @return
      */
-    LayerField.LayerFieldType indexType() default LayerField.LayerFieldType.FILE_TYPE;
+    LayerField.LayerFieldType indexType() default LayerField.LayerFieldType.FIELD_TYPE;
 
     enum LayerFieldType {
-        FILE_TYPE,
+        // 字段类型
+        FIELD_TYPE,
         ID,
+        // 唯一性索引
         UNIQUE,
+        // 自动的
         AUTOMATIC;
     }
 }

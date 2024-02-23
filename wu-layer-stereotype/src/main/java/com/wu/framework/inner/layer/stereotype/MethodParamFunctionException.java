@@ -5,10 +5,10 @@ import java.security.PrivilegedActionException;
 /**
  * description 方法参数功能异常
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2021/5/8 4:10 下午
  */
-public class MethodParamFunctionException extends Exception{
+public class MethodParamFunctionException extends Exception {
 
     /**
      * Constructs a new exception with {@code null} as its detail message.

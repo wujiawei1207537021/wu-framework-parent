@@ -2,13 +2,13 @@ package com.wu.framework.authorization.token.store;
 
 import com.wu.framework.authorization.config.pro.AuthorizationProperties;
 import com.wu.framework.authorization.domain.AccessTokenRO;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import com.wu.framework.authorization.domain.Authentication;
 import com.wu.framework.authorization.domain.DefaultAccessTokenRO;
 import com.wu.framework.authorization.domain.DefaultAuthentication;
 import com.wu.framework.authorization.model.AccessToken;
 import com.wu.framework.authorization.model.UserDetails;
 import com.wu.framework.authorization.token.TokenStore;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -140,8 +140,8 @@ public class JdbcTokenStore implements TokenStore {
 
     public void removeAccessTokenUsingRefreshToken(String refreshToken) {
         this.lazyOperation.executeSQLForBean(String.format(
-                this.deleteAccessTokenFromRefreshTokenSql,
-                this.extractTokenKey(refreshToken)),
+                        this.deleteAccessTokenFromRefreshTokenSql,
+                        this.extractTokenKey(refreshToken)),
                 Boolean.class);
     }
 

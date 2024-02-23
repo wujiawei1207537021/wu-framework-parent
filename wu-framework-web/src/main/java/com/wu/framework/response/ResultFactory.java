@@ -74,6 +74,10 @@ public class ResultFactory {
         return of(DefaultResultCode.TOKEN_AUTHORIZATION_FAILED, data);
     }
 
+    public static Result successOf(Object... data) {
+        return of(DefaultResultCode.SUCCESS, data);
+    }
+
     public static Result successOf(Object data) {
         return of(DefaultResultCode.SUCCESS, data);
     }

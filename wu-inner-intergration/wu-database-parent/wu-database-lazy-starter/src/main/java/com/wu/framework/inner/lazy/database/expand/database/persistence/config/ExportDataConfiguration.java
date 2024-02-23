@@ -1,6 +1,6 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.config;
 
-import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.LazyDatabaseJsonMessage;
+import com.wu.framework.inner.lazy.persistence.conf.LazyDatabaseJsonMessage;
 import lombok.Data;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -8,12 +8,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * @author 吴佳伟
- * @description 导出数据配置
+ * @author Jia wei Wu
+ * description 导出数据配置
  * @date 2021/8/12$ 11:46 上午$
  */
 
@@ -31,11 +32,10 @@ public class ExportDataConfiguration implements InitializingBean {
     /**
      * 特殊字段
      */
-    private List<String> specialFields= Arrays.asList("DESC","CURRENT_TIME");
+    private List<String> specialFields = new ArrayList<>(Arrays.asList("DESC", "CURRENT_TIME", "RANGE", "CONTENT"));
 
     public void setSpecialFields(List<String> specialFields) {
         this.specialFields.addAll(specialFields);
-
     }
 
     @Override

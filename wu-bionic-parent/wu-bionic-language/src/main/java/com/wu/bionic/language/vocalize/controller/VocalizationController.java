@@ -1,7 +1,7 @@
 package com.wu.bionic.language.vocalize.controller;
 
 import com.wu.bionic.language.vocalize.Vocalization;
-import com.wu.framework.easy.stereotype.upsert.converter.stereotype.Word;
+import com.wu.framework.easy.stereotype.upsert.converter.stereotype.ChineseCharacters;
 import com.wu.framework.inner.layer.web.EasyController;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
@@ -37,7 +37,7 @@ public class VocalizationController {
 
     @ApiOperation(tags = "文本转换成语音", value = "文本转换成语音-获取语音基础数据")
     @GetMapping("/word/voice")
-    public List<Word> voiceData() {
+    public List<ChineseCharacters> voiceData() {
         return vocalization.voiceData();
     }
 

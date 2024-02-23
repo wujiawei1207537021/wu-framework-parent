@@ -8,7 +8,7 @@ server:
 
 spring:
   profiles:
-    active: wjw
+    active: temp
   wu:
     authorization:
       verification: session
@@ -19,17 +19,30 @@ spring:
       proxy: 192.168.1.22
       port: 50
   hbase:
-#    zookeeperQuorum: 'k8s.wu-framework.com:2181'
-#  redis:
-#    host: k8s.wu-framework.com
+  #    zookeeperQuorum: 'k8s.wu-framework.com:2181'
+  #  redis:
+  #    host: k8s.wu-framework.com
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
 
 
   easy:
     upsert:
       config:
         batch-limit: 10000
-
-
-
+  lazy:
+    printf-query: on
+    fill-ignored-fields:
+      - id
+      - create_time
+    enable-reverse-engineering: true
+#    reverse-engineering:
+#      enable-lazy: false
+#      enable-lombok-accessors: false
+#      enable-lombok-data: false
+#      #      package-name: com.wu.lazy
+#      enable-swagger: false
 
 

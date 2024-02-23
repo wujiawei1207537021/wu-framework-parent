@@ -127,11 +127,11 @@ public class AccessLimitAOP {
 //        //是否判断参数是否有访问限制
 //        boolean checkAccessParam = accessLimit.checkAccessParam();
 //        if (checkAccessParam) {
-//            Class type = accessLimit.paramType();
+//            Class columnType = accessLimit.paramType();
 //            String paramName = accessLimit.paramName();
 //            Object parameter = null;
 //            for (Object arg : com.wu.bionic.point.getArgs()) {
-//                if (arg.getClass().equals(type)) {
+//                if (arg.getClass().equals(columnType)) {
 //                    parameter = arg;
 //                }
 //            }

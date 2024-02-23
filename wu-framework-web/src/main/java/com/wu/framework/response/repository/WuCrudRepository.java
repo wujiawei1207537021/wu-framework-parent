@@ -19,6 +19,7 @@ public interface WuCrudRepository<R, T, ID> extends WuRepository<R> {
 
     @GetMapping("/{id}")
     Result<T> findById(@PathVariable ID id);
+
     @GetMapping("/exists/{id}")
     Result<Boolean> existsById(@PathVariable ID id);
 

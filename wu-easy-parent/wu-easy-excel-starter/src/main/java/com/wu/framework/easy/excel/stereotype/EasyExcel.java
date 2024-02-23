@@ -111,8 +111,14 @@ public @interface EasyExcel {
     @Getter
     @AllArgsConstructor
     enum SheetShowContext {
-        NUM(SheetNumContextMethod.class),// 1000~2000
-        TEXT(SheetTextContextMethod.class);// 一  二 三
+        /**
+         * 数字 1000~2000
+         */
+        NUM(SheetNumContextMethod.class),
+        /**
+         * 数字中文 一  二 三
+         */
+        TEXT(SheetTextContextMethod.class);
         private Class<? extends ISheetShowContextMethod> iSheetShowContextMethod;
     }
 

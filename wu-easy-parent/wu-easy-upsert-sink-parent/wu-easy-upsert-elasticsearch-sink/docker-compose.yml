@@ -6,13 +6,13 @@ services:
     restart: always
     hostname: es1
     container_name: elasticsearch-single
-#    volumes:
-#      - /docker/es/data:/usr/share/elasticsearch/data
-#      - /docker/es/plugins:/usr/share/elasticsearch/plugins
-#      - /docker/es/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    #    volumes:
+    #      - /docker/es/data:/usr/share/elasticsearch/data
+    #      - /docker/es/plugins:/usr/share/elasticsearch/plugins
+    #      - /docker/es/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     environment:
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      - discovery.type=single-node
+      - discovery.columnType=single-node
     ports:
       - '9200:9200'     #java、集群通信端口
       - '9300:9300'     #http通信端口

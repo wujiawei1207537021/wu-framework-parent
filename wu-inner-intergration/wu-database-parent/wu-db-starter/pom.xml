@@ -5,12 +5,12 @@
     <parent>
         <artifactId>wu-database-parent</artifactId>
         <groupId>top.wu2020</groupId>
-        <version>1.0.5</version>
+        <version>1.0.6</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>wu-db-starter</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
     <description>wudb</description>
 
     <dependencies>
@@ -31,7 +31,7 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatisplus-spring-boot-starter</artifactId>
-            <version>1.0.5</version>
+            <version>1.0.6</version>
         </dependency>
 
         <!--mysql依赖-->
@@ -74,7 +74,7 @@
         <dependency>
             <groupId>top.wu2020</groupId>
             <artifactId>wu-easy-upsert-spring-boot-autoconfigure</artifactId>
-            <version>1.0.5</version>
+            <version>1.0.6</version>
         </dependency>
 
     </dependencies>

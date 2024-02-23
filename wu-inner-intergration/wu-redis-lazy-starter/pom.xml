@@ -5,7 +5,7 @@
     <parent>
         <artifactId>wu-inner-intergration</artifactId>
         <groupId>top.wu2020</groupId>
-        <version>1.0.5</version>
+        <version>1.0.6</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -21,6 +21,10 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aspects</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
         </dependency>
     </dependencies>
 

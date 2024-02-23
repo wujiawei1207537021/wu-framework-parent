@@ -1,8 +1,8 @@
 package com.wu.framework.easy.temple.domain.bo;
 
-import com.wu.framework.easy.upsert.autoconfigure.EasySmart;
 import com.wu.framework.easy.temple.domain.UseExcel;
 import com.wu.framework.easy.temple.domain.UserLog;
+import com.wu.framework.easy.upsert.autoconfigure.EasySmart;
 import com.wu.framework.inner.layer.data.SmartMark;
 import lombok.Data;
 

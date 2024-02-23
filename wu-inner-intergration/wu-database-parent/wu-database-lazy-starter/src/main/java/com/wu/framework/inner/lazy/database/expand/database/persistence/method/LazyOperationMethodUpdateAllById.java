@@ -1,9 +1,11 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
+import com.wu.framework.inner.lazy.config.LazyOperationConfig;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepositoryFactory;
+import com.wu.framework.inner.lazy.persistence.converter.SQLConverter;
 import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -19,6 +21,18 @@ import java.util.Collection;
 @Component
 public class LazyOperationMethodUpdateAllById extends AbstractLazyOperationMethod {
 
+    private final LazyOperationConfig operationConfig;
+
+    public LazyOperationMethodUpdateAllById(LazyOperationConfig operationConfig) {
+        this.operationConfig = operationConfig;
+    }
+
+    /**
+     * @param param
+     * @return description 通过参数获取持久性存储库对象
+     * @author Jia wei Wu
+     * @date 2021/4/17 3:38 下午
+     **/
     @Override
     public PersistenceRepository analyzePersistenceRepository(Object param) throws IllegalArgumentException {
         String queryString = "";
@@ -28,9 +42,9 @@ public class LazyOperationMethodUpdateAllById extends AbstractLazyOperationMetho
         Collection collection = (Collection) object;
         clazz = collection.iterator().next().getClass();
         for (Object o : collection) {
-            queryString += updatePreparedStatementSQL(o) + " ; \n ";
+            queryString += SQLConverter.updatePreparedStatementSQL(o) + " ; \n ";
         }
-        PersistenceRepository persistenceRepository = new PersistenceRepository();
+        PersistenceRepository persistenceRepository = PersistenceRepositoryFactory.create(operationConfig);
         persistenceRepository.setQueryString(queryString);
         persistenceRepository.setResultClass(clazz);
         return persistenceRepository;
@@ -39,7 +53,7 @@ public class LazyOperationMethodUpdateAllById extends AbstractLazyOperationMetho
     /**
      * description 执行SQL 语句
      *
-     * @param dataSource
+     * @param connection
      * @param sourceParams
      * @return
      * @params
@@ -47,8 +61,7 @@ public class LazyOperationMethodUpdateAllById extends AbstractLazyOperationMetho
      * @date 2020/11/22 上午11:02
      */
     @Override
-    public Object execute(DataSource dataSource, Object[] sourceParams) throws SQLException {
-        Connection connection = dataSource.getConnection();
+    public Object execute(Connection connection, Object[] sourceParams) throws SQLException {
         PersistenceRepository persistenceRepository = analyzePersistenceRepository(sourceParams[0]);
         PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());
         try {
@@ -56,7 +69,6 @@ public class LazyOperationMethodUpdateAllById extends AbstractLazyOperationMetho
         } catch (SQLException sqlException) {
             throw sqlException;
         } finally {
-            connection.close();
             preparedStatement.close();
         }
     }

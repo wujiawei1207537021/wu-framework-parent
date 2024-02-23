@@ -13,7 +13,7 @@ import java.lang.annotation.Annotation;
  * @author Jia wei Wu
  * @date 2021/4/1 下午3:32
  */
-public interface LayerClassAnalyze extends LayerAnalyze {
+public interface LayerClassAnalyze extends LayerAnalyze<LayerClass> {
 
 
     /**
@@ -21,7 +21,7 @@ public interface LayerClassAnalyze extends LayerAnalyze {
      *
      * @param analyzeParameter@return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/4/26 4:31 下午
      */
     @Override
@@ -39,7 +39,7 @@ public interface LayerClassAnalyze extends LayerAnalyze {
     @Override
     default LayerClass analyze(AnalyzeParameter analyzeParameter) {
         LayerClass mergedAnnotation = AnnotatedElementUtils.findMergedAnnotation(analyzeParameter.getClazz(), LayerClass.class);
-        if (ObjectUtils.isEmpty(mergedAnnotation)|| ObjectUtils.isEmpty(mergedAnnotation.name())) {
+        if (ObjectUtils.isEmpty(mergedAnnotation) || ObjectUtils.isEmpty(mergedAnnotation.name())) {
             mergedAnnotation = new LayerClass() {
 
                 /**

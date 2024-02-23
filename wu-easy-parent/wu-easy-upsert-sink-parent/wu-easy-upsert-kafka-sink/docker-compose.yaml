@@ -19,8 +19,8 @@ services:
       - kafka_net
     ports:
       - '9092:9092'
-#    volumes:
-#      - "kafkaData:/bitnami/kafka"                    #数据挂载可使用数据卷
+      #    volumes:
+      #      - "kafkaData:/bitnami/kafka"                    #数据挂载可使用数据卷
       #- /etc/kafka/config:/opt/bitnami/kafka/config  #配置文件挂载一般挂宿主机目录
     environment:
       - KAFKA_BROKER_ID=1

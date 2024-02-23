@@ -8,7 +8,8 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
 /**
- * @Description
+ * description
+ *
  * @Author Jia wei Wu
  * @Date 2020-05-22 2:58 下午
  */
@@ -25,6 +26,7 @@ public class FtpAccessor implements InitializingBean {
         this.connectionFactory = connectionFactory;
     }
 
+    @Override
     public void afterPropertiesSet() {
         Assert.state(getConnectionFactory() != null, "FtpConnectionFactory is required");
     }

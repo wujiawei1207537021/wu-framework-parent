@@ -1,9 +1,8 @@
 package com.wu.freamwork.controller;
 
-import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import com.wu.framework.inner.layer.util.FileUtil;
 import com.wu.framework.inner.layer.web.EasyController;
-
+import com.wu.framework.inner.lazy.persistence.map.EasyHashMap;
 import com.wu.framework.inner.sql.elasticsearch.ElasticsearchSQLTemplate;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 

@@ -18,9 +18,12 @@ import java.util.List;
 import java.util.Map;
 
 
+/**
+ * @author wujiawei
+ */
 public class CustomXMLConfigBuilder {
 
-    public final static SAXReader reader = new SAXReader();
+    public final static SAXReader READER = new SAXReader();
 
     /**
      * 根据传入的参数，解析XML，并且封装到Map中
@@ -37,8 +40,8 @@ public class CustomXMLConfigBuilder {
             //1.根据路径获取字节输入流
             in = CustomResources.getResourceAsStream(mapperPath);
             //2.根据字节输入流获取Document对象
-//            SAXReader reader = new SAXReader();
-            Document document = reader.read(in);
+//            SAXReader READER = new SAXReader();
+            Document document = READER.read(in);
             //3.获取根节点
             Element root = document.getRootElement();
             //4.获取根节点的namespace属性取值
@@ -80,8 +83,8 @@ public class CustomXMLConfigBuilder {
             Map<String, CustomRepository> mappers = new HashMap<String, CustomRepository>();
             //1.根据路径获取字节输入流
             //2.根据字节输入流获取Document对象
-//            SAXReader reader = new SAXReader();
-            Document document = reader.read(in);
+//            SAXReader READER = new SAXReader();
+            Document document = READER.read(in);
             //3.获取根节点
             Element root = document.getRootElement();
             //4.获取根节点的namespace属性取值
@@ -150,9 +153,9 @@ public class CustomXMLConfigBuilder {
     public static Class loadMapperNamespace(InputStream in) {
         //1.根据路径获取字节输入流
         //2.根据字节输入流获取Document对象
-//        SAXReader reader = new SAXReader();
+//        SAXReader READER = new SAXReader();
         try {
-            Document document = reader.read(in);
+            Document document = READER.read(in);
             //3.获取根节点
             Element root = document.getRootElement();
             //4.获取根节点的namespace属性取值
@@ -195,11 +198,11 @@ public class CustomXMLConfigBuilder {
 //                String queryString = selectAnno.methodName();
 //                mapper.setQueryString(queryString);
 //                //获取当前方法的返回值，还要求必须带有泛型信息
-//                Type type = method.getGenericReturnType();//List<User>
+//                Type columnType = method.getGenericReturnType();//List<User>
 //                //判断type是不是参数化的类型
-//                if(type instanceof ParameterizedType){
+//                if(columnType instanceof ParameterizedType){
 //                    //强转
-//                    ParameterizedType ptype = (ParameterizedType)type;
+//                    ParameterizedType ptype = (ParameterizedType)columnType;
 //                    //得到参数化类型中的实际类型参数
 //                    Type[] types = ptype.getActualTypeArguments();
 //                    //取出第一个

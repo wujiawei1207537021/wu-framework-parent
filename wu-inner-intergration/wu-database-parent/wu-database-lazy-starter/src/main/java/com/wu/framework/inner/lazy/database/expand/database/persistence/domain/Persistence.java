@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 
-import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -41,10 +40,6 @@ public class Persistence {
      */
     private String reservedField;
 
-    /**
-     * 二进制数据
-     */
-    private List<InputStream> binaryList;
 
     /**
      * @author : Jia wei Wu

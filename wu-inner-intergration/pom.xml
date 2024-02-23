@@ -5,12 +5,12 @@
     <parent>
         <groupId>top.wu2020</groupId>
         <artifactId>wu-framework-parent</artifactId>
-        <version>1.0.5</version>
+        <version>1.0.6</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>wu-inner-intergration</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
     <packaging>pom</packaging>
     <description>wu内部整合</description>
 
@@ -35,6 +35,8 @@
         <module>wu-template-starter</module>
         <!--     数据库   -->
         <module>wu-database-parent</module>
+        <module>wu-kafka-parent</module>
+        <module>wu-rocketmq-parent</module>
     </modules>
 
 

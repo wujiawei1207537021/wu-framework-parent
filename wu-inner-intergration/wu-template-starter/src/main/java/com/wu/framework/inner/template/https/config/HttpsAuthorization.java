@@ -9,7 +9,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpLogging;
 
 /**
- * @Description 认证信息
+ * description 认证信息
+ *
  * @Author Jia wei Wu
  * @Date 2020-05-26 9:05 上午
  */

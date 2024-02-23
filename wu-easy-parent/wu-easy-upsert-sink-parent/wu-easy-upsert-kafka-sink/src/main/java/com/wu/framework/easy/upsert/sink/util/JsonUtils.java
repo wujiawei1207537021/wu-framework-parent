@@ -21,7 +21,7 @@ public class JsonUtils {
         try {
             json = OBJECT_MAPPER.writeValueAsString(value);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException("转换为Json字符串出错:%s" + e.toString());
+            throw new RuntimeException("转换为Json字符串出错:%s" + e);
         }
         return json;
     }
@@ -31,7 +31,7 @@ public class JsonUtils {
         try {
             toValue = OBJECT_MAPPER.readValue(fromValue, toValueType);
         } catch (IOException e) {
-            throw new RuntimeException("转换为Json字符串出错:%s" + e.toString());
+            throw new RuntimeException("转换为Json字符串出错:%s" + e);
         }
         return toValue;
     }
@@ -41,7 +41,7 @@ public class JsonUtils {
         try {
             toValue = OBJECT_MAPPER.readValue(fromValue, toValueType);
         } catch (IOException e) {
-            throw new RuntimeException("转换为Json字符串出错:%s" + e.toString());
+            throw new RuntimeException("转换为Json字符串出错:%s" + e);
         }
         return toValue;
     }

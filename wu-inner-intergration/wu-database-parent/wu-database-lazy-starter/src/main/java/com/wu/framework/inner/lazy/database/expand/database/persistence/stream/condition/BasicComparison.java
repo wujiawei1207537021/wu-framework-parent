@@ -1,77 +1,76 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.stream.condition;
 
+import org.springframework.util.ObjectUtils;
+
 /**
  * @author : Jia wei Wu
  * @version : 1.0
  * describe: 基本比较
  * @date : 2021/8/21 6:38 下午
  */
-public interface BasicComparison<T, R, C extends BasicComparison<T, R, C>> {
+public interface BasicComparison<T, R, V, C extends BasicComparison<T, R, V, C>> {
 
-    C table(Class primaryTable);
-
-    /**
-     * @param
-     * @return
-     * describe 添加where 条件
-     * @author Jia wei Wu
-     * @date 2021/8/8 12:33 下午
-     **/
-    C where();
 
     /**
-     * @param
-     * @param condition
-     * @param row
-     * @param var
-     * @return
      * describe 等于条件
+     *
+     * @param condition 是否
+     * @param row       行
+     * @param var       行数据
+     * @return C 返回数据
      * @author Jia wei Wu
      * @date 2021/7/16 9:44 下午
      **/
-    C eq(boolean condition, R row, Object var);
+    C eq(boolean condition, R row, V var);
 
-    default C eq(R row, Object var) {
+    default C eq(R row, V var) {
         return eq(true, row, var);
     }
 
     /**
-     * @param
+     * 忽略空数据
+     *
+     * @param row
+     * @param var
      * @return
-     * describe 大于
-     * @author Jia wei Wu
-     * @date 2021/8/15 4:52 下午
-     **/
-    C gt(boolean condition, R row, Object var);
-
-    default C gt(R row, Object var) {
-        return gt(true, row, var);
+     */
+    default C eqIgnoreEmpty(R row, V var) {
+        return eq(!ObjectUtils.isEmpty(var), row, var);
     }
-
 
     /**
      * @param
-     * @return
-     * describe 小于
+     * @return describe 大于
      * @author Jia wei Wu
      * @date 2021/8/15 4:52 下午
      **/
-    C lt(boolean condition, R row, Object var);
+    C gt(boolean condition, R row, V var);
 
-    default C lt(R row, Object var) {
+    default C gt(R row, V var) {
+        return gt(true, row, var);
+    }
+
+    /**
+     * @param
+     * @return describe 小于
+     * @author Jia wei Wu
+     * @date 2021/8/15 4:52 下午
+     **/
+    C lt(boolean condition, R row, V var);
+
+    default C lt(R row, V var) {
         return lt(true, row, var);
     }
 
     /**
      * @param
-     * @return
-     * describe like 条件
+     * @return describe like 条件
      * @author Jia wei Wu
      * @date 2021/7/16 9:45 下午
      **/
-    C like(boolean condition, R row, Object var);
+    C like(boolean condition, R row, V var);
 
-    default C like(R row, Object var) {
+    default C like(R row, V var) {
         return like(true, row, var);
     }
 
@@ -80,8 +79,7 @@ public interface BasicComparison<T, R, C extends BasicComparison<T, R, C>> {
      * @param condition
      * @param row
      * @param rightVar
-     * @return
-     * describe 区间
+     * @return describe 区间
      * @author Jia wei Wu
      * @date 2021/7/16 9:45 下午
      **/
@@ -93,19 +91,10 @@ public interface BasicComparison<T, R, C extends BasicComparison<T, R, C>> {
 
     /**
      * @param
-     * @return
-     * describe 获取条件集合
+     * @return describe 获取条件集合
      * @author Jia wei Wu
      * @date 2021/8/21 7:57 下午
      **/
     ConditionList getConditionList();
-
-    static DefaultBasicComparison wrapper() {
-        return new DefaultBasicComparison();
-    }
-
-    static LambdaBasicComparison<Object> lambdaWrapper() {
-        return new LambdaBasicComparison<Object>();
-    }
 
 }

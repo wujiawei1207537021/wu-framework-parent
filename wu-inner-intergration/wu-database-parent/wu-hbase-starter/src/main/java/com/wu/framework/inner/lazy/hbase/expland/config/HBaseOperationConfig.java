@@ -40,11 +40,11 @@ public class HBaseOperationConfig {
         Configuration conf = HBaseConfiguration.create();
 
         Map<String, String> confMap = new HashMap<>();
-        if(ObjectUtils.isEmpty(hBaseConfigProperties.getZookeeperQuorum())){
+        if (ObjectUtils.isEmpty(hBaseConfigProperties.getZookeeperQuorum())) {
             throw new IllegalArgumentException("could not found zookeeper address of empty");
         }
         // 配置zookeeper 集群地址
-        confMap.put("hbase.zookeeper.quorum",hBaseConfigProperties.getZookeeperQuorum());
+        confMap.put("hbase.zookeeper.quorum", hBaseConfigProperties.getZookeeperQuorum());
         for (Map.Entry<String, String> confEntry : confMap.entrySet()) {
             conf.set(confEntry.getKey(), confEntry.getValue());
         }

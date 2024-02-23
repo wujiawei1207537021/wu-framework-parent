@@ -1049,7 +1049,7 @@ ul.ui-search-menu li, ul.ui-nav-menu li {
     text-shadow: 0 1px 0 #fff;
 }
 */
-/* Column menu */
+/* LazyColumn menu */
 .ui-jqgrid .ui-jqgrid-htable .colmenu {
     position: absolute;
     right: 1px;

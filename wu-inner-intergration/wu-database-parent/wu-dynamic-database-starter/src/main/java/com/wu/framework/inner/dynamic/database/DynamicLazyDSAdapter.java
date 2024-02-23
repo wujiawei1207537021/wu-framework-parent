@@ -1,7 +1,7 @@
 package com.wu.framework.inner.dynamic.database;
 
 import com.wu.framework.inner.dynamic.database.toolkit.DynamicLazyDSContextHolder;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyDS;
+import com.wu.framework.inner.lazy.stereotype.LazyDS;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -15,7 +15,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * describe :
  * @date : 2021/7/4 6:20 下午
@@ -23,12 +23,11 @@ import java.util.Map;
 @Slf4j
 @ConditionalOnBean(value = DataSource.class)
 public class DynamicLazyDSAdapter implements DynamicLazyDS, ApplicationListener<ContextRefreshedEvent> {
+    private final Map<String, DataSource> dataSourceMap = new LinkedHashMap<>();
     private String primary;
-    private Map<String, DataSource> dataSourceMap = new LinkedHashMap<>();
 
     /**
-     * @return
-     * describe 确定数据源
+     * @return describe 确定数据源
      * @author Jia wei Wu
      * @date 2021/7/4 6:19 下午
      **/
@@ -69,7 +68,7 @@ public class DynamicLazyDSAdapter implements DynamicLazyDS, ApplicationListener<
      * @date 2021/2/11 上午10:37
      */
     public void mybatisDataSource(String key, DataSource dataSource) throws Exception {
-        if (dataSource.getClass().getName().equals("com.baomidou.dynamic.datasource.DynamicRoutingDataSource")) {
+        if ("com.baomidou.dynamic.datasource.DynamicRoutingDataSource".equals(dataSource.getClass().getName())) {
             Field primaryDeclaredField = dataSource.getClass().getDeclaredField("primary");
             primaryDeclaredField.setAccessible(true);
             primary = (String) primaryDeclaredField.get(dataSource);

@@ -11,7 +11,7 @@ import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
 import com.wu.framework.easy.upsert.core.dynamic.IUpsert;
 import com.wu.framework.inner.layer.data.LayerDataAnalyzeAdapter;
 import com.wu.framework.inner.layer.web.EasyController;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
+import com.wu.framework.inner.lazy.persistence.map.EasyHashMap;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.val;

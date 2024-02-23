@@ -1,6 +1,6 @@
 package com.wu.framework.inner.lazy.hbase.expland.persistence.proxy;
 
-import com.wu.framework.inner.layer.stereotype.proxy.LayerProxy;
+import com.wu.framework.inner.layer.stereotype.proxy.LayerInvocationHandler;
 import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
 import com.wu.framework.inner.lazy.hbase.expland.persistence.HBaseOperation;
 import com.wu.framework.inner.lazy.hbase.expland.persistence.method.HBaseOperationMethodAdapter;
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  * @date : 2021/3/27 10:57 下午
  */
 @ConditionalOnBean(Connection.class)
-@LayerProxy(proxyInterface = HBaseOperation.class)
+@LayerInvocationHandler(proxyInterface = HBaseOperation.class)
 public class HBaseOperationProxy implements InvocationHandler, InitializingBean {
 
     private final List<HBaseOperationMethodAdapter> hBaseOperationMethodList;
@@ -44,7 +44,7 @@ public class HBaseOperationProxy implements InvocationHandler, InitializingBean 
         if (!ObjectUtils.isEmpty(mergedAnnotation)) {
             return HBASE_OPERATION_METHOD_MAP.get(mergedAnnotation.proxyClass()).run(HBaseOperationMethodAdapter.HBaseExecuteParams.build().setConnection(connection).setObjects(args));
         } else {
-            return method.invoke(proxy,args);
+            return method.invoke(proxy, args);
         }
     }
 

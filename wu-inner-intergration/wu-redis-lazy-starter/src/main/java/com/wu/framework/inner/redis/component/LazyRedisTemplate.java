@@ -8,7 +8,7 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -24,7 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Slf4j
 @ConditionalOnProperty(prefix = "spring.redis", value = "host")
-public class LazyRedisTemplate extends StringRedisTemplate {
+public class LazyRedisTemplate<K, V> extends RedisTemplate<K, V> {
 
     private final Integer MASTER;
     private final RedisProperties redisProperties;

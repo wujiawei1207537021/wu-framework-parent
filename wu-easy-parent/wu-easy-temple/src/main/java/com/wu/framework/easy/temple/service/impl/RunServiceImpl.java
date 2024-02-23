@@ -3,7 +3,7 @@ package com.wu.framework.easy.temple.service.impl;
 import com.wu.framework.easy.temple.domain.UpsertBinary;
 import com.wu.framework.easy.temple.domain.UserLog;
 import com.wu.framework.easy.temple.service.RunService;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.converter.SQLConverter;
+import com.wu.framework.inner.lazy.persistence.converter.SQLConverter;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

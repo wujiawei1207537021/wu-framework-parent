@@ -1,22 +1,29 @@
 ## 简介
+
     不可以与oauth2 一起使用
     基于 spring-boot-starter-parent   2.2.1.RELEASE
+
 ## 框架集成
+
 1. swagger 2.9.2
-2. lombok 
+2. lombok
 3. spring-jpa
-4. jwt
-5.fastjson 
+4. jwt 5.fastjson
+
 ## pom 引入
+
             <dependency>
                 <groupId>com.wu</groupId>
                 <artifactId>wu-framework-shiro</artifactId>
-                <version>1.0.5</version>
+                <version>1.0.6</version>
             </dependency>
+
 ## 功能
+
     用户登录产生令牌（默认jwt 校验）
-    
-## 项目结构 
+
+## 项目结构
+
     shiro 
     ├── com
     │   └── wuframework
@@ -91,11 +98,11 @@
     │               └── methodresolver                  方法注解解析器（实现用户信息获取）
     └── resources
         └── access_token.sql
-    
 
+### 版本1.0.1 添加异常处理 返回code 集成
 
-### 版本1.0.1 添加异常处理  返回code 集成
 ### 版本1.0.4 框架添加注解扫描 使用示例
+
     @Component
     @EnableAuthorizationServer
     public class AuthorizationServerConfig {
@@ -115,7 +122,9 @@
         return new JwtTokenStore();
       }
     }
-### 版本1.0.4  ShiroProperties 归属spring下配置文件使用spring.shiro.expire_time=3600000 
+
+### 版本1.0.4  ShiroProperties 归属spring下配置文件使用spring.shiro.expire_time=3600000
+
     @Component
     @EnableAuthorizationServer
     public class AuthorizationServerConfig {
@@ -138,7 +147,9 @@
         return new JwtTokenStore(defaultJwtAccessTokenConverter);
       }
     }
-### 版本 1.0.5 TokenStore 添加jdbc 实现(取消ShiroProperties 手动注入问题)
+
+### 版本 1.0.6 TokenStore 添加jdbc 实现(取消ShiroProperties 手动注入问题)
+
     @Component
     @EnableAuthorizationServer
     public class AuthorizationServerConfig {
@@ -166,7 +177,9 @@
         return new JdbcTokenStore(dataSource);
       }
     }
-### shiro 1.0.6升级1.0.7  结构调整 添加反射异常处理抛出 新增AuthorizationServerEndpointsConfigurer的实现类未注入容器
+
+### shiro 1.0.6升级1.0.7 结构调整 添加反射异常处理抛出 新增AuthorizationServerEndpointsConfigurer的实现类未注入容器
+
     @EnableAuthorizationServer
     public class AuthorizationServerConfig {
     
@@ -187,10 +200,12 @@
             return authorizationServerEndpointsConfigurer;
         }
 
-
 ### shiro 1.0.7升级1.0.8 新增令牌移出接口 新增令牌移出注解
+
     1.RemoveAccessToken
     2.新增CustomResponseException 自定义抛出枚举异常
     3.新增wuEnums 枚举接口
+
 ### shiro 1.0.8 升级1.0.9 (下个版本)
+
     1.添加控制器接口 自动实现CRUD

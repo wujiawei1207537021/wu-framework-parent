@@ -1,7 +1,6 @@
 package com.wu.framework.database.generator.controller;
 
 
-
 import com.wu.framework.database.generator.service.WebSocketServer;
 import com.wu.framework.inner.layer.web.EasyController;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * describe :
  * @date : 2021/1/3 8:48 下午

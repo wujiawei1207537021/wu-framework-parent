@@ -78,7 +78,7 @@ public class GenUtils {
             Class typeClazz = GeneratorEnums.typeClazz(columnEntity.getDataType());
             String attrType = typeClazz.getSimpleName();
             columnEntity.setAttrType(attrType);
-            if (!hasBigDecimal && attrType.equals("BigDecimal")) {
+            if (!hasBigDecimal && "BigDecimal".equals(attrType)) {
                 hasBigDecimal = true;
             }
             //是否主键

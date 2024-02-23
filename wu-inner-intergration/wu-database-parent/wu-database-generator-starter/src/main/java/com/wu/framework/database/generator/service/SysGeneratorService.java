@@ -8,9 +8,9 @@ import com.wu.framework.database.generator.utils.GenUtils;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
 import com.wu.framework.inner.lazy.database.domain.Page;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.SQLAnalyze;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.ConvertedField;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
+import com.wu.framework.inner.lazy.persistence.analyze.SQLAnalyze;
+import com.wu.framework.inner.lazy.persistence.conf.FieldLazyTableFieldEndpoint;
+import com.wu.framework.inner.lazy.persistence.map.EasyHashMap;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -44,7 +44,7 @@ public class SysGeneratorService {
         } else {
             tableName = " and table_name like '%" + tableName + "%'";
         }
-         lazyOperation.page(page,LinkedHashMap.class,String.format(sql , tableName));
+        lazyOperation.page(page, LinkedHashMap.class, String.format(sql, tableName));
         return page;
     }
 
@@ -102,11 +102,11 @@ public class SysGeneratorService {
      */
     public String tableQueryConditions(String tableName) {
         List<ColumnEntity> columnEntityList = queryColumns(tableName);
-        List<ConvertedField> convertedFieldList = columnEntityList.stream().map(columnEntity -> {
-            ConvertedField convertedField = new ConvertedField();
-            convertedField.setConvertedFieldName(columnEntity.getColumnName());
-            convertedField.setFieldName(CamelAndUnderLineConverter.lineToHumpField(columnEntity.getColumnName()));
-            convertedField.setType(columnEntity.getDataType());
+        List<FieldLazyTableFieldEndpoint> convertedFieldList = columnEntityList.stream().map(columnEntity -> {
+            FieldLazyTableFieldEndpoint convertedField = new FieldLazyTableFieldEndpoint();
+            convertedField.setColumnName(columnEntity.getColumnName());
+            convertedField.setName(CamelAndUnderLineConverter.lineToHumpField(columnEntity.getColumnName()));
+            convertedField.setColumnType(columnEntity.getDataType());
             return convertedField;
         }).collect(Collectors.toList());
         return SQLAnalyze.createSelectSQL(convertedFieldList, tableName);

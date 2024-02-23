@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * describe :
  * @date : 2021/5/18 8:35 下午
@@ -85,12 +85,9 @@ public class ProxyRestTemplate extends InterceptingHttpAccessor implements RestO
 
 
     private final List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
-
-    private ResponseErrorHandler errorHandler = new DefaultResponseErrorHandler();
-
-    private UriTemplateHandler uriTemplateHandler;
-
     private final ResponseExtractor<HttpHeaders> headersExtractor = new HeadersExtractor();
+    private ResponseErrorHandler errorHandler = new DefaultResponseErrorHandler();
+    private UriTemplateHandler uriTemplateHandler;
 
 
     /**
@@ -170,18 +167,9 @@ public class ProxyRestTemplate extends InterceptingHttpAccessor implements RestO
         return uriFactory;
     }
 
-
-    /**
-     * Set the message body converters to use.
-     * <p>These converters are used to convert from and to HTTP requests and responses.
-     */
-    public void setMessageConverters(List<HttpMessageConverter<?>> messageConverters) {
-        validateConverters(messageConverters);
-        // Take getMessageConverters() List as-is when passed in here
-        if (this.messageConverters != messageConverters) {
-            this.messageConverters.clear();
-            this.messageConverters.addAll(messageConverters);
-        }
+    private static <T> T nonNull(@Nullable T result) {
+        Assert.state(result != null, "No result");
+        return result;
     }
 
     private void validateConverters(List<HttpMessageConverter<?>> messageConverters) {
@@ -198,12 +186,16 @@ public class ProxyRestTemplate extends InterceptingHttpAccessor implements RestO
     }
 
     /**
-     * Set the error handler.
-     * <p>By default, RestTemplate uses a {@link DefaultResponseErrorHandler}.
+     * Set the message body converters to use.
+     * <p>These converters are used to convert from and to HTTP requests and responses.
      */
-    public void setErrorHandler(ResponseErrorHandler errorHandler) {
-        Assert.notNull(errorHandler, "ResponseErrorHandler must not be null");
-        this.errorHandler = errorHandler;
+    public void setMessageConverters(List<HttpMessageConverter<?>> messageConverters) {
+        validateConverters(messageConverters);
+        // Take getMessageConverters() List as-is when passed in here
+        if (this.messageConverters != messageConverters) {
+            this.messageConverters.clear();
+            this.messageConverters.addAll(messageConverters);
+        }
     }
 
     /**
@@ -211,6 +203,15 @@ public class ProxyRestTemplate extends InterceptingHttpAccessor implements RestO
      */
     public ResponseErrorHandler getErrorHandler() {
         return this.errorHandler;
+    }
+
+    /**
+     * Set the error handler.
+     * <p>By default, RestTemplate uses a {@link DefaultResponseErrorHandler}.
+     */
+    public void setErrorHandler(ResponseErrorHandler errorHandler) {
+        Assert.notNull(errorHandler, "ResponseErrorHandler must not be null");
+        this.errorHandler = errorHandler;
     }
 
     /**
@@ -240,6 +241,16 @@ public class ProxyRestTemplate extends InterceptingHttpAccessor implements RestO
     }
 
     /**
+     * Return the configured URI template handler.
+     */
+    public UriTemplateHandler getUriTemplateHandler() {
+        return this.uriTemplateHandler;
+    }
+
+
+    // GET
+
+    /**
      * Configure a strategy for expanding URI templates.
      * <p>By default, {@link DefaultUriBuilderFactory} is used and for
      * backwards compatibility, the encoding mode is set to
@@ -257,16 +268,6 @@ public class ProxyRestTemplate extends InterceptingHttpAccessor implements RestO
         Assert.notNull(handler, "UriTemplateHandler must not be null");
         this.uriTemplateHandler = handler;
     }
-
-    /**
-     * Return the configured URI template handler.
-     */
-    public UriTemplateHandler getUriTemplateHandler() {
-        return this.uriTemplateHandler;
-    }
-
-
-    // GET
 
     @Override
     @Nullable
@@ -313,15 +314,15 @@ public class ProxyRestTemplate extends InterceptingHttpAccessor implements RestO
         return nonNull(execute(url, HttpMethod.GET, requestCallback, responseExtractor, uriVariables));
     }
 
+
+    // HEAD
+
     @Override
     public <T> ResponseEntity<T> getForEntity(URI url, Class<T> responseType) throws RestClientException {
         RequestCallback requestCallback = acceptHeaderRequestCallback(responseType);
         ResponseExtractor<ResponseEntity<T>> responseExtractor = responseEntityExtractor(responseType);
         return nonNull(execute(url, HttpMethod.GET, requestCallback, responseExtractor));
     }
-
-
-    // HEAD
 
     @Override
     public HttpHeaders headForHeaders(String url, Object... uriVariables) throws RestClientException {
@@ -333,13 +334,13 @@ public class ProxyRestTemplate extends InterceptingHttpAccessor implements RestO
         return nonNull(execute(url, HttpMethod.HEAD, null, headersExtractor(), uriVariables));
     }
 
+
+    // POST
+
     @Override
     public HttpHeaders headForHeaders(URI url) throws RestClientException {
         return nonNull(execute(url, HttpMethod.HEAD, null, headersExtractor()));
     }
-
-
-    // POST
 
     @Override
     @Nullable
@@ -420,6 +421,9 @@ public class ProxyRestTemplate extends InterceptingHttpAccessor implements RestO
         return nonNull(execute(url, HttpMethod.POST, requestCallback, responseExtractor, uriVariables));
     }
 
+
+    // PUT
+
     @Override
     public <T> ResponseEntity<T> postForEntity(URI url, @Nullable Object request, Class<T> responseType)
             throws RestClientException {
@@ -428,9 +432,6 @@ public class ProxyRestTemplate extends InterceptingHttpAccessor implements RestO
         ResponseExtractor<ResponseEntity<T>> responseExtractor = responseEntityExtractor(responseType);
         return nonNull(execute(url, HttpMethod.POST, requestCallback, responseExtractor));
     }
-
-
-    // PUT
 
     @Override
     public void put(String url, @Nullable Object request, Object... uriVariables)
@@ -448,14 +449,14 @@ public class ProxyRestTemplate extends InterceptingHttpAccessor implements RestO
         execute(url, HttpMethod.PUT, requestCallback, null, uriVariables);
     }
 
+
+    // PATCH
+
     @Override
     public void put(URI url, @Nullable Object request) throws RestClientException {
         RequestCallback requestCallback = httpEntityCallback(request);
         execute(url, HttpMethod.PUT, requestCallback, null);
     }
-
-
-    // PATCH
 
     @Override
     @Nullable
@@ -479,6 +480,9 @@ public class ProxyRestTemplate extends InterceptingHttpAccessor implements RestO
         return execute(url, HttpMethod.PATCH, requestCallback, responseExtractor, uriVariables);
     }
 
+
+    // DELETE
+
     @Override
     @Nullable
     public <T> T patchForObject(URI url, @Nullable Object request, Class<T> responseType)
@@ -490,9 +494,6 @@ public class ProxyRestTemplate extends InterceptingHttpAccessor implements RestO
         return execute(url, HttpMethod.PATCH, requestCallback, responseExtractor);
     }
 
-
-    // DELETE
-
     @Override
     public void delete(String url, Object... uriVariables) throws RestClientException {
         execute(url, HttpMethod.DELETE, null, null, uriVariables);
@@ -503,13 +504,13 @@ public class ProxyRestTemplate extends InterceptingHttpAccessor implements RestO
         execute(url, HttpMethod.DELETE, null, null, uriVariables);
     }
 
+
+    // OPTIONS
+
     @Override
     public void delete(URI url) throws RestClientException {
         execute(url, HttpMethod.DELETE, null, null);
     }
-
-
-    // OPTIONS
 
     @Override
     public Set<HttpMethod> optionsForAllow(String url, Object... uriVariables) throws RestClientException {
@@ -525,15 +526,15 @@ public class ProxyRestTemplate extends InterceptingHttpAccessor implements RestO
         return (headers != null ? headers.getAllow() : Collections.emptySet());
     }
 
+
+    // exchange
+
     @Override
     public Set<HttpMethod> optionsForAllow(URI url) throws RestClientException {
         ResponseExtractor<HttpHeaders> headersExtractor = headersExtractor();
         HttpHeaders headers = execute(url, HttpMethod.OPTIONS, null, headersExtractor);
         return (headers != null ? headers.getAllow() : Collections.emptySet());
     }
-
-
-    // exchange
 
     @Override
     public <T> ResponseEntity<T> exchange(String url, HttpMethod method,
@@ -613,6 +614,9 @@ public class ProxyRestTemplate extends InterceptingHttpAccessor implements RestO
         return nonNull(doExecute(resolveUrl(entity), entity.getMethod(), requestCallback, responseExtractor));
     }
 
+
+    // General execution
+
     private URI resolveUrl(RequestEntity<?> entity) {
         if (entity instanceof RequestEntity.UriTemplateRequestEntity) {
             RequestEntity.UriTemplateRequestEntity<?> ext = (RequestEntity.UriTemplateRequestEntity<?>) entity;
@@ -627,9 +631,6 @@ public class ProxyRestTemplate extends InterceptingHttpAccessor implements RestO
             return entity.getUrl();
         }
     }
-
-
-    // General execution
 
     /**
      * {@inheritDoc}
@@ -802,11 +803,16 @@ public class ProxyRestTemplate extends InterceptingHttpAccessor implements RestO
         return this.headersExtractor;
     }
 
-    private static <T> T nonNull(@Nullable T result) {
-        Assert.state(result != null, "No result");
-        return result;
-    }
+    /**
+     * Response extractor that extracts the response {@link HttpHeaders}.
+     */
+    private static class HeadersExtractor implements ResponseExtractor<HttpHeaders> {
 
+        @Override
+        public HttpHeaders extractData(ClientHttpResponse response) {
+            return response.getHeaders();
+        }
+    }
 
     /**
      * Request callback implementation that prepares the request's accept headers.
@@ -860,7 +866,6 @@ public class ProxyRestTemplate extends InterceptingHttpAccessor implements RestO
                     });
         }
     }
-
 
     /**
      * Request callback implementation that writes the given object to the request stream.
@@ -946,7 +951,6 @@ public class ProxyRestTemplate extends InterceptingHttpAccessor implements RestO
         }
     }
 
-
     /**
      * Response extractor for {@link HttpEntity}.
      */
@@ -971,18 +975,6 @@ public class ProxyRestTemplate extends InterceptingHttpAccessor implements RestO
             } else {
                 return ResponseEntity.status(response.getRawStatusCode()).headers(response.getHeaders()).build();
             }
-        }
-    }
-
-
-    /**
-     * Response extractor that extracts the response {@link HttpHeaders}.
-     */
-    private static class HeadersExtractor implements ResponseExtractor<HttpHeaders> {
-
-        @Override
-        public HttpHeaders extractData(ClientHttpResponse response) {
-            return response.getHeaders();
         }
     }
 

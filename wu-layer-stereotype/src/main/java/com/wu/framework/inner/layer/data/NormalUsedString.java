@@ -27,8 +27,9 @@ public interface NormalUsedString {
     String EMPTY = "";
     String EQUALS = "=";
     // 数据库使用
+    String WHERE = "where";
     String LIKE = "like";
-    String BETWEEN="between";
+    String BETWEEN = "between";
 
     String FALSE = "false";
     String SLASH = "/";
@@ -56,6 +57,7 @@ public interface NormalUsedString {
     String RIGHT_CHEV = ">";
     String SEMICOLON = ";";
     String SINGLE_QUOTE = "'";
+    String DOUBLE_QUOTE = "\"";
     String BACKTICK = "`";
     String SPACE = " ";
     String TILDA = "~";

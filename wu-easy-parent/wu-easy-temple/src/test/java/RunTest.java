@@ -1,6 +1,3 @@
-import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.SQLAnalyze;
-import domain.PassengerTerminal;
-
 import java.text.MessageFormat;
 
 /**

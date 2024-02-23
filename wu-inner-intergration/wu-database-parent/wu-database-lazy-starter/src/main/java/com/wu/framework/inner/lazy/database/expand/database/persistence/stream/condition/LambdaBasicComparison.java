@@ -1,110 +1,77 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.stream.condition;
 
+import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
+import com.wu.framework.inner.layer.data.NormalUsedString;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.function.Snippet;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.function.SnippetUtil;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.support.LambdaMeta;
+import com.wu.framework.inner.lazy.persistence.util.LazyTableUtil;
+
+import java.lang.reflect.ParameterizedType;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * describe :
  * @date : 2021/8/23 8:36 下午
  */
-public class LambdaBasicComparison<T> implements BasicComparison<T, Snippet,LambdaBasicComparison<T>> {
+public class LambdaBasicComparison<T> extends AbstractBasicComparison<T, Snippet<T, ?>, Object> {
 
-    @Override
-    public LambdaBasicComparison<T> table(Class primaryTable) {
-        return null;
-    }
+    protected Class<T> tClassType;
 
     /**
-     * @return
-     * describe 添加where 条件
-     * @author Jia wei Wu
-     * @date 2021/8/8 12:33 下午
-     **/
-    @Override
-    public LambdaBasicComparison<T> where() {
-        return null;
-    }
-
-    /**
-     * @param condition
-     * @param row
-     * @param var
-     * @return
-     * describe 等于条件
-     * @author Jia wei Wu
-     * @date 2021/7/16 9:44 下午
-     **/
-    @Override
-    public LambdaBasicComparison<T> eq(boolean condition, Snippet row, Object var) {
-        return null;
-    }
-
-    /**
-     * @param condition
-     * @param row
-     * @param var
-     * @return
-     * describe 大于
-     * @author Jia wei Wu
-     * @date 2021/8/15 4:52 下午
-     **/
-    @Override
-    public LambdaBasicComparison<T> gt(boolean condition, Snippet row, Object var) {
-        return null;
-    }
-
-    /**
-     * @param condition
-     * @param row
-     * @param var
-     * @return
-     * describe 小于
-     * @author Jia wei Wu
-     * @date 2021/8/15 4:52 下午
-     **/
-    @Override
-    public LambdaBasicComparison<T> lt(boolean condition, Snippet row, Object var) {
-        return null;
-    }
-
-    /**
-     * @param condition
-     * @param row
-     * @param var
-     * @return
-     * describe like 条件
-     * @author Jia wei Wu
-     * @date 2021/7/16 9:45 下午
-     **/
-    @Override
-    public LambdaBasicComparison<T> like(boolean condition, Snippet row, Object var) {
-        return null;
-    }
-
-    /**
-     * @param condition
-     * @param row
-     * @param leftVar
-     * @param rightVar
-     * @return
-     * describe 区间
-     * @author Jia wei Wu
-     * @date 2021/7/16 9:45 下午
-     **/
-    @Override
-    public LambdaBasicComparison<T> between(boolean condition, Snippet row, Object leftVar, Object rightVar) {
-        return null;
-    }
-
-    /**
-     * @return
-     * describe 获取条件集合
+     * @return describe 获取条件集合
      * @author Jia wei Wu
      * @date 2021/8/21 7:57 下午
      **/
     @Override
     public ConditionList getConditionList() {
-        return null;
+        return conditionList;
+    }
+
+    /**
+     * 获取T 的class
+     *
+     * @return
+     */
+    @Override
+    public Class<T> getClassT() {
+        if (null == tClassType) {
+            ParameterizedType superClass = (ParameterizedType) getClass().getGenericSuperclass();
+            this.tClassType = (Class<T>) superClass.getActualTypeArguments()[0];
+        }
+        return tClassType;
+    }
+
+    /**
+     * 列到字符串
+     *
+     * @param row
+     * @return
+     */
+    @Override
+    protected String columnToString(Snippet<T, ?> row) {
+        final LambdaMeta meta = SnippetUtil.extract(row);
+        assert meta != null;
+        final Class tClass = meta.instantiatedClass();
+        if (null == tClassType) {
+            tClassType = tClass;
+        }
+        final String methodName = meta.methodName();
+        if ("toString".equals(methodName)) {
+            return methodName;
+        }
+        final String field = CamelAndUnderLineConverter.methodToField(methodName);
+        final String fieldRowName = CamelAndUnderLineConverter.humpToLine2(field);
+        final String tableName = LazyTableUtil.getTableName(tClass);
+        return tableName + NormalUsedString.DOT + fieldRowName;
+    }
+
+    /**
+     * 初始化 表
+     */
+    public LambdaBasicComparison<T> toString(Snippet<T, ?> row, Object o) {
+        columnToString(row);
+        return this;
     }
 }

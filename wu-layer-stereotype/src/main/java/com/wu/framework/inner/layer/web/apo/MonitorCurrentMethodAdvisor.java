@@ -1,6 +1,7 @@
 package com.wu.framework.inner.layer.web.apo;
 
 import com.wu.framework.inner.layer.web.EasyController;
+import com.wu.framework.inner.layer.web.config.EasyControllerConfig;
 import lombok.NonNull;
 import org.aopalliance.aop.Advice;
 import org.aopalliance.intercept.MethodInterceptor;
@@ -9,9 +10,7 @@ import org.springframework.aop.Pointcut;
 import org.springframework.aop.support.AbstractPointcutAdvisor;
 import org.springframework.aop.support.ComposablePointcut;
 import org.springframework.aop.support.annotation.AnnotationMatchingPointcut;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.BeanFactoryAware;
+import org.springframework.context.annotation.Import;
 
 /**
  * @author : Jiawei Wu
@@ -19,12 +18,13 @@ import org.springframework.beans.factory.BeanFactoryAware;
  * describe :
  * @date : 2021/1/9 5:07 下午
  */
-public class MonitorCurrentMethodAdvisor extends AbstractPointcutAdvisor  {
+@Import(EasyControllerConfig.class)
+public class MonitorCurrentMethodAdvisor extends AbstractPointcutAdvisor {
     private final Advice advice;
 
     private final Pointcut pointcut;
 
-    public MonitorCurrentMethodAdvisor(@NonNull MonitorCurrentMethodInterceptor monitorCurrentMethodInterceptor) {
+    public MonitorCurrentMethodAdvisor(@NonNull MonitorCurrentMethodInterceptor monitorCurrentMethodInterceptor, EasyControllerConfig easyControllerConfig) {
         this.advice = monitorCurrentMethodInterceptor;
         this.pointcut = buildPointcut();
     }
@@ -51,16 +51,23 @@ public class MonitorCurrentMethodAdvisor extends AbstractPointcutAdvisor  {
     }
 
 
-
-
     public static class MonitorCurrentMethodInterceptor implements MethodInterceptor {
+        private final EasyControllerConfig easyControllerConfig;
+
+        public MonitorCurrentMethodInterceptor(EasyControllerConfig easyControllerConfig) {
+            this.easyControllerConfig = easyControllerConfig;
+        }
+
 
         @Override
         public Object invoke(MethodInvocation invocation) throws Throwable {
             long start = System.currentTimeMillis();
             Object object = invocation.proceed();
             long end = System.currentTimeMillis();
-            System.out.printf("当前方法%s执行时间:%s(毫秒) %n", invocation.getMethod().getName(), end - start);
+            if (easyControllerConfig.isPrintExecuteTime()) {
+                System.out.printf("当前方法%s执行时间:%s(毫秒) %n", invocation.getMethod().getName(), end - start);
+            }
+
             return object;
         }
     }

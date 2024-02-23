@@ -84,7 +84,7 @@ public class MySQLGeneratorEntityUtil {
     }
 
     /**
-     * @description 生成class的所有内容
+     * description 生成class的所有内容
      */
     private String parse() {
         StringBuffer sb = new StringBuffer();
@@ -133,8 +133,7 @@ public class MySQLGeneratorEntityUtil {
     }
 
     /**
-     * @param sb
-     * @description 生成所有成员变量及注释
+     * @param sb description 生成所有成员变量及注释
      * @author paul
      * @version V1.0
      */
@@ -169,10 +168,12 @@ public class MySQLGeneratorEntityUtil {
         sb.append("\t@Override\r\n\tpublic String toString() {\r\n");
         sb.append("\t\treturn \"" + tableName + "[\" + \r\n");
         for (int i = 0; i < colNames.length; i++) {
-            if (i != 0)
+            if (i != 0) {
                 sb.append("\t\t\t\", ");
-            if (i == 0)
+            }
+            if (i == 0) {
                 sb.append("\t\t\t\"");
+            }
             sb.append(colNames[i] + "=\" + "
                     + colNames[i]).append(" + \r\n");
             if (i == colNames.length - 1) {
@@ -208,8 +209,7 @@ public class MySQLGeneratorEntityUtil {
     }
 
     /**
-     * @param sb
-     * @description 生成所有get/set方法
+     * @param sb description 生成所有get/set方法
      */
     private void processAllMethod(StringBuffer sb) {
         for (int i = 0; i < colNames.length; i++) {
@@ -225,13 +225,13 @@ public class MySQLGeneratorEntityUtil {
 
     /**
      * @param str 传入字符串
-     * @return
-     * @description 将传入字符串的首字母转成大写
+     * @return description 将传入字符串的首字母转成大写
      */
     private String initCap(String str) {
         char[] ch = str.toCharArray();
-        if (ch[0] >= 'a' && ch[0] <= 'z')
+        if (ch[0] >= 'a' && ch[0] <= 'z') {
             ch[0] = (char) (ch[0] - 32);
+        }
         return new String(ch);
     }
 
@@ -259,35 +259,34 @@ public class MySQLGeneratorEntityUtil {
     }
 
     /**
-     * @return
-     * @description 查找sql字段类型所对应的Java类型
+     * @return description 查找sql字段类型所对应的Java类型
      */
     private String sqlType2JavaType(String sqlType) {
-        if (sqlType.equalsIgnoreCase("bit")) {
+        if ("bit".equalsIgnoreCase(sqlType)) {
             return "boolean";
-        } else if (sqlType.equalsIgnoreCase("tinyint")) {
+        } else if ("tinyint".equalsIgnoreCase(sqlType)) {
             return "byte";
-        } else if (sqlType.equalsIgnoreCase("smallint")) {
+        } else if ("smallint".equalsIgnoreCase(sqlType)) {
             return "short";
-        } else if (sqlType.equalsIgnoreCase("int")) {
+        } else if ("int".equalsIgnoreCase(sqlType)) {
             return "int";
-        } else if (sqlType.equalsIgnoreCase("bigint")) {
+        } else if ("bigint".equalsIgnoreCase(sqlType)) {
             return "long";
-        } else if (sqlType.equalsIgnoreCase("float")) {
+        } else if ("float".equalsIgnoreCase(sqlType)) {
             return "float";
-        } else if (sqlType.equalsIgnoreCase("numeric")
-                || sqlType.equalsIgnoreCase("real") || sqlType.equalsIgnoreCase("money")
-                || sqlType.equalsIgnoreCase("smallmoney")) {
+        } else if ("numeric".equalsIgnoreCase(sqlType)
+                || "real".equalsIgnoreCase(sqlType) || "money".equalsIgnoreCase(sqlType)
+                || "smallmoney".equalsIgnoreCase(sqlType)) {
             return "double";
-        } else if (sqlType.equalsIgnoreCase("varchar") || sqlType.equalsIgnoreCase("char")
-                || sqlType.equalsIgnoreCase("nvarchar") || sqlType.equalsIgnoreCase("nchar")
-                || sqlType.equalsIgnoreCase("text") || sqlType.equalsIgnoreCase("longtext")) {
+        } else if ("varchar".equalsIgnoreCase(sqlType) || "char".equalsIgnoreCase(sqlType)
+                || "nvarchar".equalsIgnoreCase(sqlType) || "nchar".equalsIgnoreCase(sqlType)
+                || "text".equalsIgnoreCase(sqlType) || "longtext".equalsIgnoreCase(sqlType)) {
             return "String";
-        } else if (sqlType.equalsIgnoreCase("datetime")) {
+        } else if ("datetime".equalsIgnoreCase(sqlType)) {
             return "Date";
-        } else if (sqlType.equalsIgnoreCase("image")) {
+        } else if ("image".equalsIgnoreCase(sqlType)) {
             return "Blod";
-        } else if (sqlType.equalsIgnoreCase("decimal")) {
+        } else if ("decimal".equalsIgnoreCase(sqlType)) {
             return "BigDecimal";
         }
         return null;
@@ -322,7 +321,7 @@ public class MySQLGeneratorEntityUtil {
     }
 
     /**
-     * @description 生成方法
+     * description 生成方法
      */
     private void generate() throws Exception {
         //与数据库的连接
@@ -338,9 +337,11 @@ public class MySQLGeneratorEntityUtil {
         if (generateTables == null) {
             //从元数据中获取到所有的表名
             ResultSet rs = db.getTables(null, null, null, new String[]{"TABLE"});
-            while (rs.next()) tableNames.add(rs.getString(3));
+            while (rs.next()) {
+                tableNames.add(rs.getString(3));
+            }
         } else {
-            for (String tableName : generateTables) tableNames.add(tableName);
+            tableNames.addAll(Arrays.asList(generateTables));
         }
         if (needEntityHelper) {
             EntityHelper();
@@ -365,10 +366,11 @@ public class MySQLGeneratorEntityUtil {
             for (int i = 0; i < size; i++) {
                 colNames[i] = rsmd.getColumnName(i + 1);
                 colTypes[i] = rsmd.getColumnTypeName(i + 1);
-                if (colTypes[i].equalsIgnoreCase("datetime"))
+                if ("datetime".equalsIgnoreCase(colTypes[i]))
                     needUtil = true;
-                if (colTypes[i].equalsIgnoreCase("image") || colTypes[i].equalsIgnoreCase("text"))
+                if ("image".equalsIgnoreCase(colTypes[i]) || "text".equalsIgnoreCase(colTypes[i])) {
                     needSql = true;
+                }
                 colSizes[i] = rsmd.getColumnDisplaySize(i + 1);
             }
             //获取字段注释
@@ -387,7 +389,8 @@ public class MySQLGeneratorEntityUtil {
             pw.flush();
             System.out.println("create class 【" + tableName + "】");
         }
-        if (pw != null)
+        if (pw != null) {
             pw.close();
+        }
     }
 }

@@ -18,7 +18,7 @@ import com.wu.framework.inner.layer.data.ClassSchema;
 import com.wu.framework.inner.layer.data.IBeanUpsert;
 import com.wu.framework.inner.layer.data.ProcessException;
 import com.wu.framework.inner.layer.data.UserConvertService;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.EasyAnnotationConverter;
+import com.wu.framework.inner.lazy.persistence.analyze.EasyAnnotationConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 

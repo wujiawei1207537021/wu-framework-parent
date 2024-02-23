@@ -64,11 +64,11 @@ public class AuthorizationProperties {
     /**
      * root 账号
      */
-    private String userName="admin";
+    private String userName = "admin";
     /**
      * root 密码
      */
-    private String  password="admin";
+    private String password = "admin";
 
     /**
      * 忽略的路径
@@ -81,12 +81,24 @@ public class AuthorizationProperties {
     }
 
     public enum TokenStoreEnum {
+        /**
+         * JDBC 票据存储
+         */
         JDBC_TOKEN_STORE,
+        /**
+         * jwt 票据存储
+         */
         JWT_TOKEN_STORE;
     }
 
     enum Verification {
+        /**
+         * token 校验
+         */
         TOKEN,
+        /**
+         * session 校验
+         */
         SESSION;
     }
 }

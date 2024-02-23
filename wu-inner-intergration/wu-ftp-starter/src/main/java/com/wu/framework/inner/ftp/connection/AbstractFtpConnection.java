@@ -4,7 +4,8 @@ import com.wu.framework.inner.ftp.core.FtpTemplate;
 import org.apache.commons.net.SocketClient;
 
 /**
- * @Description
+ * description
+ *
  * @Author Jia wei Wu
  * @Date 2020-05-22 4:47 下午
  */

@@ -55,13 +55,12 @@ public class DemoRun {
         for (TableDescriptor tableDescriptor : tableDescriptors) {
             val columnFamilies = tableDescriptor.getColumnFamilies();
             for (ColumnFamilyDescriptor columnFamily : columnFamilies) {
-                System.out.println(String.format("表%s,列蔟%s", tableDescriptor.getTableName().getNameAsString(),columnFamily.getNameAsString()));
+                System.out.println(String.format("表%s,列蔟%s", tableDescriptor.getTableName().getNameAsString(), columnFamily.getNameAsString()));
             }
 //            System.out.println(String.format("表%s数据", tableDescriptor.getTableName().getNameAsString()));
 //            System.out.println(scanAllRecord(tableDescriptor.getTableName().getNameAsString()));
         }
     }
-
 
 
     public String scanAllRecord(String tableName) throws IOException {

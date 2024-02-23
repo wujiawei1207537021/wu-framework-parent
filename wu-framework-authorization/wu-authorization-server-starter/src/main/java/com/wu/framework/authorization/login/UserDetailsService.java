@@ -1,7 +1,7 @@
 package com.wu.framework.authorization.login;
 
-import com.wu.framework.authorization.model.UserDetails;
 import com.wu.framework.authorization.domain.LoginUserBO;
+import com.wu.framework.authorization.model.UserDetails;
 
 /**
  * @ Description : 使用当前框架所需要实现的方法

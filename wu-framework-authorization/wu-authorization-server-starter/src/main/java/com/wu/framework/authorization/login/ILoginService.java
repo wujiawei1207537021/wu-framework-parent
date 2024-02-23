@@ -1,9 +1,9 @@
 package com.wu.framework.authorization.login;
 
 import com.wu.framework.authorization.domain.AccessTokenRO;
+import com.wu.framework.authorization.domain.LoginUserBO;
 import com.wu.framework.authorization.model.UserDetails;
 import com.wu.framework.response.Result;
-import com.wu.framework.authorization.domain.LoginUserBO;
 
 public interface ILoginService {
     /**

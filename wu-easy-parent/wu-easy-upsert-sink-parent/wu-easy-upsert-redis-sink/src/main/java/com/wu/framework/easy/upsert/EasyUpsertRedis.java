@@ -16,6 +16,6 @@ import java.lang.annotation.*;
 @LazyRedis
 public @interface EasyUpsertRedis {
 
-    @AliasFor(attribute = "database",annotation = LazyRedis.class)
+    @AliasFor(attribute = "database", annotation = LazyRedis.class)
     int database() default 0;
 }

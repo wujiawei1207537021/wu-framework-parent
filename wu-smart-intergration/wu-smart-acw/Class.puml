@@ -1,0 +1,97 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class AbstractList
+abstract AbstractCollection
+interface List
+interface Collection
+
+List <|-- AbstractList
+Collection <|-- AbstractCollection
+
+Collection <|- List
+AbstractCollection <|- AbstractList
+AbstractList <|-- ArrayList
+
+class ArrayList {
+Object[] elementData
+size()
+}
+
+enum TimeUnit {
+DAYS
+HOURS
+MINUTES
+}
+
+
+class Class{
+    /**
+     * 主键
+     */
+    private Long id;
+    /**
+     * 项目id
+     */
+    private Long projectId;
+
+    /**
+     * 包名
+     */
+    private String packageName;
+    /**
+     * 类名
+     */
+    private String name;
+    /**
+     * 类 类型
+     */
+    private JavaClassType type;
+
+    /**
+     * 类注解
+     */
+    @LazyTableField
+    private List<ClassUo> annotationList;
+    /**
+     * 类 父类
+     */
+    private ClassUo parentClass;
+    /**
+     * 类 接口
+     */
+    private ClassUo interfaceClass;
+}
+
+
+ class MethodUo {
+    /**
+     * 主键
+     */
+    private Long id;
+    /**
+     * 类id
+     */
+    private Long classId;
+    /**
+     * 方法名
+     */
+    private String name;
+    /**
+     * 出参数
+     */
+    private String outParams;
+    /**
+     * 入参
+     */
+    private String inParams;
+    /**
+     * 方法体
+     */
+    private String body;
+
+}
+
+
+
+@enduml

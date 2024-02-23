@@ -14,19 +14,20 @@ public interface LayerAnalyze<A> {
      * @param
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/4/26 4:31 下午
      */
-     boolean supportParameter(AnalyzeParameter analyzeParameter);
+    boolean supportParameter(AnalyzeParameter analyzeParameter);
 
 
-     /**
-      * description  supportParameter 结果返回为true 时解析数据为指定类型的数据
-      * @param
-      * @return
-      * @exception/throws
-      * @author 吴佳伟
-      * @date 2021/4/27 3:05 下午
-      */
+    /**
+     * description  supportParameter 结果返回为true 时解析数据为指定类型的数据
+     *
+     * @param
+     * @return
+     * @exception/throws
+     * @author Jia wei Wu
+     * @date 2021/4/27 3:05 下午
+     */
     <A> A analyze(AnalyzeParameter analyzeParameter);
 }

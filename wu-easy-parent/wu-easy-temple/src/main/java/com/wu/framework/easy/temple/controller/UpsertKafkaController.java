@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * description 测试 数据存储kafka
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2021/5/11 1:21 下午
  */
 @Api(tags = "kafka数据快速存储")

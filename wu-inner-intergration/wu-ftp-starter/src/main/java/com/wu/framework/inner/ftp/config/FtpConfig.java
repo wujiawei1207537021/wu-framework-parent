@@ -6,7 +6,8 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * @Description
+ * description
+ *
  * @Author Jia wei Wu
  * @Date 2020-05-22 3:09 下午
  */

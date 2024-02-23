@@ -4,7 +4,7 @@ package com.wu.framework.easy.upsert.sink.converter;
 import com.alibaba.fastjson.JSON;
 import com.wu.framework.easy.upsert.autoconfigure.EasySmart;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.EasyAnnotationConverter;
+import com.wu.framework.inner.lazy.persistence.analyze.EasyAnnotationConverter;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ObjectUtils;
 

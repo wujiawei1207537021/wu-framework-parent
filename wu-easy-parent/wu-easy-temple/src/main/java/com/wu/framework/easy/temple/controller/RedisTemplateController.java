@@ -3,6 +3,8 @@ package com.wu.framework.easy.temple.controller;
 import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.inner.redis.annotation.LazyRedis;
 import com.wu.framework.inner.redis.component.LazyRedisTemplate;
+import com.wu.framework.response.Result;
+import com.wu.framework.response.ResultFactory;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.redis.core.DefaultTypedTuple;
@@ -10,8 +12,10 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -68,6 +72,18 @@ public class RedisTemplateController {
     public Object setRedis2() {
         lazyRedisTemplate.opsForValue().set("test2", "test2");
         return lazyRedisTemplate.opsForValue().get("test1");
+    }
+
+    /**
+     * 获取索引对应的数据
+     */
+    @GetMapping("/index/{index}")
+    public Result correspondOfTheIndex(@PathVariable String index) {
+        final List values = lazyRedisTemplate.opsForHash().values(index);
+        for (Object value : values) {
+            System.out.println(value);
+        }
+        return ResultFactory.successOf(values);
     }
 
 

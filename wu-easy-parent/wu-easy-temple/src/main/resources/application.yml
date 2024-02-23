@@ -3,7 +3,7 @@ server:
 
 spring:
   profiles:
-    active: es,redis,jpa,es
+    active: es,redis,temp
 
   #  elasticsearch:
   #    rest:
@@ -24,7 +24,8 @@ spring:
         print-sql: false
         batch-limit: 10000
         record-log: true
-
+  lazy:
+    printf-query: false
 
 
 

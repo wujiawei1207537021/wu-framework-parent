@@ -1,6 +1,6 @@
 package com.wu.framework.authorization.annotation;
 
-import com.wu.framework.authorization.web.interceptors.AccessPermissionInterceptor;
+import com.wu.framework.authorization.web.interceptors.AccessPermissionInterceptorAbstract;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;
@@ -13,7 +13,7 @@ import java.lang.annotation.*;
  * @ UpdateDate    :  2020/1/21 0021 14:11
  * @ UpdateRemark  :  修改内容
  * @ Version       :  1.0
- * {@link AccessPermissionInterceptor}
+ * {@link AccessPermissionInterceptorAbstract}
  * orRoles 优先级大于 roles
  */
 

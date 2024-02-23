@@ -177,8 +177,7 @@ public class NormalExcelExportService implements ExcelExcelService {
     /**
      * @param workbook
      * @param easyExcel
-     * @param collection
-     * describe 正常单工作簿导出
+     * @param collection describe 正常单工作簿导出
      */
     public static void normalSingleSheet(HSSFWorkbook workbook, EasyExcel easyExcel, Collection collection) {
         try {

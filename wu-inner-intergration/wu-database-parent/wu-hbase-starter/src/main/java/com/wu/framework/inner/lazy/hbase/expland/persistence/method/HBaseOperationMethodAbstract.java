@@ -6,7 +6,10 @@ import com.wu.framework.inner.lazy.hbase.expland.analyze.HBaseLayerAnalyze;
 import com.wu.framework.inner.lazy.hbase.expland.persistence.stereotype.HBaseTable;
 import org.apache.hadoop.hbase.NamespaceDescriptor;
 import org.apache.hadoop.hbase.TableName;
-import org.apache.hadoop.hbase.client.*;
+import org.apache.hadoop.hbase.client.Admin;
+import org.apache.hadoop.hbase.client.ColumnFamilyDescriptorBuilder;
+import org.apache.hadoop.hbase.client.TableDescriptor;
+import org.apache.hadoop.hbase.client.TableDescriptorBuilder;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.ReflectionUtils;
@@ -31,8 +34,6 @@ public abstract class HBaseOperationMethodAbstract extends HBaseLayerAnalyze imp
     private Map<Class, List<AnalyzeField>> UNIQUE_FIELD = new HashMap<>();
 
 
-
-
     @Override
     public Object before(HBaseExecuteParams o) throws Exception {
         return o;
@@ -52,8 +53,7 @@ public abstract class HBaseOperationMethodAbstract extends HBaseLayerAnalyze imp
 
     /**
      * @param
-     * @return
-     * describe 是否完善表
+     * @return describe 是否完善表
      * @author Jia wei Wu
      * @date 2021/4/7 6:55 下午
      **/

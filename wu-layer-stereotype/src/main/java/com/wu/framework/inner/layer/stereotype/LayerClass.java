@@ -22,7 +22,19 @@ public @interface LayerClass {
 
     /**
      * class name 例如:layer_class
+     *
      * @return
      */
     String name() default "";
+
+    enum LayerType {
+        NULL,
+        CONTROLLER,
+        SERVICE,
+        SERVICE_IMPLEMENTS,
+        PERSISTENCE,
+        QO,
+        VO,
+        UO;
+    }
 }

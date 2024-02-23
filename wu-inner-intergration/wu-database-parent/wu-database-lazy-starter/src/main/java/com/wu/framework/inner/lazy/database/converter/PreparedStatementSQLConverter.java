@@ -6,8 +6,8 @@
 //import com.wu.framework.inner.layer.stereotype.LayerField;
 //import com.wu.framework.inner.layer.stereotype.domain.LayerAnalyzeField;
 //import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.Persistence;
-//import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTable;
-//import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTableField;
+//import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyTableInfo;
+//
 //import org.springframework.core.annotation.AnnotatedElementUtils;
 //import org.springframework.core.annotation.AnnotationUtils;
 //import org.springframework.util.ObjectUtils;
@@ -98,7 +98,7 @@
 //     * @date 2020/7/3 下午9:48
 //     **/
 //    public static <T> String tableName(Class<T> clazz) {
-//        LazyTable tableNameAnnotation = AnnotationUtils.getAnnotation(clazz, LazyTable.class);
+//        LazyTableInfo tableNameAnnotation = AnnotationUtils.getAnnotation(clazz, LazyTableInfo.class);
 //        if (!ObjectUtils.isEmpty(tableNameAnnotation) && !ObjectUtils.isEmpty(tableNameAnnotation.tableName())) {
 //            if (!ObjectUtils.isEmpty(tableNameAnnotation.schema())) {
 //                return tableNameAnnotation.schema() + "." + tableNameAnnotation.tableName();

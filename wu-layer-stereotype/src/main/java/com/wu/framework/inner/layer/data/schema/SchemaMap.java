@@ -6,7 +6,7 @@ import java.util.List;
 
 public class SchemaMap<K, V> extends HashMap<K, V> {
 
-    private List<FieldSchema> fieldSchemas=new ArrayList<>();
+    private List<FieldSchema> fieldSchemas = new ArrayList<>();
 
     @Override
     public V put(K key, V value) {
@@ -15,5 +15,11 @@ public class SchemaMap<K, V> extends HashMap<K, V> {
     }
 
 
+    public List<FieldSchema> getFieldSchemas() {
+        return fieldSchemas;
+    }
 
+    public void setFieldSchemas(List<FieldSchema> fieldSchemas) {
+        this.fieldSchemas = fieldSchemas;
+    }
 }

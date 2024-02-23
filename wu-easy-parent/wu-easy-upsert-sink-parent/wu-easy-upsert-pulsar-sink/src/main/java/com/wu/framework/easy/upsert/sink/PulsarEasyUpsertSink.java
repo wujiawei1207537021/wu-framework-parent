@@ -15,7 +15,7 @@ import org.apache.pulsar.client.api.MessageId;
 import org.apache.pulsar.client.api.PulsarClient;
 import org.apache.pulsar.client.impl.schema.JSONSchema;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ import java.util.concurrent.ExecutionException;
  * @date 2020/9/11 上午10:22
  */
 @Slf4j
-@ConditionalOnBean(SpringBootPulsarConfigProperties.class)
+@ConditionalOnProperty(prefix = SpringBootPulsarConfigProperties.PULSAR_PREFIX, value = "url")
 @EasyUpsertStrategy(value = EasyUpsertType.PULSAR)
 public class PulsarEasyUpsertSink implements IEasyUpsert, InitializingBean {
 
@@ -43,26 +43,26 @@ public class PulsarEasyUpsertSink implements IEasyUpsert, InitializingBean {
 
     @Override
     public <T> Object upsert(List<T> list, ClassSchema classSchema) throws UpsertException, ExecutionException, InterruptedException {
-        List<MessageId> messageIdList=new ArrayList<>();
+        List<MessageId> messageIdList = new ArrayList<>();
         splitListThen(list, configure.getBatchLimit(), new EasyUpsertFunction() {
             @Override
             public <t> void handle(List<t> source) {
                 PulsarSchema pulsarSchema = classSchema.classAnnotation(PulsarSchema.class);
-                String topic= CamelAndUnderLineConverter.humpToLine2(classSchema.clazz().getSimpleName());
-                if(!ObjectUtils.isEmpty(pulsarSchema)){
-                    if(!ObjectUtils.isEmpty(pulsarSchema.topic())){
-                        topic=pulsarSchema.topic();
+                String topic = CamelAndUnderLineConverter.humpToLine2(classSchema.clazz().getSimpleName());
+                if (!ObjectUtils.isEmpty(pulsarSchema)) {
+                    if (!ObjectUtils.isEmpty(pulsarSchema.topic())) {
+                        topic = pulsarSchema.topic();
                     }
                 }
                 for (t item : source) {
-                  try {
-                      MessageId messageId = pulsarClient.newProducer(JSONSchema.of(classSchema.clazz())).
-                              topic(topic).create().send(item);
-                      messageIdList.add(messageId);
-                  }catch (Exception e){
-                      e.printStackTrace();
-                      throw new UpsertException(e);
-                  }
+                    try {
+                        MessageId messageId = pulsarClient.newProducer(JSONSchema.of(classSchema.clazz())).
+                                topic(topic).create().send(item);
+                        messageIdList.add(messageId);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        throw new UpsertException(e);
+                    }
                 }
             }
         });

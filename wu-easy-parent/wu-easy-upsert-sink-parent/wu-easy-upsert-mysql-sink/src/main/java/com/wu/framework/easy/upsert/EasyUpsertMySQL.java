@@ -3,17 +3,18 @@ package com.wu.framework.easy.upsert;
 
 import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsert;
 import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyDS;
+import com.wu.framework.inner.lazy.stereotype.LazyDS;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Indexed;
 
 import java.lang.annotation.*;
 
 /**
- * describe: 切换MySQL数据源
+ * 切换MySQL数据源
+ *
  * @author : Jia wei Wu
- * @date : 2021/7/4 7:37 下午
  * @version : 1.0
+ * @date : 2021/7/4 7:37 下午
  */
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
@@ -27,9 +28,9 @@ public @interface EasyUpsertMySQL {
      *
      * @return
      */
-    @AliasFor(attribute = "name",annotation = LazyDS.class)
+    @AliasFor(attribute = "name", annotation = LazyDS.class)
     String value() default "";
 
-    @AliasFor(attribute = "value",annotation = LazyDS.class)
+    @AliasFor(attribute = "value", annotation = LazyDS.class)
     String name() default "";
 }

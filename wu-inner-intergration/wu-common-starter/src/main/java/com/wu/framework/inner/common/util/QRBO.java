@@ -46,7 +46,7 @@ public class QRBO {
     /**
      * @author : Jia wei Wu
      * @version : 1.0
-     * describe: 密码文字
+     * 密码文字
      * @date : 2020/6/17 11:11 下午
      */
     @Data

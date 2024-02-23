@@ -1,5 +1,6 @@
 package com.wu.framework.inner.layer.data;
 
+import com.wu.framework.inner.layer.data.convert.LayerOperationConvert;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -17,16 +18,28 @@ import java.util.Map;
 /**
  * @author : Jiawei Wu
  * @version : 1.0
- * describe: Java 基础Class 对应默认值
+ * Java 基础Class 对应默认值
  * @date : 2021/1/1 1:10 下午
  */
 @Getter
 @AllArgsConstructor
 public enum JavaBasicTypeDefaultValue {
-    STRING(String.class, "''"),
+    /**
+     * 字符串
+     */
+    STRING(String.class, ""),
+    /**
+     * Boolean
+     */
     BOOLEAN(Boolean.class, false),
+    /**
+     * boolean
+     */
     BOOLEAN_M(boolean.class, false),
 
+    /**
+     * Byte
+     */
     Byte(Byte.class, 0),
     Byte_M(byte.class, 0),
     Byte_S(Byte[].class, 0),
@@ -72,7 +85,13 @@ public enum JavaBasicTypeDefaultValue {
         Arrays.stream(values()).forEach(javaBasicType -> DEFAULT_CLASS_NAME_VALUE_HASHMAP.put(javaBasicType.clazz.getName(), javaBasicType.defaultValue));
     }
 
+    /**
+     * class类型
+     */
     private Class clazz;
+    /**
+     * class 对应的默认数值
+     */
     private Object defaultValue;
 
 
@@ -83,9 +102,13 @@ public enum JavaBasicTypeDefaultValue {
      * @return
      * @author Jiawei Wu
      * @date 2021/1/3 1:03 下午
+     * @see LayerOperationConvert
+     * {@link LayerOperationConvert}
      **/
     public static Object convertBasicTypeBean(Class clazz, Object obj) {
-        if (null == obj) return JavaBasicTypeDefaultValue.DEFAULT_VALUE_HASHMAP.get(clazz);
+        if (null == obj) {
+            return JavaBasicTypeDefaultValue.DEFAULT_VALUE_HASHMAP.get(clazz);
+        }
         if (clazz.equals(Integer.class) || clazz.equals(int.class)) {
             return Integer.valueOf(obj.toString());
         } else if (clazz.equals(String.class)) {
@@ -101,7 +124,7 @@ public enum JavaBasicTypeDefaultValue {
         } else if (clazz.equals(Boolean.class) || clazz.equals(boolean.class)) {
             return Boolean.valueOf(obj.toString());
         } else if (clazz.equals(Byte.class) || clazz.equals(byte.class)) {
-            return Byte.valueOf(obj.toString());
+            return obj;
         } else if (clazz.equals(Character.class) || clazz.equals(char.class)) {
             return obj;
         }

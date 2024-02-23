@@ -1,11 +1,13 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
-import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.ConvertedField;
+import com.wu.framework.inner.lazy.config.LazyOperationConfig;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepositoryFactory;
+import com.wu.framework.inner.lazy.persistence.conf.FieldLazyTableFieldEndpoint;
+import com.wu.framework.inner.lazy.persistence.util.LazyTableFieldUtil;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
-import javax.sql.DataSource;
 import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,7 +25,18 @@ import java.util.List;
 @Component
 public class LazyOperationMethodSelectOne extends AbstractLazyOperationMethod {
 
+    private final LazyOperationConfig operationConfig;
 
+    public LazyOperationMethodSelectOne(LazyOperationConfig operationConfig) {
+        this.operationConfig = operationConfig;
+    }
+
+    /**
+     * @param param
+     * @return description 通过参数获取持久性存储库对象
+     * @author Jia wei Wu
+     * @date 2021/4/17 3:38 下午
+     **/
     @Override
     public PersistenceRepository analyzePersistenceRepository(Object param) throws IllegalArgumentException {
         String queryString = "";
@@ -31,16 +44,14 @@ public class LazyOperationMethodSelectOne extends AbstractLazyOperationMethod {
         Class clazz = object.getClass();
         queryString = selectPreparedStatementSQL(object);
 //        System.out.println(queryString);
-        PersistenceRepository persistenceRepository = new PersistenceRepository();
+        PersistenceRepository persistenceRepository = PersistenceRepositoryFactory.create(operationConfig);
         persistenceRepository.setQueryString(queryString);
         persistenceRepository.setResultClass(clazz);
         return persistenceRepository;
     }
 
     @Override
-    public Object execute(DataSource dataSource, Object[] sourceParams) throws SQLException, NoSuchFieldException, InstantiationException, IllegalAccessException {
-
-        Connection connection = dataSource.getConnection();
+    public Object execute(Connection connection, Object[] sourceParams) throws SQLException, NoSuchFieldException, InstantiationException, IllegalAccessException {
         PersistenceRepository persistenceRepository = analyzePersistenceRepository(sourceParams[0]);
         PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());
         try {
@@ -56,7 +67,6 @@ public class LazyOperationMethodSelectOne extends AbstractLazyOperationMethod {
         } catch (SQLException sqlException) {
             throw sqlException;
         } finally {
-            connection.close();
             preparedStatement.close();
         }
     }
@@ -74,14 +84,14 @@ public class LazyOperationMethodSelectOne extends AbstractLazyOperationMethod {
         Class clazz = o.getClass();
         //  SELECT FROM
         StringBuffer stringBuffer = new StringBuffer(" SELECT * FROM  ");
-        stringBuffer.append(tableName(clazz));
+        stringBuffer.append(processAnalyze.tableName(clazz));
         // where
         stringBuffer.append(" where ");
         boolean punctuationFlag = false;
-        List<ConvertedField> convertedFieldList = fieldNamesOnAnnotation(clazz,null);
-        for (ConvertedField convertedField : convertedFieldList) {
+        List<FieldLazyTableFieldEndpoint> convertedFieldList = LazyTableFieldUtil.analyzeFieldOnAnnotation(clazz, null);
+        for (FieldLazyTableFieldEndpoint convertedField : convertedFieldList) {
             try {
-                Field field = o.getClass().getDeclaredField(convertedField.getFieldName());
+                Field field = o.getClass().getDeclaredField(convertedField.getName());
                 if (!field.isAccessible()) {
                     field.setAccessible(true);
                 }
@@ -93,7 +103,7 @@ public class LazyOperationMethodSelectOne extends AbstractLazyOperationMethod {
                 if (punctuationFlag) {
                     stringBuffer.append(" and ");
                 }
-                stringBuffer.append(convertedField.getConvertedFieldName()).append(" = '").append(fieldVal).append("'");
+                stringBuffer.append(convertedField.getColumnName()).append(" = '").append(fieldVal).append("'");
                 punctuationFlag = true;
             } catch (Exception e) {
                 e.printStackTrace();

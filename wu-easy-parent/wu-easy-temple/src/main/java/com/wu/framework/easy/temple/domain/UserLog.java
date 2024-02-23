@@ -3,6 +3,7 @@ package com.wu.framework.easy.temple.domain;
 import com.wu.framework.easy.excel.stereotype.EasyExcelFiled;
 import com.wu.framework.easy.upsert.autoconfigure.EasySmart;
 import com.wu.framework.easy.upsert.autoconfigure.EasySmartField;
+import com.wu.framework.easy.upsert.autoconfigure.EasyUnique;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -20,7 +21,7 @@ import java.util.List;
 @EasySmart(perfectTable = true)
 public class UserLog implements Serializable {
 
-    @EasySmartField(name = "user_id")
+    @EasyUnique(name = "user_id")
     private Integer userId;
 
     @EasyExcelFiled(name = "当前时间")

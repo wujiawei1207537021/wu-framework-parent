@@ -1,65 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>wu-smart-intergration</artifactId>
         <groupId>top.wu2020</groupId>
-        <version>1.0.5</version>
+        <version>1.0.6</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>wu-smart-acw</artifactId>
+    <packaging>pom</packaging>
     <description>Automatic code writing</description>
+
+
+    <modules>
+        <module>wu-smart-acw-core</module>
+        <module>wu-smart-acw-client</module>
+        <module>wu-smart-acw-server</module>
+        <module>wu-smart-acw-simple</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <wu-smart-acw-core.version>${project.version}</wu-smart-acw-core.version>
+        <wu-smart-acw-client.version>${project.version}</wu-smart-acw-client.version>
+        <wu-smart-acw-server.version>${project.version}</wu-smart-acw-server.version>
     </properties>
 
-    <dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-smart-acw-core</artifactId>
+                <version>${wu-smart-acw-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-smart-acw-server</artifactId>
+                <version>${wu-smart-acw-server.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-smart-acw-client</artifactId>
+                <version>${wu-smart-acw-client.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>top.wu2020</groupId>
-            <artifactId>wu-framework-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-boot-starter</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>top.wu2020</groupId>
-            <artifactId>wu-layer-stereotype</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>top.wu2020</groupId>
-            <artifactId>wu-database-layer-stereotype</artifactId>
-            <version>1.0.5</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>top.wu2020</groupId>
-            <artifactId>wu-database-lazy-starter</artifactId>
-        </dependency>
-
-
-    </dependencies>
 
 </project>

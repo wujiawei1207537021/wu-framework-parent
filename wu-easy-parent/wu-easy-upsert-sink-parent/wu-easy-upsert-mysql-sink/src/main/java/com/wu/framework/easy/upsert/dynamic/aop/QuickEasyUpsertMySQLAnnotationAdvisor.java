@@ -7,7 +7,7 @@ import com.wu.framework.easy.upsert.core.dynamic.AbstractDynamicEasyUpsert;
 import com.wu.framework.easy.upsert.core.dynamic.aop.AbstractPointcutQuickEasyUpsertAnnotationAdvisor;
 import com.wu.framework.easy.upsert.core.dynamic.toolkit.DynamicEasyUpsertContextHolder;
 import com.wu.framework.inner.dynamic.database.toolkit.DynamicLazyDSContextHolder;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyDS;
+import com.wu.framework.inner.lazy.stereotype.LazyDS;
 import org.aopalliance.aop.Advice;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
@@ -32,8 +32,7 @@ public class QuickEasyUpsertMySQLAnnotationAdvisor extends AbstractPointcutQuick
     }
 
     /**
-     * @return
-     * describe 切面处理
+     * @return describe 切面处理
      * @author Jia wei Wu
      * @date 2021/7/10 11:15 上午
      **/

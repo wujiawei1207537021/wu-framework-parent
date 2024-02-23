@@ -6,7 +6,7 @@ import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsert;
 import com.wu.framework.easy.upsert.core.dynamic.aop.AbstractPointcutEasyUpsertAnnotationAdvisor;
 import com.wu.framework.easy.upsert.core.dynamic.toolkit.DynamicEasyUpsertContextHolder;
 import com.wu.framework.inner.dynamic.database.toolkit.DynamicLazyDSContextHolder;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyDS;
+import com.wu.framework.inner.lazy.stereotype.LazyDS;
 import org.aopalliance.aop.Advice;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
@@ -24,8 +24,7 @@ import java.lang.annotation.Annotation;
 public class EasyUpsertMySQLAnnotationAdvisor extends AbstractPointcutEasyUpsertAnnotationAdvisor {
 
     /**
-     * @return
-     * describe 切面处理
+     * @return describe 切面处理
      * @author Jia wei Wu
      * @date 2021/7/10 11:15 上午
      **/
@@ -36,11 +35,11 @@ public class EasyUpsertMySQLAnnotationAdvisor extends AbstractPointcutEasyUpsert
             @Override
             public Object invoke(@Nonnull MethodInvocation invocation) throws Throwable {
                 // 切换数据源
-                 LazyDS lazyDS = determineEasyUpsert(invocation, LazyDS.class);
+                LazyDS lazyDS = determineEasyUpsert(invocation, LazyDS.class);
                 // 数据库数据源切换
                 DynamicLazyDSContextHolder.push(lazyDS);
                 // upsert 策略切换
-                 EasyUpsert easyUpsert = determineEasyUpsert(invocation, EasyUpsert.class);
+                EasyUpsert easyUpsert = determineEasyUpsert(invocation, EasyUpsert.class);
                 DynamicEasyUpsertContextHolder.push(easyUpsert);
                 try {
                     return invocation.proceed();

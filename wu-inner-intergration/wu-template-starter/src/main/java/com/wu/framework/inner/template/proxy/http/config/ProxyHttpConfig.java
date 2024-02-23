@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.Random;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * describe :
  * @date : 2021/5/22 3:56 下午

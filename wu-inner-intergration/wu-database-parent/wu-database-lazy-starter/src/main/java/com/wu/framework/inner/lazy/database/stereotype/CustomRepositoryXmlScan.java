@@ -24,6 +24,9 @@ public @interface CustomRepositoryXmlScan {
     String[] name() default "";
 
     enum ExecuteType {
+        /**
+         * 插入操作
+         */
         INSERT,
         UPDATE,
         SELECT,

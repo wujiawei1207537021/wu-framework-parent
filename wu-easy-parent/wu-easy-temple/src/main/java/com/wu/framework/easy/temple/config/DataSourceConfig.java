@@ -29,8 +29,7 @@ public class DataSourceConfig {
 
     /**
      * @param
-     * @return
-     * describe H2数据库
+     * @return describe H2数据库
      * @author Jia wei Wu
      * @date 2021/4/15 8:21 下午
      **/

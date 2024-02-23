@@ -1,4 +1,5 @@
 ### 使用方法配置
+
     #fastdfs配置
     fdfs:
       connect-timeout: 600
@@ -14,7 +15,9 @@
         file:
           access-path: http://www.wu.com:7389/
         tracker-list: 192.168.1.86:22122
+
 ### 服务器下载图片
+
         使用 getRealAccessPath 需要实现的控制器
         控制器 /media
         /**

@@ -3,24 +3,27 @@ package com.wu.framework.inner.layer.data;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 
-import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @author wujiawei
+ */
 public interface LayerDataAnalyzeAdapter {
 
     /**
      * @param extractList 中间存储数据对象 可以为空
      * @param objects     需要提取的对象
-     * @return
-     * describe 复杂数据提取
+     * @return describe 复杂数据提取
      * @author Jia wei Wu
      * @date 2021/4/11 11:40 上午
      **/
     default List<List> extractData(List<List> extractList, Object... objects) {
-        if (extractList == null) extractList = new ArrayList<List>();
+        if (extractList == null) {
+            extractList = new ArrayList<List>();
+        }
         for (Object object : objects) {
             Class<?> aClass = object.getClass();
             // 类上没有注解 不下钻
@@ -32,7 +35,9 @@ public interface LayerDataAnalyzeAdapter {
             for (Field field : aClass.getDeclaredFields()) {
                 field.setAccessible(true);
                 SmartMark smartMarkField = AnnotationUtils.getAnnotation(field, SmartMark.class);
-                if (null == smartMarkField) continue;
+                if (null == smartMarkField) {
+                    continue;
+                }
                 Class<?> fieldType = field.getType();
                 Object o = null;
                 try {
@@ -40,7 +45,9 @@ public interface LayerDataAnalyzeAdapter {
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
-                if (null == o) continue;
+                if (null == o) {
+                    continue;
+                }
                 //
                 if (Iterable.class.isAssignableFrom(fieldType)) {
                     extractList.add((List) o);
@@ -54,8 +61,7 @@ public interface LayerDataAnalyzeAdapter {
 
 
     /**
-     * @return
-     * describe 将List分割成多个List
+     * @return describe 将List分割成多个List
      * @params
      * @author Jia wei Wu
      * @date 2020/12/6 5:34 下午

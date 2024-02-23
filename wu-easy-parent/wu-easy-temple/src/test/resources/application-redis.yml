@@ -1,3 +1,8 @@
 spring:
   redis:
-    host: 127.0.0.1
+    host: cloud-k8s
+    password: root
+    port: 30501
+    search:
+      host: cloud-k8s
+      port: 30505

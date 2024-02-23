@@ -74,18 +74,19 @@ public class LazyRedisDBAOPAdvisor extends AbstractPointcutAdvisor implements Be
             lazyRedisTemplate.setDyDatabase(lazyRedis.database());
             try {
                 return invocation.proceed();
-            }finally {
+            } finally {
                 lazyRedisTemplate.reset();
             }
         }
 
         /**
-        * describe 确定 Lazy Redis
-        * @param
-        * @return
-        * @author Jia wei Wu
-        * @date 2021/7/4 5:04 下午
-        **/
+         * describe 确定 Lazy Redis
+         *
+         * @param
+         * @return
+         * @author Jia wei Wu
+         * @date 2021/7/4 5:04 下午
+         **/
         public LazyRedis determineLazyRedis(MethodInvocation invocation) {
             Method method = invocation.getMethod();
             Class<?> declaringClass = method.getDeclaringClass();

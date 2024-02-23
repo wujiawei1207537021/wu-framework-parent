@@ -1,9 +1,9 @@
 package com.wu.framework.authorization.login;
 
-import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import com.wu.framework.authorization.domain.LoginUserBO;
 import com.wu.framework.authorization.model.User;
 import com.wu.framework.authorization.model.UserDetails;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.util.DigestUtils;
 
@@ -22,9 +22,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) {
-        User u = new User();
-        u.setUsername(userName);
-        return lazyOperation.selectOne(u);
+        return lazyOperation.executeSQLForBean(String.format("select * from sys_user where user_name='%s'", userName), User.class);
     }
 
     /**
@@ -43,8 +41,6 @@ public class DefaultUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserById(String userId) {
-        User u = new User();
-        u.setId(userId);
-        return lazyOperation.selectOne(u);
+        return lazyOperation.executeSQLForBean(String.format("select * from sys_user where id='%s'", userId), User.class);
     }
 }

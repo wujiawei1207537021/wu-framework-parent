@@ -12,6 +12,7 @@ import com.wu.framework.inner.layer.stereotype.MethodParamFunctionException;
 @FunctionalInterface
 public interface ProxyMethodFunction extends MethodParamFunction<Object> {
 
+    @Override
     Object defaultMethod(Object method) throws MethodParamFunctionException;
 
 

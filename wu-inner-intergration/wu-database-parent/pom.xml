@@ -5,12 +5,12 @@
     <parent>
         <artifactId>wu-inner-intergration</artifactId>
         <groupId>top.wu2020</groupId>
-        <version>1.0.5</version>
+        <version>1.0.6</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>wu-database-parent</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
     <packaging>pom</packaging>
     <description>数据库</description>
 
@@ -23,6 +23,8 @@
         <wu-hbase-starter.version>${project.version}</wu-hbase-starter.version>
         <wu-database-layer-stereotype.version>${project.version}</wu-database-layer-stereotype.version>
         <wu-elasticsearch-starter.version>${project.version}</wu-elasticsearch-starter.version>
+        <wu-database-lazy-spring-boot-autoconfigure.version>${project.version}
+        </wu-database-lazy-spring-boot-autoconfigure.version>
 
     </properties>
     <modules>
@@ -35,6 +37,7 @@
         <module>wu-hbase-starter</module>
         <module>wu-database-layer-stereotype</module>
         <module>wu-elasticsearch-starter</module>
+        <module>wu-database-lazy-spring-boot-autoconfigure</module>
     </modules>
 
     <dependencies>
@@ -90,6 +93,13 @@
                 <groupId>top.wu2020</groupId>
                 <artifactId>wu-elasticsearch-starter</artifactId>
                 <version>${wu-elasticsearch-starter.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>top.wu2020</groupId>
+                <artifactId>wu-database-lazy-spring-boot-autoconfigure</artifactId>
+                <version>${wu-database-lazy-spring-boot-autoconfigure.version}</version>
             </dependency>
 
         </dependencies>

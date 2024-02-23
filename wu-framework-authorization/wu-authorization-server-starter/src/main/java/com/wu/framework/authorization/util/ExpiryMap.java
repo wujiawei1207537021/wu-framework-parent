@@ -5,8 +5,7 @@ import java.util.*;
 
 /**
  * @param <K>
- * @param <V>
- * @Description: 带有效期map 简单实现 实现了基本的方法
+ * @param <V> description: 带有效期map 简单实现 实现了基本的方法
  */
 public class ExpiryMap<K, V> extends HashMap<K, V> {
 
@@ -119,7 +118,7 @@ public class ExpiryMap<K, V> extends HashMap<K, V> {
     /**
      * @param key
      * @return 过期 true  存在且没过期 false
-     * @Description: 是否过期
+     * description: 是否过期
      */
     public Boolean isInvalid(Object key) {
         if (key == null) {
@@ -148,6 +147,7 @@ public class ExpiryMap<K, V> extends HashMap<K, V> {
         super.putAll(m);
     }
 
+    @Override
     public Set<Entry<K, V>> entrySet() {
         Set<Entry<K, V>> set = super.entrySet();
         Iterator<Entry<K, V>> iterator = set.iterator();
@@ -164,8 +164,7 @@ public class ExpiryMap<K, V> extends HashMap<K, V> {
     /**
      * @param key
      * @param isRemoveSuper true super删除
-     * @return
-     * @Description: 是否过期
+     * @return description: 是否过期
      */
     private boolean checkExpiry(Object key, boolean isRemoveSuper) {
 

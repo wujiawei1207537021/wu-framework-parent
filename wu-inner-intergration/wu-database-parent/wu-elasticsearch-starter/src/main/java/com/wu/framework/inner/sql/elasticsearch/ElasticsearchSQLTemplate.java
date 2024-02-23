@@ -1,9 +1,9 @@
 package com.wu.framework.inner.sql.elasticsearch;
 
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
+import com.wu.framework.inner.lazy.persistence.map.EasyHashMap;
 import lombok.Data;
-import org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchRestClientProperties;
+import org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -26,7 +26,9 @@ import java.util.stream.Stream;
 public class ElasticsearchSQLTemplate {
 
     private static final String URL = "http://81.69.3.45:30820/_xpack/sql";
-    // 后缀
+    /**
+     * ES 后缀
+     */
     private static final String suffix = "/_sql?format=json";
     // 数据条数
     private final Integer defaultSize = 1000;
@@ -58,8 +60,8 @@ public class ElasticsearchSQLTemplate {
     }
 
 
-    public static ElasticsearchSQLTemplate build(ElasticsearchRestClientProperties elasticsearchRestClientProperties) {
-        return ElasticsearchSQLTemplate.build(elasticsearchRestClientProperties.getUris());
+    public static ElasticsearchSQLTemplate build(ElasticsearchProperties properties) {
+        return ElasticsearchSQLTemplate.build(properties.getUris());
     }
 
     public <T> List<T> search(String sql, Class<T> clazz, Object... objects) {
@@ -76,7 +78,7 @@ public class ElasticsearchSQLTemplate {
         String query = ObjectUtils.isEmpty(objects) ? sql : MessageFormat.format(sql, objects);
         request.put("query", query);
         request.put("fetch_size", size);
-        HttpEntity httpEntity = new HttpEntity(request, null);
+        HttpEntity<Map<String, Object>> httpEntity = new HttpEntity(request, null);
         System.err.printf("执行的查询语句:%s \n", query);
         ResponseEntity<ESResult> exchange = defaultRestTemplate.exchange(getURL(), HttpMethod.POST, httpEntity, ESResult.class);
         return exchange.getBody();
@@ -94,8 +96,9 @@ public class ElasticsearchSQLTemplate {
 
     private <T> List<T> scroll(String sql, Class<T> clazz, Long scrollIntervalTime, Object... objects) throws InterruptedException {
         // 睡眠
-        if (scrollIntervalTime > 0)
+        if (scrollIntervalTime > 0) {
             Thread.sleep(scrollIntervalTime);
+        }
         ESResult esResult = searchForESResult(sql, defaultSize, objects);
         List<T> scrollList = new ArrayList<>();
         int scrollTime = 1;
@@ -121,12 +124,13 @@ public class ElasticsearchSQLTemplate {
 
 
     /**
-    * describe 获取集群中任意一个 es节点数据
-    * @param
-    * @return
-    * @author Jia wei Wu
-    * @date 2021/4/15 9:13 下午
-    **/
+     * describe 获取集群中任意一个 es节点数据
+     *
+     * @param
+     * @return
+     * @author Jia wei Wu
+     * @date 2021/4/15 9:13 下午
+     **/
     public String getURL() {
         Random random = new Random();
         int n = random.nextInt(esUris.size());
@@ -153,9 +157,9 @@ public class ElasticsearchSQLTemplate {
                         limit(esResult.getColumns().size()).
                         collect(Collectors.toMap(i -> i, i -> CamelAndUnderLineConverter.lineToHumpField(esResult.getColumns().get(i).getName()))).entrySet().
                         stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)).forEach((index, fileName) -> {
-                    Object o = list.get(index);
-                    easyHashMap.put(fileName, o);
-                });
+                            Object o = list.get(index);
+                            easyHashMap.put(fileName, o);
+                        });
                 t = (T) easyHashMap;
             } else {
                 // 获取实体字段

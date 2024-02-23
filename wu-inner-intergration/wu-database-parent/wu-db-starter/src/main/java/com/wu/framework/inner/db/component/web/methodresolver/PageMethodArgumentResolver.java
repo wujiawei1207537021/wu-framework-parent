@@ -15,7 +15,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @description: 分页参数数据获取类
+ * description: 分页参数数据获取类
+ *
  * @author: wangq
  * @create: 2019-10-30 21:15
  */

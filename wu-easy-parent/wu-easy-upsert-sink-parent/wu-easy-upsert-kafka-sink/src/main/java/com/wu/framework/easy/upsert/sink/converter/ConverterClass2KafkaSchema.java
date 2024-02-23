@@ -5,7 +5,7 @@ import com.wu.framework.easy.upsert.autoconfigure.EasySmart;
 import com.wu.framework.easy.upsert.autoconfigure.EasySmartField;
 import com.wu.framework.easy.upsert.sink.kafka.TargetJsonSchema;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.LazyDatabaseJsonMessage;
+import com.wu.framework.inner.lazy.persistence.conf.LazyDatabaseJsonMessage;
 import org.apache.kafka.common.protocol.types.Type;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -61,7 +61,7 @@ public class ConverterClass2KafkaSchema {
                     fieldName = fieldNameTemp;
                 }
                 // 数据库字段类型
-                type = databaseFieldConversionSchemaType(easySmartField.type()).toLowerCase();
+                type = databaseFieldConversionSchemaType(easySmartField.columnType()).toLowerCase();
                 optional = easySmartField.optional();
             }
             t.setField(fieldName);
@@ -93,8 +93,7 @@ public class ConverterClass2KafkaSchema {
 
     /**
      * @param
-     * @return
-     * describe 数据库字段转换架构类型
+     * @return describe 数据库字段转换架构类型
      * @author Jia wei Wu
      * @date 2021/4/11 10:34 上午
      **/

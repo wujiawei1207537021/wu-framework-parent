@@ -5,7 +5,7 @@
     <parent>
         <artifactId>wu-framework-parent</artifactId>
         <groupId>top.wu2020</groupId>
-        <version>1.0.5</version>
+        <version>1.0.6</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -52,26 +52,29 @@
         <dependency>
             <groupId>top.wu2020</groupId>
             <artifactId>wu-easy-excel-starter</artifactId>
-            <version>1.0.5</version>
+            <version>1.0.6</version>
         </dependency>
 
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-boot-starter</artifactId>
-            <version>3.0.0</version>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>io.springfox</groupId>-->
+        <!--            <artifactId>springfox-boot-starter</artifactId>-->
+        <!--            <version>3.0.0</version>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.73</version>
+            <version>1.2.78</version>
         </dependency>
-
-
-<!--        <dependency>-->
-<!--            <groupId>com.baomidou</groupId>-->
-<!--            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>-->
-<!--            <version>3.1.1</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-authorization-server-starter</artifactId>
+            <version>1.0.6</version>
+        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>com.baomidou</groupId>-->
+        <!--            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>-->
+        <!--            <version>3.1.1</version>-->
+        <!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/com.alibaba.boot/nacos-config-spring-boot-starter -->
         <!--        <dependency>-->
@@ -108,11 +111,7 @@
             <groupId>top.wu2020</groupId>
             <artifactId>wu-hbase-starter</artifactId>
         </dependency>
-        <dependency>
-            <groupId>top.wu2020</groupId>
-            <artifactId>wu-authorization-server-starter</artifactId>
-            <version>1.0.5</version>
-        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -121,6 +120,25 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-layer-stereotype</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-database-lazy-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-easy-listener-starter</artifactId>
+            <version>1.0.6</version>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>1.5.20</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

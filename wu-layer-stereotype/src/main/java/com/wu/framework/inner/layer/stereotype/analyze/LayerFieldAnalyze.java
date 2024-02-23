@@ -23,7 +23,7 @@ public class LayerFieldAnalyze implements LayerAnalyze {
      *
      * @param analyzeParameter@return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/4/26 4:31 下午
      */
     @Override
@@ -31,6 +31,7 @@ public class LayerFieldAnalyze implements LayerAnalyze {
         return true;
     }
 
+    @Override
     public List<AnalyzeField> analyze(AnalyzeParameter analyzeParameter) {
         List<AnalyzeField> analyzeFieldList = new ArrayList<>();
         for (Field field : analyzeParameter.getClazz().getDeclaredFields()) {

@@ -3,7 +3,7 @@ package com.wu.framework.inner.layer.data;
 /**
  * description 数据处理异常
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2021/5/8 4:06 下午
  */
 public class ProcessException extends Exception {

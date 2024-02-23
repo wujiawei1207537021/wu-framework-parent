@@ -20,9 +20,10 @@ public class zz {
 
 
     public static void main(String[] args) {
-//            PlayTest playTest = new PlayTest("/Users/wujiawei/Desktop/aa.mp3");
-//            playTest.start();
-//            System.out.println("dd");
+        PlayTest playTest = new PlayTest("/Users/wujiawei/Desktop/aa.mp3");
+        playTest.start();
+        System.out.println("dd");
+        // 停止播放
 //        playTest.stop();
 
         List<Integer> all = new ArrayList<>();

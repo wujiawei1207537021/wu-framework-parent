@@ -1,6 +1,6 @@
 package com.wu.bionic.language.vocalize;
 
-import com.wu.framework.easy.stereotype.upsert.converter.stereotype.Word;
+import com.wu.framework.easy.stereotype.upsert.converter.stereotype.ChineseCharacters;
 
 import java.util.List;
 
@@ -26,5 +26,5 @@ public interface Vocalization {
 
     void play(String text);
 
-    List<Word> voiceData();
+    List<ChineseCharacters> voiceData();
 }

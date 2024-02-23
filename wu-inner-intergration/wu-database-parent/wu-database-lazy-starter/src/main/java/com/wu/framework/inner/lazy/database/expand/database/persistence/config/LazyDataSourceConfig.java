@@ -1,11 +1,9 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.config;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.prop.LazyDataSourceProperties;
+import com.wu.framework.inner.lazy.config.prop.LazyDataSourceProperties;
 import lombok.Data;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +16,7 @@ import javax.sql.DataSource;
  * description 懒人数据源配置 (可选)
  * 默认使用 MysqlDataSource
  *
- * @author 吴佳伟
+ * @author Jia wei Wu
  * @date 2021/4/23 下午1:39
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -34,7 +32,7 @@ public class LazyDataSourceConfig {
      * @param dataSourceProperties
      * @return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/4/23 下午1:54
      */
     @Bean(name = "lazyDataSource")

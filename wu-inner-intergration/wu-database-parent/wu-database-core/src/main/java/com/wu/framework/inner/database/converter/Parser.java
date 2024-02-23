@@ -23,7 +23,7 @@ import java.util.List;
 
 public class Parser {
 
-    private static final JexlEngine jexlEngine = new Engine();
+    private static final JexlEngine JEXL_ENGINE = new Engine();
 
     /**
      * customRepository 中标签(if)内容判断
@@ -62,7 +62,7 @@ public class Parser {
      */
     private static boolean ifAttr(Method method, Object[] args, String ifAttr) {
         ifAttr = substituteObjectsInCharacters(method, args, ifAttr);
-        JexlExpression jexlExpression = jexlEngine.createExpression(ifAttr);
+        JexlExpression jexlExpression = JEXL_ENGINE.createExpression(ifAttr);
         return (boolean) jexlExpression.evaluate(null);
     }
 
@@ -256,7 +256,7 @@ public class Parser {
 //        我的名字是雷锋,结果是true，可信度是%100
         for (Method method : Parser.class.getMethods()) {
             System.out.println(method.getName());
-            if (method.getName().equals("xx")) {
+            if ("xx".equals(method.getName())) {
                 Type genericReturnType = method.getGenericReturnType();
                 Class<?> returnType = method.getReturnType();
 

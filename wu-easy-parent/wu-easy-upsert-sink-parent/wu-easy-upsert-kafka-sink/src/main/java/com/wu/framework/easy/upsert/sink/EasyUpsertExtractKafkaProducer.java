@@ -9,7 +9,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
-import com.wu.framework.easy.upsert.autoconfigure.config.SpringBootKafkaConfigtProperties;
+import com.wu.framework.easy.upsert.autoconfigure.config.SpringBootKafkaConfigProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -35,7 +35,7 @@ import java.util.concurrent.TimeoutException;
  * @date 2020/7/16 下午1:27
  */
 @Slf4j
-@ConditionalOnProperty(prefix = "spring.easy.upsert.property.kafka-properties", value = "bootstrap-servers")
+@ConditionalOnProperty(prefix = "spring.kafka", value = "bootstrap-servers")
 public class EasyUpsertExtractKafkaProducer implements InitializingBean {
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
@@ -44,6 +44,7 @@ public class EasyUpsertExtractKafkaProducer implements InitializingBean {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
+
     static {
         //取消时间的转化格式，默认是时间戳,同时需要设置要表现的时间格式
         OBJECT_MAPPER.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
@@ -66,9 +67,9 @@ public class EasyUpsertExtractKafkaProducer implements InitializingBean {
     private final KafkaProducer<String, String> kafkaProducer;
 
 
-    public EasyUpsertExtractKafkaProducer(SpringBootKafkaConfigtProperties springBootKafkaConfigtProperties) {
+    public EasyUpsertExtractKafkaProducer(SpringBootKafkaConfigProperties springBootKafkaConfigtProperties) {
         Properties props = new Properties();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, springBootKafkaConfigtProperties.getKafkaProperties().getBootstrapServers());
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, springBootKafkaConfigtProperties.getBootstrapServers());
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         this.kafkaProducer = new KafkaProducer<>(props);

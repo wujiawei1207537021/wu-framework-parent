@@ -23,27 +23,18 @@ import java.util.logging.Logger;
 @SuppressWarnings("deprecation")
 public class ProxySimpleClientHttpRequestFactory implements ClientHttpRequestFactory, AsyncClientHttpRequestFactory {
 
-    Logger log = Logger.getAnonymousLogger();
     private static final int DEFAULT_CHUNK_SIZE = 4096;
-
-
+    private final ProxyHttpConfig proxyHttpConfig;
+    Logger log = Logger.getAnonymousLogger();
     @Nullable
     private Proxy proxy;
-
     private boolean bufferRequestBody = true;
-
     private int chunkSize = DEFAULT_CHUNK_SIZE;
-
     private int connectTimeout = -1;
-
     private int readTimeout = -1;
-
     private boolean outputStreaming = true;
-
     @Nullable
     private AsyncListenableTaskExecutor taskExecutor;
-
-    private final ProxyHttpConfig proxyHttpConfig;
 
     public ProxySimpleClientHttpRequestFactory(ProxyHttpConfig proxyHttpConfig) {
         this.proxyHttpConfig = proxyHttpConfig;
@@ -181,7 +172,7 @@ public class ProxySimpleClientHttpRequestFactory implements ClientHttpRequestFac
     protected HttpURLConnection openConnection(URL url, @Nullable Proxy proxy) throws IOException {
         URLConnection urlConnection = (proxy != null ? url.openConnection(proxy) : url.openConnection());
         String ip = proxyHttpConfig.getProxy();
-        log.info("当前请求代理IP为:"+ip);
+        log.info("当前请求代理IP为:" + ip);
         urlConnection.setRequestProperty("X-Forwarded-For", ip);
 
         urlConnection.setRequestProperty("HTTP_X_FORWARDED_FOR", ip);

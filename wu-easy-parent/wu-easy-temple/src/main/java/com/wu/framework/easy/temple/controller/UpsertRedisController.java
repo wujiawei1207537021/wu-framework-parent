@@ -14,16 +14,15 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * describe : 数据快速插入redis
  * @date : 2021/7/4 4:42 下午
  */
-@Api(tags = "REDIS数据快速存储")
+@Api(tags = "Redis 数据快速存储")
 @EasyController("/redis")
 public class UpsertRedisController {
     private final IUpsert iUpsert;
@@ -34,7 +33,7 @@ public class UpsertRedisController {
     }
 
 
-    @ApiOperation(tags = "REDIS数据快速存储", value = "多个注解并用")
+    @ApiOperation(tags = "Redis 数据快速存储", value = "多个注解并用")
     @LazyRedis(database = 1)
     @GetMapping("/normal/upsert")
     @EasyUpsert(type = EasyUpsertType.REDIS)
@@ -43,20 +42,20 @@ public class UpsertRedisController {
         return ResultFactory.successOf();
     }
 
-    @ApiOperation(tags = "REDIS数据快速存储", value = "单个注解")
+    @ApiOperation(tags = "Redis 数据快速存储", value = "单个注解")
     @GetMapping("/upsert")
     @EasyUpsertRedis(database = 2)
     public Result upsert() {
-        final List<UserLog> userLogList = UserLog.createUserLogList(1000000);
+        final List<UserLog> userLogList = UserLog.createUserLogList(100);
         iUpsert.upsert(userLogList, userLogList);
         return ResultFactory.successOf();
     }
 
-    @ApiOperation(tags = "REDIS数据快速存储", value = "单个注解")
+    @ApiOperation(tags = "Redis 数据快速存储", value = "单个注解")
     @GetMapping("/quick/upsert")
     @QuickEasyUpsertRedis(database = 3)
     public Object quickUpsert() {
-        return UserLog.createUserLogList(1000000);
+        return UserLog.createUserLogList(100);
     }
 
 }

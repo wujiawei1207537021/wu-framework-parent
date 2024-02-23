@@ -20,6 +20,10 @@ public class AnalyzeField {
      */
     boolean exist = true;
     /**
+     * 字段索引类型(数据库)
+     */
+    LayerField.LayerFieldType fieldIndexType = LayerField.LayerFieldType.FIELD_TYPE;
+    /**
      * 字段名
      */
     private String fieldName;
@@ -30,15 +34,10 @@ public class AnalyzeField {
     /**
      * 诠释
      */
-    private String  comment;
+    private String comment;
     /**
      * 字段class
      */
     private Class clazz;
-
-    /**
-     * 字段索引类型(数据库)
-     */
-    LayerField.LayerFieldType fieldIndexType = LayerField.LayerFieldType.FILE_TYPE;
 }
 

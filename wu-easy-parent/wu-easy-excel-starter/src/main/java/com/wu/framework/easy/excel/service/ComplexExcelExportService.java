@@ -242,7 +242,10 @@ public class ComplexExcelExportService implements ExcelExcelService {
      *
      * @param object
      * @return
+     * @see LayerOperationConvert
+     * {@link LayerOperationConvert}
      */
+    @Deprecated
     public static boolean isBaseType(Object object) {
         Class className = object.getClass();
         String packageName = className.getPackage().getName();

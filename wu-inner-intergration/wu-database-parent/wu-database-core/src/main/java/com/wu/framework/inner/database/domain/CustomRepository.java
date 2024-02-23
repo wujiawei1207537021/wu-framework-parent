@@ -13,7 +13,7 @@ import java.util.List;
  * @Package: com.paic.mybatis.cfg
  * @ClassName: Mapper
  * @Author: Administrator
- * @Description: ${description}
+ * description: ${description}
  * @Version: 1.0
  */
 @Data

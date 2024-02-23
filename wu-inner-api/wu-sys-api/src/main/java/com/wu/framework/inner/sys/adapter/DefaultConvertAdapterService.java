@@ -19,8 +19,8 @@ import java.util.stream.Collectors;
  * 当前仅仅支持继承或注入使用
  * 注意事项 使用此适配器前请确认当前枚举值是否存在于字典中
  */
-@ConditionalOnBean(ConvertAdapterAbstract.class)
-public class DefaultConvertAdapterService extends ConvertAdapterAbstract {
+@ConditionalOnBean(AbstractConvertAdapter.class)
+public class DefaultConvertAdapterService extends AbstractConvertAdapter {
 
     private final ConvertApi convertApi;
 
@@ -34,6 +34,7 @@ public class DefaultConvertAdapterService extends ConvertAdapterAbstract {
     }
 
 
+    @Override
     void init(Object... objects) {
         Class[] classes = Arrays.stream(objects).filter(Objects::nonNull).map(o -> {
             if (o instanceof Collection && !ObjectUtils.isEmpty(o)) {
@@ -53,6 +54,7 @@ public class DefaultConvertAdapterService extends ConvertAdapterAbstract {
     }
 
 
+    @Override
     void convert(Object object) {
         Class clazz = object.getClass();
         Field[] clazzDeclaredFields = clazz.getDeclaredFields();

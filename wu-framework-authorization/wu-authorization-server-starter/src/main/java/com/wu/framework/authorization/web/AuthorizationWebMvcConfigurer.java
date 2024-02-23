@@ -5,10 +5,10 @@ import com.wu.framework.authorization.config.pro.AuthorizationProperties;
 import com.wu.framework.authorization.endpoint.TokenKeyEndpoint;
 import com.wu.framework.authorization.login.DefaultUserDetailsService;
 import com.wu.framework.authorization.login.LoginService;
-import com.wu.framework.authorization.web.interceptors.AccessPermissionInterceptor;
-import com.wu.framework.authorization.web.interceptors.AuthorizationHandlerInterceptorAbstract;
+import com.wu.framework.authorization.web.interceptors.AbstractAuthorizationHandlerInterceptorAbstract;
+import com.wu.framework.authorization.web.interceptors.AccessPermissionInterceptorAbstract;
 import com.wu.framework.authorization.web.interceptors.RemoveAccessTokenInterceptor;
-import com.wu.framework.authorization.web.interceptors.SessionPermissionInterceptor;
+import com.wu.framework.authorization.web.interceptors.SessionPermissionInterceptorAbstract;
 import com.wu.framework.authorization.web.methodresolver.AccessTokenUserMethodArgumentResolver;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Import;
@@ -25,22 +25,22 @@ import java.util.List;
 
 @Slf4j
 @Import(value = {AccessTokenUserMethodArgumentResolver.class, RemoveAccessTokenInterceptor.class, AuthorizationProperties.class,
-        AccessPermissionInterceptor.class, SessionPermissionInterceptor.class,
+        AccessPermissionInterceptorAbstract.class, SessionPermissionInterceptorAbstract.class,
         LoginService.class, TokenKeyEndpoint.class, DefaultUserDetailsService.class, AuthorizationCORSConfiguration.class})
 public class AuthorizationWebMvcConfigurer implements WebMvcConfigurer {
 
 
     public final AccessTokenUserMethodArgumentResolver accessTokenUserMethodArgumentResolver;
 
-    public final AuthorizationHandlerInterceptorAbstract authorizationHandlerInterceptorAbstract;
+    public final AbstractAuthorizationHandlerInterceptorAbstract abstractAuthorizationHandlerInterceptorAbstract;
 
     private final RemoveAccessTokenInterceptor removeAccessTokenInterceptor;
 
     private final AuthorizationProperties authorizationProperties;
 
-    public AuthorizationWebMvcConfigurer(AccessTokenUserMethodArgumentResolver accessTokenUserMethodArgumentResolver, AuthorizationHandlerInterceptorAbstract authorizationHandlerInterceptorAbstract, RemoveAccessTokenInterceptor removeAccessTokenInterceptor, AuthorizationProperties authorizationProperties) {
+    public AuthorizationWebMvcConfigurer(AccessTokenUserMethodArgumentResolver accessTokenUserMethodArgumentResolver, AbstractAuthorizationHandlerInterceptorAbstract abstractAuthorizationHandlerInterceptorAbstract, RemoveAccessTokenInterceptor removeAccessTokenInterceptor, AuthorizationProperties authorizationProperties) {
         this.accessTokenUserMethodArgumentResolver = accessTokenUserMethodArgumentResolver;
-        this.authorizationHandlerInterceptorAbstract = authorizationHandlerInterceptorAbstract;
+        this.abstractAuthorizationHandlerInterceptorAbstract = abstractAuthorizationHandlerInterceptorAbstract;
         this.removeAccessTokenInterceptor = removeAccessTokenInterceptor;
         this.authorizationProperties = authorizationProperties;
     }
@@ -69,7 +69,7 @@ public class AuthorizationWebMvcConfigurer implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(authorizationHandlerInterceptorAbstract).addPathPatterns("/**").excludePathPatterns(authorizationProperties.getUnCheckApiPath());
+        registry.addInterceptor(abstractAuthorizationHandlerInterceptorAbstract).addPathPatterns("/**").excludePathPatterns(authorizationProperties.getUnCheckApiPath());
         registry.addInterceptor(removeAccessTokenInterceptor).addPathPatterns("/**");
     }
 

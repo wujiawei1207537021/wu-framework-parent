@@ -1,10 +1,8 @@
 package com.wu.framework.inner.dynamic.database.toolkit;
 
 
-import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyDS;
-import org.springframework.core.annotation.AnnotatedElementUtils;
+import com.wu.framework.inner.lazy.stereotype.LazyDS;
 
-import java.lang.annotation.Annotation;
 import java.util.ArrayDeque;
 import java.util.Deque;
 

@@ -1,11 +1,13 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
+import com.wu.framework.inner.lazy.config.LazyOperationConfig;
 import com.wu.framework.inner.lazy.database.domain.Page;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.LazyTableAnnotation;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepositoryFactory;
+import com.wu.framework.inner.lazy.persistence.conf.ClassLazyTableEndpoint;
+import com.wu.framework.inner.lazy.persistence.util.LazyTableUtil;
 import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
 import java.sql.*;
 import java.util.List;
 
@@ -21,30 +23,40 @@ public class LazyOperationMethodPage extends AbstractLazyOperationMethod {
     public static final String COUNT_SQL = "select count(1)  from (%s) as derived_table ";
     public static final String LIMIT_SQL = "select * from (%s) derived_table limit %s,%s ";
     public static final String DELIMITER = ";";
-
+    private final LazyOperationConfig operationConfig;
     private String countSql;
     private String limitSql;
     private Page page;
 
+    public LazyOperationMethodPage(LazyOperationConfig operationConfig) {
+        this.operationConfig = operationConfig;
+    }
+
+    /**
+     * @param param
+     * @return description 通过参数获取持久性存储库对象
+     * @author Jia wei Wu
+     * @date 2021/4/17 3:38 下午
+     **/
     @Override
     public PersistenceRepository analyzePersistenceRepository(Object param) throws IllegalArgumentException {
         String queryString = "";
-        Object[] p= (Object[]) param;
+        Object[] p = (Object[]) param;
         page = (Page) p[0];
         Class clazz = (Class) p[1];
         String sqlFormat = (String) p[2];
         Object[] params = (Object[]) p[3];
 
         if (null == sqlFormat) {
-            LazyTableAnnotation lazyTableAnnotation = classLazyTableAnalyze(clazz);
-            sqlFormat = String.format("select * from %s ", lazyTableAnnotation.getTableName());
+            ClassLazyTableEndpoint lazyTableAnnotation = LazyTableUtil.analyzeLazyTable(clazz);
+            sqlFormat = String.format("select * from %s ", lazyTableAnnotation.getFullTableName());
         }
         String listSql = loadSqlParameters(sqlFormat, params);
         countSql = loadSqlParameters(COUNT_SQL, listSql);
         limitSql = loadSqlParameters(LIMIT_SQL, listSql, (page.getCurrent() - 1) * page.getSize(), page.getSize());
 
         queryString = countSql + DELIMITER + limitSql;
-        PersistenceRepository persistenceRepository = new PersistenceRepository();
+        PersistenceRepository persistenceRepository = PersistenceRepositoryFactory.create(operationConfig);
         persistenceRepository.setQueryString(queryString);
         persistenceRepository.setResultClass(clazz);
         return persistenceRepository;
@@ -53,7 +65,7 @@ public class LazyOperationMethodPage extends AbstractLazyOperationMethod {
     /**
      * description 执行SQL 语句
      *
-     * @param dataSource
+     * @param connection
      * @param sourceParams
      * @return
      * @params
@@ -61,10 +73,9 @@ public class LazyOperationMethodPage extends AbstractLazyOperationMethod {
      * @date 2020/11/22 上午11:02
      */
     @Override
-    public Object execute(DataSource dataSource, Object[] sourceParams) throws SQLException {
+    public Object execute(Connection connection, Object[] sourceParams) throws SQLException {
         Statement statement = null;
         PersistenceRepository persistenceRepository = analyzePersistenceRepository(sourceParams);
-        Connection connection = dataSource.getConnection();
         try {
             count(connection);
             statement = connection.createStatement();
@@ -82,7 +93,6 @@ public class LazyOperationMethodPage extends AbstractLazyOperationMethod {
             e.printStackTrace();
         } finally {
             assert statement != null;
-            connection.close();
             statement.close();
         }
         return page;

@@ -1,11 +1,14 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.wu.framework.inner.lazy.database.expand.database.persistence.prop.LazyDataSourceProperties,\
 com.wu.framework.inner.lazy.database.expand.database.persistence.config.LazyDataSourceConfig,\
 com.wu.framework.inner.lazy.database.expand.database.persistence.proxy.LazyOperationProxy,\
 com.wu.framework.inner.lazy.database.expand.database.persistence.config.LazyOperationProxyBeanConfig,\
 com.wu.framework.inner.lazy.database.expand.database.persistence.method.LazyMethodConfig,\
 com.wu.framework.inner.lazy.database.expand.database.persistence.config.ExportDataConfiguration,\
-com.wu.framework.inner.lazy.database.expand.database.persistence.stream.config.LazyDataBaseStreamConfig
+com.wu.framework.inner.lazy.database.expand.database.persistence.stream.config.LazyDataBaseStreamConfig,\
+com.wu.framework.inner.lazy.database.smart.database.persistence.LazyOperationAutoStuffed,\
+com.wu.framework.inner.lazy.database.smart.database.persistence.LazySmartLazyOperation,\
+com.wu.framework.inner.lazy.database.smart.database.adapter.ReverseEngineeringAdapter,\
+com.wu.framework.inner.lazy.database.expand.database.persistence.factory.config.LazyBeanPostProcessor
 
 

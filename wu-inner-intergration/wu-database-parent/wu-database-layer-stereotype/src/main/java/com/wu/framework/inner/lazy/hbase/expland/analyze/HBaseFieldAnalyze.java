@@ -26,7 +26,7 @@ public class HBaseFieldAnalyze implements LayerAnalyze {
      *
      * @param analyzeParameter@return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/4/26 4:31 下午
      */
     @Override
@@ -40,7 +40,7 @@ public class HBaseFieldAnalyze implements LayerAnalyze {
      *
      * @param analyzeParameter@return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/4/27 3:05 下午
      */
     @Override

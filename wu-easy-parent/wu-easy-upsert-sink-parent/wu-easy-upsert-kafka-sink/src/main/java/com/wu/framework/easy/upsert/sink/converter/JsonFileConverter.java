@@ -6,17 +6,19 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wu.framework.easy.upsert.autoconfigure.EasySmartField;
 import com.wu.framework.inner.layer.CamelAndUnderLineConverter;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.conf.LazyDatabaseJsonMessage;
+import com.wu.framework.inner.lazy.persistence.conf.LazyDatabaseJsonMessage;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.util.ObjectUtils;
 
 import java.lang.reflect.Field;
 import java.util.*;
 
-import static com.wu.framework.inner.lazy.database.expand.database.persistence.analyze.EasyAnnotationConverter.annotationConvertConversion;
+import static com.wu.framework.inner.lazy.persistence.analyze.EasyAnnotationConverter.annotationConvertConversion;
+
 
 /**
- * @Description 转换含有KafkaSchemaFile 注解的类参数
+ * description 转换含有KafkaSchemaFile 注解的类参数
+ *
  * @Author Jia wei Wu
  * @Date 2020-05-15 2:54 下午
  */
@@ -27,7 +29,7 @@ public class JsonFileConverter {
     /**
      * @param bean
      * @return java.lang.String
-     * @description 单个对象转换成JSON 字符串
+     * description 单个对象转换成JSON 字符串
      * @exception/throws 无
      * @author Jia wei Wu
      * @date 2020/5/18 1:52 下午
@@ -41,7 +43,7 @@ public class JsonFileConverter {
     /**
      * @param collection
      * @return java.util.List<java.lang.String>
-     * @description 将bean集合对象转换成 JSON String
+     * description 将bean集合对象转换成 JSON String
      * @exception/throws 无
      * @author Jia wei Wu
      * @date 2020/5/18 1:50 下午
@@ -57,7 +59,7 @@ public class JsonFileConverter {
     /**
      * @param collection
      * @return java.util.List<java.lang.String>
-     * @description 将bean集合对象转换成 JSON String 集合
+     * description 将bean集合对象转换成 JSON String 集合
      * @exception/throws 无
      * @author Jia wei Wu
      * @date 2020/5/18 1:50 下午
@@ -73,7 +75,7 @@ public class JsonFileConverter {
     /**
      * @param bean
      * @return java.util.Map<java.lang.String, java.lang.Object>
-     * @description 将bean 对象转换成map对象
+     * description 将bean 对象转换成map对象
      * @exception/throws 无
      * @author Jia wei Wu
      * @date 2020/5/18 1:53 下午
@@ -128,7 +130,7 @@ public class JsonFileConverter {
     /**
      * @param str
      * @return java.util.List<java.lang.String>
-     * @description 将String 字符串转换成List 集合
+     * description 将String 字符串转换成List 集合
      * @exception/throws 无
      * @author Jia wei Wu
      * @date 2020/5/18 1:54 下午

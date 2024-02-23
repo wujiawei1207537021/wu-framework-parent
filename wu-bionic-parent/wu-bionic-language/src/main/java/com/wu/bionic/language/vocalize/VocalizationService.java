@@ -1,9 +1,8 @@
 package com.wu.bionic.language.vocalize;
 
 
-import com.wu.framework.easy.stereotype.upsert.converter.stereotype.Word;
+import com.wu.framework.easy.stereotype.upsert.converter.stereotype.ChineseCharacters;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import javazoom.jl.player.Player;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
@@ -52,16 +51,16 @@ public class VocalizationService implements Vocalization {
         for (char c : text.toCharArray()) {
             wordList.add("'" + c + "'");
         }
-        List<EasyHashMap> easyHashMaps = lazyOperation.executeSQL(String.format("select voice,word from word where voice is NOT null and word in(%s) ", String.join(",", wordList)), EasyHashMap.class);
-        for (EasyHashMap easyHashMap : easyHashMaps) {
-            System.out.println(easyHashMap.generateClass(false));
-        }
-        Map<Object, EasyHashMap> word = easyHashMaps.stream().collect(Collectors.toMap(easyHashMap -> easyHashMap.get("word"), easyHashMap -> easyHashMap));
+        List<ChineseCharacters> easyHashMaps = lazyOperation.executeSQL(String.format("select voice,word from chinese_characters where voice is NOT null and word in(%s) ", String.join(",", wordList)), ChineseCharacters.class);
+
+        Map<Object, ChineseCharacters> word = easyHashMaps.stream().collect(Collectors.toMap(easyHashMap -> easyHashMap.getWord(), easyHashMap -> easyHashMap));
         byte[] bytes = new byte[0];
         for (String s : wordList) {
-            EasyHashMap easyHashMap = word.get(s.replace("'", ""));
-            if (ObjectUtils.isEmpty(easyHashMap)) continue;
-            byte[] easyHashMapBytes = easyHashMap.getBytes("voice");
+            ChineseCharacters easyHashMap = word.get(s.replace("'", ""));
+            if (ObjectUtils.isEmpty(easyHashMap)) {
+                continue;
+            }
+            byte[] easyHashMapBytes = easyHashMap.getVoice();
 //             easyHashMapBytes=subByte(easyHashMapBytes,100,easyHashMapBytes.length-100);
             bytes = addBytes(bytes, easyHashMapBytes);
         }
@@ -86,9 +85,9 @@ public class VocalizationService implements Vocalization {
     }
 
     @Override
-    public List<Word> voiceData() {
-        final List<Word> easyHashMaps = lazyOperation.executeSQL("select * from word limit 10", Word.class);
-        return easyHashMaps;
+    public List<ChineseCharacters> voiceData() {
+        final List<ChineseCharacters> charactersList = lazyOperation.executeSQL("select * from word limit 10", ChineseCharacters.class);
+        return charactersList;
     }
 
     /**

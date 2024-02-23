@@ -1,14 +1,9 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.domain;
 
-import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.LambdaTable;
-import lombok.AllArgsConstructor;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.LambdaTableType;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.util.ObjectUtils;
-
-import java.io.InputStream;
-import java.util.List;
 
 /**
  * @author : Jia wei Wu
@@ -17,20 +12,23 @@ import java.util.List;
  * @date : 2020/11/21 下午8:49
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class PersistenceRepository {
+    //sql
     @NonNull
-    private String queryString;//sql
-    private String resultType;//实体类的全限定类名
-    private Class resultClass;//实体类
+    private String queryString;
+    @Deprecated
+    //实体类的全限定类名
+    private String resultType;
+    //实体类
+    @NonNull
+    private Class resultClass;
+    private boolean printfQuery;
+    //执行类型
+    private LambdaTableType executionType = LambdaTableType.SELECT;
 
-    private LambdaTable.LambdaTableType executionType= LambdaTable.LambdaTableType.SELECT;//执行类型
-
-    /**
-     * 二进制数据
-     */
-    private List<InputStream> binaryList;
+    PersistenceRepository(boolean printfQuery) {
+        this.printfQuery = printfQuery;
+    }
 
 
     public String getResultType() {
@@ -42,7 +40,9 @@ public class PersistenceRepository {
 
     @NonNull
     public String getQueryString() {
-        System.err.printf("执行SQL: %s%n", queryString);
+        if (printfQuery) {
+            System.err.printf("执行SQL: %s%n", queryString);
+        }
         return queryString;
     }
 }

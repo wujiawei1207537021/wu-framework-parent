@@ -1,10 +1,12 @@
 package com.wu.framework.inner.lazy.database.expand.database.persistence.method;
 
+import com.wu.framework.inner.lazy.config.LazyOperationConfig;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.LambdaTable;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepositoryFactory;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.stream.LambdaTableType;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,16 +23,44 @@ import java.util.List;
 @Component
 public class LazyOperationMethodExecuteSQL extends AbstractLazyOperationMethod {
 
+    private final LazyOperationConfig operationConfig;
 
+    public LazyOperationMethodExecuteSQL(LazyOperationConfig operationConfig) {
+        this.operationConfig = operationConfig;
+    }
+
+
+    /**
+     * @param param
+     * @return description 通过参数获取持久性存储库对象
+     * @author Jia wei Wu
+     * @date 2021/4/17 3:38 下午
+     **/
     @Override
     public PersistenceRepository analyzePersistenceRepository(Object param) throws IllegalArgumentException {
         // 第一个参数 SQL
         Object[] p = (Object[]) param;
-        String sql = (String) p[0];
+        String sourceSql = (String) p[0];
         Class clazz = (Class) p[1];
-        PersistenceRepository persistenceRepository = new PersistenceRepository();
-        if (sql.contains(LambdaTable.LambdaTableType.DELETE.getValue())) {
-            persistenceRepository.setExecutionType(LambdaTable.LambdaTableType.DELETE);
+
+        Object[] params = (Object[]) p[2];
+        String sql;
+        if (ObjectUtils.isEmpty(params)) {
+            sql = sourceSql;
+        } else {
+            sql = String.format(sourceSql, params);
+        }
+
+
+        PersistenceRepository persistenceRepository = PersistenceRepositoryFactory.create(operationConfig);
+        if (sql.contains(LambdaTableType.DELETE.getValue())) {
+            persistenceRepository.setExecutionType(LambdaTableType.DELETE);
+        }
+        if (sql.contains(LambdaTableType.INSERT.getValue())) {
+            persistenceRepository.setExecutionType(LambdaTableType.INSERT);
+        }
+        if (sql.contains(LambdaTableType.UPDATE.getValue())) {
+            persistenceRepository.setExecutionType(LambdaTableType.UPDATE);
         }
         persistenceRepository.setQueryString(sql);
         persistenceRepository.setResultClass(clazz);
@@ -40,7 +70,7 @@ public class LazyOperationMethodExecuteSQL extends AbstractLazyOperationMethod {
     /**
      * description 执行SQL 语句
      *
-     * @param dataSource
+     * @param connection
      * @param sourceParams
      * @return
      * @params
@@ -48,23 +78,22 @@ public class LazyOperationMethodExecuteSQL extends AbstractLazyOperationMethod {
      * @date 2020/11/22 上午11:02
      */
     @Override
-    public Object execute(DataSource dataSource, Object[] sourceParams) throws SQLException, NoSuchFieldException, InstantiationException, IllegalAccessException {
-        Connection connection = dataSource.getConnection();
+    public Object execute(Connection connection, Object[] sourceParams) throws SQLException, NoSuchFieldException, InstantiationException, IllegalAccessException {
         PersistenceRepository persistenceRepository = analyzePersistenceRepository(sourceParams);
         PreparedStatement preparedStatement = connection.prepareStatement(persistenceRepository.getQueryString());
         try {
-            if (persistenceRepository.getExecutionType().equals(LambdaTable.LambdaTableType.DELETE)) {
-                int update = preparedStatement.executeUpdate();
-                return Arrays.asList(update);
-            } else {
+            if (persistenceRepository.getExecutionType().equals(LambdaTableType.SELECT)) {
                 ResultSet resultSet = preparedStatement.executeQuery();
                 List result = resultSetConverter(resultSet, persistenceRepository.getResultType());
                 return result;
+            } else {
+                int update = preparedStatement.executeUpdate();
+                return Arrays.asList(update);
             }
         } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
             throw sqlException;
         } finally {
-            connection.close();
             preparedStatement.close();
         }
     }

@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.Ordered;
 
 /**
- * @author : 吴佳伟
+ * @author : Jia wei Wu
  * @version 1.0
  * describe :
  * @date : 2021/7/9 9:45 下午

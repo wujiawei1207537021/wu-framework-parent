@@ -2,6 +2,7 @@ package com.wu.framework.inner.lazy.database.expand.database.persistence;
 
 import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
 import com.wu.framework.inner.lazy.database.domain.Page;
+import com.wu.framework.inner.lazy.database.expand.database.persistence.domain.PersistenceRepository;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.method.*;
 import org.springframework.lang.NonNull;
 
@@ -38,7 +39,7 @@ public interface LazyBaseOperation {
      * 多个数据性能会慢，不经常使用
      */
     @ProxyStrategicApproach(proxyClass = LazyOperationMethodSmartUpsert.class)
-    void smartUpsert(Object... t);
+    Object smartUpsert(Object... t);
 
     /**
      * 根据ID更新
@@ -50,64 +51,6 @@ public interface LazyBaseOperation {
     @ProxyStrategicApproach(proxyClass = LazyOperationMethodUpdateById.class)
     <T> void updateById(T t);
 
-    /**
-     * 根据主键ids更新list
-     *
-     * @param list
-     * @param <T>
-     */
-    @ProxyStrategicApproach(proxyClass = LazyOperationMethodUpdateAllById.class)
-    <T> void updateAllByIdList(List<T> list);
-
-
-    /**
-     * 批量删除
-     *
-     * @param list
-     * @param <T>
-     */
-    @Deprecated
-    @ProxyStrategicApproach(proxyClass = LazyOperationMethodDeleteByIdList.class)
-    <T> void deleteByIdList(List<T> list);
-
-    /**
-     * 删除 Serialization
-     *
-     * @param t
-     * @param <T>
-     */
-    @Deprecated
-    @ProxyStrategicApproach(proxyClass = LazyOperationMethodDeleteById.class)
-    <T> void deleteById(T t);
-
-    /**
-     * 删除所有
-     *
-     * @param t
-     * @param <T>
-     */
-    @Deprecated
-    <T> void deleteAll(T t);
-
-    /**
-     * 查询
-     *
-     * @param t
-     * @param <T>
-     */
-    @Deprecated
-    @ProxyStrategicApproach(proxyClass = LazyOperationMethodSelectOne.class)
-    <T> T selectOne(T t);
-
-    /**
-     * 查询所有
-     *
-     * @param t
-     * @param <T>
-     */
-    @Deprecated
-    @ProxyStrategicApproach(proxyClass = LazyOperationMethodSelectList.class)
-    <T> List<T> selectAll(T t);
 
     /**
      * 分页查询
@@ -119,15 +62,14 @@ public interface LazyBaseOperation {
     <T> Page<T> page(@NonNull Page page, @NonNull Class<T> returnType, String sql, Object... params);
 
     /**
-     * 执行sql
-     *
      * @param sql
      * @param t
+     * @param params
      * @param <T>
      * @return
      */
     @ProxyStrategicApproach(proxyClass = LazyOperationMethodExecuteSQL.class)
-    <T> List<T> executeSQL(String sql, Class<T> t);
+    <T> List<T> executeSQL(String sql, Class<T> t, Object... params);
 
     /**
      * description 执行SQL 返回指定类型
@@ -139,7 +81,60 @@ public interface LazyBaseOperation {
      * @date 2020/12/29 下午1:44
      */
     @ProxyStrategicApproach(proxyClass = LazyOperationMethodExecuteSQLForBean.class)
-    <T> T executeSQLForBean(String sql, Class<T> t);
+    <T> T executeSQLForBean(String sql, Class<T> t, Object... params);
+
+    /**
+     * describe 完善表
+     *
+     * @param entityClasss class 对象数组
+     * @return
+     * @author Jia wei Wu
+     * @date 2022/1/2 5:05 下午
+     **/
+    @ProxyStrategicApproach(proxyClass = LazyOperationMethodPerfect.class)
+    <T> T perfect(@NonNull Class<T>... entityClasss);
+
+    /**
+     * describe 创建表
+     *
+     * @param
+     * @return
+     * @author Jia wei Wu
+     * @date 2022/1/2 7:48 下午
+     **/
+    @ProxyStrategicApproach(proxyClass = LazyOperationMethodCreate.class)
+    <T> T createTable(@NonNull Class<T>... entityClasss);
+
+    /**
+     * describe 更新表
+     *
+     * @param
+     * @return
+     * @author Jia wei Wu
+     * @date 2022/1/2 7:49 下午
+     **/
+    @ProxyStrategicApproach(proxyClass = LazyOperationMethodUpdate.class)
+    <T> T updateTable(@NonNull Class<T>... entityClasss);
+
+    /**
+     * 执行操作
+     *
+     * @param persistenceRepository
+     * @return
+     */
+    @ProxyStrategicApproach(proxyClass = LazyOperationMethodExecute.class)
+    List<Object> execute(PersistenceRepository persistenceRepository);
+
+    /**
+     * 执行操作
+     *
+     * @param persistenceRepository
+     * @return
+     */
+    @ProxyStrategicApproach(proxyClass = LazyOperationMethodExecuteOne.class)
+    Object executeOne(PersistenceRepository persistenceRepository);
 
     void miss();
+
+
 }

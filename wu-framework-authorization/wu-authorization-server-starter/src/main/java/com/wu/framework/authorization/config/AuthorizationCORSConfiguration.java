@@ -5,7 +5,10 @@ import com.wu.framework.authorization.domain.LoginUserBO;
 import com.wu.framework.authorization.login.UserDetailsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -22,6 +25,9 @@ import org.springframework.web.filter.CorsFilter;
 @Slf4j
 public class AuthorizationCORSConfiguration implements InitializingBean {
 
+
+    private final UserDetailsService userDetailsService;
+    private final AuthorizationProperties authorizationProperties;
 
     public AuthorizationCORSConfiguration(UserDetailsService userDetailsService, AuthorizationProperties authorizationProperties) {
         this.userDetailsService = userDetailsService;
@@ -45,16 +51,17 @@ public class AuthorizationCORSConfiguration implements InitializingBean {
         return new CorsFilter(source);
     }
 
-
-    private final UserDetailsService userDetailsService;
-    private final AuthorizationProperties authorizationProperties;
-
-
     @Override
     public void afterPropertiesSet() throws Exception {
         // 初始化账号
         log.info("初始化账号: {}/{} ", authorizationProperties.getUserName(), authorizationProperties.getPassword());
         userDetailsService.createUser(new LoginUserBO().setUsername(authorizationProperties.getUserName()).setPassword(authorizationProperties.getPassword()));
+    }
+
+    @ConditionalOnMissingBean(PasswordEncoder.class)
+    @Bean
+    public PasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
 

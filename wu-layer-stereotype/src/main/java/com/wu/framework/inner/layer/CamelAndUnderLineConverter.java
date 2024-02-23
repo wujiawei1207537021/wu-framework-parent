@@ -1,6 +1,7 @@
 package com.wu.framework.inner.layer;
 
 
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -44,6 +45,7 @@ public class CamelAndUnderLineConverter {
 
     /**
      * 下划线转驼峰 针对class
+     * create_time CreateTime
      *
      * @param str
      * @return
@@ -135,4 +137,43 @@ public class CamelAndUnderLineConverter {
 //        System.out.println(humpToLine(lineToHump));// f_parent_no_leader
 //        System.out.println(humpToLine2("ParentNoLeader"));// f_parent_no_leader
 //    }
+
+
+    /**
+     * ♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬
+     * ♬                                                                                                                                              ♬
+     * ♬                                                                                                                                              ♬
+     * ♬                                                     以下是方法转换成字段的使用                                                                   ♬
+     * ♬                                                                                                                                              ♬
+     * ♬                                                                                                                                              ♬
+     * ♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬♬
+     */
+    public static String methodToField(String name) {
+        if (name.startsWith("is")) {
+            name = name.substring(2);
+        } else if (name.startsWith("get") || name.startsWith("set")) {
+            name = name.substring(3);
+        } else {
+            throw new RuntimeException("Error parsing property name '" + name + "'.  Didn't start with 'is', 'get' or 'set'.");
+        }
+
+        if (name.length() == 1 || (name.length() > 1 && !Character.isUpperCase(name.charAt(1)))) {
+            name = name.substring(0, 1).toLowerCase(Locale.ENGLISH) + name.substring(1);
+        }
+
+        return name;
+    }
+
+    public static boolean isField(String name) {
+        return isGetter(name) || isSetter(name);
+    }
+
+    public static boolean isGetter(String name) {
+        return (name.startsWith("get") && name.length() > 3) || (name.startsWith("is") && name.length() > 2);
+    }
+
+    public static boolean isSetter(String name) {
+        return name.startsWith("set") && name.length() > 3;
+    }
+
 }

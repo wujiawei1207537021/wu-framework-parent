@@ -1,9 +1,9 @@
 package com.wu.framework.authorization.endpoint;
 
 import com.wu.framework.authorization.annotation.AccessLimit;
+import com.wu.framework.authorization.domain.LoginUserBO;
 import com.wu.framework.response.Result;
 import com.wu.framework.response.ResultFactory;
-import com.wu.framework.authorization.domain.LoginUserBO;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 

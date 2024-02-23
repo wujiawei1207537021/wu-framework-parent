@@ -5,10 +5,11 @@
             :visible.sync="visible">
         <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()"
                  label-width="80px">
-            #foreach($column in $columns)
-                #if($column.columnName != $pk.columnName)
-                    <el-form-item label="${column.comments}" prop="${column.attrname}">
-                        <el-input v-model="dataForm.${column.attrname}" placeholder="${column.comments}"></el-input>
+            #foreach($lazyColumn in $columns)
+                #if($lazyColumn.columnName != $pk.columnName)
+                    <el-form-item label="${lazyColumn.comments}" prop="${lazyColumn.attrname}">
+                        <el-input v-model="dataForm.${lazyColumn.attrname}"
+                                  placeholder="${lazyColumn.comments}"></el-input>
                     </el-form-item>
                 #end
             #end
@@ -26,27 +27,27 @@
             return {
                 visible: false,
                 dataForm: {
-            #foreach($column in $columns)
-                #if($column.columnName == $pk.columnName)
-                    ${column.attrname}:
-                    0,
-                #else
-                    ${column.attrname}: ''#if($velocityCount != $columns.size()),#end
+                    #foreach($lazyColumn in $columns)
+                        #if($lazyColumn.columnName == $pk.columnName)
+                                ${lazyColumn.attrname}:
+                                    0,
+                        #else
+                                ${lazyColumn.attrname}: ''#if($velocityCount != $columns.size()),#end
 
-                #end
-            #end
-        },
-            dataRule: {
-                #foreach($column in $columns)
-                    #if($column.columnName != $pk.columnName)
-                        ${column.attrname}: [
-                        {required: true, message: '${column.comments}不能为空', trigger: 'blur'}
-                    ]#if($velocityCount != $columns.size()),#end
-
+                        #end
                     #end
-                #end
+                },
+                dataRule: {
+                    #foreach($lazyColumn in $columns)
+                        #if($lazyColumn.columnName != $pk.columnName)
+                                ${lazyColumn.attrname}: [
+                                {required: true, record: '${lazyColumn.comments}不能为空', trigger: 'blur'}
+                            ]#if($velocityCount != $columns.size()),#end
+
+                        #end
+                    #end
+                }
             }
-        }
         },
         methods: {
             init(id) {
@@ -54,8 +55,7 @@
                 this.visible = true
                 this.$nextTick(() => {
                     this.$refs['dataForm'].resetFields()
-                    if(this.dataForm.${pk.attrname})
-                    {
+                    if (this.dataForm.${pk.attrname}) {
                         this.$http({
                             url: #[[this.$http.adornUrl]]
                         #(`/${moduleName}/${pathName}/info/#[[$]]#{this.dataForm.${pk.attrname}}`),
@@ -70,11 +70,11 @@
                     }).
                         then(({data}) => {
                             if (data && data.code === 0) {
-                                #foreach($column in $columns)
-                                    #if($column.columnName != $pk.columnName)
+                                #foreach($lazyColumn in $columns)
+                                    #if($lazyColumn.columnName != $pk.columnName)
                                         this.dataForm.$
                                         {
-                                            column.attrname
+                                            lazyColumn.attrname
                                         }
                                         = data.$
                                         {
@@ -83,7 +83,7 @@
                                     .
                                         $
                                         {
-                                            column.attrname
+                                            lazyColumn.attrname
                                         }
                                     #end
                                 #end
@@ -95,71 +95,71 @@
             // 表单提交
             dataFormSubmit() {
                 #[[this.$refs['dataForm'].validate((valid) => {]]
-            #
-            if(valid)
-            {
-            this.$http({
-            url: #[[this.$http.adornUrl]]
-            #(`/${moduleName}/${pathName}/${!this.dataForm.${pk.attrname} ? 'save' : 'update'}`),
-            method
-            :
-            'post',
-            #[[data
-            :
-            this.$http.adornData({
-                ]]
                 #
-                #foreach($column in $columns)
-                #if($column.columnName == $pk.columnName)
-                    '${column.attrname}'
-                :
-                this.dataForm.$
+                if(valid)
                 {
-                column.attrname
-                }
-                ||
-                undefined,
-                #else
-                    '${column.attrname}'
+                this.$http({
+                url: #[[this.$http.adornUrl]]
+                #(`/${moduleName}/${pathName}/${!this.dataForm.${pk.attrname} ? 'save' : 'update'}`),
+                method
                 :
-                this.dataForm.$
-                {
-                column.attrname
-                }
-                #if($velocityCount != $columns.size()), #end
+                'post',
+                #[[data
+                :
+                this.$http.adornData({
+                    ]]
+                    #
+                    #foreach($lazyColumn in $columns)
+                    #if($lazyColumn.columnName == $pk.columnName)
+                        '${lazyColumn.attrname}'
+                    :
+                    this.dataForm.$
+                    {
+                    lazyColumn.attrname
+                    }
+                    ||
+                    undefined,
+                    #else
+                        '${lazyColumn.attrname}'
+                    :
+                    this.dataForm.$
+                    {
+                    lazyColumn.attrname
+                    }
+                    #if($velocityCount != $columns.size()), #end
 
-                #end
-                #end
+                    #end
+                    #end
+                    })
+                }).
+                then(({data}) => {
+                if (data && data.code === 0) {
+                #[[this.$record({]]
+                #
+                record
+                :
+                '操作成功',
+                type
+                :
+                'success',
+                duration
+                :
+                1500,
+                onClose
+                :
+                () => {
+                this.visible = false
+                #[[this.$emit('refreshDataList')]]
+                #
+                }
                 })
-            }).
-            then(({data}) => {
-            if (data && data.code === 0) {
-            #[[this.$message({]]
-            #
-            message
-            :
-            '操作成功',
-            type
-            :
-            'success',
-            duration
-            :
-            1500,
-            onClose
-            :
-            () => {
-            this.visible = false
-            #[[this.$emit('refreshDataList')]]
-            #
-            }
-            })
-            } else {
-            #[[this.$message.error(data.msg)]]
-            #
-            }
-            })
-            }
-            })
+                } else {
+                #[[this.$record.error(data.msg)]]
+                #
+                }
+                })
+                }
+                })
             }
         }
     }

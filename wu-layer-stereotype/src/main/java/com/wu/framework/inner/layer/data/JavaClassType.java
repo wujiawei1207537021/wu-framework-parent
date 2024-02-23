@@ -1,7 +1,7 @@
 package com.wu.framework.inner.layer.data;
 
 /**
- * describe: Java class 类型
+ * Java class 类型
  *
  * @author : Jia wei Wu
  * @version : 1.0

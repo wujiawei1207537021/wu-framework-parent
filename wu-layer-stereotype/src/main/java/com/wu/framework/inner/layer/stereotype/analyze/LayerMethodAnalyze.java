@@ -11,6 +11,7 @@ import java.lang.annotation.Annotation;
 public class LayerMethodAnalyze implements LayerAnalyze {
 
 
+    @Override
     public Annotation analyze(AnalyzeParameter analyzeParameter) {
         return null;
     }
@@ -20,7 +21,7 @@ public class LayerMethodAnalyze implements LayerAnalyze {
      *
      * @param analyzeParameter@return
      * @exception/throws
-     * @author 吴佳伟
+     * @author Jia wei Wu
      * @date 2021/4/26 4:31 下午
      */
     @Override

@@ -1,0 +1,5 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.wu.framework.inner.lazy.config.prop.LazyDataSourceProperties,\
+com.wu.framework.inner.lazy.config.LazyOperationConfig
+

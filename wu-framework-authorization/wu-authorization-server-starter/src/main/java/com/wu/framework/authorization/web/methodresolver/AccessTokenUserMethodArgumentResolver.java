@@ -8,7 +8,6 @@ import com.wu.framework.authorization.login.ILoginService;
 import com.wu.framework.authorization.model.UserDetails;
 import org.springframework.core.MethodParameter;
 import org.springframework.lang.Nullable;
-import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -19,7 +18,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @description: 当前用户参数数据获取类
+ * description: 当前用户参数数据获取类
+ *
  * @author: wangq
  * @create: 2019-10-30 21:15
  */

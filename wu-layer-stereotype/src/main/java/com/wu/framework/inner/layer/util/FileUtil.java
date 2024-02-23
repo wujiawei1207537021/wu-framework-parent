@@ -1,6 +1,6 @@
 package com.wu.framework.inner.layer.util;
 
-import lombok.SneakyThrows;
+
 import org.springframework.util.ObjectUtils;
 
 import java.io.*;
@@ -21,7 +21,6 @@ public class FileUtil {
      * @author Jia wei Wu
      * @date 2020/12/6 4:47 下午
      **/
-    @SneakyThrows
     public static BufferedWriter createFile(String path, String fileName) {
         File file = new File(ObjectUtils.isEmpty(path) ? fileName : path + File.separator + fileName);
         File parent = file.getParentFile();
@@ -29,8 +28,19 @@ public class FileUtil {
         if (!parent.exists()) {
             parent.mkdirs();
         }
-        if (!file.exists()) file.createNewFile();
-        return new BufferedWriter(new FileWriter(file));
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            return new BufferedWriter(new FileWriter(file));
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
     public static BufferedWriter createFile(String path, String prefix, String suffix, String fileName) {
@@ -39,8 +49,7 @@ public class FileUtil {
 
     /**
      * @param
-     * @return
-     * describe 获取文件内容
+     * @return describe 获取文件内容
      * @author Jia wei Wu
      * @date 2021/3/3 10:46 下午
      **/
@@ -72,8 +81,7 @@ public class FileUtil {
 
     /**
      * @param
-     * @return
-     * describe 文件添加数据
+     * @return describe 文件添加数据
      * @author Jia wei Wu
      * @date 2021/3/3 10:46 下午
      **/

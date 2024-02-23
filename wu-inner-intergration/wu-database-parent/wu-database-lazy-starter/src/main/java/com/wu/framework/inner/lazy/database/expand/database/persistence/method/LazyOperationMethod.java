@@ -19,8 +19,7 @@ public interface LazyOperationMethod {
     /**
      * @param
      * @param param
-     * @return
-     * describe 获取持久性存储库
+     * @return description 通过参数获取持久性存储库对象
      * @author Jia wei Wu
      * @date 2021/4/17 3:38 下午
      **/
@@ -37,6 +36,7 @@ public interface LazyOperationMethod {
      * @author Jia wei Wu
      * @date 2020/11/22 上午11:02
      */
+    @Deprecated
     default Object execute(DataSource dataSource, Object[] sourceParams) throws Exception {
         for (Object param : sourceParams) {
             Connection connection = dataSource.getConnection();
@@ -46,12 +46,21 @@ public interface LazyOperationMethod {
             } catch (SQLException sqlException) {
                 throw sqlException;
             } finally {
-                connection.close();
                 preparedStatement.close();
             }
         }
         return null;
-
     }
+
+    /**
+     * describe  执行SQL 语句
+     *
+     * @param
+     * @return
+     * @author Jia wei Wu
+     * @date 2022/1/2 8:10 下午
+     **/
+    Object execute(Connection connection, Object[] sourceParams) throws Exception;
+
 
 }

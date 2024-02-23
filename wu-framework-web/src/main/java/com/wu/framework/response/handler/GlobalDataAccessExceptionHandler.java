@@ -9,7 +9,6 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.transaction.TransactionRequiredException;
 import javax.validation.ConstraintViolationException;
 import java.sql.SQLIntegrityConstraintViolationException;
 
@@ -23,7 +22,6 @@ public class GlobalDataAccessExceptionHandler {
 
     /**
      * sql异常
-     *
      */
 //    @ExceptionHandler({BadSqlGrammarException.class, SQLException.class})
 //    public Result sqlException(Exception exception) {
@@ -44,7 +42,6 @@ public class GlobalDataAccessExceptionHandler {
 
     /**
      * HttpMessageNotReadableException
-     *
      */
     @ExceptionHandler({HttpMessageNotReadableException.class})
     public Result httpMessageNotReadableException(HttpMessageNotReadableException exception) {
@@ -52,12 +49,12 @@ public class GlobalDataAccessExceptionHandler {
         return ResultFactory.of(DefaultResultCode.INVALID_FORMAT_EXCEPTION, exception.getMessage());
     }
 
-
-    @ExceptionHandler({TransactionRequiredException.class})
-    public Result transactionRequiredException(TransactionRequiredException exception) {
-        exception.printStackTrace();
-        return ResultFactory.of(DefaultResultCode.TRANSACTION_REQUIRED_EXCEPTION, exception.getMessage());
-    }
+// TODO 打包问题
+//    @ExceptionHandler({TransactionRequiredException.class})
+//    public Result transactionRequiredException(TransactionRequiredException exception) {
+//        exception.printStackTrace();
+//        return ResultFactory.of(DefaultResultCode.TRANSACTION_REQUIRED_EXCEPTION, exception.getMessage());
+//    }
 
 
 }

@@ -1,7 +1,7 @@
 package com.wu.framework.inner.dynamic.database.component.aop;
 
 import com.wu.framework.inner.dynamic.database.toolkit.DynamicLazyDSContextHolder;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.stereotype.LazyDS;
+import com.wu.framework.inner.lazy.stereotype.LazyDS;
 import lombok.NonNull;
 import org.aopalliance.aop.Advice;
 import org.aopalliance.intercept.MethodInterceptor;
@@ -18,15 +18,16 @@ import org.springframework.core.annotation.AnnotationUtils;
 import java.lang.reflect.Method;
 
 /**
- * describe: 切换数据源
+ * 切换数据源
+ *
  * @author : Jia wei Wu
- * @date : 2021/7/4 6:05 下午
  * @version : 1.0
+ * @date : 2021/7/4 6:05 下午
  */
 public class LazyDBAOPAdvisor extends AbstractPointcutAdvisor implements BeanFactoryAware {
-    private Advice advice;
+    private final Advice advice;
 
-    private Pointcut pointcut;
+    private final Pointcut pointcut;
 
     public LazyDBAOPAdvisor(@NonNull LazyDBInterceptor lazyDBInterceptor) {
         this.advice = lazyDBInterceptor;
@@ -81,8 +82,7 @@ public class LazyDBAOPAdvisor extends AbstractPointcutAdvisor implements BeanFac
 
         /**
          * @param
-         * @return
-         * describe 确定 Lazy Redis
+         * @return describe 确定 Lazy DS
          * @author Jia wei Wu
          * @date 2021/7/4 5:04 下午
          **/

@@ -1,0 +1,53 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:服务端;
+:创建数据库服务器;
+if(项目存在) then(更新)
+:更新项目;
+else (创建)
+    :创建项目;
+    :选择数据库服务器;
+    endif
+if(数据表存在) then(存在)
+    :更新表结构;
+    else (不存在)
+    :创建数据表;
+    endif
+:创建接口;
+:选择表;
+:暂时由单表操作、拖动字段;
+:创建请求参数对象;
+:创建请求响应对象;
+:创建class(Controller);
+:创建method(RequestMapping);
+:创建页面;
+if(分页接口) then(分页)
+    : 分页页面;
+    else (非分页)
+        if(POST接口) then(是的)
+        :表单页面;
+        else(操作页面)
+        :操作页面;
+        endif
+endif
+
+
+stop
+
+@enduml
+
+
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:客户端;
+:空项目模版;
+:类、方法;
+:文件写入;
+
+stop
+
+@enduml

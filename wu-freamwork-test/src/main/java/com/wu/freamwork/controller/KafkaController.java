@@ -2,8 +2,8 @@ package com.wu.freamwork.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.wu.framework.easy.upsert.autoconfigure.config.SpringUpsertAutoConfigure;
-import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import com.wu.framework.inner.layer.util.FileUtil;
+import com.wu.framework.inner.lazy.persistence.map.EasyHashMap;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 
@@ -84,7 +84,6 @@ public class KafkaController {
         }).collect(Collectors.toList());
         for (String s : msgGNSSCenterId) {
             differentPlatforms.newLine();
-            ;
             differentPlatforms.write(s);
         }
         differentPlatforms.close();

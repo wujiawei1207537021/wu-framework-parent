@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>wu-easy-listener-parent</artifactId>
+        <groupId>top.wu2020</groupId>
+        <version>1.0.6</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>wu-easy-kafka-listener</artifactId>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-easy-listener-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-easy-listener-spring-boot-autoconfigure</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

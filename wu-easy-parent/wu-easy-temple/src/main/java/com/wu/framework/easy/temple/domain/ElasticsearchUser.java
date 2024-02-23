@@ -19,9 +19,9 @@
 //public class ElasticsearchUser {
 //    @Id
 //    private int id;
-//    @Field(type = FieldType.Text, analyzer = "ik_max_word")
+//    @Field(columnType = FieldType.Text, analyzer = "ik_max_word")
 //    private String name;
-//    @Field(type = FieldType.Text, analyzer = "ik_max_word")
+//    @Field(columnType = FieldType.Text, analyzer = "ik_max_word")
 //    private String tags;
 //
 //    public ElasticsearchUser(int id, String name, String tags) {

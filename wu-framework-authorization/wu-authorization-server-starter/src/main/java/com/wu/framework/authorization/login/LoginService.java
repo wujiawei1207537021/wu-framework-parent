@@ -2,14 +2,13 @@ package com.wu.framework.authorization.login;
 
 import com.wu.framework.authorization.config.pro.AuthorizationProperties;
 import com.wu.framework.authorization.domain.AccessTokenRO;
+import com.wu.framework.authorization.domain.LoginUserBO;
 import com.wu.framework.authorization.model.UserDetails;
 import com.wu.framework.authorization.token.TokenStore;
 import com.wu.framework.authorization.util.ShiroSessionContextUtil;
 import com.wu.framework.response.Result;
 import com.wu.framework.response.ResultFactory;
-import com.wu.framework.authorization.domain.LoginUserBO;
-import org.springframework.context.annotation.Import;
-import org.springframework.util.DigestUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.ObjectUtils;
 
 /**
@@ -29,10 +28,13 @@ public class LoginService implements ILoginService {
 
     private final AuthorizationProperties authorizationProperties;
 
-    public LoginService(TokenStore tokenStore, UserDetailsService userDetailsService, AuthorizationProperties authorizationProperties) {
+    private final PasswordEncoder passwordEncoder;
+
+    public LoginService(TokenStore tokenStore, UserDetailsService userDetailsService, AuthorizationProperties authorizationProperties, PasswordEncoder passwordEncoder) {
         this.tokenStore = tokenStore;
         this.userDetailsService = userDetailsService;
         this.authorizationProperties = authorizationProperties;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -49,18 +51,15 @@ public class LoginService implements ILoginService {
     @Override
     public Result accessToken(String username, String password, String scope) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        //支持MD5密码校验
-        String md5Password = DigestUtils.md5DigestAsHex(password.getBytes());
+
         if (ObjectUtils.isEmpty(userDetails)) {
-//            throw new TokenAuthorizationException("用户不存在");
             return ResultFactory.invalidTokenAuthorizationOf("令牌授权失败(用户不存在)");
         }
-        if (userDetails.getPassword().equals(md5Password)) {
+        if (passwordEncoder.matches(password, userDetails.getPassword())) {
             ShiroSessionContextUtil.setSessionAttribute(userDetails);
             //返回令牌
             return accessToken(userDetails, scope);
         } else {
-//            throw new TokenAuthorizationException("令牌授权失败");
             return ResultFactory.invalidTokenAuthorizationOf("令牌授权失败(用户或密码错误)");
         }
     }

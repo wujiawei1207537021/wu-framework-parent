@@ -979,7 +979,7 @@ a.g-menu-item, a.soptclass, a.clearsearchclass {
     margin-right: 3px;
 }
 
-/* Column menu */
+/* LazyColumn menu */
 .ui-jqgrid .ui-jqgrid-htable .colmenu {
     position: absolute;
     right: 1px;

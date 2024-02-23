@@ -40,7 +40,7 @@ public class CustomExecutor {
                 System.out.println("基本数据类型： " + domainClass.getName() + "  " + domainClass.getName());
             }
             List<E> list = new ArrayList<E>();//定义返回值
-            if (domainClass.getName().equals("java.util.Map")) {
+            if ("java.util.Map".equals(domainClass.getName())) {
                 list = dataTypeConversion(domainClass, rs);
             } else {
                 while (rs.next()) {

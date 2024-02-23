@@ -32,7 +32,7 @@ public class Scheduling {
 
     public Scheduling(BreakPointMemory breakPointMemory, ApplicationContext applicationContext) {
         this.breakPointMemory = breakPointMemory;
-        this.applicationContext = applicationContext;
+        Scheduling.applicationContext = applicationContext;
     }
 
 
