@@ -1,0 +1,4 @@
+data_file/lazy/表lazy.english_word数据.sql filter=lfs diff=lfs merge=lfs -text
+*.sql filter=lfs diff=lfs merge=lfs -text
+数据库lazy数据.sql filter=lfs diff=lfs merge=lfs -text
+数据库temp数据.sql filter=lfs diff=lfs merge=lfs -text
