@@ -1,14 +1,14 @@
 package com.wu.framework.easy.temple.controller;
 
-import com.wu.framework.easy.stereotype.upsert.component.IUpsert;
-import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
-import com.wu.framework.easy.stereotype.upsert.dynamic.QuickEasyUpsert;
-import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.temple.domain.UpsertBinary;
 import com.wu.framework.easy.temple.domain.UseExcel;
 import com.wu.framework.easy.temple.domain.UserLog;
 import com.wu.framework.easy.temple.domain.bo.ExtractBo;
 import com.wu.framework.easy.temple.domain.bo.MoreExtractBo;
+import com.wu.framework.easy.upsert.EasyUpsertMySQL;
+import com.wu.framework.easy.upsert.autoconfigure.dynamic.QuickEasyUpsert;
+import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
+import com.wu.framework.easy.upsert.core.dynamic.IUpsert;
 import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
 import io.swagger.annotations.ApiOperation;
@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2020/11/7 下午5:57
  */
 @EasyController("/upsert/MySQL")
@@ -44,13 +44,12 @@ public class UpsertMySQLController {
      * @author Jia wei Wu
      * @date 2021/4/15 上午9:50
      */
-    @EasyUpsertDS(type = EasyUpsertType.MySQL)
+    @EasyUpsertMySQL(name = "dataSourceH2")
     @ApiOperation(tags = "MySQL快速插入数据", value = "IUpsert操作数据入DB")
     @GetMapping()
-    public List<UserLog> upsert(@RequestParam(required = false, defaultValue = "100") Integer size) {
+    public void upsert(@RequestParam(required = false, defaultValue = "100") Integer size) {
         List<UserLog> userLogList = createUserLog(size);
         iUpsert.upsert(userLogList, userLogList, new UserLog());
-        return userLogList;
     }
 
 
@@ -65,15 +64,15 @@ public class UpsertMySQLController {
      */
     @QuickEasyUpsert(type = EasyUpsertType.MySQL)
     @ApiOperation(tags = "MySQL快速插入数据", value = "使用注解实现数据插入")
-    @GetMapping("/size")
-    public List<UserLog> upsertSize(@RequestParam(required = false, defaultValue = "100") Integer size) {
+    @GetMapping("/quick/size")
+    public List<UserLog> quickUpsertSize(@RequestParam(required = false, defaultValue = "100") Integer size) {
         return createUserLog(size);
     }
 
     @QuickEasyUpsert(type = EasyUpsertType.MySQL)
     @ApiOperation(tags = "MySQL快速插入数据", value = "复杂数据EasyHashMap")
-    @GetMapping("/easyHashMap")
-    public List<EasyHashMap> easyHashMap(@RequestParam(required = false, defaultValue = "1000") Integer size) {
+    @GetMapping("/quick/easyHashMap")
+    public List<EasyHashMap> quickEasyHashMap(@RequestParam(required = false, defaultValue = "1000") Integer size) {
         List<EasyHashMap> easyHashMapList = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             EasyHashMap easyHashMap = new EasyHashMap("uniqueLabel");
@@ -89,8 +88,8 @@ public class UpsertMySQLController {
 
     @QuickEasyUpsert(type = EasyUpsertType.MySQL)
     @ApiOperation(tags = "MySQL快速插入数据", value = "复杂数据DB")
-    @GetMapping("/complexData")
-    public ExtractBo complexData() {
+    @GetMapping("/quick/complexData")
+    public ExtractBo quickComplexData() {
         UserLog userLog = new UserLog();
         userLog.setCurrentTime(LocalDateTime.now());
         userLog.setContent("创建时间:" + userLog.getCurrentTime());
@@ -112,10 +111,10 @@ public class UpsertMySQLController {
 
     @QuickEasyUpsert(type = EasyUpsertType.MySQL)
     @ApiOperation(tags = "MySQL快速插入数据", value = "复杂数据DB")
-    @GetMapping("/moreExtractBo")
-    public MoreExtractBo moreExtractBo() {
+    @GetMapping("/quick/moreExtractBo")
+    public MoreExtractBo quickMoreExtractBo() {
         MoreExtractBo moreExtractBo = new MoreExtractBo();
-        ExtractBo extractBo = complexData();
+        ExtractBo extractBo = quickComplexData();
         moreExtractBo.setExtractBo(extractBo);
         moreExtractBo.setUseExcel(extractBo.getUseExcel());
         moreExtractBo.setUserLog(extractBo.getUserLog());
@@ -124,10 +123,8 @@ public class UpsertMySQLController {
     }
 
 
-
-
     /**
-     * description binary 或者文件类型数据插入
+     * description quickBinary 或者文件类型数据插入
      *
      * @param
      * @return
@@ -136,9 +133,9 @@ public class UpsertMySQLController {
      * @date 2021/4/19 上午10:11
      */
     @QuickEasyUpsert(type = EasyUpsertType.MySQL)
-    @ApiOperation(tags = "MySQL快速插入数据", value = "binary 数据插入")
-    @GetMapping("/binary")
-    public List<UpsertBinary> binary(@RequestParam(required = false, defaultValue = "1000") Integer size) {
+    @ApiOperation(tags = "MySQL快速插入数据", value = "quickBinary 数据插入")
+    @GetMapping("/quick/binary")
+    public List<UpsertBinary> quickBinary(@RequestParam(required = false, defaultValue = "1000") Integer size) {
         List<UpsertBinary> upsertBinaryList = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             upsertBinaryList.add(new UpsertBinary());
@@ -157,16 +154,7 @@ public class UpsertMySQLController {
      * @date 2021/4/19 上午10:09
      */
     public List<UserLog> createUserLog(Integer size) {
-        List<UserLog> userLogList = new ArrayList<>();
-        size = size == null ? 10000 : size;
-        for (int i = 0; i < size; i++) {
-            UserLog userLog = new UserLog();
-            userLog.setCurrentTime(LocalDateTime.now());
-            userLog.setContent("创建时间:" + userLog.getCurrentTime());
-            userLog.setUserId(i);
-            userLogList.add(userLog);
-        }
-        return userLogList;
+        return UserLog.createUserLogList(size);
     }
 
 

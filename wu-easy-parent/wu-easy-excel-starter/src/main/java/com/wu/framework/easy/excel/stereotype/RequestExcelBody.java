@@ -6,11 +6,11 @@ import java.lang.annotation.*;
 
 
 /**
- * description 未完成
+ * description 导入Excel数据， 自动准换乘List 类型的数据
+ *
  * @author 吴佳伟
  * @date 2021/4/23 下午12:06
  */
-@Deprecated
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
@@ -24,6 +24,7 @@ public @interface RequestExcelBody {
 
     /**
      * The name of the part in the {@code "multipart/form-data"} request to bind to.
+     *
      * @since 4.2
      */
     @AliasFor("value")

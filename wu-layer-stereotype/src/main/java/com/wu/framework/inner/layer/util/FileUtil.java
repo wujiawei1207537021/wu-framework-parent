@@ -8,7 +8,7 @@ import java.io.*;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2020/12/6 4:46 下午
  */
 public class FileUtil {
@@ -17,7 +17,7 @@ public class FileUtil {
      * @param path     路径
      * @param fileName 文件名
      * @return BufferedWriter
-     * @describe : 创建文件 返回字节写入对象 需要下游调用close()
+     * describe : 创建文件 返回字节写入对象 需要下游调用close()
      * @author Jia wei Wu
      * @date 2020/12/6 4:47 下午
      **/
@@ -40,7 +40,7 @@ public class FileUtil {
     /**
      * @param
      * @return
-     * @describe 获取文件内容
+     * describe 获取文件内容
      * @author Jia wei Wu
      * @date 2021/3/3 10:46 下午
      **/
@@ -73,7 +73,7 @@ public class FileUtil {
     /**
      * @param
      * @return
-     * @describe 文件添加数据
+     * describe 文件添加数据
      * @author Jia wei Wu
      * @date 2021/3/3 10:46 下午
      **/

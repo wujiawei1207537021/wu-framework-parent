@@ -10,7 +10,7 @@ import java.lang.annotation.Annotation;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe : 样式参数
+ * describe : 样式参数
  * @date : 2020/12/11 9:00 下午
  */
 @Data

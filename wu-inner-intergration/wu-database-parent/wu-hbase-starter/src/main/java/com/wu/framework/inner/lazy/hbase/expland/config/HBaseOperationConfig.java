@@ -1,5 +1,6 @@
 package com.wu.framework.inner.lazy.hbase.expland.config;
 
+import com.wu.framework.inner.lazy.hbase.expland.prop.HBaseConfigProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
@@ -19,7 +20,7 @@ import java.util.concurrent.Executors;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2021/3/29 10:11 下午
  */
 @Slf4j

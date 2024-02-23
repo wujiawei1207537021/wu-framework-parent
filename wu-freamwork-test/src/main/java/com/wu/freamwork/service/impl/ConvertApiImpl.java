@@ -1,7 +1,7 @@
 package com.wu.freamwork.service.impl;
 
 
-import com.wu.framework.inner.layer.data.ConvertApi;
+import com.wu.framework.inner.layer.data.api.ConvertApi;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashMap;
@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2020/11/7 下午4:41
  */
 @Service

@@ -28,8 +28,7 @@ public class SysGeneratorController {
     @ResponseBody
     @GetMapping("/list")
     public Page list(@RequestParam(required = false, defaultValue = "") String tableName, @RequestParam Integer size, @RequestParam Integer current) {
-        Page page = sysGeneratorService.queryList(tableName, size, current);
-        return page;
+        return sysGeneratorService.queryList(tableName, size, current);
     }
 
     /**

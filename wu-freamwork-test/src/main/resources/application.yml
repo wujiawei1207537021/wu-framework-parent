@@ -8,29 +8,28 @@ server:
 
 spring:
   profiles:
-    active: wjw
+    active: wjw,es
   wu:
-    shiro:
+    authorization:
       verification: session
+      un-check-api-path:
+        "/public/**"
+    http:
+      http-proxy-type: fixed
+      proxy: 192.168.1.22
+      port: 50
   hbase:
-    zookeeperQuorum: 'k8s.wu2020.top:2181'
-  redis:
-    host: k8s.wu2020.top
+#    zookeeperQuorum: 'k8s.wu-framework.com:2181'
+#  redis:
+#    host: k8s.wu-framework.com
 
 
-wu:
-  database:
-    mapper:
-      scan-xml-path: classpath*:wu-mapper/*Dao.xml
-
-#debug: true
-mybatis:
-  mapperLocations: classpath:mapper/**/*.xml
+  easy:
+    upsert:
+      config:
+        batch-limit: 10000
 
 
-easy:
-  upsert:
-    config:
-      batch-limit: 10000
+
 
 

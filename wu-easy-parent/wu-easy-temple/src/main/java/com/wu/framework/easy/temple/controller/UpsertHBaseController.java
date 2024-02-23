@@ -1,14 +1,14 @@
 package com.wu.framework.easy.temple.controller;
 
-import com.wu.framework.easy.stereotype.upsert.component.IUpsert;
-import com.wu.framework.easy.stereotype.upsert.dynamic.EasyUpsertDS;
-import com.wu.framework.easy.stereotype.upsert.dynamic.QuickEasyUpsert;
-import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
 import com.wu.framework.easy.temple.domain.UpsertBinary;
 import com.wu.framework.easy.temple.domain.UseExcel;
 import com.wu.framework.easy.temple.domain.UserLog;
 import com.wu.framework.easy.temple.domain.bo.ExtractBo;
 import com.wu.framework.easy.temple.domain.bo.MoreExtractBo;
+import com.wu.framework.easy.upsert.autoconfigure.dynamic.EasyUpsert;
+import com.wu.framework.easy.upsert.autoconfigure.dynamic.QuickEasyUpsert;
+import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
+import com.wu.framework.easy.upsert.core.dynamic.IUpsert;
 import com.wu.framework.inner.layer.data.LayerDataAnalyzeAdapter;
 import com.wu.framework.inner.layer.web.EasyController;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2020/11/7 下午5:57
  */
 @Api(tags = "HBase数据快速插入")
@@ -48,7 +48,7 @@ public class UpsertHBaseController implements LayerDataAnalyzeAdapter {
      * @author Jia wei Wu
      * @date 2021/4/15 上午9:50
      */
-    @EasyUpsertDS(type = EasyUpsertType.HBASE)
+    @EasyUpsert(type = EasyUpsertType.HBASE)
     @ApiOperation(tags = "HBase数据快速插入", value = "IUpsert操作数据入HBase")
     @GetMapping()
     public List<UserLog> upsert(@RequestParam(required = false, defaultValue = "100") Integer size) {
@@ -128,10 +128,8 @@ public class UpsertHBaseController implements LayerDataAnalyzeAdapter {
     }
 
 
-
-
     /**
-     * description binary 或者文件类型数据插入
+     * description quickBinary 或者文件类型数据插入
      *
      * @param
      * @return
@@ -140,7 +138,7 @@ public class UpsertHBaseController implements LayerDataAnalyzeAdapter {
      * @date 2021/4/19 上午10:11
      */
     @QuickEasyUpsert(type = EasyUpsertType.HBASE)
-    @ApiOperation(tags = "HBase数据快速插入", value = "binary 数据插入")
+    @ApiOperation(tags = "HBase数据快速插入", value = "quickBinary 数据插入")
     @GetMapping("/binary")
     public List<UpsertBinary> binary(@RequestParam(required = false, defaultValue = "1000") Integer size) {
         List<UpsertBinary> upsertBinaryList = new ArrayList<>();

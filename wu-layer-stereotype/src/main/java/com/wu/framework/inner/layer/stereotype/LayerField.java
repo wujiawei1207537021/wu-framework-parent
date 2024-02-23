@@ -1,6 +1,7 @@
 package com.wu.framework.inner.layer.stereotype;
 
 
+import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Indexed;
 
 import java.lang.annotation.*;
@@ -25,7 +26,11 @@ public @interface LayerField {
     /**
      * 字段名(默认驼峰)
      */
+    @AliasFor(attribute = "value")
      String name() default "";
+
+    @AliasFor(attribute = "name")
+    String value() default "";
 
     /**
      * 字段索引类型

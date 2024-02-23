@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe : 封装的表信息
+ * describe : 封装的表信息
  * @date : 2020/8/3 下午9:50
  */
 @Data

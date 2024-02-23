@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    dynamic:
+      p6spy: true
+      datasource:
+        master:
+          username: root
+          password: supconit
+          url: jdbc:mysql://81.69.3.45:30806/upms?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+          driver-class-name: com.mysql.cj.jdbc.Driver

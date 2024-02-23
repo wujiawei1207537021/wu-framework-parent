@@ -2,9 +2,8 @@ package com.wu.framework.inner.lazy.hbase.expland.persistence;
 
 
 import com.wu.framework.inner.layer.stereotype.proxy.ProxyStrategicApproach;
-import com.wu.framework.inner.lazy.hbase.expland.constant.HBaseOperationMethodCounts;
-import com.wu.framework.inner.lazy.hbase.expland.persistence.method.HBaseOperationInsertListMethodAdapter;
-import com.wu.framework.inner.lazy.hbase.expland.persistence.method.HBaseOperationUpsertListMethodAdapter;
+import com.wu.framework.inner.lazy.hbase.expland.persistence.method.HBaseOperationInsertListMethod;
+import com.wu.framework.inner.lazy.hbase.expland.persistence.method.HBaseOperationUpsertListMethod;
 
 import java.util.List;
 
@@ -21,11 +20,11 @@ public interface HBaseOperation {
     /**
      * @param <T>
      * @return t
-     * @describe 新增数据
+     * describe 新增数据
      * @author Jia wei Wu
      * @date 2021/3/27 9:21 下午
      **/
-    @ProxyStrategicApproach(proxyClass = HBaseOperationInsertListMethodAdapter.class)
+    @ProxyStrategicApproach(proxyClass = HBaseOperationInsertListMethod.class)
     <T> T insert(T t);
 
     /**
@@ -38,18 +37,18 @@ public interface HBaseOperation {
      * @author Jia wei Wu
      * @date 2021/4/8 上午9:37
      */
-    @ProxyStrategicApproach(proxyClass = HBaseOperationInsertListMethodAdapter.class)
+    @ProxyStrategicApproach(proxyClass = HBaseOperationInsertListMethod.class)
     <T> T insertList(List<T> t);
 
 
     /**
      * @param <T>
      * @return t
-     * @describe 更新或者插入数据
+     * describe 更新或者插入数据
      * @author Jia wei Wu
      * @date 2021/3/27 9:21 下午
      **/
-    @ProxyStrategicApproach(proxyClass = HBaseOperationUpsertListMethodAdapter.class)
+    @ProxyStrategicApproach(proxyClass = HBaseOperationUpsertListMethod.class)
     <T> T upsert(T t);
 
     /**
@@ -61,7 +60,7 @@ public interface HBaseOperation {
      * @author Jia wei Wu
      * @date 2021/4/9 下午1:05
      */
-    @ProxyStrategicApproach(proxyClass = HBaseOperationUpsertListMethodAdapter.class)
+    @ProxyStrategicApproach(proxyClass = HBaseOperationUpsertListMethod.class)
     <T> T upsertList(List<T> t);
 
 

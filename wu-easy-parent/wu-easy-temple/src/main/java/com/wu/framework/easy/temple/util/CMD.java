@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2020/12/1 下午10:12
  */
 public class CMD {

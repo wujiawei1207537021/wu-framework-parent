@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe :
+ * describe :
  * @date : 2020/8/26 下午8:10
  */
 @Data
@@ -33,13 +33,13 @@ public class DynamicDatabaseConfig implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        if (ObjectUtils.isEmpty(databaseConfigMap)) {
-            throw new RuntimeException(" fail to init dynamic database for empty");
+        if (!ObjectUtils.isEmpty(databaseConfigMap)) {
+            logger.info("init dynamic database config for {}", databaseConfigMap.keySet());
+            for (Map.Entry<String, DatabaseConfig> stringDatabaseConfigEntry : databaseConfigMap.entrySet()) {
+                CUSTOM_DATA_SOURCE_MAP.put(stringDatabaseConfigEntry.getKey(), new SimpleEasyDataSource(stringDatabaseConfigEntry.getValue()));
+            }
         }
-        logger.info("init dynamic database config for {}", databaseConfigMap.keySet());
-        for (Map.Entry<String, DatabaseConfig> stringDatabaseConfigEntry : databaseConfigMap.entrySet()) {
-            CUSTOM_DATA_SOURCE_MAP.put(stringDatabaseConfigEntry.getKey(), new SimpleEasyDataSource(stringDatabaseConfigEntry.getValue()));
-        }
+
     }
 
     @Data
@@ -54,5 +54,7 @@ public class DynamicDatabaseConfig implements InitializingBean {
 
         }
     }
+
+
 
 }

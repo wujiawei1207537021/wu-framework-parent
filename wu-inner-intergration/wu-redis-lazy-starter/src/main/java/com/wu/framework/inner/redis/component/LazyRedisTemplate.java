@@ -1,8 +1,8 @@
 package com.wu.framework.inner.redis.component;
 
 
-import com.wu.framework.inner.redis.LazyRedis;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
@@ -23,18 +23,19 @@ import java.util.concurrent.ConcurrentHashMap;
  * @ Version       :  1.0
  */
 @Slf4j
-public class LazyRedisTemplate extends StringRedisTemplate implements LazyRedis {
+@ConditionalOnProperty(prefix = "spring.redis", value = "host")
+public class LazyRedisTemplate extends StringRedisTemplate {
 
     private final Integer MASTER;
     private final RedisProperties redisProperties;
     protected Map<Integer, RedisConnectionFactory> redisConnectionFactoryMap = new ConcurrentHashMap<>(20);
     private Integer dyDatabase;
 
-    public LazyRedisTemplate(LettuceConnectionFactory lettuceConnectionFactory, RedisProperties redisProperties) {
-        MASTER = lettuceConnectionFactory.getDatabase();
+    public LazyRedisTemplate(RedisConnectionFactory redisConnectionFactory, RedisProperties redisProperties) {
+        MASTER = redisProperties.getDatabase();
         this.redisProperties = redisProperties;
         dyDatabase = MASTER;
-        redisConnectionFactoryMap.put(MASTER, lettuceConnectionFactory);
+        redisConnectionFactoryMap.put(MASTER, redisConnectionFactory);
     }
 
 
@@ -74,6 +75,14 @@ public class LazyRedisTemplate extends StringRedisTemplate implements LazyRedis 
 
     public void setDyDatabase(Integer dyDatabase) {
         this.dyDatabase = dyDatabase;
+    }
+
+
+    /**
+     * 重置
+     */
+    public void reset() {
+        this.dyDatabase = this.MASTER;
     }
 
 

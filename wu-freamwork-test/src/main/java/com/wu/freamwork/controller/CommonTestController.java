@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @ApiOperation(value = "test", tags = "测试二维码 验证码")
-@EasyController("/test")
+@EasyController("/public/test")
 public class CommonTestController {
 
 

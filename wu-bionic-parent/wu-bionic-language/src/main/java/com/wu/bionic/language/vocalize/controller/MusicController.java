@@ -17,7 +17,7 @@ import java.io.ByteArrayInputStream;
 /**
  * @author :  Jia Wei Wu
  * @version 1.0
- * @describe : 音乐
+ * describe : 音乐
  * @date : 2021/3/2 7:45 下午
  */
 @EasyController

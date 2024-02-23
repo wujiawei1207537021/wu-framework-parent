@@ -18,7 +18,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 /**
  * @author : Jia wei Wu
  * @version 1.0
- * @describe : 多数据源切换  MultiDataSourceSwitching
+ * describe : 多数据源切换  MultiDataSourceSwitching
  * @date : 2020/8/28 下午10:13
  */
 @Aspect

@@ -13,8 +13,10 @@ public class CamelAndUnderLineConverter {
     private static Pattern humpPattern = Pattern.compile("[A-Z]");
 
     /**
-     * 下划线转驼峰
+     * 下划线转驼峰 针对字段
+     * {@link CamelAndUnderLineConverter#lineToHumpField(String)}
      */
+    @Deprecated
     public static String lineToHump(String str) {
 //        str = str.toLowerCase();
         Matcher matcher = linePattern.matcher(str);
@@ -24,6 +26,37 @@ public class CamelAndUnderLineConverter {
         }
         matcher.appendTail(sb);
         return sb.toString();
+    }
+
+
+    /**
+     * 下划线转驼峰 针对字段
+     */
+    public static String lineToHumpField(String str) {
+        Matcher matcher = linePattern.matcher(str);
+        StringBuffer sb = new StringBuffer();
+        while (matcher.find()) {
+            matcher.appendReplacement(sb, matcher.group(1).toUpperCase());
+        }
+        matcher.appendTail(sb);
+        return sb.toString();
+    }
+
+    /**
+     * 下划线转驼峰 针对class
+     *
+     * @param str
+     * @return
+     */
+    public static String lineToHumpClass(String str) {
+
+        Matcher matcher = linePattern.matcher(str);
+        StringBuffer sb = new StringBuffer();
+        while (matcher.find()) {
+            matcher.appendReplacement(sb, matcher.group(1).toUpperCase());
+        }
+        matcher.appendTail(sb);
+        return capitalizeFirstLetter(sb.toString());
     }
 
     /**
@@ -79,9 +112,10 @@ public class CamelAndUnderLineConverter {
     }
 
     /**
+     * describe 首字母大写
+     *
      * @param
      * @return
-     * @describe 首字母大写
      * @author Jia wei Wu
      * @date 2021/3/6 5:02 下午
      **/

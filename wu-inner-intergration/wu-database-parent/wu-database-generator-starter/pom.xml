@@ -5,12 +5,12 @@
     <parent>
         <artifactId>wu-database-parent</artifactId>
         <groupId>top.wu2020</groupId>
-        <version>1.0.4</version>
+        <version>1.0.5</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>wu-database-generator-starter</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
 
     <dependencies>
         <dependency>
@@ -23,7 +23,6 @@
             <groupId>org.apache.velocity</groupId>
             <version>1.7</version>
         </dependency>
-
 
         <dependency>
             <groupId>commons-lang</groupId>
@@ -41,9 +40,10 @@
             <artifactId>commons-configuration</artifactId>
             <version>1.10</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
 
 

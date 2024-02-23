@@ -1,9 +1,8 @@
 package com.wu.freamwork.controller;
 
-import com.wu.framework.easy.stereotype.upsert.component.IUpsert;
-import com.wu.framework.easy.stereotype.upsert.dynamic.QuickEasyUpsert;
-import com.wu.framework.easy.stereotype.upsert.enums.EasyUpsertType;
-import com.wu.framework.inner.layer.web.EasyController;
+import com.wu.framework.easy.upsert.autoconfigure.dynamic.QuickEasyUpsert;
+import com.wu.framework.easy.upsert.autoconfigure.enums.EasyUpsertType;
+import com.wu.framework.easy.upsert.core.dynamic.IUpsert;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.LazyOperation;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.PerfectLazyOperation;
 import com.wu.framework.inner.lazy.database.expand.database.persistence.map.EasyHashMap;
@@ -25,7 +24,7 @@ import java.util.List;
  * @date 2021/4/8 下午4:11
  */
 @Api(tags = "HBase测试操作")
-@EasyController("/HBase")
+//@EasyController("/public/HBase")
 public class HBaseController implements CommandLineRunner {
 
     private final HBaseOperation hBaseOperation;
@@ -50,7 +49,7 @@ public class HBaseController implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        mysql2HBase();
+//        mysql2HBase();
 
     }
 

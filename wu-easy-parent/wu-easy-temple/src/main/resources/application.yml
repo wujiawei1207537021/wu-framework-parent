@@ -3,18 +3,16 @@ server:
 
 spring:
   profiles:
-    active: empty
+    active: es,redis,jpa,es
 
   #  elasticsearch:
   #    rest:
-  #      uris: "http://k8s.wu2020.top:9200"
+  #      uris: "http://k8s.wu-framework.com:9200"
   jpa:
     show-sql: true
   activemq:
     broker-url: 127.0.0.1:6631
-  redis:
-    host: easy.com
-    password: 123456
+
   rsocket:
     server:
       address: 127.0.0.1
@@ -23,11 +21,10 @@ spring:
   easy:
     upsert:
       config:
-        print-sql: true
+        print-sql: false
         batch-limit: 10000
         record-log: true
-  hbase:
-    zookeeper-quorum: 'k8s.wu2020.top:2181'
+
 
 
 

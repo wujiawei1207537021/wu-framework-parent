@@ -5,12 +5,11 @@
     <parent>
         <artifactId>wu-framework-parent</artifactId>
         <groupId>top.wu2020</groupId>
-        <version>1.0.4</version>
+        <version>1.0.5</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>wu-freamwork-test</artifactId>
-
     <description>测试模块</description>
 
     <dependencies>
@@ -53,7 +52,7 @@
         <dependency>
             <groupId>top.wu2020</groupId>
             <artifactId>wu-easy-excel-starter</artifactId>
-            <version>1.0.4</version>
+            <version>1.0.5</version>
         </dependency>
 
         <dependency>
@@ -68,11 +67,11 @@
         </dependency>
 
 
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
-            <version>3.1.1</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.baomidou</groupId>-->
+<!--            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>-->
+<!--            <version>3.1.1</version>-->
+<!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/com.alibaba.boot/nacos-config-spring-boot-starter -->
         <!--        <dependency>-->
@@ -80,12 +79,6 @@
         <!--            <artifactId>nacos-config-spring-boot-starter</artifactId>-->
         <!--            <version>0.2.7</version>-->
         <!--        </dependency>-->
-
-        <dependency>
-            <groupId>top.wu2020</groupId>
-            <artifactId>wu-framework-shiro</artifactId>
-            <version>1.0.4</version>
-        </dependency>
 
         <dependency>
             <groupId>dom4j</groupId>
@@ -114,10 +107,21 @@
         <dependency>
             <groupId>top.wu2020</groupId>
             <artifactId>wu-hbase-starter</artifactId>
-            <version>1.0.4</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>top.wu2020</groupId>
+            <artifactId>wu-authorization-server-starter</artifactId>
+            <version>1.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 

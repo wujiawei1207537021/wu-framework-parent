@@ -1,0 +1,17 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.wu.ShiroProperties,\
+com.wu.JdbcTokenStore,\
+com.wu.JwtTokenStore,\
+com.wu.LoginService,\
+com.wu.DefaultUserDetailsService,\
+com.wu.TokenKeyEndpoint,\
+com.wu.ShiroContextUtil,\
+com.wu.AccessLimitAOP,\
+com.wu.RefreshAccessTokenAOP,\
+com.wu.AccessPermissionInterceptor,\
+com.wu.SessionPermissionInterceptor,\
+com.wu.RemoveAccessTokenInterceptor,\
+com.wu.AccessTokenUserMethodArgumentResolver,\
+com.wu.ShiroWebMvcConfigurer,\
+com.wu.ShiroCORSConfiguration
